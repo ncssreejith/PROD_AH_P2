@@ -324,7 +324,7 @@ sap.ui.define([
 				}
 				oPayloads.forEach(function(oItem) {
 					oItem.astid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvable");
-					oItem.fair = oItem.astid ==='AST_S'?'N':oItem.astid;	
+					oItem.fair = oItem.astid ==='AST_S'?'':oItem.astid;	
 				}.bind(this));
 				var oParameter = {};
 				oParameter.error = function() {};

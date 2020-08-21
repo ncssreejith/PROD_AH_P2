@@ -568,9 +568,9 @@ sap.ui.define([
 						var oModel = dataUtil.createNewJsonModel();
 						oModel.setData(oData.results[0]);
 						that.getView().setModel(oModel, "OverViewHeaderModel");
-						this._fnAirOverViewItemGet(oData.results[0].AIRID, oData.results[0].MODID);
-						this._fnAirOverViewItemTankGet(oData.results[0].AIRID, oData.results[0].MODID);
-						this._fnAirOverViewItemOilGet(oData.results[0].AIRID, oData.results[0].MODID);
+						this._fnAirOverViewItemGet(oData.results[0].AIRID, oData.results[0].MODID, oData.results[0].TAILID);
+						this._fnAirOverViewItemTankGet(oData.results[0].AIRID, oData.results[0].MODID, oData.results[0].TAILID);
+						this._fnAirOverViewItemOilGet(oData.results[0].AIRID, oData.results[0].MODID, oData.results[0].TAILID);
 					}
 				}.bind(this);
 
@@ -580,11 +580,11 @@ sap.ui.define([
 			}
 		},
 
-		_fnAirOverViewItemGet: function(sAirID, sMODID) {
+		_fnAirOverViewItemGet: function(sAirID, sMODID, sTAILDID) {
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " AND LPTYPE EQ LPTYREPRESRE";
+				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID + " AND LPTYPE EQ LPTYREPRES";
 				oPrmWB.error = function() {
 
 				};
@@ -601,11 +601,11 @@ sap.ui.define([
 			}
 		},
 
-		_fnAirOverViewItemTankGet: function(sAirID, sMODID) {
+		_fnAirOverViewItemTankGet: function(sAirID, sMODID, sTAILDID) {
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " AND LPTYPE EQ LPTANK";
+				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID + " AND LPTYPE EQ LPTANK";
 				oPrmWB.error = function() {
 
 				};
@@ -622,11 +622,11 @@ sap.ui.define([
 			}
 		},
 
-		_fnAirOverViewItemOilGet: function(sAirID, sMODID) {
+		_fnAirOverViewItemOilGet: function(sAirID, sMODID, sTAILDID) {
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " AND LPTYPE EQ LPFUELOIL";
+				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID + " AND LPTYPE EQ LPFUELOIL";
 				oPrmWB.error = function() {
 
 				};

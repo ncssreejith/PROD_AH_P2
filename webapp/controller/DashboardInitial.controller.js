@@ -537,7 +537,9 @@ sap.ui.define([
 				if (subTxt === undefined || subTxt === null) {
 					return;
 				}
-				var sReplaceText = this.getModel("avmetModel").getProperty("/login/air") +
+				var sAircraft = dataUtil.getDataSet("oUserSession").platform.Platform;
+				var sReplaceText = sAircraft +
+				//var sReplaceText = this.getModel("avmetModel").getProperty("/login/air") +
 					" " + this.getModel("avmetModel").getProperty("/airSel/modidtx") +
 					" " + this.getModel("avmetModel").getProperty("/airSel/tailno");
 				return subTxt.replace("&AMT&", sReplaceText);

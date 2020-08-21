@@ -219,14 +219,26 @@ sap.ui.define([
 				var oPayLoad = {};
 				oPayLoad = this.getModel("oViewGlobalModel").getData();
 				if (oPayLoad.EXPDT !== null) {
+					try {
 					oPayLoad.ENDDA = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
+					}catch(e){
+						oPayLoad.ENDDA =PayLoad.EXPDT;
+					}
+					try{
 					oPayLoad.EXPDT = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
+					}catch(e){
+						oPayLoad.EXPDT =oPayLoad.EXPDT;
+					}
 				} else {
 					oPayLoad.ENDDA = formatter.defaultOdataDateFormat(new Date());
 					oPayLoad.EXPDT = null;
 				}
 				oPayLoad.BEGDA = oPayLoad.ENDDA;
+				try{
 				oPayLoad.CAPDT = formatter.defaultOdataDateFormat(oPayLoad.CAPDT);
+				}catch(e){
+					oPayLoad.CAPDT = oPayLoad.CAPDT;
+				}
 
 				oPayLoad.SUBDTM = formatter.defaultOdataDateFormat(dDate);
 				oPayLoad.SUBUSR = "Test User";

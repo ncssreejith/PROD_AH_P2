@@ -822,7 +822,7 @@ sap.ui.define([
 					oModel = this.getModel("oCreateTaskModel"),
 					that = this,
 					oPayload;
-				oPrmDD.filter = "PARTNO eq " + oModel.getProperty("/sType2Value") + " and ESTAT eq I"; 
+				oPrmDD.filter = "PARTNO eq " + oModel.getProperty("/sType2Value") + " and ESTAT eq I and INSON eq "+this.getTailId(); 
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {

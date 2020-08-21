@@ -306,7 +306,7 @@ sap.ui.define([
 					oPrmTask.activity = 4;
 				} else {
 					sObject = "ZRM_COS_TT";
-					oPrmTask.activity = 1;
+					oPrmTask.activity = 4;
 				}
 
 				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, oPayload, sObject, this);
@@ -544,7 +544,7 @@ sap.ui.define([
 					that = this,
 					oPayload;
 				oModelObj.getObject("partno");
-				oPrmDD.filter = "PARTNO eq " + oModelObj.getObject("partno") + " and ESTAT eq R";
+				oPrmDD.filter = "PARTNO eq " + oModelObj.getObject("partno") + " and ESTAT eq R and INSON eq "+this.getTailId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {

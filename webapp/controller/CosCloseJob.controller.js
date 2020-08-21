@@ -93,7 +93,8 @@ sap.ui.define([
 					oSelectedItemId = oSegmentedButton.getSelectedKey();
 				oPayload = that.getView().getModel("JobModel").getData();
 				if (oModel.getProperty("/sFlag") === "N") {
-					if (oPayload.notity !== null) {
+					if (oPayload.notity !== null && oPayload.trail!=="0")
+					{
 						if (oModel.getProperty("/bFlag") === false) {
 							try {
 								oPayload.rectdt = formatter.defaultOdataDateFormat(oPayload.rectdt);

@@ -1,9 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
 	<Dialog showHeader="false" contentWidth="60%">
 		<OverflowToolbar class="bgColorToolBar">
-			<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '1' ? true : false}"></Button>
+		<!--	<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '1' ? true : false}"></Button>
 			<Button text="/" class="red redText" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '2' ? true : false}"></Button>
-			<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '3' ? true : false}"></Button>
+			<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '3' ? true : false}"></Button>-->
 			<!--<Label text="{DetailsOutModel>/cdesc}" state="None" design="Bold" class="sapUiSmallMarginBegin" wrapping="true" width="80%"
 				visible="{=${DetailsOutModel>/cdesc} !== null ? true : false}"/>-->
 			<Label text="{DetailsOutModel>/tdesc}" state="None" design="Bold" class="sapUiSmallMarginBegin" wrapping="true" width="80%"/>

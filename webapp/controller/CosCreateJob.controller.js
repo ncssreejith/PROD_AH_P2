@@ -197,9 +197,9 @@ sap.ui.define([
 						that.getView().getModel("appModel").setProperty("/visibleDefect", true);
 						oModel.setProperty("/jobty", oSelectedItemId);
 						if (typeof sValue === "string") {
-							that.onSelectionDefectAreaChange(sValue);
+							that.onSelectionDefectAreaChange("X",sValue);
 						} else {
-							that.onSelectionDefectAreaChange("DEA_T");
+							that.onSelectionDefectAreaChange("X","DEA_T");
 						}
 						break;
 					case "S":
@@ -224,7 +224,7 @@ sap.ui.define([
 		 * Parameter: sKey
 		 * Description: To select Defected area image.
 		 */
-		onSelectionDefectAreaChange: function(sKey) {
+		onSelectionDefectAreaChange: function(oEvent,sKey) {
 			try {
 
 				var oSegmentedButton, oSelectedItemId, that = this,
@@ -233,9 +233,9 @@ sap.ui.define([
 				sRootPath = jQuery.sap.getModulePath("avmet.ah");
 				oSegmentedButton = this.byId("sbDfArea");
 				var oAppModel = that.getView().getModel("appModel");
-				try {
+				if (sKey !== undefined) {
 					oSelectedItemId = sKey;
-				} catch (e) {
+				} else {
 					oSelectedItemId = oSegmentedButton.getSelectedKey();
 				}
 				oModel.setProperty("/deadid", oSelectedItemId);

@@ -39,7 +39,7 @@ sap.ui.define([
 		fnLoginUser:function(){
 			var sPath = "/AuthorizationSvc";
 			var oParameter = {};
-			//oParameter.filter = "PLANTUSER eq " + this.username + " and PWD eq "+this.password;
+			oParameter.filter = "PLANTUSER eq " + this.username + " and PWD eq "+this.password;
 			oParameter.error = function(xhrx) {
 				MessageBox.error("Invalid login credentials",{title: "Login Error"});
 			};
