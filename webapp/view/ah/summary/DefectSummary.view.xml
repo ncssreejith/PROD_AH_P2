@@ -1,0 +1,41 @@
+<mvc:View controllerName="avmet.ah.controller.CosDefectsSummary" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Page showHeader="false">
+		<Toolbar id="tbId" height="4rem" class="backgroundWhite">
+			<Button icon="sap-icon://nav-back" class="sapUiSmallMarginBegin" press="onNavBack"></Button>
+			<VBox>
+				<Title text="{JobModel>/jobdesc}" width="36rem" class="titleTextBoldToolbar sapUiTinyMarginTop"></Title>
+				<Text id="txtJobID" text="{JobModel>/jobid}"/>
+			</VBox>
+		<!--	<VBox visible="{=${JobModel>/jobty}==='S' || ${JobModel>/jobty}==='U' ? true:false}">
+				<Title text="{SummaryModel>/DefectData/ScheJobDesc}" class="titleTextBoldToolbar sapUiTinyMarginTop"></Title>
+			</VBox>-->
+		</Toolbar>
+		<content>
+			<VBox>
+				<HBox>
+					<!--<IconTabBar class="sapUiResponsiveContentPadding iconTabBarContentDimensions" select="onSummaryIconTabBarSelect">
+						<items>
+							<IconTabFilter text="Summary" key="SM">
+								<core:Fragment fragmentName="avmet.ah.view.ah.summary.DefectsSummaryFragment" type="XML"/>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>-->
+					<IconTabBar id="itbDefectSummary" class="sapUiResponsiveContentPadding iconTabBarContentDimensions iconTabBarBackground"
+						selectedKey="{LocalModel>/WorkCenterKey}" items="{path:'CreatedWorkCenterModel>/',sorter:{path:'wrctr'}}"
+						select="onSummaryIconTabBarSelect">
+						<items>
+							<IconTabFilter text="{CreatedWorkCenterModel>wrctrtx}" key="{CreatedWorkCenterModel>wrctr}"></IconTabFilter>
+						</items>
+					</IconTabBar>
+				</HBox>
+				<VBox visible="{LocalModel>/SummaryFlag}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.DefectsSummaryFragment" type="XML"/>
+				</VBox>
+				<VBox visible="{LocalModel>/WorcenterFlag}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.WorkCenterFragment" type="XML"/>
+				</VBox>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

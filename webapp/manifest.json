@@ -1,0 +1,1196 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "avmet.ah",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.40.12"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": false,
+		"rootView": {
+			"viewName": "avmet.ah.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.65.6",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {},
+				"it.designfuture.chartjs": {}
+			}
+		},
+		"contentDensities": {
+			"compact": false,
+			"cozy": false
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "avmet.ah.i18n.i18n"
+				}
+			},
+			"menuModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/menu.json"
+			},
+			"StatusTestModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/StatusTests.json"
+			},
+			"postflightModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/postflight.json"
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				},
+				{
+					"uri": "control/customcontrols_style.css"
+				}
+			]
+		},
+		"resourceRoots": {
+			"it.designfuture.chartjs": "./thirdparty/it/designfuture/chartjs/"
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "avmet.ah.view",
+				"controlAggregation": "pages",
+				"controlId": "app",
+				"clearControlAggregation": false
+			},
+			"routes": [
+				{
+					"name": "RouteHome",
+					"pattern": "RouteHome",
+					"target": [
+						"TargetHome"
+					]
+				},
+				{
+					"name": "Overview",
+					"pattern": "Overview",
+					"target": [
+						"DashboardInitial"
+					]
+				},
+				{
+					"name": "CosCreateJob",
+					"pattern": "CosCreateJob/:JobId:/:RJobId:",
+					"target": [
+						"CosCreateJob"
+					]
+				},
+				{
+					"name": "CosDefectsSummary",
+					"pattern": "CosDefectsSummary/:JobId:/:Flag:",
+					"target": [
+						"CosDefectsSummary"
+					]
+				},
+				{
+					"name": "CosCloseJob",
+					"pattern": "CosCloseJob/:JobId:/:Flag:",
+					"target": [
+						"CosCloseJob"
+					]
+				},
+				{
+					"name": "CosCloseTask",
+					"pattern": "CosCloseTask/:JobId:/:TaskId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:MultiFLag:",
+					"target": [
+						"CosCloseTask"
+					]
+				},
+				{
+					"name": "CosScheduleSummary",
+					"pattern": "CosScheduleSummary/:ESJOBID:",
+					"target": [
+						"CosScheduleSummary"
+					]
+				},
+				{
+					"name": "CosApplyTemplate",
+					"pattern": "CosApplyTemplate/:airid:/:tailid:/:jobid:/:wc:",
+					"target": [
+						"CosApplyTemplate"
+					]
+				},
+				{
+					"pattern": "AddEngCyclicLog/:engid:/:tailid:/:last:/:eng2id:",
+					"name": "AddEngCyclicLog",
+					"target": [
+						"AddEngCyclicLog"
+					]
+				},
+				{
+					"pattern": "AddEngOilLog/:engid:/:tailid:",
+					"name": "AddEngOilLog",
+					"target": [
+						"AddEngOilLog"
+					]
+				},
+				{
+					"name": "CosAddFlyingRequirements",
+					"pattern": "CosAddFlyingRequirements/:JobId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:Flag:",
+					"target": [
+						"CosAddFlyingRequirements"
+					]
+				},
+				{
+					"name": "CosAddSoritieMonitoring",
+					"pattern": "CosAddSoritieMonitoring/:JobId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:",
+					"target": [
+						"CosAddSoritieMonitoring"
+					]
+				},
+				{
+					"name": "CosAddTMDE",
+					"pattern": "CosAddTMDE/{jobId}/{WorkCenter}",
+					"target": [
+						"CosAddTMDE"
+					]
+				},
+				{
+					"name": "CosAddDemandSpares",
+					"pattern": "CosAddDemandSpares/{jobId}/{WorkCenter}",
+					"target": [
+						"CosAddDemandSpares"
+					]
+				},
+				{
+					"name": "Engine",
+					"pattern": "Engine/:ENGID:/:navType:",
+					"target": [
+						"Engine"
+					]
+				},
+				{
+					"name": "CosEngine",
+					"pattern": "CosEngine/:ENGID:",
+					"target": [
+						"CosEngine"
+					]
+				},
+				{
+					"name": "Cosjobs",
+					"pattern": "Cosjobs/:State:",
+					"target": [
+						"Cosjobs"
+					]
+				},
+				{
+					"name": "CosAddSoapSampling",
+					"pattern": "CosAddSoapSampling/{Engine}/{SN}",
+					"target": [
+						"CosAddSoapSampling"
+					]
+				},
+				{
+					"name": "RouteDefectSummaryADD",
+					"pattern": "RouteDefectSummaryADD",
+					"target": [
+						"TargetDefectSummaryADD"
+					]
+				},
+				{
+					"name": "RouteTransferToADD",
+					"pattern": "RouteTransferToADD/:JobId:/:FndBy:/:FndId:/:JobDesc:",
+					"target": [
+						"TargetTransferToAdd"
+					]
+				},
+				{
+					"name": "RouteConfirmation",
+					"pattern": "RouteConfirmation",
+					"target": [
+						"TargetComfirmation"
+					]
+				},
+				{
+					"name": "RouteCreateTask",
+					"pattern": "RouteCreateTask/:JobId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:Flag:/:srvid:",
+					"target": [
+						"TargetCreateTask"
+					]
+				},
+				{
+					"name": "WDNSCoefficients",
+					"pattern": "WDNSCoefficients/:tabid:/:logid:",
+					"target": [
+						"WDNSCoefficients"
+					]
+				},
+				{
+					"name": "MainWDNS",
+					"pattern": "MainWDNS",
+					"target": [
+						"MainWDNS"
+					]
+				},
+				{
+					"name": "WDNSView",
+					"pattern": "WDNSView",
+					"target": [
+						"WDNSView"
+					]
+				},
+				{
+					"name": "UpdateWDNSView",
+					"pattern": "UpdateWDNSView",
+					"target": [
+						"UpdateWDNSView"
+					]
+				},
+				{
+					"name": "OFPView",
+					"pattern": "OFPView/:tabid:/:logid:",
+					"target": [
+						"OFPView"
+					]
+				},
+				{
+					"name": "OFPUpdateView",
+					"pattern": "OFPUpdateView",
+					"target": [
+						"OFPUpdateView"
+					]
+				},
+				{
+					"name": "PastRecordView",
+					"pattern": "PastRecordView",
+					"target": [
+						"PastRecordView"
+					]
+				},
+				{
+					"name": "WeightBalance",
+					"pattern": "WeightBalance/:isEdit:/:isPastHistory:/:WABID:/:TAILID:",
+					"target": [
+						"WeightBalance"
+					]
+				},
+				{
+					"name": "UpdateWeightBalance",
+					"pattern": "UpdateWeightBalance/{Type}",
+					"target": [
+						"UpdateWeightBalance"
+					]
+				},
+				{
+					"pattern": "COSDashboard/{AirId}/{ModId}/{TailId}",
+					"name": "COSDashboard",
+					"target": [
+						"COSDashboard"
+					]
+				},
+				{
+					"name": "AircraftTransfer",
+					"pattern": "AircraftTransfer",
+					"target": [
+						"AircraftTransfer"
+					]
+				},
+				{
+					"name": "DispatchAircraft",
+					"pattern": "DispatchAircraft",
+					"target": [
+						"DispatchAircraft"
+					]
+				},
+				{
+					"name": "Limitations",
+					"pattern": "Limitations",
+					"target": [
+						"Limitations"
+					]
+				},
+				{
+					"name": "LimitationsOverView",
+					"pattern": "LimitationsOverView/:CAP:/:JOB:/:CAPTY:/:DEFID:/:XMARK:/:YMARK:/:FLag:",
+					"target": [
+						"LimitationsOverView"
+					]
+				},
+				{
+					"name": "Approvals",
+					"pattern": "Approvals",
+					"target": [
+						"Approvals"
+					]
+				},
+				{
+					"name": "Trial_Mod",
+					"pattern": "Trial_Mod",
+					"target": [
+						"Trial_Mod"
+					]
+				},
+				{
+					"name": "AircraftSelection",
+					"pattern": "",
+					"target": [
+						"AircraftSelection"
+					]
+				},
+				{
+					"name": "SortieMonitoring",
+					"pattern": "SortieMonitoring",
+					"target": [
+						"SortieMonitoring"
+					]
+				},
+				{
+					"name": "SortieDetails",
+					"pattern": "SortieDetails/:JobId:/:SORNO:",
+					"target": [
+						"SortieDetails"
+					]
+				},
+				{
+					"name": "ESScheduleJobCreate",
+					"pattern": "ESScheduleJobCreate",
+					"target": [
+						"ESScheduleJobCreate"
+					]
+				},
+				{
+					"name": "FlyingRequirements",
+					"pattern": "FlyingRequirements",
+					"target": [
+						"FlyingRequirements"
+					]
+				},
+				{
+					"name": "MassLimitation",
+					"pattern": "MassLimitation",
+					"target": "MassLimitation"
+				},
+				{
+					"name": "UpdateFlightServicing",
+					"pattern": "UpdateFlightServicing/{srvid}",
+					"target": [
+						"TargetUpdateFlightServicing"
+					]
+				},
+				{
+					"pattern": "CTCloseTask/{srvtid}",
+					"name": "CTCloseTask",
+					"target": [
+						"CTCloseTask"
+					]
+				},
+				{
+					"pattern": "Replenishment/{srvtid}/{stepid}",
+					"name": "Replenishment",
+					"target": [
+						"Replenishment"
+					]
+				},
+				{
+					"pattern": "ReplenishmentDetails/{srvtid}/{stepid}/{Replenish}",
+					"name": "ReplenishmentDetails",
+					"target": [
+						"Replenishment_Details"
+					]
+				},
+				{
+					"pattern": "RoutineTasks/{srvtid}/{stepid}",
+					"name": "RoutineTasks",
+					"target": [
+						"RoutineTasks"
+					]
+				},
+				{
+					"pattern": "FollowUpTasks/{srvtid}/{stepid}",
+					"name": "FollowUpTasks",
+					"target": [
+						"Follow-UpTasks"
+					]
+				},
+				{
+					"pattern": "PDSSummary/{srvtid}/{stepid}",
+					"name": "PDSSummary",
+					"target": [
+						"PDS-Summary"
+					]
+				},
+				{
+					"pattern": "PDSApprovals",
+					"name": "PDSApprovals",
+					"target": [
+						"PDSApprovals"
+					]
+				},
+				{
+					"pattern": "DBPilotAccept",
+					"name": "DBPilotAccept",
+					"target": [
+						"DBPilotAccept"
+					]
+				},
+				{
+					"pattern": "PilotAccept/{srvtid}/{stepid}",
+					"name": "PilotAccept",
+					"target": [
+						"PilotAccept"
+					]
+				},
+				{
+					"pattern": "PilotUpdates/{srvtid}/{stepid}",
+					"name": "PilotUpdates",
+					"target": [
+						"PilotUpdates"
+					]
+				},
+				{
+					"pattern": "WeaponExpenditure/{srvtid}/{stepid}",
+					"name": "WeaponExpenditure",
+					"target": [
+						"WeaponExpenditure"
+					]
+				},
+				{
+					"pattern": "DashboardInitial",
+					"name": "DashboardInitial",
+					"target": [
+						"DashboardInitial"
+					]
+				},
+				{
+					"pattern": "CreateFlightService",
+					"name": "CreateFlightService",
+					"target": [
+						"CreateFlightService"
+					]
+				},
+				{
+					"pattern": "WeaponConfig/{srvtid}/{stepid}",
+					"name": "WeaponConfig",
+					"target": [
+						"WeaponConfig"
+					]
+				},
+				{
+					"pattern": "Station/{srvtid}/{stepid}/:stnmid:/:stns:",
+					"name": "Station",
+					"target": [
+						"Station"
+					]
+				},
+				{
+					"pattern": "Missiles/{Station}",
+					"name": "Missiles",
+					"target": [
+						"Station",
+						"Missiles"
+					]
+				},
+				{
+					"pattern": "DBOngFlightService",
+					"name": "DBOngFlightService",
+					"target": [
+						"DBOngFlightService"
+					]
+				},
+				{
+					"pattern": "AircraftUtilisation",
+					"name": "AircraftUtilisation",
+					"target": [
+						"AircraftUtilisation"
+					]
+				},
+				{
+					"pattern": "AddEquipRunLog/{type}/:logid:",
+					"name": "AddEquipRunLog",
+					"target": [
+						"AddEquipRunLog"
+					]
+				},
+				{
+					"pattern": "AircraftOverview",
+					"name": "AircraftOverview",
+					"target": [
+						"AircraftOverview"
+					]
+				},
+				{
+					"pattern": "RoleDisplayStations",
+					"name": "RoleDisplayStations",
+					"target": [
+						"RoleDisplayStations"
+					]
+				},
+				{
+					"pattern": "RoleChangeStations",
+					"name": "RoleChangeStations",
+					"target": [
+						"RoleChangeStations"
+					]
+				},
+				{
+					"pattern": "Pylon/{RoleChangeStations}",
+					"name": "Pylon",
+					"target": [
+						"RoleChangeStations",
+						"Pylon"
+					]
+				},
+				{
+					"pattern": "PastHistoryWeightBalance",
+					"name": "PastHistoryWeightBalance",
+					"target": [
+						"WBPastRecords"
+					]
+				},
+				{
+					"pattern": "FileUpload",
+					"name": "FileUpload",
+					"target": [
+						"FileUpload"
+					]
+				}
+			],
+			"targets": {
+				"TargetHome": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "AvMetFrame",
+					"viewName": "AvMetFrame"
+				},
+				"Overview": {
+					"viewType": "XML",
+					"viewName": "DashboardInitial"
+				},
+				"AddEngCyclicLog": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/engine/subview/AddEngCyclicLog",
+					"viewId": "AddEngCyclicLog",
+					"viewLevel": 2,
+					"title": "Add Engine Cyclic Log"
+				},
+				"AddEngOilLog": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/engine/subview/AddEngOilLog",
+					"viewId": "AddEngOilLog",
+					"viewLevel": 2,
+					"title": "Add Replenishment Log"
+				},
+				"CosDashboard": {
+					"viewType": "XML",
+					"viewName": "ah/CosDashboard",
+					"title": "Dashboard"
+				},
+				"CosCreateJob": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/createjob/CreateJob",
+					"title": "Create Job"
+				},
+				"CosDefectsSummary": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/summary/DefectSummary",
+					"title": "Defects Summary"
+				},
+				"CosCloseJob": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/closejob/CloseJob",
+					"title": "Close Job"
+				},
+				"CosCloseTask": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/closetask/CloseTask",
+					"title": "Close Task"
+				},
+				"CosScheduleSummary": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/summary/ScheduleSummary",
+					"title": "Schedule Summary"
+				},
+				"CosApplyTemplate": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/applytemplate/ApplyTemplate",
+					"title": "Apply Template"
+				},
+				"CosAddFlyingRequirements": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/summary/subfolder/addOprSubFolder/AddFlyingRequirements",
+					"title": "Add Flying Requirements"
+				},
+				"CosAddSoritieMonitoring": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/summary/subfolder/addOprSubFolder/AddSortieMonitoring",
+					"title": "Add Soritie Monitoring"
+				},
+				"CosAddTMDE": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/summary/subfolder/addOprSubFolder/AddTMDE",
+					"title": "Add TMDE"
+				},
+				"CosAddDemandSpares": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/summary/subfolder/addOprSubFolder/AddDemandSpares",
+					"title": "Add Demand Spares"
+				},
+				"Engine": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/engine/Engine",
+					"title": "Engine"
+				},
+				"CosEngine": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/engine/Engine",
+					"title": "Engine"
+				},
+				"Cosjobs": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/jobs/Jobs",
+					"title": "Jobs"
+				},
+				"CosAddSoapSampling": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/engine/EngineAddSoapSampling",
+					"title": "Engine"
+				},
+				"TargetDefectSummaryADD": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": true,
+					"viewName": "ah/defectssummaryadd/DefectSummaryADD"
+				},
+				"TargetTransferToAdd": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/transfertoadd/TransferToADD",
+					"viewId": "TransferADD",
+					"title": "Transfer to ADD"
+				},
+				"TargetComfirmation": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": true,
+					"viewName": "ah/ADDConfirmation"
+				},
+				"TargetCreateTask": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": true,
+					"viewName": "ah/createtask/CreateTask",
+					"viewId": "CreateTask"
+				},
+				"WDNSCoefficients": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": true,
+					"viewName": "ah/standalone/wdns/WDNSCoefficients"
+				},
+				"MainWDNS": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "ah/standalone/wdns/MainWDNS"
+				},
+				"WDNSView": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "ah/standalone/wdns/WDNSView"
+				},
+				"UpdateWDNSView": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "ah/standalone/wdns/UpdateWDNSView"
+				},
+				"OFPView": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "ah/standalone/wdns/OFPView"
+				},
+				"OFPUpdateView": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "ah/standalone/wdns/OFPUpdateView"
+				},
+				"PastRecordView": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "ah/standalone/wdns/PastRecordView"
+				},
+				"WeightBalance": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "ah/standalone/weightbalance/WeightBalance"
+				},
+				"UpdateWeightBalance": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "ah/standalone/weightbalance/UpdateWeightBalance"
+				},
+				"COSDashboard": {
+					"viewType": "XML",
+					"viewName": "ah/COSDashboard",
+					"viewId": "COSDashboard",
+					"title": "{i18n>dashboard}"
+				},
+				"AircraftTransfer": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/standalone/aircrafttransfer/AircraftTransfer",
+					"viewId": "AircraftTransfer",
+					"title": "Aircraft Transfer"
+				},
+				"DispatchAircraft": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/standalone/aircrafttransfer/DispatchAircraft",
+					"viewId": "DispatchAircraft",
+					"title": "Aircraft Transfer"
+				},
+				"Limitations": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/limitations/Limitations",
+					"viewId": "Limitations",
+					"title": "Limitations"
+				},
+				"LimitationsOverView": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/limitations/LimitationsOverView",
+					"viewId": "LimitationsOverView",
+					"title": "Limitations Overview"
+				},
+				"Approvals": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/approvals/Approvals",
+					"title": "Approvals"
+				},
+				"Trial_Mod": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/approvals/Trial_Mod",
+					"title": "Trial Mod"
+				},
+				"AircraftSelection": {
+					"viewType": "XML",
+					"viewName": "ah/masslimitation/AircraftSelection",
+					"title": "Aircraft Selection"
+				},
+				"SortieMonitoring": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/standalone/SortieMonitoring",
+					"viewId": "SortieMonitoring",
+					"title": "Sortie Monitoring"
+				},
+				"SortieDetails": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/standalone/SortieDetails",
+					"viewId": "SortieDetails",
+					"title": "Sortie Details"
+				},
+				"ESScheduleJobCreate": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/standalone/esschedulecreatejob/ESScheduleJobCreate",
+					"title": "ES Schedule Job Create"
+				},
+				"FlyingRequirements": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/standalone/flyingrequirement/FlyingRequirements",
+					"viewId": "FlyingRequirements",
+					"title": "Flying Requirements"
+				},
+				"MassLimitation": {
+					"viewType": "XML",
+					"viewName": "ah/masslimitation/MassLimitation",
+					"title": "Mass Limitation"
+				},
+				"TargetUpdateFlightServicing": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "updateflightservicing",
+					"viewName": "UpdateFlightServicing"
+				},
+				"CTCloseTask": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewName": "ah/flc/CTCloseTask",
+					"viewId": "CTCloseTask",
+					"viewLevel": 2,
+					"title": "Close Task"
+				},
+				"Replenishment": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewName": "ah/flc/Replenishment",
+					"viewId": "replenishment",
+					"viewLevel": 2,
+					"title": "{i18n>replenishmentTitle}"
+				},
+				"Replenishment_Details": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/flc/Replenishment_Details",
+					"viewId": "replenishmentdetails",
+					"viewLevel": 2,
+					"title": "{i18n>replenishmentdetailsTitle}"
+				},
+				"RoutineTasks": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/flc/RoutineTasks",
+					"viewId": "routinetasks",
+					"viewLevel": 2,
+					"title": "{i18n>RoutineTasksTitle}"
+				},
+				"Follow-UpTasks": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/flc/Follow-UpTasks",
+					"viewId": "followuptasks",
+					"viewLevel": 2,
+					"title": "{i18n>followuptasksTitle}"
+				},
+				"PDS-Summary": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/pdsic/PDSSummary",
+					"viewId": "pdssummary",
+					"viewLevel": 2,
+					"title": "{i18n>pdsSummary}"
+				},
+				"PDSApprovals": {
+					"viewType": "XML",
+					"viewName": "ah/pdsic/PDSApprovals",
+					"viewId": "PDSApprovals",
+					"viewLevel": 2,
+					"title": "PDS Approvals"
+				},
+				"DBPilotAccept": {
+					"viewType": "XML",
+					"viewName": "DashboardPilotAccept",
+					"viewId": "DashboardPilotAccept",
+					"viewLevel": 2,
+					"title": "{i18n>dashboard}"
+				},
+				"PilotAccept": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/pilot/PilotAccept",
+					"viewId": "PilotAccept",
+					"viewLevel": 2,
+					"title": "{i18n>pilotaccept}"
+				},
+				"PilotUpdates": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/postflight/PilotUpdates",
+					"viewId": "PilotUpdates",
+					"viewLevel": 2,
+					"title": "{i18n>pilotupdates}"
+				},
+				"WeaponExpenditure": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/pilot/WeaponExpenditure",
+					"viewId": "WeaponExpenditure",
+					"viewLevel": 2,
+					"title": "{i18n>weaponexpenditure}"
+				},
+				"DashboardInitial": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "DashboardInitial",
+					"viewId": "DashboardInitial",
+					"viewLevel": 2,
+					"title": "{i18n>dashboard}"
+				},
+				"CreateFlightService": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "CreateFlightServicing",
+					"viewId": "CreateFlightServicing",
+					"viewLevel": 2,
+					"title": "{i18n>creatingFlightServicing}"
+				},
+				"WeaponConfig": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/wlc/WeaponConfig",
+					"viewId": "WeaponConfig",
+					"viewLevel": 2,
+					"title": "{i18n>creatingFlightServicing}"
+				},
+				"Station": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/wlcdetails/Station",
+					"viewLevel": 2,
+					"title": "{i18n>creatingFlightServicing}"
+				},
+				"Missiles": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/wlcdetails/Missiles",
+					"viewId": "Missiles",
+					"viewLevel": 2,
+					"title": "{i18n>creatingFlightServicing}"
+				},
+				"DBOngFlightService": {
+					"viewType": "XML",
+					"viewName": "DBOngFlightService",
+					"viewId": "DBOngFlightService",
+					"viewLevel": 2,
+					"title": "{i18n>creatingFlightServicing}"
+				},
+				"AircraftUtilisation": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/standalone/equiprunflylog/AircraftUtilisation",
+					"viewId": "AircraftUtilisation",
+					"viewLevel": 2,
+					"title": "{i18n>creatingFlightServicing}"
+				},
+				"AddEquipRunLog": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/standalone/equiprunflylog/AddEquipRunningLog",
+					"viewId": "EquipRunningLog",
+					"viewLevel": 2,
+					"title": "{i18n>creatingFlightServicing}"
+				},
+				"AircraftOverview": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/standalone/leadingparticulars/AircraftOverview",
+					"viewId": "AircraftOverview",
+					"viewLevel": 2,
+					"title": "{i18n>creatingFlightServicing}"
+				},
+				"RoleDisplayStations": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/rolechange/RoleDisplayStations",
+					"viewId": "Station",
+					"viewLevel": 2,
+					"title": "Display Role"
+				},
+				"RoleChangeStations": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/rolechange/RoleChangeStations",
+					"viewId": "Station",
+					"viewLevel": 2,
+					"title": "Role Change"
+				},
+				"Pylon": {
+					"viewType": "XML",
+					"viewName": "ah/rolechange/Pylon",
+					"viewId": "Pylon",
+					"viewLevel": 2,
+					"title": "Pylon"
+				},
+				"WBPastRecords": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/standalone/weightbalance/PastHistoryWeightBalance",
+					"viewId": "PastHistoryWeightBalance",
+					"viewLevel": 2,
+					"title": "Past History Weight and Balances"
+				},
+				"FileUpload": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "FileUpload",
+					"viewId": "FileUpload",
+					"viewLevel": 2,
+					"title": "File Upload\\Download"
+				}
+			}
+		}
+	}
+}

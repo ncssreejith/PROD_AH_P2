@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Panel>
+		<Table class="sapUiResponsivePadding sapUiTinyMarginTop CERTable tableHFont" items="{oRoutineTasksViewModel>/Tradesman}">
+			<columns>
+				<Column hAlign="Center">
+					<Label text="Task" design="Bold" class="fontWhite"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+					<Label text="Status" design="Bold" wrapping="true"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+					<Label text="Tradesman" design="Bold" wrapping="true"/>
+				</Column>
+				<Column minScreenWidth="Tablet" width="5rem" demandPopin="true" hAlign="Left"/>
+				<Column minScreenWidth="Tablet" width="5rem" demandPopin="true" hAlign="Left"/>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<VBox>
+							<Text text="{oRoutineTasksViewModel>DDDESC}" visible="{oRoutineTasksViewModel>bSave}"/>
+							<Input value="{oRoutineTasksViewModel>DDDESC}" visible="{oRoutineTasksViewModel>bEdit}"/>
+						</VBox>
+						<SegmentedButton
+							selectedKey="{parts : ['oRoutineTasksViewModel>DONE','oRoutineTasksViewModel>NA'], formatter : '.formatter.TradesmanStatus'}"
+							enabled="{oRoutineTasksViewModel>bEnabled}" selectionChange="onRTStatusChange">
+							<items>
+								<SegmentedButtonItem text="Done" key="Done"/>
+								<SegmentedButtonItem text="N/A" key="NA"/>
+								<SegmentedButtonItem text="" key="noKey" visible="false"/>
+							</items>
+						</SegmentedButton>
+						<Text text="{oRoutineTasksViewModel>TRADE_USER}"/>
+						<Button icon="sap-icon://vertical-grip" type="Transparent" press="onUndoPress"/>
+						<Button icon="sap-icon://sys-cancel" type="Reject" visible="{oRoutineTasksViewModel>bDelete}" press="onDeleteTradesManAdd"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<Button icon="sap-icon://sys-add" class="addTaskBtn" text="Add Routine Task" press="onAddRoutineTask" width="100%"/>
+	</Panel>
+</core:FragmentDefinition>

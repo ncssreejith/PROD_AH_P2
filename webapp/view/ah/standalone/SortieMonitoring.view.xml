@@ -1,0 +1,44 @@
+<mvc:View controllerName="avmet.ah.controller.SortieMonitoring" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+	<Page title="Sortie Monitoring" showNavButton="true" navButtonPress="onNavBack">
+		<VBox class="sapUiSmallMargin">
+			<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBegin CERTable tableHFont" items="{ path: 'SortiMaster>/'}"
+				width="95%">
+				<headerToolbar></headerToolbar>
+				<columns>
+					<Column hAlign="Center" width="8%" class="textColor">
+						<Label text="Date" design="Bold"/>
+					</Column>
+					<Column hAlign="Left" width="20%" class="textColor">
+						<Label text="Defect Description" design="Bold"/>
+					</Column>
+					<Column hAlign="Left" width="25%" class="textColor">
+						<Label text="Monitoring Description" design="Bold"/>
+					</Column>
+					<Column hAlign="Left" width="15%" class="textColor">
+						<Label text="Restrictions Imposed" design="Bold"/>
+					</Column>
+					<Column hAlign="Center" width="8%" class="textColor">
+						<Label text="No. of Sortie" design="Bold"/>
+					</Column>
+					<Column hAlign="Center" width="4%" class="textColor"/>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<VBox>
+								<Text
+									text="{path:'SortiMaster>CREDT', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'SortiMaster>CRETM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							</VBox>
+							<Text text="{SortiMaster>JOBDESC}"/>
+							<Text text="{SortiMaster>SORDESC}"/>
+							<Text text="{SortiMaster>REST_IMPOSE}"/>
+							<Text text="{SortiMaster>COUNT}/{SortiMaster>SCRCNT}"/>
+							<Button type="Transparent" icon="sap-icon://navigation-right-arrow" press="onClickSortieDetails"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+	</Page>
+</mvc:View>

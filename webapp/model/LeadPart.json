@@ -1,0 +1,121 @@
+{
+	"Tank": [{
+		"Position": "LH D/T",
+		"Capacity": "-",
+		"Capacity370DT": "2405/2516",
+		"Capacity600DT": "2405/2516"
+	}, {
+		"Position": "RH D/T",
+		"Capacity": "-",
+		"Capacity370DT": "2405/2516",
+		"Capacity600DT": "2405/2516"
+	}, {
+		"Position": "INT",
+		"Capacity": "2405/2516",
+		"Capacity370DT": "-",
+		"Capacity600DT": "-"
+	}, {
+		"Position": "INT + D/T",
+		"Capacity": "",
+		"Capacity370DT": "12419/12992",
+		"Capacity600DT": "-"
+	}, {
+		"Position": "INT + CL D/T",
+		"Capacity": "2405/2516",
+		"Capacity370DT": "-",
+		"Capacity600DT": "-"
+	}, {
+		"Position": "INT + CL + D/T",
+		"Capacity": "-",
+		"Capacity370DT": "12419/12992",
+		"Capacity600DT": "12419/12992"
+	}],
+
+	"FuelOilMISC": [{
+		"CompSys": "Engine Oil Tank",
+		"MILDTD": "MIL-PRF-7807J",
+		"Capacity": "24PT",
+		"Type": "-",
+		"Group": "Engine Oil"
+	}, {
+		"CompSys": "Accessory Drive Gearbox",
+		"MILDTD": "MIL-PRF-7807J",
+		"Capacity": "7 Quarts",
+		"Type": "-",
+		"Group": "Engine Oil"
+	}, {
+		"CompSys": "Instant Speed Drive",
+		"MILDTD": "MIL-PRF-7807J",
+		"Capacity": "7.8 Quarts",
+		"Type": "-",
+		"Group": "Engine Oil"
+	}, {
+		"CompSys": "Gear Box",
+		"MILDTD": "MIL-PRF-7807J",
+		"Capacity": "300 CC",
+		"Type": "-",
+		"Group": "Engine Oil"
+	}, {
+		"CompSys": "System A",
+		"MILDTD": "MIL-PRF-8328",
+		"Capacity": "5 US GAL",
+		"Type": "-",
+		"Group": "Hydraulic Fluid"
+	}, {
+		"CompSys": "System B",
+		"MILDTD": "MIL-PRF-8328",
+		"Capacity": "7.1 US GAL",
+		"Type": "-",
+		"Group": "Hydraulic Fluid"
+	}, {
+		"CompSys": "Strut",
+		"MILDTD": "MIL-PRF-8328",
+		"Capacity": "-",
+		"Type": "-",
+		"Group": "Hydraulic Fluid"
+	}, {
+		"CompSys": "Fuel Task Inserting",
+		"MILDTD": "MIL-M-12218",
+		"Capacity": "-",
+		"Type": "Halon 1301",
+		"Group": "Other Lubricant/Fluid"
+	}, {
+		"CompSys": "Fuel Task Inserting (Disable)",
+		"MILDTD": "A-A-58503TYP,Class A, Grade B",
+		"Capacity": "-",
+		"Type": "Nitrogen",
+		"Group": "Other Lubricant/Fluid"
+	}, {
+		"CompSys": "Emergency Power",
+		"MILDTD": "MIL-PRF-87930",
+		"Capacity": "-",
+		"Type": "Hydrazine (H70)",
+		"Group": "Other Lubricant/Fluid"
+	}, {
+		"CompSys": "Jet Fuel Started",
+		"MILDTD": "MIL-DTL-83133",
+		"Capacity": "-",
+		"Type": "Avatur F34 (JP8)",
+		"Group": "Miscellaneous"
+	}, {
+		"CompSys": "LOX",
+		"MILDTD": "MIL-0-27210 Type 11",
+		"Capacity": "-",
+		"Type": "Avition Breaking Oxygen",
+		"Group": "Miscellaneous"
+	}],
+
+	"TyrePressure": [{
+		"AllUpWeight": "30,000 & Below",
+		"Main": "210-220 PSI",
+		"NoseTail": "255-265 PSI"
+	}, {
+		"AllUpWeight": "30,000 - 35,000",
+		"Main": "250-260 PSO",
+		"NoseTail": "300-310 PSI"
+	}, {
+		"AllUpWeight": "35,000 - 42,300",
+		"Main": "300-310 PSI",
+		"NoseTail": "320-330 PSI"
+	}]
+}

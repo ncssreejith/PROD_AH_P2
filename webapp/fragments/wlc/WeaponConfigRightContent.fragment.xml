@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.ah.control">
+	<l:VerticalLayout class="sapUiContentPadding" width="100%">
+		<Title text="Stations"/>
+		<l:Grid>
+			<FlexBox wrap="Wrap" items="{path:'oWCModel>/stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'}]}">
+				<items>
+					<cc:Station1 title="{= (${oWCModel>WEDESC}===null || ${oWCModel>WEDESC}==='')? ${oWCModel>ADPDESC}:${oWCModel>WEDESC}}"
+						subTitle="{oWCModel>LTXT}" footerLeftInfo="Qty {oWCModel>TOTQTY}" footerRightInfo="{= ${oWCModel>ISSER}==='X'?'View':''}" class=" sapUiTinyMargin" press="onStationPress"
+						fireSerialPress="onSerialNoPress">
+						<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" />
+						<core:Icon src="sap-icon://broken-link" visible="{= ${oWCModel>CONECT}!=='N'}" color="{path:'oWCModel>CONECT',formatter:'.formatter.wcStationColor'}" size="3rem"/>
+					</cc:Station1>
+				</items>
+				<layoutData>
+					<l:GridData span="XL12 L12 M12 S12"/>
+				</layoutData>
+			</FlexBox>
+		</l:Grid>
+		<Title text="Others" class="sapUiSmallMarginTop"/>
+		<HBox items="{path:'oWCModel>/stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_O'}]}">
+			<cc:Others title="{oWCModel>STXT}" showButton="{oWCModel>HCFLAG}" press="onStationPress" count="{oWCModel>TOTQTY}"
+				footerLeftInfo="Max {oWCModel>MAX}" class="sapUiSmallMargin">
+				<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onIconPress"/>
+			</cc:Others>
+		</HBox>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

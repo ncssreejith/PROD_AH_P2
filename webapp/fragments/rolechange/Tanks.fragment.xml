@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core ="sap.ui.core">
+	<List id="LisTanks" width="15rem" class="sapFDynamicPageAlignContent" items="{oViewModel>/Tanks}" headerText="Tanks"
+		mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" growing="true" growingScrollToLoad="true"
+		selectionChange=".onMissileSelectChange" >
+		<StandardListItem title="{oViewModel>Text}" class="WeaponConfidDetailsListheight"></StandardListItem>
+	</List>
+</core:FragmentDefinition>

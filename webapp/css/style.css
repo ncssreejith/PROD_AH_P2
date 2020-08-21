@@ -1,0 +1,1712 @@
+.sapMListTbl .sapUiIcon:not(.sapMLIBImgNav):not(.sapMBtnIcon) {
+    font-size: 10px;
+}
+
+.sapMInputBaseIconContainer .sapMInputBaseIcon {
+    color: #0854a0;
+    font-size: 10px;
+}
+
+span.sapMBtnInner.sapMBtnEmphasized {
+    background-color: rgba(14, 42, 118, 1);
+    border-color: rgba(14, 42, 118, 1);
+    border-radius: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.sapTntToolHeader .sapMBtn .sapMBtnTransparent .sapUiIcon {
+    color: #fff !important;
+}
+
+.sapMBtnInner {
+    /* font-family: 'Roboto-Regular', 'Roboto', sans-serif;
+    font-weight: 400; */
+    font-style: normal;
+    font-size: 11px;
+    height: 2rem;
+}
+
+.sapMGT {
+    box-shadow: none;
+}
+
+.sapMTBStandard {
+    border-bottom: solid 0rem #d9d9d9;
+}
+
+.infobtn > span {
+    color: #fff !important;
+    background-color: #4cce94 !important;
+    border-radius: 1rem;
+}
+
+.sapTntToolHeader .sapFAvatar {
+    background-color: #6cd3ff;
+}
+
+.avatarSM {
+    height: 1rem;
+    width: 1rem;
+    font-size: .5rem;
+    top: 15px;
+}
+
+.dashButtonRole> .sapMBtnInner.sapMBtnText {
+    border: 1px solid #3683FF;
+}
+
+
+/*
+-------------------------------------------------------------------------------------
+ This file contins the styles used for the AvMet Screens 
+ Status of this file documentation: in Progress
+ Developer Responsable : Rahul,Sachin
+--------------------------------------------------------------------------------------
+# 1: Framework Related 
+Description : Specific to AvMet Framework
+# 2: Dashboard 
+Description : Custom CSS used in Dashboard View
+# 3: TransferToADDDetails
+Description : 
+# 4: DashboardTile 4
+Description : 
+# 5: DashboardTile 5
+Description : 
+*/
+
+
+/*---------------------------------------------------------------------------------------
+ #1 : Fraemwork Related 
+ Used views : 
+-----------------------------------------------------------------------------------------*/
+
+
+/*
+
+
+.flightinfoBlock2 {
+    padding: 1rem;
+    background-color: rgba(245, 246, 250, 1);
+}
+
+.flightinfoBlock {
+    padding: 1rem;
+}
+
+.flightinfo {
+    min-width: 400px;
+    padding: 0rem;
+}
+
+.flightinfolist1 {
+    padding: 0px;
+    width: 300px;
+    background-color: #fff;
+}
+
+.flightinfolist2 {
+    padding: 0px;
+    width: 100px;
+}
+
+.flightinfolistItem {
+    height: 1.65rem;
+}
+
+.flightinfolistItem>.sapMSLITitle,
+.sapMSLITitleOnly {
+    font-size: .81rem;
+}
+
+.flightinfolistItemTransperent {
+    background-color: rgba(245, 246, 250, 1);
+}
+
+
+/** Flight Selection - Custom styles **/
+
+.tailDiv > li {
+    float: left;
+    margin: 2px;
+    width: 90px !important;
+}
+
+.tailDiv {
+    height: inherit !important;
+}
+
+.tailDiv .sapMSegBBtnInner {
+    border-right: 1px solid #0854a0 !important;
+    border-left: 1px solid #0854a0 !important;
+}
+
+.airCraftSelVBox {
+    background: white;
+    padding: 2rem;
+}
+
+.aircraftTitleBGWhite {
+    background: white;
+}
+
+.aircraftModelVBox {
+    width: 22rem;
+    box-shadow: 1px 0px 0px 0px #d7d7d7;
+}
+
+.tailNoVBox {
+    width: 50%;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #2 : Fraemwork Related 
+ Used views : COSDashboard
+-----------------------------------------------------------------------------------------*/
+
+.sapFCard .sapFCardHeader {
+    position: relative;
+    flex-shrink: 0;
+    background: #8894b5 !important;
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+
+/*width: 18rem !important; remove width amit kumar*/
+
+.DashBoardGenericTileSize {
+    width: 22rem !important;
+    height: 7rem !important;
+}
+
+.DashBoardGenericTileSize .sapMGTHdrContent.TwoByOne {
+    display: none;
+}
+
+.DashBoardGenericToolBar {
+    width: 16.5rem !important;
+    height: 4rem !important;
+    border-bottom: none !important;
+}
+
+.DashBoardBlackFont {
+    color: black !important;
+    font-size: 17px !important;
+}
+
+.DashBoardFontsizeXXLarge {
+    font-size: xx-large !important;
+}
+
+.DashBoardRefreshVBox {
+    background: #e1eafb;
+    width: 85%
+}
+
+.refreshStatusTxtColor {
+    color: #68affd !important;
+}
+
+.dashboardTableHeader {
+    background: #8894b5 !important;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #3 : Fraemwork Related 
+ Used views : TransferToADDDetails
+-----------------------------------------------------------------------------------------*/
+
+.bgColorWhite {
+    background: white !important;
+}
+
+.bgColorWhiteWithRightBorder {
+    background: white !important;
+    border-right-style: solid;
+    border-color: #a9aeb3;
+}
+
+.bgColorGray {
+    background: #dbd8d8 !important;
+}
+
+.noBorder {
+    border: none !important;
+}
+
+.addLimitationBtn .sapMBtnInner.sapMBtnText .sapMBtnIcon:before {
+    width: 1rem;
+    text-align: center;
+    display: inline-block;
+}
+
+.addLimitationBtn .sapMBtnInner.sapMBtnText,
+.sapMBtnIconLeft+.sapMBtnIconRight,
+.sapMBtnIconLeft+.sapMBtnIconLeft {
+    border-style: dashed;
+}
+
+.addTaskBtn .sapMBtnInner.sapMBtnText .sapMBtnIcon:before {
+    width: -4rem;
+    text-align: center;
+    display: inline-block;
+}
+
+.addTaskBtn .sapMBtnInner.sapMBtnText,
+.sapMBtnIconLeft+.sapMBtnIconRight,
+.sapMBtnIconLeft+.sapMBtnIconLeft {
+    border-style: dashed;
+}
+
+.removeLimitationBtn .sapMBtnInner.sapMBtnText .sapMBtnIcon:before {
+    width: 1rem;
+    text-align: center;
+    display: inline-block;
+}
+
+.removeLimitationBtn .sapMBtnInner.sapMBtnText,
+.sapMBtnIconLeft+.sapMBtnIconRight,
+.sapMBtnIconLeft+.sapMBtnIconLeft {
+    border-style: dashed;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #4 : Fraemwork Related 
+ Used views : ADDConfirmation (View)
+-----------------------------------------------------------------------------------------*/
+
+.confirmationOuterVBox {
+    margin: 100px 340px 200px 350px;
+}
+
+.confirmationInnerVBox {
+    height: 265px;
+    width: 550px;
+}
+
+.bgColorLightGrey {
+    background: #f5f6fa !important;
+}
+
+.jobVBox {
+    width: 300px;
+    height: 40px;
+}
+
+.jobText {
+    margin-top: 10px;
+}
+
+.thankyouTitle {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #5 : Fraemwork Related 
+ Used views : TransferToADD,
+			  AddDemandSpares,
+			  AddFlyingRequirements,
+			  AddSortieMonitoring,
+			  AddTMDE,
+			  DefectSummaryFragment (Fragment),
+			  ScheduleSummaryFragment (Fragment),
+			  EngineAddSoapSampling,
+			  ADDSummary,
+			  DefectSummaryADD,
+			  CreateTask,
+			  CreateJob,
+			  ApplyTemplate,
+-----------------------------------------------------------------------------------------*/
+
+.backgroundWhite {
+    background: white;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #6 : Fraemwork Related 
+ Used views : TransferToADD,
+			  DefectSummary,
+			  DefectSummaryADD,
+			  CreateTask,
+			  CreateJob,
+-----------------------------------------------------------------------------------------*/
+
+.titleTextBoldToolbar {
+    color: black;
+    font-weight: bold;
+    font-size: large;
+}
+
+.iconTabBarBackground .sapMITH {
+    background-color: transparent !important;
+    border-bottom: transparent !important;
+    box-shadow: 0 0rem 0rem rem rgba(0, 0, 0, 0), inset 0 -0rem 0 0 transparent !important;
+    position: relative !important;
+    padding: 0 2rem !important;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #7 : Fraemwork Related 
+ Used views : ADDSummary,
+-----------------------------------------------------------------------------------------*/
+
+.vBoxBorder {
+    border: 1px solid #a9aeb3;
+    border-style: dashed;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #8 : Fraemwork Related 
+ Used views : TransferToADD,
+-----------------------------------------------------------------------------------------*/
+
+.fontSize25 {
+    font-size: 25px;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #5 : Fraemwork Related 
+ Used views : DefectSummaryFragment (Fragment),
+			  ScheduleSummaryFragment (Fragment),
+			  WorkCenterTaskFragment (Fragment),
+			  LimitationOverview,
+			  ADDSummary (Fragment),
+			  ApplyTemplate,
+			  AddWorkCenterDialog (Fragment)
+-----------------------------------------------------------------------------------------*/
+
+.btnClass .sapMBtnInner.sapMBtnText,
+.sapMBtnIconLeft+.sapMBtnIconRight,
+.sapMBtnIconLeft+.sapMBtnIconLeft {
+    border: 1px solid #0a6cd6 !important;
+}
+
+.list .sapMLIB {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    background: #43425e;
+    border-bottom: 1px solid #ffffff;
+    padding: 0 1rem 0 1rem;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #8 : Fraemwork Related 
+ Used views : AvMetFrame,
+-----------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------
+ #9 : Fraemwork Related 
+ Used views : AircraftInfo (Fragment),
+-----------------------------------------------------------------------------------------*/
+
+.flightinfoBlock2 {
+    padding: 1rem;
+    background-color: rgba(245, 246, 250, 1);
+}
+
+.flightinfoBlock {
+    padding: 1rem;
+}
+
+.flightinfo {
+    min-width: 400px;
+    padding: 0rem;
+}
+
+.flightinfolist1 {
+    padding: 0px;
+    width: 300px;
+    background-color: #fff;
+}
+
+.flightinfolist2 {
+    padding: 0px;
+    width: 100px;
+}
+
+.flightinfolistItem {
+    height: 1.65rem;
+}
+
+.flightinfolistItem>.sapMSLITitle,
+.sapMSLITitleOnly {
+    font-size: .81rem;
+}
+
+.flightinfolistItemTransperent {
+    background-color: rgba(245, 246, 250, 1);
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #10 : Fraemwork Related 
+ Used views : CreateTask,
+			  CreateTaskRemoveInsatllFragment (Fragment),
+			 
+-----------------------------------------------------------------------------------------*/
+
+.optionalTxtMargin {
+    margin-left: 112px;
+}
+
+.symbolOptional {
+    margin-left: 242px;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #10 : Fraemwork Related 
+ Used views : CreateTaskOtherFragment (Fragment),
+			  DeleteFormFragment (Fragment),
+			  UnScheduledFragment (Fragment),
+			  
+-----------------------------------------------------------------------------------------*/
+
+.btnIconColorText li:nth-child(2) > div {
+    font-size: 2rem !important;
+    height: 2.25rem !important;
+    color: red !important;
+}
+
+.btnIconColor .sapMSegBBtn .sapUiIcon {
+    font-size: 2rem !important;
+    line-height: 2.125rem !important;
+    color: red !important;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #10 : Fraemwork Related 
+ Used views : WDNSCoefficients
+-----------------------------------------------------------------------------------------*/
+
+.greyBGColor {
+    background: #f5f6fa !important;
+}
+
+.blueBGColor {
+    background: #0a6ed1 !important;
+    margin-top: 10px;
+    height: 47px;
+    padding-top: 10px;
+}
+
+.WDNSLightBlueBGColor {
+    background: #e1eafb !important;
+}
+
+
+/*27/06/2020 */
+
+.TableHeaderBGColor .sapMListTbl th {
+    background: #8894B5 !important;
+}
+
+
+/*27/06/2020 */
+
+.TableTextColor .sapMListTbl .sapMText,
+.sapMListTbl .sapMLabel {
+    color: white !important;
+}
+
+
+/*27/06/2020 */
+
+.WDNSWhiteFont {
+    color: white !important;
+    font-weight: bold;
+}
+
+
+/*27/06/2020 */
+
+.OFPBlue .sapMLIB.sapMListTblRow {
+    border-bottom: 0;
+    background: #8894b5;
+}
+
+
+/*27/06/2020 */
+
+.BlueBackground {
+    background: #8894b5;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #11 : Fraemwork Related 
+ Used views : AircraftTansfet
+-----------------------------------------------------------------------------------------*/
+
+.btnheight .sapMBtn {
+    height: 3.75rem !important;
+}
+
+.paddingNone .sapMTB {
+    height: 2.75rem;
+    padding: 0 0rem !important;
+    background: transparent;
+    background-color: #e1f2f375;
+}
+
+.borderTable {
+    border-right: 1px solid #e5e5e5 !important;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #12 : Fraemwork Related 
+ Used views : Receiver (Fragment)
+-----------------------------------------------------------------------------------------*/
+
+
+/*margin-top: 2rem !important;*/
+
+
+/*Delete by amit kumar*/
+
+.borderTableReceiver {
+    border: 1px solid #0a6ed1bd !important;
+    border-radius: 3.5px;
+    padding: 0.5rem;
+}
+
+.dottedclass {
+    width: 10rem;
+    padding-top: 0.9rem;
+}
+
+.vbox1BgColor {
+    background-color: #0854a0;
+}
+
+.whiteText {
+    color: white !important;
+}
+
+.sparesTable .sapMListTbl th {
+    background: #8894B5 !important;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #13 : Fraemwork Related 
+ Used views : ADDCompleteLimitationFrom (Fragment),
+			  ADDDefectForm (Fragment),
+			  ADDLimitaionForm (Fragment)
+-----------------------------------------------------------------------------------------*/
+
+.hboxColor .sapMLIB {
+    background-color: #ebf5fe52 !important;
+    border: 1px solid #d1e8ff !important;
+}
+
+.whiteToolBar .sapMTB-Solid-CTX.sapMTB {
+    background: white !important;
+}
+
+.vbox5bgColorr {
+    padding: 2rem;
+    background-color: #e1f2f375;
+}
+
+.vbox4BgBorder {
+    border: 1px solid #949494;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: white;
+}
+
+.vbox6BgColor {
+    background-color: #0854a0;
+    padding: 2rem;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #14 : Fraemwork Related 
+ Used views : AddDemandSpares,
+			  AddFlyingRequirements,
+			  AddSortieMonitoring,
+			  AddTMDE,
+			  Jobs,
+			  JobsScheduledCommonFragment (Fragment),
+			  JobsCompletedJobsFragment (Fragment),
+			  EngineAddSoapSampling,
+			  EngineSoapSamplingsFragment (Fragment),
+			  CreateJob,
+			  AddWorkenterDialog (Fragment),
+-----------------------------------------------------------------------------------------*/
+
+
+/* Button with text only font size*/
+
+.btnIconColorTextRT li:nth-child(3) > div {
+    font-size: 2.2rem !important;
+    color: red !important;
+    font-weight: 600 !important;
+}
+
+
+/* Segment Button icon size*/
+
+.btnIconColorRB .sapMSegBBtn .sapUiIcon {
+    font-size: 1.8rem !important;
+    color: red !important;
+}
+
+
+/* Button Background color and inner text */
+
+.btnColor .sapMBtnInner {
+    background-color: #3070A4 !important;
+    color: white !important;
+}
+
+.red .sapMBtnTransparent > span {
+    color: red !important;
+    font-size: 2rem !important;
+}
+
+.redText .sapMBtnInner {
+    font-style: normal !important;
+    font-size: x-large !important;
+    height: 2rem;
+}
+
+
+/* Toobar bottom border color */
+
+.toolbarBorder {
+    border-bottom: none !important;
+}
+
+
+/* VBox Background color*/
+
+.vboxBackground {
+    background-color: white !important;
+}
+
+
+/* Image control bordercolor */
+
+.imageBorder {
+    border: black !important;
+    border-style: groove !important;
+    border-width: thin !important;
+}
+
+
+/* Button with text only font size*/
+
+.btnIconColorText li:nth-child(2) > div {
+    font-size: 1.8rem !important;
+    color: red !important;
+}
+
+
+/* Segment Button icon size*/
+
+.btnIconColor .sapMSegBBtn .sapUiIcon {
+    font-size: 1.8rem !important;
+    color: red !important;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #15 : Fraemwork Related 
+ Used views : TransferToADD,
+			  AddDemandSpares,
+			  AddFlyingRequirements,
+			  AddSortieMonitoring,
+			  AddTMDE,
+			  DefectSummary,
+			  DefectSummaryFragment (Fragment),
+			  ScheduleSummaryFragment (Fragment),
+			  EngineAddSoapSampling,
+			  AddSummary (Fragment),
+			  DefectSummaryADD,
+			  CreateTask,
+			  CreateJob,
+			  ApplyTemplate,
+-----------------------------------------------------------------------------------------*/
+
+
+/*************************************************************************** 
+					SUMMARY VIEW : Rahul
+***************************************************************************/
+
+.backgroundWhite {
+    background: white;
+}
+
+.titleTextBoldToolbar {
+    color: black;
+    font-weight: bold;
+    font-size: large;
+}
+
+.imageBorder {
+    border: 1px solid #0a6cd6;
+}
+
+.equalColumns .columns {
+    min-width: 52rem;
+}
+
+
+/*.equalColumns .columns .sapMFlexItem {
+    padding-left: 0.5rem;
+}*/
+
+.iconTabBarContentDimensions .sapMITBContent {
+    padding: 0rem 0rem !important;
+    box-sizing: border-box;
+}
+
+
+/* Toobar background color */
+
+.toolbarBackground {
+    background: #f8f4fc !important;
+}
+
+
+/* ObjectStatus Font Size */
+
+.objectStatusFontSize {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    display: inline-block;
+}
+
+
+/* Icon tab Bar font size style and width */
+
+.iconTabBarText .sapMITBTextOnly .sapMITBText {
+    font-size: 1rem !important;
+    font-style: inherit !important;
+    font-weight: 500 !important;
+}
+
+
+/* Icon tab Bar background color*/
+
+.iconTabBarBGTran .sapMITH {
+    background-color: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+.iconTabBarBorder .sapMITBContent {
+    border-bottom: none !important;
+}
+
+
+/*Tabel header back color */
+
+.CERTable .sapMListTbl th {
+    background: #8894B5 !important;
+}
+
+.CERTableTextColor .sapMListTbl .sapMText,
+.sapMListTbl .sapMLabel {
+    color: white !important;
+}
+
+.sortBtnColor .sapMBtnIcon {
+    color: white !important;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #16 : Fraemwork Related 
+ Used views : ApplyTemplate
+-----------------------------------------------------------------------------------------*/
+
+
+/* apply template */
+
+.lblChooseMargin {
+    margin: 1.5rem !important;
+}
+
+.headerHeight {
+    height: 4rem !important;
+}
+
+.hboxBorder {
+    border: 1px solid #89919a !important;
+}
+
+.vboxAlign {
+    width: 65rem;
+    height: 14rem;
+    padding-top: 5rem;
+}
+
+.listBorder {
+    border-bottom: 1px solid transparent !important;
+}
+
+.flyReqIcon .sapMBtnInner.sapMBtnText .sapMBtnIcon {
+    margin-left: 0rem;
+    color: white !important;
+}
+
+.IconMarginSM .sapMBtnInner.sapMBtnText .sapMBtnIcon {
+    margin-left: 0rem;
+    color: white !important;
+}
+
+.tmdeIcon .sapMBtnInner.sapMBtnText .sapMBtnIcon {
+    margin-left: 30.5rem;
+    color: white !important;
+}
+
+.IconSpares .sapMBtnInner.sapMBtnText .sapMBtnIcon {
+    margin-left: 27.5rem;
+    color: white !important;
+}
+
+.toolbarBorder {
+    border-bottom: none !important;
+    box-shadow: inset 0 -0.0625rem transparent !important;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #17 : Fraemwork Related 
+ Used views : Engine
+-----------------------------------------------------------------------------------------*/
+
+.btnIconColorTextWhite li:nth-child(2) > div {
+    color: white !important;
+}
+
+.flexboxBackground {
+    background-color: rgba(62, 77, 168, 1) !important;
+}
+
+.flexboxBackgroundWhite {
+    background-color: white !important;
+}
+
+.flexboxBackgroundGreen {
+    background-color: rgba(250, 252, 255, 1) !important;
+}
+
+.textColor {
+    color: white !important;
+}
+
+.labelTextColor {
+    color: white !important;
+}
+
+.titleColor {
+    color: white !important;
+}
+
+.toolbarBorderColor {
+    border-bottom: solid .0625rem blueviolet !important;
+}
+
+.toolbarBackground {
+    background: white !important;
+}
+
+.listBorder:hover {
+    background: white !important;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #18 : Approvals and Trial Mode
+ Used views : Approval_Details (Fragment),
+			  Approval_Master (Fragment),
+			  Approvals,
+			  manageRequest (Fragment),
+			  Trail_Mod
+-----------------------------------------------------------------------------------------*/
+
+.vbox1BgColor {
+    background-color: #0854a0;
+}
+
+.vbox2BgColor {
+    background-color: #6ea3d8;
+    padding: 2rem;
+}
+
+.whiteText {
+    color: white !important;
+}
+
+.btnTxt .sapMBtnInner {
+    color: white !important;
+}
+
+.iconTxt .sapMBtnIcon {
+    color: blue !important;
+}
+
+.vbox3BgBorder {
+    border: 1px solid #949494;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background-color: #e1f2f375;
+}
+
+.vbox5bgColorr {
+    padding: 2rem;
+    background-color: #e1f2f375;
+}
+
+.vboxOrangebgColorr {
+    padding: 2rem;
+    background-color: #FFA500;
+}
+
+.vbox4BgBorder {
+    border: 1px solid #949494;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: white;
+}
+
+.vbox6BgColor {
+    background-color: #0854a0;
+    padding: 2rem;
+}
+
+
+/* Approvals and Trial Mode End */
+
+
+/*---------------------------------------------------------------------------------------
+ #19 : Approvals and Trial Mode
+ Used views : Aircraft (Fragment),
+			  AircraftSelection,
+			  MassLimitaion
+-----------------------------------------------------------------------------------------*/
+
+.tailDiv > li {
+    float: left;
+    margin: 2px;
+    width: 90px !important;
+}
+
+.tailDiv {
+    height: inherit !important;
+}
+
+.tailDiv .sapMSegBBtnInner {
+    border-right: 1px solid #0854a0 !important;
+    border-left: 1px solid #0854a0 !important;
+}
+
+.airCraftSelVBox {
+    background: white;
+    padding: 2rem;
+}
+
+.aircraftTitleBGWhite {
+    background: white;
+}
+
+.aircraftModelVBox {
+    width: 22rem;
+    box-shadow: 1px 0px 0px 0px #d7d7d7;
+}
+
+.tailNoVBox {
+    width: 50%;
+}
+
+
+/**********************************************************/
+
+
+/* FROM BF Module. Have to cleanup this section */
+
+
+/*All CSS Styles*/
+
+
+/**********************************************************/
+
+.backgroundBlue {
+    background: white;
+}
+
+.backgroundBlack {
+    background: rgba(60, 58, 81, 1);
+}
+
+.menuColor .sapUiIcon::before {
+    color: white;
+}
+
+.titleTextBoldAndWhite {
+    color: white;
+}
+
+.titleTextBoldToolbar {
+    color: black;
+    font-weight: bold;
+    font-size: large;
+}
+
+.titleClass {
+    font-size: large;
+}
+
+.titleTextBoldToolbar {
+    color: black;
+    font-weight: bold;
+    font-size: large;
+}
+
+.titleTextBoldToolbar {
+    color: black;
+    font-weight: bold;
+    font-size: large;
+}
+
+.imgSize .sapMBtnInner.sapMBtnText .sapMBtnIcon.sapMImg {
+    height: 2rem;
+}
+
+.buttonColor .sapMBtnInner.sapMBtnText.sapMBtnIconFirst,
+.sapMBtnInner.sapMBtnText.sapMBtnBack {
+    background-color: rgba(141, 155, 200, 1);
+}
+
+.CERTable .sapMListTbl th {
+    background: #8E8EA5 !important;
+}
+
+.hBoxColor {
+    background: white;
+}
+
+.tableHeaderFontStyle .sapMListTbl .sapMText,
+.sapMListTbl .sapMLabel {
+    color: #0a0a0a !important;
+}
+
+.listLenClass {
+    width: 14rem !important;
+}
+
+.listItemClass .sapMSelectListItemBaseSelected {
+    background: #e5f0fa;
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+}
+
+.tableTextColor .tableHeaderFontStyle .sapMListTbl .sapMText,
+.sapMListTbl .sapMLabel {
+    color: #ffffff !important;
+}
+
+.vBoxTopMargin {}
+
+
+/******************** Routine Tasks - Custom Styles *********************************/
+
+.backgroundBlue {
+    background: white;
+}
+
+.titleTextBoldToolbar {
+    color: black;
+    font-weight: bold;
+    font-size: large;
+}
+
+.CERTable .sapMListTbl th {
+    background: #8E8EA5 !important;
+}
+
+.fontWhite .sapMListTbl .sapMText,
+.sapMListTbl .sapMLabel {
+    color: white;
+}
+
+.whiteText {
+    color: white !important;
+}
+
+.overflowToolbarBgColorRed {
+    background: #e63a54 !important;
+}
+
+.overflowToolbarBgColorGreen {
+    background: green !important;
+}
+
+.wizardTilteHide .sapMWizardStep .sapMWizardStepTitle {
+    display: none;
+}
+
+.btnClass .sapMBtnInner.sapMBtnText,
+.sapMBtnIconLeft+.sapMBtnIconRight,
+.sapMBtnIconLeft+.sapMBtnIconLeft {
+    border: 1px solid #0a6cd6 !important;
+}
+
+.singOffBtnColorRed .sapMBtnInner.sapMBtnAccept {
+    color: #FFF471 !important;
+    background: #e63a54 !important;
+}
+
+.singOffBtnColorRed .sapMBtnInner.sapMBtnAccept:hover {
+    color: #FFF471 !important;
+    background: #e63a54 !important;
+}
+
+.singOffBtnColorGreen.sapMBtnInner.sapMBtnAccept {
+    color: #FFF471 !important;
+    background: #e63a54 !important;
+}
+
+.singOffBtnColorGreen .sapMBtnInner.sapMBtnAccept:hover {
+    color: #51b367 !important;
+    background: #51b367 !important;
+}
+
+.addTaskBtn .sapMBtnInner.sapMBtnText .sapMBtnIcon:before {
+    width: -4rem;
+    text-align: center;
+    display: inline-block;
+}
+
+
+/*************************** Follow-Up Tasks - Custom styles ************************/
+
+.backgroundBlue {
+    background: white;
+}
+
+.backgroundBlack {
+    background: rgba(60, 58, 81, 1);
+}
+
+.menuColor .sapUiIcon::before {
+    color: white;
+}
+
+.titleTextBoldAndWhite {
+    color: white;
+}
+
+.titleTextBoldToolbar {
+    color: black;
+    font-weight: bold;
+    font-size: large;
+}
+
+.imgSize .sapMBtnInner.sapMBtnText .sapMBtnIcon.sapMImg {
+    height: 2rem;
+}
+
+.buttonColor .sapMBtnInner.sapMBtnText.sapMBtnIconFirst,
+.sapMBtnInner.sapMBtnText.sapMBtnBack {
+    background-color: rgba(141, 155, 200, 1);
+}
+
+.CERTable .sapMListTbl th {
+    background: #8894B5 !important;
+}
+
+.CERTableTextColor .sapMListTbl .sapMText,
+.sapMListTbl .sapMLabel {
+    color: white !important;
+}
+
+.snoTxt .sapMText {
+    padding-top: 15px !important;
+}
+
+.lightGreyVBox {
+    margin-top: 4px;
+    height: 36px;
+    width: 45px;
+    background: #edf0f8;
+    border-left: 1px solid #c9cfd9 !important;
+    border-top: 1px solid #c9cfd9 !important;
+    border-bottom: 1px solid #c9cfd9 !important;
+}
+
+.greyBGColor {
+    background: #f5f6fa;
+}
+
+.objectHeaderPadding .sapMOH {
+    padding: 0rem !important;
+}
+
+.greyBorderBottom {
+    border-bottom: 1px solid #c9cfd9 !important;
+}
+
+.greyBorder {
+    border: 1px solid #c9cfd9 !important;
+}
+
+.orangeBGColor {
+    background: #fef0db;
+    border: 1px solid #fabb60 !important;
+}
+
+.fontSize {
+    font-size: 12px;
+}
+
+
+/*************************** PDS - Custom styles ************************/
+
+.cell_Color_ghostwhite td:nth-child(3) {
+    background-color: ghostwhite !important;
+}
+
+.addHBoxBorder {
+    border: 1px solid #c1c9d3 !important;
+}
+
+.addInnerHBoxBorder {
+    border-right: 1px solid #c1c9d3 !important;
+    background: #fafbff !important;
+}
+
+.flcTaskSignoffHBox {
+    background: #58d074 !important;
+    height: 50px !important;
+}
+
+.flcWhiteFont {
+    color: white !important;
+}
+
+.flcBoldFont {
+    font-weight: bold !important;
+}
+
+.greenText {
+    color: green !important;
+    font-size: 10px;
+}
+
+.lightGreyVBoxWeaponConfig {
+    width: 45px;
+    background: #edf0f8;
+    height: 35px;
+    border-left: 1px solid #c9cfd9 !important;
+    border-top: 1px solid #c9cfd9 !important;
+    border-bottom: 1px solid #c9cfd9 !important;
+}
+
+.greyVBoxWeaponConfig {
+    width: 200px;
+    background: #f0f0f0;
+    height: 35px;
+    border: 1px solid #c9cfd9 !important;
+}
+
+.WhiteVBox {
+    background: white;
+}
+
+.PDSFragTitle {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+
+/*************************** Dashboard - Custom styles ************************/
+
+.sapFCard .sapFCardHeader {
+    position: relative;
+    flex-shrink: 0;
+    background: #8894b5 !important;
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.DashBoardGenericToolBar {
+    width: 16.5rem !important;
+    height: 4rem !important;
+    border-bottom: none !important;
+}
+
+.DashBoardBlackFont {
+    color: black !important;
+    font-size: 17px !important;
+}
+
+.DashBoardFontsizeXXLarge {
+    font-size: xx-large !important;
+}
+
+.DashBoardRefreshVBox {
+    background: #e1eafb;
+}
+
+.refreshStatusTxtColor {
+    color: #68affd !important;
+}
+
+
+/*************************** Weapon Details - Custom styles ************************/
+
+.fontSize17 {
+    font-size: 17px;
+}
+
+.WeaponConfidDetailsListheight {
+    height: 60px;
+}
+
+.tileLayout {
+    width: 16.5rem !important;
+    height: 6rem !important;
+    border-style: dashed;
+    border: 1px solid grey;
+}
+
+.centerTileLayout {
+    width: 7rem !important;
+    height: 5rem !important;
+    margin-left: 4.5rem !important;
+    /*amit change 4 to 4.5*/
+}
+
+.centerIconTileLayout {
+    margin-left: 5rem !important;
+}
+
+
+/*************************** Standalone - Equipment Running and Flying Log - Custom styles ************************/
+
+.EquipBGWhite {
+    background: white !important;
+}
+
+.TableHeaderBGColor .sapMListTbl th {
+    background: #8894B5 !important;
+}
+
+.TableTextColor .sapMListTbl .sapMText,
+.sapMListTbl .sapMLabel {
+    color: white !important;
+}
+
+
+/*************************** Standalone - Leading Particulars - Custom styles ************************/
+
+.LeadPartLabelTxtWhite {
+    color: white !important;
+}
+
+.LeadPartTextColorWhite {
+    color: white !important;
+}
+
+.LeadPartHeaderFlexboxBG {
+    background-color: rgba(62, 77, 168, 1) !important;
+}
+
+.LeadPartFlexboxBGWhite {
+    background-color: white !important;
+}
+
+.LeadPartTitleSize {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.LeadPartSubTitTxtColor {
+    color: #ceb3b3 !important;
+}
+
+.LeadPartIconTabBarContentDimensions .sapMITBContent {
+    padding: 0rem 0rem !important;
+    box-sizing: border-box;
+}
+
+.LeadPartIconTabBarBorder .sapMITBContent {
+    border-bottom: none !important;
+}
+
+.LeadPartIconTabBarBGTran .sapMITH {
+    background-color: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+.TableHeaderBGColor .sapMListTbl th {
+    background: #8894B5 !important;
+}
+
+.TableTextColor .sapMListTbl .sapMText,
+.sapMListTbl .sapMLabel {
+    color: white !important;
+}
+
+
+/**********************************************************/
+
+
+/**** #15: SideMenu */
+
+
+/**********************************************************/
+
+.sideMenuBGColor {
+    background: #43425e;
+}
+
+.linkTextColor .sapMLnk {
+    color: white !important;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: normal;
+    font-family: "72", "72full", Arial, Helvetica, sans-serif;
+    font-size: .875rem;
+    cursor: pointer;
+}
+
+.linkTextColor2 .sapMLnk:visited {
+    color: #0a6ed1;
+}
+
+.txtWhite {
+    color: white !important;
+}
+
+
+/*35 to 25 amit changed*/
+
+.listItemHeight {
+    height: 25px;
+}
+
+.listSideMenu .sapMLIB {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    background: #43425e;
+    border-bottom: 1px solid #43425e;
+    padding: 0 1rem 0 1rem;
+}
+
+.bgColorToolBar {
+    background-color: #e3e6e5 !important;
+}
+
+.borderTask {
+    border: 1px solid #e3e6e5!important;
+}
+
+.addTemBtn .sapMBtnInner.sapMBtnText .sapMBtnIcon:before {
+    width: -4rem;
+    text-align: center;
+    display: inline-block;
+}
+
+
+/*Role Change */
+
+.greyBGRoleChange {
+    background-color: #f5f6fa;
+}
+
+.tileLayout {
+    width: 16.5rem !important;
+    height: 6rem !important;
+    border-style: dashed;
+    border: 1px solid grey;
+}
+
+.RoleChangeArrowImg {
+    height: 63px!important;
+    width: 114px!important;
+    margin-left: 68px!important;
+}
+
+.RoleChangeInstallImg {
+    height: 87px!important;
+    width: 114px!important;
+    margin-left: 68px!important;
+}
+
+.genericTileTextPosition .sapMGTHdrTxt {
+    overflow: hidden;
+    margin-left: 53px !important;
+    margin-top: 20px !important;
+}
+
+
+/*========================================================AMIT KUMAR==========================================*/
+
+.topTile {
+    text-align: center !important;
+    background: #e8e4e4 !important;
+    width: 18rem !important;
+    height: 5rem !important;
+}
+
+.middleTile {
+    text-align: center !important;
+    width: 10rem !important;
+    height: 4rem !important;
+}
+
+.downTile {
+    text-align: center !important;
+    width: 18rem !important;
+    height: 3rem !important;
+}
+
+.txtAlginHeadeCenter .sapMText {
+    text-align: center !important;
+    padding-top: 1rem !important;
+}
+
+.txtAlginTlHeadeCenter1 .sapMText {
+    text-align: center !important;
+    /*padding-top:1rem !important;*/
+}
+
+.greenbtn > span {
+    color: #fff !important;
+    background-color: #4cce94 !important;
+    border-radius: 1rem;
+}
+.redbtn > span {
+    color: #fff !important;
+    background-color: #F44c4c !important;
+    border-radius: 1rem;
+}
+.greybtn > span {
+    color: #f5f6fa !important;
+    background-color: #95969a !important;
+    border-radius: 1rem;
+}
+
+.yellowbtn > span {
+    color: #fff !important;
+    background-color: #f0a90a !important;
+    border-radius: 1rem;
+}
+
+.graybtn > span {
+    color: #fff !important;
+    background-color: #4cce94 !important;
+    border-radius: 1rem;
+}
+
+.blackbtn > span {
+    color: #fff !important;
+    background-color: #4cce94 !important;
+    border-radius: 1rem;
+}
+
+.wcVBox {
+    background: white;
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.wcCngVBox {
+    background: #f5f6fa;
+}
+
+.atContainer {
+    border-radius: 5px;
+    padding: 2rem;
+}
+
+.defaultRadius {
+    border-radius: 5px;
+}
+
+.signOffError {
+    border: 1px solid red !important
+}
+
+.signOffSuccess {
+    border: 1px solid green !important
+}
+
+.signOffTxtError.sapMLabel {
+    color: red !important
+}
+
+.signOffTxtSuccess.sapMLabel {
+    color: green !important
+}
+
+
+/*====================Teck Meng=================*/
+
+.sapSuiteRMCFont {
+	font-size: 0.8rem    !important
+}
+.customChartFont .sapSuiteRMCInsideLabel.sapSuiteRMCFont {
+	font-size: 2rem  !important
+}
+
+/*========================================================AMIT KUMAR==========================================*/
+
+
+/*========================================================Priya==========================================*/
+
+.sapFCard .sapFCardHeader .sapFCardHeaderText .sapFCardTitle {
+    min-width: 0;
+    display: block;
+    font-family: "72", "72full", Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    color: #fdfdfd !important;
+    min-height: 1rem;
+    position: relative;
+}
+
+.TOAFVBox {
+    background: white !important;
+}
+
+/*Rajat */
+
+.photoSelection {
+	border: 1px solid black !important;
+}

@@ -1,0 +1,53 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cs="avmet.ah.control" xmlns:tnt="sap.tnt">
+	<Dialog title="Acceptable Deferred Defects" contentWidth="100%">
+		<HBox>
+			<VBox class="sapUiSmallMargin">
+				<core:HTML 
+					content='&lt;canvas id=&quot;myADDCanvas&quot; click="getPointPosition($event)" width=&quot;360&quot; height=&quot;250&quot; style=&quot;border:1px solid #000000&quot;&gt;&lt;/canvas&gt;'></core:HTML>
+				<SegmentedButton id="sbDfArea" class="sapUiSmallMarginBottom sapUiSmallMarginBegin" selectedKey="Top"
+					selectionChange="onSelectionDefectAreaChange('Top','ADD')">
+					<items>
+						<SegmentedButtonItem text="Top" key="Top" width="4rem"/>
+						<SegmentedButtonItem text="Bottom" key="Bottom" width="5rem"/>
+						<SegmentedButtonItem text="Left" key="Left" width="4rem"/>
+						<SegmentedButtonItem text="Right" key="Right" width="4rem"/>
+					</items>
+				</SegmentedButton>
+			</VBox>
+			<VBox>
+				<List width="42rem" items="{ path: 'oPilotAccpModel>/aLimitaions', filters : [{ path : 'CAPTY', operator : 'EQ', value1 : 'A' }]}"
+					class="sapUiSmallMargin hboxColor">
+					<CustomListItem class="sapUiSmallMargin" type="Navigation" press="onLimitationInformationPress">
+						<HBox class="sapUiResponsivePadding">
+							<!--	<f:Avatar initials="A" displaySize="XS" backgroundColor="Accent5" class="avtarRadius sapUiTinyMargin"/>-->
+							<!--<cs:ColorStatus title="{localViewModel>Title}" status="{localViewModel>Status}"/>-->
+							<HBox class="sapUiSmallMargin">
+								<VBox alignContent="Center" alignItems="Center">
+									<Label text="{oPilotAccpModel>AFHR}" design="Bold"></Label>
+									<Label text="A/F hrs left"></Label>
+								</VBox>
+								<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin">
+									<Label text="{oPilotAccpModel>AFDAY}" design="Bold"></Label>
+									<Label text="day left"></Label>
+								</VBox>
+							</HBox>
+							<HBox class="sapUiSmallMargin">
+								<VBox>
+									<Label text="{oPilotAccpModel>JOBDESC}" design="Bold"/>
+									<HBox visible="{= ${oPilotAccpModel>CAPTY} === 'L'}">
+										<tnt:InfoLabel text="Limitation" renderMode="Narrow" colorScheme="7" class="sapUiTinyMarginTop" displayOnly="true"/>
+										<Label text="{oPilotAccpModel>LDESC}" class="sapUiTinyMargin"/>
+									</HBox>
+								</VBox>
+							</HBox>
+						</HBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+		</HBox>
+		<buttons>
+			<Button text="Cancel" press="onPressADDClose" type="Reject"/>
+			<Button text="Reviewed" press="onReviewPilotAccp" type="Emphasized" visible="{=${PDSPilotModel>/ViewName} === 'Pilot' ? true : false}"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

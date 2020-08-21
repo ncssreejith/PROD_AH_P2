@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<u:Menu items="{oCTCloseTaskModel>/CreateTaskMenu}" itemSelect="handleCreateTaskOptionPress">
+		<u:MenuItem text="{oCTCloseTaskModel>Text}" visible="{oCTCloseTaskModel>Visible}"/>
+	</u:Menu>
+</core:FragmentDefinition>

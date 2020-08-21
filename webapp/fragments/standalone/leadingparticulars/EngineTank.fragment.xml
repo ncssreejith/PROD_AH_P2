@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core">
+	<VBox class="LeadPartFlexboxBGWhite" width="100%" alignItems="Center">
+		<Table width="95%" items="{ path: 'OverViewItemTankModel>/'}"
+			class="TableHeaderBGColor sapUiSmallMarginTop sapUiMediumMarginBeginEnd sapUiSizeCompact">
+			<columns>
+				<Column class="TableTextColor" hAlign="Left">
+					<Label text="Position" design="Bold"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="Capacity" design="Bold" wrapping="true"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="Capacity (370D/T)" design="Bold" wrapping="true"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="Capacity (600D/T)" design="Bold" wrapping="true"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<VBox>
+							<Text text="{OverViewItemTankModel>POSITION}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? false : true}"/>
+							<Input value="{OverViewItemTankModel>POSITION}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? true : false}" change="onChangeTankValue"/>
+						</VBox>
+						<VBox>
+							<Text text="{OverViewItemTankModel>CAPASITY}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? false : true}"/>
+							<Input value="{OverViewItemTankModel>CAPASITY}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? true : false}" change="onChangeTankValue"/>
+						</VBox>
+						<VBox>
+							<Text text="{OverViewItemTankModel>CAPASITY1}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? false : true}"/>
+							<Input value="{OverViewItemTankModel>CAPASITY1}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? true : false}" change="onChangeTankValue"/>
+						</VBox>
+						<VBox>
+							<Text text="{OverViewItemTankModel>CAPASITY2}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? false : true}"/>
+							<Input value="{OverViewItemTankModel>CAPASITY2}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? true : false}" change="onChangeTankValue"/>
+						</VBox>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</VBox>
+</core:FragmentDefinition>

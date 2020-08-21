@@ -1,0 +1,58 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+	<Dialog showHeader="false" contentWidth="60%">
+		<OverflowToolbar class="bgColorToolBar">
+			<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${DetailsSupModel>/symbol} === '1' ? true : false}"></Button>
+			<Button text="/" class="red redText" type="Transparent" visible="{=${DetailsSupModel>/symbol} === '2' ? true : false}"></Button>
+			<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${DetailsSupModel>/symbol} === '3' ? true : false}"></Button>
+			<!--<Label text="{DetailsSupModel>/cdesc}" state="None" design="Bold" class="sapUiSmallMarginBegin" wrapping="true" width="80%"
+				visible="{=${DetailsSupModel>/cdesc} !== null ? true : false}"/>-->
+			<Label text="{DetailsSupModel>/tdesc}" state="None" design="Bold" class="sapUiSmallMarginBegin" wrapping="true" width="80%"/>
+			<ToolbarSpacer/>
+			<Button press="onPendingSupDetailsClose" icon="sap-icon://decline" type="Transparent"></Button>
+		</OverflowToolbar>
+		<VBox class="borderTask">
+			<Toolbar class="bgColorToolBar">
+				<Label text="Tradesman: {DetailsSupModel>/creusr}" design="Bold" class="sapUiSmallMarginBegin"/>
+				<ToolbarSpacer/>
+				<Label design="Bold"
+					text="{path:'DetailsSupModel>/credtm', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'DetailsSupModel>/creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+			</Toolbar>
+			<VBox class="sapUiSmallMargin borderTask">
+				<Toolbar class="bgColorToolBar">
+					<Label text="Follow-up Task" design="Bold"/>
+				</Toolbar>
+				<Toolbar>
+					<Label text="{DetailsSupModel>/ftdesc}" wrapping="true" width="90%" design="Bold" class="sapUiSmallMarginBegin"/>
+				</Toolbar>
+				<Toolbar>
+					<Label text="Tradesman: {DetailsSupModel>/SG1USR}" design="Bold" class="sapUiSmallMarginBegin"/>
+					<ToolbarSpacer/>
+					<Label design="Bold"
+						text="{path:'DetailsSupModel>/SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'DetailsSupModel>/SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+				</Toolbar>
+				<!--	<Label text="Others :" design="Bold" class="sapUiSmallMarginBegin"/>
+				<HBox id="summaryHBId" items="{TUserModel>/}" class="sapUiSmallMarginBegin">
+					<Label text="{TUserModel>usrid}" design="Bold" class="sapUiSmallMarginBegin sapUiSmallMarginTop"/>
+				</HBox>-->
+				<Label text="Others :" design="Bold" class="sapUiSmallMarginBegin sapUiSmallMarginTop sapUiTinyMaginBottom"/>
+				<FlexBox items="{TUserModel>/}" renderType="Bare">
+					<Label text="{TUserModel>usrid}" design="Bold" class="sapUiTinyMarginBegin"/>
+				</FlexBox>
+				<!--<List headerText="Others :" items="{TUserModel>/}" class="sapUiSizeCompact">
+					<CustomListItem>
+						<Label text="{TUserModel>usrid}" design="Bold" class="sapUiLargeMarginBegin"/>
+					</CustomListItem>
+				</List>-->
+				<MessageStrip class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" type="Warning" showIcon="true" text='Pending Supervisor Sign Off'>
+					<Link text="Sign Off" press="onSignOffTask" class="sapUiLargeMarginBegin"/>
+				</MessageStrip>
+			</VBox>
+		</VBox>
+		<beginButton>
+			<Button press="onOSViewHistory" text="View history log" type="Ghost"></Button>
+		</beginButton>
+		<endButton>
+			<Button press="onUndoSignOff" text="Undo sign off" type="Emphasized"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

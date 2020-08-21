@@ -1,0 +1,22 @@
+<mvc:View controllerName="avmet.ah.controller.DispatchAircraft" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+	<Page showNavButton="true" title="{i18n>lblAircraftTransfer}" navButtonPress="onNavBackDispatch">
+		<IconTabBar selectedKey="{= (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?'dispatch':'receiver'}" editable="false" expandable="false" id="iconTabAC" select="onIconTabSelection">
+			<items class="sapUiLargeMarginTop">
+				<IconTabFilter key="dispatch" text="1.Dispatch">
+					<core:Fragment fragmentName="avmet.ah.fragments.standalone.aircrafttransfer.Dispatch" type="XML"/>
+				</IconTabFilter>
+				<IconTabSeparator icon="sap-icon://less"/>
+				<IconTabFilter key="receiver" text="2.Receive" enabled="{= (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?false:true}">
+					<core:Fragment fragmentName="avmet.ah.fragments.standalone.aircrafttransfer.Receiver" type="XML"/>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button visible="{= (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?true:${oViewModel>/Receive}}" text="{= (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?'Dispatch':'Receive'}" press="fnSubmitResponse" type="Emphasized"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

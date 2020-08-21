@@ -1,0 +1,158 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core"
+	xmlns:filterbar="sap.ui.comp.filterbar">
+	<HBox justifyContent="Center" alignItems="Center" class="sapUiLargeMarginTop" backgroundDesign="Transparent"
+		visible="{= ${ViewModel>/flag}==='B' || ${ViewModel>/flag}==='L' || ${ViewModel>/flag}==='A' ? true:false}">
+		<items>
+			<HBox>
+				<VBox backgroundDesign="Solid">
+					<VBox>
+						<tnt:InfoLabel class="sapUiMediumMarginBegin sapUiSmallMarginTop" text="{path:'ViewModel>/flag', formatter:'.formatter.approvalText'}"
+							renderMode="Narrow" colorScheme="7" displayOnly="true"/>
+						<Title class="sapUiMediumMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>titleDefectInfo}"/>
+						<Text class="sapUiMediumMarginBegin " text="{ViewModel>/description}" wrapping="true" width="20rem"/>
+					</VBox>
+					<VBox visible="{= ${ApprovalDetailstModel>/ldesc}===null ? false:true}" class="sapUiTinyMarginTop">
+						<Title class="sapUiSmallMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="Limitation Information"/>
+						<Text class="sapUiMediumMarginBegin " text="{ApprovalDetailstModel>/ldesc}" width="70%" wrapping="true"/>
+					</VBox>
+					<VBox class="sapUiSmallMargin sapUiMediumMarginTop">
+						<l:Grid hSpacing="1" defaultSpan="XL10 L10 M10 S12">
+							<HBox justifyContent="SpaceBetween">
+								<Label width="7rem" text="Job No." design="Bold"></Label>
+								<Text width="11rem" text="{ApprovalDetailstModel>/jobid}"/>
+								<layoutData>
+									<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+								</layoutData>
+							</HBox>
+							<HBox justifyContent="SpaceBetween">
+								<Label width="7rem" wrapping="true" text="Found during" design="Bold"></Label>
+								<Text width="11rem" wrapping="true" text="{ApprovalDetailstModel>/fndduring}"/>
+								<layoutData>
+									<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+								</layoutData>
+							</HBox>
+							<HBox justifyContent="SpaceBetween">
+								<Label width="7rem" wrapping="true" text="Found by" design="Bold"></Label>
+								<Text width="11rem" wrapping="true" text="{ApprovalDetailstModel>/fndby}"/>
+								<layoutData>
+									<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+								</layoutData>
+							</HBox>
+							<HBox justifyContent="SpaceBetween">
+								<Label width="7rem" wrapping="true" text="Work Center" design="Bold"></Label>
+								<Text width="11rem" wrapping="true" text="{ApprovalDetailstModel>/prime}"/>
+								<layoutData>
+									<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+								</layoutData>
+							</HBox>
+						</l:Grid>
+					</VBox>
+				</VBox>
+				<VBox backgroundDesign="Solid">
+					<HBox justifyContent="End">
+						<Button text="Manage Request" type="Default" icon="sap-icon://megamenu" iconFirst="false" class="sapUiSmallMarginEnd"
+							press="onManageRequest"/>
+					</HBox>
+					<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+						<VBox>
+							<VBox class="vbox3BgBorder sapUiSmallMarginTop">
+								<Title class="sapUiMediumMarginBottom sapUiSmallMarginBegin" level="H3" titleStyle="H3"
+									text="{path:'ViewModel>/flag', formatter:'.formatter.approvalText'}"/>
+								<l:Grid hSpacing="1" vSpacing="1" defaultSpan="XL12 L12 M12 S12">
+									<HBox justifyContent="SpaceBetween">
+										<Label width="5rem" text="Date/ Time" design="Bold"></Label>
+										<HBox>
+											<Text text="{path:'ApprovalDetailstModel>/capdt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+											<Text text="{path:'ApprovalDetailstModel>/captm', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+										</HBox>
+										<layoutData>
+											<l:GridData linebreak="true" span="XL11 L11 M11 S11"/>
+										</layoutData>
+									</HBox>
+									<HBox justifyContent="SpaceBetween">
+										<Label width="9rem" text="Requested by" design="Bold"></Label>
+										<Text width="9rem" text="{ApprovalDetailstModel>/subusr}"/>
+										<layoutData>
+											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+										</layoutData>
+									</HBox>
+									<HBox justifyContent="SpaceBetween" visible="{=${ViewModel>/flag} !== 'L' ? true : false}">
+										<Label width="9rem" text="Reason for ADD" design="Bold"></Label>
+										<Text width="9rem" text="{ApprovalDetailstModel>/cprid}"/>
+										<layoutData>
+											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+										</layoutData>
+									</HBox>
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/DMDID} !== null ? true : false}">
+										<Label width="9rem" text="Demand No" design="Bold"></Label>
+										<Text width="9rem" text="{ApprovalDetailstModel>/DMDID}"/>
+										<layoutData>
+											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+										</layoutData>
+									</HBox>
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/OTHER_RSN} !== null ? true : false}">
+										<Label width="9rem" text="Other Reason" design="Bold"></Label>
+										<Text width="9rem" text="{ApprovalDetailstModel>/OTHER_RSN}"/>
+										<layoutData>
+											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+										</layoutData>
+									</HBox>
+									<HBox visible="{=${ApprovalDetailstModel>/expdt} !== null ? true : false}">
+										<Label width="9rem" wrapping="true" text="{ApprovalDetailstModel>/defpdtx} but not later than" design="Bold"></Label>
+										<HBox class="sapUiTinyMarginTop">
+											<Text text="{path:'ApprovalDetailstModel>/expdt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+											<Text text="{path:'ApprovalDetailstModel>/exptm', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+										</HBox>
+										<layoutData>
+											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+										</layoutData>
+									</HBox>
+									<HBox visible="{=${ApprovalDetailstModel>/UTILVL} !== null ? true : false}">
+										<Label width="9rem" wrapping="true" text="{ApprovalDetailstModel>/UTIL1Text}" design="Bold"></Label>
+										<HBox>
+											<Text text="{ApprovalDetailstModel>/UTILVL}" visible="{=${ApprovalDetailstModel>/UTILVL} !== null ? true : false}"/>
+											<Text text="{path:'ApprovalDetailstModel>/UTILDT', formatter:'.formatter.defaultDateFormatDisplay'}"
+												visible="{=${ApprovalDetailstModel>/UTILDT} !== null ? true : false}"/>
+										</HBox>
+										<layoutData>
+											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+										</layoutData>
+									</HBox>
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/PAST_COUNT} !== null ? true : false}">
+										<Label width="9rem" text="Past ADD(s)" design="Bold"></Label>
+										<Text width="9rem" text="{ApprovalDetailstModel>/PAST_COUNT}"/>
+										<layoutData>
+											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+										</layoutData>
+									</HBox>
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/PAST_COUNT} !== null ? true : false}">
+										<Label width="9rem" text="Initial ADD Date" design="Bold"></Label>
+										<Text width="9rem" text="{path:'ApprovalDetailstModel>/ini_date', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+										<layoutData>
+											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+										</layoutData>
+									</HBox>
+								</l:Grid>
+							</VBox>
+						</VBox>
+					</l:Grid>
+				</VBox>
+			</HBox>
+		</items>
+	</HBox>
+	<HBox visible="{= ${ViewModel>/flag} === 'W' ? true:false}">
+		<VBox width="98%">
+			<core:Fragment fragmentName="avmet.ah.fragments.approvals.WBApprovals" type="XML"/>
+		</VBox>
+	</HBox>
+	<HBox visible="{= ${ViewModel>/flag} === 'LP' ? true:false}">
+		<VBox width="98%">
+			<core:Fragment fragmentName="avmet.ah.fragments.approvals.LPApprovals" type="XML"/>
+		</VBox>
+	</HBox>
+	<HBox visible="{= ${ViewModel>/flag} === 'TM' ? true:false}">
+		<VBox width="98%">
+			<core:Fragment fragmentName="avmet.ah.fragments.approvals.Trial_Mod" type="XML"/>
+		</VBox>
+	</HBox>
+</core:FragmentDefinition>

@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core">
+	<VBox backgroundDesign="Solid" class="atContainer">
+		<HBox >
+			<HBox justifyContent="SpaceBetween" backgroundDesign="Transparent" width="18rem" height="3rem"
+				class="vbox1BgColor defaultRadius">
+				<HBox class="sapUiSmallMargin" width="100%" justifyContent="SpaceBetween">
+					<Label class="whiteText" width="8rem" text="{i18n>lblCustodian}" design="Bold"></Label>
+					<Title class="whiteText" width="6rem" text="{atckModel>/header/SQN}" textAlign="End"/>
+				</HBox>
+			</HBox>
+			<Image class="dottedclass" src="./css/img/dottedLine.png"/>
+			<Image  src="./css/img/flightIcon.png"/>
+			<Image class="dottedclass" src="./css/img/dottedLine.png"/>
+			<HBox justifyContent="SpaceBetween" backgroundDesign="Transparent" class="borderTableReceiver">
+				<Label width="8rem" text="{i18n>lnlRecipient}" design="Bold"></Label>
+				<ComboBox items="{atckModel>/sqn}" selectedKey="{atckModel>/header/SQNID}" selectionChange="onSelectionChangesqn">
+					<core:Item text="{atckModel>SQNID}" key="{atckModel>SQN}"/>
+				</ComboBox>
+				<ComboBox items="{atckModel>/location}" selectedKey="{atckModel>/header/LOCID}" selectionChange="onSelectionChangeLoc">
+					<core:Item key="{atckModel>LOCID}" text="{atckModel>LOC}"/>
+				</ComboBox>
+			</HBox>
+		</HBox>
+		<Title  text="Aircraft Transfer Checklist" class="sapUiSmallMarginTopBottom" level="H3"
+			visible="{atckModel>/sReceiveTable}" titleStyle="H3"/>
+		<Table width="100%" items="{atckModel>/checklist}" visible="{atckModel>/sReceiveTable}"
+			class="sparesTable paddingNone">
+			<columns>
+				<Column minScreenWidth="Desktop" width="10%" demandPopin="true">
+					<Label class="whiteText" text="S.No."/>
+				</Column>
+				<Column minScreenWidth="Desktop" width="70%" demandPopin="true">
+					<Label class="whiteText" text="Checklist"/>
+				</Column>
+				<Column minScreenWidth="Desktop" width="20%" demandPopin="true">
+					<Label class="whiteText" text="Dispatcher({atckModel>/header/SQN})"/>
+				</Column>
+				<Column minScreenWidth="Desktop" width="20%" demandPopin="true">
+					<Label class="whiteText" text="Receiver ({atckModel>/header/RSQN})"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells >
+							<Text text="{path:'atckModel>SNo',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
+					<Text text="{atckModel>chkdesc}"/>
+						<CheckBox  enabled="false" selected="{= ${atckModel>answ} === 'Y' ? true:false}"/>
+						<CheckBox enabled="{= ${atckModel>answ} === 'Y' ? true:false}" selected="{atckModel>answ1}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,47 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<FlexBox class="backgroundWhite" height="120px" alignItems="Center" justifyContent="Center"
+		visible="{=${oFollowUpModel>/OutStandingTask}.length === 0 ? true :false}">
+		<items>
+			<Label design="Bold" text="There are no tasks pending tradesman sign off."/>
+		</items>
+	</FlexBox>
+	<Table id="outStandgTblId" class="CERTable" mode="MultiSelect" selectionChange="onOutSelectionChange"
+		items="{oFollowUpModel>/OutStandingTask}" visible="{=${oFollowUpModel>/OutStandingTask}.length !== 0 ? true :false}"
+		updateFinished="onTableUpdateFinished('OT',$event)">
+		<columns>
+			<Column width="8%" class="CERTableTextColor" hAlign="Center">
+				<Label text="Symbol" design="Bold"/>
+			</Column>
+			<Column width="60%" demandPopin="true">
+				<HBox>
+					<Label text="Task" design="Bold"/>
+					<!--<core:Icon src="sap-icon://sorting-ranking" color="white" class="sapUiTinyMarginBegin"/>-->
+				</HBox>
+			</Column>
+			<Column width="30%" demandPopin="true">
+				<Label text="Technical Order" design="Bold"/>
+			</Column>
+			<Column width="8%" demandPopin="true"></Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<HBox visible="{= ${oFollowUpModel>symbol}!=='' ? true :false}" class="sapUiTinyMarginBegin">
+						<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${oFollowUpModel>symbol} === '1' ? true : false}"/>
+						<Button text="/" class="red redText" type="Transparent" visible="{=${oFollowUpModel>symbol} === '2' ? true : false}"/>
+						<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${oFollowUpModel>symbol} === '3' ? true : false}"/>
+					</HBox>
+					<!--<core:Icon src="sap-icon://decline" size="30px" color="#da2d2d"/>-->
+					<HBox>
+						<ObjectStatus text="{oFollowUpModel>ftdesc} " active="{path:'oFollowUpModel>fragid', formatter:'.formatter.OutstandingSNDialog'}"
+							state="None" press="onOutstandingSelect"/>
+						<Text class="sapUiTinyMarginBegin" text=" - {oFollowUpModel>ftsernr}"
+							visible="{path:'oFollowUpModel>fragid', formatter:'.formatter.OutstandingSNDialog'}"/>
+					</HBox>
+					<ObjectStatus text="{oFollowUpModel>toref}" active="true" state="None" press="onAfterFlightServTask"/>
+					<Button type="Transparent" icon="sap-icon://navigation-right-arrow" press="onAfterFlightServTask"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

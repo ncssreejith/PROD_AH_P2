@@ -1,0 +1,146 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar">
+	<l:VerticalLayout width="100%">
+		<HBox>
+			<VBox>
+				<HBox>
+					<Label design="Bold" text="Task"/>
+					<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+				</HBox>
+				<ComboBox width="350px" change="onRemoveInstallTaskChange" items="{TaskListModel>/}" selectedKey="{oCreateTaskModel>/sTask}"
+					fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bRemoveOrInstall}">
+					<core:Item text="{TaskListModel>ttype}" key="{TaskListModel>ttid}"/>
+				</ComboBox>
+			</VBox>
+			<VBox class="sapUiLargeMarginBegin" visible="{oCreateTaskModel>/bTechOrderRef}">
+				<Label design="Bold" text="Technical Order/ Reference"/>
+				<Input width="250px" value="{oCreateTaskModel>/sTechOrderRef}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bTechOrderRef}"/>
+			</VBox>
+		</HBox>
+		<HBox class="sapUiSmallMarginTop" visible="{oCreateTaskModel>/bType}">
+			<HBox>
+				<VBox>
+					<HBox>
+						<Label design="Bold" text="Type"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<ComboBox id="Type1Id" width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1}" fieldGroupIds="fgCmbBox"
+						required="{oCreateTaskModel>/bType}" items="{TT1Model>/}">
+						<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
+						<!--	<core:Item text="Serial No. (S/N)" key="Serial No. (S/N)"/>
+						<core:Item text="Batch No." key="Batch No."/>-->
+					</ComboBox>
+				</VBox>
+				<VBox class="sapUiTinyMarginBegin">
+					<HBox>
+						<Label/>
+						<Text text="Optional" class="optionalTxtMargin" visible="{oCreateTaskModel>/bOptionalLabel}"/>
+					</HBox>
+						<Input width="170px" value="{oCreateTaskModel>/sType1Value}"
+						visible="{= ${oCreateTaskModel>/sTask}!=='TT2_10' ? true:false}"></Input>
+					<ComboBox width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1Value}" items="{SerialNumModel>/}"
+						visible="{= ${oCreateTaskModel>/sTask}==='TT2_10' ? true:false}">
+						<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
+					</ComboBox>
+				</VBox>
+			</HBox>
+			<HBox class="sapUiLargeMarginBegin">
+				<VBox>
+					<HBox>
+						<Label design="Bold" text="Type"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<ComboBox width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType2}" fieldGroupIds="fgCmbBox"
+						required="{oCreateTaskModel>/bType}" items="{TT2Model>/}">
+						<core:Item text="{TT2Model>key}" key="{TT2Model>text}"/>
+					</ComboBox>
+				</VBox>
+				<VBox class="sapUiTinyMarginBegin">
+					<HBox>
+						<Label/>
+						<Text text="Optional" class="optionalTxtMargin"/>
+					</HBox>
+					<HBox>
+						<Input width="170px" value="{oCreateTaskModel>/sType2Value}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bType}"/>
+					</HBox>
+				</VBox>
+				<VBox class="sapUiTinyMarginBegin" 	visible="{= ${oCreateTaskModel>/sType2}==='Part No.' &amp;&amp; ${oCreateTaskModel>/sTask}==='TT2_10' ? true:false}">
+					<HBox>
+						<Label/>
+						<Text text="For Engine Only"/>
+					</HBox>
+					<HBox>
+						<Button text="Get Serial No." class="sapUiTinyMarginBegin" press="getSerialNoPress"></Button>
+					</HBox>
+				</VBox>
+			</HBox>
+		</HBox>
+		<HBox class="sapUiSmallMarginTop" visible="{oCreateTaskModel>/bCompDesc}">
+			<VBox>
+				<HBox>
+					<Label design="Bold" text="Component Description"/>
+					<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+				</HBox>
+				<Input width="350px" placeholder="eg. Engine" value="{oCreateTaskModel>/sCompDesc}" fieldGroupIds="fgInput"
+					required="{oCreateTaskModel>/bCompDesc}"/>
+			</VBox>
+		</HBox>
+		<HBox class="sapUiSmallMarginTop" visible="{oCreateTaskModel>/bAccess}">
+			<HBox>
+				<VBox>
+					<HBox>
+						<Label design="Bold" text="Task Description"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<ComboBox width="170px" change="onTypeDescChange" items="{TaskDescModel>/}" selectedKey="{oCreateTaskModel>/sTypDescKey}"
+						fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bAccess}">
+						<core:Item text="{TaskDescModel>ttype}" key="{TaskDescModel>ttid}"/>
+					</ComboBox>
+				</VBox>
+				<VBox class="sapUiTinyMarginBegin">
+					<Label/>
+					<ComboBox width="170px" change="onOpenForAccessChange" items="{TT310Model>/}" selectedKey="{oCreateTaskModel>/sOpnForAccKey}"
+						visible="{oCreateTaskModel>/bOpenForAccess}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bOpenForAccess}">
+						<core:Item text="{TT310Model>ttype}" key="{TT310Model>ttid}"/>
+					</ComboBox>
+					<ComboBox width="170px" change="onRemoveForAccessChange" items="{TT311Model>/}" selectedKey="{oCreateTaskModel>/sRemoveForAccKey}"
+						visible="{oCreateTaskModel>/bRemoveForAccess}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bRemoveForAccess}">
+						<core:Item text="{TT311Model>ttype}" key="{TT311Model>ttid}"/>
+					</ComboBox>
+				</VBox>
+				<VBox class="sapUiTinyMarginBegin" visible="{oCreateTaskModel>/bIndicateItem}">
+					<Label/>
+					<Input width="170px" placeholder="Please indicate item" value="{oCreateTaskModel>/sIndicateItem}" fieldGroupIds="fgInput"
+						required="{oCreateTaskModel>/bIndicateItem}"/>
+				</VBox>
+			</HBox>
+		</HBox>
+		<HBox class="sapUiSmallMarginTop" visible="{oCreateTaskModel>/bItemNo}">
+			<VBox>
+				<HBox>
+					<Label design="Bold" text="Item No"/>
+					<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+				</HBox>
+				<Input width="170px" value="{oCreateTaskModel>/sItemNo}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bItemNo}"/>
+			</VBox>
+		</HBox>
+		<HBox class="sapUiSmallMarginTop">
+			<HBox>
+				<VBox visible="{oCreateTaskModel>/bSLNo}">
+					<HBox>
+						<Label design="Bold" text="Serial No"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<Input width="170px" value="{oCreateTaskModel>/sSLNo}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bSLNo}"/>
+				</VBox>
+				<VBox class="sapUiTinyMarginBegin" visible="{oCreateTaskModel>/bCompCompDesc}">
+					<HBox>
+						<Label design="Bold" text="Component Description"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<Input width="170px" placeholder="eg. Test Set" value="{oCreateTaskModel>/sCompCompDesc}" fieldGroupIds="fgInput"
+						required="{oCreateTaskModel>/bCompCompDesc}"/>
+				</VBox>
+			</HBox>
+		</HBox>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

@@ -1,0 +1,964 @@
+sap.ui.define([
+	"sap/ui/core/format/DateFormat"
+], function(DateFormat) {
+	"use strict";
+
+	return {
+
+		/**
+		 * Rounds the number unit value to 2 digits
+		 * @public
+		 * @param {string} sValue the number string to be rounded
+		 * @returns {string} sValue with 2 digits rounded
+		 */
+
+		//return new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0];
+		defaultDateTimeFormat: function(dDate, sFormat) {
+			if (!dDate) {
+				dDate = new Date();
+			}
+			var fnDateFormatter = DateFormat.getDateInstance({
+				pattern: sFormat !== undefined ? sFormat : "dd/MM/yy HH:mm"
+			});
+			if (dDate instanceof Date) {
+				var sDate = fnDateFormatter.format(dDate);
+				return sDate;
+			} else {
+				return dDate;
+			}
+		},
+
+		defaultDateFormat: function(dDate, sFormat) {
+			if (!dDate || typeof dDate.getMonth !== "function") {
+				return "";
+			}
+			var fnDateFormatter = DateFormat.getDateInstance({
+				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy"
+			});
+			var sDate = fnDateFormatter.format(dDate);
+			return sDate;
+		},
+
+		defaultTimeFormat: function(dDate, sFormat) {
+			if (!dDate || typeof dDate.getMonth !== "function") {
+				return "";
+			}
+			return dDate;
+			var fnDateFormatter = DateFormat.getDateInstance({
+				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy"
+			});
+			var sDate = fnDateFormatter.format(dDate);
+			return sDate;
+		},
+
+		defaultOdataDateFormat: function(dDate, sFormat) {
+			if (!dDate) {
+				return "";
+			}
+			var fnDateFormatter = DateFormat.getDateInstance({
+				pattern: sFormat !== undefined ? sFormat : "yyyy-MM-dd"
+			});
+			var sDate = fnDateFormatter.format(dDate);
+			return sDate;
+		},
+
+		defaultDateFormatDisplay: function(dDate, sFormat) {
+			if (!dDate) {
+				return "";
+			}
+			var res, Temp;
+			try {
+				res = dDate.split("-");
+				Temp = res[2].concat("/", res[1], "/", res[0]);
+			} catch (e) {
+				Temp = dDate;
+			}
+
+			return Temp;
+		},
+
+		defaultDateFormatLimDisplay: function(dDate, sFormat) {
+			if (dDate === "-" || dDate === "_") {
+				return "_";
+			}
+			/*var nDate=new Date(dDate);
+			var fnDateFormatter = DateFormat.getDateInstance({
+				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy"
+			});
+			var sDate = fnDateFormatter.format(nDate);*/
+			var res = dDate.split("-");
+			var Temp = res[2].concat("/", res[1], "/", res[0]);
+
+			return Temp;
+		},
+
+		defaultDatetoDateFormatDisplay: function(dDate, sFormat) {
+			if (!dDate) {
+				return "";
+			}
+			var nDate = new Date(dDate);
+			var fnDateFormatter = DateFormat.getDateInstance({
+				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy"
+			});
+			var sDate = fnDateFormatter.format(nDate);
+
+			return sDate;
+		},
+
+		defaultTimeFormatDisplay: function(dDate, sFormat) {
+			if (!dDate) {
+				return "";
+			}
+			/*var nDate=new Date(dDate);
+			var fnDateFormatter = DateFormat.getDateInstance({
+				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy"
+			});
+			var sDate = fnDateFormatter.format(nDate);*/
+			var res = dDate.split(":");
+			var Temp = res[0].concat(":", res[1]);
+
+			return Temp;
+		},
+
+		approvalText: function(sValue) {
+			var oTemp = "";
+			switch (sValue) {
+				case "A":
+					oTemp = "ADD Information";
+					break;
+				case "B":
+					oTemp = "ADD & Limitation Information";
+					break;
+				case "L":
+					oTemp = "Limitation Information";
+					break;
+				case "W":
+					oTemp = "Weight and Balance Information";
+					break;
+				case "TM":
+					oTemp = "Trial Modification";
+					break;
+			}
+			return oTemp;
+		},
+
+		LimOverViewText: function(sValue) {
+			var oTemp = "";
+			switch (sValue) {
+				case "A":
+					oTemp = "Acceptable Deferred Defects";
+					break;
+				case "B":
+					oTemp = "ADD & Limitation Information";
+					break;
+				case "L":
+					oTemp = "Limitation";
+					break;
+			}
+			return oTemp;
+		},
+
+		approvalMasterText: function(sValue) {
+			var oTemp = "";
+			switch (sValue) {
+				case "A":
+					oTemp = "Acceptable Deferred Defect";
+					break;
+				case "B":
+					oTemp = "Acceptable Deferred Defect & Limitation";
+					break;
+				case "L":
+					oTemp = "Limitation";
+					break;
+				case "W":
+					oTemp = "Weight and Balance";
+					break;
+				case "LP":
+					oTemp = "Leading Particulars";
+					break;
+				case "TM":
+					oTemp = "Trial Mod";
+			}
+			return oTemp;
+		},
+
+		FormattBlank: function(sValue) {
+			if (sValue === "" || sValue === null) {
+				return "_";
+			} else {
+				return sValue;
+			}
+		},
+
+		defaultJobType: function(sValue) {
+			var oTemp = "";
+			switch (sValue) {
+				case "D":
+					oTemp = "Defect";
+					break;
+				case "S":
+				case "ZQ":
+					oTemp = "Scheduled";
+					break;
+				case "U":
+					oTemp = "Unscheduled";
+					break;
+			}
+			return oTemp;
+		},
+
+		fndIdFormatter: function(sValue) {
+			var oTemp = "";
+			switch (sValue) {
+				case "FND_10":
+					oTemp = "BF";
+					break;
+				case "FND_11":
+					oTemp = "PR";
+					break;
+				case "FND_12":
+					oTemp = "TH";
+					break;
+				case "FND_13":
+					oTemp = "QTR";
+					break;
+				case "FND_14":
+					oTemp = "BPO";
+					break;
+				case "FND_15":
+					oTemp = "PR/BPO";
+					break;
+				case "FND_16":
+					oTemp = "AF";
+					break;
+				case "FND_17":
+					oTemp = "WAI";
+					break;
+				case "FND_18":
+					oTemp = "PTR TAXI";
+					break;
+				case "FND_19":
+					oTemp = "PTR";
+					break;
+				case "FND_20":
+					oTemp = "ICT";
+					break;
+				case "FND_21":
+					oTemp = "HOT ICT";
+					break;
+				case "FND_22":
+					oTemp = "TR";
+					break;
+				case "FND_23":
+					oTemp = "WPT";
+					break;
+				case "FND_24":
+					oTemp = "PMS FLIGHT";
+					break;
+				case "FND_25":
+					oTemp = "PMS NON-FLIGHT";
+					break;
+				case "FND_26":
+					oTemp = "ARMING";
+					break;
+				case "FND_27":
+					oTemp = "DISARMING";
+					break;
+				case "FND_28":
+					oTemp = "POST THUNDERSTORM CHECK";
+					break;
+				case "FND_29":
+					oTemp = "SCHEDULE";
+					break;
+				case "FND_30":
+					oTemp = "IN FLIGHT";
+					break;
+				case "FND_31":
+					oTemp = "RECTIFICATION";
+					break;
+				case "FND_32":
+					oTemp = "START-UP";
+					break;
+				case "FND_33":
+					oTemp = "RED-BALL";
+					break;
+				case "FND_34":
+					oTemp = "ON GROUND";
+					break;
+				case "FND_35":
+					oTemp = "FAIR";
+					break;
+				case "FND_36":
+					oTemp = "POST FLIGHT";
+					break;
+
+			}
+			return oTemp;
+		},
+
+		sumAmount: function(sValue) {
+			if (!sValue) {
+				return "";
+			}
+			return parseFloat(sValue).toFixed(2);
+		},
+
+		numberUnit: function(sValue) {
+			if (!sValue) {
+				return "";
+			}
+			return parseFloat(sValue).toFixed(2);
+		},
+		// From BF
+		SignoffEnable: function(bAllToolsAcc, bCerfify) {
+			if (bAllToolsAcc && bCerfify) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		taskFF3Visible: function(stTask1) {
+			if (stTask1 === "TT1_14" || stTask1 === "TT1_15" || stTask1 === "TT1_17" || stTask1 === "TT1_18") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		taskFF2Visible: function(stTask1) {
+			if (stTask1 === "TT1_11") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		taskContentVisibleToolCheck: function(stTask1) {
+			if (stTask1 === "TT1_13") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		taskFF21Visible: function(stTask1) {
+			if ((stTask1 !== "TT1_11") || (stTask1 !== "TT1_14") || (stTask1 === "TT1_15") || (stTask1 === "TT1_17") || (stTask1 === "TT1_18")) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		taskContentVisible: function(stTask1, stTask2) { /*(stTask1 === "TT1_14") || (stTask1 === "TT1_10" && stTask2 === "TT2_13") ||*/
+			if ((stTask1 === "TT1_10" && stTask2 === "TT2_10") || (stTask1 === "TT1_10" && stTask2 === "TT2_12")) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		taskContentVisible1: function(stTask1, stTask2) {
+			if ((stTask1 === "TT1_14" && stTask2 === null) || (stTask1 === "TT1_11" && stTask2 === null) || (stTask1 === "TT1_15" && stTask2 ===
+					null) || (stTask1 === "TT1_18" && stTask2 === null) || (stTask1 === "TT1_17" && stTask2 === null)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		taskContentVisible2: function(stTask1, stTask2, stTask3) {
+			if ((stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		taskContentVisible3: function(stTask1, stTask2, stTask3) {
+			if ((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
+					"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
+					stTask2 === "TT2_14" && stTask3 === null) || (stTask1 ===
+					"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === null && stTask2 === null && stTask3 === null) || (stTask1 ===
+					"TT1_15" && stTask3 === null) || (stTask1 === "TT1_17" && stTask3 === null) ||
+				(stTask1 === "TT1_18" && stTask3 === null)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		taskContentVisible4: function(stTask1, stTask2, stTask3) {
+			if ((stTask1 === "TT1_10" && stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_14" && stTask3 === null) || (stTask1 ===
+					"TT1_10" && stTask2 ===
+					"TT2_13" && stTask3 === null)) {
+				/*	|| (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null)*/
+				return true;
+			} else {
+				return false;
+			}
+		},
+		taskTextDisplay: function(stTask1) {
+			var sImageSrc = "";
+			switch (stTask1) {
+				case "TT1_15":
+					sImageSrc = "Warning Message";
+					break;
+				case "TT1_17":
+					sImageSrc = "QA Task";
+					break;
+				case "TT1_18":
+					sImageSrc = "Independent Checker Task";
+					break;
+				default:
+					sImageSrc = "";
+			}
+			return sImageSrc;
+
+		},
+
+		FLCTaskTitle: function(sViewName) {
+			if (sViewName === "PDS") {
+				return "FLC Tasks & Replenishment";
+			} else {
+				return "Replenishment";
+			}
+		},
+
+		OutstandingSNDialog: function(sType) {
+			if (sType === "Remove and/or Installation" || sType === "Ops Check" || sType === "Visual Inspection" || sType ===
+				"Remove and/or Installation" || sType === "Others") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		EnablePilotAccSingOff: function(sRep, sFly, sADD, sLim, sWeap) {
+			if (sRep === "Reviewed" && sFly === "Reviewed" && sADD === "Reviewed" && sLim === "Reviewed" && sWeap === "Reviewed") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		ManageFRVisibility: function(AirFlightStatus) {
+			if (AirFlightStatus !== "NF") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		ManageSortieMonitoringVisible: function(sFlyReq) {
+			if (sFlyReq === "NCO") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		ManageStatusTestVisible: function(sFlyReq) {
+			if (sFlyReq === "Fail" || sFlyReq === "NCO") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		DBSchedule: function(iPercentage) {
+			if (iPercentage < 40) {
+				return "Critical";
+			} else {
+				return "Good";
+			}
+		},
+		DBFuelPercentage: function(iPercentage) {
+			if (iPercentage < 40) {
+				return "Critical";
+			} else {
+				return "Good";
+			}
+		},
+
+		WeaponConfigSignOff: function(bSignOff) {
+			if (bSignOff) {
+				return "#0a6cd6";
+			} else {
+				return "#EEF1F8";
+			}
+		},
+
+		FaitrStat: function(sValue) {
+			if (sValue === 'R') {
+				return "Release for Rectification";
+			} else if (sValue === 'A') {
+				return "FAIR";
+			}
+		},
+
+		checkboxDispatch: function(sDispatch) {
+			return (sDispatch === "Yes");
+		},
+		TradesmanStatus: function(sDone, sNA) {
+			if (sDone === null && sNA === null) {
+				return "noKey";
+			} else if (sDone === "" && sNA === null) {
+				return "noKey";
+			} else if (sDone === null && sNA === "") {
+				return "noKey";
+			} else if (sDone === "X" && sNA === null) {
+				return "NA";
+			} else if (sNA === null && sDone === "Y") {
+				return "Done";
+			} else {
+				return "noKey";
+			}
+		},
+
+		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
+
+		wConnect: function(sState, isCart) {
+			var sCText = "";
+			if (sState === "C") {
+				sCText = "Disconnect \n connector";
+				if (isCart === 'X') {
+					sCText = "Uninstall \n impulse cart";
+				}
+				return sCText;
+			}
+			sCText = "Connect \n connector";
+			if (isCart === "X") {
+				sCText = "Install \n impulse cart";
+			}
+			return sCText;
+		},
+		wConnectColor: function(sState) {
+			// CONTOR ICART
+			if (sState) {
+				return sap.m.ValueColor.Error;
+			}
+			return sap.m.ValueColor.Critical;
+		},
+		srvWeaponImage: function(oStationId) {
+			var oSrvImg = "";
+			switch (oStationId) {
+				case "STNS_100":
+					oSrvImg = "css/img/Section-1.png";
+					break;
+				case "STNS_101":
+					oSrvImg = "css/img/Section-2.png";
+					break;
+				case "STNS_102":
+					oSrvImg = "css/img/Section-3.png";
+					break;
+				case "STNS_103":
+					oSrvImg = "css/img/Section-4.png";
+					break;
+				case "STNS_104":
+					oSrvImg = "css/img/Section-5.png";
+					break;
+				case "STNS_105":
+					oSrvImg = "css/img/Section-6.png";
+					break;
+				case "STNS_106":
+					oSrvImg = "css/img/Section-7.png";
+					break;
+				case "STNS_107":
+					oSrvImg = "css/img/Section-8.png";
+					break;
+				case "STNS_108":
+					oSrvImg = "css/img/Section-9.png";
+					break;
+				case "STNS_109":
+					oSrvImg = "css/img/Section-10.png";
+					break;
+				case "STNS_110":
+					oSrvImg = "css/img/Section-1.png";
+					break;
+			}
+			return oSrvImg;
+		},
+
+		srvWeaponAHImage: function(oStationId) {
+			var oSrvImg = "";
+			switch (oStationId) {
+				case "STNS_100":
+					oSrvImg = "css/img/ConfigCHAFF.png"; // CHAFF
+					break;
+				case "STNS_101":
+					oSrvImg = "css/img/ConfigFLARE.png"; //FLARE
+					break;
+				case "STNS_102":
+					oSrvImg = "css/img/ConfigGUN.png";
+					break;
+				case "STNS_109":
+					oSrvImg = "css/img/ConfigLOB.png";
+					break;
+				case "STNS_110":
+					oSrvImg = "css/img/ConfigLIB.png";
+					break;
+				case "STNS_111":
+					oSrvImg = "css/img/ConfigRIB.png";
+					break;
+				case "STNS_112":
+					oSrvImg = "css/img/ConfigROB.png";
+					break;
+			}
+			return oSrvImg;
+		},
+
+		wcStationColor: function(oTotal) {
+			// if (oTotal === undefined || oTotal === '' || oTotal === null || oTotal === 0) {
+			if (oTotal === undefined || oTotal === '' || oTotal === null || oTotal === 0) {
+				return "#e8e4e4";
+			}
+			return "#0a6cd6";
+		},
+		statusColor: function(oSt, sSttxt) {
+			switch (oSt) {
+				case "AST_S":
+					this.addStyleClass("greenbtn");
+					break;
+				case "AST_FS":
+					this.addStyleClass("greybtn");
+					break;
+				case "AST_FFF":
+					this.addStyleClass("greenbtn");
+					break;
+				case "AST_RFF":
+					this.addStyleClass("greenbtn");
+					break;
+				case "AST_US":
+				case "AST_US0":
+				case "AST_US1":
+				case "AST_US2":
+					this.addStyleClass("yellowbtn");
+					break;
+				case "AST_FAIR":
+				case "AST_FAIR0":
+				case "AST_FAIR1":
+				case "AST_FAIR2":
+					this.addStyleClass("redbtn");
+					break;
+				case "AST_FFC":
+					this.addStyleClass("greenbtn");
+					break;
+				case "AST_FFG":
+					this.addStyleClass("greenbtn");
+					break;
+				case "AST_REC":
+					this.addStyleClass("yellowbtn");
+					break;
+				default:
+					this.addStyleClass("infobtn");
+					break;
+			}
+
+			return sSttxt;
+		},
+		statusFlightColor: function(oSt) {
+			switch (oSt) {
+				case "AST_RFF":
+					this.addStyleClass("dashButtonRole");
+					return "Transparent";
+
+				default:
+					this.addStyleClass("sapMBtnInner");
+					return "Emphasized";
+
+			}
+
+			return "Emphasized";
+		},
+		srvImage: function(statusId) {
+			var sImageSrc = "";
+			switch (statusId) {
+				case "SRVT_AF":
+					sImageSrc = "css/img/BFFlight.JPG";
+					break;
+				case "SRVT_BF":
+					sImageSrc = "css/img/BFFlight.JPG";
+					break;
+				case "SRVT_BPO":
+					sImageSrc = "css/img/BFFlight.JPG";
+					break;
+				case "SRVT_HCT":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_ICT":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_PO":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_PR":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_PRO":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_PTR":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_PTX":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_QT":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_QTR":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_TH":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_TR":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_WA":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_WAI":
+					sImageSrc = "css/img/BFFlight.jpg";
+					break;
+				case "SRVT_DE":
+					sImageSrc = "css/img/Defuel.jpg";
+					break;
+				case "SRVT_RE":
+					sImageSrc = "css/img/Refuel.jpg";
+					break;
+				default:
+					sImageSrc = "css/img/BFFlight.jpg";
+			}
+			return sImageSrc;
+		},
+		srvImageHover: function(statusId) {
+			var sImageSrc = "";
+			switch (statusId) {
+				case "SRVT_AF":
+					sImageSrc = "css/img/BFFlightBlu.JPG";
+					break;
+				case "SRVT_BF":
+					sImageSrc = "css/img/BFFlightBlu.JPG";
+					break;
+				case "SRVT_BPO":
+					sImageSrc = "css/img/BFFlightBlu.JPG";
+					break;
+				case "SRVT_HCT":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_ICT":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_PO":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_PR":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_PRO":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_PTR":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_PTX":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_QT":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_QTR":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_TH":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_TR":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_WA":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_WAI":
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+					break;
+				case "SRVT_DE":
+					sImageSrc = "css/img/DefuelBlu.jpg";
+					break;
+				case "SRVT_RE":
+					sImageSrc = "css/img/RefuelBlu.jpg";
+					break;
+				default:
+					sImageSrc = "css/img/BFFlightBlu.jpg";
+			}
+			return sImageSrc;
+		},
+
+		serialNumber: function(oItem) {
+			var srNo = parseInt(this.getId().split("-")[this.getId().split("-").length - 1], 0) + 1;
+			if (this.getBindingContext("oPilotUpdatesViewModel")) {
+				this.getBindingContext("oPilotUpdatesViewModel").getObject().num2 = srNo;
+			}
+
+			return srNo;
+		},
+
+		formatMaxValue: function(oMax) {
+			oMax = parseInt(oMax, 0);
+			return oMax;
+		},
+		percentAge: function(oState, sState1) {
+			var sPercentAge = 0;
+			if (oState === undefined || oState === null || oState === 0) {
+				return sPercentAge;
+			}
+			sPercentAge = ((oState * 100) / sState1);
+			return sPercentAge;
+		},
+		fuelMC: function(oState, sState1) {
+			var sPercentAge = 0;
+			if (oState === undefined || oState === null) {
+				return sPercentAge;
+			}
+			sPercentAge = ((oState * 100) / sState1);
+			return sPercentAge;
+		},
+		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
+
+		//////////////////////********************    PRIYA - STARTS   *****************************///////////////
+
+		FormatMaxValue: function(sValue, max) {
+			if (!isNaN(sValue) && sValue !== null && sValue !== 0) {
+				return parseInt(sValue);
+			} else if (!isNaN(max) && max !== null) {
+				return parseInt(max);
+			}
+		},
+
+		FormatMaxValueText: function(srvamt, totamt) {
+			if (totamt !== 0 && srvamt > totamt) {
+				return "test123";
+			} else {
+				return "";
+			}
+		},
+
+		FormatRoleMaxValue: function(sMax) {
+			if (!isNaN(sMax) && sMax !== null && sMax !== 0) {
+				return parseFloat(sMax);
+			}
+		},
+
+		FormatMaxValueState: function(srvamt, totamt) {
+			if (totamt !== 0 && srvamt > totamt) {
+				return "Error";
+			} else {
+				return "None";
+			}
+		},
+
+		FormatMaxValueFloat: function(sValue, max) {
+			if (!isNaN(sValue) && sValue !== null && sValue !== 0) {
+				return parseFloat(sValue);
+			} else if (!isNaN(max) && max !== null) {
+				return parseFloat(max);
+			}
+		},
+		FormatDeFuel: function(sValue) {
+			if (sValue === "X") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		FuelMC: function(sValue, iMax) {
+			var iValue = 0;
+			if (sValue === null || iMax === null) {
+				return iValue;
+			} else {
+				iValue = ((parseInt(sValue) / parseInt(iMax))) * 100;
+				return iValue;
+			}
+		},
+		FuelMCState: function(sValue, iMax) {
+			var iValue = 0;
+			if (sValue === null || iMax === null) {
+				return "Neutral";
+			} else if ((parseInt(sValue) < parseInt(iMax))) {
+				return "Critical";
+			} else if ((parseInt(sValue) === parseInt(iMax))) {
+				return "Good";
+			}
+		},
+		formatDecimalOil: function(sValue) {
+			if (sValue === "LOX") {
+				return 1;
+			}
+		},
+
+		formatStepOil: function(sValue) {
+			if (sValue === "LOX") {
+				return 0.1;
+			}
+		},
+		ImpulseCart: function(bTanks) {
+			if (bTanks) {
+				return false;
+			} else {
+				return true;
+			}
+		},
+		EnablePDSSignOff: function(bOutSignOffEnable, bFinalSignOffEnable) {
+			if (bOutSignOffEnable && bFinalSignOffEnable) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		ShowTire: function(sSrvtId) {
+			if (sSrvtId === "SRVT_BF" || sSrvtId === "SRVT_PR" || sSrvtId === "SRVT_WAI") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		PageTitle: function(sPageTitle) {
+			if (sPageTitle === "PTRT") {
+				return "PTR-Taxi";
+			} else if (sPageTitle === "HICT") {
+				return "HOT ICT";
+			} else if (sPageTitle === "PRO") {
+				return "PR/BPO";
+			} else if (!isNaN(sPageTitle)) {
+				return "";
+			} else {
+				return sPageTitle;
+			}
+		},
+		TradesmanStatusDisplay: function(sDone, sNA) {
+			if (sDone === null && sNA === null) {
+				return "";
+			} else if (sDone === "" && sNA === null) {
+				return "";
+			} else if (sDone === null && sNA === "") {
+				return "";
+			} else if (sDone === "X" && sNA === null) {
+				return "NA";
+			} else if (sNA === null && sDone === "Y") {
+				return "Done";
+			} else {
+				return "";
+			}
+		},
+		FormatRoleChangeSLNo: function(sSlNo) {
+				if (sSlNo !== "") {
+					return "S/N: " + sSlNo;
+				} else {
+					return sSlNo;
+				}
+			}
+			//////////////////////********************    PRIYA - ENDS   *****************************///////////////
+
+	};
+
+}, true);

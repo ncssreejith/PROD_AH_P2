@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="">
+		<content>
+			<RadioButtonGroup selectedIndex="{oAircraftUtilModel>/selIndex}">
+				<RadioButton  text="#1 Engine Change"/>
+				<RadioButton  text="#2 Engine Change"/>
+				<RadioButton  text="APU Change"/>
+				<RadioButton  text="Update ALQ144"/>
+			</RadioButtonGroup>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Transparent" press="onCancelAddEquipCancel"/>
+		</beginButton>
+		<endButton>
+			<Button text="Proceed" type="Emphasized" press="onProceedEquipRunLog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

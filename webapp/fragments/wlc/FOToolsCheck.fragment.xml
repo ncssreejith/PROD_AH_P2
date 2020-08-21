@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>foandtoolscheck}" showHeader="false" contentHeight="30%">
+		<content>
+			<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="greyBGColor">
+				<items>
+					<Title text="{i18n>foandtoolscheck}" class="sapUiSmallMargin sapUiTinyMarginBegin"/>
+					<Button type="Transparent" tooltip="Cancel" icon="sap-icon://decline"  press="fnOpenCloseConfirmationDialog($event,'CNL')"/>
+				</items>
+			</FlexBox>
+			<Toolbar height="0px"/>
+			<VBox class="sapUiSmallMargin">
+				<Text text="Post maintenance ‘FO’ and tools accountability check carried out."/>
+				<Label text="Toolbox serial number:" design="Bold" class="sapUiSmallMarginTop"/>
+				<HBox>
+					<VBox class="lightGreyVBox">
+						<Label text="S/N" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
+					</VBox>
+					<Input value="{oDialogModel>/TLSERNR}" liveChange="onSLNoLiveChange"/>
+				</HBox>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Transparent" press="fnOpenCloseConfirmationDialog($event,'CNL')"/>
+		</beginButton>
+		<endButton>
+			<Button text="Sign off" type="Emphasized" press="fnOpenCloseConfirmationDialog($event,'OK')" enabled="{oWeaponViewModel>/bSLNoLinkEnable}"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

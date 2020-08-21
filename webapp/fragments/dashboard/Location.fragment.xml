@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+		<Dialog contentHeight="20%" contentWidth="25%" busy="{viewModel>/busy}" busyIndicatorDelay="{viewModel>/delay}" horizontalScrolling="false"
+		draggable="false">
+		<customHeader>
+			<Bar >
+				<contentLeft></contentLeft>
+				<contentMiddle>
+					<Title text="Locations"/>
+				</contentMiddle>
+				<contentRight></contentRight>
+			</Bar>
+		</customHeader>
+		<content>
+			<Select class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="90%" selectedKey="{avmetModel>/dash/locid}" items="{dashboardModel>/location}">
+				<core:Item key="{dashboardModel>LOCID}" text="{dashboardModel>LOC}" />
+			</Select>
+		</content>
+		<beginButton>
+			<Button text="Cancel" press="onLocationDialogBtnClk($event,'CNL')"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>txtSignoff}" type="Emphasized" press="onLocationDialogBtnClk($event,'OK')"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

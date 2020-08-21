@@ -1,0 +1,70 @@
+{
+	"WDNSTable": [{
+		"Date": "26/06/2020",
+		"Item In": "F-52.90",
+		"Description": "Box 1",
+		"Weight (lbs)": 400.78,
+		"Arm (ins)": 250.27,
+		"Momentlbs": 25.61
+	}, {
+		"Date": "26/06/2020",
+		"Item In": "C-26.60",
+		"Description": "Box 2",
+		"Weight (lbs)": 5670.1,
+		"Arm (ins)": 4567.54,
+		"Momentlbs": 32.41
+	}],
+	"WDNSTable1": [{
+		"Date": "26/06/2020",
+		"Item In": "E-42.70",
+		"Description": "Box 1",
+		"Weight (lbs)": 400.78,
+		"Arm (ins)": 250.27,
+		"Momentlbs": 25.61
+	}, {
+		"Date": "26/06/2020",
+		"Item In": "B-86.60",
+		"Description": "Box 2",
+		"Weight (lbs)": 5670.1,
+		"Arm (ins)": 4567.54,
+		"Momentlbs": 32.41
+	}],
+	"WDNSTable2": [{
+		"Date": "26/06/2020",
+		"Item In": "F-52.90",
+		"Description": "Box 1",
+		"Weight (lbs)": 400.78,
+		"Arm (ins)": 250.27,
+		"Momentlbs": 25.61,
+		"vVisibleInput": false,
+		"vVisibleText": true
+	}, {
+		"Date": "26/06/2020",
+		"Item In": "C-26.60",
+		"Description": "Box 2",
+		"Weight (lbs)": 5670.1,
+		"Arm (ins)": 4567.54,
+		"Momentlbs": 32.41,
+		"vVisibleInput": false,
+		"vVisibleText": true
+	}],
+	"WDNSTable3": [{
+		"Date": "26/06/2020",
+		"Item In": "E-42.70",
+		"Description": "Box 1",
+		"Weight (lbs)": 400.78,
+		"Arm (ins)": 250.27,
+		"Momentlbs": 25.61,
+		"vVisibleInput": false,
+		"vVisibleText": true
+	}, {
+		"Date": "26/06/2020",
+		"Item In": "B-86.60",
+		"Description": "Box 2",
+		"Weight (lbs)": 5670.1,
+		"Arm (ins)": 4567.54,
+		"Momentlbs": 32.41,
+		"vVisibleInput": false,
+		"vVisibleText": true
+	}]
+}

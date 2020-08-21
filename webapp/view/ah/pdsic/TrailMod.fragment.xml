@@ -1,0 +1,88 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<VBox class="WhiteVBox sapUiTinyMargin" height="450px">
+		<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+			<items>
+				<Text class="PDSFragTitle" text="Trial Modifications"/>
+				<Button text="Reviewed" id="btnTrialModReview" type="Emphasized" press="onReviewedPress"/>
+			</items>
+		</FlexBox>
+		<VBox>
+			<Title class="sapUiMediumMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="No Trial Modification "
+				visible="{= (${path:'oPDSSummaryViewModel>/trial/length'} === 0)}"/>
+			<!--<VBox items="{path:'oPDSSummaryViewModel>/'}" backgroundDesign="Solid">-->
+				<items>
+					<HBox visible="{= (${path:'oPDSSummaryViewModel>/trial/length'} === 1)}" justifyContent="Center" alignItems="Center" class="sapUiLargeMarginTop" backgroundDesign="Transparent">
+						<items>
+							<VBox backgroundDesign="Solid" class="vbox1BgColor" height="30rem" width="25rem">
+								<Title class="sapUiMediumMarginTop whiteText sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>headingMod}"/>
+								<Text class="sapUiMediumMarginBegin whiteText" text="{path:'oPDSSummaryViewModel>/trial/0/jobdesc'}"/>
+								<VBox class="sapUiSmallMargin sapUiLargeMarginTop">
+									<l:Grid hSpacing="1" defaultSpan="XL10 L10 M10 S12">
+										<HBox justifyContent="SpaceBetween">
+											<Label width="7rem" class="whiteText" text="Job No." design="Bold"></Label>
+											<Text width="9rem" class="whiteText" text="{path:'oPDSSummaryViewModel>/trial/0/jobid'}"/>
+											<layoutData>
+												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+											</layoutData>
+										</HBox>
+										<HBox justifyContent="SpaceBetween">
+											<Label width="7rem" class="whiteText" wrapping="true" text="Purpose and Authority Ref" design="Bold"></Label>
+											<Text width="9rem" class="whiteText" wrapping="true" text="{path:'oPDSSummaryViewModel>/trial/0/purpose'}"/>
+											<!--{path:'oPDSSummaryViewModel>/jobdesc'}-->
+											<layoutData>
+												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+											</layoutData>
+										</HBox>
+									</l:Grid>
+								</VBox>
+							</VBox>
+							<VBox backgroundDesign="Solid" height="30rem" width="30rem">
+								<Title class="sapUiMediumMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>titlePage}"/>
+								<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+									<VBox class="sapUiMediumMargin">
+										<VBox justifyContent="Center" alignItems="Center" class=" vbox2BgColor">
+											<items>
+												<Label class="whiteText" text="Unit De Modification Call Out by ALD, HQ RSAF"/>
+												<Label class="whiteText" text="Period of Trial: {path:'oPDSSummaryViewModel>/trial/0/jduvl'} {path:'oPDSSummaryViewModel>/trial/0/jduid'}" design="Bold"/>
+											</items>
+										</VBox>
+										<VBox class="vbox3BgBorder sapUiSmallMarginTop">
+											<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+												<HBox justifyContent="SpaceBetween">
+													<Label text="Tradesman" design="Bold"></Label>
+													<Text
+														text="{path:'oPDSSummaryViewModel>/trial/0/SG1USR'}, {path:'oPDSSummaryViewModel>/trial/0/SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'oPDSSummaryViewModel>/trial/0/SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+													<!--{path:'oPDSSummaryViewModel>/sg1user'}-->
+													<layoutData>
+														<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+													</layoutData>
+												</HBox>
+												<HBox justifyContent="SpaceBetween">
+													<Label text="Approver" design="Bold"></Label>
+													<Text
+														text="{path:'oPDSSummaryViewModel>/trial/0/SG2USR'}, {path:'oPDSSummaryViewModel>/trial/0/SG2DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'oPDSSummaryViewModel>/trial/0/SG2UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+													<!--{path:'oPDSSummaryViewModel>/sg2user'}-->
+													<layoutData>
+														<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+													</layoutData>
+												</HBox>
+												<HBox justifyContent="SpaceBetween">
+													<Label text="Extension(s)" design="Bold"></Label>
+													<Text text="{path:'oPDSSummaryViewModel>/trial/0/extn'}"/>
+													<!--{path:'oPDSSummaryViewModel>/CAP managed ADD'}-->
+													<layoutData>
+														<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+													</layoutData>
+												</HBox>
+											</l:Grid>
+										</VBox>
+									</VBox>
+								</l:Grid>
+							</VBox>
+						</items>
+					</HBox>
+				</items>
+			<!--</VBox>-->
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

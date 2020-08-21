@@ -1,0 +1,38 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.PilotUpdates"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Post-Flight Records" showFooter="true" showNavButton="true" enableScrolling="true" navButtonPress="onNavBack">
+		<content>
+			<IconTabBar expanded="true" id="idIconTabBar" selectedKey="{oPilotUpdatesViewModel>/selTab}" select="handleIconTabBarSelect" >
+				<items>
+					<IconTabFilter icon="sap-icon://appear-offline" design="Horizontal" text="Flying records" key="FlyingRecords">
+						<core:Fragment fragmentName="avmet.ah.view.ah.postflight.flyingrecord.FlyingRecords" type="XML"/>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://arrow-right"/>
+					<IconTabFilter enabled="true" id="statustestTab" icon="sap-icon://appear-offline" design="Horizontal" text="Status and tests"
+						key="StatusTest">
+						<core:Fragment fragmentName="avmet.ah.view.ah.postflight.statustest.StatusTests" type="XML"/>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://arrow-right"/>
+					<IconTabFilter enabled="true" id="enginePowerCheckId" icon="sap-icon://appear-offline" design="Horizontal" text="Engine power check"
+						key="EnginePowerCheck">
+						<core:Fragment fragmentName="avmet.ah.view.ah.postflight.engine.EnginePowerCheck" type="XML"/>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://arrow-right"/>
+					<IconTabFilter enabled="true" id="manoeuvringId" icon="sap-icon://appear-offline" design="Horizontal" text="Manoeuvring flights records"
+						key="Manoeuvring">
+						<core:Fragment fragmentName="avmet.ah.view.ah.postflight.manoeuvring.Manoeuvring" type="XML"/>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<!--text="{= ${oPilotUpdatesViewModel>/arming/armde}==='A'?'Is dearming required ?':'Is arming required ?'}"-->
+				<Button text="Back" press="onBackPress"></Button>
+				<Button text="Next" press="onFlyingNext" visible="{= (${oPilotUpdatesViewModel>/armingReq}==='Y' || ${oPilotUpdatesViewModel>/selTab}==='Manoeuvring')?false:true}"></Button>
+				<Button text="Sign Off" type="Emphasized" press="onSignOffPress" visible="{= (${oPilotUpdatesViewModel>/armingReq}==='Y' || ${oPilotUpdatesViewModel>/selTab}==='Manoeuvring')? true:false}"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

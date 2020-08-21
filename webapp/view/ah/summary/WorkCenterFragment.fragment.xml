@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<l:Splitter>
+		<VBox>
+			<List id="notificationList" class="sapUiSmallMarginTop sapFDynamicPageAlignContent noBorderBtm" backgroundDesign="Transparent">
+				<headerToolbar>
+					<Toolbar>
+						<Title level="H3" text="{LocalModel>/WorkCenterTitle}" class="sapUiTinyMarginBegin"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://overflow" press="handlePressWorkCenterFragmentOpenMenu('WCA',$event)" type="Transparent"/>
+					</Toolbar>
+				</headerToolbar>
+				<items>
+					<StandardListItem type="Active" title="{i18n>liTaks}" counter="{LocalModel>/TaskCount}" press="onAEFMMenuPress('TS')" class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>liSpares}" counter="{LocalModel>/SparesCount}" press="onAEFMMenuPress('SP')" class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>liTMDE}" counter="{LocalModel>/TMDECount}" press="onAEFMMenuPress('TM')" class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>liFlyingRequirements}" counter="{= ${FRModel>/}.length}" press="onAEFMMenuPress('FR')"
+						class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>liSortieMonitoring}" counter="{= ${SRMModel>/}.length}" press="onAEFMMenuPress('SM')"
+						class="sapUiTinyMargin listBorder"/>
+				</items>
+			</List>
+			<layoutData>
+				<l:SplitterLayoutData size="15%" resizable="false"/>
+			</layoutData>
+		</VBox>
+		<VBox>
+			<HBox visible="{LocalModel>/TaksFlag}" class="sapUiResponsiveMargin">
+				<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.WorkCenterTasksFragment" type="XML"/>
+			</HBox>
+			<HBox visible="{LocalModel>/SparesFlag}" class="sapUiResponsiveMargin" alignContent="Center" alignItems="Center">
+				<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.WorkCenterSparesFragment" type="XML"/>
+			</HBox>
+			<HBox visible="{LocalModel>/TMDEFlag}" class="sapUiResponsiveMargin">
+				<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.WorkCenterTDMEUsageFragment" type="XML"/>
+			</HBox>
+			<HBox visible="{LocalModel>/FlyingRequirementsFlag}" class="sapUiResponsiveMargin">
+				<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.WorkCenterFlyingRequirementsFragment" type="XML"/>
+			</HBox>
+			<HBox visible="{LocalModel>/SortieMonitoringFlag}" class="sapUiResponsiveMargin">
+				<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.WorkCenterSortieMonitoringFragment" type="XML"/>
+			</HBox>
+			<layoutData>
+				<l:SplitterLayoutData size="auto"/>
+			</layoutData>
+		</VBox>
+	</l:Splitter>
+</core:FragmentDefinition>

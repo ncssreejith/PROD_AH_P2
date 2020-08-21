@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Trial Modifications" contentWidth="90%">
+		<VBox class="WhiteVBox sapUiTinyMargin" height="450px">
+			<Table class="CERTable sapUiSmallMargin" width="98%" items="{oPilotAccpModel>/aTrailMod}">
+				<headerToolbar>
+					<OverflowToolbar>
+						<content>
+							<ToolbarSpacer/>
+							<!--<SearchField width="30%"/>-->
+						</content>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="20%" class="CERTableTextColor">
+						<Label text="Date/Time" design="Bold"/>
+					</Column>
+					<Column demandPopin="true" minScreenWidth="Tablet">
+						<Label text="Job Desc" design="Bold"/>
+					</Column>
+					<Column demandPopin="true" minScreenWidth="Tablet">
+						<Label text="Prime" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Active">
+						<cells>
+							<Text text="{oPilotAccpModel>credtm} {oPilotAccpModel>creuzt}"/>
+							<Text text="{oPilotAccpModel>jobdesc}"/>
+							<Text text="{oPilotAccpModel>prime}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+		<buttons>
+			<Button text="Cancel" press="onPressTrailModClose" type="Reject"/>
+			<Button text="Reviewed" press="onReviewPilotAccp" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

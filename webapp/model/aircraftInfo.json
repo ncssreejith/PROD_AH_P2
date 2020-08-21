@@ -1,0 +1,32 @@
+{
+	"AircraftInformation": [{
+		"Name": "Airframe Hours",
+		"Value": "4500 hrs"
+	}, {
+		"Name": "EFT",
+		"Value": "123"
+	}, {
+		"Name": "JFS",
+		"Value": "123"
+	}, {
+		"Name": "Total Landings",
+		"Value": "123"
+	}, {
+		"Name": "ADD",
+		"Value": "2/8"
+	}, {
+		"Name": "Limitations",
+		"Value": "3/8"
+	}, {
+		"Name": "Last Synced",
+		"Value": "24/12/19, 18:45"
+	}],
+	"AircraftData": [{
+		"Name": "Outstanding Jobs"
+	}, {
+		"Name": "Approvals"
+	}, {
+		"Name": "Aircraft Capabilities"
+	}]
+
+}

@@ -1,0 +1,120 @@
+{
+	"FuelTotalOriginalAmt": 8800,
+	"FuelTotalServicedAmt": 0,
+	"FuelTotalAmt": 0,
+	"Fuel": [{
+		"position": "Internal Task",
+		"originalAmt": 7000,
+		"servicedAmt": "",
+		"totalAmt": ""
+	}, {
+		"position": "Centerline Tank",
+		"originalAmt": 1800,
+		"servicedAmt": "",
+		"totalAmt": ""
+	}],
+	"Tire": [{
+		"position": "Nose",
+		"servicedAmt": "",
+		"totalAmt": "",
+		"originalAmt": "330"
+	}, {
+		"position": "LH Main",
+		"servicedAmt": "",
+		"totalAmt": "",
+		"originalAmt": "320"
+	}, {
+		"position": "RH Main",
+		"servicedAmt": "",
+		"totalAmt": "",
+		"originalAmt": "320"
+	}],
+	"Oil": [{
+		"type": "Engine Oil(1/2 pints)",
+		"originalAmt": 44,
+		"servicedAmt": 0
+	}, {
+		"type": "H-70(%)",
+		"originalAmt": 100,
+		"servicedAmt": 0
+	}, {
+		"type": "LOX (liters)",
+		"originalAmt": 5,
+		"servicedAmt": 0
+	}],
+	"FuelTiles": [{
+		"Title": "Internal tank",
+		"ShowNote": "true",
+		"Count": "4500",
+		"Unit": "lbs",
+		"MaxCount": "-",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 85
+	}, {
+		"Title": "Centerline tank",
+		"ShowNote": "true",
+		"Count": "1500",
+		"Unit": "lbs",
+		"MaxCount": "-",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 90
+	}],
+	"TireTiles": [{
+		"Title": "Nose",
+		"ShowNote": "true",
+		"Count": "300",
+		"Unit": "PSI",
+		"MaxCount": "-",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}, {
+		"Title": "LH Main",
+		"ShowNote": "true",
+		"Count": "320",
+		"Unit": "PSI",
+		"MaxCount": "-",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}, {
+		"Title": "RH Main",
+		"ShowNote": "true",
+		"Count": "320",
+		"Unit": "PSI",
+		"MaxCount": "-",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}],
+	"OilMiscTiles": [{
+		"Title": "Engine Oil",
+		"ShowNote": "true",
+		"Count": "44",
+		"Unit": "1/2 pints",
+		"MaxCount": "44",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}, {
+		"Title": "H-70",
+		"ShowNote": "true",
+		"Count": "100%",
+		"Unit": "",
+		"MaxCount": "100",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}, {
+		"Title": "LOX",
+		"ShowNote": "true",
+		"Count": "5",
+		"Unit": "liters",
+		"MaxCount": "5",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}]
+}

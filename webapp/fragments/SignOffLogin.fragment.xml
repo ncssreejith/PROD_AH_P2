@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Dialog class="popoverHeaderCSS" type="Message" draggable="true">
+		<customHeader>
+			<Toolbar class="toolbarBackground">
+				<ToolbarSpacer/>
+				<Title class="sapUiMediumMarginBegin" text="{i18n>ttlSignOff}"/>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://decline" class="iconTxt"
+					press="closeSignOff"></Button>
+<!--					enabled="{= ${signOffModel>/soSel}==='NEW' || ${signOffModel>/soSel}==='PWD' || ${signOffModel>/soSel}==='FGR'}"-->
+			</Toolbar>
+		</customHeader>
+		<content>
+			<!--{parts:['avmetModel>/dash/astid','avmetModel>/dash/astat'],formatter:'avmet.ah.model.formatter.statusColor'}-->
+			<Label id="lblMsgId" wrapping="true" visible="{= ${signOffModel>/msgStatus}!=='NONE'}" text="{signOffModel>/msg}" width="100%" design="Bold"
+				textAlign="Center"/>
+			<VBox class="sapUiSmallMargin">
+				<VBox visible="{= ${signOffModel>/soSel}==='NEW'}">
+					<Label text="{i18n>txtUserId}" design="Bold"/>
+					<Input fieldGroupIds="fgUserId" value="{signOffModel>/id}"/>
+				</VBox>
+				<VBox visible="{= ${signOffModel>/uSel}==='NEW'}">
+					<Label text="{i18n>txtUserId}" design="Bold"/>
+					<Input id="ipUserID" valueStateText="{i18n>userIDVst}" value="{signOffModel>/id}"/>
+				</VBox>
+				<VBox alignItems="Center" visible="{= ${signOffModel>/uSel} !=='NEW'}" width="100%">
+					<Title text="Welcome"></Title>
+					<Button width="12rem" class="sapUiSizeCompact"
+						enabled="{= ${signOffModel>/uSel}==='NEW' || ${signOffModel>/uSel}==='PWD' || ${signOffModel>/uSel}==='FGR'}" iconFirst="false"
+						icon="sap-icon://navigation-down-arrow" text="{signOffModel>/id}" press="onUserIdClk"/>
+				</VBox>
+				<VBox class="sapUiSmallMarginTop" visible="{= ${signOffModel>/uSel}==='PWD' || ${signOffModel>/uSel}==='PWDPRS'}">
+					<Label text="{i18n>txtPasswordPin}" design="Bold"/>
+					<Input id="ipPassword" valueStateText="{i18n>passwordVst}" value="{signOffModel>/pwd}" enabled="{= ${signOffModel>/uSel}!=='PWDPRS'}"
+						type="Password"/>
+				</VBox>
+				<VBox alignContent="Center" alignItems="Center" visible="{= ${signOffModel>/uSel}==='FGR' || ${signOffModel>/uSel}==='FGRPRS'}">
+					<Label class="sapUiSmallMargin" text="{i18n>lblScanTitle}" design="Bold"/>
+					<Image class="sapUiTinyMargin" width="7rem" src="{signOffModel>/biometric}"/>
+				</VBox>
+			</VBox>
+		</content>
+		<buttons>
+			<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='NEW'}" type="Default" icon="sap-icon://key" text="{i18n>txtPasswordPin}"
+				press="onUserSelectNextBtnClk('PWD',$event)"/>
+		<!--	<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='NEW'}" type="Default" icon="sap-icon://touch" text="{i18n>txtFingerprint}"
+				press="onUserSelectNextBtnClk('FGR',$event)"/> -->
+			<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='PWD' || ${signOffModel>/uSel}==='PWDPRS'}"
+				enabled="{= ${signOffModel>/uSel}!=='PWDPRS'}" type="Default" text="{i18n>txtCancel}" press="onSubmitLoginClk('CNL',$event)"/>
+			<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='PWD' || ${signOffModel>/uSel}==='PWDPRS'}"
+				enabled="{= ${signOffModel>/uSel}!=='PWDPRS'}" type="Default" text="{i18n>txtSubmit}" press="onSubmitLoginClk('PWDPRS',$event)"/>
+		<!--	<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='FGR' || ${signOffModel>/uSel}==='FGRPRS'}"
+				enabled="{= ${signOffModel>/uSel}!=='FGRPRS'}" type="Default" text="{i18n>txtScan}" press="onSubmitLoginClk('FGRPRS',$event)"/> -->
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

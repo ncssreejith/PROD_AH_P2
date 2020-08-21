@@ -1,0 +1,50 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<!--	<Panel class="sapUiResponsivePadding">-->
+	<VBox backgroundDesign="Solid" class="sapUiResponsiveMargin vboxBackgrounds">
+		<l:Splitter height="90%" class="sapUiResponsiveMargin">
+			<VBox>
+				<VBox>
+					<Label text="{i18n>lbDate}" design="Bold"/>
+					<DatePicker id="DP1" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
+						value="{path: 'oViewCreateModel>/credt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+						placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+				</VBox>
+				<VBox>
+					<Label text="{i18n>lbTime}" design="Bold"/>
+					<TimePicker id="TP1" required="true" fieldGroupIds="fgTime" valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/cretm}" width="13rem" valueFormat="HH:mm" displayFormat="HH:mm"
+						change="handleChange" placeholder="New job creation time"/>
+				</VBox>
+				<layoutData>
+					<l:SplitterLayoutData size="25%"/>
+				</layoutData>
+			</VBox>
+			<VBox class="sapUiMediumMarginBegin">
+				<VBox>
+					<Label text="{i18n>lbWINateureofJobs}" design="Bold"/>
+					<SegmentedButton id="SB1" class="sapUiSmallMarginBottom" selectionChange="onSelectionNatureofJobChange" selectedKey="{oViewCreateModel>/jobty}">
+						<items>
+							<SegmentedButtonItem id="idND" text="{i18n>btnDefects}" key="NA" visible="false"/>
+							<SegmentedButtonItem id="idDefect" text="{i18n>btnDefects}" key="D"/>
+							<SegmentedButtonItem id="idScheduled" text="{i18n>btnScheduled}" key="S"/>
+							<SegmentedButtonItem id="idunScheduled" text="{i18n>btnunScheduled}" key="U"/>
+						</items>
+					</SegmentedButton>
+				</VBox>
+				<VBox id="defectId" visible="false">
+					<core:Fragment fragmentName="avmet.ah.view.ah.createjob.DefectFormFragment" type="XML"/>
+				</VBox>
+				<VBox id="scheduledId" visible="false">
+					<core:Fragment fragmentName="avmet.ah.view.ah.createjob.ScheduledFormFragment" type="XML"/>
+				</VBox>
+				<VBox id="unscheduledId" visible="false">
+					<core:Fragment fragmentName="avmet.ah.view.ah.createjob.UnScheduledFormFragment" type="XML"/>
+				</VBox>
+				<layoutData>
+					<l:SplitterLayoutData size="auto"/>
+				</layoutData>
+			</VBox>
+		</l:Splitter>
+	</VBox>
+	<!--	</Panel>-->
+</core:FragmentDefinition>

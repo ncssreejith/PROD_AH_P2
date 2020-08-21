@@ -1,0 +1,87 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f" xmlns:u="sap.ui.unified">
+	<VBox class="sapUiSmallMarginBottom">
+		<Label text="Defect Write Up" design="Bold"/>
+		<TextArea id="taCommentByAA" required="{=${oViewCreateModel>/jobty} === 'D' ? true : false}"
+			fieldGroupIds="{=${oViewCreateModel>/jobty} === 'D'? 'fgTxtArea' : ''}" width="27rem" valueStateText="{i18n>ERROR_GENERIC}"
+			value="{oViewCreateModel>/jobdesc}" maxLength="1000" growing="true" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"
+			rows="7"></TextArea>
+	</VBox>
+	<HBox class="sapUiSmallMarginBottom">
+		<VBox>
+			<Panel class="sapUiSmallMarginBottom">
+				<headerToolbar>
+					<OverflowToolbar height="3rem" style="Clear">
+						<Label text="{i18n>lbPhotoofDefect}" design="Bold"></Label>
+						<ToolbarSpacer/>
+						<Label text="{i18n>lbOptional}" class="sapUiSmallMarginBegin"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<!--<Toolbar class="toolbarBorder">
+					<Label text="{i18n>lbPhotoofDefect}" design="Bold"/>
+					<Label text="{i18n>lbOptional}" class="sapUiSmallMarginBegin"/>
+					<ToolbarSpacer/>
+					<u:FileUploader iconOnly="true" multiple="true" buttonOnly="true" icon="sap-icon://add-photo" uploadOnChange="false" sendXHR="true"
+						useMultipart="false" fileType="JPG,JPEG,jpeg,jpg,PNG,png" sameFilenameAllowed="true" typeMissmatch="onTypeMissmatch"
+						change="onAddDefectImage" tooltip="Add Photo(s)"/>
+				</Toolbar>-->
+				<UploadCollection id="photoUpload" maximumFilenameLength="55" maximumFileSize="10" multiple="true" sameFilenameAllowed="true"
+					instantUpload="false" noDataDescription="Use the 'Add' button for adding photo" change="onAddDefectImage" fileDeleted="onFileDeleted"
+					filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+					uploadComplete="onUploadComplete" uploadButtonInvisible="false" beforeUploadStarts="onBeforeUploadStarts"
+					items="{ path: 'appModel>/DefectImageSrc'}">
+					<items>
+						<UploadCollectionItem documentId="{appModel>DOCID}" fileName="{appModel>fname}" url="{appModel>dvalue}" press="onUploadedImagePress"
+							deletePress="onDeleteImagePress" visibleDelete="true" visibleEdit="false"></UploadCollectionItem>
+					</items>
+				</UploadCollection>
+				<FlexBox alignItems="Center" justifyContent="Center">
+					<items>
+						<Image press="onPressSeeImagen" class="imageBorder" id="iImageTicket" densityAware="false" width="300px" height="230px"/>
+					</items>
+				</FlexBox>
+			</Panel>
+			<HBox class="sapUiSmallMarginBottom">
+				<VBox>
+					<Label text="{i18n>lbFoundDuring}" design="Bold"/>
+					<ComboBox placeholder="{i18n>phSelect}" required="{=${oViewCreateModel>/jobty} === 'D' ? true : false}"
+						fieldGroupIds="{=${oViewCreateModel>/jobty} === 'D'? 'fgCmbBox' : ''}" items="{FoundDuringSet>/}" change="onFoundDuringChange('DEF',$event)"
+						selectedKey="{oViewCreateModel>/fndid}">
+						<core:Item key="{FoundDuringSet>ddid}" text="{FoundDuringSet>description}"/>
+					</ComboBox>
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin">
+					<HBox>
+						<Label text="{i18n>lbWorkCenter}" design="Bold"/>
+						<Label text="{i18n>lbOptional}" class="sapUiLargeMarginBegin"/>
+					</HBox>
+					<ComboBox placeholder="{i18n>phSelect}" change="onWorkCenterChange('DEF',$event)" selectedKey="{oViewCreateModel>/prime}"
+						items="{WorkCenterSet>/}">
+						<core:Item key="{WorkCenterSet>wrctr}" text="{WorkCenterSet>name}"/>
+					</ComboBox>
+				</VBox>
+			</HBox>
+		</VBox>
+		<VBox class="sapUiSmallMarginBegin sapUiMediumMarginBottom">
+			<Toolbar class="toolbarBorder sapUiTinyMarginTop">
+				<Label text="{i18n>lbTaponDefectArea}" design="Bold"/>
+				<ToolbarSpacer/>
+				<Label text="{i18n>lbOptional}"/>
+				<Button icon="sap-icon://refresh" press="onRefersh"/>
+			</Toolbar>
+			<core:HTML id="topId" visible="true"
+				content='&lt;canvas id=&quot;myCanvasTopDefect&quot; click="getPointPosition($event)" width=&quot;380&quot; height=&quot;170&quot; style=&quot;border:1px solid #000000&quot;&gt;&lt;/canvas&gt;'></core:HTML>
+			<SegmentedButton id="sbDfArea" class="sapUiSmallMarginBottom" selectedKey="{oViewCreateModel>/deaid}"
+				selectionChange="onSelectionDefectAreaChange">
+				<items>
+					<SegmentedButtonItem text="Top" key="ND" width="4rem" visible="false"/>
+					<SegmentedButtonItem text="Top" key="DEA_T" width="4rem"/>
+					<SegmentedButtonItem text="Front" key="DEA_F" width="5rem"/>
+					<SegmentedButtonItem text="Left" key="DEA_l" width="4rem"/>
+					<SegmentedButtonItem text="Right" key="DEA_R" width="4rem"/>
+				</items>
+			</SegmentedButton>
+			<!--</Panel>-->
+		</VBox>
+	</HBox>
+</core:FragmentDefinition>

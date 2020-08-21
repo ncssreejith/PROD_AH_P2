@@ -1,0 +1,40 @@
+{
+	"NonStations": [{
+		"Munition": "Chaff",
+		"QtyRemained": "",
+		"TotalQty": 200,
+		"Expended": ""
+	}, {
+		"Munition": "Flare",
+		"QtyRemained": "",
+		"TotalQty": 60,
+		"Expended": ""
+	}, {
+		"Munition": "Gun",
+		"QtyRemained": "",
+		"TotalQty": "200 (Counter set: 125)",
+		"Expended": ""
+	}],
+	"Stations": [{
+		"Positions": "Station 1",
+		"Munitions": "AIM 9M CAP",
+		"SNo": "45AS67",
+		"QtyRemained": "",
+		"TotalQty": "6",
+		"Expended": ""
+	}, {
+		"Positions": "Station 5",
+		"Munitions": "370 Gal Tank",
+		"SNo": "FE145",
+		"QtyRemained": "",
+		"TotalQty": "10",
+		"Expended": ""
+	}, {
+		"Positions": "Station 6",
+		"Munitions": "GBU 10",
+		"SNo": "",
+		"QtyRemained": "",
+		"TotalQty": "6",
+		"Expended": ""
+	}]
+}

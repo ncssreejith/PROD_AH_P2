@@ -1,0 +1,42 @@
+<mvc:View controllerName="avmet.ah.controller.AvMetFrame" xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc">
+	<tnt:ToolPage id="tpAvmet" sideExpanded="false">
+		<tnt:header>
+			<tnt:ToolHeader>
+				<Button id="btnSideNavToggle" icon="sap-icon://menu2" type="Transparent" press="onSideNavButtonPress">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+				<Title text="AH {avmetModel>/airSel/modidtx} {avmetModel>/airSel/tailno}" class="frameTitle sapUiTinyMarginTop"></Title>
+				<ToolbarSeparator/>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<ToolbarSeparator/>
+				<!-- Sample for showing Notification -->
+				<!--class="infobtn"-->
+				<Button icon="sap-icon://flight" text="{parts:['avmetModel>/dash/astid','avmetModel>/dash/astat'],formatter:'avmet.ah.model.formatter.statusColor'}"  type="Transparent" press="onAircraftInfoPress"/>
+				<HBox>
+					<Avatar src="sap-icon://employee" displaySize="XS" class="avatarSM"/>
+					<MenuButton text="{avmetModel>/dash/sqnidtxt}" activeIcon="sap-icon://attachment" buttonMode="Regular" type="Transparent" defaultAction="onActionEvt"
+						useDefaultActionOnly="true">
+						<menu>
+							<Menu >
+								<items>
+									
+								</items>
+							</Menu>
+						</menu>
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</MenuButton>
+				</HBox>
+				<Button icon="sap-icon://log" type='Reject' class="logoff"  press="onLogoffPress"/>
+			</tnt:ToolHeader>
+		</tnt:header>
+		<tnt:mainContents>
+			<NavContainer id="nvMainContainerId" width="100%" height="100%" busy="{viewModel>/busy}" busyIndicatorDelay="{viewModel>/delay}"></NavContainer>
+		</tnt:mainContents>
+	</tnt:ToolPage>
+</mvc:View>

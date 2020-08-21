@@ -1,0 +1,126 @@
+{
+	"QuickInfo": [{
+		"Name": "BF Validity",
+		"Value": "22 hrs",
+		"Icon": ""
+	}, {
+		"Name": "Last Flight Servicing",
+		"Value": "BF",
+		"Icon": ""
+	}, {
+		"Name": "Location",
+		"Value": "PDS 2",
+		"Icon": "sap-icon://edit"
+	}],
+
+	"AircraftUtil": [{
+		"Name": "Airframe Hours",
+		"Value": "4500 hrs",
+		"Icon": ""
+	}, {
+		"Name": "EFT",
+		"Value": "123",
+		"Icon": ""
+	},{
+		"Name": "JFS",
+		"Value": "123",
+		"Icon": ""
+	},  {
+		"Name": "Total Landings",
+		"Value": "123",
+		"Icon": ""
+	}],
+
+	"list1": {
+		"sap.app": {
+			"type": "card"
+		},
+		"sap.card": {
+			"type": "List",
+			"header": {
+				"title": "Info Circle",
+				"Icon": "sap - icon: //outgoing-call",
+				"status": {
+					"text": "Quick Information"
+				}
+			},
+			"content": {
+				"data": {
+					"json": [{
+						"name": "BF Validity",
+						"info": "22 hrs",
+						"infoState": "None"
+					}, {
+						"name": "AF Validity",
+						"info": "10 hrs",
+						"infoState": "None"
+					}, {
+						"name": "Last Flight Servicing",
+						"info": "BF",
+						"infoState": "None"
+					}, {
+						"name": "Location",
+						"info": "PDS 2",
+						"infoState": "None"
+					}]
+				},
+				"item": {
+
+					"title": {
+						"value": "{name}"
+					},
+
+					"info": {
+						"value": "{info}",
+						"state": "{infoState}"
+					}
+				}
+			}
+		}
+	},
+
+	"list2": {
+		"sap.app": {
+			"type": "card"
+		},
+		"sap.card": {
+			"type": "List",
+			"header": {
+				"title": "technometer-fast",
+				"Icon": "sap-icon://outgoing-call",
+				"status": {
+					"text": "Aircraft Utilisation"
+				}
+			},
+			"content": {
+				"data": {
+					"json": [{
+						"name": "Airframe Hours",
+						"info": "4500 hrs",
+						"infoState": "None"
+					}, {
+						"name": "EFT",
+						"info": "123",
+						"infoState": "None"
+					}, {
+						"name": "APU",
+						"info": "123",
+						"infoState": "None"
+					}]
+				},
+				"item": {
+
+					"title": {
+						"value": "{name}"
+					},
+
+					"info": {
+						"value": "{info}",
+						"state": "{infoState}"
+					}
+				}
+			}
+		}
+	}
+
+}

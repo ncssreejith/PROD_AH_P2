@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog showHeader="false" horizontalScrolling="false" draggable="true">
+		<content>
+			<VBox id="addWCId" visible="true">
+				<Toolbar class="toolbarBackground">
+					<Title text="Approvals" class="sapUiSmallMarginBegin" level="H2"></Title>
+					<ToolbarSpacer/>
+					<Button icon="sap-icon://decline" type="transparant" press="onCloseDialogAppDialog('C')"/>
+				</Toolbar>
+				<VBox class="sapUiLargeMarginBeginEnd sapUiSmallMarginTopBottom">
+					<Label text="{ViewModel>/successText}" wrapping="true" design="Bold" class="sapUiTinyMarginBegin"></Label>
+					<HBox>
+						<Label text="{ViewModel>/description}" wrapping="true" design="Bold" class="sapUiTinyMarginTop sapUiTinyMarginBegin"></Label>
+					</HBox>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button text="Back to Approvals" press="onCloseDialogAppDialog('B')" class="DetailButtonBorder" width="250px" type="Emphasized"/>
+						<ToolbarSpacer/>
+					</Toolbar>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Link text="View Aircraft Capabilities" press="handleLinkPress" visible="{= ${ViewModel>/flag}==='A' || ${ViewModel>/flag}==='B' || ${ViewModel>/flag}==='L' ? true:false}"/>
+						<Link text="back to Dashbord" press="handleDashBordress" visible="{= ${ViewModel>/flag}==='W' ? true:false}"/>
+						<ToolbarSpacer/>
+					</Toolbar>
+				</VBox>
+			</VBox>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

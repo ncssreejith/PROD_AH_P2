@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<l:Splitter>
+		<VBox>
+			<List class="sapUiSmallMarginTop sapFDynamicPageAlignContent noBorderBtm" backgroundDesign="Transparent">
+				<items>
+					<StandardListItem type="Active" title="{i18n>lbAll}" counter="{=${SchJobModelAll>/}.length}" press="onScheduledJobTypePress('ALL')"
+						class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>lbAircraft}" counter="{=${JobModelAIR>/}.length}" press="onScheduledJobTypePress('AIR')"
+						class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>lbComponent}" counter="{=${JobModelCOM>/}.length}" press="onScheduledJobTypePress('COM')"
+						class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>lbEngine}" counter="{=${JobModelENG>/}.length}" press="onScheduledJobTypePress('ENG')"
+						class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>lbLTOSISTIMod}" counter="{=${JobModelMODSTI>/}.length}" press="onScheduledJobTypePress('MODSI')"
+						class="sapUiTinyMargin listBorder"/>
+				</items>
+			</List>
+			<layoutData>
+				<l:SplitterLayoutData size="190px" resizable="false"/>
+			</layoutData>
+		</VBox>
+		<VBox>
+			<HBox visible="{LocalJobsModel>/SchAllTableFlag}">
+				<core:Fragment fragmentName="avmet.ah.view.ah.jobs.scheduledjobs.JobsScheduledAllFragment" type="XML"/>
+			</HBox>
+			<HBox visible="{LocalJobsModel>/SchAirTableFlag}">
+				<core:Fragment fragmentName="avmet.ah.view.ah.jobs.scheduledjobs.JobsScheduledAircraftFragment" type="XML"/>
+			</HBox>
+			<HBox visible="{LocalJobsModel>/SchCompTableFlag}">
+				<core:Fragment fragmentName="avmet.ah.view.ah.jobs.scheduledjobs.JobsScheduledComponentFragment" type="XML"/>
+			</HBox>
+			<HBox visible="{LocalJobsModel>/SchEngTableFlag}">
+				<core:Fragment fragmentName="avmet.ah.view.ah.jobs.scheduledjobs.JobsScheduledEngFragment" type="XML"/>
+			</HBox>
+			<HBox visible="{LocalJobsModel>/SchMODSTITableFlag}">
+				<core:Fragment fragmentName="avmet.ah.view.ah.jobs.scheduledjobs.JobsScheduledMODSTIFragment" type="XML"/>
+			</HBox>
+			<layoutData>
+				<l:SplitterLayoutData size="auto"/>
+			</layoutData>
+		</VBox>
+	</l:Splitter>
+</core:FragmentDefinition>

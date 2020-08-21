@@ -1,0 +1,47 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog showHeader="false" horizontalScrolling="false" draggable="true">
+		<content>
+			<VBox id="addWCId" visible="true">
+				<Toolbar class="toolbarBackground">
+					<Title text="{i18n>tiAddWorkCenter}" class="sapUiSmallMarginBegin" level="H2"></Title>
+					<ToolbarSpacer/>
+				</Toolbar>
+				<VBox class="sapUiLargeMarginBeginEnd sapUiSmallMarginTopBottom">
+					<Label text="{i18n>lbSelectWOrCenter}" wrapping="true" design="Bold" class="sapUiTinyMarginBegin"></Label>
+					<ComboBox id="ComboWCId" width="15rem" placeholder="{i18n>phSelect}" items="{WorkCenterSet>/}" class="sapUiTinyMargin">
+						<core:Item key="{WorkCenterSet>wrctr}" text="{WorkCenterSet>name}"/>
+					</ComboBox>
+					<Label text="{i18n>lbSetAsPrime}" wrapping="true" design="Bold" class="sapUiTinyMarginTop sapUiTinyMarginBegin"></Label>
+					<Switch id="switchId" state="false" customTextOn=" " customTextOff=" " class="sapUiTinyMarginBegin">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+					</Switch>
+				</VBox>
+				<Toolbar class="sapUiSmallMarginBottom toolbarBorder">
+					<ToolbarSpacer/>
+					<Button width="6rem" text="{i18n>btnCancel}" press="onCloseAddWorkCenterDialog" type="Default" class="btnClass"></Button>
+					<Button width="6rem" text="{i18n>btnConfirm}" class="btnColor" press="onAddWorkcenterSubmitPress('ADD')"></Button>
+					<ToolbarSpacer/>
+				</Toolbar>
+			</VBox>
+			<VBox id="confirmWCId" visible="false">
+				<VBox class="sapUiLargeMarginBeginEnd sapUiSmallMarginTopBottom">
+					<HBox>
+						<Label text="{i18n>msgWCSelect}" wrapping="true" design="Bold"/>
+						<Label id="workCenterId" wrapping="true" design="Bold"/>
+						<Label text="{i18n>msgWCSelect2}" wrapping="true" design="Bold"/>
+						<ObjectStatus text="{i18n>msgWCSelect3}" state="Indication05" class="sapUiTinyMarginBegin objectStatusFontSize"/>
+					</HBox>
+					<Text text="{i18n>msgConfirm}" class="sapUiMediumMarginBegin"/>
+				</VBox>
+				<Toolbar class="sapUiSmallMarginBottom toolbarBorder">
+					<ToolbarSpacer/>
+					<Button width="6rem" text="{i18n>btnCancel}" press="onCloseConfirmDialog" type="Default" class="btnClass"></Button>
+					<Button width="6rem" text="{i18n>btnConfirm}" class="btnColor" press="onAddWorkcenterSubmitPress('CON')"></Button>
+					<ToolbarSpacer/>
+				</Toolbar>
+			</VBox>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

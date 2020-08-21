@@ -1,0 +1,1999 @@
+/*
+-------------------------------------------------------------------------------------
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>      CUSTOM CONTROL STYLES  >>>>>>>>>>>>>>>>>>>>>>>>>>>
+ This file contins the custom styles used for the custom controls in this folder 
+ Status of this file documentation: Progress
+ Developer Responsable : Rahul,Sachin
+--------------------------------------------------------------------------------------
+# 1: Chart 
+Description : This Control used for managing the chartjs related controls
+# 2: Color Status 
+Description : Used for highlighting the list items in Limitation function
+# 3: DashboardTile 3
+Description : This control used in Dashboard for showing KPI's (Schedules,Fuel Tiles)
+# 4: DashboardTile 4
+Description : This control used in Dashboard for showing KPI's (Aircraft Capabilities)
+# 5: DashboardTile 5
+Description : This control used in Dashboard for showing KPI's (Aircraft Role)
+# 6: DBStatusTile
+Description : This control used in Dashboard for showing KPI's (Status)
+# 7: RectificationTile
+Description : This control used in Defect Summary View -> Rectifications by Work Center
+# 8: RectificationTileAdd
+Description : This control used to add new work center in Rectifications area in Defect Summary
+
+----------------------------------------------------------------------------------------
+*/
+
+
+/*---------------------------------------------------------------------------------------
+ #1 : Chart 
+ Used views : 
+-----------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------
+ #2 : Color Status  
+ Used views : ADDCompleateLimitationForm(fragment)
+			  ADDDefectForm(fragment)
+			  ADDLimitationForm(fragment)
+-----------------------------------------------------------------------------------------*/
+
+.ColorStatusContent {
+    width: 60px;
+    height: 80px;
+    float: left;
+    position: relative;
+}
+
+.ColorStatusContent span {
+    position: absolute;
+    top: 9px;
+    width: 100px;
+    right: -8px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    transform: none;
+    display: block;
+    color: white;
+}
+
+.ColorStatusBlue {
+    border-top: 34px solid blue;
+    border-left: 27px solid blue;
+    border-right: 35px solid transparent;
+    border-bottom: 25px solid transparent;
+}
+
+.ColorStatusOrange {
+    border-top: 34px solid #FFA500;
+    border-left: 27px solid #FFA500;
+    border-right: 35px solid transparent;
+    border-bottom: 25px solid transparent;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #3 : DashboardTile 3
+ Used views : COSDashboard (View)
+-----------------------------------------------------------------------------------------*/
+
+.DBTile3OutDiv {
+    width: 450px !important;
+    height: 200px !important;
+    background: white;
+    float: right;
+    border-radius: 5px;
+    border: 0px;
+}
+
+.DBTile3Top {
+    width: 450px !important;
+    height: 45px !important;
+}
+
+.DBTile3TopTitleDiv {
+    width: 300px !important;
+    height: 45px !important;
+    float: left;
+}
+
+.DBTile3TopButtonDiv {
+    width: 150px !important;
+    height: 45px !important;
+    float: right;
+}
+
+.DBTile3TopTitle {
+    padding-left: 15px;
+    padding-top: 20px;
+    font-size: 18px;
+}
+
+.DBTile3TopButton {
+    padding-right: 15px;
+    padding-top: 20px;
+    float: right;
+}
+
+.DBTile3Left {
+    width: 170px !important;
+    height: 155px !important;
+    background: white;
+    float: left;
+}
+
+.DBTile3LeftTitleDiv {
+    width: 150px !important;
+    height: 125px !important;
+    background: white;
+    float: left;
+    margin: 15px 10px 15px 10px;
+    border-right: 0px;
+}
+
+.DBTile3LeftInfo {
+    width: 150px !important;
+    height: 125px !important;
+    float: left;
+    padding-top: 20px;
+}
+
+.DBTile3LeftInfoNum {
+    width: 150px !important;
+    float: left;
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Roboto-Regular', 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.DBTile3LeftInfoHeading {
+    width: 150px !important;
+    float: left;
+    text-align: center;
+    padding-top: 5px;
+    font-family: 'Roboto-Regular', 'Roboto', sans-serif;
+    font-style: normal;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.DBTile3LeftInfoSubHeading {
+    width: 150px !important;
+    float: left;
+    text-align: center;
+    font-size: 12px;
+    font-family: 'Roboto-Regular', 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.DBTile3Right {
+    width: 280px !important;
+    height: 155px !important;
+    float: right;
+}
+
+.DBTile3RightChartDiv {
+    width: 270px !important;
+    height: 100px !important;
+    margin: 5px 5px 5px 5px;
+    float: left;
+    display: flex;
+    justify-content: center;
+}
+
+.DBTile3RightChart {
+    width: 270px !important;
+    height: 100px !important;
+    text-align: center;
+    padding-left: 80px;
+}
+
+.DBTile3RightSegBtnDiv {
+    width: 270px !important;
+    height: 45px !important;
+    padding: 0px 5px 0px 5px;
+    float: left;
+}
+
+.DBTile3RightSegBtn {
+    width: 270px !important;
+    height: 45px !important;
+    padding-left: 45px;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #4 : DashboardTile 4
+ Used views : COSDashboard (View)
+-----------------------------------------------------------------------------------------*/
+
+.DBTile4OutDiv {
+    width: 360px !important;
+    height: 200px !important;
+    background: white;
+    float: right;
+    border-radius: 5px;
+    border: 0px;
+}
+
+.DBTile4Left {
+    width: 140px !important;
+    height: 155px !important;
+    float: left;
+}
+
+.DBTile4DueSoonLegendDiv {
+    width: 140px !important;
+    height: 20px !important;
+    background: white;
+    float: left;
+}
+
+.DBTile4ExpiredLegendDiv {
+    width: 140px !important;
+    height: 20px !important;
+    background: white;
+    float: left;
+}
+
+.DBTile4DueSoonLegend {
+    width: 10px !important;
+    height: 10px !important;
+    background: orange;
+    float: left;
+    margin-left: 16px;
+    margin-top: 10px;
+}
+
+.DBTile4DueSoonTxt {
+    float: left;
+    padding-left: 5px;
+    font-size: 13px;
+    padding-top: 8px;
+}
+
+.DBTile4ExpiredLegend {
+    width: 10px !important;
+    height: 10px !important;
+    background: red;
+    float: left;
+    margin-left: 16px;
+    margin-top: 5px;
+}
+
+.DBTile4ExpiredTxt {
+    float: left;
+    padding-left: 5px;
+    font-size: 13px;
+    padding-top: 3px;
+}
+
+.DBTile4Right {
+    width: 220px !important;
+    height: 155px !important;
+    float: right;
+}
+
+.DBTile4RightChartDiv {
+    width: 210px !important;
+    height: 100px !important;
+    margin: 5px 5px 5px 5px;
+    float: left;
+    display: flex;
+    justify-content: center;
+}
+
+.DBTile4RightChart {
+    width: 210px !important;
+    height: 100px !important;
+    text-align: center;
+    padding-left: 80px;
+}
+
+.DBTile4RightSegBtnDiv {
+    width: 210px !important;
+    height: 45px !important;
+    padding: 0px 5px 0px 5px;
+    float: left;
+}
+
+.DBTile4RightSegBtn {
+    width: 210px !important;
+    height: 45px !important;
+    padding-left: 18px;
+}
+
+.DBTile4Top {
+    width: 360px !important;
+    height: 45px !important;
+}
+
+.DBTile4TopTitleDiv {
+    width: 240px !important;
+    height: 45px !important;
+    float: left;
+}
+
+.DBTile4TopButtonDiv {
+    width: 120px !important;
+    height: 45px !important;
+    float: right;
+}
+
+.DBTile4TopTitle {
+    padding-left: 15px;
+    padding-top: 20px;
+    font-size: 18px;
+}
+
+.DBTile4TopButton {
+    padding-right: 15px;
+    padding-top: 20px;
+    float: right;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #5 : DashboardTile 5
+ Used views : COSDashboard (View)
+-----------------------------------------------------------------------------------------*/
+
+.DBTile5OutDiv {
+    width: 360px !important;
+    height: 200px !important;
+    background: white;
+    float: right;
+    border-radius: 5px;
+    border: 0px;
+}
+
+.DBTile5Bottom {
+    width: 360px !important;
+    height: 45px !important;
+    float: left;
+}
+
+.DBTile5TotalCountDiv {
+    width: 85px !important;
+    height: 35px !important;
+    float: right;
+    padding-top: 10px;
+}
+
+.DBTile5TotalCount {
+    font-size: 14px;
+}
+
+.DBTile5Left {
+    width: 110px !important;
+    height: 100px !important;
+    padding-top: 10px;
+    float: left;
+}
+
+.DBTile5LeftTxt1 {
+    width: 105px !important;
+    height: 36.6px !important;
+    float: right;
+    font-size: 12px;
+    text-align: end;
+    padding-right: 5px;
+}
+
+.DBTile5LeftTxt2 {
+    width: 105px !important;
+    height: 36.6px !important;
+    float: right;
+    font-size: 12px;
+    text-align: end;
+    padding-right: 5px;
+}
+
+.DBTile5LeftTxt3 {
+    width: 105px !important;
+    height: 26.6px !important;
+    float: right;
+    font-size: 12px;
+    text-align: end;
+    padding-right: 5px;
+    padding-top: 10px
+}
+
+.DBTile5Center {
+    width: 200px !important;
+    height: 100px !important;
+    float: left;
+}
+
+.DBTile5CenterBar1 {
+    width: 200px !important;
+    height: 36.6px !important;
+    float: left;
+    padding-top: 10px;
+}
+
+.DBTile5CenterBar2 {
+    width: 200px !important;
+    height: 36.6px !important;
+    float: left;
+}
+
+.DBTile5CenterBar3 {
+    width: 200px !important;
+    height: 36.6px !important;
+    float: left;
+}
+
+.DBTile5Right {
+    width: 50px !important;
+    height: 100px !important;
+    float: right;
+    padding-top: 10px;
+}
+
+.DBTile5RightTxt1 {
+    width: 45px !important;
+    height: 25.6px !important;
+    font-size: 12px;
+    text-align: start;
+    padding-left: 5px;
+    float: left;
+    padding-top: 11px;
+}
+
+.DBTile5RightTxt2 {
+    width: 45px !important;
+    height: 25.6px !important;
+    font-size: 12px;
+    text-align: start;
+    padding-left: 5px;
+    float: left;
+    padding-top: 11px;
+}
+
+.DBTile5RightTxt3 {
+    width: 45px !important;
+    height: 26.6px !important;
+    font-size: 12px;
+    text-align: start;
+    padding-left: 5px;
+    float: left;
+    padding-top: 10px;
+}
+
+.DBTile5Top {
+    width: 360px !important;
+    height: 45px !important;
+}
+
+.DBTile5TopTitleDiv {
+    width: 240px !important;
+    height: 45px !important;
+    float: left;
+}
+
+.DBTile5TopButtonDiv {
+    width: 120px !important;
+    height: 45px !important;
+    float: right;
+}
+
+.DBTile5TopTitle {
+    padding-left: 15px;
+    padding-top: 20px;
+    font-size: 18px;
+}
+
+.DBTile5TopButton {
+    padding-right: 15px;
+    padding-top: 20px;
+    float: right;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #6 : DashboardTile 6
+ Used views : COSDashboard (View)
+-----------------------------------------------------------------------------------------*/
+
+.DBTile6OutDiv {
+    width: 360px !important;
+    height: 200px !important;
+    background: white;
+    float: right;
+    border-radius: 5px;
+    border: 0px;
+}
+
+.DBTile6Bottom {
+    width: 360px !important;
+    height: 45px !important;
+    float: left;
+}
+
+.DBTile6TotalCountDiv {
+    width: 85px !important;
+    height: 35px !important;
+    float: right;
+    padding-top: 10px;
+}
+
+.DBTile6TotalCount {
+    font-size: 14px;
+}
+
+.DBTile6Left {
+    width: 110px !important;
+    height: 100px !important;
+    padding-top: 10px;
+    float: left;
+}
+
+.DBTile6LeftTxt1 {
+    width: 105px !important;
+    height: 24px !important;
+    float: right;
+    font-size: 12px;
+    text-align: end;
+    padding-right: 5px;
+    padding-top: 5px;
+}
+
+.DBTile6LeftTxt2 {
+    width: 105px !important;
+    height: 25px !important;
+    float: right;
+    font-size: 12px;
+    text-align: end;
+    padding-right: 5px;
+}
+
+.DBTile6LeftTxt3 {
+    width: 105px !important;
+    height: 25px !important;
+    float: right;
+    font-size: 12px;
+    text-align: end;
+    padding-right: 5px;
+    padding-top: 10px
+}
+
+.DBTile6Center {
+    width: 200px !important;
+    height: 100px !important;
+    float: left;
+}
+
+.DBTile6CenterBar1 {
+    width: 200px !important;
+    height: 24px !important;
+    float: left;
+    padding-top: 5px;
+}
+
+.DBTile6CenterBar2 {
+    width: 200px !important;
+    height: 20px !important;
+    float: left;
+}
+
+.DBTile6CenterBar3 {
+    width: 200px !important;
+    height: 20px !important;
+    float: left;
+}
+
+.DBTile6Right {
+    width: 50px !important;
+    height: 100px !important;
+    float: right;
+    padding-top: 10px;
+}
+
+.DBTile6RightTxt1 {
+    width: 30px !important;
+    height: 24px !important;
+    font-size: 12px;
+    text-align: start;
+    padding-left: 5px;
+    float: left;
+    padding-top: 5px;
+}
+
+.DBTile6RightTxt2 {
+    width: 45px !important;
+    height: 25.6px !important;
+    font-size: 12px;
+    text-align: start;
+    padding-left: 5px;
+    float: left;
+    padding-top: 11px;
+}
+
+.DBTile6RightTxt3 {
+    width: 45px !important;
+    height: 26.6px !important;
+    font-size: 12px;
+    text-align: start;
+    padding-left: 5px;
+    float: left;
+    padding-top: 10px;
+}
+
+.DBTile6Top {
+    width: 360px !important;
+    height: 45px !important;
+}
+
+.DBTile6TopTitleDiv {
+    width: 240px !important;
+    height: 45px !important;
+    float: left;
+}
+
+.DBTile6TopButtonDiv {
+    width: 120px !important;
+    height: 45px !important;
+    float: right;
+}
+
+.DBTile6TopTitle {
+    padding-left: 15px;
+    padding-top: 20px;
+    font-size: 18px;
+}
+
+.DBTile6TopButton {
+    padding-right: 15px;
+    padding-top: 20px;
+    float: right;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #6 : DBStatusTile
+ Used views : COSDashboard (View)
+-----------------------------------------------------------------------------------------*/
+
+.statusTileOutDiv {
+    width: 36rem !important;
+    height: 7rem !important;
+    background: white;
+    float: right;
+    border-radius: 5px;
+    border: 0px;
+}
+
+.StatusLeftGreenDiv {
+    background: #4cce94;
+    width: 140px !important;
+    height: 73px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+.StatusLeftYellowDiv {
+    background: #f0a90a;
+    width: 140px !important;
+    height: 73px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+.StatusLeftRedDiv {
+    background: #F44c4c;
+    width: 140px !important;
+    height: 73px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+
+.StatusLeftOrgDiv {
+    background: #fbb10a;
+    width: 140px !important;
+    height: 73px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+
+.StatusLeftGreyDiv {
+    background: #f5f6fa;
+    width: 140px !important;
+    height: 83px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+
+.StatusLeftTextDiv {
+    width: 130px !important;
+    height: 73px !important;
+    margin: 5px !important;
+}
+
+.StatusSubTitleDiv {
+    color: white;
+    font-size: 13px !important;
+    padding-top: 11px;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusSubTitleBlackDiv {
+    color: black;
+    font-size: 13px !important;
+    padding-top: 20px;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusTitleBlackDiv {
+    color: black;
+    font-size: 17px !important;
+    padding-top: 5px;
+    font-weight: bolder;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusCenterDiv {
+    width: 170px !important;
+    height: 83px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+
+.StatusHeaderDiv {
+    font-size: 13px !important;
+    padding-top: 10px;
+    font-weight: bolder;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusSubHeaderDiv {
+    font-size: 12px !important;
+    padding-top: 4px;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusInfoDiv {
+    font-size: 12px !important;
+    padding-top: 2px;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusRightDiv {
+    width: 160px !important;
+    height: 83px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+
+.StatusButtonDiv {
+    padding-top: 15px;
+}
+
+.StatusRightDiv {
+    width: 160px !important;
+    height: 83px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+
+.StatusRightDiv2Buttons {
+    width: 160px !important;
+    height: 83px !important;
+    border-radius: 4px;
+    margin: 2px 10px 10px 10px;
+    padding: 5px;
+    float: left;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #7 : RectificationTile 
+ Used views : ScheduleSummaryFragment,
+			  ADDSummary,
+			  DefectsSummaryFragment
+-----------------------------------------------------------------------------------------*/
+
+.RectificationOuterDiv {
+    width: 180px;
+    height: 150px;
+    background: white;
+    margin: 10px;
+}
+
+.RectificationTopDiv {
+    width: 180px;
+}
+
+.RectificationTitleContent {
+    width: 120px;
+    height: 80px;
+    float: left;
+}
+
+.RectificationTitle {
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.RectificationPrimeContent {
+    width: 60px;
+    height: 80px;
+    float: right;
+    position: relative;
+}
+
+.RectificationPrimeContent span {
+    position: absolute;
+    top: 12px;
+    width: 100px;
+    right: -32px;
+    text-align: center;
+    font-size: 14px;
+    font-family: arial;
+    transform: rotate(46deg);
+    display: block;
+    color: white;
+}
+
+.RectificationPrime {
+    border-top: 60px solid blue;
+    border-left: 60px solid transparent;
+}
+
+.RectificationPrimeContentTrans {
+    width: 60px;
+    height: 80px;
+    float: right;
+    position: relative;
+}
+
+.RectificationPrimeContentTrans span {
+    position: absolute;
+    top: 12px;
+    width: 100px;
+    right: -32px;
+    text-align: center;
+    font-size: 14px;
+    font-family: arial;
+    transform: rotate(46deg);
+    display: block;
+    color: white;
+}
+
+.RectificationPrimeTrans {
+    border-top: 60px solid transparent;
+    border-left: 60px solid transparent;
+}
+
+.RectificationBottomDiv {
+    width: 180px;
+    height: 70px;
+    float: left;
+}
+
+.RectificationCountDiv {
+    width: 180px;
+    height: 35px;
+    float: left;
+}
+
+.RectificationCount {
+    width: 180px;
+    float: right;
+    text-align: end;
+    padding-right: 15px;
+    font-size: 30px;
+}
+
+.RectificationFooterDiv {
+    width: 180px;
+    height: 30px;
+    float: left;
+}
+
+.RectificationFooter {
+    width: 180px;
+    float: right;
+    text-align: end;
+    padding-right: 15px;
+    font-size: 12px;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #8 : RectificationTileAdd 
+ Used views : ScheduleSummaryFragment,
+			  ADDSummary,
+			  DefectsSummaryFragment
+-----------------------------------------------------------------------------------------*/
+
+.RectificationAddOuterDiv {
+    width: 180px;
+    height: 150px;
+    background: white;
+    margin: 10px;
+    border: 1px solid #a9aeb3;
+    border-style: dashed;
+}
+
+
+/*.RectificationAddOuterDiv:hover {
+    border: 1px solid #3683FF !important;
+    background: rgb(54, 131, 255, 0.1) !important;
+}*/
+
+.RectificationAddTopDiv {
+    width: 180px;
+    height: 40px;
+}
+
+.RectificationAddMiddleDiv {
+    width: 180px;
+    height: 40px;
+}
+
+.RectificationAddButton {
+    padding-left: 70px;
+    padding-bottom: 10px;
+}
+
+.RectificationAddText {
+    width: 180px;
+    float: right;
+    text-align: center;
+    font-size: 14px;
+    color: blue;
+}
+
+.RectificationAddTextGray {
+    width: 180px;
+    float: right;
+    text-align: center;
+    font-size: 14px;
+    color: gray;
+}
+
+.RectificationAddMiddleDiv {
+    width: 180px;
+    height: 70px;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #9 : HeaderCard 
+ Used views : ,
+			  ,
+			  
+-----------------------------------------------------------------------------------------*/
+
+.HeaderCardOuterDiv {
+    width: 14rem;
+    height: auto;
+    background: #f7f7f7;
+    /*eaeaea*/
+    margin: 1rem;
+}
+
+.HeaderCardTitle {
+    padding: 2rem;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #10 : IconHeaderCard 
+ Used views : ,
+			  ,
+			  
+-----------------------------------------------------------------------------------------*/
+
+.IconHeaderOuterDiv {
+    width: 15rem;
+    height: 8.5rem;
+    background: white;
+    margin: 1rem;
+    /*border: 0.5px solid black;*/
+    border-radius: 0.25rem;
+    position: relative;
+    outline: none;
+    box-sizing: border-box;
+    background-position: 0px;
+    background: #fff;
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 0.0625rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.IconHeaderOuterDiv:hover {
+    border: 1px solid #3683FF !important;
+    color: white !important;
+    background: #3683ff !important;
+    /*background: rgb(54, 131, 255, 0.1) !important;*/
+}
+
+.IconHeaderDiv {
+    width: 15rem;
+    height: 90px;
+}
+
+.IconHeaderIMGDiv {
+    width: 15rem;
+    height: 70px;
+}
+
+.IconHeaderIMGTextDiv {
+    width: 15rem;
+    text-align: center;
+    height: 20px;
+}
+
+.IconFooterDiv {
+    width: 15rem;
+    height: 45px;
+}
+
+.IconHeaderFooterIMG {
+    width: 60px;
+    height: 45px;
+    float: right;
+    position: relative;
+    margin-right: 0.6px;
+    margin-bottom: 0.6px;
+}
+
+.IconHeaderFooterIMG span {
+    position: absolute;
+    top: 10px;
+    width: 100px;
+    right: -18px;
+    text-align: center;
+    font-size: 15px;
+    font-family: arial;
+    transform: rotate(9deg);
+    display: block;
+    color: white;
+}
+
+.CompletedTickIcon {
+    border-bottom: 42px solid #4cce94;
+    border-left: 60px solid transparent;
+    border-top: 2px solid transparent;
+}
+
+.IconHeaderOuterDivGreen {
+    width: 15rem;
+    height: 8.5rem;
+    background: white;
+    margin: 1rem;
+    /*border: 0.5px solid black;*/
+    border-radius: 0.25rem;
+    position: relative;
+    outline: none;
+    box-sizing: border-box;
+    background-position: 0px;
+    background: #EAFFF6;
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 0.0625rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.IconHeaderOuterDivGreen:hover {
+    border: 1px solid #3683FF !important;
+    color: white !important;
+    background: #3683ff !important;
+}
+
+.IconHeaderOuterDivGreen:hover .CompletedTickIcon {
+    border-bottom: 42px solid #3683FF;
+    border-left: 60px solid transparent;
+    border-top: 2px solid transparent;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #11 : FuelTile 
+ Used views : ,
+			  ,
+			  
+-----------------------------------------------------------------------------------------*/
+
+.FuelOuterDiv {
+    width: 220px;
+    height: 120px;
+    background: #fdfdfd;
+    margin: 10px;
+    border: 1px solid #f1f1f5;
+}
+
+.FuelOuterDiv:hover {
+    border: 1px solid #3683FF !important;
+    background: rgb(54, 131, 255, 0.1) !important;
+}
+
+.FuelOuterDiv:hover .FuelNote {
+    float: right;
+    padding-right: 5px;
+    display: block;
+}
+
+.FuelTopDiv {
+    width: 220px;
+    height: 85px;
+}
+
+.FuelBottomDiv {
+    width: 220px;
+    height: 35px;
+}
+
+.FuelChartContent {
+    width: 80px;
+    height: 85px;
+    float: left;
+}
+
+.FuelChart {
+    padding: 8px;
+}
+
+.percentageHidden .sapSuiteRMCGoodTextColor .sapSuiteRMCCriticalTextColor {
+    color: #107e3e;
+    visibility: hidden !important;
+}
+
+.FuelTitleContent {
+    width: 140px;
+    height: 85px;
+    float: right;
+}
+
+.FuelNoteContent {
+    width: 140px;
+    height: 20px;
+    padding-top: 0px;
+}
+
+.FuelNote {
+    float: right;
+    padding-right: 5px;
+    display: none;
+}
+
+.FuelTitle {
+    width: 130px;
+    height: 18px;
+    padding-Left: 10px;
+}
+
+.FuelCount {
+    width: 60px;
+    height: 37px;
+    padding-Top: 11px;
+    padding-Left: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    float: left;
+}
+
+.FuelUnit {
+    width: 70px;
+    height: 28px;
+    padding-Top: 18px;
+    font-size: 15px;
+    float: left;
+}
+
+.FuelBottomContent {
+    width: 196px;
+    height: 34px;
+    margin-Left: 12px;
+    margin-Right: 12px;
+    border-top: 1px solid #ebebf1;
+}
+
+.FuelBottomLeftContent {
+    width: 125px;
+    height: 34px;
+    float: left;
+}
+
+.FuelBottomRightContent {
+    width: 70px;
+    height: 34px;
+    float: right;
+}
+
+.FuelServicedText {
+    padding-Top: 7px;
+    font-size: 14px;
+    font: #a69eb3;
+    float: left;
+}
+
+.FuelStatusIcon {
+    float: left;
+    padding-Top: 5px;
+    padding-Left: 5px;
+}
+
+.FuelServicedCount {
+    padding-Top: 7px;
+    font-size: 14px;
+    padding-Left: 5px;
+    float: left;
+}
+
+.FuelMaxText {
+    padding-Top: 7px;
+    font-size: 14px;
+    font: #a69eb3;
+    float: left;
+}
+
+.FuelMaxCount {
+    padding-Top: 7px;
+    font-size: 14px;
+    padding-Left: 5px;
+    float: left;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #12 : TireTile 
+ Used views : ,
+			  ,
+			  
+-----------------------------------------------------------------------------------------*/
+
+.TireOuterDiv {
+    width: 220px;
+    height: 120px;
+    background: #fdfdfd;
+    margin: 10px;
+    border: 1px solid #f1f1f5;
+}
+
+.TireOuterDiv:hover {
+    border: 1px solid #3683FF !important;
+    background: rgb(54, 131, 255, 0.1) !important;
+}
+
+.TireOuterDiv:hover .TireNote {
+    float: right;
+    padding-right: 5px;
+    display: block;
+}
+
+.TireTopDiv {
+    width: 220px;
+    height: 85px;
+}
+
+.TireBottomDiv {
+    width: 220px;
+    height: 35px;
+}
+
+.percentageHidden .sapSuiteRMCGoodTextColor .sapSuiteRMCCriticalTextColor {
+    color: #107e3e;
+    visibility: hidden !important;
+}
+
+.TireTitleContent {
+    width: 220px;
+    height: 85px;
+    float: right;
+}
+
+.TireNoteContent {
+    width: 220px;
+    height: 20px;
+    padding-top: 5px;
+}
+
+.TireNote {
+    float: right;
+    padding-right: 5px;
+    display: none;
+}
+
+.TireTitle {
+    width: 130px;
+    height: 18px;
+    padding-Left: 10px;
+}
+
+.TireCount {
+    width: 60px;
+    height: 37px;
+    padding-Top: 5px;
+    padding-Left: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    float: left;
+}
+
+.TireUnit {
+    width: 70px;
+    height: 28px;
+    padding-Top: 15px;
+    font-size: 15px;
+    float: left;
+}
+
+.TireBottomContent {
+    width: 196px;
+    height: 34px;
+    margin-Left: 12px;
+    margin-Right: 12px;
+    border-top: 1px solid #ebebf1;
+}
+
+.TireBottomLeftContent {
+    width: 125px;
+    height: 34px;
+    float: left;
+}
+
+.TireBottomRightContent {
+    width: 70px;
+    height: 34px;
+    float: right;
+}
+
+.TireServicedText {
+    padding-Top: 7px;
+    font-size: 14px;
+    font: #a69eb3;
+    float: left;
+}
+
+.TireStatusIcon {
+    float: left;
+    padding-Top: 5px;
+    padding-Left: 5px;
+}
+
+.TireServicedCount {
+    padding-Top: 7px;
+    font-size: 14px;
+    padding-Left: 5px;
+    float: left;
+}
+
+.TireMaxText {
+    padding-Top: 7px;
+    font-size: 14px;
+    font: #a69eb3;
+    float: left;
+}
+
+.TireMaxCount {
+    padding-Top: 7px;
+    font-size: 14px;
+    padding-Left: 5px;
+    float: left;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #13 : Oil and Misc 
+ Used views : ,
+			  ,
+			  
+-----------------------------------------------------------------------------------------*/
+
+.OilTileContainer {
+    width: 16rem;
+    height: auto;
+    background: white;
+    cursor: pointer;
+    border: 1px solid #f1f1f5;
+}
+
+.OilTileContentTop {
+    width: 14rem;
+    background: red;
+}
+
+.OilTileLeftContent {
+    width: 10rem;
+    background: white;
+    float: left;
+    padding-top: 2rem;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+}
+
+.OilTileRightContent {
+    width: 2rem;
+    background: white;
+    float: right;
+    padding-top: 2rem;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+}
+
+.OilTileTitle {
+    font-size: larger;
+    float: left;
+}
+
+.OilTileCount {
+    font-size: larger;
+    float: left;
+    margin-left: 0.5rem;
+}
+
+.OilTileServicedAmt {
+    font-size: larger;
+    float: right;
+    margin-right: 1.5rem;
+}
+
+.OilTileContentBottom {
+    width: 16rem;
+    background: white;
+}
+
+.OilLine {
+    width: 189px;
+    height: 68px;
+    border-bottom: 1px solid #b29c9c;
+    position: absolute;
+    float: right;
+    margin-left: 16px;
+}
+
+.OilTileFooterLeft {
+    width: 12.5rem;
+    padding: 0.5rem;
+    float: left;
+    font-size: 15px;
+    background: white;
+    text-align: start;
+    padding-left: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #14 : Others Tile 
+ Used views : ,
+			  ,
+			  
+-----------------------------------------------------------------------------------------*/
+
+.OtherOuterDiv {
+    display: grid;
+    width: 12rem;
+    height: 5rem;
+    margin-right: 1rem;
+    background: #fdfdfd;
+    border: 1px solid #f1f1f5;
+}
+
+.OtherOuterDiv:hover {
+    display: grid;
+    width: 12rem;
+    height: 5rem;
+    margin-right: 1rem;
+    background: #fdfdfd;
+    border: 1px solid #0a6cd6;
+}
+
+.OtherOuterDiv:hover .OtherCountDiv {
+    width: 2.5rem;
+    font-size: 17px;
+    font-weight: bolder;
+    padding-top: 0.4rem;
+    background: #fdfdfd;
+    float: right;
+    padding-right: 0.5rem;
+    text-align: end;
+}
+
+.OtherOuterDiv:hover .OtherRightIcon {
+    display: block;
+    padding-top: 0.4rem;
+    padding-left: 10.5rem;
+}
+
+.OtherTopDiv {
+    width: 12rem;
+    background: #fdfdfd;
+}
+
+.OtherTitleDiv {
+    width: 6rem;
+    font-size: 15px;
+    font-weight: bolder;
+    padding-left: 1rem;
+    padding-top: 1.8rem;
+    background: #fdfdfd;
+    float: left;
+}
+
+.OtherTitleDivWhenSubTitle {
+    width: 8rem;
+    font-size: 15px;
+    font-weight: bolder;
+    padding-left: 1rem;
+    padding-top: 0.2rem;
+    background: #fdfdfd;
+    float: left;
+}
+
+.OtherSubTitleDiv {
+    width: 8rem;
+    font-size: 10px;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    background: #fdfdfd;
+    float: left;
+}
+
+.OtherRightIcon {
+    display: none;
+    padding-top: 0.4rem;
+    padding-left: 10.5rem;
+    background: #fdfdfd;
+}
+
+.OtherCountDiv {
+    width: 2.5rem;
+    font-size: 17px;
+    font-weight: bolder;
+    padding-top: 1.8rem;
+    background: #fdfdfd;
+    float: right;
+    padding-right: 0.5rem;
+    text-align: end;
+}
+
+.OtherCountDivWhenSubTitle {
+    width: 2.5rem;
+    font-size: 17px;
+    font-weight: bolder;
+    padding-top: 0.2rem;
+    background: #fdfdfd;
+    float: right;
+    padding-right: 0.5rem;
+    text-align: end;
+}
+
+.OtherBottomDiv {
+    width: 12rem;
+    background: #fdfdfd;
+}
+
+.OtherFooterLeft {
+    width: 10.5rem;
+    padding: 0.5rem 0.5rem 0.4rem 1rem;
+    float: left;
+    font-size: 12px;
+    background: #fdfdfd;
+    text-align: start;
+}
+
+.OtherFooterLeftWhenSubTitle {
+    width: 10.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    float: left;
+    font-size: 12px;
+    background: #fdfdfd;
+    text-align: start;
+}
+
+.OtherLine {
+    width: 168px;
+    height: 55px;
+    border-bottom: 1px solid #b29c9c;
+    position: absolute;
+    float: right;
+    margin-left: 13px;
+}
+
+.OtherButton {
+    float: right;
+    width: 30px;
+    padding-left: 10px;
+    font-size: 11px;
+    color: white;
+    background: #e34eac;
+    border-radius: 25px;
+    margin-top: 3px;
+}
+
+.HotButton {
+    float: right;
+    width: 30px;
+    padding-left: 10px;
+    font-size: 10px;
+    color: white;
+    background: #e34eac;
+    border-radius: 25px;
+    margin-top: 3px;
+}
+
+.ColdButton {
+    float: right;
+    width: 30px;
+    padding-left: 10px;
+    font-size: 10px;
+    color: white;
+    background: blue;
+    border-radius: 25px;
+    margin-top: 3px;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #15 : Dashboard Status Tile 
+ Used views : ,
+			  ,
+			  
+-----------------------------------------------------------------------------------------*/
+
+.StatusLeftGreenDiv {
+    background: #4cce94;
+    width: 140px !important;
+    height: 83px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+
+.StatusLeftGreyDiv {
+    background: #f5f6fa;
+    width: 140px !important;
+    height: 83px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+
+.StatusSubTitleDiv {
+    color: white;
+    font-size: 13px !important;
+    padding-top: 11px;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusSubTitleBlackDiv {
+    color: black;
+    font-size: 13px !important;
+    padding-top: 20px;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusTitleDiv {
+    color: white;
+    font-size: 17px !important;
+    padding-top: 1px;
+    font-weight: bolder;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusTitleBlackDiv {
+    color: black;
+    font-size: 17px !important;
+    padding-top: 5px;
+    font-weight: bolder;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusCenterDiv {
+    width: 170px !important;
+    height: 83px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+
+.StatusHeaderDiv {
+    font-size: 13px !important;
+    padding-top: 10px;
+    font-weight: bolder;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusSubHeaderDiv {
+    font-size: 12px !important;
+    padding-top: 4px;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusInfoDiv {
+    font-size: 12px !important;
+    padding-top: 2px;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
+}
+
+.StatusRightDiv {
+    width: 160px !important;
+    height: 83px !important;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+}
+
+.StatusButtonDiv {
+    padding-top: 15px;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #16 :  Station Tile 
+ Used views : ,
+			  ,
+			  
+-----------------------------------------------------------------------------------------*/
+
+.StationOuterDiv {
+    display: grid;
+    width: 12rem;
+    height: 7rem;
+    margin-right: 1rem;
+    background: #fdfdfd;
+    border: 1px solid #f1f1f5;
+}
+
+.StationOuterDiv:hover {
+    width: 12rem;
+    height: 7rem;
+    background: #fdfdfd;
+    margin-right: 1rem;
+    border: 1px solid #0a6cd6;
+}
+
+.StationTopDiv {
+    width: 12rem;
+    background: #fdfdfd;
+}
+
+.StationOuterDiv:hover .StationShowIcon {
+    display: block;
+}
+
+.StationOuterDiv:hover .StationIconContent {
+    width: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1.25rem;
+    float: right;
+    background: #fdfdfd;
+}
+
+.StationLeftIcon {
+    width: 3.5rem;
+    height: 3rem;
+    float: left;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    background: #fdfdfd;
+}
+
+.StationTitleDiv {
+    width: 4rem;
+    float: left;
+    padding-top: 1.5rem;
+    background: #fdfdfd;
+}
+
+.StationTitle {
+    font-size: 11px;
+    font-weight: bolder;
+    padding-top: 0.5rem;
+    background: #fdfdfd;
+}
+
+.StationSubTitle {
+    font-size: 12px;
+    background: #fdfdfd;
+}
+
+.StationIconContent {
+    width: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 2.45rem;
+    float: right;
+    background: #fdfdfd;
+}
+
+.StationShowIcon {
+    display: none;
+}
+
+.StationBottomDiv {
+    width: 12rem;
+    background: #fdfdfd;
+}
+
+.StationFooterLeft {
+    width: 4rem;
+    padding: 1.3rem 0.5rem 0.5rem 1rem;
+    float: left;
+    font-size: 12px;
+    background: #fdfdfd;
+    text-align: start;
+}
+
+.StationFooterRight {
+    width: 5rem;
+    padding: 1.3rem 0.5rem 1.37rem 1rem;
+    float: right;
+    font-size: 12px;
+    background: #fdfdfd;
+    text-align: end;
+}
+
+.StationFooterRightForData {
+    width: 5rem;
+    padding: 1.3rem 0.5rem 0.5rem 1rem;
+    float: right;
+    font-size: 12px;
+    background: #fdfdfd;
+    text-align: end;
+}
+
+.line {
+    width: 168px;
+    height: 82px;
+    border-bottom: 1px solid #b29c9c;
+    position: absolute;
+    float: right;
+    margin-left: 14px;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #17 : PDS Summary Tile 
+ Used views : ,
+			  ,
+			  
+-----------------------------------------------------------------------------------------*/
+
+.PDSTileSize {
+    width: 15rem !important;
+    height: 7rem !important;
+}
+
+.PDSTileSize .sapMGTHdrContent.TwoByOne {
+    display: none;
+}
+
+.fontsizeXXLarge {
+    font-size: xx-large !important;
+}
+
+.blackFont {
+    color: black !important;
+}
+
+.PDSTileToolBar {
+    width: 14.5rem !important;
+    height: 4rem !important;
+    border-bottom: none !important;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #18 : Pilot Accept Tile 
+ Used views : ,
+			  ,
+			  
+-----------------------------------------------------------------------------------------*/
+
+.PATilePendingOuterDiv {
+    width: 15rem !important;
+    height: 7rem !important;
+    margin: 1rem;
+    border-radius: 0.25rem;
+    background: white !important;
+}
+
+.PATileReviewOuterDiv {
+    width: 15rem !important;
+    height: 7rem !important;
+    margin: 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid #85dfb7 !important;
+    background: #eafff6 !important;
+}
+
+.PATilePendingOuterDiv:hover {
+    border: 1px solid #3683FF !important;
+    background: rgb(54, 131, 255, 0.1) !important;
+}
+
+.PAHeaderContent {
+    width: 15rem !important;
+    height: 5rem !important;
+}
+
+.PAAvatarContent {
+    width: 2.5rem !important;
+    height: 3rem !important;
+    float: left;
+    padding-top: 2rem;
+    padding-left: 0.5rem;
+}
+
+.PATitleContent {
+    width: 8.5rem !important;
+    height: 3rem !important;
+    float: left;
+    padding-top: 2rem;
+    padding-left: 0.5rem;
+}
+
+.PACountContent {
+    width: 2.5rem !important;
+    height: 3rem !important;
+    float: left;
+    padding-top: 2rem;
+    padding-left: 0.5rem;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.PABottomContent {
+    width: 15rem !important;
+    height: 2rem !important;
+}
+
+.PAPickIconContent {
+    width: 2rem !important;
+    height: 2rem !important;
+    float: right;
+}
+
+.PATickIcon {
+    width: 0px;
+    height: 0px;
+    border-bottom: 32px solid #85dfb7;
+    border-left: 32px solid #eafff6;
+}
+
+.whiteBGColor {
+    background: white !important;
+}
+
+.bordercolor {
+    border: 1px solid #ced4db !important;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ #18 : ????
+ Used views : ,
+			  ,
+			  
+-----------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------
+<<<<<<<<<<<<<<<<<<<<<<      END of  CUSTOM CONTROL STYLES   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+-----------------------------------------------------------------------------------------*/

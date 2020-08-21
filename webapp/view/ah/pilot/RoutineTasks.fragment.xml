@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Table class="CERTable sapUiSmallMargin" width="97%" items="{oPilotAccpModel>/RotineTask}">
+		<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="Routine Tasks" level="H1"/>
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column width="50%" class="CERTableTextColor">
+				<Label text="Task" design="Bold"/>
+			</Column>
+			<Column demandPopin="true">
+				<Label text="Results" design="Bold"/>
+			</Column>
+			<Column demandPopin="true">
+				<Label text="Tradesman" design="Bold"/>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text text="{oPilotAccpModel>DDDESC}" wrapping="true"/>
+					<Text text="{parts : ['oPilotAccpModel>DONE','oPilotAccpModel>NA'], formatter:'.formatter.TradesmanStatusDisplay'}"/>
+					<Text text="{oPilotAccpModel>TRADE_USER}"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns:ui="sap.ui.table" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<l:VerticalLayout class="backgroundBlue">
+		<Table id="tblFlying" columns="{oAircraftUtilModel>/flying}" class="TableHeaderBGColor">
+			<columns>
+				<Column hAlign="Center">
+					<Label text="{oAircraftUtilModel>coltxt}" wrapping="true" design="Bold"/>
+				</Column>
+			</columns>
+		</Table>
+		<Table id="tblMano" columns="{oAircraftUtilModel>/mano}" class="TableHeaderBGColor">
+			<columns>
+				<Column hAlign="Center">
+					<Label text="{oAircraftUtilModel>coltxt}" wrapping="true" design="Bold"/>
+				</Column>
+			</columns>
+		</Table>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

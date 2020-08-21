@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog draggable="true" class="popoverHeaderCSS" type="Message" showHeader="false" contentWidth="30rem" verticalScrolling="false"
+		resizable="false">
+		<content>
+			<VBox justifyContent="Center">
+				<Label design="Bold" text="Had reached the maximum amount of ADD, Please enter the Reason to raise current ADD :" wrapping="true"></Label>
+				<TextArea value="{ADDSet>/REMARKS}" cols="50" rows="4" width="100%" growingMaxLines="7" showExceededText="true" maxLength="500"
+					liveChange="handleLiveChangeFlyingRequirements"></TextArea>
+			</VBox>
+		</content>
+		<buttons>
+			<Button id="btnClose" text="Cancel" press="onCloseGetRemarkDialog"></Button>
+			<Button id="btnSave" text="Save" tooltip="Save" type="Emphasized" press="onSaveRemark"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

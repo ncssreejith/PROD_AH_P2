@@ -1,0 +1,49 @@
+<mvc:View controllerName="avmet.ah.controller.Overview" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:micro="sap.suite.ui.microchart"
+	xmlns:mchart="sap.suite.ui.microchart" xmlns:core="sap.ui.core">
+	<Page title="Function Information : AH Module">
+		<content>
+				<Panel>
+				<content>
+					<MessageStrip class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" type="Warning"
+						text='Note: The completed items can access from side panel'/>
+					<IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
+						<items>
+							<IconTabFilter text="Completed">
+								<Text text="Below items are ready for testing the functional flow"/>
+								<List headerText=""
+									items="{ path : 'devStatusModel>/Completed' }" width = "50%">
+									<CustomListItem></CustomListItem>
+									<StandardListItem title="{devStatusModel>ItemName}" icon="{devStatusModel>icon}"	info="{devStatusModel>Remarks}" 	infoState="{devStatusModel>Status}" />
+								</List>
+							</IconTabFilter>
+							<IconTabFilter text="Tested">
+								<Text text="Below items are ready for testing the functional flow"/>
+								<List headerText=""
+									items="{ path : 'devStatusModel>/Tested' }"  width = "50%">
+									<CustomListItem></CustomListItem>
+									<StandardListItem title="{devStatusModel>ItemName}" 	info="{devStatusModel>Remarks}"/>
+								</List>
+							</IconTabFilter>
+							<IconTabFilter text="Progressing">
+								<Text text="Below items are ready for testing the functional flow"/>
+								<List headerText=""
+									items="{ path : 'devStatusModel>/Progressing' }"  width = "50%">
+									<CustomListItem></CustomListItem>
+									<StandardListItem title="{devStatusModel>ItemName}" 	info="{devStatusModel>Remarks}"/>
+								</List>
+							</IconTabFilter>
+							<IconTabFilter text="Remaining items">
+								<Text text="Below items are ready for testing the functional flow"/>
+								<List headerText=""
+									items="{ path : 'devStatusModel>/Remaining' }"  width = "50%">
+									<CustomListItem></CustomListItem>
+									<StandardListItem title="{devStatusModel>ItemName}" 	info="{devStatusModel>Remarks}"/>
+								</List>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+				</content>
+			</Panel>
+		</content>
+	</Page>
+</mvc:View>

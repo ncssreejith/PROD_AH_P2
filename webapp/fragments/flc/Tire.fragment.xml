@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Table class="sapUiResponsivePadding sapUiSmallMarginTop CERTable tableHFont tableHeaderFontStyle" items="{oRepDetailsModel>/Tire}"
+		id="tireFragId">
+		<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="Tire" level="H2"/>
+					<ToolbarSpacer/>
+					<Link text="View Tire Pressure Table" press="onRepleTyrePress"/>
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column hAlign="Left" width="15%">
+				<Label text="Position" design="Bold"/>
+			</Column>
+			<Column minScreenWidth="Tablet" width="15%" demandPopin="true" hAlign="Left">
+				<Label text="Serviced Amount (PSI)" design="Bold" wrapping="true"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+				<Label text="Total Amount (PSI)" design="Bold" wrapping="true"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" mergeDuplicates="true"></Column>
+		</columns>
+		<items>
+			<ColumnListItem class="tableTextColor">
+				<cells>
+					<Text text="{oRepDetailsModel>resdescription}"/>
+					<StepInput value="{oRepDetailsModel>srvamt}" validationMode="LiveChange" change="onTireTblValueChange"
+						max="{parts: ['oRepDetailsModel>totamt','oRepDetailsModel>max'], formatter : '.formatter.FormatMaxValue'}"/>
+					<StepInput value="{oRepDetailsModel>totamt}" min="0" max="{path: 'oRepDetailsModel>max', formatter : '.formatter.formatMaxValue'}"
+						description="/ {oRepDetailsModel>max}" validationMode="LiveChange" change="onTireTblValueChange"/>
+					<Text text="{i18n>tireText}" wrapping="true"></Text>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

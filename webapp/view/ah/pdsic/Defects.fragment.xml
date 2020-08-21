@@ -1,0 +1,65 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<VBox class="WhiteVBox sapUiTinyMargin" height="450px">
+		<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+			<items>
+				<Text class="PDSFragTitle" text="Past 1 Month Defects"/>
+				<Button text="Reviewed" id="btnDefectReview" type="Emphasized" press="onReviewedPress"/>
+			</items>
+		</FlexBox>
+		<Table class="sapUiResponsivePadding CERTable sapUiSizeCompact" growing="true" growingThreshold="6"
+			items="{oPDSSummaryViewModel>/aPastDefects}">
+			<headerToolbar>
+				<OverflowToolbar>
+					<Title text="{i18n>tiDefects}" level="H2"/>
+					<ToolbarSpacer/>
+					<!--<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"/>-->
+					<!--<ComboBox width="10rem">-->
+					<!--	<core:Item key="{key}" text="{text}"/>-->
+					<!--</ComboBox>-->
+				</OverflowToolbar>
+			</headerToolbar>
+			<columns>
+				<Column width="5rem" hAlign="Center" class="CERTableTextColor">
+					<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+				</Column>
+				<Column width="3rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>lbSymbol}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="{i18n>lbJobNo}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+				</Column>
+				<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="{i18n>lbDefect}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="{i18n>lbPrime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+				</Column>
+				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="{i18n>lbTrades}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+				</Column>
+				<Column width="3rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="{i18n>lbAction}" design="Bold" wrapping="true"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" type="Inactive" press="onDefectsDetailsPress">
+					<cells>
+						<Text
+							text="{path:'oPDSSummaryViewModel>credtm', formatter:'.formatter.defaultDateFormatDisplay'} {path:'oPDSSummaryViewModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+						<HBox>
+							<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${oPDSSummaryViewModel>symbol} === '1' ? true : false}"></Button>
+							<Button text="/" class="red redText" type="Transparent" visible="{=${oPDSSummaryViewModel>symbol} === '2' ? true : false}"></Button>
+							<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${oPDSSummaryViewModel>symbol} === '3' ? true : false}"></Button>
+						</HBox>
+						<Text text="{oPDSSummaryViewModel>jobid}"/>
+						<Text text="{oPDSSummaryViewModel>jobdes}"/>
+						<Text text="{oPDSSummaryViewModel>primetxt}"/>
+						<Text text="-"/>
+						<Text text="-"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</VBox>
+</core:FragmentDefinition>

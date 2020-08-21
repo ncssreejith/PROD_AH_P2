@@ -1,0 +1,69 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<VBox class="sapUiLargeMargin">
+		<VBox backgroundDesign="Solid" class="airCraftSelVBox">
+			<FlexBox alignItems="Start" justifyContent="Center" class="sapUiTinyMarginBottom">
+				<items>
+					<Title text="Engine and Components" titleStyle="H3"></Title>
+				</items>
+			</FlexBox>
+			<FlexBox alignItems="Start" justifyContent="Center" class="sapUiTinyMarginBottom">
+				<items>
+					<Select  change="onEngineTypeSelect" selectedKey="{oAirSelectViewModel>/srcBy}">
+						<core:Item text="Engine Type" key="type"/>
+						<core:Item text="Serial No" key="serial"/>
+					</Select>
+					<Input type="Text" visible="{= ${oAirSelectViewModel>/srcBy}==='type'?true:false}" value="{oAirSelectViewModel>/selInput}" placeholder="Search Engine ..." showSuggestion="true" 
+					suggestionItems="{oAirSelectViewModel>/modelsDis}">
+						<suggestionItems>
+							<core:ListItem text="{oAirSelectViewModel>ENGTY}" additionalText="{oAirSelectViewModel>SERIAL}"/>
+						</suggestionItems>
+					</Input>
+					<Input  visible="{= ${oAirSelectViewModel>/srcBy}==='type'?false:true}" value="{oAirSelectViewModel>/selInput}" type="Text" placeholder="Search Engine ..." showSuggestion="true"
+						suggestionItems="{oAirSelectViewModel>/modelsDis}">
+						<suggestionItems>
+							<core:Item text="{oAirSelectViewModel>SERIAL}" additionalText="{oAirSelectViewModel>ENGID}"/>
+						</suggestionItems>
+					</Input>
+					<Button text="{= ${oAirSelectViewModel>/srcBy}==='type'?'Search':'Select'}" type="Emphasized" press="onEngineSearch"/>
+				</items>
+			</FlexBox>
+		</VBox>
+		<VBox visible="{= ${oAirSelectViewModel>/srcBy}==='type'?true:false}">
+			<Text text="Count: {=${oAirSelectViewModel>/engine}.length}" class="sapUiSmallMarginTopBottom"/>
+			<Table  class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="None" growing="true"
+				growingThreshold="4" growingScrollToLoad="false" items="{oAirSelectViewModel>/engine}" noDataText="{i18n>txtNoTexttStanding}" showNoData="true"
+				updateFinished="onWoorkCenTblUpdateFinished('TOU',$event)">
+				<columns>
+					<Column width="3rem" hAlign="Center" class="CERTableTextColor">
+						<!--<Label text="{i18n>lbSymbol}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>-->
+					</Column>
+					<Column width="10rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+						<!--	<Label text="{i18n>lbTask}" design="Bold" wrapping="true"/>-->
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem vAlign="Middle" type="Navigation" press="onEnginePress">
+						<cells>
+							<VBox class="EngineBottomVBox">
+								<HBox class="sapUiTinyMarginBottom">
+									<Text text="{oAirSelectViewModel>ENGID}"/>
+								</HBox>
+								<HBox>
+									<Text text="S/N {oAirSelectViewModel>SERIAL}"/>
+								</HBox>
+							</VBox>
+							<VBox class="EngineBottomVBox2">
+								<HBox class="sapUiTinyMarginBottom">
+									<Text text="Installed : {oAirSelectViewModel>INSDT}"/>
+								</HBox>
+								<HBox>
+									<Text text="Removed: {oAirSelectViewModel>RMVDT}"/>
+								</HBox>
+							</VBox>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

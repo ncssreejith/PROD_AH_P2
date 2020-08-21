@@ -1,0 +1,118 @@
+<mvc:View controllerName="avmet.ah.controller.DBOngFlightService" xmlns:ct="avmet.ah.control" xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:mc="sap.suite.ui.microchart" xmlns:w="sap.ui.integration.widgets"
+	xmlns:f="sap.f">
+
+			<Page id="page" showHeader="false">
+				<content>
+
+					<OverflowToolbar class="backgroundBlue aircraftTitleBGWhite" height="60px">
+						<Title text="Dashboard" titleStyle="H3" class="sapUiLargeMarginBegin"/>
+						<ToolbarSpacer/>
+						<Button text="Role Change" type="Transparent" enabled="false"></Button>
+						<Button text="Create Flight Servicing" type="Transparent" enabled="false" press="onCreateFlightService"></Button>
+						<Button text="Create Job" type="Emphasized" class="sapUiLargeMarginEnd" ></Button>
+					</OverflowToolbar>
+				</content>
+				<content>
+					<HBox class="sapUiSmallMargin sapUiLargeMarginBegin">
+						<GenericTile press="press" frameType="TwoByOne" state="Loaded" class="DashBoardGenericTileSize sapUiTinyMargin">
+							<tileContent>
+								<TileContent>
+									<content>
+										<Toolbar class="sapUiSmallMarginTop DashBoardGenericToolBar">
+											<Avatar displaySize="XS" backgroundColor="Placeholder" src="sap-icon://suitcase"></Avatar>
+											<Label text="Outstanding jobs" wrapping="true" class="sapUiTinyMarginTop sapUiSmallMarginBegin DashBoardBlackFont"></Label>
+											<Label text="0" class="sapUiLargeMarginBegin DashBoardFontsizeXXLarge"></Label>
+										</Toolbar>
+									</content>
+								</TileContent>
+							</tileContent>
+						</GenericTile>
+						<GenericTile press="press" frameType="TwoByOne" state="Loaded" class="DashBoardGenericTileSize sapUiTinyMargin">
+							<tileContent>
+								<TileContent>
+									<content>
+										<Toolbar class="sapUiSmallMarginTop DashBoardGenericToolBar">
+											<Avatar displaySize="XS" backgroundColor="Placeholder" src="sap-icon://accept"></Avatar>
+											<Label text="Pending Approvals" wrapping="true" class="sapUiTinyMarginTop sapUiSmallMarginBegin DashBoardBlackFont"></Label>
+											<Label text="0" class="sapUiSmallMarginBegin DashBoardFontsizeXXLarge"></Label>
+										</Toolbar>
+									</content>
+								</TileContent>
+							</tileContent>
+						</GenericTile>
+						<ct:DBStatusTile class="sapUiTinyMargin" subTitle="STATUS" title="Flight Servicing" header="Aircraft is undergoing" subHeader="BF Servicing"
+							info="" buttonName="Update Flight">
+							<Button text="Pilot to Review" type="Emphasized" press="onPilotReviewPress"/>
+							<Button text="Pilot Update Record" type="Emphasized" press="onPilotUpdatePress"/>
+							<Button text="Declare Aircraft Safe" type="Emphasized" press="onDeclareAircraftPress"/>
+							<Button text="Update Flight Servicing" type="Emphasized" press="onUpdateFlightServicetPress"/>
+						</ct:DBStatusTile>
+					</HBox>
+					<HBox class="sapUiSmallMarginBeginEnd sapUiLargeMarginBegin">
+						<VBox>
+							<HBox>
+								<ct:DashboardTile3 select="onViewClick" class="sapUiTinyMargin" title="Schedules" leftNumeric="5" leftHeading="Jobs Due Soon"
+									leftSubHeading="(5 Days or 10h)" buttonText="View">
+									<mc:RadialMicroChart percentage="10" size="L" valueColor="Critical" press="press" class="numFontColor"></mc:RadialMicroChart>
+									<SegmentedButton selectionChange="onSelectionChange" width="100%" class="sapUiSizeCompact">
+										<items>
+											<SegmentedButtonItem text="Airframe Hrs" width="50%"/>
+											<SegmentedButtonItem text="Days"/>
+											<SegmentedButtonItem text="TAC"/>
+										</items>
+									</SegmentedButton>
+									<Link text="view"/>
+								</ct:DashboardTile3>
+								<ct:DashboardTile4 class="sapUiTinyMargin" title="Aircraft Capabilities">
+									<mc:RadialMicroChart percentage="10" size="L" valueColor="Critical" press="press" class="numFontColor"></mc:RadialMicroChart>
+									<SegmentedButton selectionChange="onSelectionChange" width="100%" class="sapUiSizeCompact">
+										<items>
+											<SegmentedButtonItem text="ADD" width="25%"/>
+											<SegmentedButtonItem text="Limitation" width="50%"/>
+										</items>
+									</SegmentedButton>
+									<Link text="view"/>
+								</ct:DashboardTile4>
+							</HBox>
+							<HBox>
+								<ct:DashboardTile3 select="onViewClick" class="sapUiTinyMargin" title="Fuel" leftNumeric="6000" leftHeading="Total Amount"
+									leftSubHeading="(lbs)">
+									<mc:RadialMicroChart percentage="10" size="L" valueColor="Critical" press="press" class="numFontColor"></mc:RadialMicroChart>
+									<SegmentedButton selectionChange="onSelectionChange" width="100%" class="sapUiSizeCompact">
+										<items>
+											<SegmentedButtonItem text="Internal" width="40%"/>
+											<SegmentedButtonItem text="Centerline" width="40%"/>
+										</items>
+									</SegmentedButton>
+									<Link text="view"/>
+								</ct:DashboardTile3>
+								<ct:DashboardTile5 class="sapUiTinyMargin" title="Aircraft Role" totalCount="12" chart1Count="0" chart2Count="2" chart3Count="10">
+									<Link text="view"/>
+									<ProgressIndicator percentValue="0" state="Information"/>
+									<ProgressIndicator percentValue="20" state="Information"/>
+									<ProgressIndicator percentValue="100" state="Information"/>
+								</ct:DashboardTile5>
+							</HBox>
+						</VBox>
+						<VBox>
+							<w:Card manifest="{DashboardModel>/list1}" class="sapUiTinyMargin">
+								<w:layoutData>
+									<f:GridContainerItemLayoutData columns="4"/>
+								</w:layoutData>
+							</w:Card>
+							<w:Card manifest="{DashboardModel>/list2}" class="sapUiTinyMargin">
+								<w:layoutData>
+									<f:GridContainerItemLayoutData columns="4"/>
+								</w:layoutData>
+							</w:Card>
+							<VBox class="DashBoardRefreshVBox sapUiSmallMarginBegin sapUiTinyMarginTop">
+								<ObjectStatus class="sapUiSmallMarginBegin sapUiTinyMargin" text="Last Synced: 24/12/19, 10:00" icon="sap-icon://synchronize"
+									state="Indication05"/>
+							</VBox>
+						</VBox>
+					</HBox>
+				</content>
+			</Page>
+	
+</mvc:View>

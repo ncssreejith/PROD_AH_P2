@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<VBox class="sapUiTinyMarginTop" width="99%">
+		<OverflowToolbar>
+			<Title text="{i18n>liTaks}" level="H2"/>
+			<ToolbarSpacer/>
+			<SearchField placeholder="Search" width="15rem"/>
+			<Button text="{i18n>btnCreateTask}" press="handlePressWorkCenterFragmentOpenMenu('WCT',$event)" type="Default" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+		</OverflowToolbar>
+		<IconTabBar expanded="{device>/isNoPhone}" headerMode="Inline"
+			class="sapUiResponsiveContentPadding iconTabBarContentDimensions iconTabBarBGTran iconTabBarBorder">
+			<items>
+				<IconTabFilter text="{i18n>itOUTSTANDING}" count="{=${TaskOutModel>/}.length}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.task.WorkCenterTasksOutstandingFragment" type="XML"/>
+					<OverflowToolbar class="toolbarBorder sapUiTinyMarginTop">
+						<ToolbarSpacer/>
+						<Button text="{i18n>btnCloseTask}" press="onCloseTask" class="btnClass sapUiSizeCompact" type="Emphasized" width="7rem" enabled="{LocalModel>/FairEditFlag}"/>
+					</OverflowToolbar>
+				</IconTabFilter>
+				<IconTabFilter text="{i18n>itPENDINGSUPERVISOR}" count="{=${TaskPendingModel>/}.length}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.task.WorkCenterTasksPendingSupervisorFragment" type="XML"/>
+					<OverflowToolbar class="toolbarBorder sapUiTinyMarginTop">
+						<ToolbarSpacer/>
+						<Button text="{i18n>btnSignOff}" type="Emphasized" press="onSignOffTask" class="btnClass sapUiSizeCompact" width="7rem" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+					</OverflowToolbar>
+				</IconTabFilter>
+				<IconTabFilter text="{i18n>itCOMPLETED}" count="{=${TaskCompleteModel>/}.length}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.task.WorkCenterTasksCompletedFragment" type="XML"/>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+	</VBox>
+</core:FragmentDefinition>

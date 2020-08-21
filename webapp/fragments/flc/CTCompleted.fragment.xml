@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<l:VerticalLayout class="sapUiContentPadding" width="100%">
+		<l:content>
+			<FlexBox class="backgroundWhite" height="120px" alignItems="Center" justifyContent="Center"
+				visible="{=${oCTCloseTaskModel>/CompletedTask}.length === 0 ? true :false}">
+				<items>
+					<Label design="Bold" text="There are currently no completed tasks."/>
+				</items>
+			</FlexBox>
+			<Table id="CompleteTblId" class="CERTable" items="{oCTCloseTaskModel>/CompletedTask}"
+				visible="{=${oCTCloseTaskModel>/CompletedTask}.length !== 0 ? true :false}" updateFinished="onTableUpdateFinishedCM('CM',$event)">
+				<columns>
+					<Column width="10%" class="CERTableTextColor" hAlign="Center">
+						<Label text="Symbol" design="Bold"/>
+					</Column>
+					<Column width="30%" demandPopin="true">
+						<HBox>
+							<Label text="Task" design="Bold"/>
+							<!--<core:Icon src="sap-icon://sorting-ranking" color="white" class="sapUiTinyMarginBegin"/>-->
+						</HBox>
+					</Column>
+					<!--<Column width="25%" demandPopin="true">
+						<Label text="Technical Order" design="Bold"/>
+					</Column>-->
+					<Column demandPopin="true">
+						<Label text="Date / Time" design="Bold" wrapping="true"/>
+					</Column>
+					<Column demandPopin="true">
+						<Label text="Follow-up Task" design="Bold" wrapping="true"/>
+					</Column>
+					<Column demandPopin="true">
+						<Label text="Tradesman" design="Bold"/>
+					</Column>
+					<Column demandPopin="true">
+						<Label text="Supervisor" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<HBox visible="{= ${oCTCloseTaskModel>symbol}!=='' ? true :false}" class="sapUiTinyMarginBegin">
+								<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${oCTCloseTaskModel>symbol} === '1' ? true : false}"/>
+								<Button text="/" class="red redText" type="Transparent" visible="{=${oCTCloseTaskModel>symbol} === '2' ? true : false}"/>
+								<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${oCTCloseTaskModel>symbol} === '3' ? true : false}"/>
+							</HBox>
+							<!--<core:Icon src="sap-icon://decline" size="30px" color="#da2d2d"/>-->
+							<ObjectStatus text="{oCTCloseTaskModel>tdesc}" active="false" state="None"/>
+							<ObjectStatus
+								text="{path:'oCTCloseTaskModel>CREATDT', formatter:'.formatter.defaultDateFormatDisplay'} {path:'oCTCloseTaskModel>CREATTM', formatter:'.formatter.defaultTimeFormatDisplay'}"
+								active="false" state="None"/>
+							<ObjectStatus text="{oCTCloseTaskModel>ftdesc}" active="false" state="None"/>
+							<!--<ObjectStatus text="{oCTCloseTaskModel>toref}" active="true" state="None" press="onAfterFlightServTask"/>-->
+							<ObjectStatus text="{oCTCloseTaskModel>SG1USR}" active="true" state="None" press="onAfterFlightServTask"/>
+							<ObjectStatus text="{oCTCloseTaskModel>SG2USR}" active="true" state="None" press="onAfterFlightServTask"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</l:content>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

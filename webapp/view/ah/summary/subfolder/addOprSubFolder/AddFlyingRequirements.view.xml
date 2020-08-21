@@ -1,0 +1,59 @@
+<mvc:View controllerName="avmet.ah.controller.CosAddFlyingRequirements" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:u="sap.ui.unified">
+	<Page showHeader="false" showNavButton="false" >
+		<Toolbar height="4rem" class="backgroundWhite">
+			<Button icon="sap-icon://arrow-left" type="Transparent" class="iconColorWhite sapUiMediumMarginBegin" press="onNavBack"></Button>
+			<ObjectIdentifier title="{i18n>tiAddFlyingRequirement}" text="{ViewModel>/JobId}" titleActive="false" class="sapUiTinyMarginBottom"/>
+		</Toolbar>
+		<content>
+			<VBox class="sapUiResponsivePadding sapUiResponsiveMargin">
+				<l:Splitter>
+					<VBox>
+						<VBox>
+							<Label text="{i18n>lbDate}" design="Bold"/>
+						<!--	<DatePicker id="DP1" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"  placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>-->
+								<DatePicker valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
+								value="{path: 'ViewModel>/dDate', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+								width="13rem" placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>lbTime}" design="Bold"/>
+							<!--<TimePicker id="TP1" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgTime"  valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" placeholder="Creation time..."/>-->
+							<TimePicker value="{ViewModel>/dDateTime}" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgTime"
+								width="13rem" valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" placeholder="Creation time..."/>
+						</VBox>
+						<layoutData>
+							<l:SplitterLayoutData size="300px" resizable="false"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiMediumMarginBegin">
+						<List mode="Delete" items="{path: 'FlyingRequirementsModel>/FlyingRequirements'}" delete="onDeletePress">
+							<CustomListItem class="sapUiSmallMargin">
+								<VBox class="sapUiSmallMargin">
+									<Label text="{i18n>lbFlyingRequirement}" design="Bold"/>
+									<TextArea id="taComment" required="true" fieldGroupIds="fgTxtArea" width="100%" value="{FlyingRequirementsModel>FRDESC}" class="sapUiTinyMarginBegin" growing="true" growingMaxLines="7"
+										valueStateText="{i18n>ERROR_GENERIC}" change="onCommentBySupervisor" maxLength="500" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"/>
+								</VBox>
+							</CustomListItem>
+						</List>
+						<Bar class="toolbarBorder">
+							<contentMiddle>
+								<Button icon="sap-icon://sys-add" class="flyReqIcon btnColor" text="{i18n>btnAddFlyingRequirements}" width="55rem" type="Transparent"
+									press="onAddFlyingRequirements"/>
+							</contentMiddle>
+						</Bar>
+						<layoutData>
+							<l:SplitterLayoutData size="auto"/>
+						</layoutData>
+					</VBox>
+				</l:Splitter>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="{i18n>btnSignOff}" type="Default" class="btnColor" press="onSubmitFlyingRequirements"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

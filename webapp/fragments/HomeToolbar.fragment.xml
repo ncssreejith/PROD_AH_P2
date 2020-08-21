@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+	xmlns:ct="ah_bf_create_flight_servicing.AH_BF_Create_Flight_Servicing.control">
+	<Toolbar height="3rem" class="backgroundBlack">
+		<Button icon="sap-icon://menu2" type="Transparent" class="menuColor"/>
+		<Title text="F-16 C 610" class="titleTextBoldAndWhite sapUiTinyMarginTop"/>
+		<ToolbarSpacer/>
+		<Button icon="sap-icon://flight" type="Emphasized" text="Flight Servicing" press="onOpenQuickView" class="imgSize sapUiTinyMarginBottom buttonColor"/>
+		<HBox alignItems="Center" class="sapUiTinyMargin">
+			<Avatar displaySize="XS" backgroundColor="Accent10"/>
+			<Label text="807 SQN" design="Bold" class="titleTextBoldAndWhite sapUiTinyMargin"/>
+		</HBox>
+	</Toolbar>
+</core:FragmentDefinition>

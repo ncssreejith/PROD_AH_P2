@@ -1,0 +1,117 @@
+{
+	"aircraftTransfer": {
+		"CuurentCustodian": "807 SQN",
+		"Location": "Hanger 3",
+		"DispatchingDetails": [{
+			"Date": "24/11/19",
+			"Time": "06:00",
+			"Unit": "209",
+			"TradesMan": "ME3 Aaron Wong"
+		}, {
+			"Date": "24/12/19",
+			"Time": "03:00",
+			"Unit": "807",
+			"TradesMan": "ME2 Balaganesh"
+		}, {
+			"Date": "20/12/19",
+			"Time": "18:00",
+			"Unit": "203",
+			"TradesMan": "ME2 Chong J K"
+		}, {
+			"Date": "18/12/19",
+			"Time": "06:30",
+			"Unit": "809",
+			"TradesMan": "ME2 Lin Bin"
+		}, {
+			"Date": "15/12/19",
+			"Time": "12:40",
+			"Unit": "205",
+			"TradesMan": "ME2 Steven Tan"
+		}],
+		"ReceivingDetails": [{
+			"Date": "24/11/19",
+			"Time": "07:00",
+			"Unit": "205",
+			"TradesMan": "ME2 Tan T L"
+		}, {
+			"Date": "24/12/19",
+			"Time": "04:00",
+			"Unit": "209",
+			"TradesMan": "ME2 Jim Chang"
+		}, {
+			"Date": "20/12/19",
+			"Time": "18:45",
+			"Unit": "807",
+			"TradesMan": "ME2 Tony Chin"
+		}, {
+			"Date": "18/12/19",
+			"Time": "07:30",
+			"Unit": "203",
+			"TradesMan": "ME2 Vivian Sim"
+		}, {
+			"Date": "15/12/19",
+			"Time": "14:00",
+			"Unit": "809",
+			"TradesMan": "ME2 Lim T K"
+		}]
+
+	},
+	"aircraftTransferCheckList": [{
+		"SNo": "1",
+		"Checklist": "Missile launcher detent pin (1 per launcher)",
+		"Dispatcher": "noKey",
+		"Receiver": ""
+
+	}, {
+		"SNo": "2",
+		"Checklist": "Ejection seat pins (2 per seats)",
+		"Dispatcher": "noKey",
+		"Receiver": ""
+	}, {
+		"SNo": "3",
+		"Checklist": "Canopy Jettison pin (1 per cockpit))",
+		"Dispatcher": "noKey",
+		"Receiver": ""
+	}, {
+		"SNo": "4",
+		"Checklist": "Ejection Seat Pitot covers (1 pair per seat))",
+		"Dispatcher": "noKey",
+		"Receiver": ""
+	}, {
+		"SNo": "5",
+		"Checklist": "Side stick controller cover (1 per cockpit)",
+		"Dispatcher": "noKey",
+		"Receiver": ""
+	}],
+	"Recipient": [{
+		"text": "203 SQN",
+		"key": "203SQN"
+	}, {
+		"text": "205 SQN",
+		"key": "205SQN"
+	}, {
+		"text": "209 SQN",
+		"key": "209SQN"
+	}, {
+		"text": "809 SQN",
+		"key": "809SQN"
+	}],
+	"Location": [{
+		"text": "PDS 2",
+		"key": "PDS2"
+	}, {
+		"text": "Hanger 1",
+		"key": "Hanger1"
+	}, {
+		"text": "Hanger 2",
+		"key": "Hanger2"
+	}, {
+		"text": "Hanger 3",
+		"key": "Hanger3"
+	}],
+	"sReceive": false,
+	"sDispatch": true,
+	"sReceiveTable": false,
+	"sDisEnabled": false
+
+}

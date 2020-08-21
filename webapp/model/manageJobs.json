@@ -1,0 +1,44 @@
+{
+	"ManageJobs": [{
+		"Name": "Edit Job",
+		"Icon": "sap-icon://edit",
+		"NavTyp": "Navigation"
+	}, {
+		"Name": "Transfer Job to ADD/Limitation",
+		"Icon": "sap-icon://paper-plane",
+		"NavTyp": "Active"
+	}, {
+		"Name": "View History Log",
+		"Icon": "sap-icon://past",
+		"NavTyp": "Active"
+	}, {
+		"Name": "Work Centers",
+		"Icon": "sap-icon://suitcase",
+		"NavTyp": "Navigation"
+	}, {
+		"Name": "Add Related Jobs",
+		"Icon": "sap-icon://sys-add",
+		"NavTyp": "Active"
+	}],
+
+	"EditJobDetails": [{
+		"Name": "Edit Job Details",
+		"Icon": "sap-icon://edit"
+	}, {
+		"Name": "Job Enter in Error",
+		"Icon": "sap-icon://sys-cancel"
+	}],
+
+	"WorkCenterDetails": [{
+		"Name": "Add Work Center",
+		"Icon": "sap-icon://sys-add"
+	}, {
+		"Name": "Manage Work Centers",
+		"Icon": "sap-icon://suitcase"
+	}],
+	"RectificationWrkCntr": [{
+		"WorkCenter": "AEMF",
+		"aTasks": []
+	}],
+	"DetailsPage": []
+}

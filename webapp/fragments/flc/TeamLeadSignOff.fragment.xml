@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Panel>
+		<ScrollContainer horizontal="true" vertical="true" width="100%" focusable="false" class="sapUiTinyMargin">
+			<!--<OverflowToolbar visible="{oRoutineTasksViewModel>/bTLSignOffVisible}">-->
+			<!--	<Text text="Verify and sign off:"/>-->
+			<!--</OverflowToolbar>-->
+			<!--<OverflowToolbar class="overflowToolbarBgColorRed" visible="{oRoutineTasksViewModel>/bTLToafCheck}">-->
+			<!--	<ToolbarSpacer/>-->
+			<!--	<Button icon="sap-icon://message-warning" enabled="false" type="Transparent"/>-->
+			<!--	<Text text="All tasks verified by Benjamin" class="whiteText"/>-->
+			<!--	<Button text="Sign Off Tools Check" type="Accept" class="singOffBtnColor" press="onTOAFCheckPress"/>-->
+			<!--	<ToolbarSpacer/>-->
+			<!--</OverflowToolbar>-->
+			<Table class="sapUiResponsivePadding sapUiTinyMarginTop CERTable tableHFont" items="{oRoutineTasksViewModel>/Teamlead}">
+				<columns>
+					<Column hAlign="Center" class="CERTableTextColor">
+						<Label text="Task" design="Bold"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+						<Label text="Result" design="Bold" wrapping="true"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+						<Label text="Tradesman" design="Bold" wrapping="true"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{oRoutineTasksViewModel>DDDESC}"/>
+							<Text text="{parts : ['oRoutineTasksViewModel>DONE','oRoutineTasksViewModel>NA'], formatter:'.formatter.TradesmanStatusDisplay'}"/>
+							<Text text="{oRoutineTasksViewModel>TRADE_USER}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<!--<Table class="sapUiResponsivePadding sapUiTinyMarginTop CERTable tableHFont" items="{oRoutineTasksViewModel>/TeamLeadSingOffDetails}">-->
+			<!--	<columns>-->
+			<!--		<Column hAlign="Center"/>-->
+			<!--		<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left"/>-->
+			<!--		<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left"/>-->
+			<!--	</columns>-->
+			<!--	<items>-->
+			<!--		<ColumnListItem>-->
+			<!--			<cells>-->
+			<!--				<Text text="{oRoutineTasksViewModel>area}"/>-->
+			<!--				<Text text="Done"/>-->
+			<!--				<Text text="{oRoutineTasksViewModel>tradesman}"/>-->
+			<!--			</cells>-->
+			<!--		</ColumnListItem>-->
+			<!--	</items>-->
+			<!--</Table>-->
+		</ScrollContainer>
+	</Panel>
+</core:FragmentDefinition>

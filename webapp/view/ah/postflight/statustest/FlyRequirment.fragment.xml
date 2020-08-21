@@ -1,0 +1,34 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control" xmlns:f="sap.f"
+	xmlns:card="sap.f.cards">
+	<Table headerText="Flying requirements" id="flyReqTblId" class="CERTable" items="{oPilotUpdatesViewModel>/flyReq}">
+		<columns>
+			<Column width="10%" class="CERTableTextColor">
+				<Label text="No." design="Bold"/>
+			</Column>
+			<Column width="35%" demandPopin="true">
+				<Label text="Requirements" design="Bold"/>
+			</Column>
+			<Column width="30%" demandPopin="true">
+				<Label text="Results" design="Bold"/>
+			</Column>
+			<Column width="25%" demandPopin="true">
+				<Label text="Reason(s)" design="Bold"/>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text text="{path:'oPilotUpdatesViewModel>fr_no',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
+					<Text text="{oPilotUpdatesViewModel>frdesc}"/>
+					<SegmentedButton selectedKey="{oPilotUpdatesViewModel>frrid}" items="{oPilotUpdatesViewModel>/flyResult}" required="true"
+						fieldGroupIds="fgSGBtn">
+						<items>
+							<SegmentedButtonItem text="{oPilotUpdatesViewModel>description}" key="{oPilotUpdatesViewModel>ddid}"/>
+						</items>
+					</SegmentedButton>
+					<Input value="{oPilotUpdatesViewModel>reason}" visible="{= (${oPilotUpdatesViewModel>frrid}==='FRR_P' || ${oPilotUpdatesViewModel>frrid}===null)?false:true}"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

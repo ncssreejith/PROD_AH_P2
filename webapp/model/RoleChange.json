@@ -1,0 +1,220 @@
+{
+	"BeforeFlight": [{
+		"Station": "Station 1",
+		"imageUrl": "css/img/Section-1.png",
+		"Target": "Lau 129",
+		"TargetSno": "123",
+		"Destination": "AIM 120 Aur",
+		"bDestinationTitle": true,
+		"DestinationSno": "12345",
+		"Connecter": true,
+
+		"bTanks": false,
+		"bPylon": true,
+		"Pylon": [{
+			"Text": "S210 MSL LAU",
+			"Active": "true"
+		}, {
+			"Text": "LAU 129",
+			"Active": "true"
+		}]
+	}, {
+		"Station": "Station 2",
+		"imageUrl": "css/img/Section-2.png",
+		"Target": "S210 Msl Lau",
+		"TargetSno": "123",
+		"Destination": "",
+		"bDestinationTitle": false,
+		"DestinationSno": "",
+		"Connecter": false,
+
+		"bTanks": false,
+		"bPylon": true,
+		"Pylon": [{
+			"Text": "UWA",
+			"Active": "true"
+		}, {
+			"Text": "LAU 129",
+			"Active": "true"
+		}, {
+			"Text": "S210 MSL LAU",
+			"Active": "true"
+		}]
+	}, {
+		"Station": "Station 3",
+		"imageUrl": "css/img/Section-3.png",
+		"Target": "Lau 129",
+		"TargetSno": "123",
+		"bDestinationTitle": false,
+		"Destination": "",
+		"DestinationSno": "",
+		"Connecter": false,
+
+		"bTanks": false,
+		"bPylon": true,
+		"Pylon": [{
+			"Text": "UWA",
+			"Active": "true"
+		}, {
+			"Text": "LAU 129",
+			"Active": "true"
+		}, {
+			"Text": "S210 MSL LAU",
+			"Active": "true"
+		}, {
+			"Text": "WWP",
+			"Active": "true"
+		}, {
+			"Text": "TER",
+			"Active": "true"
+		}]
+	}, {
+		"Station": "Station 4",
+		"imageUrl": "css/img/Section-4.png",
+		"Target": "370 Gal Wing Tank",
+		"TargetSno": "123",
+		"Destination": "",
+		"bDestinationTitle": false,
+		"DestinationSno": "",
+		"Connecter": true,
+
+		"bTanks": true,
+		"bPylon": true,
+		"Pylon": [{
+			"Text": "WWP",
+			"Active": "true"
+		}, {
+			"Text": "TER",
+			"Active": "true"
+		}, {
+			"Text": "Non-Jettison Pylon",
+			"Active": "true"
+		}],
+		"Tanks": [{
+			"Text": "370 GAL WING TANK",
+			"Active": "true"
+		}, {
+			"Text": "600 GAL WING TANK",
+			"Active": "true"
+		}]
+	}, {
+		"Station": "Station 5",
+		"imageUrl": "css/img/Section-5.png",
+		"Target": "Centerline Pylon",
+		"TargetSno": "123",
+		"bDestinationTitle": true,
+		"Destination": "Centerline Tank",
+		"DestinationSno": "12345",
+		"Connecter": true,
+
+		"bTanks": true,
+		"bPylon": true,
+		"Pylon": [{
+			"Text": "Centerline Pylon",
+			"Active": "true"
+		}],
+		"Tanks": [{
+			"Text": "300 GAL TANK",
+			"Active": "true",
+			"SNo": "12345",
+			"Quantity": ""
+		}]
+	}, {
+		"Station": "Station 6",
+		"imageUrl": "css/img/Section-6.png",
+		"Target": "370 Gal Wing Tank",
+		"TargetSno": "123",
+		"Destination": "",
+		"DestinationSno": "",
+		"Connecter": false,
+
+		"bTanks": true,
+		"bPylon": true,
+		"Pylon": [{
+			"Text": "WWP",
+			"Active": "true"
+		}, {
+			"Text": "TER",
+			"Active": "true"
+		}, {
+			"Text": "Non- Jettison PYLON",
+			"Active": "true"
+		}],
+		"Tanks": [{
+			"Text": "370 GAL WING TANK",
+			"Active": "true"
+		}, {
+			"Text": "600 GAL WING TANK",
+			"Active": "true"
+		}]
+	}, {
+		"Station": "Station 7",
+		"imageUrl": "css/img/Section-7.png",
+		"Target": "Lau 129",
+		"TargetSno": "123",
+		"Destination": "",
+		"bDestinationTitle": false,
+		"DestinationSno": "",
+		"Connecter": true,
+
+		"bTanks": false,
+		"bPylon": true,
+		"Pylon": [{
+			"Text": "UWA",
+			"Active": "true"
+		}, {
+			"Text": "S210 MSL LAU",
+			"Active": "true"
+		}, {
+			"Text": "LAU 129",
+			"Active": "true"
+		}, {
+			"Text": "WWP",
+			"Active": "true"
+		}, {
+			"Text": "TER",
+			"Active": "true"
+		}]
+	}, {
+		"Station": "Station 8",
+		"imageUrl": "css/img/Section-8.png",
+		"Target": "S210 Msl Lau",
+		"TargetSno": "123",
+		"Destination": "",
+		"bDestinationTitle": false,
+		"DestinationSno": "",
+		"Connecter": false,
+
+		"bTanks": false,
+		"bPylon": true,
+		"Pylon": [{
+			"Text": "UWA",
+			"Active": "true"
+		}, {
+			"Text": "S210 MSL LAU",
+			"Active": "true"
+		}, {
+			"Text": "LAU 129",
+			"Active": "true"
+		}]
+	}, {
+		"Station": "Station 9",
+		"imageUrl": "css/img/Section-9.png",
+		"Target": "Lau 129",
+		"TargetSno": "123",
+		"Destination": "AIM 120 Aur",
+		"bDestinationTitle": true,
+		"DestinationSno": "12345",
+		"Connecter": true,
+
+		"bTanks": false,
+		"bPylon": true,
+		"Pylon": [{
+			"Text": "S210 MSL LAU",
+			"Active": "true"
+		}, {
+			"Text": "LAU 129",
+			"Active": "true"
+		}]
+	}]
+}

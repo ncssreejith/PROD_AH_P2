@@ -1,0 +1,98 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<VBox backgroundDesign="Solid" width="100%" alignItems="Center">
+		<FlexBox class="sapUiSmallMarginTopBottom">
+			<VBox>
+				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"  growing="true" growingThreshold="5" growingScrollToLoad="false"
+					items="{path:'oEngineModel>/EngCyclicLife2',sorter: { path: 'LOGID', descending: true}}" noDataText="No Engine Indicator Value" showNoData="true">
+					<headerToolbar>
+						<OverflowToolbar>
+							<content>
+								<Title level="H3" text="Engine Indicator Value"/>
+								<ToolbarSpacer/>
+								<!--<Link text="View Past Records"/>-->
+								<Button text="Reset Indicator Value" type="Transparent" press="onResetEng2CycLog"/>
+								<Button text="Add Engine Cyclic Log" type="Emphasized" press="onAddEng2CycLog"/>
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column hAlign="Center" class="CERTableTextColor">
+							<Label text="Date/Time" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+							<Label text="LCF 1" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="LCF 2" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Index" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Engine Hours" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Updated By" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateFormatDisplay'} {path:'oEngineModel>CREUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{oEngineModel>LCF1}"/>
+								<Text text="{oEngineModel>LCF2}"/>
+								<Text text="{oEngineModel>INDEX1}"/>
+								<Text text="{oEngineModel>ENGHR}"/>
+								<Text text="{oEngineModel>CREUSR}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"  growing="true" growingThreshold="5" growingScrollToLoad="false"
+					items="{path:'oEngineModel>/EngCyclicLife2',sorter: { path: 'LOGID', descending: true}}" noDataText="No Accumulative Engine Indicator Value" showNoData="true">
+					<headerToolbar>
+						<OverflowToolbar>
+							<content>
+								<Title level="H3" text="Accumulative Engine Indicator Value"/>
+								<ToolbarSpacer/>
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column hAlign="Center" class="CERTableTextColor">
+							<Label text="Date/Time" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+							<Label text="LCF 1" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="LCF 2" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Index" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Engine Hours" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Updated By" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateFormatDisplay'} {path:'oEngineModel>CREUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{oEngineModel>TLCF1}"/>
+								<Text text="{oEngineModel>TLCF2}"/>
+								<Text text="{oEngineModel>TINDEX}"/>
+								<Text text="{oEngineModel>TENGHR}"/>
+								<Text text="{oEngineModel>CREUSR}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</FlexBox>
+	</VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,125 @@
+[{
+		"name": "Dashboard",
+		"icon": "",
+		"active": "x",
+		"visible": true,   
+		"pattern": "DashboardInitial"
+	}, {
+		"name": "Flight Servicing",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "CreateFlightService"
+	}, {
+		"name": "Jobs",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "Cosjobs"
+	}, {
+		"name": "Role Change",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "RoleChangeStations"
+	}, {
+		"name": "Approvals",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "Approvals"
+	}, {
+		"name": "Engine",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "Engine"
+	}, {
+		"name": "Aircraft Capability",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "Limitations"
+	}, {
+		"name": "Aircraft Monitoring",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "",
+		"child": [{
+			"name": "Flying Requirement",
+			"icon": "",
+			"active": "x",
+			"visible": true,
+			"pattern": "FlyingRequirements"
+		}, {
+			"name": "Aircraft Monitoring",
+			"icon": "",
+			"active": "x",
+			"visible": true,
+			"pattern": "SortieMonitoring"
+		}, {
+			"name": "Trial Modification Monitoring",
+			"icon": "",
+			"active": "x",
+			"visible": true,
+			"pattern": "Trial_Mod"
+		}, {
+			"name": "Aircraft Utilisation",
+			"icon": "",
+			"active": "x",
+			"visible": true,
+			"pattern": "AircraftUtilisation"
+		}]
+	}, {
+		"name": "Aircraft Information",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "",
+		"child": [{
+			"name": "Overview",
+			"icon": "",
+			"active": "x",
+			"visible": true,
+			"pattern": "AircraftOverview"
+		}, {
+			"name": "Weight and Balance",
+			"icon": "",
+			"active": "x",
+			"visible": true,
+			"pattern": "WeightBalance"
+		}, {
+			"name": "WDNS Coefficients Records",
+			"icon": "",
+			"active": "x",
+			"visible": true,
+			"pattern": "MainWDNS"
+		}]
+	}, {
+		"name": "Transfer Aircraft",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "AircraftTransfer"
+	}, {
+		"name": "Switch Aircraft",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "AircraftSelection"
+	}, {
+		"name": "Upload/Download",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "FileUpload"
+	}, {
+		"name": "Settings",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": ""
+	}
+
+]

@@ -1,0 +1,33 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.CosCloseTask"
+	xmlns:l="sap.ui.layout">
+	<Page showHeader="false">
+		<subHeader class="headerHeight sapUiTinyMarginTop">
+			<OverflowToolbar class="headerHeight">
+				<Button icon="sap-icon://arrow-left" press="onNavBack" class="sapUiSmallMarginBegin"/>
+				<ObjectIdentifier title="{i18n>lblcloseTask}" text="{ViewModel>/JobId}" titleActive="false" class="sapUiTinyMarginBottom"/>
+				<ToolbarSpacer/>
+			</OverflowToolbar>
+		</subHeader>
+		<content>
+			<IconTabBar selectedKey="{ViewModel>/selectedIcon}" select="onIconTabSelection" class="sapUiSmallMarginTop">
+				<items class="sapUiLargeMarginTop">
+					<IconTabFilter key="followUp" text="1.Follow-up Tasks">
+						<core:Fragment fragmentName="avmet.ah.view.ah.closetask.FollowupTask" type="XML"/>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://less"/>
+					<IconTabFilter key="tradesMan" enabled="{ViewModel>/bTradesMan}" text="2.Tradesman Sign Off">
+						<core:Fragment fragmentName="avmet.ah.view.ah.closetask.TrademanSignOff" type="XML"/>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onBack" visible="{ViewModel>/backBtn}" type="Default"/>
+				<Button text="Proceed" press="onProceed" visible="{ViewModel>/proccedBtn}" type="Emphasized"/>
+				<Button text="Sign Off" press="onSignOff" visible="{ViewModel>/signOffBtn}" type="Emphasized"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

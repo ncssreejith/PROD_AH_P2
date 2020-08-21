@@ -1,0 +1,144 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.ah.control">
+	<l:VerticalLayout width="100%" class="backgroundWhite">
+		<HBox class="sapUiSmallMargin">
+			<HBox class="sapUiSmallMarginTop" visible="{= ${JobModel>/mark}==='1' ? true:false}">
+				<core:HTML id="CanvasId" visible="false"
+					content='&lt;canvas id=&quot;myCanvasTop&quot; click="getPointPosition($event)" width=&quot;380&quot; height=&quot;170&quot; style=&quot;border:1px solid #000000&quot;&gt;&lt;/canvas&gt;'></core:HTML>
+				<List items="{PhotoModel>/photoSet}" class="sapUiTinyMarginBegin" width="95%"
+					visible="{= (${JobModel>/jobty} ==='D' &amp;&amp; ${JobModel>/DOCREFID} !=='') ? true:false}">
+					<CustomListItem press="onImagePress" type="Active">
+						<Image src="{PhotoModel>RAWBASE}" height="40px"></Image>
+					</CustomListItem>
+				</List>
+			</HBox>
+			<VBox visible="{= ${JobModel>/jobty}==='D' ? true:false}" width="80%">
+				<VBox visible="{= ${JobModel>/photo}==='' &amp;&amp; ${JobModel>/mark}!=='1' ?true:false}">
+					<Panel class="sapUiSmallMarginBottom" expandable="true">
+						<headerToolbar>
+							<OverflowToolbar height="3rem" style="Clear">
+								<Label text="{i18n>lbPhotoofDefect}" design="Bold"></Label>
+								<ToolbarSpacer/>
+								<Label text="{i18n>lbOptional}" class="sapUiSmallMarginBegin"/>
+							</OverflowToolbar>
+						</headerToolbar>
+						<UploadCollection id="photoUpload" maximumFilenameLength="55" maximumFileSize="10" multiple="true" sameFilenameAllowed="true"
+							instantUpload="false" noDataDescription="Use the 'Add' button for adding photo" change="onAddDefectImage" fileDeleted="onFileDeleted"
+							filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+							uploadComplete="onUploadComplete" uploadButtonInvisible="false" beforeUploadStarts="onBeforeUploadStarts"></UploadCollection>
+						<FlexBox alignItems="Center" justifyContent="Center">
+							<items>
+								<Image press="onPressSeeImagen" class="imageBorder" id="iImageTicket" densityAware="false" width="300px" height="230px"/>
+							</items>
+						</FlexBox>
+					</Panel>
+				</VBox>
+			</VBox>
+			<HBox class="sapUiSmallMarginBegin" width="{=${JobModel>/jobty}==='D' ? '84%' :'100%'}">
+				<VBox class="sapUiTinyMargin" width="100%">
+					<Toolbar width="{=${JobModel>/jobty}==='D' ? '84%' :'92%'}">
+						<Title text="{i18n>tiJobSummary}" level="H4" titleStyle="H4"/>
+						<ToolbarSpacer/>
+						<Button text="{i18n>btnManageJobs}" type="Default" icon="sap-icon://megamenu" iconFirst=" false" class="btnClass"
+							press="onOpenQuickView('DF',$event)" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+						<Button text=" {i18n>btnCloseJob}" type="Emphasized" class="sapUiSmallMarginEnd" enabled="{LocalModel>/JobStatus}"
+							press="onCloseJobPress('N')" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+					</Toolbar>
+					<l:VerticalLayout class="equalColumns" width="100%">
+						<l:content>
+							<FlexBox class="columns" justifyContent="SpaceBetween">
+								<items>
+									<Text text="{JobModel>/jobdesc}" width="26rem" wrapping="true">
+										<layoutData>
+											<FlexItemData growFactor="3" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
+										</layoutData>
+									</Text>
+									<VBox class="sapUiMediumMarginBegin">
+										<VBox
+											visible="{=${JobModel>/jobty}==='D' || ${JobModel>/jobty}==='U' || ${JobModel>/jobty}==='S' || ${JobModel>/jobty}==='ZQ' ? true :false}">
+											<HBox class="sapUiTinyMarginTop" alignItems="Start" alignContent="Start">
+												<Label design="Bold" text="{i18n>lbDateTime}" width="150px"/>
+												<HBox>
+													<Text text="{path:'JobModel>/credt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+													<Text text="{path:'JobModel>/cretm', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+												</HBox>
+											</HBox>
+											<HBox class="sapUiTinyMarginTop">
+												<Label design="Bold" text="{i18n>lbFoundBy}" width="150px"/>
+												<Text text="{JobModel>/fndby}" width="200px"/>
+											</HBox>
+											<HBox class="sapUiTinyMarginTop" visible="{=${JobModel>/fndid}!==null &amp;&amp; ${JobModel>/jobty}==='D' ? true :false}">
+												<Label design="Bold" text="{i18n>lbFoundduring}" width="150px"/>
+												<Text text="{path:'JobModel>/fndid', formatter:'.formatter.fndIdFormatter'}" width="200px"/>
+											</HBox>
+											<HBox class="sapUiTinyMarginTop" visible="{=${JobModel>/jduid}!=='' ? true :false}">
+												<Label design="Bold" text="Airframe Hrs" width="150px"/>
+												<Text text="{JobModel>/airhrs}" width="200px"/>
+											</HBox>
+											<HBox class="sapUiTinyMarginTop">
+												<Label design="Bold" text="{i18n>lbETR}" width="140px"/>
+												<HBox>
+													<DatePicker width="8rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
+														value="{path: 'JobModel>/etrdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+														change="handleChange" enabled="{LocalModel>/FairEditFlag}" editable="{LocalModel>/FairEditFlag}"/>
+													<TimePicker id="TP1" required="true" fieldGroupIds="fgTime" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/etrtm}" width="7rem"
+														valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" enabled="{LocalModel>/FairEditFlag}" editable="{LocalModel>/FairEditFlag}"/>
+												</HBox>
+											</HBox>
+											<HBox visible="{=${JobModel>/fstat}!=='' &amp;&amp; ${JobModel>/fstat}!==undefined ? true :false}" class="sapUiTinyMarginTop">
+												<Label design="Bold" text="{i18n>lbFAIRStatus}" width="150px"/>
+												<ObjectStatus text="{path:'JobModel>/fstat', formatter:'.formatter.FaitrStat'}" state="{SummaryModel>/FAIRStatus}"/>
+											</HBox>
+											<HBox visible="{=${JobModel>/fstat}==='R' ? true :false}" class="sapUiTinyMarginTop">
+												<Label design="Bold" text="{i18n>lbFAIRReleasedby}" width="150px"/>
+												<Text text="{path:'JobModel>/frelby'}" width="200px"/>
+											</HBox>
+											<HBox class="sapUiTinyMarginTop">
+												<Label design="Bold" text="Related Job :" width="150px"/>
+												<Text text="{JobModel>/rjobid}" width="200px"/>
+											</HBox>
+										</VBox>
+										<VBox
+											visible="{=${JobModel>/jobty}!=='D' &amp;&amp; ${JobModel>/jobty}!=='U' &amp;&amp; ${JobModel>/jobty}!=='S' &amp;&amp; ${JobModel>/jobty}!=='ZQ' ? true :false}"
+											class="sapUiMediumMarginBegin" alignContent="End" alignItems="End">
+											<HBox class="sapUiLargeMarginBegin">
+												<Label design="Bold" text="{i18n>lbDueDate}" width="150px"/>
+												<Text text="{path:'SummaryModel>/DefectData/Date', formatter:'.formatter.defaultDateFormat'}" width="200px"/>
+											</HBox>
+											<HBox class="sapUiLargeMarginBegin">
+												<Label design="Bold" text="{i18n>lbETR}" width="150px"/>
+												<Text text="{path:'SummaryModel>/DefectData/Date', formatter:'.formatter.defaultDateTimeFormat'}" width="200px"/>
+											</HBox>
+										</VBox>
+										<layoutData>
+											<FlexItemData growFactor="1" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
+										</layoutData>
+									</VBox>
+								</items>
+							</FlexBox>
+						</l:content>
+					</l:VerticalLayout>
+				</VBox>
+			</HBox>
+		</HBox>
+	</l:VerticalLayout>
+	<l:VerticalLayout width="100%" class="sapUiSmallMarginTop">
+		<Toolbar>
+			<Title text="{i18n>tiRectificationsbyWorkCenter}"/>
+			<ToolbarSpacer/>
+			<Button text="{i18n>btnDemandSpares}" type="Default" class="btnClass" press="onAddDemandSpares" enabled="{LocalModel>/FairEditFlag}"/>
+			<Button icon="sap-icon://vertical-grip" type="Transparent" press="onOpenQuickView('WC',$event)" class="sapUiSmallMarginEnd"
+				enabled="{LocalModel>/FairEditFlag}"/>
+		</Toolbar>
+		<HBox>
+			<!--{CreateJobLocalModel>Prime}-->
+			<HBox id="summaryHBId" items="{CreatedWorkCenterModel>/}">
+				<cc:RectificationTile footerText="Incomplete Entries" count="{CreatedWorkCenterModel>count}"
+					prime="{= ${CreatedWorkCenterModel>isprime} !== null ? true:false }" title="{CreatedWorkCenterModel>wrctrtx}" select="onWorkCenterSelect"
+					visible="{= ${CreatedWorkCenterModel>wrctr} !== 'Summary' }"/>
+			</HBox>
+			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter" enabled="true" visible="{LocalModel>/FairEditFlag}">
+				<core:Icon src="sap-icon://sys-add" size="35px" color="blue" press="onIconPress"/>
+			</cc:RectificationTileAdd>
+		</HBox>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

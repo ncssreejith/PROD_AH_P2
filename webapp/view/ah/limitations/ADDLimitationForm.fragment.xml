@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f" xmlns:cs="avmet.ah.control" xmlns:tnt="sap.tnt">
+	<VBox backgroundDesign="Solid" class="sapUiResponsivePadding sapUiResponsiveMargin">
+		<VBox class="sapUiMediumMarginBegin">
+			<VBox>
+				<HBox class="sapUiSmallMargin" justifyContent="SpaceBetween">
+					<Title text="{i18n>lblLimitations}" level="H2" titleStyle="H2"/>
+					<Label text="Count : {=${LimitationsSet>/}.length}" design="Bold"/>
+					<!--Out of 8-->
+				</HBox>
+				<List id="LimADDId" items="{ path: 'LimitationsSet>/'}" width="100%" class="sapUiResponsivePadding hboxColor"
+					selectionChange="onLimitationPress" mode="SingleSelectMaster">
+					<CustomListItem class="sapUiSmallMargin hboxColor" type="Navigation">
+						<HBox class="sapUiResponsivePadding hboxColor">
+							<!--<cs:ColorStatus title="{localViewModel>Title}" status="{localViewModel>Status}"/>-->
+							<cs:ColorStatus status="{LimitationsSet>CFLAG}" statushr="{LimitationsSet>AFHR}"/>
+							<HBox class="sapUiSmallMargin">
+								<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${LimitationsSet>EXPDT} !== null ? true : false}">
+									<Label text="{LimitationsSet>AFDAY}" design="Bold"></Label>
+									<Label text="day left"></Label>
+								</VBox>
+								<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center" visible="{=${LimitationsSet>AFHR} !== null ? true : false}">
+									<Label text="{LimitationsSet>AFHR}" design="Bold"></Label>
+									<Label text="{LimitationsSet>UTIL1}" visible="{=${LimitationsSet>UTIL1_10} !== null ? true : false}"></Label>
+									<Label text="{LimitationsSet>UTIL1} left" visible="{=${LimitationsSet>UTIL1_10} === null ? true : false}"></Label>
+								</VBox>
+							</HBox>
+							<HBox class="sapUiSmallMargin">
+								<VBox>
+									<Label text="{LimitationsSet>LDESC}" design="Bold"/>
+									<HBox visible="{= ${LimitationsSet>CAPTY} === 'A' || ${LimitationsSet>CAPTY} === 'B'}">
+										<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${LimitationsSet>JOBDESC} !== null}" renderMode="Narrow" colorScheme="7"
+											class="sapUiTinyMarginTop" displayOnly="true"/>
+										<Label text="{LimitationsSet>JOBDESC}" visible="{= ${LimitationsSet>JOBDESC} !== null}" class="sapUiTinyMargin"/>
+									</HBox>
+									<!--<HBox visible="{= ${LimitationsSet>CAPTY} === 'B'}">
+										<tnt:InfoLabel text="Acceptable Deferred Defects with Limitations" renderMode="Narrow" colorScheme="7" class="sapUiTinyMarginTop" displayOnly="true"/>
+										<Label text="{LimitationsSet>LDESC}" class="sapUiTinyMargin"/>
+									</HBox>-->
+								</VBox>
+							</HBox>
+						</HBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

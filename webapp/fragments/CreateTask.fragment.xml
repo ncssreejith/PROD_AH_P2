@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Create Task" contentHeight="80%" contentWidth="70%">
+		<VBox>
+			<VBox height="100%" class="bgColorWhite sapUiSmallMargin">
+				<VBox class="sapUiSmallMargin">
+					<HBox>
+						<Label design="Bold" text="Task Type"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<Select width="350px" change="onTaskTypeChange" items="{TaskMainListModel>/}" forceSelection="false"
+						selectedKey="{oCreateTaskModel>/sTaskType}">
+						<core:Item text="{TaskMainListModel>ttype}" key="{TaskMainListModel>ttid}"/>
+					</Select>
+				</VBox>
+				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oCreateTaskModel>/bRemoveOrInstall}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.createtask.CreateTaskRemoveInstallFragment" type="XML"/>
+				</VBox>
+				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oCreateTaskModel>/bOpsCheck}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.createtask.CreateTaskOpsCheckFragment" type="XML"/>
+				</VBox>
+				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oCreateTaskModel>/bVisualInspection}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.createtask.CreateTaskVisualInspectionFragment" type="XML"/>
+				</VBox>
+				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oCreateTaskModel>/bOthers}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.createtask.CreateTaskOthersFragment" type="XML"/>
+				</VBox>
+			</VBox>
+		</VBox>
+		<buttons>
+			<Button text="Cancel" press="onCancelCreateTaskPress" type="Reject"/>
+			<Button text="Create Task" press="onCreateTaskPress" visible="{oCreateTaskModel>/bCreateTaskBtn}" type="Emphasized"/>
+			<Button text="Update Task" press="onUpdateTaskPress" visible="{oCreateTaskModel>/bUpdateTaskBtn}" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

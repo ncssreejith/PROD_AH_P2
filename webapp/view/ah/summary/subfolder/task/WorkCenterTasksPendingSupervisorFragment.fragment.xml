@@ -1,0 +1,57 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<ScrollContainer horizontal="false" vertical="true" width="100%" focusable="false" class="sapUiTinyMarginTop">
+		<VBox backgroundDesign="Solid" width="99%" alignContent="Center" visible="{=${TaskPendingModel>/}.length === 0 ? true :false}" alignItems="Center"
+			class="vboxAlign">
+			<items>
+				<Title text="{i18n>txtNoTextSuprPend}" level="H1" titleStyle="H3"/>
+			</items>
+		</VBox>
+		<Table id="tbWcPendingSuperId" visible="{=${TaskPendingModel>/}.length !== 0 ? true :false}"
+			class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" growing="true" growingThreshold="6"
+			growingScrollToLoad="false" items="{ path: 'TaskPendingModel>/'}" noDataText="{i18n>txtNoTextSuprPend}" showNoData="true">
+			<columns>
+				<Column width="13%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>lbTask}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="10%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<HBox>
+						<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+					</HBox>
+				</Column>
+				<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<HBox>
+						<Label text="{i18n>lbFollowupTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+					</HBox>
+				</Column>
+				<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<HBox>
+						<Label text="{i18n>lblLimitations}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+					</HBox>
+				</Column>
+				<Column width="13%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" type="Navigation" press="onPendingSupDetailsPress">
+					<cells>
+						<Text text="{TaskPendingModel>tdesc}"/>
+						<Text
+							text="{path:'TaskPendingModel>credtm', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskPendingModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+						<Text text="{TaskPendingModel>ftdesc}"/>
+						<Text text="{TaskPendingModel>LDESC}"/>
+						<VBox>
+							<Text text="{TaskPendingModel>SG1USR}"/>
+							<Text
+								text="{path:'TaskPendingModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskPendingModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+						</VBox>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</ScrollContainer>
+</core:FragmentDefinition>

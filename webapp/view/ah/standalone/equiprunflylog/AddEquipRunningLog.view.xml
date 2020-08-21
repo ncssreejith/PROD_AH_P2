@@ -1,0 +1,71 @@
+<mvc:View controllerName="avmet.ah.controller.AddEquipRunningLog" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Page title="Add Equipment Running Log" showNavButton="true" enableScrolling="true" navButtonPress="onNavBack">
+		<content>
+			<VBox width="100%" height="100%" class="sapUiSmallMargin bgCOLorWhite">
+				<HBox class="bgCOLorWhite sapUiSmallMarginTop">
+					<VBox class="bgCOLorWhiteWithRightBorder sapUiSmallMarginBegin sapUiSmallMarginTopBottom" width="30%">
+						<VBox class="sapUiSmallMarginBeginEnd">
+							<Label design="Bold" text="Date" width="150px"/>
+							<!--value="{path: 'oAircraftAddModel>/record/COL_11',formatter:'.formatter.defaultDateTimeFormat'}"-->
+							<!--maxDate="{oAircraftAddModel>/today}"-->
+							<DateTimePicker
+								displayFormat="dd/MM/yy HH:mm"
+								
+								dateValue="{oAircraftAddModel>/record/Date}"
+								maxDate="{oAircraftAddModel>/today}"
+								width="200px" fieldGroupIds="fgDate" required="true" editable="true"/>
+							<!--<DatePicker-->
+							<!--	displayFormat="dd/MM/yyyy"-->
+							<!--	dateValue="{oAircraftAddModel>/record/Date}"-->
+							<!--	value="{path: 'oAircraftAddModel>/record/COL_10',formatter:'.formatter.defaultDateFormat'}"-->
+							<!--	width="200px" fieldGroupIds="fgDate" required="true" editable="true"/>-->
+						</VBox>
+						<!--<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">-->
+						<!--	<Label design="Bold" text="Time" width="150px"/>-->
+						<!--	<TimePicker width="200px" value="{path:'oAircraftAddModel>/record/time'}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime"-->
+						<!--		required="true" editable="true"/>-->
+						<!--</VBox>-->
+					</VBox>
+					<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd bgCOLorWhite" width="70%">
+						<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTop">
+							<Title text="Airframe Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_12}" editable="false"/>
+						</HBox>
+						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
+							<Title text="#1 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_13}" editable="{= ${oAircraftAddModel>/type} === '0'}"/>
+						</HBox>
+						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
+							<Title text="#2 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_14}" editable="{= ${oAircraftAddModel>/type} === '1'}"/>
+						</HBox>
+						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
+							<Title text="APU Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_15}" editable="{= ${oAircraftAddModel>/type} === '2'}"/>
+						</HBox>
+						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
+							<Title text="APU Start" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_16}" editable="{= ${oAircraftAddModel>/type} === '2'}"/>
+						</HBox>
+						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
+							<Title text="ALQ144" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_17}" editable="{= ${oAircraftAddModel>/type} === '3'}"/>
+						</HBox>
+						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
+							<Title text="Reason" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_18}" editable="false"/>
+						</HBox>
+					</VBox>
+				</HBox>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Transparent" text="Back" press="onNavBack"/>
+				<Button type="Emphasized" text="Sign off" press="onSignOffPress"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

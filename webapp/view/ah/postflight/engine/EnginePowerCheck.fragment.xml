@@ -1,0 +1,124 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control">
+	<l:VerticalLayout class="sapUiSmallMargin backgroundBlue" width="98%">
+		<l:content>
+			<VBox id="engindId" class="sapUiSmallMargin">
+				<VBox width="30%"></VBox>
+				<VBox>
+					<VBox>
+						<Label text="Engines " design="Bold"/>
+						<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/eng}" items="{postflightModel>/engine}" selectionChange="onEnginChange">
+							<items>
+								<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}" width="70%"/>
+							</items>
+						</SegmentedButton>
+					</VBox>
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="{i18n>txtReasonForCheck}" design="Bold"/>
+						<SegmentedButton selectedKey="{oPilotUpdatesViewModel>chkrn}" items="{postflightModel>/reasonCheck}" required="true">
+							<items>
+								<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}" width="70%"/>
+							</items>
+						</SegmentedButton>
+					</VBox>
+				</VBox>
+				<HBox width="100%">
+					<VBox width="30%">
+						<ct:HeaderCard title="Ambient"/>
+					</VBox>
+					<HBox class="sapUiSmallMarginTop" width="70%">
+						<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+							<Label text="Temperature (°C)" design="Bold"/>
+							<StepInput width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>temp}" fieldGroupIds="fgStepInput"/>
+						</VBox>
+						<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+							<Label text="Baro pressure " design="Bold"/>
+							<StepInput width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>bpress}" fieldGroupIds="fgStepInput"/>
+						</VBox>
+					</HBox>
+				</HBox>
+				<Toolbar height="7px"/>
+				<HBox width="100%">
+					<VBox width="30%">
+						<ct:HeaderCard title="TGTs and Limits"/>
+					</VBox>
+					<VBox width="70%">
+						<HBox class="sapUiSmallMarginTop">
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?false:true}">
+								<Label text="Table TGT" design="Bold"/>
+								<StepInput width="150px" min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgttab}" id="tblTGTId" fieldGroupIds="fgStepInput"
+									required="true" change="fnTblInAndIndTgt"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="Ind. TGT" design="Bold"/>
+								<StepInput width="150px" min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgtind}" id="indTGTId" fieldGroupIds="fgStepInput"
+									required="true" change="fnTblInAndIndTgt"/>
+							</VBox>
+						</HBox>
+						<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?false:true}">
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="TGT Difference" design="Bold"/>
+								<StepInput editable="false" min="0" width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgtdiff}" fieldGroupIds="fgStepInput"
+									required="true"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="Strike Status" design="Bold"/>
+								<StepInput editable="false" min="0" width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>xstat}" fieldGroupIds="fgStepInput"
+									required="true"/>
+							</VBox>
+						</HBox>
+						<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?false:true}">
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="Upper Limit" design="Bold"/>
+								<StepInput width="150px"  class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>ulimit}" id="upperLimitId" fieldGroupIds="fgStepInput"
+									required="true"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="Lower Limit" design="Bold"/>
+								<StepInput width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>llimit}" id="lowerLimitId" fieldGroupIds="fgStepInput"
+									required="true"/>
+							</VBox>
+						</HBox>
+					</VBox>
+				</HBox>
+				<Toolbar height="7px"/>
+				<HBox width="100%">
+					<VBox width="30%">
+						<ct:HeaderCard title="Additional Engine Parameters"/>
+					</VBox>
+					<VBox width="70%">
+						<HBox class="sapUiSmallMarginTop">
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="NG" design="Bold"/>
+								<StepInput width="150px" min="0.0" step="0.1"  displayValuePrecision="2" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>ng}" id="ngId" fieldGroupIds="fgStepInput"
+									required="true"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="TQ ACT" design="Bold"/>
+								<StepInput width="150px" min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tqact}" id="tqactId" fieldGroupIds="fgStepInput"
+									required="true"/>
+							</VBox>
+						</HBox>
+						<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>/chkrn}==='2'?true:false}">
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="EFT" design="Bold"/>
+								<StepInput width="150px" min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>eft}" id="eftId" fieldGroupIds="fgStepInput"
+									required="true"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="Airspeed" design="Bold"/>
+								<StepInput width="150px" min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>aspeed}" fieldGroupIds="fgStepInput" required="true"/>
+							</VBox>
+						</HBox>
+						<HBox class="sapUiSmallMarginTop">
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="NP" design="Bold"/>
+								<StepInput width="150px" min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>np}" id="npId" fieldGroupIds="fgStepInput"
+									required="true"/>
+							</VBox>
+						</HBox>
+					</VBox>
+				</HBox>
+			</VBox>
+		</l:content>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

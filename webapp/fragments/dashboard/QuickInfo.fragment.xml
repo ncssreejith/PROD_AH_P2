@@ -1,0 +1,55 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Table class="sapUiResponsivePadding sapUiTinyMarginBeginEnd sapUiTinyMarginBottom CERTable tableHFont tableHeaderFontStyle"
+		updateFinished="onFuelTableUpdateFinish" width="98%">
+		<!--items="{dashboardModel>/QuickInfo}"-->
+		<headerToolbar>
+			<OverflowToolbar class="dashboardTableHeader">
+				<content>
+					<core:Icon src="sap-icon://hint" color="white"/>
+					<Title text="Quick Information" class="txtWhite sapUiTinyMarginTop" level="H1"/>
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column hAlign="Left" width="50%"></Column>
+			<Column minScreenWidth="Tablet" width="30%" hAlign="Right"></Column>
+		</columns>
+		<items>
+			<ColumnListItem class="tableTextColor">
+				<cells>
+					<Text text="BF validity"/>
+					<Text text="{= ${avmetModel>/dash/bfvalid} ? ${avmetModel>/dash/bfvalid}: '--'}"/>
+				</cells>
+			</ColumnListItem>
+			<ColumnListItem class="tableTextColor">
+				<cells>
+					<Text text="AF validity"/>
+					<Text text="{= ${avmetModel>/dash/afvalid} ? ${avmetModel>/dash/afvalid}: '--'}"/>
+				</cells>
+			</ColumnListItem>
+			<ColumnListItem class="tableTextColor">
+				<cells>
+					<Text text="Last flight servicing"/>
+					<Text text="{avmetModel>/dash/lsrv}"/>
+				</cells>
+			</ColumnListItem>
+			<ColumnListItem class="tableTextColor">
+				<cells>
+					<Text text="Location"/>
+					<HBox justifyContent="End">
+						<HBox visible="{dashboardModel>/editLoc}">
+							<Select selectedKey="{avmetModel>/dash/locid}" items="{dashboardModel>/location}" change="onLocationChange">
+								<core:Item key="{dashboardModel>LOCID}" text="{dashboardModel>LOC}"/>
+							</Select>
+							<!--<Button text="Save" class="sapUiTinyMarginBegin" press="onSaveLocationClk"></Button>-->
+						</HBox>
+						<HBox visible="{= !${dashboardModel>/editLoc}}">
+							<Text text="{avmetModel>/dash/loc}" wrapping="true"/>
+							<core:Icon src="sap-icon://edit" class="size5 sapUiTinyMarginBegin" color="#8875E7" press="onQuickInfoLocEdit"/>
+						</HBox>
+					</HBox>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

@@ -1,0 +1,232 @@
+{
+	"PDSSummaryMasterItems": [{
+		"Name": "Outstanding",
+		"Count": "0",
+		"Type": "Inactive"
+	}, {
+		"Name": "Pending Approvals",
+		"Count": "0",
+		"Type": "Inactive"
+	}, {
+		"Name": "FLC Task and Replenishment",
+		"Count": "",
+		"Type": "Navigation"
+	}, {
+		"Name": "Weapon Configuration",
+		"Count": "",
+		"Type": "Navigation"
+	}, {
+		"Name": "Flying Requirements",
+		"Count": "1",
+		"Type": "Navigation"
+	}, {
+		"Name": "Acceptable Deferred Defects",
+		"Count": "3",
+		"Type": "Navigation"
+	}, {
+		"Name": "Limitations",
+		"Count": "2",
+		"Type": "Navigation"
+	}, {
+		"Name": "Trial Modifications",
+		"Count": "1",
+		"Type": "Navigation"
+	}, {
+		"Name": "Aircraft Monitoring Card",
+		"Count": "1",
+		"Type": "Navigation"
+	}, {
+		"Name": "Jobs Due Soon",
+		"Count": "8",
+		"Type": "Navigation"
+	}, {
+		"Name": "Past 1 Month Defects",
+		"Count": "8",
+		"Type": "Navigation"
+	}],
+
+	"FlyingReq": {
+		"Items": [{
+			"DateTime": "24/12/19,  22:00",
+			"Requirement": "Flight check to be carried above 19000ft for cabin press problem",
+			"Tradesman": "ME2 Balaganesh"
+		}]
+	},
+	"ADD": [{
+		"SN": "1",
+		"HRS": "-",
+		"Days": "1",
+		"Description": "FCC MFL 013 appeared in flight. Unable to clear.",
+		"Limitation": "",
+		"Status": "W",
+		"Title": "A",
+		"Toolbar": false
+	}, {
+		"SN": "1",
+		"HRS": "5",
+		"Days": "1",
+		"Description": "Hairline crack found at panel 123",
+		"Limitation": "",
+		"Status": "W",
+		"Title": "B",
+		"Toolbar": false
+	}, {
+		"SN": "2",
+		"HRS": "40",
+		"Days": "5",
+		"Description": "Navigation light malfunction",
+		"Limitation": "No night flying",
+		"Status": "E",
+		"Title": "C",
+		"Toolbar": true
+	}],
+	"Limitation": [{
+		"SN": "1",
+		"HRS": "-",
+		"Days": "1",
+		"Description": "Airspeed below 1234",
+		"Limitation": "",
+		"Status": "W",
+		"Title": "A",
+		"Toolbar": false
+	}, {
+		"SN": "2",
+		"HRS": "40",
+		"Days": "5",
+		"Description": "No night flying",
+		"Limitation": "Navigation light malfunction",
+		"Status": "E",
+		"Title": "C",
+		"Toolbar": true
+	}],
+	"Fuel": [{
+		"Title": "Internal tank",
+		"ShowNote": "false",
+		"Count": "7000",
+		"Unit": "lbs",
+		"MaxCount": "7000",
+		"Status": "Up",
+		"ServicedCount": "2500",
+		"Percentage": 100
+	}, {
+		"Title": "Centerline tank",
+		"ShowNote": "false",
+		"Count": "1800",
+		"Unit": "lbs",
+		"MaxCount": "1800",
+		"Status": "Up",
+		"ServicedCount": "300",
+		"Percentage": 100
+	}],
+	"Tire": [{
+		"Title": "Nose",
+		"ShowNote": "false",
+		"Count": "300",
+		"Unit": "PSI",
+		"MaxCount": "330",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}, {
+		"Title": "LH Main",
+		"ShowNote": "false",
+		"Count": "320",
+		"Unit": "PSI",
+		"MaxCount": "320",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}, {
+		"Title": "RH Main",
+		"ShowNote": "false",
+		"Count": "320",
+		"Unit": "PSI",
+		"MaxCount": "320",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}],
+	"OilMisc": [{
+		"Title": "Engine Oil",
+		"ShowNote": "false",
+		"Count": "44",
+		"Unit": "1/2 pints",
+		"MaxCount": "44",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}, {
+		"Title": "H-70",
+		"ShowNote": "false",
+		"Count": "100%",
+		"Unit": "",
+		"MaxCount": "100",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}, {
+		"Title": "LOX",
+		"ShowNote": "false",
+		"Count": "5",
+		"Unit": "liters",
+		"MaxCount": "5",
+		"Status": "",
+		"ServicedCount": "-",
+		"Percentage": 100
+	}],
+
+	"RotuineTasks": [{
+		"Task": "Lox converter S/N 123 installed",
+		"Results": "Done",
+		"Tradesman": "FLC Tradesman"
+	}, {
+		"Task": "Water precautionary test (WPT)",
+		"Results": "Done",
+		"Tradesman": "FLC Tradesman"
+	}, {
+		"Task": "Night flying check",
+		"Results": "Done",
+		"Tradesman": "FLC Tradesmann"
+	}, {
+		"Task": "Independent tools accountability check on WLC CTK (S/N 54321)",
+		"Results": "Done",
+		"Tradesman": "FLC Tradesman"
+	}],
+
+	"FollowUpTasks": [{
+		"Symbol": "sap-icon://decline",
+		"Task": "Lox converter S/N 123 installed",
+		"TechnicalOrder": "SNIF-16CJ-2-35JG-00-1",
+		"Tradesman": "FLC Tradesman",
+		"Supervisor": "FLC Supervisor",
+		"DateTime": "DD/MM/YY, HH:MM"
+	}, {
+		"Symbol": "sap-icon://decline",
+		"Task": "Oxy circus breaker (Qty 01) re-setted",
+		"TechnicalOrder": "SNIF-16CJ-2-35JG-00-1",
+		"Tradesman": "FLC Tradesman",
+		"Supervisor": "FLC Supervisor",
+		"DateTime": "DD/MM/YY, HH:MM"
+	}, {
+		"Symbol": "sap-icon://decline",
+		"Task": "Access door #2206 closed",
+		"TechnicalOrder": "SNIF-16CJ-2-52JG-00-1",
+		"Tradesman": "FLC Tradesman",
+		"Supervisor": "FLC Supervisor",
+		"DateTime": "DD/MM/YY, HH:MM"
+	}, {
+		"Symbol": "sap-icon://decline",
+		"Task": "Access door #3308 closed",
+		"TechnicalOrder": "SNIF-16CJ-2-52JG-00-1",
+		"Tradesman": "FLC Tradesman",
+		"Supervisor": "FLC Supervisor",
+		"DateTime": "DD/MM/YY, HH:MM"
+	}, {
+		"Symbol": "sap-icon://less",
+		"Task": "Post maintenance ‘FO’ and tools accountability check carried out.",
+		"TechnicalOrder": "-",
+		"Tradesman": "FLC Tradesman",
+		"Supervisor": "FLC Supervisor",
+		"DateTime": "DD/MM/YY, HH:MM"
+	}]
+}

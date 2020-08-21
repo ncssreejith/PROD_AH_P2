@@ -1,0 +1,247 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f" xmlns:lab="it.designfuture.chartjs">
+	<VBox backgroundDesign="Solid" width="100%" alignItems="Center">
+		<FlexBox class="sapUiSmallMarginTopBottom">
+			<VBox>
+				<HBox>
+					<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
+						growingScrollToLoad="false"
+						items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}"
+						noDataText="{i18n>noDataHitTable}" showNoData="true">
+						<headerToolbar>
+							<OverflowToolbar>
+								<content>
+									<Title level="H3" text="{i18n>lblHit}"/>
+									<ToolbarSpacer/>
+									<Link text="view chart" press="onPowerCheckPress"/>
+								</content>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column hAlign="Center" class="CERTableTextColor">
+								<Label text="Date/Time" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+								<Label text="Ambient Temp (C)" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="Ambient Baro Pressure(FT)" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="Table TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="IND TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="Diff TGT" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="NG (%)" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="TQ ACT (%)" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="NP (%)" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="Upper Limit" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="Within 5 C Upper Limit" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="Lower Limit" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="Within 5 C Limit Limit" design="Bold" wrapping="true" class="whiteText"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+									<Text text="{oEngineModel>TEMP}"/>
+									<Text text="{oEngineModel>BPRESS}"/>
+									<Text text="{oEngineModel>TGTTAB}"/>
+									<Text text="{oEngineModel>TGTIND}"/>
+									<Text text="{oEngineModel>TGTDIFF}"/>
+									<Text text="{oEngineModel>NG}"/>
+									<Text text="{oEngineModel>TQACT}"/>
+									<Text text="{oEngineModel>NP}"/>
+									<Text text="{oEngineModel>ULIMIT}"/>
+									<Text text="{oEngineModel>AmbTemp}"/>
+									<Text text="{oEngineModel>LLIMIT}"/>
+									<Text text="{oEngineModel>AmbTemp}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+						<layoutData>
+							<FlexItemData growFactor="2" baseSize="0" minWidth="70%" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
+						</layoutData>
+					</Table>
+					<VBox visible="{= !!${oEngineModel>/displayPowerLineChart}}" alignItems="Center" class="vboxChart sapUiMediumMarginTop dimensionClass">
+						<!--<HBox width="100%">-->
+						<!--<HBox width="20%"></HBox>-->
+	
+						<Link text="view table" press="onPowerCheckPress"/>
+						<Label text="HIT Chart" design="Bold"/>
+						<lab:LineChartJS datasets="{temp>/lineChart/datasets}" labels="{temp>/lineChart/labels}" titleDisplay="false"
+							titleText="Replenishment Frequency" onLegendItemClick="onLegendItemClick" onLegendItemHover="onLegendItemHover" onClick="onClick"
+							onHover="onHover" tooltipEnabled="true" class="dimensionClass" onAnimationProgress="onAnimationProgress"
+							onAnimationComplete="onAnimationComplete" showLines="true" spanGaps="true"></lab:LineChartJS>
+						<core:HTML content="&lt;canvas id=&quot;myChart1&quot; &gt;&lt;/canvas&gt;"></core:HTML>
+	
+						<!--</HBox>-->
+					</VBox>
+				</HBox>
+				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
+					growingScrollToLoad="false"
+					items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}"
+					noDataText="No Re-stablish Records" showNoData="true">
+					<headerToolbar>
+						<OverflowToolbar>
+							<content>
+								<Title level="H3" text="{i18n>txtRestablish}"/>
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column hAlign="Center" class="CERTableTextColor">
+							<Label text="Date/Time" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+							<Label text="Ambient Temp (C)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Ambient Baro Pressure(FT)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Table TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="IND TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Diff TGT" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="NG (%)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="TQ ACT (%)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="NP (%)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Upper Limit" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Lower Limit" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>
+								<Text text="{oEngineModel>TEMP}"/>
+								<Text text="{oEngineModel>BPRESS}"/>
+								<Text text="{oEngineModel>TGTTAB}"/>
+								<Text text="{oEngineModel>INDTGT}"/>
+								<Text text="{oEngineModel>TGTDIFF}"/>
+								<Text text="{oEngineModel>NG}"/>
+								<Text text="{oEngineModel>TQACT}"/>
+								<Text text="{oEngineModel>NP}"/>
+								<Text text="{oEngineModel>ULIMIT}"/>
+								<Text text="{oEngineModel>LLIMIT}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+					<layoutData>
+						<FlexItemData growFactor="2" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
+					</layoutData>
+				</Table>
+				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
+					growingScrollToLoad="false"
+					items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '2' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}"
+					noDataText="No ETF Records" showNoData="true">
+					<headerToolbar>
+						<OverflowToolbar>
+							<content>
+								<Title level="H3" text="{i18n>txtETF}"/>
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column hAlign="Center" class="CERTableTextColor">
+							<Label text="Date/Time" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+							<Label text="Ambient Temp (C)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Ambient Baro Pressure(FT)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Table TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="IND TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="NG (%)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="TQ ACT (%)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="NP (%)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="TTV" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Airspeed (ICT)" design="Bold" wrapping="true" class="whiteText"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>
+								<Text text="{oEngineModel>TEMP}"/>
+								<Text text="{oEngineModel>BPRESS}"/>
+								<Text text="{oEngineModel>TGTTAB}"/>
+								<Text text="{oEngineModel>INDTGT}"/>
+								<Text text="{oEngineModel>NG}"/>
+								<Text text="{oEngineModel>TQACT}"/>
+								<Text text="{oEngineModel>NP}"/>
+								<Text text="{oEngineModel>NP}"/>
+								<Text text="{oEngineModel>ASPEED}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+					<layoutData>
+						<FlexItemData growFactor="2" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
+					</layoutData>
+				</Table>
+			</VBox>
+		</FlexBox>
+		<VBox width="36rem" height="22rem">
+			<!--<FlexBox justifyContent="SpaceBetween" alignContent="SpaceBetween">-->
+			<!--	<Text text=""/>-->
+			<!--	<Link text="view more"/>-->
+			<!--</FlexBox>-->
+			<VBox alignItems="Start" class="vboxChart sapUiMediumMarginTop dimensionClass">
+				<!--<Label text="HIT Chart" design="Bold"/>-->
+				<!--id="line_chart"-->
+				<!--<lab:LineChartJS datasets="{temp>/lineChart/datasets}" labels="{temp>/lineChart/labels}" titleDisplay="false"-->
+				<!--	titleText="Replenishment Frequency" onLegendItemClick="onLegendItemClick" onLegendItemHover="onLegendItemHover" onClick="onClick"-->
+				<!--	onHover="onHover" tooltipEnabled="true" class="dimensionClass" onAnimationProgress="onAnimationProgress"-->
+				<!--	onAnimationComplete="onAnimationComplete" showLines="true" spanGaps="true"></lab:LineChartJS>-->
+				<!--<core:HTML content="&lt;canvas id=&quot;myChart1&quot; &gt;&lt;/canvas&gt;"></core:HTML>-->
+			</VBox>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

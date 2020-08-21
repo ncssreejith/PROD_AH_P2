@@ -1,0 +1,50 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<VBox>
+		<VBox width="100%" height="100%" class="sapUiSmallMargin bgColorWhite">
+			<Label text="Tools Check" class="sapUiLargeMarginTop sapUiMediumMarginBegin Font22" design="Bold"/>
+			<HBox class="bgColorWhite sapUiSmallMarginTop">
+				<VBox class="bgColorWhiteWithRightBorder sapUiSmallMarginBegin sapUiSmallMarginTopBottom" width="30%">
+					<VBox class="sapUiSmallMarginBeginEnd">
+						<Label design="Bold" text="Date" width="150px"/>
+						<DatePicker id="date" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" value="{path:'oRoutineTasksViewModel>/Date', formatter:'.formatter.defaultDateFormatDisplay'}"
+							width="200px" fieldGroupIds="fgDate" required="true"/>
+					</VBox>
+					<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
+						<Label design="Bold" text="Time" width="150px"/>
+						<TimePicker id="time" width="200px" value="{path:'oRoutineTasksViewModel>/Time', formatter:'.formatter.defaultTimeFormatDisplay'}"
+							valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true"/>
+					</VBox>
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd bgColorWhite" width="70%">
+					<VBox class="sapUiSmallMargin">
+						<Text text="I certify that I have accounted for all items. Tools check cleared." class="sapUiTinyMargin"/>
+					</VBox>
+					<HBox class="sapUiSmallMargin sapUiLargeMarginBottom">
+						<VBox class="sapUiTinyMarginBeginEnd">
+							<HBox>
+								<Label text="Tools quantity" design="Bold"/>
+								<core:Icon src="sap-icon://sys-help-2" color="#9AA6B5" class="sapUiTinyMarginBegin">
+									<core:layoutData>
+										<FlexItemData growFactor="1"/>
+									</core:layoutData>
+								</core:Icon>
+							</HBox>
+							<StepInput value="{oRoutineTasksViewModel>/ToolQty}" min="1"/>
+						</VBox>
+						<VBox class="sapUiTinyMarginBeginEnd">
+							<HBox>
+								<Label text="Publication quantity" design="Bold"/>
+								<core:Icon src="sap-icon://sys-help-2" color="#9AA6B5" class="sapUiTinyMarginBegin">
+									<core:layoutData>
+										<FlexItemData growFactor="1"/>
+									</core:layoutData>
+								</core:Icon>
+							</HBox>
+							<StepInput value="{oRoutineTasksViewModel>/PubQty}" min="1"/>
+						</VBox>
+					</HBox>
+				</VBox>
+			</HBox>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

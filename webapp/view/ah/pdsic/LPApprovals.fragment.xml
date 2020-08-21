@@ -1,0 +1,57 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control"
+	xmlns:grid="sap.ui.layout.cssgrid">
+	<HBox class="sapUiMediumMarginBeginEnd sapUiSmallMarginTop">
+		<VBox class="sapUiResponsiveMargin LeadPartHeaderFlexboxBG" width="100%">
+			<HBox class="sapUiResponsiveMargin">
+				<VBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" width="50%">
+					<VBox class="sapUiMediumMarginBottom">
+						<Title text="AH {OverViewHeaderModel>/MOD} {OverViewHeaderModel>/TAILNO}" class="LeadPartLabelTxtWhite LeadPartTitleSize" level="H1"/>
+						<Text text="{OverViewHeaderModel>/TAILNO} (USAF Reg: {OverViewHeaderModel>/USSERNR})" class="LeadPartSubTitTxtColor"/>
+					</VBox>
+					<HBox>
+						<Label text="Fuel Type" design="Bold" width="200px" class="LeadPartLabelTxtWhite"/>
+						<Text text="{OverViewHeaderModel>/FUELTY}" class="LeadPartTextColorWhite"/>
+					</HBox>
+					<HBox class="sapUiTinyMarginTop">
+						<Label text="Engine Type" design="Bold" width="200px" class="LeadPartLabelTxtWhite"/>
+						<Text text="{OverViewHeaderModel>/ENGTY}" class="LeadPartTextColorWhite"/>
+					</HBox>
+					<HBox class="sapUiTinyMarginTop">
+						<Label text="MIL or DTD Spec" design="Bold" width="200px" class="LeadPartLabelTxtWhite"/>
+						<Text text="{OverViewHeaderModel>/MILSPEC}" class="LeadPartTextColorWhite"/>
+					</HBox>
+					<HBox class="sapUiTinyMarginTop">
+						<Label text="Basic Weight" design="Bold" width="200px" class="LeadPartLabelTxtWhite"/>
+						<Text text="{OverViewHeaderModel>/BWEIGHT}" class="LeadPartTextColorWhite"/>
+						<Link text="(view weight and balance)" press="onPressNavigateWnB" class="sapUiTinyMarginBegin LeadPartTextColorWhite"/>
+					</HBox>
+				</VBox>
+				<VBox width="30%">
+					<Image src="css/img/LeadPartFlight.JPG"/>
+				</VBox>
+			</HBox>
+		</VBox>
+	</HBox>
+	<HBox class="sapUiMediumMarginBeginEnd">
+		<IconTabBar expanded="{device>/isNoPhone}"
+			class="sapUiResponsiveContentPadding LeadPartIconTabBarContentDimensions LeadPartIconTabBarBGTran LeadPartIconTabBarBorder">
+			<items>
+				<IconTabFilter text="Tank" key="Tank">
+					<HBox class="sapUiResponsivePadding">
+						<core:Fragment fragmentName="avmet.ah.fragments.standalone.leadingparticulars.EngineTank" type="XML"/>
+					</HBox>
+				</IconTabFilter>
+				<IconTabFilter text="Fuel, Oil and MISC" key="Oil">
+					<HBox class="sapUiResponsivePadding">
+						<core:Fragment fragmentName="avmet.ah.fragments.standalone.leadingparticulars.EngineFuelOilMisc" type="XML"/>
+					</HBox>
+				</IconTabFilter>
+				<IconTabFilter text="Tyre Pressure" key="Tyre">
+					<HBox class="sapUiResponsivePadding">
+						<core:Fragment fragmentName="avmet.ah.fragments.standalone.leadingparticulars.EngineTyrePressure" type="XML"/>
+					</HBox>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+	</HBox>
+</core:FragmentDefinition>

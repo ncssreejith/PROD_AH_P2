@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core"
+	xmlns:filterbar="sap.ui.comp.filterbar">
+	<VBox visible="{=${oPDSSummaryViewModel>/PDSSelected} === 'T1_MCARD' ? true : false}">
+		<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.Sortie" type="XML"/>
+	</VBox>
+	<VBox visible="{=${oPDSSummaryViewModel>/PDSSelected} === 'T2_PAPPR' ? true : false}">
+		<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.PendingApprovals" type="XML"/>
+	</VBox>
+	<VBox visible="{=${oPDSSummaryViewModel>/PDSSelected} === 'T3_LIMIT' ? true : false}">
+		<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.Limitations" type="XML"/>
+	</VBox>
+	<VBox visible="{=${oPDSSummaryViewModel>/PDSSelected} === 'T4_ADD' ? true : false}">
+		<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.ADD" type="XML"/>
+	</VBox>
+	<VBox visible="{=${oPDSSummaryViewModel>/PDSSelected} === 'T5_FREQ' ? true : false}">
+		<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.FlyingRequirementDetails" type="XML"/>
+	</VBox>
+	<VBox visible="{=${oPDSSummaryViewModel>/PDSSelected} === 'T6_FLC' ? true : false}">
+		<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.FLCTasks" type="XML"/>
+	</VBox>
+	<VBox visible="{=${oPDSSummaryViewModel>/PDSSelected} === 'T7_WCONF' ? true : false}">
+		<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.WeaponConfig" type="XML"/>
+	</VBox>
+	<VBox visible="{=${oPDSSummaryViewModel>/PDSSelected} === 'T8_OJOBS' ? true : false}">
+		<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.OutstandingJobs" type="XML"/>
+	</VBox>
+	<VBox visible="{=${oPDSSummaryViewModel>/PDSSelected} === 'T9_JDUE' ? true : false}">
+		<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.JobDueSoon" type="XML"/>
+	</VBox>
+	<VBox visible="{=${oPDSSummaryViewModel>/PDSSelected} === 'T10_PASTD' ? true : false}">
+		<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.Defects" type="XML"/>
+	</VBox>
+	<VBox visible="{=${oPDSSummaryViewModel>/PDSSelected} === 'T11_TMOD' ? true : false}">
+		<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.TrailMod" type="XML"/>
+	</VBox>
+</core:FragmentDefinition>

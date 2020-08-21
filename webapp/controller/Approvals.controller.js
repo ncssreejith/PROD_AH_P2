@@ -1,0 +1,859 @@
+sap.ui.define([
+	"./BaseController",
+	"../model/dataUtil",
+	"sap/ui/core/Fragment",
+	"../model/FieldValidations",
+	"../util/ajaxutil",
+	"../model/formatter",
+	"sap/base/Log"
+], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, Log) {
+	"use strict";
+	/* ***************************************************************************
+	 *   This file is for ???????            
+	 *   1. Purpose for this file ????
+	 *	Note: ??????????
+	 * IMPORTANT : Must give documentation for all functions
+	 *************************************************************************** */
+	return BaseController.extend("avmet.ah.controller.Approvals", {
+		formatter: formatter,
+		// ***************************************************************************
+		//                 1. UI Events  
+		// ***************************************************************************
+		onInit: function() {
+			try {
+				var that = this,
+					model = dataUtil.createJsonModel("model/approvalModel.json");
+				that.getView().setModel(model, "oViewModel");
+				this.getRouter().getRoute("Approvals").attachPatternMatched(this._onObjectMatched, this);
+			} catch (e) {
+				Log.error("Exception in onInit function");
+			}
+		},
+		//-------------------------------------------------------------
+		//  
+		//-------------------------------------------------------------
+		//1.on selection change
+		onSelectionChange: function(oEvt) {
+			try {
+				var oData,
+					oModel = this.getView().getModel("ViewModel");
+				try {
+					oData = oEvt.getSource().getSelectedContexts()[0].getObject();
+				} catch (e) {
+					oData = this.getView().byId("lstMasterApprovals").getSelectedContexts()[0].getObject();
+				}
+				this.Obj = oData;
+				oModel.setProperty("/flag", oData.flag);
+				oModel.setProperty("/dialogTitle", oData.text);
+				oModel.setProperty("/btnText", "Edit");
+				switch (oData.flag) {
+					case "B":
+						oModel.setProperty("/text", oData.text);
+						oModel.setProperty("/Capid", oData.id);
+						oModel.setProperty("/description", oData.description);
+						oModel.setProperty("/flag", oData.flag);
+						oModel.setProperty("/successText", "This ADD with Limitation is approved");
+						this._fnApprovalDetailsRequestGet(oData.id);
+						this._fnCAPDataGet("O", oData.jobid, oData.id);
+						break;
+					case "L":
+						oModel.setProperty("/text", oData.text);
+						oModel.setProperty("/Capid", oData.id);
+						oModel.setProperty("/description", oData.description);
+						oModel.setProperty("/flag", oData.flag);
+						oModel.setProperty("/successText", "This Limitation is approved");
+						this._fnApprovalDetailsRequestGet(oData.id);
+						this._fnCAPDataGet("O", oData.jobid, oData.id);
+						break;
+					case "A":
+						oModel.setProperty("/text", oData.text);
+						oModel.setProperty("/Capid", oData.id);
+						oModel.setProperty("/description", oData.description);
+						oModel.setProperty("/flag", oData.flag);
+						oModel.setProperty("/successText", "This Acceptable Deferred Defect (ADD) is approved");
+						this._fnApprovalDetailsRequestGet(oData.id);
+						this._fnCAPDataGet("O", oData.jobid, oData.id);
+						break;
+					case "W":
+						oModel.setProperty("/flag", oData.flag);
+						oModel.setProperty("/successText", "Weight and Balance data is approved");
+						oModel.setProperty("/Capid", oData.id);
+						this._fnWeightBalanceGet(oData.TAILID);
+						break;
+					case "LP":
+						oModel.setProperty("/flag", oData.flag);
+						oModel.setProperty("/successText", "Leading Particular data is endorsed");
+						oModel.setProperty("/Capid", oData.USSERNR);
+						oModel.setProperty("/TAILID", oData.TAILID);
+						this._fnAirOverViewHeaderGet(oData.TAILID);
+						break;
+					case "TM":
+						oModel.setProperty("/flag", oData.flag);
+						oModel.setProperty("/successText", "Trial Mod is endorsed");
+						oModel.setProperty("/JOBID", oData.JOBID);
+						oModel.setProperty("/TAILID", oData.TAILID);
+						this._fnTrialModGet(oData.JOBID);
+						break;
+				}
+				/*	if (oData.flag === 'B' || oData.flag === 'L' || oData.flag === 'A') {
+
+					} else {
+
+					}*/
+
+				oModel.updateBindings(true);
+			} catch (e) {
+				Log.error("Exception in onSelectionChange function");
+			}
+		},
+		//-------------------------------------------------------------
+		//  
+		//-------------------------------------------------------------
+		onApprovalUpdateFinished: function(oEvent) {
+			try {
+				var listItem = this.getView().byId("lstMasterApprovals").getItems()[0];
+				this.getView().byId("lstMasterApprovals").setSelectedItem(listItem, true);
+				this.onSelectionChange();
+			} catch (e) {
+				Log.error("Exception in onApprovalUpdateFinished function");
+			}
+		},
+		//-------------------------------------------------------------
+		//  
+		//-------------------------------------------------------------
+		//2.on Manage request click
+		onManageRequest: function(oEvent) {
+			try {
+				var oButton = oEvent.getSource();
+				// create popover
+				if (!this._oPopover) {
+					Fragment.load({
+						id: "popoverNavCon",
+						name: "avmet.ah.view.ah.approvals.manageRequests",
+						controller: this
+					}).then(function(oPopover) {
+						this._oPopover = oPopover;
+						this.getView().addDependent(this._oPopover);
+						this._oPopover.openBy(oButton);
+					}.bind(this));
+				} else {
+					this._oPopover.openBy(oButton);
+				}
+			} catch (e) {
+				Log.error("Exception in onManageRequest function");
+			}
+		},
+		//-------------------------------------------------------------
+		//  
+		//-------------------------------------------------------------
+		_fnApprovalRequestGet: function() {
+			try {
+				var that = this,
+					oPrmAppr = {};
+				oPrmAppr.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
+				oPrmAppr.error = function() {
+
+				};
+
+				oPrmAppr.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "ApprovalListModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/ApprovalSvc", oPrmAppr);
+			} catch (e) {
+				Log.error("Exception in _fnApprovalRequestGet function");
+			}
+		},
+		//-------------------------------------------------------------
+		//  
+		//-------------------------------------------------------------
+		//on Approve Request
+		onApproveRequest: function(sValue, oEvent) {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("ViewModel");
+
+				switch (oModel.getProperty("/flag")) {
+					case "W":
+						this._fnUpdateWB(sValue);
+						break;
+					case "A":
+					case "B":
+					case "L":
+						this._fnUpdateADD(sValue);
+						break;
+					case "LP":
+						this._fnUpdateLP(sValue);
+						break;
+					case "TM":
+						this.fnUpdateDeMod(sValue);
+						break;
+				}
+			} catch (e) {
+				Log.error("Exception in onApproveRequest function");
+			}
+		},
+		//-------------------------------------------------------------
+		//  
+		//-------------------------------------------------------------
+		/* Function: onUpdateJob
+		 * Parameter: oEvent
+		 * Description: To Create new Job.
+		 */
+		_fnUpdateWB: function(sValue) {
+			try {
+				var that = this,
+					sjobid = "",
+					oModel = this.getView().getModel("ViewModel"),
+					oModel,
+					oPayload;
+				var dDate = new Date();
+				/*	if (sValue === "R") {
+						oPayload.Cstat = "R";
+					} else {
+						oPayload.Cstat = "A";
+					}*/
+
+				var oParameter = {};
+				oPayload = {
+					"jobid": null,
+					"flag": "W",
+					"TAILID": "",
+					"fndby": null,
+					"prime": null,
+					"credt": null,
+					"cretm": null,
+					"CAPID": oModel.getProperty("/Capid"),
+					"capdt": null,
+					"captm": null,
+					"cprid": null,
+					"PAST_COUNT": null,
+					"defpd": "",
+					"defpdtx": "",
+					"ini_date": null,
+					"UTIL1": "",
+					"UTIL1Text": "",
+					"UTILVL": "",
+					"TASKID": "",
+					"TDESC": "",
+					"AddRsn": null,
+					"subusr": "Test User1",
+					"expdt": formatter.defaultOdataDateFormat(dDate),
+					"exptm": new Date().getHours() + ":" + new Date().getMinutes(),
+					"fndduring": null,
+					"jobdesc": null,
+					"Capty": null,
+					"Cstat": sValue,
+					"Apprusr": "Test User1",
+					"Apprdtm": formatter.defaultOdataDateFormat(dDate),
+					"Appruzt": new Date().getHours() + ":" + new Date().getMinutes(),
+					"ldesc": null,
+					"fndid": "",
+					"JDUID": "",
+					"JDUVL": "",
+					"JDUDT": "",
+					"CREUSR": "",
+					"DMDID": "",
+					"OTHER_RSN": ""
+				};
+
+				oParameter.error = function(response) {
+
+				};
+
+				oParameter.success = function(oData) {
+					that.getView().byId("MasterId").setVisible(false);
+					that.onOpenDialogApp();
+				}.bind(this);
+				oParameter.activity = 2;
+				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], "ZRM_WNB", this);
+			} catch (e) {
+				Log.error("Exception in _fnUpdateWB function");
+			}
+		},
+		//-------------------------------------------------------------
+		//  
+		//-------------------------------------------------------------
+		_fnUpdateLP: function(sValue) {
+			try {
+				var that = this,
+					sjobid = "",
+					oModel = this.getView().getModel("ViewModel"),
+					oModel,
+					oPayload;
+
+				var oParameter = {};
+				oPayload = {
+					"jobid": null,
+					"TAILID": oModel.getProperty("/TAILID"),
+					"flag": "LP",
+					"fndby": null,
+					"prime": null,
+					"credt": null,
+					"cretm": null,
+					"CAPID": oModel.getProperty("/Capid"),
+					"capdt": null,
+					"captm": null,
+					"cprid": null,
+					"PAST_COUNT": null,
+					"defpd": "",
+					"defpdtx": "",
+					"ini_date": null,
+					"UTIL1": "",
+					"UTIL1Text": "",
+					"UTILVL": "",
+					"TASKID": "",
+					"TDESC": "",
+					"AddRsn": null,
+					"subusr": "Test User1",
+					"expdt": "2020-07-29",
+					"exptm": "22:9",
+					"fndduring": null,
+					"jobdesc": null,
+					"Capty": null,
+					"Cstat": "A",
+					"Apprusr": "Test User1",
+					"Apprdtm": "2020-07-29",
+					"Appruzt": "22:9",
+					"ldesc": null,
+					"fndid": "",
+					"JDUID": "",
+					"JDUVL": "",
+					"JDUDT": "",
+					"CREUSR": "",
+					"DMDID": "",
+					"OTHER_RSN": ""
+				};
+
+				oParameter.error = function(response) {
+
+				};
+
+				oParameter.success = function(oData) {
+					that.getView().byId("MasterId").setVisible(false);
+					that.onOpenDialogApp();
+				}.bind(this);
+				oParameter.activity = 2;
+				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], "ZRM_AC_O", this);
+			} catch (e) {
+				Log.error("Exception in _fnUpdateLP function");
+			}
+		},
+
+		/* Function: onUpdateJob
+		 * Parameter: oEvent
+		 * Description: To Create new Job.
+		 */
+		_fnUpdateADD: function(sValue) {
+			try {
+				var that = this,
+					sjobid = "",
+					oModel,
+					oPayload;
+				var dDate = new Date();
+
+				var oParameter = {};
+				oPayload = this.getView().getModel("ApprovalDetailstModel").getData();
+				oPayload.Apprdtm = formatter.defaultOdataDateFormat(dDate);
+				oPayload.Appruzt = new Date().getHours() + ":" + new Date().getMinutes();
+				oPayload.Apprusr = "Test User";
+				if (sValue === "R") {
+					oPayload.Cstat = "R";
+				} else {
+					oPayload.Cstat = "A";
+				}
+
+				oParameter.error = function(response) {
+
+				};
+
+				oParameter.success = function(oData) {
+					if (sValue === "R") {
+						that.getRouter().navTo("Cosjobs");
+					} else {
+						that.onOpenDialogApp();
+					}
+
+				}.bind(this);
+				oParameter.activity = 2;
+				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], "ZRM_ADDL", this);
+			} catch (e) {
+				Log.error("Exception in _fnUpdateADD function");
+			}
+		},
+
+		_fnApprovalDetailsRequestGet: function(sCapId) {
+			try {
+				var that = this,
+					oPrmAppr = {};
+				oPrmAppr.filter = "CAPID eq " + sCapId;
+				oPrmAppr.error = function() {
+
+				};
+
+				oPrmAppr.success = function(oData) {
+					if (oData.results.length !== 0) {
+						var oModel = dataUtil.createNewJsonModel();
+						that._fnCAPDataGet("O", oData.results[0].jobid, oData.results[0].capid);
+						oModel.setData(oData.results[0]);
+						that.getView().setModel(oModel, "ApprovalDetailstModel");
+						that.getView().byId("MasterId").setVisible(true);
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/ApprovalNavSvc", oPrmAppr);
+			} catch (e) {
+				Log.error("Exception in _fnApprovalDetailsRequestGet function");
+			}
+		},
+
+		onOpenDialogApp: function() {
+			try {
+				var that = this;
+				if (!this._oApprove) {
+					this._oApprove = sap.ui.xmlfragment(this.createId("idWorkCenterDialog"),
+						"avmet.ah.fragments.ApprovalDialog",
+						this);
+					this.getView().addDependent(this._oApprove);
+				}
+				this._oApprove.open(this);
+			} catch (e) {
+				Log.error("Exception in onOpenDialogApp function");
+			}
+		},
+
+		onCloseDialogAppDialog: function(sValue) {
+			try {
+				var that = this;
+				if (this._oApprove) {
+					this._oApprove.close(this);
+					this._oApprove.destroy();
+					delete this._oApprove;
+					if (sValue === 'B') {
+						that._fnApprovalRequestGet();
+					}
+				}
+			} catch (e) {
+				Log.error("Exception in onCloseDialogAppDialog function");
+			}
+		},
+
+		handleLinkPress: function() {
+			try {
+				var that = this;
+				that.getRouter().navTo("Limitations");
+			} catch (e) {
+				Log.error("Exception in handleLinkPress function");
+			}
+		},
+
+		handleDashBordress: function() {
+			try {
+				var that = this;
+				that.getRouter().navTo("DashboardInitial");
+			} catch (e) {
+				Log.error("Exception in handleDashBordress function");
+			}
+		},
+		_fnTrialModGet: function(sJOBID) {
+			try {
+				var that = this,
+					oPrmWB = {};
+				oPrmWB.filter = "FLAG eq TM and JOBID eq " + sJOBID;
+				oPrmWB.error = function() {
+
+				};
+
+				oPrmWB.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results[0]);
+					that.getView().setModel(oModel, "trialModel");
+					this.getView().byId("MasterId").setVisible(true);
+				}.bind(this);
+
+				ajaxutil.fnRead("/ApprovalNavSvc", oPrmWB);
+			} catch (e) {
+				Log.error("Exception in _fnTrialModGet function");
+			}
+		},
+		fnUpdateDeMod: function() {
+			try {
+				var sPath = "/ApprovalNavSvc"; //ApprovalNavSvc
+				var oParameter = {};
+				var oPayload = this.getModel("trialModel").getProperty("/");
+				oPayload.flag = "TM";
+				oParameter.error = function() {};
+				oParameter.success = function() {
+					this.getView().byId("MasterId").setVisible(false);
+					this.onOpenDialogApp();
+				}.bind(this);
+				oParameter.activity = 2;
+				ajaxutil.fnUpdate(sPath, oParameter, [oPayload], "ZRM_T_MOD", this);
+			} catch (e) {
+				Log.error("Exception in fnUpdateDeMod function");
+			}
+		},
+
+		_fnWeightBalanceGet: function(sTailId) {
+			try {
+				var that = this,
+					oPrmWBM = {};
+				oPrmWBM.filter = "tailid eq " + sTailId + " and MOD eq P";
+				oPrmWBM.error = function() {
+
+				};
+
+				oPrmWBM.success = function(oData) {
+					that.getView().byId("MasterId").setVisible(true);
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "WeightBalanceHeaderSet");
+					var oAppModel = this.getView().getModel("ViewModel");
+					oAppModel.setProperty("/sUser", oData.results[0].SGUSR);
+					oAppModel.setProperty("/sDate", oData.results[0].SGDTM);
+					oAppModel.setProperty("/sUser1", oData.results[0].SGUSR);
+					oAppModel.setProperty("/sDate1", oData.results[0].SGDTM);
+					// oAppModel.setProperty("/sUser2", oData.results[0].ENUsr);
+					// oAppModel.setProperty("/sDate2", oData.results[0].Endtm);
+					for (var i in oData.results) {
+						if (oData.results[i].WTIND === "W") {
+							var bFlag = oData.results[i].FLAG === "X" ? true : false;
+							this.getModel("ViewModel").setProperty("/isWeightedVisible", bFlag);
+						}
+					}
+					this._fnGetWeightBalanceItemSet(oData.results[0].WABID);
+				}.bind(this);
+
+				ajaxutil.fnRead("/WeBalHSvc", oPrmWBM);
+			} catch (e) {
+				Log.error("Exception in _fnWeightBalanceGet function");
+			}
+		},
+
+		_fnGetWeightBalanceItemSet: function(sWABID) {
+			try {
+				var that = this,
+					oPrmWBM = {};
+				oPrmWBM.filter = "WABID eq " + sWABID;
+				oPrmWBM.error = function() {
+
+				};
+
+				oPrmWBM.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "WeightBalanceSet");
+				}.bind(this);
+
+				ajaxutil.fnRead("/WeBalISvc", oPrmWBM);
+			} catch (e) {
+				Log.error("Exception in _fnGetWeightBalanceItemSet function");
+			}
+		},
+
+		_fnAirOverViewHeaderGet: function(sTailID) {
+			try {
+				var that = this,
+					oPrmWB = {};
+				oPrmWB.filter = "FLAG eq H and TAILID eq " + sTailID + " AND LPTYPE EQ LPHEADER";
+				oPrmWB.error = function() {
+
+				};
+
+				oPrmWB.success = function(oData) {
+					this.getView().byId("MasterId").setVisible(true);
+					if (oData.results[0] !== undefined) {
+						var oModel = dataUtil.createNewJsonModel();
+						oModel.setData(oData.results[0]);
+						that.getView().setModel(oModel, "OverViewHeaderModel");
+						this._fnAirOverViewItemGet(oData.results[0].AIRID, oData.results[0].MODID);
+						this._fnAirOverViewItemTankGet(oData.results[0].AIRID, oData.results[0].MODID);
+						this._fnAirOverViewItemOilGet(oData.results[0].AIRID, oData.results[0].MODID);
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+			} catch (e) {
+				Log.error("Exception in _fnAirOverViewHeaderGet function");
+			}
+		},
+
+		_fnAirOverViewItemGet: function(sAirID, sMODID) {
+			try {
+				var that = this,
+					oPrmWB = {};
+				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " AND LPTYPE EQ LPTYREPRESRE";
+				oPrmWB.error = function() {
+
+				};
+
+				oPrmWB.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "OverViewItemModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+			} catch (e) {
+				Log.error("Exception in _fnAirOverViewItemGet function");
+			}
+		},
+
+		_fnAirOverViewItemTankGet: function(sAirID, sMODID) {
+			try {
+				var that = this,
+					oPrmWB = {};
+				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " AND LPTYPE EQ LPTANK";
+				oPrmWB.error = function() {
+
+				};
+
+				oPrmWB.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "OverViewItemTankModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+			} catch (e) {
+				Log.error("Exception in _fnAirOverViewItemTankGet function");
+			}
+		},
+
+		_fnAirOverViewItemOilGet: function(sAirID, sMODID) {
+			try {
+				var that = this,
+					oPrmWB = {};
+				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " AND LPTYPE EQ LPFUELOIL";
+				oPrmWB.error = function() {
+
+				};
+
+				oPrmWB.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "OverViewItemOILModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+			} catch (e) {
+				Log.error("Exception in _fnAirOverViewItemOilGet function");
+			}
+		},
+
+		_fnCAPDataGet: function(sFlag, sJobId, sCapId) {
+			try {
+				var that = this,
+
+					oPrmJobDue = {};
+				var oViewModel = dataUtil.createNewJsonModel();
+				oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData.results.length !== 0) {
+						oViewModel.setData(oData.results[0]);
+						if (oData.results[0].EXPDT !== null) {
+							oData.results[0].EXPDT = new Date(oData.results[0].EXPDT);
+							oData.results[0].EXPTM = formatter.defaultTimeFormatDisplay(oData.results[0].EXPTM);
+							oData.results[0].SUBUZT = new Date().getHours() + ":" + new Date().getMinutes();
+						}
+						that.getView().setModel(oViewModel, "CapExtendSet");
+					}
+
+				}.bind(this);
+
+				ajaxutil.fnRead("/EDITLIMITATIONSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnCAPDataGet function");
+			}
+		},
+
+		CAPDataUpdate: function() {
+			try {
+				var that = this,
+					oPayload,
+					oModel = this.getView().getModel("ViewModel"),
+					oPrmJobDue = {};
+				oPayload = this.getView().getModel("CapExtendSet").getData();
+				//oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					that.onCloseMangeLimitaionDialog();
+					that._fnApprovalDetailsRequestGet(that.Obj.id);
+				}.bind(this);
+				oPrmJobDue.activity = 2;
+				ajaxutil.fnUpdate("/EDITLIMITATIONSvc", oPrmJobDue, [oPayload], "ZRM_ADDL", this);
+			} catch (e) {
+				Log.error("Exception in CAPDataUpdate function");
+			}
+		},
+
+		CAPDataCancel: function() {
+			try {
+				var that = this,
+					oPayload,
+					oModel = this.getView().getModel("ViewModel"),
+					oPrmJobDue = {};
+				oPayload = this.getView().getModel("CapExtendSet").getData();
+				//oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+				oPayload.CSTAT = "X";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					that.onCloseMangeLimitaionDialog();
+					that.getView().byId("MasterId").setVisible(false);
+					/*	that._fnApprovalRequestGet();*/
+					this.getRouter().navTo("Cosjobs");
+
+				}.bind(this);
+				oPrmJobDue.activity = 2;
+				ajaxutil.fnUpdate("/EDITLIMITATIONSvc", oPrmJobDue, [oPayload], "ZRM_ADDL", this);
+			} catch (e) {
+				Log.error("Exception in CAPDataCancel function");
+			}
+		},
+
+		_fnReasonforADDGet: function(sAirId) {
+			try {
+				var that = this,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq CPR_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "ReasonforADDModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnReasonforADDGet function");
+			}
+		},
+
+		_fnPerioOfDeferCBGet: function(sAirId) {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("oViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "PerioOfDeferCBModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnPerioOfDeferCBGet function");
+			}
+		},
+		_fnUtilizationGet: function(sAirId) {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("oViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq UTIL1_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "UtilizationCBModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnUtilizationGet function");
+			}
+		},
+
+		// ***************************************************************************
+		//                 3.  Specific Methods  
+		// ***************************************************************************
+		// ***************************************************************************
+		//                 4. Private Methods   
+		// ***************************************************************************
+		_onObjectMatched: function(oEvent) {
+			try {
+				var that = this;
+				this._fnApprovalRequestGet();
+				var oViewModel = dataUtil.createNewJsonModel();
+				oViewModel.setData({
+					Capid: "",
+					description: "",
+					flag: "",
+					text: "",
+					oFlag: "",
+					SGUSR: "",
+					SGDTM: "",
+					editableFlag: true,
+					dialogTitle: "",
+					btnText: "Edit",
+					DatePrev: new Date()
+				});
+
+				this.getView().setModel(oViewModel, "ViewModel");
+				var sAirId = that.getAircraftId();
+				this._fnReasonforADDGet(sAirId);
+				this._fnPerioOfDeferCBGet(sAirId);
+				this._fnUtilizationGet(sAirId);
+			} catch (e) {
+				Log.error("Exception in _onObjectMatched function");
+			}
+		},
+		onEditRequest: function(oEvent) {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("CapExtendSet"),
+					oModelDialog = this.getView().getModel("ViewModel");
+
+				if (!this._oManageLim) {
+					this._oManageLim = sap.ui.xmlfragment("EditLimId",
+						"avmet.ah.fragments.ApprovalManageLimitation",
+						this);
+					this.getView().addDependent(this._oManageLim);
+				}
+				if (oModel.getProperty("/EXTEND") === "X") {
+					oModelDialog.setProperty("/editableFlag", false);
+				}
+
+				this._oManageLim.open(this);
+			} catch (e) {
+				Log.error("Exception in onEditRequest function");
+			}
+		},
+
+		onCloseMangeLimitaionDialog: function() {
+			try {
+				if (this._oManageLim) {
+					this._oManageLim.close(this);
+					this._oManageLim.destroy();
+					delete this._oManageLim;
+				}
+			} catch (e) {
+				Log.error("Exception in onCloseMangeLimitaionDialog function");
+			}
+		}
+
+	});
+});

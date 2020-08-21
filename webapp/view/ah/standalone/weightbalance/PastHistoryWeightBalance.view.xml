@@ -1,0 +1,44 @@
+<mvc:View controllerName="avmet.ah.controller.PastHistoryWeightBalance" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:l="sap.ui.layout">
+	<Page title="History Weight and Balance Record" navButtonPress="onNavBack" showNavButton="true">
+		<content>
+			<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont" items="{ path: 'WeightBalanceSet>/'}"
+				width="auto">
+				<columns>
+					<Column hAlign="Left" width="auto" class="textColor">
+						<Label text="Update Date" design="Bold"/>
+					</Column>
+					<Column minScreenWidth="Tablet" width="auto" demandPopin="true" hAlign="Left" class="textColor">
+						<Label text="Updated By" design="Bold" wrapping="true"/>
+					</Column>
+					<Column hAlign="Left" width="auto" class="textColor">
+						<Label text="Endorsed Date" design="Bold"/>
+					</Column>
+					<Column minScreenWidth="Tablet" width="auto" demandPopin="true" hAlign="Left" class="textColor">
+						<Label text="Endorsed By" design="Bold" wrapping="true"/>
+					</Column>
+					<Column hAlign="Left" width="auto" class="textColor">
+						<Label text="Action" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<HBox>
+								<Text text="{path:'WeightBalanceSet>SGDTM', formatter:'.formatter.defaultDateFormatDisplay'}" class="sapUiSmallMarginEnd"/>
+								<Text text="{path:'WeightBalanceSet>SGUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							</HBox>
+							<Text text="{WeightBalanceSet>SGUSR}"/>
+							<HBox>
+								<Text text="{path:'WeightBalanceSet>Endtm', formatter:'.formatter.defaultDateFormatDisplay'}" class="sapUiSmallMarginEnd"/>
+								<Text text="{path:'WeightBalanceSet>Enuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							</HBox>
+							<Text text="{WeightBalanceSet>ENUsr}"/>
+							<Link text="View History" press="onViewPastHistory"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Page>
+</mvc:View>

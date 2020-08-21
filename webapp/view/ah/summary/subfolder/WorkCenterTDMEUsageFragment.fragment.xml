@@ -1,0 +1,58 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<VBox class="sapUiResponsivePadding sapUiSmallMarginTop" width="100%">
+		<Toolbar>
+			<Title text="{i18n>tiTMDEUsage}" level="H2"/>
+			<ToolbarSpacer/>
+			<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"/>
+			<Button text="{i18n>btnAdd}" type="Default" width="7rem" press="onAddTMDE" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+		</Toolbar>
+		<VBox backgroundDesign="Solid" alignContent="Center" visible="{=${CreateJobLocalModel>/TMDE}.length === 0 ? true :false}"
+			alignItems="Center" class="vboxAlign">
+			<items>
+				<Title text="{i18n>txtNoTextTMDE}" level="H1" titleStyle="H3"/>
+				<Button text="{i18n>btnAdd}" type="Default" width="7rem" press="onAddTMDE" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+			</items>
+		</VBox>
+		<VBox visible="{=${CreateJobLocalModel>/TMDE}.length !== 0 ? true :false}" alignContent="Center" alignItems="Center">
+			<Table id="tbWcTDMEId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" growing="true" growingThreshold="4"
+				growingScrollToLoad="false" items="{CreateJobLocalModel>/TMDE}" noDataText="{i18n>txtNoTextTMDE}" showNoData="true" updateFinished="onWoorkCenTblUpdateFinished('TM',$event)">
+			
+				<columns>
+					<Column width="7rem" hAlign="Center" class="CERTableTextColor">
+						<Label text="{i18n>lbTMDEPartNo}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+					</Column>
+					<Column width="8rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+						<Label text="{i18n>lbSerialNo}" design="Bold" wrapping="true"/>
+					</Column>
+					<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Label text="{i18n>lbTorqueRange}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+					</Column>
+					<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Label text="{i18n>lbTorqueSet}" design="Bold" wrapping="true"/>
+					</Column>
+						<Column width="4rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Label text="{i18n>lbUnitofMeasure}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+					</Column>
+					<Column width="7rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Label text="{i18n>lbLocation}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+					</Column>
+					<Column width="3rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{CreateJobLocalModel>PartNo}"/>
+							<Text text="{CreateJobLocalModel>SerialNo}"/>
+							<Text text="{CreateJobLocalModel>TorqueRangeMin} -  {CreateJobLocalModel>TorqueRangeMax} "/>
+							<Text text="{CreateJobLocalModel>TorqueSet}"/>
+							<Text text="{CreateJobLocalModel>UnitofMeasure}"/>
+							<Text text="{CreateJobLocalModel>Location}"/>
+							<Button icon="sap-icon://overflow" press="handlePressWorkCenterFragmentOpenMenu('TDM',$event)" type="Transparent"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

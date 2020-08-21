@@ -1,0 +1,109 @@
+<core:FragmentDefinition xmlns="sap.ui.table" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<l:VerticalLayout class="backgroundBlue">
+		<Table rows="{EquipRunFlyLogMainModel>/ManoeuvringLog}" selectionMode="None" visibleRowCount="2" class="TableHeaderBGColor">
+			<extension>
+				<m:OverflowToolbar class="backgroundBlue">
+					<m:Title text="Manoeuvring Flight Record Log"/>
+					<m:ToolbarSpacer/>
+								<m:Link text="view"/>
+				</m:OverflowToolbar>
+			</extension>
+			<columns>
+				<Column filterProperty="DateTime">
+					<multiLabels>
+						<m:Label text="Date" textAlign="Center" design="Bold" width="100%"/>
+					</multiLabels>
+					<template>
+						<m:Text text="{EquipRunFlyLogMainModel>Date}"/>
+					</template>
+				</Column>
+				<Column >
+					<multiLabels>
+						<m:Label text="Aircraft AUW (lbs)" textAlign="Center" wrapping="true" design="Bold" width="100%"/>
+					</multiLabels>
+					<template>
+						<m:Text text="{EquipRunFlyLogMainModel>AircraftAUW}"/>
+					</template>
+				</Column>
+				<Column >
+					<multiLabels>
+						<m:Label text="Length of flight period" textAlign="Center" wrapping="true" design="Bold" width="100%"/>
+					</multiLabels>
+					<template>
+						<m:Text text="{EquipRunFlyLogMainModel>LenOfFlightPeriod}"/>
+					</template>
+				</Column>
+				<Column >
+					<multiLabels>
+						<m:Label text="Cumulative Flight period" textAlign="Center" wrapping="true" design="Bold" width="100%"/>
+					</multiLabels>
+					<template>
+						<m:Text text="{EquipRunFlyLogMainModel>CumFlightPeriod}"/>
+					</template>
+				</Column>
+				<Column id="rollRecord">
+					<multiLabels>
+						<m:Label text="Roll Record" textAlign="Center" design="Bold" width="100%"/>
+						<m:Label text="# Rolls Beyond 60° AOB" textAlign="Center" wrapping="true" design="Bold" width="100%"/>
+					</multiLabels>
+					<template>
+						<m:Text text="{EquipRunFlyLogMainModel>NoOfRollsBeyond}"/>
+					</template>
+				</Column>
+				<Column >
+					<multiLabels>
+						<m:Label text="Roll Record" textAlign="Center" design="Bold" width="100%"/>
+						<m:Label text="Max Roll Angle (°)" textAlign="Center" wrapping="true" design="Bold" width="100%"/>
+					</multiLabels>
+					<template>
+						<m:Text text="{EquipRunFlyLogMainModel>MaxRollAngle}"/>
+					</template>
+				</Column>
+				<Column id="pitchRecord">
+					<multiLabels>
+						<m:Label text="Pitch Record" textAlign="Center" design="Bold" width="100%"/>
+						<m:Label text="# times with Pitch beyond 30°" textAlign="Center" wrapping="true" design="Bold" width="100%"/>
+					</multiLabels>
+					<template>
+						<m:Text text="{EquipRunFlyLogMainModel>NoOfTimesPitch}"/>
+					</template>
+				</Column>
+				<Column >
+					<multiLabels>
+						<m:Label text="Pitch Record" textAlign="Center" design="Bold" width="100%"/>
+						<m:Label text="Max Pitch Angle (°)" textAlign="Center" wrapping="true" design="Bold" width="100%"/>
+					</multiLabels>
+					<template>
+						<m:Text text="{EquipRunFlyLogMainModel>MaxPitchAngle}"/>
+					</template>
+				</Column>
+				<Column id="loadingRecord">
+					<multiLabels>
+						<m:Label text="G-loading Record" textAlign="Center" design="Bold" width="100%"/>
+						<m:Label text="Maximum g attained in sortie" textAlign="Center" wrapping="true" design="Bold" width="100%"/>
+					</multiLabels>
+					<template>
+						<m:Text text="{EquipRunFlyLogMainModel>MaxGAttain}"/>
+					</template>
+				</Column>
+				<Column >
+					<multiLabels>
+						<m:Label text="G-loading Record" textAlign="Center" design="Bold" width="100%"/>
+						<m:Label text="Minimum g attained in sortie" textAlign="Center" wrapping="true" design="Bold" width="100%"/>
+					</multiLabels>
+					<template>
+						<m:Text text="{EquipRunFlyLogMainModel>MinGAttain}"/>
+					</template>
+				</Column>
+				<Column sortProperty="UpdatedBy" filterProperty="UpdatedBy">
+					<multiLabels>
+						<m:Label text="Crew (PIC)" textAlign="Center" design="Bold" width="100%"/>
+					</multiLabels>
+					<template>
+						<m:Text text="{EquipRunFlyLogMainModel>Crew}"/>
+					</template>
+				</Column>
+			</columns>
+		</Table>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

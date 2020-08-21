@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<ScrollContainer horizontal="false" vertical="true" width="100%" focusable="false" class="sapUiTinyMarginTop">
+		<Table class="sapUiResponsivePadding CERTable sapUiSizeCompact" items="{JobModelAIR>/}" growing="true"
+			growingTriggerText="{i18n>lbLoadMore}">
+			<headerToolbar>
+				<OverflowToolbar>
+					<Title text="Aircraft" level="H2"/>
+					<ToolbarSpacer/>
+					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"/>
+					<ComboBox width="10rem">
+						<core:Item key="{key}" text="{text}"/>
+					</ComboBox>
+					<Button icon="sap-icon://add-filter" text="{i18n>btnFilterSchedule}" type="Default" class="btnColor sapUiSizeCompact sortBtnColor"
+						press="onAddDemandSpaes"/>
+				</OverflowToolbar>
+			</headerToolbar>
+			<columns>
+				<Column width="3rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>lbDueIn}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="6rem" hAlign="Center" class="CERTableTextColor">
+					<Label text="Um" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="{i18n>lbServicingDue}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="15rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="{i18n>lbJobDescription}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="Type" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="{i18n>lbPrime}" design="Bold" wrapping="true"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" type="Navigation" press="onScheduleJobPress('AIR',$event)">
+					<cells>
+						<Text text="{JobModelAIR>DUEIN}"/>
+						<Text text="{JobModelAIR>UM}"/>
+						<VBox alignItems="Center" alignContent="Center">
+							<Text text="{JobModelAIR>SERVDUE}" visible="{=${JobModelAIR>SERVDUE} !== '' || ${JobModelAIR>SERVDUE} !== null ? true : false}"/>
+							<Text text="{path:'JobModelAIR>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}"
+								visible="{=${JobModelAIR>SERVDUE} === '' || ${JobModelAIR>SERVDUE} === null ? true : false}"/>
+						</VBox>
+						<Text text="{JobModelAIR>JOBDESC}"/>
+						<Text text="{JobModelAIR>CTYPE}"/>
+						<Text text="{JobModelAIR>WRCTR}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</ScrollContainer>
+</core:FragmentDefinition>

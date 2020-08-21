@@ -1,0 +1,34 @@
+<mvc:View controllerName="avmet.ah.controller.RoutineTasks" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Page title="Routine Tasks ({path : 'oRoutineTasksViewModel>/sPageTitle', formatter : '.formatter.PageTitle'})" showNavButton="true"
+		enableScrolling="true" navButtonPress="onNavBack">
+		<headerContent>
+			<Button text="Completed Tasks" type="Transparent" class="btnClass"/>
+		</headerContent>
+		<content>
+			<!--<core:Fragment fragmentName="avmet.ah.fragments.flc.RTTradesmanSignOff" type="XML"/>-->
+			<Wizard id="wizard" showNextButton="false" class="wizardTilteHide sapUiResponsivePadding--header sapUiResponsivePadding--content"
+				complete="wizardCompletedHandler">
+				<WizardStep id="TradesmanSign" nextStep="TeamLeadSign" title="Tradesman Sign Off" validated="true">
+					<core:Fragment fragmentName="avmet.ah.fragments.flc.RTTradesmanSignOff" type="XML"/>
+				</WizardStep>
+				<WizardStep id="TeamLeadSign" nextStep="TFOACheck" validated="true" title="Team Lead Sign Off" activate="additionalInfoValidation">
+					<core:Fragment fragmentName="avmet.ah.fragments.flc.TeamLeadSignOff" type="XML"/>
+				</WizardStep>
+				<WizardStep id="TFOACheck" validated="true" activate="optionalStepActivation" title="TFOA Check">
+					<core:Fragment fragmentName="avmet.ah.fragments.flc.TOAFCheck" type="XML"/>
+				</WizardStep>
+				<WizardStep id="ToolsCheck" validated="true" activate="optionalStepActivation" title="Tools Check">
+					<core:Fragment fragmentName="avmet.ah.fragments.flc.ToolsCheck" type="XML"/>
+				</WizardStep>
+			</Wizard>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onNavBack" type="Transparent"/>
+				<Button text="Sign Off" type="Emphasized" press="onSignOffClick" enabled="{oRoutineTasksViewModel>/bTMSignOffEnable}"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

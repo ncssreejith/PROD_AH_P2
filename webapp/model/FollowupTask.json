@@ -1,0 +1,45 @@
+{
+	"Tasks": [{
+		"Symbol": "",
+		"Task": "Liquid oxygen converter S/N __ installed",
+		"TechOrder": "SNIF-16CJ-2-35JG-00-1",
+		"Tradesman": "FLC Trademan",
+		"Supervisor": "FLC Supervisor",
+		"TDDateTime": "25/12/19, 11:00",
+		"SUDateTime": "26/12/19, 11:00",
+		"Status": "OT",
+		"TaskType": "Ops Check"
+	}, {
+		"Symbol": "",
+		"Task": "Liquid oxygen circuit breaker (Qty 01) reset",
+		"TechOrder": "SNIF-16CJ-2-35JG-00-1",
+		"Tradesman": "FLC Trademan",
+		"Supervisor": "FLC Supervisor",
+		"TDDateTime": "25/12/19, 11:00",
+		"SUDateTime": "26/12/19, 11:00",
+		"Status": "OT",
+		"TaskType": ""
+	}, {
+		"Symbol": "",
+		"Task": "Access door #2206 closed",
+		"TechOrder": "SNIF-16CJ-2-52JG-00-1",
+		"Tradesman": "FLC Trademan",
+		"Supervisor": "FLC Supervisor",
+		"TDDateTime": "25/12/19, 11:00",
+		"SUDateTime": "26/12/19, 11:00",
+		"Status": "OT",
+		"TaskType": ""
+	}, {
+		"Symbol": "",
+		"Task": "Access door #3308 closed",
+		"TechOrder": "SNIF-16CJ-2-52JG-00-1",
+		"Tradesman": "FLC Trademan",
+		"Supervisor": "FLC Supervisor",
+		"TDDateTime": "25/12/19, 11:00",
+		"SUDateTime": "26/12/19, 11:00",
+		"Status": "OT",
+		"TaskType": ""
+	}],
+	"PSTasks": [],
+	"CMTasks": []
+}

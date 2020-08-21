@@ -1,0 +1,63 @@
+{
+	"navigation": [{
+		"title": "Dashboard - Initial",
+		"key": "bfdashboardinitial",
+		"icon": "sap-icon://bbyd-dashboard"
+	}, {
+		"title": "COS-Create Job",
+		"key": "coscreatejob",
+		"icon": "sap-icon://activity-individual"
+
+	}, {
+		"title": "COS-ADDL",
+		"key": "cosaddl",
+		"icon": "sap-icon://legend"
+	}, {
+		"title": "COS-ST-WDNS",
+		"key": "cosstwdns",
+		"icon": "table-column"
+	}, {
+		"title": "COS-Engine",
+		"key": "cosengine",
+		"icon": "sap-icon://technical-object"
+	}, {
+		"title": "COS-Aircraft Transfer",
+		"key": "cosaircrafttransfer",
+		"icon": "sap-icon://flight"
+	}, {
+		"title": "COS-Limitations",
+		"key": "coslimitation",
+		"icon": "sap-icon://paper-plane"
+	}, {
+		"title": "BF-Aircraft Selection",
+		"key": "bfaircraftselection",
+		"icon": "sap-icon://flight"
+	}, {
+		"title": "BF-Flight Service",
+		"key": "bfflightservice",
+		"icon": "sap-icon://add-equipment"
+	}, {
+		"title": "BF-Dashboard - Pilot Accept",
+		"key": "bfdashboardpilot",
+		"icon": "sap-icon://bbyd-dashboard"
+	}, {
+		"title": "BF-ST-Equipment Running and Flying Log",
+		"key": "bfstequipment",
+		"icon": "sap-icon://request"
+	}, {
+		"title": "BF-ST-Leading Particulars",
+		"key": "bfstleading",
+		"icon": "sap-icon://leads"
+	}],
+	"fixedNavigation": [{
+		"title": "User Guides",
+		"key": "userguide",
+		"icon": "sap-icon://sys-help"
+	}, {
+		"title": "Contact",
+		"key": "contact",
+		"icon": "sap-icon://contacts"
+	}],
+	"headerItems": []
+
+}

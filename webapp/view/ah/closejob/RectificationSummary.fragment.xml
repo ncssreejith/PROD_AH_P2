@@ -1,0 +1,269 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.ah.control">
+	<VBox backgroundDesign="Transparent" class="sapUiLargeMargin">
+		<l:Splitter height="auto">
+			<VBox height="8rem" backgroundDesign="Solid">
+				<l:Grid hSpacing="1" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
+					<l:content>
+						<VBox >
+							<Label design="Bold" text="Job"/>
+							<layoutData>
+								<l:GridData linebreak="false" span="XL3 L3 M3 S12"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Text text="{JobModel>/jobdesc}"/>
+							<layoutData>
+								<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+							</layoutData>
+						</VBox>
+					</l:content>
+				</l:Grid>
+				<layoutData >
+					<l:SplitterLayoutData size="250px" resizable="false"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<l:Splitter height="auto">
+					<VBox backgroundDesign="Solid">
+						<l:Grid hSpacing="1" class="sapUiSmallMarginTop" defaultSpan="XL3 L3 M3 S12">
+							<l:content>
+								<VBox >
+									<Label design="Bold" text="Date"/>
+									<!--<DatePicker fieldGroupIds="fgDate" displayFormat="dd.MM.YYY" required="true" width="10rem" value="{JobModel>/rectdt}"
+										valueStateText="{i18n>MSG_DATE}"/>-->
+									<DatePicker id="DP1" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
+										value="{path: 'JobModel>/rectdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+										change="handleChange" class="sapUiSmallMarginBottom"/>
+									<layoutData>
+										<l:GridData linebreak="false" span="XL3 L3 M3 S12"/>
+									</layoutData>
+								</VBox>
+								<VBox>
+									<Label design="Bold" text="Time"/>
+									<TimePicker id="TP1" required="true" fieldGroupIds="fgTime" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/recttm}" width="13rem"
+										valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange"/>
+									<layoutData>
+										<l:GridData linebreak="true" span="XL3 L3 M3 S12"/>
+									</layoutData>
+								</VBox>
+							</l:content>
+						</l:Grid>
+						<layoutData >
+							<l:SplitterLayoutData size="250px" resizable="true"/>
+						</layoutData>
+					</VBox>
+					<VBox>
+						<VBox backgroundDesign="Solid" visible="{=${ViewModel>/sFlag}==='N'? true:false}">
+							<l:Grid hSpacing="2" class="sapUiSmallMarginTop" defaultSpan="XL8 L8 M12 S12">
+								<VBox>
+									<!--visible="{= (${JobModel>/jobty}==='D' || ${JobModel>/notity}!==null ) ? true:false}"-->
+									<Label text="Rectification Summary"></Label>
+									<TextArea cols="60" width="24rem" value="{JobModel>/recttxt}" rows="3" maxLength="1000" showExceededText="true"
+										liveChange="handleLiveChangeFlyingRequirements"></TextArea>
+									<layoutData>
+										<l:GridData span="XL7 L7 M10 S12" linebreak="true"/>
+									</layoutData>
+								</VBox>
+								<HBox visible="{= ${JobModel>/jobty}==='D' ? true:false}">
+									<!---->
+									<VBox>
+										<Label class="sapUiTinyMargin" design="Bold" text="{i18n>lblRepeat}"/>
+										<SegmentedButton class="sapUiTinyMargin" fieldGroupIds="{= ${JobModel>/jobty} === 'D' ? 'fgSGBtn' : ''}" width="10rem"
+											selectedKey="{JobModel>/recur}">
+											<!--selectionChange="onSegmentedButtonSelection('REP',$event)"-->
+											<items>
+												<SegmentedButtonItem key="NA" visible="false"></SegmentedButtonItem>
+												<SegmentedButtonItem text="Yes" key="1"></SegmentedButtonItem>
+												<SegmentedButtonItem text="No" key="0"></SegmentedButtonItem>
+											</items>
+											<customData>
+												<!--	<core:CustomData value="{i18n>lblRepeat}"></core:CustomData>-->
+											</customData>
+										</SegmentedButton>
+									</VBox>
+									<VBox>
+										<Label class="sapUiTinyMargin" design="Bold" text="{i18n>lblDuplicate}"/>
+										<SegmentedButton class="sapUiTinyMargin" fieldGroupIds="{= ${JobModel>/jobty} === 'D' ? 'fgSGBtn' : ''}"
+											selectionChange="onSegmentedButtonSelection" width="10rem" selectedKey="{JobModel>/dupli}">
+											<items>
+												<SegmentedButtonItem key="NA" visible="false"></SegmentedButtonItem>
+												<SegmentedButtonItem text="Yes" key="1"></SegmentedButtonItem>
+												<SegmentedButtonItem text="No" key="0"></SegmentedButtonItem>
+											</items>
+											<customData>
+												<!--<core:CustomData value="{i18n>lblDuplicate}"></core:CustomData>-->
+											</customData>
+										</SegmentedButton>
+									</VBox>
+									<layoutData>
+										<l:GridData span="XL7 L7 M10 S12" linebreak="true"/>
+									</layoutData>
+								</HBox>
+								<VBox visible="{=${JobModel>/notity}!==null? true:false}">
+									<HBox>
+										<VBox>
+											<Label class="sapUiTinyMargin" design="Bold" text="{i18n>lblRaiseTrialMod}"/>
+											<SegmentedButton class="sapUiTinyMargin" fieldGroupIds="{= ${JobModel>/notity} !== null ? 'fgSGBtn' : ''}"
+												selectionChange="onSegmentedButtonSelection" width="10rem" selectedKey="{JobModel>/trail}">
+												<items>
+													<SegmentedButtonItem key="NA" visible="false"></SegmentedButtonItem>
+													<SegmentedButtonItem text="Yes" key="1"></SegmentedButtonItem>
+													<SegmentedButtonItem text="No" key="0"></SegmentedButtonItem>
+												</items>
+											</SegmentedButton>
+										</VBox>
+										<VBox visible="{=${JobModel>/trail}==='1'? true:false}">
+											<Label class="sapUiTinyMargin" design="Bold" text="{i18n>FlyCharAffected}"/>
+											<SegmentedButton class="sapUiTinyMargin" fieldGroupIds="{= ${JobModel>/notity} !== null ? 'fgSGBtn' : ''}"
+												selectionChange="onSegmentedButtonSelection" width="10rem" selectedKey="{JobModel>/fchar}">
+												<items>
+													<SegmentedButtonItem key="NA" visible="false"></SegmentedButtonItem>
+													<SegmentedButtonItem text="Yes" key="1"></SegmentedButtonItem>
+													<SegmentedButtonItem text="No" key="0"></SegmentedButtonItem>
+												</items>
+											</SegmentedButton>
+										</VBox>
+										<layoutData>
+											<l:GridData span="XL7 L7 M10 S12" linebreak="true"/>
+										</layoutData>
+									</HBox>
+									<VBox class="sapUiTinyMarginBegin sapUiSmallMarginTop" visible="{=${JobModel>/fchar}==='1'? true:false}">
+										<Label text="Remarks" design="Bold" class="sapUiSmallMarginTop sapUiMediumMarginEnd"></Label>
+										<TextArea fieldGroupIds="fgTxtArea" cols="60" width="24rem" value="{JobModel>/remarks}" rows="3" maxLength="100" showExceededText="true"
+											liveChange="handleLiveChangeFlyingRequirements"></TextArea>
+										<layoutData>
+											<l:GridData span="XL7 L7 M10 S12" linebreak="true"/>
+										</layoutData>
+									</VBox>
+									<HBox visible="{=${JobModel>/fchar}==='1'? true:false}">
+										<Label class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop" design="Bold" text="{i18n>ScheduleReq}"/>
+										<SegmentedButton id="ScheReqId" class="sapUiTinyMargin" fieldGroupIds="{= ${JobModel>/notity} !== null ? 'fgSGBtn' : ''}"
+											selectionChange="onScheReqButtonSelection" width="10rem" selectedKey="{JobModel>/schreq}">
+											<items>
+												<SegmentedButtonItem key="NA" visible="false"></SegmentedButtonItem>
+												<SegmentedButtonItem text="Yes" key="1"></SegmentedButtonItem>
+												<SegmentedButtonItem text="No" key="0"></SegmentedButtonItem>
+											</items>
+										</SegmentedButton>
+									</HBox>
+									<VBox visible="{=${JobModel>/schreq}==='1'? true:false}">
+										<Label text="{i18n>lbJobDescription}" design="Bold" class="sapUiTinyMargin"/>
+										<TextArea fieldGroupIds="fgTxtArea" cols="60" width="24rem" class="sapUiTinyMargin" value="{JobCreateModel>/JOBDESC}" rows="3"
+											maxLength="100" showExceededText="true" liveChange="handleLiveChangeFlyingRequirements"></TextArea>
+										<Label text="{i18n>lblDue}" design="Bold" class="sapUiTinyMargin"/>
+										<HBox class="sapUiTinyMargin">
+											<ComboBox placeholder="{i18n>phSelect}" required="{=${JobModel>/schreq}==='1'? true : false}"
+												fieldGroupIds="{=${JobModel>/schreq}==='1' ? 'fgCmbBox' : ''}" selectedKey="{JobCreateModel>/UMKEY}" items="{JobDueSet>/}"
+												change="onDueSelectChange">
+												<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
+											</ComboBox>
+											<HBox id="ipServdue" class="sapUiTinyMarginBegin">
+												<StepInput min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}"
+													visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' ? true:false}"/>
+											</HBox>
+											<DatePicker id="dpServdt" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
+												value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+												placeholder="Select Date ..." change="handleChange" class="sapUiSmallMarginBottom sapUiTinyMarginBegin"/>
+										</HBox>
+										<HBox class="sapUiTinyMargin">
+											<Label text="{i18n>lbWorkCenter}" design="Bold"/>
+											<Label text="{i18n>lbOptional}" class="sapUiLargeMarginBegin"/>
+										</HBox>
+										<ComboBox placeholder="{i18n>phSelect}" change="onWorkCenterChange('DEF',$event)" selectedKey="{JobCreateModel>/PRIME}"
+											items="{WorkCenterSet>/}" class="sapUiTinyMargin">
+											<core:Item key="{WorkCenterSet>wrctr}" text="{WorkCenterSet>name}"/>
+										</ComboBox>
+									</VBox>
+									<VBox class="sapUiTinyMargin" visible="{=${JobModel>/trail}==='1'? true:false}">
+										<Label text="Period of Trial" design="Bold"/>
+										<HBox >
+											<ComboBox placeholder="{i18n>phSelect}" required="{=${JobModel>/trail}==='1'? true : false}"
+												fieldGroupIds="{=${JobModel>/trail}==='1' ? 'fgCmbBox' : ''}" selectedKey="{JobModel>/TRAILKEY}" items="{JobDueSet>/}"
+												change="onDueSelectChange">
+												<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
+											</ComboBox>
+											<HBox id="ipServdueTR" class="sapUiTinyMarginBegin">
+												<StepInput min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/TRAILKVAL}"
+													visible="{=${JobModel>/TRAILKEY}!=='JDU_10' ? true:false}"/>
+											</HBox>
+											<DatePicker id="dpServdtTR" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobModel>/TRAILKEY}==='JDU_10' ? true:false}"
+												value="{path: 'JobModel>/TRAILKDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+												placeholder="Select Date ..." change="handleChange" class="sapUiSmallMarginBottom sapUiTinyMarginBegin"/>
+										</HBox>
+									</VBox>
+								</VBox>
+							</l:Grid>
+						</VBox>
+						<VBox backgroundDesign="Solid" visible="{=${ViewModel>/sFlag}==='N'? true:false}" class="sapUiTinyMarginTop">
+							<l:Grid hSpacing="2" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
+								<Label text="{i18n>lblSelectKey}" design="Bold"></Label>
+								<Table mode="MultiSelect" class="sparesTable sapUiSizeCompact" selectionChange="onSelectTaskList" items="{TaskModel>/}"
+									rememberSelections="true">
+									<headerToolbar>
+										<OverflowToolbar class="sapUiTinyMarginBottom">
+											<content>
+												<Label text="{i18n>lblWorkCenter}"/>
+												<ComboBox items="{CreatedWorkCenterModel>/}" selectionChange="onWorkCenterSelect">
+													<core:Item key="{CreatedWorkCenterModel>wrctr}" text="{CreatedWorkCenterModel>wrctrtx}"/>
+												</ComboBox>
+												<ToolbarSpacer/>
+												<Text text="optional"/>
+											</content>
+										</OverflowToolbar>
+									</headerToolbar>
+									<columns >
+										<Column >
+											<Label class="whiteText" text="Task"/>
+										</Column>
+										<Column minScreenWidth="Tablet" demandPopin="true">
+											<Label class="whiteText" text="Follow-up Task"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{TaskModel>tdesc}"/>
+												<Text text="{TaskModel>ftdesc}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</l:Grid>
+							<layoutData>
+								<l:SplitterLayoutData size="auto"/>
+							</layoutData>
+						</VBox>
+						<VBox backgroundDesign="Solid" visible="{=${ViewModel>/sFlag}==='Y'? true:false}">
+							<l:Grid hSpacing="2" class="sapUiSmallMarginTop" defaultSpan="XL8 L8 M12 S12">
+								<VBox>
+									<Label text="Rectification Summary"></Label>
+									<TextArea cols="60" width="24rem" value="{JobModel>/recttxt}" rows="3" maxLength="500" showExceededText="true"
+										liveChange="handleLiveChangeFlyingRequirements"></TextArea>
+									<layoutData>
+										<l:GridData span="XL7 L7 M10 S12" linebreak="true"/>
+									</layoutData>
+								</VBox>
+							</l:Grid>
+						</VBox>
+						<layoutData>
+							<l:SplitterLayoutData size="auto"/>
+						</layoutData>
+					</VBox>
+				</l:Splitter>
+				<layoutData>
+					<l:SplitterLayoutData size="auto"/>
+				</layoutData>
+			</VBox>
+		</l:Splitter>
+	</VBox>
+	<!--	<VBox backgroundDesign="Transparent" class="sapUiLargeMargin" visible="{=${ViewModel>/sFlag}==='N'? true:false}">
+		<l:Splitter height="auto">
+			<VBox backgroundDesign="Solid">
+				<layoutData >
+					<l:SplitterLayoutData size="250px" resizable="false"/>
+				</layoutData>
+			</VBox>
+		
+		</l:Splitter>
+	</VBox>-->
+</core:FragmentDefinition>

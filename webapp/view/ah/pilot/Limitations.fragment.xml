@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cs="avmet.ah.control" xmlns:tnt="sap.tnt">
+	<VBox class="WhiteVBox sapUiTinyMargin">
+		<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+			<items>
+				<Text class="PDSFragTitle" text="Limitations"/>
+				<!--<Button text="Reviewed" type="Emphasized" press="onReviewedPress" enabled="{= ${oPilotAccpModel>/LimitaionReviewBtn} ? true : false}"/>-->
+				<Button text="Reviewed" id="btnLimitReview" type="Emphasized" press="onReviewedPress"/>
+			</items>
+		</FlexBox>
+		<List items="{ path: 'oPilotAccpModel>/aLimitations'}" width="100%" class="sapUiResponsivePadding hboxColor">
+			<CustomListItem class="sapUiSmallMargin hboxColor" type="Navigation" press="onLimitationInformationPress($event,'Limit')">
+				<HBox class="sapUiResponsivePadding hboxColor">
+					<!--<cs:ColorStatus title="{localViewModel>Title}" status="{localViewModel>Status}"/>-->
+					<cs:ColorStatus status="{oPilotAccpModel>AFDAY}" statushr="{oPilotAccpModel>AFHR}"/>
+					<HBox class="sapUiSmallMargin">
+						<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${oPilotAccpModel>EXPDT} !== null ? true : false}">
+							<Label text="{oPilotAccpModel>AFDAY}" design="Bold"></Label>
+							<Label text="day left"></Label>
+						</VBox>
+						<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center" visible="{=${oPilotAccpModel>UTIL1} !== null ? true : false}">
+							<Label text="{oPilotAccpModel>AFHR}" design="Bold"></Label>
+							<Label text="{oPilotAccpModel>UTIL1TEXT}"></Label>
+						</VBox>
+					</HBox>
+					<HBox class="sapUiSmallMargin">
+						<VBox>
+							<Label text="{oPilotAccpModel>LDESC}" design="Bold"/>
+							<HBox visible="{= ${oPilotAccpModel>CAPTY} === 'A' || ${oPilotAccpModel>CAPTY} === 'B'}">
+								<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${oPilotAccpModel>JOBDESC} !== null}" renderMode="Narrow" colorScheme="7"
+									class="sapUiTinyMarginTop" displayOnly="true"/>
+								<Label text="{oPilotAccpModel>JOBDESC}" visible="{= ${oPilotAccpModel>JOBDESC} !== null}" class="sapUiTinyMargin"/>
+							</HBox>
+						</VBox>
+					</HBox>
+				</HBox>
+			</CustomListItem>
+		</List>
+	</VBox>
+</core:FragmentDefinition>

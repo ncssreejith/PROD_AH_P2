@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<VBox backgroundDesign="Solid" class="sapUiResponsiveMargin" width="100%">
+		<IconTabBar id="itbEngine1" expanded="{device>/isNoPhone}" headerMode="Inline" class="iconTabPadding" expandable="false">
+			<items>
+				<IconTabFilter class="iconTabPadding" text="{i18n>lbEnginePower}" id="itnEng1Power">
+					<HBox id="hbEng1Power">
+						<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.enginePowerCheck" type="XML"/>
+					</HBox>
+				</IconTabFilter>
+				<IconTabFilter text="{i18n>lbEngineOil}"  id="itnEng1Replanish">
+					<HBox id="hbEng1Replanish">
+						<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.Engine1OilReplanishment" type="XML"/>
+					</HBox>
+				</IconTabFilter>
+				<IconTabFilter text="{i18n>lblEngineCycle}" id="itnEng1LifeCycle">
+					<HBox id="hbEng1LifeCycle">
+						<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.Engine1LifeCycleLife" type="XML"/>
+					</HBox>
+				</IconTabFilter>
+				<IconTabFilter text="{i18n>lblSchedules}" id="itnEng1Schedule">
+					<HBox id="hbEng1Schedule">
+						<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.engineSchedulesfragment" type="XML"/>
+					</HBox>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+	</VBox>
+</core:FragmentDefinition>

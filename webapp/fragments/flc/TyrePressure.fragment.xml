@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Tire Pressure" contentWidth="100%">
+		<VBox class="WhiteVBox sapUiTinyMargin" height="450px">
+			<Table width="95%" items="{oRepDetailsModel>/TyrePressure}"
+				class="TableHeaderBGColor sapUiSmallMarginTop sapUiMediumMarginBeginEnd sapUiSizeCompact">
+				<columns>
+					<Column class="TableTextColor" hAlign="Left">
+						<Label text="All Up Weight" design="Bold"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+						<Label text="Main" design="Bold" wrapping="true"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+						<Label text="Nose/Tail" design="Bold" wrapping="true"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{oRepDetailsModel>ALWEIGHT}"/>
+							<Text text="{oRepDetailsModel>TPMAIN}"/>
+							<Text text="{oRepDetailsModel>NOSE_TAIL}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+		<beginButton>
+			<Button text="Close" press="onRepleTyreClose" type="Reject"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

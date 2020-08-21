@@ -1,0 +1,93 @@
+<mvc:View controllerName="avmet.ah.controller.AircraftTransfer" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+	<Page title="{i18n>lblAircraftTransfer}"  showNavButton="true" navButtonPress="onNavBack">
+		<VBox class="sapUiSmallMargin">
+			<HBox justifyContent="SpaceBetween" backgroundDesign="Transparent" class="vbox1BgColor">
+			<l:Grid vSpacing="2" hSpacing="2" defaultSpan="XL12 L12 M12 S12">
+				<VBox class="sapUiSmallMargin">
+					<Label class="whiteText" width="8rem" text="{i18n>lblCustodian}" design="Bold"></Label>
+					<Title class="whiteText" level="H2" width="8rem" titleStyle="H2" text="{atModel>/header/SQN}"/>
+					<layoutData>
+						<l:GridData span="XL6 L6 M6 S12"/>
+					</layoutData>
+				</VBox>
+				<VBox class="sapUiSmallMargin">
+					<Label class="whiteText" text="{i18n>lblLocation}" design="Bold"></Label>
+					<Title class="whiteText" level="H2" titleStyle="H2" text="{atModel>/header/LOC}"/>
+					<layoutData>
+						<l:GridData span="XL6 L6 M6 S12"/>
+					</layoutData>
+				</VBox>
+			</l:Grid>
+			<Button class="sapUiSmallMargin btnheight" enabled="{= (${atModel>/header/ASTAT}==='AST_S'||${atModel>/header/ASTID}==='AST_US'||${atModel>/header/ASTID}==='AST_FAIR')?true:false}" press="onTransferAircraft" text="{= (${atModel>/header/ASTID}==='AST_REC')?${i18n>btnReceiveAC}:${i18n>btnTransferAC}}" type="Default"></Button>
+		</HBox>
+		<VBox backgroundDesign="Solid" class="sapUiSmallMarginTop">
+			<Title text="Transfer History" class="sapUiSmallMarginBegin sapUiSmallMarginTop" level="H4" titleStyle="H4"/>
+			<HBox class="sapUiSmallMargin">
+				<Table items="{path:'atModel>/history',filters:[{path:'transt',operator:'EQ',value1:'D'}],sorter: { path: 'tranid', descending: true}}" class="sparesTable paddingNone borderTable">
+					<headerToolbar>
+						<OverflowToolbar>
+							<content>
+								<VBox class="borderTable" width="100%" alignItems="Center">
+									<Label text="{i18n>lblDispact}"/>
+								</VBox>
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<Label class="whiteText" text="Date/Time"/>
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Label class="whiteText" text="Unit"/>
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Label class="whiteText" text="Tradesman"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{path:'atModel>distm', formatter:'.formatter.defaultDateFormatDisplay'} {path:'atModel>disutz', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{atModel>dsqntxt}"/>
+								<Text text="{atModel>dtredemen}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+				<Table items="{path:'atModel>/history',filters:[{path:'transt',operator:'EQ',value1:'R'}],sorter: { path: 'tranid', descending: true}}" class="sparesTable paddingNone">
+					<headerToolbar >
+						<OverflowToolbar>
+							<content>
+								<VBox class="borderTable" width="100%" alignItems="Center">
+									<Label text="{i18n>lblReceiverDetails}"/>
+								</VBox>
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<Label class="whiteText" text="Date/Time"/>
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Label class="whiteText" text="Unit"/>
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Label class="whiteText" text="Tradesman"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{path:'atModel>rdistm', formatter:'.formatter.defaultDateFormatDisplay'} {path:'atModel>rdiutz', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{atModel>rsqntxt}"/>
+								<Text text="{atModel>rtredemen}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</HBox>
+		</VBox>
+		</VBox>
+	</Page>
+</mvc:View>

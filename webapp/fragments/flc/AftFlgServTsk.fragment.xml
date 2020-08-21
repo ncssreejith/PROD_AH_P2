@@ -1,0 +1,78 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog showHeader="false" contentWidth="40%" contentHeight="86%">
+		<content>
+			<VBox class="greyBGColor sapUiNoMargin">
+				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
+					<items>
+						<Text text=""/>
+						<core:Icon press="onCloseAftFlgServTsk" tooltip="Close" src="sap-icon://decline" size="20px" color="black" class="sapUiTinyMarginEnd"/>
+					</items>
+				</FlexBox>
+				<VBox>
+					<VBox class="sapUiMediumMarginBeginEnd sapUiMediumMarginBottom">
+						<ObjectHeader title="{oFollowUpModel>/oSelectedTask/pdesc}" class="objectHeaderPadding"/>
+						<!--	<Label text= design="Bold"/>-->
+						<HBox class="sapUiTinyMarginTop">
+							<core:Icon src="sap-icon://decline" size="30px" color="#da2d2d"/>
+							<Text text="{oFollowUpModel>/oSelectedTask/ftdesc}" class="sapUiTinyMarginTop sapUiTinyMarginBegin"/>
+						</HBox>
+						<Toolbar height="7px"/>
+						<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
+							<items>
+								<Text text="FLC Tradesman Open"/>
+								<Text text="{path : 'oFollowUpModel>/oSelectedTask/begda', formatter : '.formatter.defaultDateFormatDisplay'}"/>
+							</items>
+						</FlexBox>
+					</VBox>
+				</VBox>
+			</VBox>
+			<VBox>
+				<VBox class="sapUiMediumMarginBeginEnd sapUiMediumMarginTop">
+					<VBox class="greyBorder">
+						<VBox class="greyBGColor greyBorderBottom sapUiNoMargin">
+							<Label text="Follow-Up Tasks" design="Bold" class="sapUiMediumMarginBegin sapUiTinyMargin"/>
+						</VBox>
+						<VBox class="sapUiMediumMargin sapUiSmallMarginTop">
+							<TextArea value="{oFollowUpModel>/sTaskDesc}" maxLength="250" rows="5" cols="70"/>
+							<Toolbar/>
+							<!--<VBox class="sapUiMediumMargin sapUiSmallMarginTop">-->
+							<!--	<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiTinyMarginTop"-->
+							<!--		visible="{=${oFollowUpModel>/fTDSUFlagLevel}==='02' || ${oFollowUpModel>/fTDSUFlagLevel}==='03' ? true:false}">-->
+							<!--		<items>-->
+							<!--			<Text text="{oFollowUpModel>/sTDName}"/>-->
+							<!--			<Text text="{oFollowUpModel>/dTDDate}"/>-->
+							<!--		</items>-->
+							<!--	</FlexBox>-->
+							<!--	<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiTinyMarginTop"-->
+							<!--		visible="{=${oFollowUpModel>/fTDSUFlagLevel}==='03' ? true:false}">-->
+							<!--		<items>-->
+							<!--			<Text text="Supervisor: {oFollowUpModel>/sSUName}"/>-->
+							<!--			<Text text="{oFollowUpModel>/dSUDate}"/>-->
+							<!--		</items>-->
+							<!--	</FlexBox>-->
+							<!--</VBox>-->
+							<!--<VBox class="orangeBGColor sapUiMediumMarginTop" visible="{=${oFollowUpModel>/fTDSUFlagLevel}==='03' ? false:true}">-->
+							<!--	<FlexBox alignItems="Start" justifyContent="SpaceBetween">-->
+							<!--		<items>-->
+							<!--			<HBox class="sapUiTinyMarginTopBottom sapUiTinyMarginBegin">-->
+							<!--				<core:Icon src="sap-icon://alert" size="20px" color="#fabb60"/>-->
+							<!--				<Text text="Pending Tradesman sign off" class="sapUiTinyMarginBegin" visible="{=${oFollowUpModel>/fTDSUFlagLevel}==='01' ? true:false}"/>-->
+							<!--				<Text text="Pending supervisor sign off" class="sapUiTinyMarginBegin" visible="{=${oFollowUpModel>/fTDSUFlagLevel}==='02' ? true:false}"/>-->
+							<!--			</HBox>-->
+							<!--			<Link text="Close Task" class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd"/>-->
+							<!--		</items>-->
+							<!--	</FlexBox>-->
+							<!--</VBox>-->
+						</VBox>
+					</VBox>
+				</VBox>
+			</VBox>
+		</content>
+		<!--<beginButton>-->
+		<!--	<Button text="Undo sign off" type="Transparent" enabled="false"/>-->
+		<!--</beginButton>-->
+		<endButton>
+			<Button text="Edit" type="Transparent" press="onSaveTaskDescEdit"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

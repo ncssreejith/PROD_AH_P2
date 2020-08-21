@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<l:Splitter>
+		<VBox>
+			<List id="notificationList" class="sapUiSmallMarginTop sapFDynamicPageAlignContent noBorderBtm" backgroundDesign="Transparent">
+				<items>
+					<StandardListItem type="Active" title="{i18n>lbAll}" counter="{=${JobModelAll>/}.length}" press="onOutstandingJobTypePress('AL')"
+						class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>lbDefects}" counter="{=${JobModelD>/}.length}" press="onOutstandingJobTypePress('DE')"
+						class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>lbScheduled}" counter="{=${JobModelS>/}.length}" press="onOutstandingJobTypePress('SC')"
+						class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>lbUnScheduled}" counter="{=${JobModelU>/}.length}" press="onOutstandingJobTypePress('USC')"
+						class="sapUiTinyMargin listBorder"/>
+				</items>
+			</List>
+			<layoutData>
+				<l:SplitterLayoutData size="190px" resizable="false"/>
+			</layoutData>
+		</VBox>
+		<VBox>
+			<HBox visible="{LocalJobsModel>/AllTableFlag}">
+				<core:Fragment fragmentName="avmet.ah.view.ah.jobs.outstandingjobs.JobsOutstandingAllFragment" type="XML"/>
+			</HBox>
+			<HBox visible="{LocalJobsModel>/DefectTableFlag}">
+				<core:Fragment fragmentName="avmet.ah.view.ah.jobs.outstandingjobs.JobsOutstandingDefectsFragment" type="XML"/>
+			</HBox>
+			<HBox visible="{LocalJobsModel>/ScheduledTableFlag}">
+				<core:Fragment fragmentName="avmet.ah.view.ah.jobs.outstandingjobs.JobsOutstandingScheduledFragment" type="XML"/>
+			</HBox>
+			<HBox visible="{LocalJobsModel>/UnscheduledTableFlag}">
+				<core:Fragment fragmentName="avmet.ah.view.ah.jobs.outstandingjobs.JobsOutstandingUnscheduledFragment" type="XML"/>
+			</HBox>
+			<layoutData>
+				<l:SplitterLayoutData size="auto"/>
+			</layoutData>
+		</VBox>
+	</l:Splitter>
+</core:FragmentDefinition>

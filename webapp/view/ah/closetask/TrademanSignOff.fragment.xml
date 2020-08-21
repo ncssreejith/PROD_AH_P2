@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.ah.control">
+	<VBox backgroundDesign="Solid" class="sapUiLargeMargin">
+		<l:Grid hSpacing="1" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
+			<l:content>
+				<VBox >
+					<Label class="sapUiTinyMargin" design="Bold" text="{i18n>lblTragdesman}"/>
+					<SegmentedButton id="SGID" class="sapUiTinyMargin" selectionChange="onSegmentedButtonSelection" width="10rem" selectedKey="{ViewModel>/MulitiFlag}">
+						<items>
+							<SegmentedButtonItem key="noKey" visible="false"></SegmentedButtonItem>
+							<SegmentedButtonItem text="Yes" key="Y"></SegmentedButtonItem>
+							<SegmentedButtonItem text="No" key="N"></SegmentedButtonItem>
+						</items>
+						<customData>
+							<core:CustomData value="{i18n>lblTragdesman}"></core:CustomData>
+						</customData>
+					</SegmentedButton>
+					<layoutData>
+						<l:GridData linebreak="false" span="XL12 L12 M12 S12"/>
+					</layoutData>
+					<Label class="sapUiTinyMargin" visible="{ViewModel>/tradeTable}" design="Bold" text="{i18n>lbltradesmanInvol}"/>
+					<VBox class="sapUiTinyMargin" visible="{ViewModel>/tradeTable}">
+						<Table width="40rem" items="{ViewModel>/tradesManTable}" class="sparesTable">
+							<columns>
+								<Column class="sparesTableTextColor">
+									<Label class="whiteText" text="Name"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label class="whiteText" text="User Name"/>
+								</Column>
+								<Column minScreenWidth="Tablet" width="7rem" demandPopin="true"></Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Input required="{ViewModel>/tradeTable}" fieldGroupIds="fgInput" value="{ViewModel>Name}"/>
+										<Input enabled="false" value="{ViewModel>NRIC}"/>
+										<Link text="Delete" press="onDeleteTradesMan" visible="{ViewModel>Delete}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<Button icon="sap-icon://sys-add" press="onAddTradesMan" class="iconMargin" width="40rem" text="Add Tradesman"/>
+					</VBox>
+					<layoutData>
+						<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+					</layoutData>
+				</VBox>
+			</l:content>
+		</l:Grid>
+	</VBox>
+</core:FragmentDefinition>

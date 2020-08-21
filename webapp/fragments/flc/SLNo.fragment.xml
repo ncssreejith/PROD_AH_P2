@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Please enter details" contentHeight="25%">
+		<content>
+			<VBox class="sapUiSmallMargin">
+				<Label text="Liquid oxygen serial number" design="Bold"/>
+				<HBox>
+					<VBox class="lightGreyVBox">
+						<Label text="S/N" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
+					</VBox>
+					<Input value="{oFollowUpModel>/sSLNo}" liveChange="onSLNoLiveChange"/>
+				</HBox>
+				<ObjectStatus visible="{oFollowUpModel>/bSLNoLinkEnable}" class="fontSize sapUiSmallMarginTop" text="Expiring on DD/MM/YY"
+					icon="sap-icon://alert" state="Warning"/>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Transparent" press="onSLNoCancel"/>
+		</beginButton>
+		<endButton>
+			<Button text="Save" type="Emphasized" press="onSLNoSave" enabled="{oFollowUpModel>/bSLNoLinkEnable}"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

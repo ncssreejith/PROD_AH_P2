@@ -1,0 +1,58 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<ScrollContainer horizontal="false" vertical="true" width="100%" focusable="false" class="sapUiTinyMarginTop">
+		<VBox backgroundDesign="Solid" width="99%" alignContent="Center" visible="{=${TaskCompleteModel>/}.length === 0 ? true :false}" alignItems="Center"
+			class="vboxAlign">
+			<items>
+				<Title text="{i18n>txtNoTextCompleted}" level="H1" titleStyle="H3"/>
+			</items>
+		</VBox>
+		<Table id="tbWcCompletedId" visible="{=${TaskCompleteModel>/}.length !== 0 ? true :false}"
+			class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" growing="true" growingThreshold="6"
+			growingScrollToLoad="false" items="{ path: 'TaskCompleteModel>/'}" noDataText="{i18n>txtNoTextCompleted}" showNoData="true">
+			<columns>
+				<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>lbTask}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="10%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<HBox>
+						<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+					</HBox>
+				</Column>
+				<Column width="9%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<HBox>
+						<Label text="{i18n>lbFollowupTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+					</HBox>
+				</Column>
+				<Column width="7%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="7%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>lbSuperviosr}" design="Bold" wrapping="true"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle">
+					<cells>
+						<Text text="{TaskCompleteModel>tdesc}"/>
+						<Text
+							text="{path:'TaskCompleteModel>credtm', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskCompleteModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+						<Text text="{TaskCompleteModel>ftdesc}"/>
+						<VBox>
+							<Text text="{TaskCompleteModel>SG1USR}"/>
+							<Text
+								text="{path:'TaskCompleteModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskCompleteModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+						</VBox>
+						<VBox>
+							<Text text="{TaskCompleteModel>SG2USR}"/>
+							<Text
+								text="{path:'TaskCompleteModel>SG2DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskCompleteModel>SG2UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+						</VBox>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</ScrollContainer>
+</core:FragmentDefinition>

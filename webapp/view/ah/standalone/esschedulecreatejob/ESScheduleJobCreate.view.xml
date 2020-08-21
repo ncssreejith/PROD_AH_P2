@@ -1,0 +1,147 @@
+<mvc:View controllerName="avmet.ah.controller.ESScheduleJobCreate" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+	<Page title="Add New Schedule Record" showNavButton="true" navButtonPress="onNavBack">
+		<content>
+			<VBox backgroundDesign="Solid" class="sapUiResponsiveMargin vboxBackgrounds">
+				<l:Splitter height="90%" class="sapUiResponsiveMargin">
+					<VBox>
+						<VBox>
+							<Label text="{i18n>lbDate}" design="Bold"/>
+							<DatePicker id="DP1" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
+								value="{path: 'JobCreateModel>/CREDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+								placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>lbTime}" design="Bold"/>
+							<TimePicker id="TP1" required="true" fieldGroupIds="fgTime" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/CRETM}"
+								width="13rem" valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" placeholder="New job creation time"/>
+						</VBox>
+						<layoutData>
+							<l:SplitterLayoutData size="25%"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiMediumMarginBegin">
+						<VBox>
+							<Label text="{i18n>lbWINateureofJobs}" design="Bold"/>
+							<SegmentedButton id="SB1" class="sapUiSmallMarginBottom" selectionChange="onSelectionNatureofJobChange"
+								selectedKey="{JobCreateModel>/CTYPE}">
+								<items>
+									<SegmentedButtonItem id="idND" text="Aircraft" key="NA" visible="false"/>
+									<SegmentedButtonItem id="idAir" text="Aircraft" key="AIRCRAFT"/>
+									<SegmentedButtonItem id="idComp" text="Component" key="COMPONENT"/>
+									<SegmentedButtonItem id="idEng" text="Engine" key="ENGINE"/>
+									<SegmentedButtonItem id="idLIOSISTIMOD" text="LTO/SI/STI/MOD" key="MODSTI"/>
+								</items>
+							</SegmentedButton>
+						</VBox>
+					<!--	<VBox visible="{=${JobCreateModel>/CTYPE}==='MODSTI' ? true:false}">
+							<Label text="Type 2" design="Bold"/>
+							<SegmentedButton id="SB2" class="sapUiSmallMarginBottom" selectionChange="onSelectionNatureofJobChange"
+								selectedKey="{JobCreateModel>/TYPE2}">
+								<items>
+									<SegmentedButtonItem id="idNDT2" text="Aircraft" key="NA" visible="false"/>
+									<SegmentedButtonItem id="idLTO" text="LTO" key="LTO"/>
+									<SegmentedButtonItem id="idSI" text="SI" key="SI"/>
+									<SegmentedButtonItem id="idSTI" text="STI" key="STI"/>
+									<SegmentedButtonItem id="idMOD" text="MOD" key="MOD"/>
+								</items>
+							</SegmentedButton>
+						</VBox>-->
+						<VBox visible="{=${JobCreateModel>/CTYPE}!=='NA' ? true:false}">
+							<Label text="{i18n>lbJobDescription}" design="Bold"/>
+							<TextArea width="60%" maxLength="1000" rows="7" growing="true" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"
+								value="{JobCreateModel>/JOBDESC}"></TextArea>
+							<VBox visible="{=${JobCreateModel>/CTYPE}!=='AIRCRAFT' ? true:false}">
+								<HBox class="sapUiSmallMarginTop">
+									<HBox>
+										<VBox>
+											<HBox>
+												<Label design="Bold" text="Type"/>
+												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+											</HBox>
+											<!--	<ComboBox id="Type1Id" width="170px" change="onTypeChange" selectedKey="{JobCreateModel>/sType1}" fieldGroupIds="fgCmbBox"
+											required="{JobCreateModel>/bType}" items="{TT1Model>/}">
+											<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
+										</ComboBox>-->
+											<Label text="Serial No. (S/N)" design="Bold" class="sapUiSmallMarginTop"/>
+										</VBox>
+										<VBox class="sapUiTinyMarginBegin">
+											<HBox>
+												<Label/>
+												<Text text="Optional" class="optionalTxtMargin"/>
+											</HBox>
+											<Input width="200px" value="{JobCreateModel>/SN}"/>
+										</VBox>
+									</HBox>
+									<HBox class="sapUiLargeMarginBegin">
+										<VBox>
+											<HBox>
+												<Label design="Bold" text="Type"/>
+												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+											</HBox>
+											<!--	<ComboBox width="170px" change="onTypeChange" selectedKey="{JobCreateModel>/sType2}" fieldGroupIds="fgCmbBox"
+											required="{JobCreateModel>/bType}" items="{TT2Model>/}">
+											<core:Item text="{TT2Model>key}" key="{TT2Model>text}"/>
+										</ComboBox>-->
+											<Label text="Part No." design="Bold" class="sapUiSmallMarginTop"/>
+										</VBox>
+										<VBox class="sapUiTinyMarginBegin">
+											<HBox>
+												<Label/>
+												<Text text="Optional" class="optionalTxtMargin" visible="{JobCreateModel>/bOptionalLabel}"/>
+											</HBox>
+											<Input width="200px" value="{JobCreateModel>/PN}"/>
+										</VBox>
+									</HBox>
+								</HBox>
+								<HBox class="sapUiSmallMarginTop">
+									<VBox>
+										<HBox>
+											<Label design="Bold" text="Component Description"/>
+											<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+										</HBox>
+										<Input width="500px" placeholder="eg. Engine" value="{JobCreateModel>/CDESC}" fieldGroupIds="fgInput"/>
+									</VBox>
+								</HBox>
+							</VBox>
+							<HBox class="sapUiSmallMarginTop">
+								<VBox>
+									<Label text="{i18n>lbJobDue}" design="Bold"/>
+									<HBox>
+										<ComboBox placeholder="{i18n>phSelect}" selectedKey="{JobCreateModel>/UMKEY}" items="{JobDueSet>/}" change="onDueSelectChange">
+											<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
+										</ComboBox>
+										<HBox id="SchJobDueId" class="sapUiTinyMarginBegin">
+											<StepInput min="0" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}"
+												visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' ? true:false}"/>
+										</HBox>
+										<DatePicker width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
+											value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+											placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+									</HBox>
+								</VBox>
+							</HBox>
+							<HBox class="sapUiSmallMarginTop">
+								<Label text="{i18n>lbWorkCenter}" design="Bold"/>
+								<Label text="{i18n>lbOptional}" class="sapUiLargeMarginBegin"/>
+							</HBox>
+							<ComboBox placeholder="{i18n>phSelect}" change="onWorkCenterChange('SCH',$event)" selectedKey="{JobCreateModel>/PRIME}"
+								items="{WorkCenterSet>/}">
+								<core:Item key="{WorkCenterSet>wrctr}" text="{WorkCenterSet>name}"/>
+							</ComboBox>
+						</VBox>
+						<layoutData>
+							<l:SplitterLayoutData size="auto"/>
+						</layoutData>
+					</VBox>
+				</l:Splitter>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Create Job" type="Emphasized" press="ESJobCreate"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

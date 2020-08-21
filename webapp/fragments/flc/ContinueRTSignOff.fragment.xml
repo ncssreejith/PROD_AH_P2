@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Confirm sign off">
+		<content>
+			<VBox class="sapUiSmallMargin">
+				<Text text="I certify that aircraft is found “satis”." class="sapUiTinyMargin"/>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Transparent" press="onTOAFCheckClose"/>
+		</beginButton>
+		<endButton>
+			<Button text="Sign off" type="Emphasized" press="onTradesManSignOff"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,282 @@
+{
+	"createJobModel": {
+		"DefectArea": [{
+			"text": "Left",
+			"key": "Left",
+			"imageUrl": "./css/img/AH/AH-Left.png"
+		}, {
+			"text": "Right",
+			"key": "Right",
+			"imageUrl": "./css/img/AH/AH-Right.png"
+		}, {
+			"text": "Top",
+			"key": "Top",
+			"imageUrl": "./css/img/AH/AH-Top.png"
+		}, {
+			"text": "Front",
+			"key": "Front",
+			"imageUrl": "./css/img/AH/AH-Front.png"
+		}],
+		"bstepInVisi": false,
+		"bDatepicVis": false,
+		"bUnschedVisi": false,
+		"bSchedVisi": false,
+		"bDefectVisi": false,
+		"sImageUrl": "./css/img/AH/AH-Left.png",
+		"createDate": "",
+		"createTime": "",
+		"jobNature": "noKey",
+		"TxtAreDefNature": "",
+		"cmbFound": "",
+		"cmbWrkCenterDef": "",
+		"sgRepeat": "noKey",
+		"sgImage": "Left",
+		"cmbDue": "noKey",
+		"airFrame": "",
+		"schDate": "",
+		"sheJobDesc": "",
+		"schWrkCentr": "",
+		"cmbUnFound": "",
+		"cmbWrkCenter": "",
+		"unSheJobDesc": ""
+
+	},
+	"ManageJobs": [{
+		"Title": "Edit Job",
+		"icon": "sap-icon://edit",
+		"NavType": "Navigation",
+		"subNav": [{
+			"Title": "Edit Job Details",
+			"icon": "sap-icon://edit"
+		}, {
+			"Title": "Job Enter in Error",
+			"icon": "sap-icon://sys-cancel"
+		}]
+	}, {
+		"Title": "Transfer Job to ADD/Limitation",
+		"icon": "sap-icon://paper-plane",
+		"NavType": "Active"
+	}, {
+		"Title": "View History Log",
+		"icon": "sap-icon://past",
+		"NavType": "Active"
+	}, {
+		"Title": "Work Centers",
+		"icon": "sap-icon://suitcase",
+		"NavType": "Navigation",
+		"subNav": [{
+			"Title": "Add Work Center",
+			"icon": "sap-icon://sys-add"
+		}, {
+			"Title": "Manage Work Centers",
+			"icon": "sap-icon://suitcase"
+		}]
+	}, {
+		"Title": "Add Related Jobs",
+		"icon": "sap-icon://sys-add",
+		"NavType": "Active"
+	}, {
+		"Title": "Declare FAIR",
+		"icon": "sap-icon://message-warning",
+		"NavType": "Active"
+	}],
+	"DeclareFair": [{
+		"Title": "View History Log",
+		"icon": "sap-icon://past",
+		"NavType": "Active"
+	}, {
+		"Title": "Undo FAIR",
+		"icon": "sap-icon://undo",
+		"NavType": "Active"
+	}, {
+		"Title": "Release for Rectifications",
+		"icon": "sap-icon://cancel-maintenance",
+		"NavType": "Active"
+	}],
+	"ScheduledJobs": [{
+		"Title": "Rais Extension",
+		"icon": "sap-icon://past",
+		"NavType": "Active"
+	}],
+	"detailData": [],
+	"SpareTableModel": [{
+		"PartNo": "",
+		"PartDescrption": "",
+		"Qty": ""
+	}],
+	"TransferJob": [{
+		"PastAdd": "-",
+		"PastAddDate": "-"
+	}],
+	"TMDETableModel": [{
+		"Set": "",
+		"Range1": "",
+		"Range2": "",
+		"Location": ""
+	}],
+	"FlyingReqModel": [{
+		"FlyingReq": ""
+	}],
+	"jobViewModel": {
+		"bTask": false,
+		"bSpares": false,
+		"bTMDE": false,
+		"bFlyingReq": false,
+		"bSortMont": false,
+		"WorkcenterList": [{
+				"title": "Tasks"
+			}, {
+				"title": "Spares"
+			}, {
+				"title": "TMDE"
+			}, {
+				"title": "Flying Requirements"
+			}, {
+				"title": "Aircraft Monitoring"
+			}
+
+		],
+		"WorkcenterList1": [{
+				"title": "Tasks"
+			}, {
+				"title": "Spares"
+			}
+
+		]
+	},
+	"TMDETableVisible": false,
+	"createTask": [{
+		"TaskType": "",
+		"Task": "",
+		"TechicalReference": "",
+		"Type1": "",
+		"Type1Desc": "",
+		"Type2": "",
+		"Type2Desc": "",
+		"ComponentDesc": "",
+		"TaskDescription": "",
+		"OpenDesc": "",
+		"OtherDescr": "",
+		"ItemNo": "",
+		"SerialNo": "",
+		"DescribeTask": "",
+		"deleteVisible": false
+	}],
+	"TaskType": [{
+		"title": "Remove and/or Installation",
+		"key": "Remove"
+	}, {
+		"title": "Ops Check ",
+		"key": "OpsCheck"
+	}, {
+		"title": "Visual Inspection ",
+		"key": "VisualInspection"
+	}, {
+		"title": "Tools Check",
+		"key": "ToolsCheck"
+	}, 
+	{
+		"title": "QA Checker",
+		"key": "QAChecker"
+	}, 
+	{
+		"title": "Independent Checker",
+		"key": "IndependentChecker"
+	}, {
+		"title": "Others",
+		"key": "Others"
+	}],
+	"Task": [{
+		"title": "Replacement",
+		"key": "Replacement"
+	}, {
+		"title": "Access",
+		"key": "Access"
+	}, {
+		"title": "Troubleshoot",
+		"key": "Troubleshoot"
+	}, {
+		"title": "Install Only",
+		"key": "InstallOnly"
+	}, {
+		"title": "Remove Only",
+		"key": "RemoveOnly"
+	}],
+	"applyTempTable": false,
+	"selectTaskTable": false,
+	"ApplyTemplate": {
+		"Date": "",
+		"Time": "",
+		"selectedTemplated": ""
+	},
+	"applyTemp": [{
+		"MainTask": "Aft Fuel Cell Removal",
+		"FollowUpTask": "Aft Fuel Cell Removed",
+		"FollowUpDesc": "AH-64D IETM"
+	}],
+	"selectTask": [{
+		"Task": "Ensure helicopter is safe",
+		"FollowUpTask": "-",
+		"type": "Active"
+	}, {
+		"Task": "Open access panel R160",
+		"FollowUpTask": "-",
+		"type": "Active"
+	}, {
+		"Task": "Open access panel R180",
+		"FollowUpTask": "-",
+		"type": "Active"
+	}, {
+		"Task": "Perform SPA defueling",
+		"FollowUpTask": "-",
+		"type": "Active"
+	}, {
+		"Task": "Open access panel 5R224",
+		"FollowUpTask": "-",
+		"type": "Active"
+	}, {
+		"Task": "Detach battery connector P600 from receptacle J1",
+		"FollowUpTask": "-",
+		"type": "Active"
+	}, {
+		"Task": "Close access panel R180",
+		"FollowUpTask": "-",
+		"type": "Active"
+	}, {
+		"Task": "Close access panel R160",
+		"FollowUpTask": "-",
+		"type": "Active"
+	}, {
+		"Task": "Open access panel B250",
+		"FollowUpTask": "-",
+		"type": "Inactive"
+	}, {
+		"Task": "Remove aft control assembly",
+		"FollowUpTask": "-",
+		"type": "Active"
+	}, {
+		"Task": "Remove nonmetallic drain hose",
+		"FollowUpTask": "-",
+		"type": "Active"
+	}],
+	"unloadingptSpare": "",
+	"prioritySpares": "noKey",
+	"workCenterSpares": "",
+	"sLocSpares": "",
+	"TMDEPartNo": "",
+	"TMDESerialNo": "",
+	"TMDEUoM": "",
+	"createDateTask": "",
+	"createTimeTask": "",
+	"tradesManTable": [{
+		"Name": "",
+		"NRIC": "",
+		"Delete":true
+	}, {
+		"Name": "",
+		"NRIC": "",
+		"Delete":true
+	}],
+	"singelSelect": false,
+	"multiSelect": false
+}

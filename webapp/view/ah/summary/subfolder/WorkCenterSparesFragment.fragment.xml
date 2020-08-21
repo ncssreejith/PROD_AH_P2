@@ -1,0 +1,53 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<VBox class="sapUiResponsivePadding sapUiSmallMarginTop" width="100%">
+		<Toolbar>
+			<Title text="{i18n>tiSpares}" level="H2"/>
+			<ToolbarSpacer/>
+			<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"/>
+			<Button text="{i18n>btnDemandSpares}" type="Default" press="onAddDemandSpares" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+		</Toolbar>
+		<VBox backgroundDesign="Solid" alignContent="Center" visible="{=${CreateJobLocalModel>/Spares}.length === 0 ? true :false}"
+			alignItems="Center" class="vboxAlign">
+			<items>
+				<Title text="{i18n>txtNoTextSpares}" level="H1" titleStyle="H3"/>
+				<Button text="{i18n>btnDemandSpares}" type="Default" press="onAddDemandSpares" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+			</items>
+		</VBox>
+		<VBox visible="{=${CreateJobLocalModel>/Spares}.length !== 0 ? true :false}" alignContent="Center" alignItems="Center">
+			<Table id="tbWcDemandSpareId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" growing="true" growingThreshold="4"
+				growingScrollToLoad="false" items="{CreateJobLocalModel>/Spares}" noDataText="{i18n>txtNoTextSpares}" showNoData="true" updateFinished="onWoorkCenTblUpdateFinished('DS',$event)">
+				<columns>
+					<Column width="7rem" hAlign="Center" class="CERTableTextColor">
+						<Label text="{i18n>lbPartNo}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+					</Column>
+					<Column width="8rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+						<Label text="{i18n>lbSparesDescription}" design="Bold" wrapping="true"/>
+					</Column>
+					<Column width="4rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Label text="{i18n>lbQty}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+					</Column>
+					<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Label text="{i18n>lbStorageLocation}" design="Bold" wrapping="true"/>
+					</Column>
+					<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Label text="{i18n>lbUnloadingPoint}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+					</Column>
+					<Column width="3rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{CreateJobLocalModel>SparePartNo}"/>
+							<Text text="{CreateJobLocalModel>SparePartDescrption}"/>
+							<Text text="{CreateJobLocalModel>SpareQty}"/>
+							<Text text="{CreateJobLocalModel>SLoc}"/>
+							<Text text="{CreateJobLocalModel>UnloadingPoint}"/>
+							<Button icon="sap-icon://overflow" press="handlePressWorkCenterFragmentOpenMenu('SPR',$event)" type="Transparent"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

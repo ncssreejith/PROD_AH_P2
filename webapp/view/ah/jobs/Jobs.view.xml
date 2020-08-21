@@ -1,0 +1,32 @@
+<mvc:View controllerName="avmet.ah.controller.Cosjobs" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Page showHeader="false">
+		<subHeader>
+			<OverflowToolbar>
+				<Button icon="sap-icon://nav-back" class="sapUiLargeMarginBegin" press="onNavBack"></Button>
+				<Title level="H3" text="{i18n>tiJobs}" class="sapUiTinyMarginBegin"/>
+				<ToolbarSpacer/>
+				<Button text="{i18n>btnCreateJob}" class="btnColor sapUiMediumMarginEnd" press="onCreateScheduleJobPress"
+					visible="{= ${LocalJobsModel>/sSelectedKey}==='SCH' ? true:false}" enabled="{= ${avmetModel>/dash/TBTN3}!== null ? true:false}"></Button>
+				<Button text="{i18n>btnCreateJob}" class="btnColor sapUiMediumMarginEnd" press="onCreateJobPress"
+					visible="{= ${LocalJobsModel>/sSelectedKey}!=='SCH' ? true:false}" enabled="{= ${avmetModel>/dash/TBTN3}!== null ? true:false}"></Button>
+			</OverflowToolbar>
+		</subHeader>
+		<content>
+			<IconTabBar id="idIconTabBarNoIcons" select="onJobTabSelect" expanded="{device>/isNoPhone}"
+				class="sapUiResponsiveContentPadding iconTabBarText" selectedKey="{LocalJobsModel>/SelectedKey}">
+				<items>
+					<IconTabFilter text="{i18n>tiOutstanding}" key="OST">
+						<core:Fragment fragmentName="avmet.ah.view.ah.jobs.outstandingjobs.JobsOutstandingJobsFragment" type="XML"/>
+					</IconTabFilter>
+					<IconTabFilter text="{i18n>tiOutOfPhase}" key="SCH">
+						<core:Fragment fragmentName="avmet.ah.view.ah.jobs.scheduledjobs.JobsScheduledFragment" type="XML"/>
+					</IconTabFilter>
+					<IconTabFilter text="{i18n>tiCompleted}" key="COM">
+						<core:Fragment fragmentName="avmet.ah.view.ah.jobs.completedjobs.JobsCompletedJobsFragment" type="XML"/>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</content>
+	</Page>
+</mvc:View>

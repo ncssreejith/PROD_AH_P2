@@ -1,0 +1,66 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+	xmlns:grid="sap.ui.layout.cssgrid">
+	<Dialog title="Sortie Details" contentWidth="100%">
+		<VBox class="sapUiLargeMarginBegin">
+			<VBox class="sapUiSmallMargin">
+				<HBox>
+					<Label class="sapUiSmallMarginEnd" design="Bold" text="Defect Description"/>
+					<Text text="{SortiHeader>/JOBDESC}"/>
+				</HBox>
+			</VBox>
+			<VBox class="sapUiSmallMargin">
+				<HBox>
+					<Label class="sapUiSmallMarginEnd" design="Bold" text="Monitoring Description"/>
+					<Text text="{SortiHeader>/SORDESC}"/>
+				</HBox>
+			</VBox>
+			<VBox class="sapUiSmallMargin">
+				<HBox>
+					<Label class="sapUiSmallMarginEnd" design="Bold" text="Restriction Imposed"/>
+					<Text text="{SortiHeader>/REST_IMPOSE}"/>
+				</HBox>
+			</VBox>
+			<VBox class="sapUiSmallMargin">
+				<HBox>
+					<Label class="sapUiSmallMarginEnd" design="Bold" text="No. of Sortie"/>
+					<Text text="{SortiHeader>/SCRCNT}"/>
+				</HBox>
+			</VBox>
+			<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBegin CERTable tableHFont" items="{ path: 'SortiDetails>/'}"
+				width="95%">
+				<columns>
+					<Column hAlign="Center" width="15%" class="textColor">
+						<Label text="S/N" design="Bold"/>
+					</Column>
+					<Column hAlign="Center" width="15%" class="textColor">
+						<Label text="Date Flown" design="Bold"/>
+					</Column>
+					<Column hAlign="Center" width="15%" class="textColor">
+						<Label text="Status" design="Bold"/>
+					</Column>
+					<Column hAlign="Center" width="15%" class="textColor">
+						<Label text="Pilot" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{SortiDetails>NUM2}"/>
+							<!--<VBox>
+								<Text
+									text="{path:'SortiDetails>RESDTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'SortiDetails>RESUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							</VBox>-->
+							<Text
+								text="{path:'SortiDetails>RESDTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'SortiDetails>RESUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							<Text text="{SortiDetails>SSTAT2}"/>
+							<Text text="{SortiDetails>RESUSR}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+		<buttons>
+			<Button text="Cancel" press="onSortieDetailsClose" type="Reject"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

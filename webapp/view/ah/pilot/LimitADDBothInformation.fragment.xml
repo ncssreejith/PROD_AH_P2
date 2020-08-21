@@ -1,0 +1,65 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:u="sap.ui.unified" xmlns:f="sap.f" xmlns:card="sap.f.cards">
+	<VBox class="sapUiSmallMargin" width="100%">
+		<!--<Title text="{path:'CapSet>/CSTAT', formatter:'.formatter.approvalText'}" level="H3" titleStyle="H3"/>-->
+		<!--<ObjectIdentifier id="OBId" title="{path:'CapSet>/CSTAT', formatter:'.formatter.approvalText'}" titleActive="false" class="sapUiSmallMargin"/>-->
+		<HBox width="100%">
+			<VBox id="VBColorId1" alignContent="Center" alignItems="Center">
+				<!--class="vbox6BgColor"-->
+				<VBox alignContent="Center" alignItems="Center" visible="{=${CapSet>/EXPDT} !== null ? true : false}" class="sapUiSmallMarginTop">
+					<Label design="Bold" text="{path:'CapSet>/EXPDT', formatter:'.formatter.defaultDateFormatDisplay'}" class="sapUiTinyMargin whiteText"/>
+					<Label text="Due Date" design="Bold" class="sapUiTinyMargin whiteText"/>
+				</VBox>
+				<VBox alignContent="Center" alignItems="Center" visible="{=${CapSet>/UTIL1} !== null ? true : false}" class="sapUiLargeMarginTop">
+					<Label design="Bold" text="{CapSet>/UTILVL}" class="sapUiTinyMargin whiteText"/>
+					<Label text="{CapSet>/UTIL1TEXT}" design="Bold" class="sapUiTinyMargin whiteText"/>
+				</VBox>
+			</VBox>
+			<VBox width="100%" class="vbox5bgColorr">
+				<!-- -->
+				<HBox width="95%">
+					<VBox width="45%" alignContent="SpaceAround" alignItems="Start" class="sapUiMediumMarginBegin">
+						<Label design="Bold" text="Limitation" class="sapUiTinyMarginTopBottom"
+							visible="{=${oFlagModel>/FLag}==='L' &amp;&amp; ${CapSet>/CAPTY}==='B' ? true :false}"/>
+						<Label design="Bold" text="Acceptable Deferred Defects" class="sapUiTinyMarginTopBottom"
+							visible="{=${oFlagModel>/FLag}==='A' &amp;&amp; ${CapSet>/CAPTY}==='B' ? true :false}"/>
+						<Text text="{CapSet>/LDESC}" wrapping="true" visible="{=${oFlagModel>/FLag}==='L' &amp;&amp; ${CapSet>/CAPTY}==='B' ? true :false}"/>
+						<Text text="{CapSet>/DDDESC}" wrapping="true" visible="{=${oFlagModel>/FLag}==='A' &amp;&amp; ${CapSet>/CAPTY}==='B' ? true :false}"/>
+					</VBox>
+					<VBox alignItems="Start" class="sapUiLargeMarginBegin">
+						<Label design="Bold" text="Past ADD(s)" class="sapUiTinyMarginTopBottom"/>
+						<Text text="{CapSet>/PAST_COUNT}" class="sapUiLargeMarginBegin"/>
+					</VBox>
+					<VBox alignItems="Start" class="sapUiLargeMarginBegin sapUiSmallMarginBottom">
+						<Label design="Bold" text="Initial ADD Date" class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd"/>
+						<Text text="{path:'CapSet>/IDATE', formatter:'.formatter.defaultDateFormatLimDisplay'}"/>
+					</VBox>
+				</HBox>
+				<HBox width="100%" class="hboxbackground vbox4BgBorder">
+					<VBox width="45%" alignContent="SpaceAround" alignItems="Start">
+						<Button text="ADD" type="Emphasized" visible="{=${oFlagModel>/FLag}==='L' &amp;&amp; ${CapSet>/CAPTY}==='B' ? true :false}"></Button>
+						<Button text="Limitation" type="Emphasized" visible="{=${oFlagModel>/FLag}==='A' &amp;&amp; ${CapSet>/CAPTY}==='B' ? true :false}"></Button>
+						<Text design="Bold" text="{CapSet>/LDESC}" wrapping="true" visible="{=${oFlagModel>/FLag}==='A' &amp;&amp; ${CapSet>/CAPTY}==='B' ? true :false}"/>
+						<Text design="Bold" text="{CapSet>/DDDESC}" wrapping="true" visible="{=${oFlagModel>/FLag}==='L' &amp;&amp; ${CapSet>/CAPTY}==='B' ? true :false}"/>
+					</VBox>
+					<VBox alignItems="Center" class="sapUiSmallMarginBegin">
+						<Label design="Bold" text="Tradesman" class="sapUiTinyMarginTopBottom"/>
+						<Text text="{CapSet>/SUBUSR}"/>
+						<HBox>
+							<Text text="{path:'CapSet>/SUBDTM', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+							<Text text="{path:'CapSet>/SUBUZT', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+						</HBox>
+					</VBox>
+					<VBox alignItems="Center" class="sapUiSmallMarginBegin">
+						<Label design="Bold" text="Approver" class="sapUiTinyMarginTopBottom"/>
+						<Text text="{CapSet>/APPRUSR}"/>
+						<HBox>
+							<Text text="{path:'CapSet>/APPRDTM', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+							<Text text="{path:'CapSet>/APPRUZT', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+						</HBox>
+					</VBox>
+				</HBox>
+			</VBox>
+		</HBox>
+	</VBox>
+</core:FragmentDefinition>

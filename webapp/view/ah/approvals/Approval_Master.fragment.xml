@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core"
+	xmlns:filterbar="sap.ui.comp.filterbar">
+	<List id="lstMasterApprovals" growingScrollToLoad="true" growing="true" includeItemInSelection="true" mode="SingleSelectMaster"
+		growingThreshold="100" noDataText="No Data" items="{ApprovalListModel>/}" selectionChange="onSelectionChange"
+		updateFinished="onApprovalUpdateFinished">
+		<CustomListItem>
+			<VBox class="sapUiSmallMargin">
+				<HBox>
+					<Text text="{path:'ApprovalListModel>capdt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+					<Text text="{path:'ApprovalListModel>captm', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+				</HBox>
+				<HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
+					<Label wrapping="true" text="{ApprovalListModel>description}" design="Bold" width="20rem"/>
+					<core:Icon src="sap-icon://navigation-right-arrow"/>
+				</HBox>
+				<HBox class="sapUiTinyMarginTop">
+					<!--	<tnt:InfoLabel text="{ApprovalListModel>text}" renderMode="Narrow" colorScheme="7" displayOnly="true"/>
+					<tnt:InfoLabel text="Limitation" class="sapUiTinyMarginBegin" renderMode="Narrow" colorScheme="6" displayOnly="true"
+						visible="{= ${ApprovalListModel>flag}==='L' ? true:false}"/>-->
+					<tnt:InfoLabel text="{path:'ApprovalListModel>flag', formatter:'.formatter.approvalMasterText'}" renderMode="Narrow" colorScheme="7" displayOnly="true"/>
+				</HBox>
+			</VBox>
+		</CustomListItem>
+	</List>
+</core:FragmentDefinition>

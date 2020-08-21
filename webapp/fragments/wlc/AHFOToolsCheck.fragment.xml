@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>foandtoolscheck}" showHeader="false" contentHeight="40%">
+		<content>
+			<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="greyBGColor">
+				<items>
+					<Title text="Tool check" class="sapUiSmallMargin sapUiTinyMarginBegin"/>
+					<Button type="Transparent" tooltip="Cancel" icon="sap-icon://decline" press="fnOpenCloseConfirmationDialog($event,'CNL')"/>
+				</items>
+			</FlexBox>
+			<Toolbar height="0px"/>
+			<VBox class="sapUiSmallMargin">
+				<CheckBox text="I certify that i have accounted for:"/>
+				<HBox class ="sapUiSmallMarginTopBottom">
+					<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+						<Label text="Total quantity" design="Bold"/>
+						<StepInput width="150px" min="0" class="sapUiMediumMarginEnd" value="{oDialogModel>/TOTQTY}" fieldGroupIds="fgStepInput"/>
+					</VBox>
+					<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+						<Label text="Publication quantity" design="Bold"/>
+						<StepInput width="150px" min="0" class="sapUiMediumMarginEnd" value="{oDialogModel>/SERNR}" fieldGroupIds="fgStepInput"/>
+					</VBox>
+				</HBox>
+				<CheckBox text="Post-load check done"/>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Transparent" press="fnOpenCloseConfirmationDialog($event,'CNL')"/>
+		</beginButton>
+		<endButton>
+			<Button text="Sign off" type="Emphasized" press="fnOpenCloseConfirmationDialog($event,'OK')" enabled="{oWeaponViewModel>/bSLNoLinkEnable}"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

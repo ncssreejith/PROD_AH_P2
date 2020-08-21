@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core"
+	xmlns:filterbar="sap.ui.comp.filterbar">
+	<List id="lstMasterApprovals" growingScrollToLoad="true" growing="true" includeItemInSelection="true" mode="SingleSelectMaster"
+		growingThreshold="100" noDataText="No Data"
+		items="{path : 'oPDSSummaryViewModel>/MasterPDS' , sorter : { path : 'sequence', descending: false}}" selectionChange="onListItemPress">
+		<ObjectListItem icon="{PDSModel>Icon}" title="{oPDSSummaryViewModel>ddesc}" type="{PDSModel>Type}" number="{oPDSSummaryViewModel>value}"
+			press="onListItemPress"></ObjectListItem>
+	</List>
+</core:FragmentDefinition>

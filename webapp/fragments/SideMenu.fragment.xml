@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover showHeader="false" class="sideMenuBGColor" contentWidth="250px" contentHeight="550px" placement="Bottom">
+		<NavContainer id="navCon">
+			<Page showHeader="false" class="sideMenuBGColor">
+				<List items="{menuModel>/}" class="listSideMenu sideMenuBGColor">
+					<CustomListItem class="sapUiTinyMarginTopBottom sideMenuBGColor" type="{= (${menuModel>child}==='undefined')?'Inactive':'Active'}" press="onManageListPress">
+						<HBox class="sideMenuBGColor listItemHeight sapUiTinyMarginTop" alignContent="Center" alignItems="Center">
+							<core:Icon size="1rem" src="{menuModel>icon}" color="#a3b9db" class="sapUiTinyMarginBeginEnd"/>
+							<Link text="{menuModel>name}" enabled="{menuModel>visible}" press="onManageListPress" wrapping="true" class="txtWhite"/>
+						</HBox>
+					</CustomListItem>
+				</List>
+			</Page>
+			<Page id="detailPage" showNavButton="true" navButtonPress="onManageJobsNavBack" title="{menuModel>/child/name}">
+				<List items="{menuModel>/child/child}" class="listSideMenu">
+					<CustomListItem class="sapUiTinyMarginTopBottom" type="{= (${menuModel>child}==='undefined')?'Inactive':'Active'}">
+						<HBox>
+							<core:Icon size="1rem" src="{menuModel>icon}" class="sapUiTinyMarginBeginEnd"/>
+							<Link text="{menuModel>name}" enabled="{menuModel>visible}" class="txtWhite" press="onManageListPress"/>
+						</HBox>
+					</CustomListItem>
+				</List>
+			</Page>
+		</NavContainer>
+	</Popover>
+</core:FragmentDefinition>

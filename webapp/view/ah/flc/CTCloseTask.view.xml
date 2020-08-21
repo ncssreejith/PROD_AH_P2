@@ -1,0 +1,39 @@
+<mvc:View controllerName="avmet.ah.controller.CTCloseTask" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core"
+	displayBlock="true" xmlns="sap.m">
+	<Page id="page" title="Created Tasks ({oCTCloseTaskModel>/sPageTitle})" showNavButton="true" enableScrolling="true"
+		navButtonPress="onNavBack">
+		<content>
+			<VBox>
+				<Toolbar class="sapUiResponsiveContentPadding sapUiSmallMarginEnd">
+					<ToolbarSpacer/>
+					<Button text="Create Task" press="onCreateTaskPress"/>
+				</Toolbar>
+				<IconTabBar id="taskTabs" applyContentPadding="false" selectedKey="{oCTCloseTaskModel>/sSelectedTab}" backgroundDesign="Transparent"
+					headerBackgroundDesign="Transparent" headerMode="Inline" select="onFollowUpTaskTabSelect" upperCase="true" expanded="{device>/isNoPhone}"
+					class="sapUiResponsiveContentPadding sapUiSmallMargin">
+					<items>
+						<IconTabFilter text="OUTSTANDING" count="{oCTCloseTaskModel>/OTCount}" key="OT">
+							<core:Fragment fragmentName="avmet.ah.fragments.flc.CTOutstanding" type="XML"/>
+						</IconTabFilter>
+						<IconTabFilter text="PENDING SUPERVISOR" count="{oCTCloseTaskModel>/PSCount}" key="PS">
+							<core:Fragment fragmentName="avmet.ah.fragments.flc.CTPendingSupervisor" type="XML"/>
+						</IconTabFilter>
+						<IconTabFilter text="COMPLETED" count="{oCTCloseTaskModel>/CMCount}" key="CM">
+							<core:Fragment fragmentName="avmet.ah.fragments.flc.CTCompleted" type="XML"/>
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Default" text="Back" press="onNavBack"/>
+				<Button type="Emphasized" text="Close Task" press="onPressCloseTask" visible="{oCTCloseTaskModel>/bSignoffVisible}"
+					enabled="{oCTCloseTaskModel>/bSignoffEnable}"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+	<!--</App>
+	</Shell>-->
+</mvc:View>

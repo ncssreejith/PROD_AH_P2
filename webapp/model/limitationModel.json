@@ -1,0 +1,45 @@
+{
+	"AsCustodianitems": [{
+		"SN": "1",
+		"HRS": "-",
+		"Days": "1",
+		"Description": "FCC MFL 013 appeared in flight. Unable to clear.",
+		"Limitation": "",
+		"Status": "W",
+		"Title": ""
+	}, {
+		"SN": "2",
+		"HRS": "5",
+		"Days": "-",
+		"Description": "Haircrack found at panel 123 ",
+		"Limitation": "",
+		"Status": "W",
+		"Title": "A"
+	}, {
+		"SN": "3",
+		"HRS": "40",
+		"Days": "5",
+		"Description": "Search light inoperative",
+		"Limitation": "No night flying",
+		"Status": "E",
+		"Title": "B"
+	}],
+	"DefectArea": [{
+		"text": "Left",
+		"key": "Left",
+		"imageUrl": "/css/img/limHelicopLeft.png"
+	}, {
+		"text": "Right",
+		"key": "Right",
+		"imageUrl": "/css/img/limHelicopRight.png"
+	}, {
+		"text": "Top",
+		"key": "Top",
+		"imageUrl": "/css/img/limHelicopTop.png"
+	}, {
+		"text": "Front",
+		"key": "Front",
+		"imageUrl": "/css/img/limHelicopFront.png"
+	}]
+
+}

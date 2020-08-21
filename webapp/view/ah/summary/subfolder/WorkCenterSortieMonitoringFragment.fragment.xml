@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<VBox class="sapUiResponsivePadding sapUiSmallMarginTop" width="100%">
+		<Toolbar>
+			<Title text="{i18n>tiSortieMonitoring}" level="H2"/>
+			<ToolbarSpacer/>
+			<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"/>
+			<Button text="{i18n>btnAddSortieMonitoring}" type="Default" press="onAddSortieMonitoring" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+		</Toolbar>
+		<VBox backgroundDesign="Solid" alignContent="Center" visible="{= ${SRMModel>/}.length === 0 ? true :false}" alignItems="Center"
+			class="vboxAlign">
+			<items>
+				<Title text="{i18n>txtNoTextSM}" level="H1" titleStyle="H3"/>
+				<Button text="{i18n>btnAddSortieMonitoring}" type="Default" press="onAddSortieMonitoring" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+			</items>
+		</VBox>
+		<VBox visible="{=${SRMModel>/}.length !== 0 ? true :false}" alignContent="Center" alignItems="Center">
+			<Table id="tbWcSortieMonId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" growing="true"
+				growingThreshold="4" growingScrollToLoad="false" items="{SRMModel>/}" noDataText="{i18n>txtNoTextSM}" showNoData="true"
+				updateFinished="onWoorkCenTblUpdateFinished('SM',$event)">
+				<columns>
+					<Column width="7rem" hAlign="Center" class="CERTableTextColor">
+						<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+					</Column>
+					<Column width="10rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+						<Label text="{i18n>lbSortieMonitoring}" design="Bold" wrapping="true"/>
+					</Column>
+					<Column width="10rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+						<Label text="Restriction Imposed" design="Bold" wrapping="true"/>
+					</Column>
+					<Column width="8rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+						<Label text="To be Monitorised For" design="Bold" wrapping="true"/>
+					</Column>
+					<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+					</Column>
+					<Column width="3rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<VBox>
+								<Text
+									text="{path:'SRMModel>SORDT', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'SRMModel>SORTM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							</VBox>
+							<Text text="{SRMModel>SORDESC}"/>
+							<Text text="{SRMModel>REST_IMPOSE}"/>
+							<HBox>
+								<Text text="{SRMModel>SORCNT}"/>
+								<Text text="{SRMModel>MON_FORTXT}" class="sapUiTinyMarginBegin"/>
+							</HBox> 
+							<VBox>
+								<Text text="{SRMModel>SG1USR}"/>
+								<Text
+									text="{path:'SRMModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'SRMModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							</VBox>
+							<Button icon="sap-icon://overflow" press="handlePressWorkCenterFragmentOpenMenu('SMT',$event)" type="Transparent"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

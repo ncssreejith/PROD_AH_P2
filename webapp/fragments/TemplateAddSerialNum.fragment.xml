@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Add Serial Number" contentHeight="auto" contentWidth="auto">
+		<VBox class="sapUiSmallMargin">
+			<VBox class="sapUiSmallMarginTop">
+				<HBox>
+					<VBox>
+						<HBox>
+							<Label design="Bold" text="Type"/>
+							<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+						</HBox>
+						<ComboBox id="Type1Id" width="170px" change="onTypeSRChange" fieldGroupIds="fgCmbBox" selectedKey="{SerialAddSet>/ISSER}"
+							items="{TT1Model>/}">
+							<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
+						</ComboBox>
+					</VBox>
+					<VBox class="sapUiTinyMarginBegin">
+						<Label design="Bold"/>
+						<Input width="170px" value="{SerialAddSet>/SERNR}" fieldGroupIds="fgInput"/>
+					</VBox>
+				</HBox>
+				<HBox class="sapUiLargeMarginTop">
+					<VBox>
+						<HBox>
+							<Label design="Bold" text="Type"/>
+							<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+						</HBox>
+						<ComboBox width="170px" change="onTypePartChange" fieldGroupIds="fgCmbBox" selectedKey="{SerialAddSet>/ISMAT}"
+							items="{TT2Model>/}">
+							<core:Item text="{TT2Model>key}" key="{TT2Model>text}"/>
+						</ComboBox>
+					</VBox>
+					<VBox class="sapUiTinyMarginBegin">
+						<Label design="Bold"/>
+						<Input width="170px" value="{SerialAddSet>/PARTNO}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bType}"/>
+					</VBox>
+				</HBox>
+			</VBox>
+		</VBox>
+		<buttons>
+			<Button text="Cancel" press="onSerialNumClose" type="Reject"/>
+			<Button text="Update" press="onSerialNumUpdatePress" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

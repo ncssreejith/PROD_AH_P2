@@ -1,0 +1,36 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.OFPView"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Aircraft OFP" navButtonPress="onNavBack" showNavButton="true">
+		<content>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button text="View Past records" press="onPastRecords"/>
+				<Button text="Update Records" type="Emphasized" press="onUpdateRecords"/>
+			</Toolbar>
+			<VBox width="100%" class="sapUiSmallMarginTop" >
+				<!--<Table class="OFPBlue sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBeginEnd CERTable tableHFont"-->
+				<!--	updateFinished="onFuelTableUpdateFinish" items="{OFPView>/WDNSTable2}" width="35%">-->
+				<!--	<columns>-->
+				<!--		<Column hAlign="Left" width="15%" class="textColor"></Column>-->
+				<!--		<Column hAlign="Left" width="15%" class="textColor"></Column>-->
+				<!--	</columns>-->
+				<!--	<items>-->
+				<!--		<ColumnListItem>-->
+				<!--			<cells>-->
+				<!--				<Label text="Aircraft OFP" design="Bold" class="WDNSWhiteFont"/>-->
+				<!--				<Label text="1234567" design="Bold" class="WDNSWhiteFont"/>-->
+				<!--			</cells>-->
+				<!--		</ColumnListItem>-->
+				<!--	</items>-->
+				<!--</Table>-->
+				<Table id="tblOFP" columns="{oOFPModel>/ofp}" class="TableHeaderBGColor">
+					<columns>
+						<Column class="TableTextColor" hAlign="Center" width="20%">
+							<Label text="{oOFPModel>coltxt}" wrapping="true" design="Bold"/>
+						</Column>
+					</columns>
+				</Table>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

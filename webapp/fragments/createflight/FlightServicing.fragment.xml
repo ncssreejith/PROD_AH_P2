@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control" xmlns:grid="sap.ui.layout.cssgrid">
+	<FlexBox class="columns">
+		<HBox>
+			<VBox>
+				<ct:HeaderCard title="Flight Servicing"/>
+			</VBox>
+			<grid:CSSGrid items="{oCreatFlightSerModel>/FlightServicing}" gridTemplateColumns="1fr 1fr 1fr" gridTemplateRows="150px 150px 150px"
+				gridGap="0rem">
+				<ct:IconHeaderCard title="{oCreatFlightSerModel>description}" press="onFlightServiceTilePress" hoverOut="onCardHoverOut" hover="onCardHover">
+					<Image src="{oCreatFlightSerModel>ImgSrc}"/>
+				</ct:IconHeaderCard>
+			</grid:CSSGrid>
+		</HBox>
+	</FlexBox>
+</core:FragmentDefinition>

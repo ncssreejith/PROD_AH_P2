@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog showHeader="false" contentHeight="30%">
+		<content>
+			<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="greyBGColor">
+				<items>
+					<Title text="Confirm sign off"  class="sapUiSmallMargin sapUiTinyMarginBegin"/>
+					<Button type="Transparent" tooltip="Cancel" icon="sap-icon://decline"  press="fnOpenCloseConfirmationDialog($event,'CNL')"/>
+				</items>
+			</FlexBox>
+			<Toolbar height="0px"/>
+			<VBox class="sapUiSmallMargin">
+				<Text text="{i18n>txtSupervisorSignoffText}"/>
+				<Text class="sapUiSmallMarginTop" text="WLC toolbox no. {oDialogModel>/TLSERNR}"/>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Transparent" press="fnOpenCloseConfirmationDialog($event,'CNL')"/>
+		</beginButton>
+		<endButton>
+			<Button text="Sign off" type="Emphasized" press="fnOpenCloseConfirmationDialog($event,'OK')" enabled="{oWeaponViewModel>/bSLNoLinkEnable}"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

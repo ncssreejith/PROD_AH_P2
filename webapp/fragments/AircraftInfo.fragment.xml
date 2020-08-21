@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover showHeader="false" placement="Bottom">
+		<HBox class="flightinfo">
+			<VBox class="flightinfoBlock">
+				<List class="flightinfolist1" select="onFlightInfoSelect">
+					<headerToolbar>
+						<OverflowToolbar>
+							<content>
+								<Title text="Aircraft Information"/>
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<StandardListItem class="flightinfolistItem" title="Airframe hours" info="{avmetModel>/airutil/COL_12}"/>
+					<StandardListItem class="flightinfolistItem" title="#1 Eng Hrs" info="{avmetModel>/airutil/COL_13}"/>
+					<StandardListItem class="flightinfolistItem" title="#2 Eng Hrs" info="{avmetModel>/airutil/COL_14}"/>
+					<!--<StandardListItem class="flightinfolistItem" title="Total landings" info="{avmetModel>/airutil/col_15}"/>-->
+					<StandardListItem class="flightinfolistItem" title="Last synced" info="{path: 'avmetModel>/airutil/COL_11',formatter:'.formatter.defaultDateTimeFormat'}"/>
+				</List>
+			</VBox>
+			<VBox visible="true" class="flightinfoBlock2">
+				<HBox visible="{avmetModel>/UnlockRec}">
+					<Label text="Release for rectification"/>
+					<Switch state="{avmetModel>/UnlockRec}" customTextOn="Unlock" customTextOff="Lock" change="onFSUnlock">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+					</Switch>
+				</HBox>
+				<HBox visible="{avmetModel>/UnlockAVMET}">
+					<Label text="Unlock AVMET"/>
+					<Switch state="{avmetModel>/UnlockAVMET}" customTextOn="Unlock" customTextOff="Lock" change="onAircraftUnlock">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+					</Switch>
+				</HBox>
+				<!--<List class="flightinfolist2" includeItemInSelection="false" select="onFlightInfoSelect">-->
+				<!--	<StandardListItem visible="{= !!${avmetModel>/Unlock}}" class="flightinfolistItem flightinfolistItemTransperent" title="Pilot Accept Aircraft"-->
+				<!--		type="Navigation" press="onAircraftUnlock"/>-->
+				<!--	<StandardListItem visible="{= !!${avmetModel>/Unlock}}" class="flightinfolistItem flightinfolistItemTransperent" title="Pilot Acceptance List"-->
+				<!--		type="Navigation" press="onAircraftUnlock"/>-->
+				<!--	<StandardListItem visible="{= !!${avmetModel>/Unlock}}" class="flightinfolistItem flightinfolistItemTransperent" title="Unlock AVMET"-->
+				<!--		type="Navigation" press="onAircraftUnlock"/>-->
+				<!--</List>-->
+			</VBox>
+		</HBox>
+	</Popover>
+</core:FragmentDefinition>

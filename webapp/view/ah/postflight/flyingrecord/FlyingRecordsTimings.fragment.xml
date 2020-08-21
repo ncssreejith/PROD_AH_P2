@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control" xmlns:f="sap.f"
+	xmlns:card="sap.f.cards">
+	<l:VerticalLayout class="sapUiMediumMargin backgroundBlue" width="95%">
+		<l:content>
+			<Toolbar>
+				<Label class="titleStyle" text="Timings" design="Bold"/>
+			</Toolbar>
+			<Table class="CERTable" items="{oPilotUpdatesViewModel>/timings}" id="timingsTblId">
+				<columns>
+					<Column width="5%" class="CERTableTextColor"/>
+					<Column demandPopin="true">
+						<Label text="Engine start time" design="Bold"/>
+					</Column>
+					<Column demandPopin="true">
+						<Label text="Weight off wheels" design="Bold"/>
+					</Column>
+					<Column demandPopin="true">
+						<Label text="Weight on wheels" design="Bold"/>
+					</Column>
+					<Column demandPopin="true">
+						<Label text="Engine stop time" design="Bold"/>
+					</Column>
+					<Column demandPopin="true" width="5%"/>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{path:'oPilotUpdatesViewModel>num1',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
+							<TimePicker value="{oPilotUpdatesViewModel>egspt}" valueFormat="HH:mm" displayFormat="HH:mm" change="onTimeChange" required="true"/>
+							<TimePicker value="{oPilotUpdatesViewModel>woffw}" valueFormat="HH:mm" displayFormat="HH:mm"  required="true"/>
+							<TimePicker value="{oPilotUpdatesViewModel>wonw}"  valueFormat="HH:mm" displayFormat="HH:mm"  required="true"/>
+							<TimePicker value="{oPilotUpdatesViewModel>egstt}" valueFormat="HH:mm" displayFormat="HH:mm"  required="true"/>
+							<Button type="Transparent" icon="sap-icon://decline" press="onDeleteTimings" visible="{= ${oPilotUpdatesViewModel>num2}>1}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<Button icon="sap-icon://sys-add" class="addTaskBtn" text="Add Sortie" press="onAddTimings" width="100%"/>
+		</l:content>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

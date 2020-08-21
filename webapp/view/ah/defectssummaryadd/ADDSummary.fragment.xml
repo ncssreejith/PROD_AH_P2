@@ -1,0 +1,69 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.ah.control">
+	<l:VerticalLayout class="backgroundWhite" width="100%">
+		<HBox class="sapUiSmallMargin">
+			<VBox class="vBoxBorder" height="auto" width="40%">
+				<FlexBox direction="Column" alignItems="Center" class="sapUiLargeMargin">
+					<items>
+						<Button icon="sap-icon://camera" type="Emphasized"/>
+						<Text text="Upload Defect Images"/>
+					</items>
+				</FlexBox>
+			</VBox>
+			<HBox class="sapUiLargeMarginBegin" width="100%">
+				<VBox width="100%">
+					<Toolbar>
+						<Title text="Job Summary"/>
+						<ToolbarSpacer/>
+						<Button text="Manage Jobs" type="Transparent" icon="sap-icon://megamenu" iconFirst="false" class="btnClass" press="onManageJobsPress"/>
+						<Button text="Close Job" type="Emphasized"/>
+					</Toolbar>
+					<HBox width="100%" class="sapUiTinyMarginTop">
+						<FlexBox class="columns" width="100%">
+							<VBox width="100%">
+								<Text text="Quantity 01 3 inch crack found at panel 5L173"></Text>
+							</VBox>
+							<VBox width="100%">
+								<VBox class="sapUiSmallMarginBegin">
+									<HBox>
+										<Label design="Bold" text="Date/Time" width="150px"/>
+										<Text text="24/12/19, 18:45" width="200px"/>
+									</HBox>
+									<HBox>
+										<Label design="Bold" text="Found By" width="150px"/>
+										<Text text="Edmund Yeo" width="200px"/>
+									</HBox>
+									<HBox>
+										<Label design="Bold" text="Found during" width="150px"/>
+										<Text text="BF" width="200px"/>
+									</HBox>
+									<HBox>
+										<Label design="Bold" text="Airframe Hrs" width="150px"/>
+										<Text text="4500" width="200px"/>
+									</HBox>
+									<HBox>
+										<Label design="Bold" text="ETR" width="150px"/>
+										<Text text="" width="200px"/>
+									</HBox>
+								</VBox>
+							</VBox>
+						</FlexBox>
+					</HBox>
+				</VBox>
+			</HBox>
+		</HBox>
+	</l:VerticalLayout>
+	<l:VerticalLayout width="100%" class="sapUiSmallMarginTop">
+		<Toolbar>
+			<Title text="Rectifications by Work Center"/>
+			<ToolbarSpacer/>
+			<Button text="Demand Spares" type="Transparent" class="btnClass"/>
+			<Button icon="sap-icon://vertical-grip" type="Transparent"/>
+		</Toolbar>
+		<HBox>
+			<cc:RectificationTile title="FCF" footerText="Incomplete Entries" count="0" prime="true" select="onWrkCntrSelect"/>
+			<cc:RectificationTileAdd select="onAddNewRectification">
+				<core:Icon src="sap-icon://sys-add" size="35px" color="blue" press="onIconPress"/>
+			</cc:RectificationTileAdd>
+		</HBox>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

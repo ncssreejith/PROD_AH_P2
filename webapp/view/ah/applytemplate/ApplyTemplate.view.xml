@@ -1,0 +1,129 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.CosApplyTemplate"
+	xmlns:l="sap.ui.layout">
+	<Page showHeader="false">
+		<Toolbar height="4rem" class="backgroundWhite">
+			<Button icon="sap-icon://arrow-left" type="Transparent" class="iconColorWhite sapUiMediumMarginBegin" press="onNavBack"></Button>
+			<ObjectIdentifier title="{i18n>tiapplyTempTitle}" text="{applTmplModel>/header/selJobId}" titleActive="false" class="sapUiTinyMarginBottom"/>
+		</Toolbar>
+		<content>
+			<VBox backgroundDesign="Solid" class="sapUiLargeMargin">
+				<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+					<HBox >
+						<VBox class="sapUiSmallMargin">
+							<Label text="Date" design="Bold"/>
+							<DatePicker id="DP1" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
+								value="{path: 'applTmplModel>/header/dDate', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+								width="13rem" placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+							<layoutData>
+								<l:GridData linebreak="true" span="XL3 L3 M6 S12"/>
+							</layoutData>
+						</VBox>
+						<VBox class="sapUiSmallMargin">
+							<Label text="Time" design="Bold"/>
+							<TimePicker id="TP1" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgTime" value="{applTmplModel>/header/dTime}"
+								width="13rem" valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" placeholder="Creation time..."/>
+							<layoutData>
+								<l:GridData span="XL3 L3 M12 S12"/>
+							</layoutData>
+						</VBox>
+					</HBox>
+					<FlexBox class="hboxBorder" justifyContent="SpaceBetween" backgroundDesign="Solid">
+						<Label class="sapUiSmallMarginTopBottom sapUiLargeMarginBegin" text="Choose template" design="Bold"/>
+						<FlexBox justifyContent="SpaceAround">
+							<ComboBox width="25rem" required="true" fieldGroupIds="fgCmbBox" class="sapUiSmallMargin" items="{path:'applTmplModel>/tmpls'}"
+								selectedKey="{applTmplModel>/header/selTmpl}" valueStateText="{i18n>ERROR_GENERIC}">
+								<core:Item key="{applTmplModel>ddid}" text="{applTmplModel>description}"/>
+								<!--{applTmplModel>ddid}-->
+								<!--change="onTemplateChange" -->
+							</ComboBox>
+							<Button text="Apply" width="7rem" press="onTemplateApply" type="Transparent" class="btnClass sapUiTinyMarginTop sapUiTinyMarginEnd"/>
+						</FlexBox>
+						<layoutData>
+							<l:GridData span="XL12 L12 M6 S12"/>
+						</layoutData>
+					</FlexBox>
+					<VBox class="hboxBorder" alignItems="Center">
+						<Table id="tbSummary" width="60rem" visible="{ViewModel>/ApplyTempTable}"
+							class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText"
+							items="{path:'applTmplModel>/tasks',filters:[{path:'RTTY',operator:'EQ',value1:'M'}]}">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title level="H3" text="{ViewModel>/SummaryTableTitle}"/>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column class="CERTableTextColor" width="7rem" hAlign="Center">
+									<Label text="Main Task" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true" width="21em"></Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="Follow-up Task" design="Bold"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true" width="14rem"></Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<HBox class="sapUiTinyMarginBegin">
+											<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${applTmplModel>SYMBOL} === '1' ? true : false}"></Button>
+											<Button text="/" class="red redText" type="Transparent" visible="{=${applTmplModel>SYMBOL} === '2' ? true : false}"></Button>
+											<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${applTmplModel>SYMBOL} === '3' ? true : false}"></Button>
+										</HBox>
+										<Text text="{applTmplModel>TDESC}"/>
+										<Text text="{applTmplModel>FTDESC}" wrapping="true"/>
+										<Button text="Add Serial Number" type="Emphasized" visible="{=${applTmplModel>FRAGID} === 'POP_11' ? true : false}" press="onSerialNumPress"></Button>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<Table id="tbTask" width="60rem" visible="{ViewModel>/SelectTaskTable}" mode="MultiSelect"
+							class="sapUiResponsivePadding sapUiSmallMarginTop CERTable sapUiSizeCompact TableNoDataText"
+							items="{path:'applTmplModel>/tasks',filters:[{path:'RTTY',operator:'NE',value1:'M'}]}" rememberSelections="true">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title level="H3" text="{i18n>lblSelectTask}"/>
+										<ToolbarSpacer/>
+										<SearchField width="13rem"/>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns >
+								<Column class="CERTableTextColor" width="5rem" hAlign="Center">
+									<Label text="Task" design="Bold"/>
+								</Column>
+								<Column></Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label text="Follow-up Task)" design="Bold"/>
+								</Column>
+								<Column width="13rem"></Column>
+							</columns>
+							<items >
+								<ColumnListItem unread="true">
+									<cells>
+										<HBox class="sapUiTinyMarginBegin">
+											<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${applTmplModel>SYMBOL} === '1' ? true : false}"></Button>
+											<Button text="/" class="red redText" type="Transparent" visible="{=${applTmplModel>SYMBOL} === '2' ? true : false}"></Button>
+											<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${applTmplModel>SYMBOL} === '3' ? true : false}"></Button>
+										</HBox>
+										<Text text="{applTmplModel>TDESC}"/>
+										<Text text="{applTmplModel>FTDESC}"/>
+										<Button text="Add Serial Number" type="Emphasized" visible="{=${applTmplModel>FRAGID} === 'POP_11' ? true : false}" press="onSerialNumPress"></Button>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</VBox>
+				</l:Grid>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Apply Selected" press="onApplySelection" type="Emphasized"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

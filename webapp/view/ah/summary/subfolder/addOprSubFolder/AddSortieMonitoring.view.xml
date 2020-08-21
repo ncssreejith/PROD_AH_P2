@@ -1,0 +1,81 @@
+<mvc:View controllerName="avmet.ah.controller.CosAddSoritieMonitoring" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:u="sap.ui.unified">
+	<Page showHeader="false" showNavButton="false">
+		<Toolbar height="4rem" class="backgroundWhite">
+			<Button icon="sap-icon://arrow-left" type="Transparent" class="iconColorWhite sapUiMediumMarginBegin" press="onNavBack"></Button>
+			<ObjectIdentifier title="{i18n>tiAddSortieMonitoring}" text="{SortieMonitoringModel>/header/jobid}" titleActive="false"
+				class="sapUiTinyMarginBottom"/>
+		</Toolbar>
+		<content>
+			<VBox class="sapUiResponsivePadding sapUiResponsiveMargin">
+				<l:Splitter>
+					<VBox>
+						<VBox>
+							<Label text="{i18n>lbDate}" design="Bold"/>
+							<DatePicker valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
+								value="{path: 'SortieMonitoringModel>/header/ddt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+								width="13rem" placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>lbTime}" design="Bold"/>
+							<TimePicker value="{SortieMonitoringModel>/header/tme}" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgTime"
+								width="13rem" valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" placeholder="Creation time..."/>
+						</VBox>
+						<layoutData>
+							<l:SplitterLayoutData size="300px" resizable="false"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiMediumMarginBegin">
+						<List mode="Delete" items="{SortieMonitoringModel>/SortieMonitoring}" delete="onDeletePress">
+							<CustomListItem class="sapUiSmallMargin">
+								<VBox class="sapUiSmallMargin">
+									<HBox>
+										<Label text="{i18n>lbSortieMonitoring}" design="Bold"/>
+										<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin"/>
+									</HBox>
+									<TextArea id="taComment" required="true" fieldGroupIds="fgTxtArea" valueStateText="{i18n>ERROR_GENERIC}" width="100%"
+										value="{SortieMonitoringModel>Text}" class="sapUiTinyMarginBegin" growing="true" growingMaxLines="7" change="onSorteiMonitoringChange"
+										maxLength="1000" liveChange="handleLiveChangeSorteiMonitoring" showExceededText="true"/>
+								</VBox>
+								<VBox class="sapUiSmallMargin">
+									<HBox>
+										<Label text="Restriction Imposed" design="Bold"/>
+										<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin"/>
+									</HBox>
+									<TextArea required="true" fieldGroupIds="fgTxtArea" valueStateText="{i18n>ERROR_GENERIC}" width="100%"
+										value="{SortieMonitoringModel>RestrictionText}" class="sapUiTinyMarginBegin" growing="true" growingMaxLines="7"
+										change="onSorteiMonitoringChange" maxLength="1000" liveChange="handleLiveChangeSorteiMonitoring" showExceededText="true"/>
+								</VBox>
+								<VBox class="sapUiTinyMarginTop sapUiSmallMargin">
+									<Label text="To be Monitoried For" design="Bold" class="sapUiSmallMarginTop"/>
+									<HBox class="sapUiTinyMarginBegin">
+										<ComboBox placeholder="{i18n>phSelect}" items="{MonitoredForSet>/}" change="onFoundDuringChange('DEF',$event)"
+											selectedKey="{SortieMonitoringModel>MonFor}">
+											<core:Item key="{MonitoredForSet>ddid}" text="{MonitoredForSet>description}"/>
+										</ComboBox>
+										<StepInput required="true" min="0" fieldGroupIds="fgStepInput" value="{SortieMonitoringModel>SortiesNo}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
+									</HBox>
+								</VBox>
+							</CustomListItem>
+						</List>
+						<Bar class="toolbarBorder">
+							<contentMiddle>
+								<Button icon="sap-icon://sys-add" class="IconMarginSM btnColor" text="{i18n>btnAddSortieMonitoring}" width="55rem" type="Default"
+									press="onAddSorteiMonitoring"/>
+							</contentMiddle>
+						</Bar>
+						<layoutData>
+							<l:SplitterLayoutData size="auto"/>
+						</layoutData>
+					</VBox>
+				</l:Splitter>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="{i18n>btnSignOffSM}" class="btnColor" press="onSubmitSortieMonitoring"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

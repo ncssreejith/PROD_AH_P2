@@ -1,0 +1,78 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.OFPUpdateView"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Aircraft OFP" navButtonPress="onNavBack" showNavButton="true">
+				<content>
+					<!--<Toolbar>-->
+					<!--	<ToolbarSpacer/>-->
+					<!--	<Button text="View Past records"/>-->
+					<!--	<Button text="Update Records" type="Emphasized" press="onUpdateRecords"/>-->
+					<!--</Toolbar>-->
+					<VBox class="sapUiSmallMargin">
+						<Table id="tblUpOFP" columns="{oOFPModel>/ofp}" class="TableHeaderBGColor">
+							<columns>
+								<Column class="TableTextColor" hAlign="Center" width="20%">
+									<Label text="{oOFPModel>coltxt}" wrapping="true" design="Bold"/>
+								</Column>
+							</columns>
+						</Table>
+						<!--<Table class="OFPBlue sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBeginEnd CERTable tableHFont"-->
+						<!--	updateFinished="onFuelTableUpdateFinish" items="{WDNSMainModel>/WDNSTable2}" width="35%">-->
+						<!--	<columns>-->
+						<!--		<Column hAlign="Left" width="15%" class="textColor"></Column>-->
+						<!--		<Column hAlign="Left" width="15%" class="textColor"></Column>-->
+						<!--	</columns>-->
+						<!--	<items>-->
+						<!--		<ColumnListItem>-->
+						<!--			<cells>-->
+						<!--				<Label text="Aircraft OFP" design="Bold" class="WDNSWhiteFont"/>-->
+						<!--				<Label text="1234567" design="Bold" class="WDNSWhiteFont"/>-->
+						<!--			</cells>-->
+						<!--		</ColumnListItem>-->
+						<!--	</items>-->
+						<!--</Table>-->
+						<!--<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBeginEnd CERTable tableHFont"-->
+						<!--	updateFinished="onFuelTableUpdateFinish" items="{WDNSMainModel>/OFPTable}" width="auto">-->
+						<!--	<columns>-->
+						<!--		<Column hAlign="Left" width="15%" class="textColor">-->
+						<!--			<Label text="LRU" design="Bold"/>-->
+						<!--		</Column>-->
+						<!--		<Column minScreenWidth="Tablet" width="10%" demandPopin="true" hAlign="Left" class="textColor">-->
+						<!--			<Label text="S/N" design="Bold" wrapping="true"/>-->
+						<!--		</Column>-->
+						<!--		<Column hAlign="Left" width="20%" class="textColor">-->
+						<!--			<Label text="Software Version" design="Bold"/>-->
+						<!--		</Column>-->
+								<!--<Column hAlign="Left" width="15%" class="textColor">-->
+								<!--	<Label text="Updated By" design="Bold"/>-->
+								<!--</Column>-->
+								<!--<Column hAlign="Left" width="13%" class="textColor">-->
+								<!--	<Label text="Date" design="Bold"/>-->
+								<!--</Column>-->
+						<!--	</columns>-->
+						<!--	<items>-->
+						<!--		<ColumnListItem>-->
+						<!--			<cells>-->
+						<!--				<Text text="{WDNSMainModel>LRU}"/>-->
+						<!--				<Input value="{WDNSMainModel>S}"/>-->
+						<!--				<Input value="{WDNSMainModel>Software Version}"/>-->
+										<!--<Text text="{WDNSMainModel>Updated By}"/>-->
+										<!--<Text text="{WDNSMainModel>Date}"/>-->
+						<!--			</cells>-->
+						<!--		</ColumnListItem>-->
+						<!--	</items>-->
+						<!--</Table>-->
+					</VBox>
+				</content>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<!--<Button text="Back" press="onNavBack"></Button>-->
+						<Button text="Sign Off" type="Emphasized" press="onSignOffPress"></Button>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

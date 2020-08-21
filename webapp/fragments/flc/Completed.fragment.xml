@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<l:VerticalLayout class="sapUiContentPadding" width="100%">
+		<l:content>
+			<FlexBox class="backgroundWhite" height="120px" alignItems="Center" justifyContent="Center"
+				visible="{=${oFollowUpModel>/CompletedTask}.length === 0 ? true :false}">
+				<items>
+					<Label design="Bold" text="There are currently no completed tasks."/>
+				</items>
+			</FlexBox>
+			<Table id="CompleteTblId" class="CERTable" items="{oFollowUpModel>/CompletedTask}"
+				visible="{=${oFollowUpModel>/CompletedTask}.length !== 0 ? true :false}" updateFinished="onTableUpdateFinishedCM('CM',$event)">
+				<columns>
+					<Column width="10%" class="CERTableTextColor" hAlign="Center">
+						<Label text="Symbol" design="Bold"/>
+					</Column>
+					<Column width="50%" demandPopin="true">
+						<HBox>
+							<Label text="Task" design="Bold"/>
+							<!--<core:Icon src="sap-icon://sorting-ranking" color="white" class="sapUiTinyMarginBegin"/>-->
+						</HBox>
+					</Column>
+					<Column width="25%" demandPopin="true">
+						<Label text="Technical Order" design="Bold"/>
+					</Column>
+					<Column width="25%" demandPopin="true">
+						<Label text="Tradesman" design="Bold"/>
+					</Column>
+					<Column width="25%" demandPopin="true">
+						<Label text="Supervisor" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<HBox visible="{= ${oFollowUpModel>symbol}!=='' ? true :false}" class="sapUiTinyMarginBegin">
+								<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${oFollowUpModel>symbol} === '1' ? true : false}"/>
+								<Button text="/" class="red redText" type="Transparent" visible="{=${oFollowUpModel>symbol} === '2' ? true : false}"/>
+								<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${oFollowUpModel>symbol} === '3' ? true : false}"/>
+							</HBox>
+							<!--<core:Icon src="sap-icon://decline" size="30px" color="#da2d2d"/>-->
+							<ObjectStatus text="{oFollowUpModel>ftdesc}" active="false" state="None"/>
+							<ObjectStatus text="{oFollowUpModel>toref}" active="true" state="None" press="onAfterFlightServTask"/>
+							<ObjectStatus text="{oFollowUpModel>sg1usr}" active="true" state="None" press="onAfterFlightServTask"/>
+							<ObjectStatus text="{oFollowUpModel>sg2usr}" active="true" state="None" press="onAfterFlightServTask"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</l:content>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

@@ -1,0 +1,34 @@
+<mvc:View controllerName="avmet.ah.controller.Engine" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Page showNavButton="true" title="Engine" enableScrolling="true" navButtonPress="onNavBack">
+		<content>
+			<IconTabBar id="itbEngines" expanded="{device>/isNoPhone}" headerMode="Inline" expandable="false"
+				class="sapUiResponsiveContentPadding iconTabBarContentDimensions iconTabBarBGTran iconTabBarBorder">
+				<items>
+					<IconTabFilter text="{i18n>lbEngine1}" id="itfEng1">
+						<HBox class="sapUiMediumMarginBeginEnd sapUiSmallMarginTop" id="hbHeader1">
+							<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.Engine1Header" type="XML"/>
+						</HBox>
+						<HBox class="sapUiMediumMarginBeginEnd">
+							<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.Engine1Details" type="XML"/>
+						</HBox>
+					</IconTabFilter>
+					<IconTabFilter visible="{= !!${oEngineModel>/header2Details/ENGID}}" text="{i18n>lbEngine2}" id="itfEng2">
+						<HBox class="sapUiMediumMarginBeginEnd sapUiSmallMarginTop"  id="hbHeader2">
+							<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.Engine2Header" type="XML"/>
+						</HBox>
+						<HBox class="sapUiMediumMarginBeginEnd">
+							<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.Engine2Details" type="XML"/>
+						</HBox>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+			<!--<HBox class="sapUiMediumMarginBeginEnd sapUiSmallMarginTop">-->
+			<!--	<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.engineheaderfragment" type="XML"/>-->
+			<!--</HBox>-->
+			<!--<HBox class="sapUiMediumMarginBeginEnd">-->
+			<!--	<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.enginedetailsfragment" type="XML"/>-->
+			<!--</HBox>-->
+		</content>
+	</Page>
+</mvc:View>

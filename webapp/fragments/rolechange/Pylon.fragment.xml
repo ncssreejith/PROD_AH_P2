@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<VBox>
+		<List id="LisLauncher" width="15rem" class="sapFDynamicPageAlignContent" visible="{oRoleChangeModel>/bLauncher}"
+			items="{path : 'oRoleChangeModel>/aUniLaunchers', filters : [{ path : 'POT', operator : 'EQ', value1 : 'L' }]}" headerText="Launcher"
+			mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" growing="true" growingScrollToLoad="true"
+			selectionChange=".onLauncherChange">
+			<StandardListItem title="{oRoleChangeModel>ADPDESC}" class="WeaponConfidDetailsListheight"></StandardListItem>
+		</List>
+		<List id="LisPylon" width="15rem" class="sapFDynamicPageAlignContent" visible="{oRoleChangeModel>/bPylonVisible}"
+			items="{path : 'oRoleChangeModel>/aUniPylons', filters : [{ path : 'POT', operator : 'EQ', value1 : 'P' }]}" headerText="Pylon"
+			mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" growing="true" growingScrollToLoad="true"
+			selectionChange=".onLauncherChange">
+			<StandardListItem title="{oRoleChangeModel>ADPDESC}" class="WeaponConfidDetailsListheight"></StandardListItem>
+		</List>
+		<List id="LisTanks" width="15rem" class="sapFDynamicPageAlignContent" items="{oRoleChangeModel>/Tanks}" headerText="Tanks"
+			visible="{oRoleChangeModel>/bTank}" noDataText="Select Adaptor" mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+			growing="true" growingScrollToLoad="true" selectionChange=".onTanksChange">
+			<StandardListItem title="{oRoleChangeModel>ADPDESC}" class="WeaponConfidDetailsListheight"></StandardListItem>
+		</List>
+	</VBox>
+</core:FragmentDefinition>

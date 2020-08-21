@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control" xmlns:f="sap.f"
+	xmlns:card="sap.f.cards">
+	<Table headerText="Aircraft monitoring" id="aircraftMonitoringId" class="CERTable" items="{oPilotUpdatesViewModel>/airMon}">
+				<columns>
+					<Column width="10%" class="CERTableTextColor">
+						<Label text="No." design="Bold"/>
+					</Column>
+					<Column width="35%" demandPopin="true">
+						<Label text="Count" design="Bold"/>
+					</Column>
+					<Column width="35%" demandPopin="true">
+						<Label text="Requirements" design="Bold"/>
+					</Column>
+					<Column width="30%" demandPopin="true">
+						<Label text="Results" design="Bold"/>
+					</Column>
+					<Column width="25%" demandPopin="true">
+						<Label text="Reason(s)" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{path:'oPilotUpdatesViewModel>sorno',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
+							<Text text="{oPilotUpdatesViewModel>remcnt}/{oPilotUpdatesViewModel>sorcnt}"/>
+							<Text text="{oPilotUpdatesViewModel>sordesc}"/>
+							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>frrid}" items="{oPilotUpdatesViewModel>/amResult}" required="true" fieldGroupIds="fgSGBtn">
+								<items>
+									<SegmentedButtonItem text="{oPilotUpdatesViewModel>description}" key="{oPilotUpdatesViewModel>ddid}"/>
+								</items>
+							</SegmentedButton>
+							<Input value="{oPilotUpdatesViewModel>reason}" visible="{= (${oPilotUpdatesViewModel>frrid}==='PILOT_P' || ${oPilotUpdatesViewModel>frrid}===null)?false:true}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+</core:FragmentDefinition>

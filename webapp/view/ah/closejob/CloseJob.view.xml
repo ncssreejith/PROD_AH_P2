@@ -1,0 +1,38 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.CosCloseJob"
+	xmlns:l="sap.ui.layout">
+	<Page showHeader="false">
+		<subHeader class="headerHeight">
+			<OverflowToolbar class="headerHeight">
+				<Button icon="sap-icon://arrow-left" press="onNavBack" class="sapUiSmallMarginBegin"/>
+				<ObjectIdentifier title="{i18n>btnClosejb}" text="{JobModel>/jobid}" titleActive="false" class="sapUiTinyMarginBottom"/>
+				<ToolbarSpacer/>
+			</OverflowToolbar>
+		</subHeader>
+		<content>
+			<IconTabBar id="itbCloseJob" class="sapUiSmallMarginTop" selectedKey="{ViewModel>/selectedIcon}" select="onIconSelected">
+				<items class="sapUiLargeMarginTop">
+					<IconTabFilter text="1.Rectification Summary" key="Summary">
+						<core:Fragment fragmentName="avmet.ah.view.ah.closejob.RectificationSummary" type="XML"/>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://less"/>
+					<IconTabFilter text="2.Confirmation" key="Confirmation">
+						<core:Fragment fragmentName="avmet.ah.view.ah.closejob.Confirmation" type="XML"/>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://less"/>
+					<IconTabFilter text="3.Supervisor Sign Off" key="SignOff">
+						<core:Fragment fragmentName="avmet.ah.view.ah.closejob.Confirmation" type="XML"/>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Proceed" press="onProceed" visible="{ViewModel>/proccedBtn}" type="Emphasized"/>
+				<Button text="Back" press="onBack" visible="{ViewModel>/backBtn}" type="Default"/>
+				<Button text="Sign Off" press="onSignOff" visible="{ViewModel>/signOffBtn}" type="Emphasized"/>
+				<Button text="Sign Off" press="onSignOff" visible="{ViewModel>/signOffBtn1}" type="Emphasized"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

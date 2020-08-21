@@ -1,0 +1,26 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.UpdateWDNSView"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="WDNS Coefficients Records" navButtonPress="onNavBack" showNavButton="true">
+		<content>
+			<VBox class="sapUiSmallMargin">
+				<HBox>
+					<VBox width="auto">
+						<Table id="tblUpHarmonic" columns="{oWDNSModel>/harmo}" class="TableHeaderBGColor">
+							<columns>
+								<Column hAlign="Center">
+									<Label text="{oWDNSModel>coltxt}" wrapping="true" design="Bold"/>
+								</Column>
+							</columns>
+						</Table>
+					</VBox>
+				</HBox>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Sign Off" type="Emphasized" press="onSignOffPress"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

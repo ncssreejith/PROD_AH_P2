@@ -1,0 +1,40 @@
+<mvc:View controllerName="avmet.ah.controller.Follow-UpTasks" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core"
+	displayBlock="true" xmlns="sap.m">
+	<Page id="page" title="Follow-Up Tasks ({path : 'oFollowUpModel>/sPageTitle', formatter : '.formatter.PageTitle'})" showNavButton="true"
+		enableScrolling="true" navButtonPress="onNavBack">
+		<content>
+			<VBox>
+				<!--<OverflowToolbar>-->
+				<!--	<ToolbarSpacer/>-->
+				<!--	<SearchField placeholder="Search" width="14rem" class="sapUiSmallMargin"/>-->
+				<!--	<Button text="Filters" icon="sap-icon://filter" type="Transparent"/>-->
+				<!--</OverflowToolbar>-->
+				<IconTabBar id="followUpTabs" applyContentPadding="false" selectedKey="{oFollowUpModel>/sSelectedTab}" backgroundDesign="Transparent"
+					headerBackgroundDesign="Transparent" headerMode="Inline" select="onFollowUpTaskTabSelect" upperCase="true" expanded="{device>/isNoPhone}"
+					class="sapUiResponsiveContentPadding sapUiSmallMargin">
+					<items>
+						<IconTabFilter text="OUTSTANDING" count="{oFollowUpModel>/OTCount}" key="OT">
+							<core:Fragment fragmentName="avmet.ah.fragments.flc.Outstanding" type="XML"/>
+						</IconTabFilter>
+						<IconTabFilter text="PENDING SUPERVISOR" count="{oFollowUpModel>/PSCount}" key="PS">
+							<core:Fragment fragmentName="avmet.ah.fragments.flc.PendingSupervisor" type="XML"/>
+						</IconTabFilter>
+						<IconTabFilter text="COMPLETED" count="{oFollowUpModel>/CMCount}" key="CM">
+							<core:Fragment fragmentName="avmet.ah.fragments.flc.Completed" type="XML"/>
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Default" text="Back" press="onNavBack"/>
+				<Button type="Emphasized" text="Sign Off" press="onPressSignOffConfirm" visible="{oFollowUpModel>/bSignoffVisible}"
+					enabled="{oFollowUpModel>/bSignoffEnable}"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+	<!--</App>
+	</Shell>-->
+</mvc:View>

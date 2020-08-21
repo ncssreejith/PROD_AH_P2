@@ -1,0 +1,66 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cc="avmet.ah.control" xmlns:l="sap.ui.layout"
+	xmlns:grid="sap.ui.layout.cssgrid">
+	<VBox class="WhiteVBox sapUiTinyMargin">
+		<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+			<items>
+				<Text class="PDSFragTitle" text="Weapon Configuration"/>
+				<Button text="Reviewed" type="Emphasized" id="weaponConfigReviewBtnId" press="onReviewedPress"/>
+			</items>
+		</FlexBox>
+		<!--<FlexBox class="flcTaskSignoffHBox sapUiSmallMargin" alignItems="Center" justifyContent="Center">-->
+		<!--	<items>-->
+		<!--		<core:Icon src="sap-icon://accept" color="white" size="15px" class="sapUiTinyMarginTop"/>-->
+		<!--		<Text text="WLC supervisor" class="sapUiTinyMarginBegin flcWhiteFont flcBoldFont"/>-->
+		<!--		<Text text="signed at DD/MM/YYYY, HH:MM" class="sapUiTinyMarginBegin flcWhiteFont"/>-->
+		<!--	</items>-->
+		<!--</FlexBox>-->
+		<HBox>
+			<!--<VBox class="sapUiSmallMargin">-->
+			<!--	<Image src="css/img/PDSWCHeli.JPG"/>-->
+			<!--</VBox>-->
+			<VBox>
+				<l:VerticalLayout class="sapUiContentPadding" width="100%">
+					<Title text="Stations"/>
+					<l:Grid>
+						<FlexBox wrap="Wrap" items="{path:'oPDSSummaryViewModel>/stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'}]}">
+							<items>
+								<cc:Station1
+									title="{= (${oPDSSummaryViewModel>WEDESC}===null || ${oPDSSummaryViewModel>WEDESC}==='')? ${oPDSSummaryViewModel>ADPDESC}:${oPDSSummaryViewModel>WEDESC}}"
+									subTitle="{oPDSSummaryViewModel>LTXT}" footerLeftInfo="Qty {oPDSSummaryViewModel>TOTQTY}"
+									footerRightInfo="{= ${oPDSSummaryViewModel>ISSER}==='X'?'View':''}" class=" sapUiTinyMargin" press="onStationPress"
+									fireSerialPress="onSerialNoPress">
+									<core:Icon src="sap-icon://write-new-document" color="#0a6cd6"/>
+									<core:Icon src="sap-icon://broken-link" visible="{= ${oPDSSummaryViewModel>CONECT}!=='N'}"
+										color="{path:'oPDSSummaryViewModel>CONECT',formatter:'.formatter.wcStationColor'}" size="3rem"/>
+								</cc:Station1>
+							</items>
+							<layoutData>
+								<l:GridData span="XL12 L12 M12 S12"/>
+							</layoutData>
+						</FlexBox>
+					</l:Grid>
+					<Title text="Others" class="sapUiSmallMarginTop"/>
+					<HBox items="{path:'oPDSSummaryViewModel>/stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_O'}]}">
+			<cc:Others title="{oPDSSummaryViewModel>STXT}" showButton="{oPDSSummaryViewModel>HCFLAG}" press="onStationPress" count="{oPDSSummaryViewModel>TOTQTY}"
+				footerLeftInfo="Max {oPDSSummaryViewModel>MAX}" class="sapUiSmallMargin">
+				<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onIconPress"/>
+			</cc:Others>
+		</HBox>
+				</l:VerticalLayout>
+				<!--<HBox class="sapUiSmallMarginTop"> oPDSSummaryViewModel-->
+				<!--	<VBox>-->
+				<!--		<Label text="Tools Quantity" design="Bold"/>-->
+				<!--		<StepInput value="10" editable="false"/>-->
+				<!--	</VBox>-->
+				<!--	<VBox class="sapUiSmallMarginBegin">-->
+				<!--		<Label text="Publication Quantity" design="Bold"/>-->
+				<!--		<StepInput value="10" editable="false"/>-->
+				<!--	</VBox>-->
+				<!--</HBox>-->
+				<!--<HBox>-->
+				<!--	<ObjectStatus class="sapUiSmallMarginBottom" text="Post-load check done" icon="sap-icon://accept" state="Success"/>-->
+				<!--</HBox>-->
+			</VBox>
+		</HBox>
+	</VBox>
+</core:FragmentDefinition>

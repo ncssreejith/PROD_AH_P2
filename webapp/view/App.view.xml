@@ -1,0 +1,9 @@
+<mvc:View
+	controllerName="avmet.ah.controller.App" xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+
+	<App id="app"
+		 busy="{appView>/busy}"
+		 busyIndicatorDelay="{appView>/delay}"/>
+
+</mvc:View>

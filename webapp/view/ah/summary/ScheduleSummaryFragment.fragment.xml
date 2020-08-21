@@ -1,0 +1,65 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.ah.control">
+	<l:VerticalLayout width="100%" class="backgroundWhite">
+		<Toolbar class="sapUiSmallMargin">
+			<Title text="{i18n>tiAircraftServicingJobSummary}" level="H3" titleStyle="H3" class="sapUiSmallMargin"/>
+			<ToolbarSpacer/>
+			<Button text="{i18n>btnManageJobs}" type="Transparent" icon="sap-icon://megamenu" iconFirst=" false" class="btnClass"
+				press="onOpenQuickView('SD',$event)"/>
+			<Button text="{i18n>btnStartJob}" type="Emphasized" press="onStartJobPress"/>
+		</Toolbar>
+		<l:VerticalLayout class="sapUiContentPadding equalColumns" width="100%">
+			<l:content>
+				<FlexBox class="columns" justifyContent="SpaceBetween">
+					<items>
+						<Label design="Bold" text="{SummaryModel>/JOBDESC}" width="100%" class="sapUiMediumMarginBegin">
+							<layoutData>
+								<FlexItemData growFactor="3" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
+							</layoutData>
+						</Label>
+						<VBox class="sapUiMediumMarginBegin">
+							<VBox>
+								<HBox class="sapUiLargeMarginBegin" visible="{= ${SummaryModel>/SERVDT}!==null ? true:false}">
+									<Label design="Bold" text="{i18n>lbDueDate}" width="150px"/>
+									<HBox>
+										<Text text="{path:'SummaryModel>/SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+										<!--<Text text="{path:'SummaryModel>/SERVDUE'}"/>-->
+									</HBox>
+								</HBox>
+								<HBox class="sapUiLargeMarginBegin" visible="{= ${SummaryModel>/SERVDUE}!==null ? true:false}">
+									<Label design="Bold" text="Due Util :" width="150px"/>
+									<HBox>
+										<Text text="{path:'SummaryModel>/UM'}"/>
+										<Text text="{path:'SummaryModel>/SERVDUE'}" class="sapUiTinyMarginBegin"/>
+									</HBox>
+								</HBox>
+								<HBox class="sapUiLargeMarginBegin">
+									<Label design="Bold" text="ES Notification :" width="150px"/>
+									<Text text="{SummaryModel>/ESJOBID}" width="200px"/>
+								</HBox>
+							</VBox>
+							<layoutData>
+								<FlexItemData growFactor="1" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
+							</layoutData>
+						</VBox>
+					</items>
+				</FlexBox>
+			</l:content>
+		</l:VerticalLayout>
+	</l:VerticalLayout>
+	<l:VerticalLayout width="100%" class="sapUiSmallMarginTop">
+		<Toolbar>
+			<Title text="{i18n>tiRectificationsbyWorkCenter}"/>
+			<ToolbarSpacer/>
+		</Toolbar>
+		<HBox>
+			<!--<cc:RectificationTile title="AEMF" footerText="Incomplete Entries" count="0" prime="true"/>-->
+			<HBox items="{LocalModel>/WorkCenter}">
+				<cc:RectificationTile footerText="Incomplete Entries" count="0" prime="{= ${LocalModel>isprime} !== null ? true:false }"
+					title="{LocalModel>wrctrtx}" select="onWorkCenterSelect" visible="{= ${LocalModel>wrctr} !== 'ZSummary' }"/>
+			</HBox>
+			<cc:RectificationTileAdd select="onAddNewRectification" enabled="false">
+				<core:Icon src="sap-icon://sys-add" size="35px" color="gray" press="onIconPress"/>
+			</cc:RectificationTileAdd>
+		</HBox>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

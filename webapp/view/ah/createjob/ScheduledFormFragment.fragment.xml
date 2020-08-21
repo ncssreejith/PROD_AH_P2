@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f" xmlns:u="sap.ui.unified">
+	<Label text="{i18n>lbJobDescription}" design="Bold"/>
+	<TextArea width="27rem" maxLength="1000" rows="7" growing="true" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"
+		required="{=${oViewCreateModel>/jobty} === 'S' ? true : false}" value="{oViewCreateModel>/jobdesc}"
+		fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S'? 'fgTxtArea' : ''}"></TextArea>
+	<VBox>
+		<HBox>
+			<VBox>
+				<Label text="{i18n>lbJobDue}" design="Bold"/>
+				<HBox>
+					<ComboBox placeholder="{i18n>phSelect}" required="{=${oViewCreateModel>/jobty} === 'S' ? true : false}"
+						fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' ? 'fgCmbBox' : ''}" selectedKey="{oViewCreateModel>/jduid}" items="{JobDueSet>/}"
+						change="onDueSelectChange">
+						<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
+					</ComboBox>
+					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin" visible="false">
+						<StepInput required="true" min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}"
+							visible="{=${oViewCreateModel>/jduid}!=='JDU_10' ? true:false}"/>
+					</HBox>
+					<DatePicker width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
+						visible="{=${oViewCreateModel>/jduid}==='JDU_10' ? true:false}"
+						value="{path: 'oViewCreateModel>/jduvl', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+						placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+				</HBox>
+			</VBox>
+		</HBox>
+		<HBox class="sapUiSmallMarginTop">
+			<Label text="{i18n>lbWorkCenter}" design="Bold"/>
+			<Label text="{i18n>lbOptional}" class="sapUiLargeMarginBegin"/>
+		</HBox>
+		<ComboBox placeholder="{i18n>phSelect}" change="onWorkCenterChange('SCH',$event)" selectedKey="{oViewCreateModel>/prime}"
+			items="{WorkCenterSet>/}">
+			<core:Item key="{WorkCenterSet>wrctr}" text="{WorkCenterSet>name}"/>
+		</ComboBox>
+	</VBox>
+</core:FragmentDefinition>

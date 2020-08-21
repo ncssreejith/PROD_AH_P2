@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<VBox backgroundDesign="Solid" width="100%" alignItems="Center">
+		<FlexBox class="sapUiSmallMarginTopBottom">
+			<VBox>
+				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"  growing="true" growingThreshold="5" growingScrollToLoad="false"
+					items="{ path: 'oEngineModel>/soapTableData2', filters : [{ path : 'SOAP', operator : 'EQ', value1 : '' }]}"
+					noDataText="No Engine Oil Replenishment" showNoData="true">
+					<headerToolbar>
+						<OverflowToolbar>
+							<content>
+								<Title level="H3" text="Engine Oil Replenishment"/>
+								<ToolbarSpacer/>
+								<Button text="Add Replenishment Log" type="Emphasized" press="onAddEng2OilLog"/>
+								<!--<Link text="{i18n>liView}" press="handleLinkPress"/>-->
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column width="7rem" hAlign="Center" class="CERTableTextColor">
+							<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						</Column>
+						<Column width="5rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+							<Label text="{i18n>lbEngHrs}" design="Bold" wrapping="true"/>
+						</Column>
+						<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="{i18n>lbEngineHrssinceOilChange}" design="Bold" wrapping="true"/>
+						</Column>
+						<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Reason for Sampling" design="Bold" wrapping="true"/>
+						</Column>
+						<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="{i18n>lbQtyAdded}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{path:'oEngineModel>SPDT', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'oEngineModel>SPTM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{oEngineModel>ENGHR}"/>
+								<Text text="{oEngineModel>HRSINCE}"/>
+								<Text text="{oEngineModel>DDDESC}"/>
+								<Text text="{oEngineModel>SRVAMT}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</FlexBox>
+	</VBox>
+</core:FragmentDefinition>

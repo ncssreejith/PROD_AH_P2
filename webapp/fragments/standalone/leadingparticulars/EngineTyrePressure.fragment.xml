@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core">
+	<VBox class="LeadPartFlexboxBGWhite" width="100%" alignItems="Center">
+		<Table width="95%" items="{ path: 'OverViewItemModel>/'}"
+			class="TableHeaderBGColor sapUiSmallMarginTop sapUiMediumMarginBeginEnd sapUiSizeCompact">
+			<columns>
+				<Column class="TableTextColor" hAlign="Left">
+					<Label text="All Up Weight" design="Bold"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+					<Label text="Main" design="Bold" wrapping="true"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+					<Label text="Nose/Tail" design="Bold" wrapping="true"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<VBox>
+							<Text text="{OverViewItemModel>ALWEIGHT}" visible="{= ${OverViewItemModel>/isTableEditable} ? false : true}"/>
+							<Input value="{OverViewItemModel>ALWEIGHT}" visible="{= ${OverViewItemModel>/isTableEditable} ? true : false}" change="onChangeTyreValue"/>
+						</VBox>
+						<VBox>
+							<Text text="{OverViewItemModel>TPMAIN}" visible="{= ${OverViewItemModel>/isTableEditable} ? false : true}"/>
+							<Input value="{OverViewItemModel>TPMAIN}" visible="{= ${OverViewItemModel>/isTableEditable} ? true : false}" change="onChangeTyreValue"/>
+						</VBox>
+						<VBox>
+							<Text text="{OverViewItemModel>NOSE_TAIL}" visible="{= ${OverViewItemModel>/isTableEditable} ? false : true}"/>
+							<Input value="{OverViewItemModel>NOSE_TAIL}" visible="{= ${OverViewItemModel>/isTableEditable} ? true : false}" change="onChangeTyreValue"/>
+						</VBox>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</VBox>
+</core:FragmentDefinition>

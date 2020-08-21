@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<ScrollContainer horizontal="false" vertical="true" width="100%" focusable="false" class="sapUiTinyMarginTop">
+		<Table class="sapUiResponsivePadding CERTable sapUiSizeCompact" items="{JobModelMODSTI>/}" growing="true"
+			growingTriggerText="{i18n>lbLoadMore}">
+			<headerToolbar>
+				<OverflowToolbar>
+					<Title text="LTO/SI/STI/MOD" level="H2"/>
+					<ToolbarSpacer/>
+					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"/>
+					<ComboBox width="10rem">
+						<core:Item key="{key}" text="{text}"/>
+					</ComboBox>
+					<Button icon="sap-icon://add-filter" text="{i18n>btnFilterSchedule}" type="Default" class="btnColor sapUiSizeCompact sortBtnColor"
+						press="onAddDemandSpaes"/>
+				</OverflowToolbar>
+			</headerToolbar>
+			<columns>
+				<Column width="3rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Label text="{i18n>lbDueIn}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="6rem" hAlign="Center" class="CERTableTextColor">
+					<Label text="Um" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="{i18n>lbServicingDue}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="15rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="{i18n>lbJobDescription}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="Type" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Label text="{i18n>lbPrime}" design="Bold" wrapping="true"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" type="Navigation" press="onScheduleJobPress('MODSTI',$event)">
+					<cells>
+						<Text text="{JobModelMODSTI>DUEIN}"/>
+						<Text text="{JobModelMODSTI>UM}"/>
+						<VBox alignItems="Center" alignContent="Center">
+							<Text text="{JobModelMODSTI>SERVDUE}" visible="{=${JobModelMODSTI>SERVDUE} !== '' || ${JobModelMODSTI>SERVDUE} !== null ? true : false}"/>
+							<Text text="{path:'JobModelMODSTI>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}"
+								visible="{=${JobModelMODSTI>SERVDUE} === '' || ${JobModelMODSTI>SERVDUE} === null ? true : false}"/>
+						</VBox>
+						<Text text="{JobModelMODSTI>JOBDESC}"/>
+						<Text text="{JobModelMODSTI>CTYPE}"/>
+						<Text text="{JobModelMODSTI>WRCTR}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</ScrollContainer>
+</core:FragmentDefinition>

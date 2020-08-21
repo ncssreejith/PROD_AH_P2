@@ -1,0 +1,176 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar">
+	<l:VerticalLayout width="100%">
+		<HBox class="sapUiSmallMargin">
+			<VBox width="25%">
+				<VBox class="bgColorWhite sapUiSmallMargin">
+					<VBox class="sapUiSmallMargin">
+						<Label text="Job Summary" design="Bold"/>
+						<Text text="{oViewModel>/sJobDesc}"/>
+					</VBox>
+					<VBox class="sapUiSmallMargin">
+						<HBox>
+							<Label design="Bold" text="Past ADD(s)" width="150px"/>
+							<Text text="{oViewGlobalModel>/PastAdd}" width="200px"/>
+						</HBox>
+						<HBox class="sapUiTinyMarginTop">
+							<Label design="Bold" text="Initial ADD Date" width="150px"/>
+							<Text text="{oViewGlobalModel>/PastAdd}" width="200px"/>
+						</HBox>
+					</VBox>
+				</VBox>
+				<VBox class="bgColorGray sapUiSmallMargin">
+					<HBox class="sapUiSmallMargin">
+						<Label design="Bold" text="Acceptable Deferred Defects" wrapping="true" width="150px"/>
+						<Label design="Bold" text="2" class="fontSize25 sapUiLargeMarginBegin"/>
+						<Label design="Bold" text="/8" class="sapUiTinyMarginTop"/>
+					</HBox>
+				</VBox>
+			</VBox>
+			<VBox width="75%" height="100%" class="sapUiSmallMarginTop">
+				<HBox class="bgColorWhite">
+					<VBox class="bgColorWhiteWithRightBorder sapUiSmallMarginBegin sapUiSmallMarginTopBottom" width="30%">
+						<VBox class="sapUiSmallMarginBeginEnd">
+							<Label design="Bold" text="Date" width="150px"/>
+							<DatePicker
+								value="{path: 'oViewGlobalModel>/CAPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+								width="200px" fieldGroupIds="fgDate" required="true"/>
+						</VBox>
+						<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
+							<Label design="Bold" text="Time" width="150px"/>
+							<TimePicker width="200px" value="{oViewGlobalModel>/CAPTM}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true"/>
+						</VBox>
+					</VBox>
+					<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">
+						<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+							<VBox>
+								<HBox>
+									<Label design="Bold" text="Reason for ADD"/>
+									<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+								</HBox>
+								<ComboBox width="200px" selectionChange="onReasonForADDChange" items="{ReasonforADDModel>/}" selectedKey="{oViewGlobalModel>/CPRID}" required="true"
+									fieldGroupIds="fgCmbBox" placeholder="Select">
+									<core:Item text="{ReasonforADDModel>description}" key="{ReasonforADDModel>ddid}"/>
+									<!--	<core:Item text="No Spares Available" key="No Spares Available"/>
+									<core:Item text="Ops Requirement" key="Ops Requirement"/>
+									<core:Item text="No Manpower" key="No Manpower"/>
+									<core:Item text="Manpower Optimisation" key="Manpower Optimisation"/>
+									<core:Item text="Others" key="Others"/>-->
+								</ComboBox>
+							</VBox>
+							<VBox class=" sapUiSmallMarginBegin" visible="{oViewModel>/bDemandNo}">
+								<HBox>
+									<Label design="Bold" text="Demand No"/>
+									<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+								</HBox>
+								<Input width="200px" fieldGroupIds="fgInput" value="{oViewGlobalModel>/DMDID}" required="{oViewModel>/bDemandNo}"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBegin" visible="{oViewModel>/bOtherReason}">
+								<HBox>
+									<Label design="Bold" text="Other Reason"/>
+									<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+								</HBox>
+								<Input width="200px" fieldGroupIds="fgInput" required="{oViewModel>/bOtherReason}" value="{oViewGlobalModel>/OTHER_RSN}"/>
+							</VBox>
+						</HBox>
+						<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+							<VBox visible="{oViewModel>/bPeriodofDeferment}">
+								<HBox>
+									<Label design="Bold" text="Period of Deferment"/>
+									<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+								</HBox>
+								<ComboBox width="245px" selectionChange="onPrdOfDefermentChange" items="{PerioOfDeferCBModel>/}" selectedKey="{oViewGlobalModel>/DEFPD}"
+									required="true" fieldGroupIds="fgCmbBox">
+									<core:Item text="{PerioOfDeferCBModel>description}" key="{PerioOfDeferCBModel>ddid}"/>
+									<!--	<core:Item text="Upon earliest opportunity" key="Upon earliest opportunity"/>
+									<core:Item text="Upon pilot availability" key="Upon pilot availability"/>
+									<core:Item text="Upon Trial Mod due" key="Upon Trial Mod due"/>
+									<core:Item text="Upon item/ component change" key="Upon item/ component change"/>-->
+								</ComboBox>
+							</VBox>
+							<VBox class="sapUiSmallMarginBegin" visible="{oViewModel>/bPrdOfDefermentDesc}">
+								<HBox>
+									<Label design="Bold" text="Description"/>
+									<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+								</HBox>
+								<Input width="200px" fieldGroupIds="fgInput" value="{oViewGlobalModel>/DEFVL}" required="{oViewModel>/bPrdOfDefermentDesc}"/>
+							</VBox>
+						</HBox>
+						<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+							<VBox>
+								<Label design="Bold" text="But not later than" width="350px"/>
+								<SegmentedButton selectedKey="{oViewGlobalModel>/OPPR}" selectionChange="onReasonTypeChange" fieldGroupIds="fgSGBtn">
+									<items>
+										<SegmentedButtonItem text="Date" key="D" width="50%"/>
+										<SegmentedButtonItem text="Utilisation" key="U" width="50%"/>
+										<SegmentedButtonItem text="Both" key="B" width="50%"/>
+										<SegmentedButtonItem text="" key="N" visible="false"/>
+									</items>
+								</SegmentedButton>
+							</VBox>
+						</HBox>
+						<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewModel>/bDateSection}">
+							<VBox>
+								<Label design="Bold" text="Expiry Date" width="150px"/>
+								<DatePicker
+									value="{path: 'oViewGlobalModel>/EXPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+									width="200px" fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBegin">
+								<Label design="Bold" text="Time" width="150px"/>
+								<TimePicker width="200px" value="{oViewGlobalModel>/EXPTM}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime"
+									required="{oViewModel>/bDateSection}"/>
+							</VBox>
+						</HBox>
+						<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewModel>/bUtilisationSection}">
+							<VBox>
+								<Label design="Bold" text="Utilisation" width="150px"/>
+								<ComboBox width="200px" items="{UtilizationCBModel>/}" selectedKey="{oViewGlobalModel>/UTIL1}" selectionChange="onUilisationChange"
+									fieldGroupIds="fgCmbBox" required="{oViewModel>/bUtilisationSection}">
+									<core:Item text="{UtilizationCBModel>description}" key="{UtilizationCBModel>ddid}"/>
+									<!--<core:Item text="Airframe Hrs" key="AirFrame Hrs"/>
+									<core:Item text="EFT" key="EFT"/>
+									<core:Item text="EOT" key="EOT"/>
+									<core:Item text="Eng Cycle (TAC)" key="Eng Cycle(TAC)"/>
+									<core:Item text="Total JFS" key="Total JFS"/>
+									<core:Item text="Total Landing" key="Total Landing"/>
+									<core:Item text="Total Arrestor" key="Total Arrestor"/>-->
+								</ComboBox>
+							</VBox>
+							<VBox class="sapUiSmallMarginBegin">
+								<Label/>
+								<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" visible="{oViewModel>/bAirFrameAndTAC}" required="{oViewModel>/bAirFrameAndTAC}"/>
+								<ComboBox width="200px" items="{Utilization2CBModel>/}" visible="{oViewModel>/bScheduleService}" selectedKey="{oViewGlobalModel>/UTIL2}"
+									fieldGroupIds="fgCmbBox" required="{oViewModel>/bScheduleService}">
+									<core:Item text="{Utilization2CBModel>description}" key="{Utilization2CBModel>ddid}"/>
+									<!--<core:Item text="150 hrly servicing" key="150 hrly servicing"/>
+									<core:Item text="200 hrly servicing" key="200 hrly servicing"/>
+									<core:Item text="250 hrly servicing" key="250 hrly servicingg"/>-->
+								</ComboBox>
+								<Input value="52345" editable="false" visible="{oViewModel>/bPhaseService}" fieldGroupIds="fgInput" required="{oViewModel>/bPhaseService}"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBegin" visible="{oViewModel>/bScheduleService}">
+								<Label/>
+								<Input value="4550 AF Hrs" editable="false"/>
+							</VBox>
+						</HBox>
+						<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewModel>/bLimitationSection}">
+							<VBox>
+								<HBox visible="{oViewModel>/bLimitation}">
+									<Label design="Bold" text="Limitation"/>
+									<core:Icon src="sap-icon://sys-help-2" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>
+								</HBox>
+								<TextArea width="400px" value="{oViewGlobalModel>/LDESC}" visible="{oViewModel>/bLimitation}" maxLength="100" showExceededText="true"
+									fieldGroupIds="fgTxtArea" required="{oViewModel>/bLimitation}"/>
+								<Button icon="sap-icon://sys-add" text="Add Limitation" width="400px" class="sapUiTinyMarginTop addLimitationBtn addTemBtn"
+									press="onAddLimitaionPress" visible="{oViewModel>/bAddLimitationBtn}" iconFirst="true"/>
+								<!--								<Button class="addLimitationBtn IconLimitations" icon="sap-icon://sys-add" press="onAddLimitaionPress" type="Default" text="Add Limitation" width="400px"></Button>-->
+								<Button icon="sap-icon://sys-minus" text="Remove Limitation" width="400px" class="sapUiTinyMarginTop removeLimitationBtn"
+									press="onRemoveLimitaionPress" visible="{oViewModel>/bLimitation}"/>
+							</VBox>
+						</HBox>
+					</VBox>
+				</HBox>
+			</VBox>
+		</HBox>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

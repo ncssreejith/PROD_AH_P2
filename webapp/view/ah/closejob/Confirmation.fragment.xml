@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.ah.control">
+	<VBox backgroundDesign="Solid" class="sapUiLargeMargin">
+		<l:Grid hSpacing="1" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
+			<l:content>
+				<Toolbar>
+					<Title text="{i18n>ttlReview}" level="H3" titleStyle="H3"/>
+				</Toolbar>
+				<VBox >
+					<HBox>
+						<VBox class="sapUiTinyMargin">
+							<Label class="sapUiTinyMargin" design="Bold" text="{i18n>lbldt}"/>
+							<HBox>
+								<Text class="sapUiTinyMargin" text="{path : 'JobModel>/rectdt', formatter : '.formatter.defaultDatetoDateFormatDisplay'}"/>
+								<Text class="sapUiTinyMargin" text="{path : 'JobModel>/recttm', formatter : '.formatter.defaultTimeFormatDisplay'}"/></HBox>
+						</VBox>
+						<VBox class="sapUiTinyMargin">
+							<Label class="sapUiTinyMargin" design="Bold" text="{i18n>lblSummary}"/>
+							<Text class="sapUiTinyMargin" text="{JobModel>/recttxt}"/>
+						</VBox>
+						<layoutData>
+							<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+						</layoutData>
+					</HBox>
+					<Title class="sapUiTinyMargin" text="{i18n>hdngKeyTask}" level="H1" visible="{=${ViewModel>/sFlag}==='N'? true:false}"/>
+					<VBox class="sapUiTinyMargin" visible="{=${ViewModel>/sFlag}==='N'? true:false}">
+						<Table class="sparesTable" selectionChange="onTaskSelectionChange" items="{ViewModel>/selectedTask}">
+							<columns >
+								<Column class="sparesTableTextColor">
+									<Label class="whiteText" text="Work Center"/>
+								</Column>
+								<Column class="sparesTableTextColor">
+									<Label class="whiteText" text="Task"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Label class="whiteText" text="Follow-up Task"/>
+								</Column>
+							</columns>
+							<items >
+								<ColumnListItem unread="true" type="{ViewModel>type}">
+									<cells >
+										<Text text="{ViewModel>wrctr}"/>
+										<Text text="{ViewModel>tdesc}"/>
+										<Text text="{ViewModel>ftdesc}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</VBox>
+					<layoutData>
+						<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+					</layoutData>
+				</VBox>
+			</l:content>
+		</l:Grid>
+	</VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,105 @@
+<mvc:View controllerName="avmet.ah.controller.CosAddDemandSpares" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Page showHeader="false">
+		<Toolbar height="4rem" class="backgroundWhite">
+			<Button icon="sap-icon://arrow-left" type="Transparent" class="iconColorWhite sapUiMediumMarginBegin" press="onNavBack"></Button>
+			<ObjectIdentifier id="oiSpareId" title="{i18n>lblDemandSpares}" titleActive="false" class="sapUiTinyMarginBottom"/>
+		</Toolbar>
+		<content>
+			<VBox backgroundDesign="Solid" class="sapUiLargeMargin" width="70rem">
+				<VBox class="sapUiSmallMargin">
+					<l:Grid hSpacing="2" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+						<VBox>
+							<Label text="Work Center" design="Bold"/>
+							<ComboBox id="cbSpareId" required="true" fieldGroupIds="fgCmbBox" valueStateText="{i18n>ERROR_GENERIC}" width="100%"
+								selectedKey="{NewSpareModel>/workCenterSpares}" selectionChange="onWorkCenterChange">
+								<core:Item key="AEMF" text="AEMF"/>
+								<core:Item key="AWOF" text="AWOF"/>
+								<core:Item key="IMF" text="IMF"/>
+								<core:Item key="CNEF" text="CNEF"/>
+							</ComboBox>
+							<layoutData>
+								<l:GridData linebreak="true" span="XL3 L3 M6 S12"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="Priority" design="Bold"/>
+							<SegmentedButton id="sbSpareId" fieldGroupIds="fgSGBtn" selectedKey="NK">
+								<items>
+									<SegmentedButtonItem text="" visible="false" key="NK"/>
+									<SegmentedButtonItem text="P0 - Special Express" key="P0"/>
+									<SegmentedButtonItem text="P1 - Immediate" key="P1"/>
+									<SegmentedButtonItem text="P2 - Urgent" key="P2"/>
+									<SegmentedButtonItem text="P3 - Routine" key="P3"/>
+								</items>
+							</SegmentedButton>
+							<layoutData>
+								<l:GridData span="XL8 L8 M12 S12"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="SLoc" design="Bold"/>
+							<Input id="ipSLocId" value="{NewSpareModel>/sloc}" editable="false"/>
+							<layoutData>
+								<l:GridData linebreak="true" span="XL3 L3 M6 S12"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="Unloading Point" design="Bold"/>
+							<Input id="ipUnloadPoId" value="{NewSpareModel>/unloadingptSpare}" required="true" valueStateText="{i18n>ERROR_GENERIC}"
+								fieldGroupIds="fgInput"/>
+							<layoutData>
+								<l:GridData span="XL3 L3 M6 S12"/>
+							</layoutData>
+						</VBox>
+					</l:Grid>
+				</VBox>
+				<Table items="{NewSpareModel>/Spare}" class="sapUiMediumMargin CERTable sapUiSizeCompact" width="94%">
+					<headerToolbar>
+						<OverflowToolbar>
+							<content>
+								<Title text="Spares" level="H2"/>
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column hAlign="Center" width="12rem" class="CERTableTextColor">
+							<Label text="Part No." design="Bold"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Description" design="Bold"/>
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true" width="8rem" hAlign="Center">
+							<Label text="Qty" design="Bold"/>
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true" width="8rem" hAlign="Center">
+							<Label text="Availability" design="Bold"/>
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true" width="8rem" hAlign="Center">
+							<Label text=""/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Input required="true" valueStateText="{i18n>ERROR_GENERIC}" fieldGroupIds="fgInput" value="{NewSpareModel>SparePartNo}"/>
+								<Text text="{NewSpareModel>SparePartDescrption}"/>
+								<StepInput required="true" min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{NewSpareModel>SpareQty}"/>
+								<Link text="Check Availability" press="onCheckAvailabilityPress"/>
+								<Link text="Delete" visible="{NewSpareModel>DeleteFlag}" press="onSpareTableDelete"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+				<Button class="sapUiLargeMarginBottom sapUiLargeMarginBegin IconSpares btnColor" icon="sap-icon://sys-add" press="addNewSpares" type="Default"
+					text="Add New Spare" width="64rem"></Button>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Submit" press="onsubmitSpares" type="Emphasized"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

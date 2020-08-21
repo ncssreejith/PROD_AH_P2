@@ -1,0 +1,190 @@
+{
+	"approvals": {
+		"01": {
+			"WorkflowId": "01",
+			"timestamp": "24/12/2019, 19:00",
+			"header": "Pending Confirmation",
+			"category": "Pending Confirmation",
+			"details": {
+				"header": "Pending Confirmation",
+				"subHeader": "Transfer Approved",
+				"category": "Pending Confirmation",
+				"jobNo": "12244",
+				"scenario": "BF",
+				"foundBy": "Test User",
+				"WorkCenter": "FCF"
+			},
+			"request": {
+				"requestedBy": "Alvin Chen",
+				"requestedType": "ePS Transfers",
+				"requestedCreated": "27/12/2019",
+				"requestedApproved": "28/12/2019",
+				"itemDispatched": "04/01/2020",
+				"expectedDelivery": "05/01/2020",
+				"linkText": "Click to View Transfer Request"
+			},
+			"isWizardVisible": true,
+			"isWizardVisibleLoan": false,
+			"nodes": [],
+			"lanes": [{
+				"id": "0",
+				"icon": "sap-icon://order-status",
+				"label": "Request Created",
+				"position": 0,
+				"visible": true,
+				"state": [{
+					"state": "Positive",
+					"value": 10
+				}]
+			}, {
+				"id": "1",
+				"icon": "sap-icon://approvals",
+				"label": "Request Approved",
+				"position": 1,
+				"visible": true,
+				"state": [{
+					"state": "Positive",
+					"value": 10
+				}]
+			}, {
+				"id": "2",
+				"icon": "sap-icon://shipping-status",
+				"label": "Item Dispatched",
+				"position": 2,
+				"visible": true,
+				"state": [{
+					"state": "Critical",
+					"value": 10
+				}]
+			}, {
+				"id": "3",
+				"icon": "sap-icon://complete",
+				"label": "Item Received",
+				"position": 3,
+				"visible": true,
+				"state": [{
+					"state": "Critical",
+					"value": 10
+				}]
+			}]
+		},
+
+		"02": {
+			"WorkflowId": "02",
+			"timestamp": "23/12/2019, 11:00",
+			"header": "Pending Into Unit Request",
+			"category": "Pending Into Unit Request",
+			"details": {
+				"header": "Pending Into Unit Request",
+				"subHeader": "Incoming Indent",
+				"category": "Pending Into Unit Request",
+				"jobNo": "08890",
+				"scenario": "BF",
+				"foundBy": "Test User 01",
+				"WorkCenter": "FCF"
+			},
+			"request": {
+				"requestedBy": "Kelvin Aw",
+				"requestedType": "Indent Request",
+				"requestedCreated": "23/12/2019",
+				"requestedApproved": "24/12/2019",
+				"itemDispatched": "26/12/2019",
+				"expectedDelivery": "27/12/2019",
+				"linkText": "Click to View Indent"
+			},
+			"isWizardVisible": true,
+			"isWizardVisibleLoan": false,
+			"nodes": [],
+			"lanes": [{
+				"id": "0",
+				"icon": "sap-icon://order-status",
+				"label": "Request Created",
+				"position": 0,
+				"visible": true,
+				"state": [{
+					"state": "Positive",
+					"value": 10
+				}]
+			}, {
+				"id": "1",
+				"icon": "sap-icon://approvals",
+				"label": "Request Approved",
+				"position": 1,
+				"visible": true,
+				"state": [{
+					"state": "Positive",
+					"value": 10
+				}]
+			}, {
+				"id": "2",
+				"icon": "sap-icon://shipping-status",
+				"label": "Item Dispatched",
+				"position": 2,
+				"visible": true,
+				"state": [{
+					"state": "Positive",
+					"value": 10
+				}]
+			}, {
+				"id": "3",
+				"icon": "sap-icon://complete",
+				"label": "Item Received",
+				"position": 3,
+				"visible": true,
+				"state": [{
+					"state": "Critical",
+					"value": 10
+				}]
+			}]
+		},
+
+		"03": {
+			"WorkflowId": "03",
+			"timestamp": "24/12/2019, 19:00",
+			"header": "Expiring Loaned Item",
+			"category": "Expiring Loaned Item",
+			"details": {
+				"header": "Expiring Loaned Item",
+				"subHeader": "Loan Expiring in 5 Days",
+				"category": "Expiring Loaned Item",
+				"jobNo": "10033",
+				"scenario": "BF",
+				"foundBy": "Test User 03",
+				"WorkCenter": "FCF"
+			},
+			"request": {
+				"requestedBy": "Joseph Lee",
+				"requestedType": "Loan Expiry",
+				"LoanedDate": "01/10/2019",
+				"ExpiryDate": "10/01/2020",
+				"CurrentDate": "05/01/2020",
+				"DaysTillExpiry": "5 Days",
+				"linkText": "Click to View Loan Request"
+			},
+			"isWizardVisible": false,
+			"isWizardVisibleLoan": true,
+			"nodesLoan": [],
+			"lanesLoan": [{
+				"id": "0",
+				"icon": "sap-icon://loan",
+				"label": "Loan Date : 01/10/2020",
+				"position": 0,
+				"visible": true,
+				"state": [{
+					"state": "Positive",
+					"value": 10
+				}]
+			}, {
+				"id": "1",
+				"icon": "sap-icon://appointment",
+				"label": "Expiry Date: 10/10/2020",
+				"position": 1,
+				"visible": true,
+				"state": [{
+					"state": "Critical",
+					"value": 10
+				}]
+			}]
+		}
+	}
+}

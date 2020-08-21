@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover showHeader="false" placement="Bottom"  afterClose="onPopoverAfterCLose">
+		<VBox>
+			<!--<Button type="Transparent" icon="sap-icon://edit"  press="editDefectInfo" text="Edit Defect Info"/>-->
+			<Button type="Transparent" icon="sap-icon://past" press="onOpenMangeLimitaionDialog" text="Extend ADD"/>
+		</VBox>
+	</Popover>
+</core:FragmentDefinition>

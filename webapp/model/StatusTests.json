@@ -1,0 +1,14 @@
+{
+	"Defects": [{
+		"NatureDef": "",
+		"FAIR": "N"
+	}],
+	"Timings": [{
+		"SLNo": "1",
+		"EngingStartTime": "",
+		"WeightOffWheels": "",
+		"WeightOnWheels": "",
+		"EngingStopTime": "",
+		"bDeleteIcon": false
+	}]
+}

@@ -1,0 +1,87 @@
+<mvc:View controllerName="avmet.ah.controller.RoleDisplayStations" xmlns="sap.m" xmlns:semantic="sap.f.semantic" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:si="sap.suite.ui.commons.statusindicator" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Page id="page" title="Role Display" showFooter="true" showNavButton="true" enableScrolling="true" navButtonPress="onBack">
+		<content>
+			<HBox class="sapUiSmallMargin aircraftTitleBGWhite">
+				<l:Splitter class="sapUiLargeMargin">
+					<VBox height="65%">
+						<ScrollContainer height="65%" vertical="true" focusable="true">
+							<List id="list" class="sapFDynamicPageAlignContent"
+								items="{path : 'oRoleChangeModel>/Stations' , sorter: { path: 'DDID', descending: true}}"
+								mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" growing="true" growingScrollToLoad="true"
+								updateFinished=".onUpdateFinishe" selectionChange=".onSelectionChange">
+								<items>
+									<CustomListItem>
+										<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" height="30px">
+											<Label text="{oRoleChangeModel>L_TXT}" class="sapUiTinyMarginTop sapUiTinyMarginEnd fontSize17"/>
+											<core:Icon visible="{oRoleChangeModel>selected}" src="sap-icon://attachment-photo" class="sapUiTinyMarginTop sapUiLargeMarginBegin"/>
+										</HBox>
+									</CustomListItem>
+								</items>
+							</List>
+						</ScrollContainer>
+						<layoutData>
+							<l:SplitterLayoutData size="190px" resizable="false"/>
+						</layoutData>
+					</VBox>
+					<!--<ScrollContainer>-->
+					<!--	<HBox visible="{=${oRoleChangeModel>/bGunSection}=== true ? false : true}">-->
+					<!--		<core:Fragment fragmentName="avmet.ah.fragments.rolechange.Pylon" type="XML"/>-->
+					<!--	</HBox>-->
+					<!--	<layoutData>-->
+					<!--		<l:SplitterLayoutData size="15rem" resizable="false"/>-->
+					<!--	</layoutData>-->
+					<!--</ScrollContainer>-->
+					<VBox alignItems="Center" class="sapUiSmallMarginBeginEnd greyBGRoleChange" visible="{oRoleChangeModel>/bNoDrop}">
+						<Label text="{oRoleChangeModel>/StationName}" design="Bold" class="sapUiTinyMarginTop"/>
+						<FlexBox alignItems="Center" backgroundDesign="Transparent" class="sapUiTinyMarginTopBottom" visible="{oRoleChangeModel>/bGunSection}">
+							<VBox>
+								<VBox class="aircraftTitleBGWhite sapUiTinyMargin">
+									<StepInput editable="false" value="{oRoleChangeModel>/iMaxValueEntered}"
+										max="{path: 'oRoleChangeModel>/oSelectedStation/MAX', formatter : '.formatter.FormatRoleMaxValue'}"
+										description="/ {oRoleChangeModel>/oSelectedStation/MAX}" class="sapUiTinyMargin"/>
+								</VBox>
+								<!--<VBox class="aircraftTitleBGWhite sapUiTinyMargin" visible="{oRoleChangeModel>/bHotColdSection}">-->
+								<!--	<RadioButton text="Hot" select="onSelectHotCold"/>-->
+								<!--	<RadioButton text="Cold" select="onSelectHotCold"/>-->
+								<!--</VBox>-->
+							</VBox>
+						</FlexBox>
+						<FlexBox alignItems="Center" backgroundDesign="Transparent" class="sapUiTinyMarginTopBottom" visible="{oRoleChangeModel>/bDropSection}">
+							<VBox>
+								<GenericTile header="{oRoleChangeModel>/TileZeroHeader}" subheader="{oRoleChangeModel>/SLNo1}" frameType="TwoByOne"
+									class="genericTileTextPosition tileLayout slNoMargin"></GenericTile>
+								<Image src="{oRoleChangeModel>/ArrowImagePath}" class="RoleChangeArrowImg"/>
+								<GenericTile id="genConnecter" frameType="TwoByOne" header="{oRoleChangeModel>/TileOneHeader}" class="genericTileTextPosition tileLayout"
+									></GenericTile>
+								<Image src="{oRoleChangeModel>/ArrowImagePath}" class="RoleChangeArrowImg"
+									visible="{path : 'oRoleChangeModel>/bICART', formatter : '.formatter.ImpulseCart'}"/>
+								<Image src="{oRoleChangeModel>/InstallImagePath}" class="RoleChangeInstallImg" visible="{oRoleChangeModel>/bICART}"/>
+								<GenericTile id="genMunition" header="{oRoleChangeModel>/TileTwoHeader}" frameType="TwoByOne"
+									class="genericTileTextPosition tileLayout slNoMargin" subheader="{oRoleChangeModel>/SLNo2}"></GenericTile>
+							</VBox>
+						</FlexBox>
+						<FlexBox alignItems="Center" backgroundDesign="Transparent" class="sapUiTinyMarginTopBottom" visible="{oRoleChangeModel>/bStation5}">
+							<VBox>
+								<GenericTile header="{oRoleChangeModel>/TileZeroHeader}" frameType="TwoByOne" class="genericTileTextPosition tileLayout"
+									press="onTileZeroUndo"></GenericTile>
+								<Image src="{oRoleChangeModel>/InstallImagePath}" class="RoleChangeInstallImg"/>
+								<GenericTile header="{oRoleChangeModel>/TileTwoHeader}" frameType="TwoByOne" class="genericTileTextPosition tileLayout"
+									subheader="{oRoleChangeModel>/SLNo2}" press="onTileTwoUndo"></GenericTile>
+							</VBox>
+						</FlexBox>
+						<layoutData>
+							<l:SplitterLayoutData size="30rem" resizable="false"/>
+						</layoutData>
+					</VBox>
+					<VBox>
+						<Image src="{oRoleChangeModel>/ImagePath}" width="15rem"/>
+						<layoutData>
+							<l:SplitterLayoutData size="auto"/>
+						</layoutData>
+					</VBox>
+				</l:Splitter>
+			</HBox>
+		</content>
+	</Page>
+</mvc:View>

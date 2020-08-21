@@ -1,0 +1,120 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="{ViewModel>/dialogTitle}" class="popoverHeaderCSS" contentWidth="40%">
+		<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+				<VBox visible="{=${CapExtendSet>/CPRID}!=='' &amp;&amp; ${CapExtendSet>/CPRID}!==null ? true :false}">
+					<HBox>
+						<Label design="Bold" text="Reason for ADD"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<ComboBox width="240px" change="onReasonForADDChange" items="{ReasonforADDModel>/}" selectedKey="{CapExtendSet>/CPRID}" required="true"
+						fieldGroupIds="fgCmbBox" placeholder="Select" editable="{ViewModel>/editableFlag}">
+						<core:Item text="{ReasonforADDModel>description}" key="{ReasonforADDModel>ddid}"/>
+					</ComboBox>
+				</VBox>
+				<VBox class=" sapUiSmallMarginBegin" visible="{=${CapExtendSet>/DMDID}!=='' &amp;&amp; ${CapExtendSet>/DMDID}!==null ? true :false}">
+					<HBox>
+						<Label design="Bold" text="Demand No"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<Input width="200px" fieldGroupIds="fgInput" value="{CapExtendSet>/DMDID}" editable="{ViewModel>/editableFlag}"
+						visible="{=${CapExtendSet>/DMDID}!=='' &amp;&amp; ${CapExtendSet>/DMDID}!==null ? true :false}"/>
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin" visible="{=${CapExtendSet>/OTHER_RSN}!=='' &amp;&amp; ${CapExtendSet>/OTHER_RSN}!==null ? true :false}">
+					<HBox>
+						<Label design="Bold" text="Other Reason"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<Input width="200px" fieldGroupIds="fgInput"
+						visible="{=${CapExtendSet>/OTHER_RSN}!=='' &amp;&amp; ${CapExtendSet>/OTHER_RSN}!==null ? true :false}" editable="{ViewModel>/editableFlag}"
+						value="{CapExtendSet>/OTHER_RSN}"/>
+				</VBox>
+			</HBox>
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+				<VBox visible="{=${CapExtendSet>/DEFPD}!=='' &amp;&amp; ${CapExtendSet>/DEFPD}!==null ? true :false}">
+					<HBox>
+						<Label design="Bold" text="Period of Deferment"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<ComboBox width="240px" change="onPrdOfDefermentChange" items="{PerioOfDeferCBModel>/}" selectedKey="{CapExtendSet>/DEFPD}" required="true"
+						fieldGroupIds="fgCmbBox" editable="{ViewModel>/editableFlag}">
+						<core:Item text="{PerioOfDeferCBModel>description}" key="{PerioOfDeferCBModel>ddid}"/>
+					</ComboBox>
+				</VBox>
+				<!--	<VBox class="sapUiSmallMarginBegin" visible="{=${CapExtendSet>/DEFVL}!=='' &amp;&amp; ${CapExtendSet>/DEFVL}!==null ? true :false}">
+					<HBox>
+						<Label design="Bold" text="Description"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<Input width="200px" fieldGroupIds="fgInput" value="{CapExtendSet>/DEFVL}" editable="{ViewModel>/editableFlag}"/>
+				</VBox>-->
+			</HBox>
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+				<VBox>
+					<Label design="Bold" text="But not later than" width="350px"/>
+					<SegmentedButton selectedKey="{CapExtendSet>/OPPR}" selectionChange="onReasonTypeChange" fieldGroupIds="fgSGBtn">
+						<items>
+							<SegmentedButtonItem text="Date" key="D" width="50%"/>
+							<SegmentedButtonItem text="Utilisation" key="U" width="50%"/>
+							<SegmentedButtonItem text="Both" key="B" width="50%"/>
+							<SegmentedButtonItem text="" key="N" visible="false"/>
+						</items>
+					</SegmentedButton>
+				</VBox>
+			</HBox>
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+				<VBox>
+					<Label design="Bold" text="Expiry Date" width="150px"/>
+					<DatePicker
+						value="{path:'CapExtendSet>/EXPDT',type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+						width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}" minDate="{oViewModel>/DatePrev}"/>
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin">
+					<Label design="Bold" text="Time" width="150px"/>
+					<TimePicker width="200px" value="{CapExtendSet>/EXPTM}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime"/>
+				</VBox>
+			</HBox>
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom"
+				visible="{=${CapExtendSet>/UTIL1}!=='' &amp;&amp; ${CapExtendSet>/UTIL1}!==null ? true :false}">
+				<VBox>
+					<Label design="Bold" text="Utilisation" width="150px"/>
+					<ComboBox width="200px" items="{UtilizationCBModel>/}" selectedKey="{CapExtendSet>/UTIL1}" change="onUilisationChange"
+						fieldGroupIds="fgCmbBox" editable="{ViewModel>/editableFlag}">
+						<core:Item text="{UtilizationCBModel>description}" key="{UtilizationCBModel>ddid}"/>
+						<!--<core:Item text="Airframe Hrs" key="AirFrame Hrs"/>
+									<core:Item text="EFT" key="EFT"/>
+									<core:Item text="EOT" key="EOT"/>
+									<core:Item text="Eng Cycle (TAC)" key="Eng Cycle(TAC)"/>
+									<core:Item text="Total JFS" key="Total JFS"/>
+									<core:Item text="Total Landing" key="Total Landing"/>
+									<core:Item text="Total Arrestor" key="Total Arrestor"/>-->
+					</ComboBox>
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin" visible="{=${CapExtendSet>/UTILVL}!=='' &amp;&amp; ${CapExtendSet>/UTILVL}!==null ? true :false}">
+					<Label/>
+					<StepInput width="200px" value="{CapExtendSet>/UTILVL}" editable="{ViewModel>/editableFlag}"/>
+				</VBox>
+			</HBox>
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom"
+				visible="{=${CapExtendSet>/LDESC}!=='' &amp;&amp; ${CapExtendSet>/LDESC}!==null ? true :false}">
+				<VBox>
+					<HBox>
+						<Label design="Bold" text="Limitation"/>
+						<core:Icon src="sap-icon://sys-help-2" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>
+					</HBox>
+					<TextArea width="400px" value="{CapExtendSet>/LDESC}" maxLength="100" showExceededText="true" fieldGroupIds="fgTxtArea" editable="{ViewModel>/editableFlag}" liveChange="handleLiveChangeFlyingRequirements"/>
+					<!--<Button icon="sap-icon://sys-add" text="Add Limitation" width="400px" class="sapUiTinyMarginTop addLimitationBtn addTemBtn"-->
+					<!--	press="onAddLimitaionPress" visible="{oViewLimitModel>/bAddLimitationBtn}" iconFirst="true"/>-->
+					<!--								<Button class="addLimitationBtn IconLimitations" icon="sap-icon://sys-add" press="onAddLimitaionPress" type="Default" text="Add Limitation" width="400px"></Button>-->
+					<!--<Button icon="sap-icon://sys-minus" text="Remove Limitation" width="400px" class="sapUiTinyMarginTop removeLimitationBtn"-->
+					<!--	press="onRemoveLimitaionPress" visible="{oViewLimitModel>/bLimitation}"/>-->
+				</VBox>
+			</HBox>
+		</VBox>
+		<buttons>
+			
+			<Button text="Cancel" press="onCloseMangeLimitaionDialog"/>
+			<Button text="{ViewModel>/btnText}" press="CAPDataUpdate" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<l:VerticalLayout class="backgroundBlue">
+		<Table id="tblEquip" columns="{oAircraftUtilModel>/equip}" class="TableHeaderBGColor">
+			<columns>
+				<Column hAlign="Center">
+					<Label text="{oAircraftUtilModel>coltxt}" wrapping="true" design="Bold"/>
+				</Column>
+			</columns>
+		</Table>
+		
+		<Button icon="sap-icon://sys-add" class="addTaskBtn" text="Add Equip Running Log" press="onAddEquipRunLog" width="100%"/>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

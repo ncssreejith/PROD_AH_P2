@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Table class="sapUiResponsivePadding sapUiTinyMarginBegin sapUiTinyMarginTopBottom CERTable tableHFont tableHeaderFontStyle"
+		updateFinished="onFuelTableUpdateFinish" width="98%">
+		<headerToolbar>
+			<OverflowToolbar class="dashboardTableHeader">
+				<content>
+					<core:Icon src="sap-icon://performance" color="white"/>
+					<Title text="Aircraft Utilisation" class="txtWhite sapUiTinyMarginTop" level="H1"/>
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column hAlign="Left" width="55%"></Column>
+			<Column minScreenWidth="Tablet" width="15%" hAlign="Right"></Column>
+		</columns>
+		<items>
+			
+
+			<ColumnListItem class="tableTextColor">
+				<cells>
+					<Text text="Airframe hours"/>
+					<Text text="{avmetModel>/airutil/COL_12}"/>
+				</cells>
+			</ColumnListItem>
+				<ColumnListItem class="tableTextColor">
+				<cells>
+					<Text text="#1 Eng Hrs"/>
+					<Text text="{avmetModel>/airutil/COL_13}"/>
+				</cells>
+			</ColumnListItem>
+				<ColumnListItem class="tableTextColor">
+				<cells>
+					<Text text="#2 Eng Hrs"/>
+					<Text text="{avmetModel>/airutil/COL_14}"/>
+				</cells>
+			</ColumnListItem>
+			<!--	<ColumnListItem class="tableTextColor">-->
+			<!--	<cells>-->
+			<!--		<Text text="Total Landings"/>-->
+			<!--		<Text text="{avmetModel>/airutil/col_15}"/>-->
+			<!--	</cells>-->
+			<!--</ColumnListItem>-->
+		</items>
+	</Table>
+</core:FragmentDefinition>

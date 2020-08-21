@@ -1,0 +1,91 @@
+<mvc:View controllerName="avmet.ah.controller.CosAddTMDE" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<Page showHeader="false">
+		<Toolbar height="4rem" class="backgroundWhite">
+			<Button icon="sap-icon://arrow-left" type="Transparent" class="iconColorWhite sapUiMediumMarginBegin" press="onNavBack"></Button>
+			<ObjectIdentifier title="{i18n>TMDETitle}" text="{i18n>tisubJobNo}" titleActive="false" class="sapUiTinyMarginBottom"/>
+		</Toolbar>
+		<content>
+			<VBox backgroundDesign="Solid" class="sapUiLargeMargin">
+				<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+					<HBox >
+						<VBox class="sapUiSmallMargin">
+							<Label text="Part No."/>
+							<Input id="ipPartNo" value="{ViewModel>/PartNo}" required="true" valueStateText="{i18n>ERROR_GENERIC}" fieldGroupIds="fgInput"></Input>
+							<layoutData>
+								<l:GridData linebreak="true" span="XL3 L3 M6 S12"/>
+							</layoutData>
+						</VBox>
+						<VBox class="sapUiSmallMargin">
+							<Label text="Serial No."/>
+							<Input id="ipSerialNo" value="{ViewModel>/SerialNo}" required="true" valueStateText="{i18n>ERROR_GENERIC}" fieldGroupIds="fgInput"></Input>
+							<layoutData>
+								<l:GridData span="XL3 L3 M12 S12"/>
+							</layoutData>
+						</VBox>
+						<VBox class="sapUiSmallMargin">
+							<Label text="Type"/>
+							<Input id="ipType" editable="false" value="{ViewModel>/Type}"></Input>
+							<layoutData>
+								<l:GridData linebreak="true" span="XL3 L3 M6 S12"/>
+							</layoutData>
+						</VBox>
+					</HBox>
+					<VBox class="sapUiSmallMargin">
+						<Label text="Unit of Measurement"/>
+						<ComboBox id="slUoM" change="onUoMSelect" required="true" fieldGroupIds="fgCmbBox" valueStateText="{i18n>ERROR_GENERIC}">
+							<core:Item key="pounds" text="pounds"/>
+							<core:Item key="inchpounds" text="inch pounds"/>
+							<core:Item key="footpounds" text="foot pounds"/>
+						</ComboBox>
+						<layoutData>
+							<l:GridData span="XL3 L3 M6 S12"/>
+						</layoutData>
+					</VBox>
+				</l:Grid>
+				<VBox>
+					<Table id="tbTMDEId" visible="{ViewModel>/TMDETableFlag}" items="{TMDEModel>/TMDE}" class="sapUiMediumMargin CERTable sapUiSizeCompact"
+						width="92%">
+						<columns>
+							<Column class="sparesTableTextColor">
+								<Label text="Torque Set"/>
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true">
+								<Label text="Torque Range(Optional)"/>
+							</Column>
+							<Column minScreenWidth="Desktop" demandPopin="true">
+								<Label text="Location"/>
+							</Column>
+							<Column minScreenWidth="Desktop" demandPopin="true">
+								<Label text=""/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<StepInput value="{TMDEModel>TorqueSet}" change="onTorqueSetChange" required="true" valueStateText="{i18n>ERROR_GENERIC}"
+										fieldGroupIds="fgInput" min="0"/>
+									<HBox>
+										<StepInput value="{TMDEModel>TorqueRangeMin}" required="true" valueStateText="{i18n>ERROR_GENERIC}" fieldGroupIds="fgInput" min="0"/>
+										<Text text="to" class="sapUiTinyMargin" width="1rem"/>
+										<StepInput value="{TMDEModel>TorqueRangeMax}" required="true" valueStateText="{i18n>ERROR_GENERIC}" fieldGroupIds="fgInput" min="0"/>
+									</HBox>
+									<Input value="{TMDEModel>Location}" required="true" valueStateText="{i18n>ERROR_GENERIC}" fieldGroupIds="fgInput"/>
+									<Link text="Delete" visible="{TMDEModel>Delete}" press="onTMDEDelete"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+					<Button visible="{ViewModel>/TMDETableFlag}" class="sapUiLargeMarginBottom sapUiLargeMarginBegin tmdeIcon btnColor" icon="sap-icon://sys-add"
+						press="addNewTMDE" type="Default" text="Add" width="65rem"></Button>
+				</VBox>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Submit" type="Emphasized" press="onSubmitTMDE"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

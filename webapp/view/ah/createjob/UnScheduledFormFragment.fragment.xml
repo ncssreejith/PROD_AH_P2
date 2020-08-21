@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f" xmlns:u="sap.ui.unified">
+	<Label text="{i18n>lbJobDescription}" design="Bold"/>
+	<TextArea required="{=${oViewCreateModel>/jobty} === 'U' ? true : false}"
+			fieldGroupIds="{=${oViewCreateModel>/jobty} === 'U'? 'fgTxtArea' : ''}" width="27rem" valueStateText="{i18n>ERROR_GENERIC}"
+			value="{oViewCreateModel>/jobdesc}" maxLength="1000" growing="true" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true" rows="7"></TextArea>		
+	<HBox>
+		<VBox>
+			<Label text="{i18n>lbFoundDuring}" design="Bold"/>
+	    	<ComboBox placeholder="{i18n>phSelect}" required="{=${oViewCreateModel>/jobty} === 'U' ? true : false}"
+						fieldGroupIds="{=${oViewCreateModel>/jobty} === 'U'? 'fgCmbBox' : ''}" items="{FoundDuringSet>/}"
+						change="onFoundDuringChange('USC',$event)" selectedKey="{oViewCreateModel>/fndid}">
+						<core:Item key="{FoundDuringSet>ddid}" text="{FoundDuringSet>description}"/>
+					</ComboBox>
+		</VBox>
+		<VBox class="sapUiSmallMarginBegin">
+			<HBox>
+				<Label text="{i18n>lbWorkCenter}" design="Bold"/>
+				<Label text="{i18n>lbOptional}" class="sapUiLargeMarginBegin"/>
+			</HBox>
+			<ComboBox placeholder="{i18n>phSelect}" change="onWorkCenterChange('USC',$event)" selectedKey="{oViewCreateModel>/prime}"
+			items="{WorkCenterSet>/}">
+			<core:Item key="{WorkCenterSet>wrctr}" text="{WorkCenterSet>name}"/>
+		</ComboBox>
+		</VBox>
+	</HBox>
+</core:FragmentDefinition>

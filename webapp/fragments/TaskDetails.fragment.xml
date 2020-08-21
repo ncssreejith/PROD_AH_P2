@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+	<Dialog showHeader="false" contentWidth="60%">
+		<OverflowToolbar class="bgColorToolBar">
+			<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '1' ? true : false}"></Button>
+			<Button text="/" class="red redText" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '2' ? true : false}"></Button>
+			<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '3' ? true : false}"></Button>
+			<!--<Label text="{DetailsOutModel>/cdesc}" state="None" design="Bold" class="sapUiSmallMarginBegin" wrapping="true" width="80%"
+				visible="{=${DetailsOutModel>/cdesc} !== null ? true : false}"/>-->
+			<Label text="{DetailsOutModel>/tdesc}" state="None" design="Bold" class="sapUiSmallMarginBegin" wrapping="true" width="80%"/>
+			<ToolbarSpacer/>
+			<Button press="onAllOutStandingDetailsClose" icon="sap-icon://decline" type="Transparent" class="sapUiTinyMarginEnd"></Button>
+		</OverflowToolbar>
+		<VBox class="borderTask">
+			<Toolbar class="bgColorToolBar">
+				<Label text="Tradesman: {DetailsOutModel>/creusr}" design="Bold" class="sapUiSmallMarginBegin"/>
+				<ToolbarSpacer/>
+				<Label design="Bold"
+					text="{path:'DetailsOutModel>/credtm', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'DetailsOutModel>/creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+			</Toolbar>
+			<VBox class="sapUiSmallMargin borderTask">
+				<Toolbar class="bgColorToolBar">
+					<Label text="Follow-up Task" design="Bold"/>
+					<Text text="{DetailsOutModel>/ftdesc}"/>
+				</Toolbar>
+				<MessageStrip class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" type="Warning" showIcon="true"
+					text='This task is still outstanding'>
+					<Link text="Close Task" press="onCloseTask" class="sapUiLargeMarginBegin"/>
+				</MessageStrip>
+			</VBox>
+		</VBox>
+		<endButton>
+			<Button press="onAllOutStandingDetailsClose" text="Mange Task" type="Emphasized"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

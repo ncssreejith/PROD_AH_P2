@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control">
+	<FlexBox class="columns">
+		<VBox>
+			<ct:HeaderCard title="FLC"/>
+		</VBox>
+		<HBox class="sapUiLargeMarginBegin" items="{oUpdateFlightModel>/FLC}">
+			<items>
+				<ct:IconHeaderCard title="{oUpdateFlightModel>description}" press="onPressUpdateFlightSerTile" signOffFlag="{oUpdateFlightModel>status}"
+					class="sapUiSmallMarginEnd" hoverOut="onCardHoverOut" hover="onCardHover">
+					<Image src="{oUpdateFlightModel>ImgSrc}"/>
+					<core:Icon src="sap-icon://accept" color="white"></core:Icon>
+				</ct:IconHeaderCard>
+			</items>
+		</HBox>
+	</FlexBox>
+</core:FragmentDefinition>

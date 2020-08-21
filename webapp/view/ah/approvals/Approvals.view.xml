@@ -1,0 +1,34 @@
+<mvc:View controllerName="avmet.ah.controller.Approvals" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+	<!--<Shell id="shell">
+		<App id="app">
+			<pages>-->
+	<Page title="{i18n>lblApprovals}" showNavButton="true" navButtonPress="onNavBack">
+		<VBox backgroundDesign="Transparent" height="100%">
+			<l:Splitter height="100%">
+				<VBox height="100%" backgroundDesign="Solid">
+					<core:Fragment fragmentName="avmet.ah.view.ah.approvals.Approval_Master" type="XML"/>
+					<layoutData >
+						<l:SplitterLayoutData size="30%" resizable="false"/>
+					</layoutData>
+				</VBox>
+				<VBox id="MasterId" visible="false">
+					<core:Fragment fragmentName="avmet.ah.view.ah.approvals.Approval_Details" type="XML"/>
+					<layoutData>
+						<l:SplitterLayoutData size="auto"/>
+					</layoutData>
+				</VBox>
+			</l:Splitter>
+		</VBox>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button text="Reject"  visible="{=${ApprovalListModel>/}.length !== 0 ? true:false}" press="onApproveRequest('R',$event)" class="DetailButtonBorder" width="120px" type="Transparent"/>
+				<Button text="Approve"  visible="{=${ApprovalListModel>/}.length !== 0 ? true:false}" press="onApproveRequest('A',$event)" class="DetailButtonBorder" width="120px" type="Emphasized"/>
+			</Toolbar>
+		</footer>
+	</Page>
+	<!--	</pages>
+		</App>
+	</Shell>-->
+</mvc:View>

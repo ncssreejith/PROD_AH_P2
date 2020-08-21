@@ -1,0 +1,62 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cs="avmet.ah.control" xmlns:tnt="sap.tnt">
+	<VBox class="WhiteVBox sapUiTinyMargin">
+		<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+			<items>
+				<Text class="PDSFragTitle" text="Limitations"/>
+				<Button text="Reviewed" id="btnLimitReview" type="Emphasized" press="onReviewedPress"/>
+			</items>
+		</FlexBox>
+		<List items="{ path: 'oPDSSummaryViewModel>/aLimitations'}" width="100%" class="sapUiResponsivePadding hboxColor">
+			<CustomListItem class="sapUiSmallMargin hboxColor" type="Navigation" press="onLimitationInformationPress($event,'Limit')">
+				<!--<HBox class="sapUiResponsivePadding hboxColor">-->
+				<!--	<cs:ColorStatus title="{localViewModel>Title}" status="{localViewModel>Status}"/>-->
+				<!--	<HBox class="sapUiSmallMargin">-->
+				<!--		<VBox alignContent="Center" alignItems="Center">-->
+				<!--			<Label text="{oPDSSummaryViewModel>AFHR}" design="Bold"></Label>-->
+				<!--			<Label text="A/F hrs left"></Label>-->
+				<!--		</VBox>-->
+				<!--		<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin">-->
+				<!--			<Label text="{oPDSSummaryViewModel>AFDAY}" design="Bold"></Label>-->
+				<!--			<Label text="day left"></Label>-->
+				<!--		</VBox>-->
+				<!--	</HBox>-->
+				<!--	<HBox class="sapUiSmallMargin">-->
+				<!--		<VBox>-->
+				<!--			<Label text="{oPDSSummaryViewModel>JOBDESC}" design="Bold"/>-->
+				<!--			<HBox visible="{= ${oPDSSummaryViewModel>CAPTY} === 'L'}">-->
+				<!--				<tnt:InfoLabel text="Limitation" renderMode="Narrow" colorScheme="7" class="sapUiTinyMarginTop" displayOnly="true"/>-->
+				<!--				<Label text="{oPDSSummaryViewModel>LDESC}" class="sapUiTinyMargin"/>-->
+				<!--			</HBox>-->
+				<!--		</VBox>-->
+				<!--	</HBox>-->
+				<!--</HBox>-->
+				<HBox class="sapUiResponsivePadding hboxColor">
+					<!--<cs:ColorStatus title="{localViewModel>Title}" status="{localViewModel>Status}"/>-->
+					<cs:ColorStatus status="{oPDSSummaryViewModel>AFDAY}" statushr="{oPDSSummaryViewModel>AFHR}"/>
+					<HBox class="sapUiSmallMargin">
+						<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin"
+							visible="{=${oPDSSummaryViewModel>EXPDT} !== null ? true : false}">
+							<Label text="{oPDSSummaryViewModel>AFDAY}" design="Bold"></Label>
+							<Label text="day left"></Label>
+						</VBox>
+						<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center"
+							visible="{=${oPDSSummaryViewModel>UTIL1} !== null ? true : false}">
+							<Label text="{oPDSSummaryViewModel>AFHR}" design="Bold"></Label>
+							<Label text="{oPDSSummaryViewModel>UTIL1TEXT}"></Label>
+						</VBox>
+					</HBox>
+					<HBox class="sapUiSmallMargin">
+						<VBox>
+							<Label text="{oPDSSummaryViewModel>LDESC}" design="Bold"/>
+							<HBox visible="{= ${oPDSSummaryViewModel>CAPTY} === 'A' || ${oPDSSummaryViewModel>CAPTY} === 'B'}">
+								<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${oPDSSummaryViewModel>JOBDESC} !== null}" renderMode="Narrow" colorScheme="7"
+									class="sapUiTinyMarginTop" displayOnly="true"/>
+								<Label text="{oPDSSummaryViewModel>JOBDESC}" visible="{= ${oPDSSummaryViewModel>JOBDESC} !== null}" class="sapUiTinyMargin"/>
+							</HBox>
+						</VBox>
+					</HBox>
+				</HBox>
+			</CustomListItem>
+		</List>
+	</VBox>
+</core:FragmentDefinition>

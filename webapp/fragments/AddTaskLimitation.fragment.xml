@@ -1,0 +1,75 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Add Limitation" class="popoverHeaderCSS" contentWidth="40%">
+		<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+				<VBox>
+					<HBox>
+						<Label design="Bold" text="Limitation"/>
+						<core:Icon src="sap-icon://sys-help-2" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>
+					</HBox>
+					<TextArea width="400px" value="{oViewGlobalModel>/LDESC}" maxLength="100" showExceededText="true"
+						fieldGroupIds="fgTxtArea" required="{oViewLimitModel>/bLimitation}" liveChange="handleLiveChangeFlyingRequirements"/>
+					<!--	<Button icon="sap-icon://sys-add" text="Add Limitation" width="400px" class="sapUiTinyMarginTop addLimitationBtn addTemBtn"
+						press="onAddLimitaionPress" visible="{oViewLimitModel>/bAddLimitationBtn}" iconFirst="true"/>
+					<Button icon="sap-icon://sys-minus" text="Remove Limitation" width="400px" class="sapUiTinyMarginTop removeLimitationBtn"
+						press="onRemoveLimitaionPress" visible="{oViewLimitModel>/bLimitation}"/>-->
+				</VBox>
+			</HBox>
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+				<VBox>
+					<HBox>
+						<Label design="Bold" text="Period of Deferment"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					</HBox>
+					<ComboBox width="245px" selectionChange="onPrdOfDefermentChange" items="{PerioOfDeferCBModel>/}" selectedKey="{oViewGlobalModel>/DEFPD}"
+						required="true" fieldGroupIds="fgCmbBox">
+						<core:Item text="{PerioOfDeferCBModel>description}" key="{PerioOfDeferCBModel>ddid}"/>
+					</ComboBox>
+				</VBox>
+			</HBox>
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+				<VBox>
+					<Label design="Bold" text="But not later than" width="350px"/>
+					<SegmentedButton selectedKey="{oViewGlobalModel>/OPPR}" selectionChange="onReasonTypeChange" fieldGroupIds="fgSGBtn">
+						<items>
+							<SegmentedButtonItem text="Date" key="D" width="50%"/>
+							<SegmentedButtonItem text="Utilisation" key="U" width="50%"/>
+							<SegmentedButtonItem text="Both" key="B" width="50%"/>
+							<SegmentedButtonItem text="" key="N" visible="false"/>
+						</items>
+					</SegmentedButton>
+				</VBox>
+			</HBox>
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewLimitModel>/bDateSection}">
+				<VBox>
+					<Label design="Bold" text="Expiry Date" width="150px"/>
+					<DatePicker
+						value="{path: 'oViewGlobalModel>/EXPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+						width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}"/>
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin">
+					<Label design="Bold" text="Time" width="150px"/>
+					<TimePicker width="200px" value="{oViewGlobalModel>/EXPTM}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime"
+						required="{oViewLimitModel>/bDateSection}"/>
+				</VBox>
+			</HBox>
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewLimitModel>/bUtilisationSection}">
+				<VBox>
+					<Label design="Bold" text="Utilisation" width="150px"/>
+					<ComboBox width="200px" items="{UtilizationCBModel>/}" selectedKey="{oViewGlobalModel>/UTIL1}" change="onUilisationChange"
+						fieldGroupIds="fgCmbBox" required="{oViewLimitModel>/bUtilisationSection}">
+						<core:Item text="{UtilizationCBModel>description}" key="{UtilizationCBModel>ddid}"/>
+					</ComboBox>
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin">
+					<Label/>
+					<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}"/>
+				</VBox>
+			</HBox>
+		</VBox>
+		<buttons>
+			<Button text="Cancel" press="onCloseAddLimDialog"/>
+			<Button text="Create Limitation" press="onCreateLimitationPress" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

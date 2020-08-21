@@ -1,0 +1,67 @@
+{
+	"toper": [{
+		"text": "A",
+		"key": "A"
+	}, {
+		"text": "B",
+		"key": "B"
+	}, {
+		"text": "C",
+		"key": "C"
+	}, {
+		"text": "D",
+		"key": "D"
+	}, {
+		"text": "E",
+		"key": "E"
+	}, {
+		"text": "F",
+		"key": "F"
+	}, {
+		"text": "G",
+		"key": "G"
+	}, {
+		"text": "Other",
+		"key": "other"
+	}],
+
+	"yn": [{
+		"text": "Yes",
+		"key": "Y"
+	}, {
+		"text": "No",
+		"key": "N"
+	}],
+	"flystat": [{
+		"text": "Flown",
+		"key": "F"
+	}, {
+		"text": "Not flown",
+		"key": "NF"
+	}],
+	"srvState": [{
+		"text": "Serviceable (S)",
+		"key": "AST_S"
+	}, {
+		"text": "Unserviceable (US)",
+		"key": "AST_US"
+	}],
+	"engine": [{
+		"text": "Engine 1",
+		"key": "engine1"
+	}, {
+		"text": "Engine 2",
+		"key": "engine2"
+	}],
+	"reasonCheck": [{
+		"text": "HIT",
+		"key":"1"
+	}, {
+		"text": "ETF",
+		"key":"2"
+	}, {
+		"text": "Re-establishment",
+		"key":"3"
+	}]
+
+}

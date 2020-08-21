@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover showHeader="false" contentWidth="200px" contentHeight="220px" placement="Bottom">
+		<NavContainer id="navCon">
+			<Page id="master" showHeader="false">
+				<List items="{/ManageJobs}" class="list">
+					<CustomListItem class="sapUiTinyMarginTopBottom" type="{NavTyp}" press="onManageListPress">
+						<HBox>
+							<core:Icon size="1rem" src="{Icon}" class="sapUiTinyMarginBeginEnd"/>
+							<Link text="{Name}" press="onManageListPress" wrapping="true"/>
+						</HBox>
+					</CustomListItem>
+				</List>
+				<Toolbar height="1px"/>
+				<List class="sapUiTinyMarginTopBottom list">
+					<CustomListItem type="Active">
+						<HBox class="sapUiTinyMarginTop">
+							<core:Icon size="1rem" src="sap-icon://alert" class="sapUiTinyMarginBeginEnd"/>
+							<Link text="Declare FAIR"/>
+						</HBox>
+					</CustomListItem>
+				</List>
+			</Page>
+			<Page id="detail" showNavButton="true" navButtonPress="onManageJobsNavBack" title="Back">
+				<List items="{/DetailsPageList}" class="list">
+					<CustomListItem class="sapUiTinyMarginTopBottom" type="{NavTyp}">
+						<HBox>
+							<core:Icon size="1rem" src="{Icon}" class="sapUiTinyMarginBeginEnd"/>
+							<Link text="{Name}"/>
+						</HBox>
+					</CustomListItem>
+				</List>
+			</Page>
+		</NavContainer>
+	</Popover>
+</core:FragmentDefinition>

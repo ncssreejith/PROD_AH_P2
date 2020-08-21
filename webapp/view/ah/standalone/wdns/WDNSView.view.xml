@@ -1,0 +1,119 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.WDNSView"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout">
+	<App>
+		<pages>
+			<Page title="WDNS Coefficients Record" navButtonPress="onNavBack" showNavButton="true">
+				<content>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button text="View Past records" press="onPastRecords"/>
+						<Button text="Update Records" type="Emphasized" press="onUpdateRecords"/>
+					</Toolbar>
+					<VBox>
+						<HBox renderType="Bare">
+							<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBegin CERTable tableHFont" updateFinished="onFuelTableUpdateFinish"
+								items="{path:'oWDNSModel>/engine',filters:[{path:'tabid',operator:'EQ',value1:'TAB_110'}]}" width="auto">
+								<!--<headerToolbar>-->
+								<!--	<OverflowToolbar>-->
+								<!--		<content>-->
+								<!--			<Title text="Non-Stations" level="H2"/>-->
+								<!--		</content>-->
+								<!--	</OverflowToolbar>-->
+								<!--</headerToolbar>-->
+								<columns>
+									<Column hAlign="Left" width="25%" class="textColor">
+										<Label text="Canopy Coefficient" design="Bold"/>
+									</Column>
+									<Column minScreenWidth="Tablet" width="20%" demandPopin="true" hAlign="Left" class="textColor">
+										<Label text="K" design="Bold" wrapping="true"/>
+									</Column>
+									<Column hAlign="Left" width="13%" class="textColor">
+										<Label text="T" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="15%" class="textColor">
+										<Label text="Updated By" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="13%" class="textColor">
+										<Label text="Date" design="Bold"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oWDNSModel>col_10}"/>
+											<Text text="{oWDNSModel>col_11}"/>
+											<Text text="{oWDNSModel>col_12}"/>
+											<Text text="{oWDNSModel>col_19}"/>
+											<Text text="{oWDNSModel>col_20}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<VBox>
+								<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBegin CERTable tableHFont" updateFinished="onFuelTableUpdateFinish"
+									items="{path:'oWDNSModel>/engine',filters:[{path:'tabid',operator:'EQ',value1:'TAB_111'}]}"  width="auto">
+									<!--<headerToolbar>-->
+									<!--	<OverflowToolbar>-->
+									<!--		<content>-->
+									<!--			<Title text="Non-Stations" level="H2"/>-->
+									<!--		</content>-->
+									<!--	</OverflowToolbar>-->
+									<!--</headerToolbar>-->
+									<columns>
+										<Column hAlign="Left" width="15%" class="textColor">
+											<Label text="CTVS Coefficient" design="Bold"/>
+										</Column>
+										<Column hAlign="Left" width="6%" class="textColor">
+											<Label text="K" design="Bold"/>
+										</Column>
+										<Column hAlign="Left" width="15%" class="textColor">
+											<Label text="Updated By" design="Bold"/>
+										</Column>
+										<Column hAlign="Left" width="15%" class="textColor">
+											<Label text="Date" design="Bold"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{oWDNSModel>col_10}"/>
+												<Text text="{oWDNSModel>col_11}"/>
+												<Text text="{oWDNSModel>col_19}"/>
+												<Text text="{oWDNSModel>col_20}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+								<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBegin CERTable tableHFont" updateFinished="onFuelTableUpdateFinish"
+									items="{path:'oWDNSModel>/engine',filters:[{path:'tabid',operator:'EQ',value1:'TAB_113'}]}"  width="auto">
+							
+									<columns>
+										<Column hAlign="Left" width="15%" class="textColor">
+											<Label text="FCC S/N:" design="Bold"/>
+										</Column>
+										<Column hAlign="Left" width="15%" class="textColor">
+											<Label text="Updated By" design="Bold"/>
+										</Column>
+										<Column hAlign="Left" width="15%" class="textColor">
+											<Label text="Date" design="Bold"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{oWDNSModel>CTVS Coefficient}"/>
+												<!--<Text text="{oWDNSModel>K}"/>-->
+												<Text text="{oWDNSModel>Updated By}"/>
+												<Text text="{oWDNSModel>Date}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</VBox>
+						</HBox>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

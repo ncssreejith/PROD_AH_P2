@@ -1,0 +1,216 @@
+<mvc:View controllerName="avmet.ah.controller.CosCreateTask" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Page id="page" showNavButton="false" showHeader="false">
+		<Toolbar id="tbId" height="4rem" class="backgroundWhite">
+			<Button icon="sap-icon://arrow-left" type="Transparent" press="onNavBack" class="iconColorWhite sapUiMediumMarginBegin"></Button>
+			<VBox>
+				<Title text="Create Task" class="titleTextBoldToolbar sapUiTinyMarginTop"></Title>
+				<Text text="{ViewModel>/JobId}"/>
+			</VBox>
+		</Toolbar>
+		<content>
+			<l:VerticalLayout width="100%">
+				<HBox class="sapUiSmallMargin">
+					<VBox width="25%" height="100%" class="bgColorWhite sapUiSmallMargin">
+						<VBox class="sapUiSmallMargin">
+							<VBox class="sapUiSmallMarginBeginEnd">
+								<Label design="Bold" text="Date" width="150px"/>
+								<!--	<DatePicker width="200px"/>-->
+								<DatePicker id="DP1"
+									value="{path: 'ViewModel>/sDate', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+									width="13rem" placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
+								<Label design="Bold" text="Time" width="150px"/>
+								<!--	<TimePicker width="200px"/>-->
+								<TimePicker id="TP1" value="{ViewModel>/Time}" width="13rem" valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange"
+									placeholder="Creation time..."/>
+							</VBox>
+						</VBox>
+					</VBox>
+					<VBox width="70%">
+						<List items="{path:'oCreateTaskModel>/aTasks',templateShareable: false}" noDataText="No Tasks Added" class="bgColorWhite sapUiSmallMargin">
+							<CustomListItem class="sapUiSmallMarginTopBottom">
+								<Toolbar>
+									<ToolbarSpacer/>
+									<Button text="Delete" press="onDeleteTaskPress" type="Reject"/>
+									<Button text="Edit" press="onEditTaskPress"/>
+								</Toolbar>
+								<VBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom">
+									<HBox>
+										<Label design="Bold" text="Task Type"/>
+										<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+									</HBox>
+									<Input editable="false" value="{oCreateTaskModel>sTaskTypeText}" width="350px"/>
+								</VBox>
+								<VBox visible="{oCreateTaskModel>bRemovalInstall}">
+									<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom">
+										<VBox>
+											<HBox>
+												<Label design="Bold" text="Task"/>
+												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+											</HBox>
+											<Input editable="false" value="{oCreateTaskModel>sTaskText}" width="350px"/>
+										</VBox>
+										<VBox class="sapUiLargeMarginBegin" visible="{oCreateTaskModel>bTechOrderRef}">
+											<Label design="Bold" text="Technical Order/ Reference"/>
+											<Input editable="false" value="{oCreateTaskModel>sTechOrderRef}" width="350px"/>
+										</VBox>
+									</HBox>
+									<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom" visible="{oCreateTaskModel>bType}">
+										<HBox>
+											<VBox>
+												<HBox>
+													<Label design="Bold" text="Type"/>
+													<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+												</HBox>
+												<Input editable="false" value="{oCreateTaskModel>sType1}" width="170px"/>
+											</VBox>
+											<VBox class="sapUiTinyMarginBegin">
+												<HBox>
+													<Label/>
+													<Text text="Optional" class="optionalTxtMargin" visible="{oCreateTaskModel>bOptionalLabel}"/>
+												</HBox>
+												<Input editable="false" value="{oCreateTaskModel>sType1Value}" width="170px"/>
+											</VBox>
+										</HBox>
+										<HBox class="sapUiLargeMarginBegin">
+											<VBox>
+												<HBox>
+													<Label design="Bold" text="Type"/>
+													<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+												</HBox>
+												<Input editable="false" value="{oCreateTaskModel>sType2}" width="170px"/>
+											</VBox>
+											<VBox class="sapUiTinyMarginBegin">
+												<HBox>
+													<Label/>
+													<Text text="Optional" class="optionalTxtMargin" visible="{oCreateTaskModel>bOptionalLabel}"/>
+												</HBox>
+												<Input editable="false" value="{oCreateTaskModel>sType2Value}" width="170px"/>
+											</VBox>
+										</HBox>
+									</HBox>
+									<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom" visible="{oCreateTaskModel>bCompDesc}">
+										<VBox >
+											<HBox>
+												<Label design="Bold" text="Component Description"/>
+												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+											</HBox>
+											<Input editable="false" value="{oCreateTaskModel>sCompDesc}" width="350px"/>
+										</VBox>
+									</HBox>
+									<!--/* Access */-->
+									<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom" visible="{oCreateTaskModel>bAccess}">
+										<HBox>
+											<VBox>
+												<HBox>
+													<Label design="Bold" text="Task Description"/>
+													<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+												</HBox>
+												<!--<Input editable="false" value="{oCreateTaskModel>sTypDesc}" width="170px"/>-->
+												<ComboBox width="170px" change="onTypeDescChange" items="{path:'TaskDescModel>/',templateShareable: false}" selectedKey="{oCreateTaskModel>sTypDesc}"
+													fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bAccess}" editable="false">
+													<core:Item text="{TaskDescModel>ttype}" key="{TaskDescModel>ttid}"/>
+												</ComboBox>
+											</VBox>
+											<VBox class="sapUiTinyMarginBegin">
+												<Label/>
+												<Input editable="false" value="{oCreateTaskModel>sTypDescValue}" width="170px"/>
+												<!--<ComboBox width="170px" change="onOpenForAccessChange" items="{path:'TT310Model>/',templateShareable: false}" selectedKey="{oCreateTaskModel>sOpnForAccKey}"
+													visible="{oCreateTaskModel>bOpenForAccess}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bOpenForAccess}" editable="false">
+													<core:Item text="{TT310Model>ttype}" key="{TT310Model>ttid}"/>
+												</ComboBox>
+												<ComboBox width="170px" change="onRemoveForAccessChange" items="{path:'TT311Model>/',templateShareable: false}" selectedKey="{oCreateTaskModel>sRemoveForAccKey}"
+													visible="{oCreateTaskModel>bRemoveForAccess}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bRemoveForAccess}" editable="false">
+													<core:Item text="{TT311Model>ttype}" key="{TT311Model>ttid}"/>
+												</ComboBox>-->
+											</VBox>
+											<!--/* bIndicateItem*/-->
+											<VBox class="sapUiTinyMarginBegin" visible="{oCreateTaskModel>bIndicateItem}">
+												<Label text="Indicate Item"/>
+												<Input editable="false" value="{oCreateTaskModel>sIndicateItem}" width="170px"/>
+											</VBox>
+										</HBox>
+									</HBox>
+									<!--/* Item No*/-->
+									<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom" visible="{oCreateTaskModel>bItemNo}">
+										<VBox>
+											<HBox>
+												<Label design="Bold" text="Item No"/>
+												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+											</HBox>
+											<Input editable="false" value="{oCreateTaskModel>sItemNo}" width="170px"/>
+										</VBox>
+									</HBox>
+									<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom">
+										<HBox>
+											<VBox visible="{oCreateTaskModel>bSLNo}">
+												<HBox>
+													<Label design="Bold" text="Serial No"/>
+													<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+												</HBox>
+												<Input editable="false" value="{oCreateTaskModel>sSLNo}" width="170px"/>
+											</VBox>
+											<VBox class="sapUiTinyMarginBegin" visible="{oCreateTaskModel>bCompCompDesc}">
+												<HBox>
+													<Label design="Bold" text="Component Description"/>
+													<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+												</HBox>
+												<Input editable="false" value="{oCreateTaskModel>sCompCompDesc}" width="170px" placeholder="eg. Test Set"/>
+											</VBox>
+										</HBox>
+									</HBox>
+								</VBox>
+								<VBox visible="{oCreateTaskModel>bOpsCheck}" class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom">
+									<HBox>
+										<Label design="Bold" text="Describe Task"/>
+										<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+									</HBox>
+									<TextArea editable="false" value="{oCreateTaskModel>sOpsDesc}" width="350px" rows="5"/>
+								</VBox>
+								<VBox visible="{oCreateTaskModel>bVisualInspection}" class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom">
+									<VBox>
+										<HBox>
+											<Label design="Bold" text="Check on Area"/>
+											<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+										</HBox>
+										<TextArea maxLength="500" value="{oCreateTaskModel>/sOtherDesc}" editable="false" fieldGroupIds="fgTxtArea"
+											required="{oCreateTaskModel>/bOthers}" showExceededText="true" width="350px" rows="5"/>
+									</VBox>
+								</VBox>
+								<VBox visible="{oCreateTaskModel>bOthers}" class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom">
+									<HBox>
+										<VBox>
+											<HBox>
+												<Label design="Bold" text="Describe Task"/>
+												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+											</HBox>
+											<TextArea value="{oCreateTaskModel>sOtherDesc}" editable="false" width="350px" rows="5"/>
+										</VBox>
+										<VBox class="sapUiLargeMarginBegin">
+											<HBox>
+												<Label design="Bold" text="Technical Order/ Reference"/>
+												<Text text="Optional" class="sapUiSmallMarginBegin"/>
+											</HBox>
+											<Input width="250px" value="{oCreateTaskModel>sTechOrderRef}" editable="false"/>
+										</VBox>
+									</HBox>
+								</VBox>
+							</CustomListItem>
+						</List>
+						<VBox class="bgColorWhite sapUiSmallMargin sapUiLargeMarginBegin">
+							<Button icon="sap-icon://sys-add" text="Add Task" width="844px" class="sapUiTinyMargin addTaskBtn" press="onAddTaskPress"/>
+						</VBox>
+					</VBox>
+				</HBox>
+			</l:VerticalLayout>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Create" type="Emphasized" press="onSubmit"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

@@ -1,0 +1,221 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Create Task" contentHeight="80%" contentWidth="60%">
+		<VBox>
+			<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
+				updateFinished="onFuelTableUpdateFinish"
+				items="{ path: 'WeightBalanceSet>/', filters : [{ path : 'WTIND', operator : 'EQ', value1 : 'T' }]}" width="auto">
+				<headerToolbar>
+					<OverflowToolbar class="BlueBackground">
+						<content>
+							<HBox>
+								<Label design="Bold" text="Previous Date Taken on {appModel>/sUser}" class="WDNSWhiteFont sapUiLargeMarginEnd"/>
+								<HBox>
+									<Label design="Bold" text="Previous Reading Taken By: " class="WDNSWhiteFont"/>
+									<Label text="{path:'appModel>/sDate', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								</HBox>
+							</HBox>
+						</content>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column hAlign="Left" width="56%" class="textColor" mergeDuplicates="true">
+						<!--<Label text="Canopy Coefficient" design="Bold"/>-->
+					</Column>
+					<Column minScreenWidth="Tablet" width="20%" demandPopin="true" hAlign="Left" class="textColor">
+						<Label text="Weight (lbs)" design="Bold" wrapping="true"/>
+					</Column>
+					<Column hAlign="Left" width="25%" class="textColor">
+						<Label text="Arm (ins)" design="Bold"/>
+					</Column>
+					<Column hAlign="Left" width="25%" class="textColor">
+						<Label text="Moment (lbs x ins)/100" wrapping="true" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Link text="Total As Weighted Weight"/>
+							<Text text="{WeightBalanceSet>Weight}"/>
+							<Text text="{WeightBalanceSet>Arm}"/>
+							<Text text="{WeightBalanceSet>Moment}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<Panel expandable="true" expand="true" headerText="Weight Change (Added)" class="sapUiSmallMarginBegin">
+				<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
+					updateFinished="onFuelTableUpdateFinish"
+					items="{ path: 'WeightBalanceSet>/', filters : [{ path : 'Inidicator', operator : 'EQ', value1 : 'O' }]}" width="auto">
+					<!--	<headerToolbar>
+							<OverflowToolbar>
+								<content>
+									<Title text="Weight Change (Added)" level="H2"/>
+								</content>
+							</OverflowToolbar>
+						</headerToolbar>-->
+					<columns>
+						<Column hAlign="Left" width="15%" class="textColor">
+							<Label text="Date" design="Bold"/>
+						</Column>
+						<Column hAlign="Left" width="6%" class="textColor">
+							<Label text="Item In" design="Bold"/>
+						</Column>
+						<Column hAlign="Left" width="15%" class="textColor">
+							<Label text="Description" design="Bold"/>
+						</Column>
+						<Column hAlign="Left" width="15%" class="textColor">
+							<Label text="Weight (lbs)" design="Bold"/>
+						</Column>
+						<Column hAlign="Left" width="15%" class="textColor">
+							<Label text="Arm (ins)" design="Bold"/>
+						</Column>
+						<Column hAlign="Left" width="15%" class="textColor">
+							<Label text="Moment (lbs x ins)/100" design="Bold"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{path:'WeightBalanceSet>ItemDate', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{WeightBalanceSet>Item}"/>
+								<Text text="{WeightBalanceSet>ItemDescription}"/>
+								<Text text="{WeightBalanceSet>Weight}"/>
+								<Text text="{WeightBalanceSet>Arm}"/>
+								<Text text="{WeightBalanceSet>Moment}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</Panel>
+			<Panel expandable="true" expand="true" headerText="Weight Change (Removed)" class="sapUiSmallMarginBegin">
+				<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
+					updateFinished="onFuelTableUpdateFinish"
+					items="{ path: 'WeightBalanceSet>/', filters : [{ path : 'Inidicator', operator : 'EQ', value1 : 'I' }]}" width="auto">
+					<!--	<headerToolbar>
+							<OverflowToolbar>
+								<content>
+									<Title text="Weight Change (Added)" level="H2"/>
+								</content>
+							</OverflowToolbar>
+						</headerToolbar>-->
+					<columns>
+						<Column hAlign="Left" width="15%" class="textColor">
+							<Label text="Date" design="Bold"/>
+						</Column>
+						<Column hAlign="Left" width="6%" class="textColor">
+							<Label text="Item In" design="Bold"/>
+						</Column>
+						<Column hAlign="Left" width="15%" class="textColor">
+							<Label text="Description" design="Bold"/>
+						</Column>
+						<Column hAlign="Left" width="15%" class="textColor">
+							<Label text="Weight (lbs)" design="Bold"/>
+						</Column>
+						<Column hAlign="Left" width="15%" class="textColor">
+							<Label text="Arm (ins)" design="Bold"/>
+						</Column>
+						<Column hAlign="Left" width="15%" class="textColor">
+							<Label text="Moment (lbs x ins)/100" design="Bold"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{path:'WeightBalanceSet>ItemDate', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{WeightBalanceSet>Item}"/>
+								<Text text="{WeightBalanceSet>ItemDescription}"/>
+								<Text text="{WeightBalanceSet>Weight}"/>
+								<Text text="{WeightBalanceSet>Arm}"/>
+								<Text text="{WeightBalanceSet>Moment}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</Panel>
+			<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
+				updateFinished="onFuelTableUpdateFinish"
+				items="{ path: 'WeightBalanceSet>/', filters : [{ path : 'WTIND', operator : 'EQ', value1 : 'A' }]}" width="auto">
+				<headerToolbar>
+					<OverflowToolbar>
+						<content>
+							<Title text="Calculated Weight" level="H2"/>
+						</content>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column hAlign="Left" width="56%" class="textColor" mergeDuplicates="true">
+						<!--	<Label text="Canopy Coefficient" design="Bold"/>-->
+					</Column>
+					<Column minScreenWidth="Tablet" width="20%" demandPopin="true" hAlign="Left" class="textColor">
+						<Label text="Weight (lbs)" design="Bold" wrapping="true"/>
+					</Column>
+					<Column hAlign="Left" width="25%" class="textColor">
+						<Label text="Arm (ins)" design="Bold"/>
+					</Column>
+					<Column hAlign="Left" width="25%" class="textColor">
+						<Label text="Moment (lbs x ins)/100" wrapping="true" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="Total Calculated Weight"/>
+							<Text text="{WeightBalanceSet>Weight}"/>
+							<Text text="{WeightBalanceSet>Arm}"/>
+							<Text text="{WeightBalanceSet>Moment}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
+				updateFinished="onFuelTableUpdateFinish"
+				items="{ path: 'WeightBalanceSet>/', filters : [{ path : 'WTIND', operator : 'EQ', value1 : 'M' }]}" width="auto">
+				<headerToolbar>
+					<OverflowToolbar>
+						<content>
+							<Title text="As Weighted Weight " level="H2"/>
+						</content>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column hAlign="Left" width="56%" class="textColor" mergeDuplicates="true">
+						<!--	<Label text="Canopy Coefficient" design="Bold"/>-->
+					</Column>
+					<Column minScreenWidth="Tablet" width="20%" demandPopin="true" hAlign="Left" class="textColor">
+						<Label text="Weight (lbs)" design="Bold" wrapping="true"/>
+					</Column>
+					<Column hAlign="Left" width="25%" class="textColor">
+						<Label text="Arm (ins)" design="Bold"/>
+					</Column>
+					<Column hAlign="Left" width="25%" class="textColor">
+						<Label text="Moment (lbs x ins)/100" wrapping="true" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="Total As Weighted Weight"/>
+							<Text text="{WeightBalanceSet>Weight}"/>
+							<Text text="{WeightBalanceSet>Arm}"/>
+							<Text text="{WeightBalanceSet>Moment}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<HBox class="sapUiMediumMarginBegin sapUiMediumMarginTop sapUiResponsivePadding">
+				<Label text="Updated by:" class="sapUiMediumMarginEnd" design="Bold"/>
+				<HBox>
+					<Label design="Bold" text="{appModel>/sUser1}" class="WDNSWhiteFont"/>
+					<Label text="{path:'appModel>/sDate1', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+				</HBox>
+			</HBox>
+			<HBox class="sapUiMediumMarginBegin sapUiMediumMarginTop sapUiResponsivePadding">
+				<Label text="Endorsed by:" class="sapUiMediumMarginEnd" design="Bold"/>
+				<HBox>
+					<Label design="Bold" text="{appModel>/sUser2}" class="WDNSWhiteFont"/>
+					<Label text="{path:'appModel>/sDate2', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+				</HBox>
+			</HBox>
+		</VBox>
+	</Dialog>
+</core:FragmentDefinition>

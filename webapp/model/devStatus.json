@@ -1,0 +1,28 @@
+{ "Completed":[  
+                   {"ItemName": "1) COS-Create Job", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "2) COS-ADDL", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "3) COS-Dashboard", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "4) COS-WDNS", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "5) COS-Engine", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "6) COS-Aircraft Transfer", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "7) COS-Limitation", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "8) BF-Aircraft Selection", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "9) BF-Dashboard Initial", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "10) BF-Flight Service", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "11) BF-Dashboard Pilot-Acceptance", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "12) BF-Equp-Running", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"},
+                   {"ItemName": "13) BF-Leading Particulars", "icon":"sap-icon://inspection", "Remarks": "Test:Screen Validation, Data & Navigation","Status":"Success"}
+                 ]
+       ,
+      "Remaining":[  
+                   {"ItemName": "Will update", "Remarks": " "}
+                 ]
+       ,
+      "Progressing":[  
+                   {"ItemName": "Will update", "Remarks": ""}
+                 ]
+       ,
+      "Tested":[  
+                   {"ItemName": "Will update", "Remarks": ""}
+                 ]
+      } 

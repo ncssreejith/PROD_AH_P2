@@ -1,0 +1,29 @@
+<mvc:View controllerName="avmet.ah.controller.DefectSummaryADD" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<!--<Shell id="shell">
+		<App id="app">
+			<pages>-->
+				<Page id="page"  showNavButton="false"  showHeader="false">
+					<Toolbar id="tbId" height="4rem" class="backgroundWhite">
+						<Button icon="sap-icon://arrow-left" type="Transparent" press="onNavBack" class="iconColorWhite sapUiMediumMarginBegin"></Button>
+						<VBox>
+							<Title text="FCC MFL 013 appeared in flight..." class="titleTextBoldToolbar sapUiTinyMarginTop"></Title>
+							<Text text="Job No.1234567"/>
+						</VBox>
+					</Toolbar>
+					<content>
+						<IconTabBar class="sapUiResponsiveContentPadding">
+							<items>
+								<IconTabFilter text="Summary">
+									<core:Fragment fragmentName="avmet.ah.view.ah.defectssummaryadd.ADDSummary" type="XML"/>
+								</IconTabFilter>
+								<IconTabSeparator icon=""/>
+								<IconTabFilter text="FCF"></IconTabFilter>
+							</items>
+						</IconTabBar>
+					</content>
+				</Page>
+		<!--	</pages>
+		</App>
+	</Shell>-->
+</mvc:View>

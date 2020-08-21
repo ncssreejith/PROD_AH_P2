@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<VBox class="sapUiLargeMargin">
+		<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+			<items>
+				<Title text="Workcenter selection" titleStyle="H3"/>
+				<Button text="Set Mass Limitation" press="onSetMassLimitation"/>
+			</items>
+		</FlexBox>
+		<HBox backgroundDesign="Solid" class="airCraftSelVBox">
+			<VBox class="aircraftModelVBox">
+				<Title text="Squadron"></Title>
+				<SegmentedButton width="100%" selectedKey="{oAirSelectViewModel>/sel/sqnid}" selectionChange="onAircraftSqnSelect" items="{oAirSelectViewModel>/sqn}"
+					class="sapUiSmallMarginTopBottom tailDiv">
+					<items>
+						<SegmentedButtonItem key="{oAirSelectViewModel>ddid}" text="{oAirSelectViewModel>description1}"></SegmentedButtonItem>
+					</items>
+				</SegmentedButton>
+			</VBox>
+			<VBox class="tailNoVBox sapUiMediumMarginBegin">
+				<Title text="Work Center"></Title>
+				<SegmentedButton items="{oAirSelectViewModel>/wc}" selectedKey="{oAirSelectViewModel>/sel/wcid}" selectionChange="onAircraftWCSelect" class="tailDiv sapUiSmallMarginTopBottom">
+					<items>
+						<SegmentedButtonItem key="{oAirSelectViewModel>wrctr}" text="{oAirSelectViewModel>name}"/>
+					</items>
+				</SegmentedButton>
+			</VBox>
+		</HBox>
+	</VBox>
+</core:FragmentDefinition>

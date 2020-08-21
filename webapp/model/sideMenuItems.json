@@ -1,0 +1,69 @@
+{
+	"ManageJobs": [{
+		"Name": "Dashboard",
+		"Icon": "sap-icon://bbyd-dashboard",
+		"NavTyp": "Active"
+	}, {
+		"Name": "Flight Servicing",
+		"Icon": "sap-icon://wrench",
+		"NavTyp": "Active"
+	}, {
+		"Name": "Jobs",
+		"Icon": "sap-icon://suitcase",
+		"NavTyp": "Active"
+	}, {
+		"Name": "Role Change",
+		"Icon": "sap-icon://action-settings",
+		"NavTyp": "Active"
+	}, {
+		"Name": "Approvals",
+		"Icon": "sap-icon://accept",
+		"NavTyp": "Active"
+	}, {
+		"Name": "Engine",
+		"Icon": "sap-icon://suitcase",
+		"NavTyp": "Active"
+	}, {
+		"Name": "Aircraft Capability",
+		"Icon": "sap-icon://shield",
+		"NavTyp": "Active"
+	}, {
+		"Name": "Aircraft Monitoring",
+		"Icon": "sap-icon://performance",
+		"NavTyp": "Navigation"
+	}, {
+		"Name": "Aircraft Information",
+		"Icon": "sap-icon://flight",
+		"NavTyp": "Navigation"
+	}],
+
+	"AircraftMonitoring": [{
+		"Name": "Flying Requirements",
+		"Icon": ""
+	}, {
+		"Name": "Aircraft Monitoring",
+		"Icon": ""
+	}, {
+		"Name": "Trial Modification Monitoring",
+		"Icon": ""
+	}, {
+		"Name": "Aircraft Utilisation",
+		"Icon": ""
+	}],
+
+	"AircraftInformation": [{
+		"Name": "Overview",
+		"Icon": ""
+	}, {
+		"Name": "Weight & Balance",
+		"Icon": ""
+	}, {
+		"Name": "WDNS Coefficients Records",
+		"Icon": ""
+	}],
+	"RectificationWrkCntr": [{
+		"WorkCenter": "AEMF",
+		"aTasks": []
+	}],
+	"DetailsPage": []
+}

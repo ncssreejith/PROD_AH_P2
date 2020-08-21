@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:u="sap.ui.unified">
+	<VBox class="sapUiSmallMargin">
+		<OverflowToolbar class="headerHeight">
+			<ObjectIdentifier title="{i18n>titleDefectInfo}" text="{CapSet>/JOBDESC}" titleActive="false" class="sapUiSmallMarginBegin"/>
+		</OverflowToolbar>
+		<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTop">
+			<HBox>
+				<Label design="Bold" class="sapUiTinyMargin" text="{i18n>lblJobNo}" width="150px"/>
+				<Text text="{CapSet>/JOBID}" class="sapUiTinyMargin" width="200px"/>
+			</HBox>
+			<HBox>
+				<Label design="Bold" class="sapUiTinyMargin" text="{i18n>lblFoundDur}" width="150px"/>
+				<Text text="{path:'CapSet>/FNDID', formatter:'.formatter.fndIdFormatter'}" width="200px" class="sapUiTinyMargin"/>
+			</HBox>
+			<HBox>
+				<Label design="Bold" class="sapUiTinyMargin" text="{i18n>lblFoundBy}" width="150px"/>
+				<Text text="{CapSet>/SUBUSR}" class="sapUiTinyMargin" width="200px"/>
+			</HBox>
+		</VBox>
+		<VBox class="sapUiSmallMarginTop" visible="{=${CapSet>/CAPTY} !== 'L' ? true : false}">
+			<core:HTML id="CanvasOverId" visible="false"
+				content='&lt;canvas id=&quot;myCanvasOverTop&quot; click="getPointPosition($event)" width=&quot;380&quot; height=&quot;170&quot; style=&quot;border:1px solid #000000&quot;&gt;&lt;/canvas&gt;'></core:HTML>
+		</VBox>
+		<layoutData>
+			<FlexItemData growFactor="1" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
+		</layoutData>
+		<!--<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin" visible="{= ${CapSet>/DEAID_M}!=='' &amp;&amp; ${CapSet>/DEAID_M}!==null ? true:false}">
+			<core:HTML id="CanvasId" visible="true"
+				content='&lt;canvas id=&quot;myCanvasTop&quot; click="getPointPosition($event)" width=&quot;340&quot; height=&quot;250&quot; style=&quot;border:1px solid #000000&quot;&gt;&lt;/canvas&gt;'></core:HTML>
+		</VBox>-->
+	</VBox>
+</core:FragmentDefinition>

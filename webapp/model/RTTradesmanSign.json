@@ -1,0 +1,43 @@
+{
+	"TradesmanSignItems": [{
+		"bSave": true,
+		"bEdit": false,
+		"area": "Panel check",
+		"tradesman": "",
+		"status": "noKey",
+		"bEnabled": true
+	}, {
+		"bSave": true,
+		"bEdit": false,
+		"area": "Water precautionary test (WPT)",
+		"tradesman": "",
+		"status": "noKey",
+		"bEnabled": true
+	}, {
+		"bSave": true,
+		"bEdit": false,
+		"area": "Night flying check",
+		"tradesman": "",
+		"status": "noKey",
+		"bEnabled": true
+	}, {
+		"bSave": true,
+		"bEdit": false,
+		"area": "Independent tools accountability check on WLC CTK (S/N 54321)",
+		"tradesman": "",
+		"status": "noKey",
+		"bEnabled": true
+	}],
+	"TeamLeadSingOffDetails": [{
+		"area": "Tools accountability check",
+		"tradesman": "Balaganesh",
+		"status": "Done"
+	}],
+	"Task" : [{
+		"Name" : "Routine Task1"
+	},{
+		"Name" : "Routine Task2"
+	},{
+		"Name" : "Routine Task3"
+	}]
+}

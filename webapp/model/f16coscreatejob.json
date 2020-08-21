@@ -1,0 +1,486 @@
+{
+	"CreateJob": {
+		"JobNature": "Defect",
+		"JobNumber": "",
+		"NatureofDefect": "",
+		"DefectPhotoSrc": "",
+		"DefectFoundDuring": "",
+		"DefectWorkCenter": "",
+		"DefectSymbol": "Cancel",
+		"DefectArea": "Top",
+		"DefectAreaSrc": "",
+		"ScheJobDesc": "",
+		"ScheJobDue": "",
+		"ScheJobDueTac": "0",
+		"ScheJobDueAFH": "0",
+		"ScheJobDueDate": "",
+		"ScheWorkCenter": "",
+		"UnscheJobDesc": "",
+		"UnscheFoundDuring": "",
+		"UnscheWorkCenter": "",
+		"UnscheSymbol": "Cancel",
+		"Date": "",
+		"Foundby": "",
+		"Time": "",
+		"ImageSrc":[{"Key":"01","src":"css/img/defectSummaryImg1.JPG"},{"Key":"02","src":"css/img/defectSummaryImg2.JPG"},{"Key":"03","src":"css/img/defectSummaryImg3.JPG"}]
+	},
+	"FoundDuringDefect": [{
+		"key": "01",
+		"text": "BF"
+	}, {
+		"key": "02",
+		"text": "TR"
+	}, {
+		"key": "03",
+		"text": "AF"
+	}, {
+		"key": "04",
+		"text": "Schedule Servicing"
+	}],
+	"WorkCenterDefect": [{
+		"key": "01",
+		"text": "AEMF"
+	}, {
+		"key": "02",
+		"text": "AWOF"
+	}, {
+		"key": "03",
+		"text": "IMF"
+	}, {
+		"key": "04",
+		"text": "CNEF"
+	}, {
+		"key": "05",
+		"text": "FCF"
+	}],
+	"JobDueSchedule": [{
+		"key": "01",
+		"text": "Air frame Hours"
+	}, {
+		"key": "02",
+		"text": "TAC"
+	}, {
+		"key": "03",
+		"text": "Date"
+	}],
+
+	"WorkCenterSchedule": [{
+		"key": "01",
+		"text": "AEMF"
+	}, {
+		"key": "02",
+		"text": "AWOF"
+	}, {
+		"key": "03",
+		"text": "IMF"
+	}, {
+		"key": "04",
+		"text": "CNEF"
+	}, {
+		"key": "05",
+		"text": "FCF"
+	}, {
+		"key": "06",
+		"text": "PRF"
+	}],
+
+	"FoundDuringUnschedule": [{
+		"key": "01",
+		"text": "BF"
+	}, {
+		"key": "02",
+		"text": "TR"
+	}, {
+		"key": "03",
+		"text": "AF"
+	}, {
+		"key": "04",
+		"text": "Schedule Servicing"
+	}, {
+		"key": "05",
+		"text": "Rectification"
+	}],
+	"MenuItems": [{
+		"Text": "Edit Job",
+		"Icon": "sap-icon://edit"
+	}, {
+		"Text": "Transfer Job to ADD/ Limitation",
+		"Icon": "sap-icon://share"
+	}, {
+		"Text": "View History Log",
+		"Icon": "sap-icon://history"
+	}, {
+		"TextSub": "Work Center",
+		"Icon": "sap-icon://suitcase"
+	}, {
+		"Text": "Add Related Job",
+		"Icon": "sap-icon://sys-add"
+	}, {
+		"Text": "Declare FAIR",
+		"Icon": "sap-icon://alert"
+	}, {
+		"Text": "Undo FAIR",
+		"Icon": "sap-icon://undo"
+	}, {
+		"Text": "Release for Rectification",
+		"Icon": "sap-icon://cancel-maintenance"
+	}],
+
+	"EditJobsMenuItems": [{
+		"Text": "Edit Job Details",
+		"Icon": "sap-icon://edit"
+	}, {
+		"Text": "Job Enter in Error",
+		"Icon": "sap-icon://sys-cancel-2"
+	}],
+
+	"WorkCenterMenuItems": [{
+		"Text": "Add Work Center",
+		"Icon": "sap-icon://sys-add"
+	}, {
+		"Text": "Manage Work Center",
+		"Icon": "sap-icon://suitcase"
+	}],
+
+	"DefectWorkCentersTiles": [{
+		"WorkCenterText": "Summary",
+		"VisibleTile": false,
+		"VisibleTab": true,
+		"Prime": false,
+		"Key": "00"
+	}, {
+		"WorkCenterText": "806 Squadron",
+		"VisibleTile": false,
+		"VisibleTab": false,
+		"Prime": false,
+		"Key": "01"
+	}, {
+		"WorkCenterText": "IMF-AH",
+		"VisibleTile": false,
+		"VisibleTab": false,
+		"Prime": false,
+		"Key": "02"
+	}, {
+		"WorkCenterText": "816 Squadron",
+		"VisibleTile": false,
+		"VisibleTab": false,
+		"Prime": false,
+		"Key": "03"
+	}, {
+		"WorkCenterText": "AWOF",
+		"VisibleTile": false,
+		"VisibleTab": false,
+		"Prime": false,
+		"Key": "04"
+	}, {
+		"WorkCenterText": "EWH",
+		"VisibleTile": false,
+		"VisibleTab": false,
+		"Prime": false,
+		"Key": "05"
+	}, {
+		"WorkCenterText": "EL",
+		"VisibleTile": false,
+		"VisibleTab": false,
+		"Prime": false,
+		"Key": "06"
+	}, {
+		"WorkCenterText": "RCF",
+		"VisibleTile": false,
+		"VisibleTab": false,
+		"Prime": false,
+		"Key": "07"
+	}, {
+		"WorkCenterText": "RTF",
+		"VisibleTile": false,
+		"VisibleTab": false,
+		"Prime": false,
+		"Key": "08"
+	}, {
+		"WorkCenterText": "CNEF",
+		"VisibleTile": false,
+		"VisibleTab": false,
+		"Prime": false,
+		"Key": "09"
+	}, {
+		"WorkCenterText": "AEMSTF",
+		"VisibleTile": false,
+		"VisibleTab": false,
+		"Prime": false,
+		"Key": "10"
+	}],
+
+	"WorkCentersList": [{
+		"WorkCenterText": "806 Squadron",
+		"Key": "01"
+	}, {
+		"WorkCenterText": "IMF-AH",
+		"Key": "02"
+	}, {
+		"WorkCenterText": "816 Squadron",
+		"Key": "03"
+	}, {
+		"WorkCenterText": "AWOF",
+		"Key": "04"
+	}, {
+		"WorkCenterText": "EWH",
+		"Key": "05"
+	}, {
+		"WorkCenterText": "EL",
+		"Key": "06"
+	}, {
+		"WorkCenterText": "RCF",
+		"Key": "07"
+	}, {
+		"WorkCenterText": "RTF",
+		"Key": "08"
+	}, {
+		"WorkCenterText": "CNEF",
+		"Key": "09"
+	}, {
+		"WorkCenterText": "AEMSTF",
+		"Key": "10"
+	}],
+
+	"TaskOutStanding": [],
+	"TaskPendingSupervisor": [],
+	"TaskCompleted": [],
+	"Spares": [],
+	"TMDE": [],
+	"FlyingRequirements": [],
+	"SortieMonitoring": [],
+	"TemplateList": [{
+		"Text": "Bird Strike Inspection Entries",
+		"Key": "01"
+	}, {
+		"Text": "Engine Ground Run Checklist",
+		"Key": "02"
+	}, {
+		"Text": "300 GAL Tank Installation",
+		"Key": "03"
+	}, {
+		"Text": "300 GAL Tank Removal",
+		"Key": "04"
+	}, {
+		"Text": "370 GAL Tank Installation",
+		"Key": "05"
+	}],
+
+		"TemplateTaskDetails": [{
+		"TemplateKey": "01",
+		"Text": "Perform engine operation",
+		"FollowupTask": "Engine operation carried out",
+		"Icon": "sap-icon://decline",
+		"TemplateId": "SN1F-16CJ-2-70JG-00-21. ‘SATIS’"
+	}, {
+		"TemplateKey": "02",
+		"Text": "Perform ground run operation",
+		"FollowupTask": "Ground run operation carried out",
+		"Icon": "sap-icon://decline",
+		"TemplateId": "SN1F-16CJ-2-70JG-00-21. ‘SATIS’"
+	}, {
+		"TemplateKey": "03",
+		"Text": "Perform 300 GAL tank installation operation",
+		"FollowupTask": "300 GAL tank installation operation carried out",
+		"Icon": "sap-icon://decline",
+		"TemplateId": "SN1F-16CJ-2-70JG-00-21. ‘SATIS’"
+	}, {
+		"TemplateKey": "04",
+		"Text": "Perform 300 GAL tank removal operation",
+		"FollowupTask": "300 GAL tank removal operation carried out",
+		"Icon": "sap-icon://decline",
+		"TemplateId": "SN1F-16CJ-2-70JG-00-21. ‘SATIS’"
+	}, {
+		"TemplateKey": "05",
+		"Text": "Perform 370 GAL tank installation operation",
+		"FollowupTask": "370 GAL tank installation operation carried out",
+		"Icon": "sap-icon://decline",
+		"TemplateId": "SN1F-16CJ-2-70JG-00-21. ‘SATIS’"
+	}],
+
+	"TemplateTask": [{
+		"TemplateKey": "01",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "Loose articles to be removed after engine run/ motoring from coverall and pockets including personal effects prior to ‘FO’ check.",
+		"FollowupTask": "Loose articles removed prior to engine run/ motoring from coverall and pockets including personal effects prior to ‘FO’ check.",
+		"TaskId": "APGCLO 00.07.01.05. ‘SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "01",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "‘FO’ check to be carried out on engine intake prior to engine run/ motoring",
+		"FollowupTask": "‘FO’ check to be carried out on engine intake prior to engine run/ motoring",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "01",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "A/C throttle linkage to engine inspected prior to engine run/ motoring",
+		"FollowupTask": "A/C throttle linkage to engine inspected prior to engine run/ motoring",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "01",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "Engine anti-personnel screen inspection prior to engine run/ motoring carried out",
+		"FollowupTask": "Engine anti-personnel screen inspection prior to engine run/ motoring carried out",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "02",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "Loose articles removed after engine run/ motoring from coverall and pockets including personal effects prior to ‘FO’ check.",
+		"FollowupTask": "Loose articles removed after engine run/ motoring from coverall and pockets including personal effects prior to ‘FO’ check.",
+		"TaskId": "APGCLO 00.07.01.05. ‘SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "02",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "‘FO’ carried out on engine intake after engine run/ motoring",
+		"FollowupTask": "‘FO’ carried out on engine intake after engine run/ motoring",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "02",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "‘FO’ carried out on engine intake after engine run/ motoring",
+		"FollowupTask": "‘FO’ carried out on engine intake after engine run/ motoring",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "02",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "‘FO’ check to be carried out on engine intake prior to engine run/ motoring",
+		"FollowupTask": "‘FO’ check to be carried out on engine intake prior to engine run/ motoring",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "03",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "A/C throttle linkage to engine inspected prior to engine run/ motoring",
+		"FollowupTask": "A/C throttle linkage to engine inspected prior to engine run/ motoring",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "03",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "Engine anti-personnel screen inspection prior to engine run/ motoring carried out",
+		"FollowupTask": "Engine anti-personnel screen inspection prior to engine run/ motoring carried out",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "03",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "Loose articles removed after engine run/ motoring from coverall and pockets including personal effects prior to ‘FO’ check.",
+		"FollowupTask": "Loose articles removed after engine run/ motoring from coverall and pockets including personal effects prior to ‘FO’ check.",
+		"TaskId": "APGCLO 00.07.01.05. ‘SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "03",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "Loose articles removed after engine run/ motoring from coverall and pockets including personal effects prior to ‘FO’ check.",
+		"FollowupTask": "Loose articles removed after engine run/ motoring from coverall and pockets including personal effects prior to ‘FO’ check.",
+		"TaskId": "APGCLO 00.07.01.05. ‘SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "04",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "‘FO’ carried out on engine intake after engine run/ motoring",
+		"FollowupTask": "‘FO’ carried out on engine intake after engine run/ motoring",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "04",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "‘FO’ carried out on engine intake after engine run/ motoring",
+		"FollowupTask": "‘FO’ carried out on engine intake after engine run/ motoring",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "04",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "‘FO’ check to be carried out on engine intake prior to engine run/ motoring",
+		"FollowupTask": "‘FO’ check to be carried out on engine intake prior to engine run/ motoring",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}, {
+		"TemplateKey": "04",
+		"Icon": "sap-icon://decline",
+		"sTaskType": "A/C throttle linkage to engine inspected prior to engine run/ motoring",
+		"FollowupTask": "A/C throttle linkage to engine inspected prior to engine run/ motoring",
+		"TaskId": "SN1F-16CJ-2-70JG-00-21 ‘ SATIS’",
+		"Date":"",
+		"Time":""
+	}],
+	"SoapSamplings":[{
+		"Engine":"F100-PW-229",
+		"SN":"PW00123456",
+		"Date":"24/12/2019",
+		"Time":"12:00",
+		"SoapSamplingNo":"12348",
+		"CurrentEngineHrs":"4150",
+		"EngineHrssinceOilChange":"30",
+		"Samplingpt":"3.5"
+	}],
+		"EngineOilReplenishment":[{
+		"Engine":"F100-PW-229",
+		"SN":"PW00123456",
+		"Date":"23/12/2019",
+		"Time":"12:00",
+		"EngineHrs":"4110",
+		"EngineHrssinceOilChange":"30",
+		"QtyAdded":"3.5"
+	},
+	{
+		"Engine":"F100-PW-229",
+		"SN":"PW00123456",
+		"Date":"22/12/2019",
+		"Time":"05:00",
+		"EngineHrs":"4102",
+		"EngineHrssinceOilChange":"20",
+		"QtyAdded":"3"
+	},
+	{
+		"Engine":"F100-PW-229",
+		"SN":"PW00123456",
+		"Date":"20/12/2019",
+		"Time":"15:00",
+		"EngineHrs":"4090",
+		"EngineHrssinceOilChange":"20",
+		"QtyAdded":"2.5"
+	},
+	{
+		"Engine":"F100-PW-229",
+		"SN":"PW00123456",
+		"Date":"18/12/2019",
+		"Time":"08:45",
+		"EngineHrs":"4085",
+		"EngineHrssinceOilChange":"20",
+		"QtyAdded":"3.5"
+	},
+	{
+		"Engine":"F100-PW-229",
+		"SN":"PW00123456",
+		"Date":"16/12/2019",
+		"Time":"08:45",
+		"EngineHrs":"4070",
+		"EngineHrssinceOilChange":"20",
+		"QtyAdded":"3.5"
+	}]
+
+}

@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog title="Edit Sortie Monitoring" draggable="true" class="popoverHeaderCSS" contentWidth="40%" verticalScrolling="false"
+		resizable="false">
+		<content>
+			<VBox justifyContent="Center" class="sapUiSmallMargin">
+				<Label design="Bold" text="Sortie Monitoring"></Label>
+				<TextArea value="{SORTSet>/SORDESC}" rows="4" width="100%" growingMaxLines="7" showExceededText="true" maxLength="1000"
+					editable="{SORTSet>/isEditableRemarks}" liveChange="handleLiveChangeFlyingRequirements"></TextArea>
+			</VBox>
+			<VBox justifyContent="Center" class="sapUiSmallMargin">
+				<Label design="Bold" text="Restriction Imposed"></Label>
+				<TextArea value="{SORTSet>/REST_IMPOSE}" rows="4" width="100%" growingMaxLines="7" showExceededText="true" maxLength="1000"
+					editable="{SORTSet>/isEditableRemarks}" liveChange="handleLiveChangeFlyingRequirements"></TextArea>
+			</VBox>
+			<VBox class="sapUiTinyMarginTop sapUiSmallMargin">
+				<Label text="To be Monitoried For" design="Bold" class="sapUiSmallMarginTop"/>
+				<HBox class="sapUiTinyMarginBegin">
+					<ComboBox placeholder="{i18n>phSelect}" items="{MonitoredForSet>/}" change="onFoundDuringChange('DEF',$event)"
+						selectedKey="{SORTSet>/MON_FOR}">
+						<core:Item key="{MonitoredForSet>ddid}" text="{MonitoredForSet>description}"/>
+					</ComboBox>
+					<StepInput required="true" min="0" fieldGroupIds="fgStepInput" value="{SORTSet>/SORCNT}" change="onSortiesNoChange"
+						class="sapUiSmallMarginBegin"/>
+				</HBox>
+			</VBox>
+		</content>
+		<buttons>
+			<Button id="btnClose" text="Close" tooltip="Close" press="onSortieMonitoringClose"></Button>
+			<Button id="btnSignOff" text="Sign Off" press="onSortieMonitoringUpdate" tooltip="Save" type="Emphasized"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

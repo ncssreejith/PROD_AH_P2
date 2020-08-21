@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Table class="sapUiResponsivePadding sapUiTinyMarginTop CERTable tableHFont tableHeaderFontStyle" id="tblRepFuel"
+		updateFinished="onFuelTableUpdateFinish" items="{oRepDetailsModel>/Fuel}">
+		<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="Fuel" level="H2"/>
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column hAlign="Left" width="15%" class="CERTableTextColor">
+				<Label text="Position" design="Bold"/>
+				<footer>
+					<Text text="Total (lbs)"/>
+				</footer>
+			</Column>
+			<Column minScreenWidth="Tablet" width="15%" demandPopin="true" hAlign="Left">
+				<Label text="Original Amount (lbs)" design="Bold" wrapping="true"/>
+				<footer>
+					<Text text="{oRepDetailsModel>/iFuelTotalOriAmt}"/>
+				</footer>
+			</Column>
+			<Column minScreenWidth="Tablet" width="15%" demandPopin="true" hAlign="Left">
+				<Label text="Serviced Amount (lbs)" design="Bold" wrapping="true"/>
+				<footer>
+					<Text text="{oRepDetailsModel>/iFuelTotalSerAmt}"/>
+				</footer>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+				<Label text="Total Amount (lbs)" design="Bold" wrapping="true"/>
+				<footer>
+					<Text text="{oRepDetailsModel>/iFuelTotalAmt} / {oRepDetailsModel>/iTotalMaxAmt}"/>
+				</footer>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem class="tableTextColor">
+				<cells>
+					<Text text="{oRepDetailsModel>resdescription}"/>
+					<StepInput width="100%" value="{oRepDetailsModel>orgamt}" change="onFuelTableUpdateFinish" min="0"/>
+					<StepInput width="100%" value="{oRepDetailsModel>srvamt}" change="onFuelTableUpdateFinish" min="0"/>
+					<StepInput editable="false" value="{oRepDetailsModel>totamt}" description=" / {oRepDetailsModel>max}" validationMode="LiveChange" min="0"
+						max="{path: 'oRepDetailsModel>max', formatter : '.formatter.FormatMaxValue'}" change="onFuelTableUpdateFinish"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

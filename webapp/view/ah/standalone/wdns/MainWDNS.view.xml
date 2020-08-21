@@ -1,0 +1,24 @@
+<mvc:View controllerName="avmet.ah.controller.MainWDNS" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:ct="avmet.ah.control" xmlns:l="sap.ui.layout">
+	<Page title="WDNS Coefficients Record - Aircraft OFP" showFooter="true" showNavButton="true" enableScrolling="true"
+		navButtonPress="onNavBack">
+		<content>
+			<l:VerticalLayout class="sapUiMediumMargin whiteBGColor" width="100%">
+				<l:content>
+					<HBox class="sapUiSmallMargin whiteBGColor">
+						<VBox class="sapUiSmallMargin sapUiLargeMarginBegin sapUiLargeMarginTop">
+							<ct:IconHeaderCard title="Harmonization" press="onPressWDNS">
+								<Image src="css/img/FollowupTask.jpg" class="sapUiTinyMargin"/>
+							</ct:IconHeaderCard>
+						</VBox>
+						<VBox class="sapUiSmallMargin sapUiLargeMarginBegin sapUiLargeMarginTop">
+							<ct:IconHeaderCard title="OFP Records" press="onPressOFPRecords">
+								<Image src="css/img/RoutineTasks.jpg" class="sapUiTinyMargin"/>
+							</ct:IconHeaderCard>
+						</VBox>
+					</HBox>
+				</l:content>
+			</l:VerticalLayout>
+		</content>
+	</Page>
+</mvc:View>

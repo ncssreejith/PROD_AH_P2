@@ -1,0 +1,281 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.UpdateWeightBalance"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Basic Weight and Balance Record" navButtonPress="onNavBack" showNavButton="true">
+				<content>
+					<VBox>
+						<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
+							items="{ path: 'WeightBalanceHeaderSet>/TotalWeightSet'}" width="auto">
+							<headerToolbar>
+								<OverflowToolbar class="BlueBackground">
+									<content>
+										<HBox>
+											<Label design="Bold" text="Previous Date Taken on:" class="WDNSWhiteFont sapUiTinyMarginEnd"/>
+											<Label design="Bold" text="{path:'WeightBalanceHeaderSet>/PrevDt', formatter:'.formatter.defaultDateFormatDisplay'}"
+												class="sapUiTinyMarginEnd WDNSWhiteFont"/>
+											<Label design="Bold" text="{path:'WeightBalanceHeaderSet>/PrevTm', formatter:'.formatter.defaultTimeFormatDisplay'}" class="WDNSWhiteFont sapUiMediumMarginEnd"/>
+											<Label design="Bold" text="Previous Reading Taken By: {WeightBalanceHeaderSet>/PrevUser}" class="WDNSWhiteFont"/>
+										</HBox>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column hAlign="Left" width="56%" class="textColor" mergeDuplicates="true">
+									<!--	<Label text="Canopy Coefficient" design="Bold"/>-->
+								</Column>
+								<Column minScreenWidth="Tablet" width="20%" demandPopin="true" hAlign="Left" class="textColor">
+									<Label text="Weight (lbs)" design="Bold" wrapping="true"/>
+								</Column>
+								<Column hAlign="Left" width="25%" class="textColor">
+									<Label text="Arm (ins)" design="Bold"/>
+								</Column>
+								<Column hAlign="Left" width="25%" class="textColor">
+									<Label text="Moment (lbs x ins)/100" wrapping="true" design="Bold"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Link text="{WeightBalanceHeaderSet>IDESC}" enabled="false"/>
+										<Text text="{WeightBalanceHeaderSet>WEIGHT}"/>
+										<Text text="{WeightBalanceHeaderSet>ARM}"/>
+										<Text text="{WeightBalanceHeaderSet>MOMENT}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<Panel expandable="true" expand="true" headerText="Weight Change (Added)" class="sapUiSmallMarginBegin">
+							<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont" updateFinished=""
+								items="{ path: 'WeightBalanceNewSet>/', filters : [{ path : 'IINDI', operator : 'EQ', value1 : 'I' }]}" width="auto">
+								<columns>
+									<Column hAlign="Left" width="15%" class="textColor">
+										<Label text="Date" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="6%" class="textColor">
+										<Label text="Item In" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="15%" class="textColor">
+										<Label text="Description" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="15%" class="textColor">
+										<Label text="Weight (lbs)" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="15%" class="textColor">
+										<Label text="Arm (ins)" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="15%" class="textColor">
+										<Label text="Moment (lbs x ins)/100" design="Bold"/>
+									</Column>
+									<Column hAlign="Right" width="5%" class="textColor" visible="{= ${appModel>/isViewEditable} ? true : false}">
+										<Label/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<VBox>
+												<!--<Text text="{path:'WeightBalanceNewSet>ItemDate', formatter:'.formatter.defaultDateFormatDisplay'}"
+													visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>-->
+												<DatePicker width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
+													value="{path: 'WeightBalanceNewSet>IDATEM', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+													placeholder="New job creation date ..." change="handleChange" editable="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"/>
+											</VBox>
+											<VBox>
+												<Text text="{WeightBalanceNewSet>ITEM}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
+												<Input value="{WeightBalanceNewSet>ITEM}" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}" fieldGroupIds="fgInput"
+													required="true"/>
+											</VBox>
+											<VBox>
+												<Text text="{WeightBalanceNewSet>IDESC}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
+												<Input value="{WeightBalanceNewSet>IDESC}" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}" fieldGroupIds="fgInput"
+													required="true"/>
+											</VBox>
+											<VBox>
+												<Text text="{WeightBalanceNewSet>WEIGHT}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
+												<Input value="{WeightBalanceNewSet>WEIGHT}" type="Number" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"
+													change="onChangeWeightAdd" fieldGroupIds="fgInput" required="true"/>
+											</VBox>
+											<VBox>
+												<Text text="{WeightBalanceNewSet>ARM}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
+												<Input value="{WeightBalanceNewSet>ARM}" type="Number" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"
+													change="onChangeArmAdd" fieldGroupIds="fgInput" required="true"/>
+											</VBox>
+											<VBox>
+												<Text text="{WeightBalanceNewSet>MOMENT}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
+												<Input value="{WeightBalanceNewSet>MOMENT}" type="Number" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"
+													change="onChangeMomentAdd" fieldGroupIds="fgInput" required="true"/>
+											</VBox>
+											<Button icon="sap-icon://delete" press="onDeleteAddedWeight" type="Transparent"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<HBox class="sapUiMediumMarginBegin sapUiMediumMarginTop sapUiResponsivePadding">
+								<Button icon="sap-icon://sys-add" class="addTaskBtn sapUiTinyMarginTop" text="Add New Item (Table Form)" press="onAddRoutineTask"
+									width="auto"/>
+							</HBox>
+						</Panel>
+						<Panel expandable="true" expand="true" headerText="Weight Change (Removed)" class="sapUiSmallMarginBegin">
+							<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
+								items="{ path: 'WeightBalanceNewSet>/', filters : [{ path : 'IINDI', operator : 'EQ', value1 : 'O' }]}" width="auto">
+								<columns>
+									<Column hAlign="Left" width="15%" class="textColor">
+										<Label text="Date" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="6%" class="textColor">
+										<Label text="Item In" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="15%" class="textColor">
+										<Label text="Description" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="15%" class="textColor">
+										<Label text="Weight (lbs)" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="15%" class="textColor">
+										<Label text="Arm (ins)" design="Bold"/>
+									</Column>
+									<Column hAlign="Left" width="15%" class="textColor">
+										<Label text="Moment (lbs x ins)/100" design="Bold"/>
+									</Column>
+									<Column hAlign="Right" width="5%" class="textColor" visible="{= ${appModel>/isViewEditable} ? true : false}">
+										<Label/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<VBox>
+												<!--	<Text text="{path:'WeightBalanceNewSet>ItemDate', formatter:'.formatter.defaultDateFormatDisplay'}"
+													visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>-->
+												<DatePicker width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
+													value="{path: 'WeightBalanceNewSet>IDATEM', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+													placeholder="New job creation date ..." change="handleChange" editable="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"/>
+											</VBox>
+											<VBox>
+												<Text text="{WeightBalanceNewSet>ITEM}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
+												<Input value="{WeightBalanceNewSet>ITEM}" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}" fieldGroupIds="fgInput"
+													required="true"/>
+											</VBox>
+											<VBox>
+												<Text text="{WeightBalanceNewSet>IDESC}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
+												<Input value="{WeightBalanceNewSet>IDESC}" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}" fieldGroupIds="fgInput"
+													required="true"/>
+											</VBox>
+											<VBox>
+												<Text text="{WeightBalanceNewSet>WEIGHT}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
+												<Input value="{WeightBalanceNewSet>WEIGHT}" type="Number" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"
+													change="onChangeWeightAdd" fieldGroupIds="fgInput" required="true"/>
+											</VBox>
+											<VBox>
+												<Text text="{WeightBalanceNewSet>ARM}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
+												<Input value="{WeightBalanceNewSet>ARM}" type="Number" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"
+													change="onChangeArmAdd" fieldGroupIds="fgInput" required="true"/>
+											</VBox>
+											<VBox>
+												<Text text="{WeightBalanceNewSet>MOMENT}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
+												<Input value="{WeightBalanceNewSet>MOMENT}" type="Number" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"
+													change="onChangeMomentAdd" fieldGroupIds="fgInput" required="true"/>
+											</VBox>
+											<Button icon="sap-icon://delete" press="onDeleteAddedWeight" type="Transparent"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<HBox class="sapUiMediumMarginBegin sapUiMediumMarginTop sapUiResponsivePadding">
+								<Button icon="sap-icon://sys-add" class="addTaskBtn sapUiTinyMarginTop" text="Add New Item (Table Form)" press="onAddRoutineTask1"
+									width="auto"/>
+							</HBox>
+						</Panel>
+						<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
+							items="{ path: 'WeightBalanceHeaderSet>/AutoCal'}" width="auto">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title text="Calculated Weight (Auto Calculated)" level="H2"/>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column hAlign="Left" width="56%" class="textColor" mergeDuplicates="true">
+									<!--<Label text="Canopy Coefficient" design="Bold"/>-->
+								</Column>
+								<Column minScreenWidth="Tablet" width="20%" demandPopin="true" hAlign="Left" class="textColor">
+									<Label text="Weight (lbs)" design="Bold" wrapping="true"/>
+								</Column>
+								<Column hAlign="Left" width="25%" class="textColor">
+									<Label text="Arm (ins)" design="Bold"/>
+								</Column>
+								<Column hAlign="Left" width="25%" class="textColor">
+									<Label text="Moment (lbs x ins)/100" wrapping="true" design="Bold"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{WeightBalanceHeaderSet>IDESC}"/>
+										<Text text="{WeightBalanceHeaderSet>WEIGHT}"/>
+										<Text text="{WeightBalanceHeaderSet>ARM}"/>
+										<Text text="{WeightBalanceHeaderSet>MOMENT}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<HBox class="sapUiMediumMarginBegin sapUiMediumMarginTop sapUiResponsivePadding">
+							<Label design="Bold" text="Required As Weighted Weight ?" class="sapUiTinyMarginTop"/>
+							<SegmentedButton id="SBWeight" class="sapUiSmallMarginBottom sapUiSmallMarginBegin" selectionChange="onSelectionChange" selectedKey="NA">
+								<items>
+									<SegmentedButtonItem key="NA" visible="false"/>
+									<SegmentedButtonItem text="Yes" key="Y" width="80%"/>
+									<SegmentedButtonItem text="No" key="N" width="80%"/>
+								</items>
+							</SegmentedButton>
+						</HBox>
+						<Table id="WeManId" class="sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBegin CERTable tableHFont" visible="false"
+							items="{ path: 'WeightBalanceHeaderSet>/WeightedWght'}" width="auto">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title text="As Weighted Weight " level="H2"/>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column hAlign="Left" width="56%" class="textColor" mergeDuplicates="true">
+									<!--<Label text="Canopy Coefficient" design="Bold"/>-->
+								</Column>
+								<Column minScreenWidth="Tablet" width="20%" demandPopin="true" hAlign="Left" class="textColor">
+									<Label text="Weight (lbs)" design="Bold" wrapping="true"/>
+								</Column>
+								<Column hAlign="Left" width="25%" class="textColor">
+									<Label text="Arm (ins)" design="Bold"/>
+								</Column>
+								<Column hAlign="Left" width="25%" class="textColor">
+									<Label text="Moment (lbs x ins)/100" wrapping="true" design="Bold"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{WeightBalanceHeaderSet>IDESC}"/>
+										<Input value="{WeightBalanceHeaderSet>WEIGHT}" type="Number"/>
+										<Input value="{WeightBalanceHeaderSet>ARM}" type="Number"/>
+										<Input value="{WeightBalanceHeaderSet>MOMENT}" type="Number"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</VBox>
+				</content>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<!--<Button text="Back" press="onNavBack"></Button>-->
+						<!--<Button text="Sign Off" type="Emphasized" press="onWeightBalanceCreate"></Button>-->
+						<Button class="iconTxt btnBoarder" type="Emphasized" text="Sign Off" press="onWeightBalanceHeaderCreate"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,141 @@
+{
+	"AFHrs": "",
+	"EFT": "",
+	"EOT": "",
+	"TAC": "",
+	"TotalJFSShot": "",
+	"TotalLanding": "",
+	"TotalArrestor": "",
+	"EquipEditPath": "",
+	"Date": "",
+	"Time": "",
+	"FieldEnable" : true,
+	"EngineRunLog": [{
+		"DateTime": "01/04/2020 10:30",
+		"AFHrs": "1234",
+		"EFT": "1234",
+		"EOT": "1234",
+		"TAC": "1567",
+		"TotalJFSShot": "2345",
+		"TotalLanding": "2456",
+		"TotalArrestor": "2456",
+		"UpdatedBy": "AvMet"
+	}, {
+		"DateTime": "01/04/2020 10:30",
+		"AFHrs": "1234",
+		"EFT": "1234",
+		"EOT": "1234",
+		"TAC": "1567",
+		"TotalJFSShot": "2345",
+		"TotalLanding": "2456",
+		"TotalArrestor": "2456",
+		"UpdatedBy": "AvMet"
+	}, {
+		"DateTime": "01/04/2020 10:30",
+		"AFHrs": "1234",
+		"EFT": "1234",
+		"EOT": "1234",
+		"TAC": "1567",
+		"TotalJFSShot": "2345",
+		"TotalLanding": "2456",
+		"TotalArrestor": "2456",
+		"UpdatedBy": "JenSen Li"
+	}, {
+		"DateTime": "01/04/2020 10:30",
+		"AFHrs": "1234",
+		"EFT": "1234",
+		"EOT": "1234",
+		"TAC": "1567",
+		"TotalJFSShot": "2345",
+		"TotalLanding": "2456",
+		"TotalArrestor": "2456",
+		"UpdatedBy": "AvMet"
+	}, {
+		"DateTime": "01/04/2020 10:30",
+		"AFHrs": "1234",
+		"EFT": "1234",
+		"EOT": "1234",
+		"TAC": "1567",
+		"TotalJFSShot": "2345",
+		"TotalLanding": "2456",
+		"TotalArrestor": "2456",
+		"UpdatedBy": "John Tan"
+	}, {
+		"DateTime": "01/04/2020 10:30",
+		"AFHrs": "1234",
+		"EFT": "1234",
+		"EOT": "1234",
+		"TAC": "1567",
+		"TotalJFSShot": "2345",
+		"TotalLanding": "2456",
+		"TotalArrestor": "2456",
+		"UpdatedBy": "Rain Lim"
+	}],
+
+	"FlyLog": [{
+		"DateTime": "01/04/2020 10:30",
+		"Roller": "123",
+		"Break": "123",
+		"Arrestor": "14",
+		"TypeOfOperation": "ASDF",
+		"AARTanker": "-",
+		"AARFuelQty": "-",
+		"NoOfAARContacts": "-",
+		"UpdatedBy": "Jo Li"
+	}, {
+		"DateTime": "01/04/2020 20:30",
+		"Roller": "123",
+		"Break": "123",
+		"Arrestor": "14",
+		"TypeOfOperation": "QWER",
+		"AARTanker": "Happy",
+		"AARFuelQty": "100",
+		"NoOfAARContacts": "1",
+		"UpdatedBy": "Mike Tan"
+	}, {
+		"DateTime": "01/04/2020 09:30",
+		"Roller": "123",
+		"Break": "123",
+		"Arrestor": "14",
+		"TypeOfOperation": "QWER",
+		"AARTanker": "-",
+		"AARFuelQty": "-",
+		"NoOfAARContacts": "-",
+		"UpdatedBy": "Albert See"
+	}, {
+		"DateTime": "01/04/2020 23:00",
+		"Roller": "123",
+		"Break": "123",
+		"Arrestor": "14",
+		"TypeOfOperation": "LKIH",
+		"AARTanker": "Bravo",
+		"AARFuelQty": "500",
+		"NoOfAARContacts": "3",
+		"UpdatedBy": "Chris Tan"
+	}],
+	"ManoeuvringLog": [{
+		"Date": "01/04/2020",
+		"AircraftAUW": "15900",
+		"LenOfFlightPeriod": "2.0",
+		"CumFlightPeriod": "2.0",
+		"NoOfRollsBeyond": "12",
+		"MaxRollAngle": "90",
+		"NoOfTimesPitch": "14",
+		"MaxPitchAngle": "60",
+		"MaxGAttain": "2.2",
+		"MinGAttain": "0.5",
+		"Crew": "Rain Lee"
+	}, {
+		"Date": "05/04/2020",
+		"AircraftAUW": "15900",
+		"LenOfFlightPeriod": "2.0",
+		"CumFlightPeriod": "2.0",
+		"NoOfRollsBeyond": "12",
+		"MaxRollAngle": "90",
+		"NoOfTimesPitch": "14",
+		"MaxPitchAngle": "60",
+		"MaxGAttain": "2.2",
+		"MinGAttain": "0.5",
+		"Crew": "Sunny Sim"
+	}]
+}

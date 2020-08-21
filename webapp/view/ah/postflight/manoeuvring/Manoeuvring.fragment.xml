@@ -1,0 +1,98 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control" xmlns:f="sap.f"
+	xmlns:card="sap.f.cards">
+	<l:VerticalLayout class="sapUiSmallMargin backgroundBlue" width="98%">
+		<l:content>
+			<VBox>
+				<HBox class="sapUiSmallMarginTop" width="100%">
+					<f:Card class="sapUiMediumMargin" width="200px">
+						<f:header>
+							<card:Header title=""/>
+						</f:header>
+						<f:content>
+							<VBox height="90px" class="sapUiSmallMargin" justifyContent="SpaceBetween">
+								<Text text="Each airframe is restricted to a maximum of 300 sortie of combat manoeuvring."/>
+								<Link text="Exceed limit? Consult SB/ALD" wrapping="true"/>
+							</VBox>
+						</f:content>
+					</f:Card>
+					<VBox class="sapUiMediumMarginTop sapUiLargeMarginBegin">
+						<VBox class="sapUiSmallMarginBeginEnd" width="100%">
+							<Label text="Is this a aerobatic manoeuvring?" design="Bold"/>
+							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/mano/manoe}" items="{postflightModel>/yn}" required="true" fieldGroupIds="fgCmbBox">
+								<items>
+									<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}" width="60%"/>
+								</items>
+							</SegmentedButton>
+						</VBox>
+					</VBox>
+				</HBox>
+				<VBox visible="{= ${oPilotUpdatesViewModel>/mano/manoe}==='Y'?true:false}">
+					<Toolbar height="7px"/>
+					<HBox width="100%">
+						<VBox width="30%">
+							<ct:HeaderCard title="Roll Record"/>
+						</VBox>
+						<HBox class="sapUiSmallMarginTop" width="70%">
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="# Rolls beyond 60° AOB" design="Bold"/>
+								<Input width="200px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/mano/rolaob}" required="true" fieldGroupIds="fgInput"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="Max roll angle (°)" design="Bold"/>
+								<Input width="200px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/mano/rolmax}" fieldGroupIds="fgInput" required="true"/>
+							</VBox>
+						</HBox>
+					</HBox>
+					<Toolbar height="7px"/>
+					<HBox width="100%">
+						<VBox width="30%">
+							<ct:HeaderCard title="Pitch Record"/>
+						</VBox>
+						<HBox class="sapUiSmallMarginTop" width="70%">
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="# Times with pitch beyond 30°" design="Bold"/>
+								<Input width="200px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/mano/pitch_1}" required="true" fieldGroupIds="fgInput"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="Max pitch angle (°)" design="Bold"/>
+								<Input width="200px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/mano/pitch_2}" fieldGroupIds="fgInput" required="true"/>
+							</VBox>
+						</HBox>
+					</HBox>
+					<Toolbar height="7px"/>
+					<HBox width="100%">
+						<VBox width="30%">
+							<ct:HeaderCard title="G-Loading Record"/>
+						</VBox>
+						<HBox class="sapUiSmallMarginTop" width="70%">
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="Maximum g attained in sortie" design="Bold"/>
+								<Input width="200px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/mano/glmax}" required="true" fieldGroupIds="fgInput"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="Minimum g attained in sortie" design="Bold"/>
+								<Input width="200px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/mano/glmin}" fieldGroupIds="fgInput" required="true"/>
+							</VBox>
+						</HBox>
+					</HBox>
+					<Toolbar height="7px"/>
+					<HBox width="100%">
+						<VBox width="30%">
+							<ct:HeaderCard title="Flight Period"/>
+						</VBox>
+						<HBox class="sapUiSmallMarginTop" width="70%">
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="Aircraft AUW (lbs)" design="Bold"/>
+								<Input width="200px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/mano/fpdauw}" required="true" fieldGroupIds="fgInput"/>
+							</VBox>
+							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+								<Label text="Length of flight period" design="Bold"/>
+								<Input width="200px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/mano/fpdlen}" fieldGroupIds="fgInput" required="true"/>
+							</VBox>
+						</HBox>
+					</HBox>
+				</VBox>
+			</VBox>
+		</l:content>
+	</l:VerticalLayout>
+</core:FragmentDefinition>
