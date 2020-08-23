@@ -19,7 +19,7 @@
 				<Label design="Bold" text="Check on Area"/>
 				<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 			</HBox>
-			<TextArea maxLength="500" value="{oCreateTaskModel>/sOtherDesc}" fieldGroupIds="fgTxtArea" required="{oCreateTaskModel>/bOthers}"
+			<TextArea maxLength="500" value="{oCreateTaskModel>/sOtherDesc}" fieldGroupIds="fgTxtArea" required="{oCreateTaskModel>/bVisualInspection}"
 				showExceededText="true" width="350px" rows="5" liveChange="handleLiveChangeFlyingRequirements"/>
 		</VBox>
 	</l:VerticalLayout>

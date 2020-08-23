@@ -313,10 +313,10 @@ sap.ui.define([
 
 		onCreateTaskPress: function() {
 			try {
-				/*FieldValidations.resetErrorStates(this);
+				FieldValidations.resetErrorStates(this);
 				if (FieldValidations.validateFields(this)) {
 					return;
-				}*/
+				}
 				var that = this;
 				var oCreateTaskModel = that.getModel("oCreateTaskModel"),
 					oModel = that.getView().getModel("ViewModel"),
@@ -420,6 +420,7 @@ sap.ui.define([
 					oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
 					oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
 					oObj.sOtherDesc = oCreateTaskModel.getProperty("/sOtherDesc");
+					oObj.bVisualInspection = oCreateTaskModel.getProperty("/bVisualInspection");
 					oObj.sVisualInspection = oCreateTaskModel.getProperty("/sVisualInspection");
 					oObj.sSymbol = "3";
 				} else if (sTaskType === "TT1_13") {
@@ -822,7 +823,7 @@ sap.ui.define([
 					oModel = this.getModel("oCreateTaskModel"),
 					that = this,
 					oPayload;
-				oPrmDD.filter = "PARTNO eq " + oModel.getProperty("/sType2Value") + " and ESTAT eq I and INSON eq "+this.getTailId(); 
+				oPrmDD.filter = "PARTNO eq " + oModel.getProperty("/sType2Value") + " and ESTAT eq I and INSON eq " + this.getTailId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -894,7 +895,7 @@ sap.ui.define([
 						});
 					}
 				}.bind(this);
-				oPrmTask.activity=1;
+				oPrmTask.activity = 1;
 				ajaxutil.fnCreate("/TaskSvc", oPrmTask, oPayload, "ZRM_COS_TK", this);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnCreateTask function");

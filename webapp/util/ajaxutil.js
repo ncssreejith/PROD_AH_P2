@@ -1,13 +1,13 @@
 sap.ui.define([
 	"../util/signoffUtil",
 	"sap/base/Log",
-	"../model/dataUtil",
+	"../model/dataUtil"
 ], function(signoffUtil, Log,dataUtil) {
 	"use strict";
 	return {
 		// http://localhost:58983/AVMET/avmetDB/AircraftModelSvc
-		//fnBasePath: "/DBSRV17/avmet",
-		fnBasePath: "",
+		fnBasePath: "/DBSRV17/avmet",
+		//fnBasePath: "",
 		fnCreate: function(sPath, oParameters, oPayLoad, oObjectId, ref) {
 			try {
 				if (oObjectId) {

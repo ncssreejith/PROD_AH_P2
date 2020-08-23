@@ -798,11 +798,21 @@ sap.ui.define([
 		onCloseJobPress: function(oFlag) {
 			try {
 				var that = this,
-					oModel = this.getView().getModel("LocalModel");
-				that.getRouter().navTo("CosCloseJob", {
-					"JobId": oModel.getProperty("/sJobId"),
-					"Flag": oFlag
-				});
+					oModel = this.getView().getModel("LocalModel"),
+					oJobModel = this.getView().getModel("JobModel");
+				if (oJobModel.getProperty("/prime") !== "") {
+					that.getRouter().navTo("CosCloseJob", {
+						"JobId": oModel.getProperty("/sJobId"),
+						"Flag": oFlag
+					});
+				} else {
+					MessageBox.error(
+						"Please add workcenter to close job : " + oModel.getProperty("/sJobId"), {
+							icon: sap.m.MessageBox.Icon.Error,
+							title: "Error",
+							styleClass: "sapUiSizeCompact"
+						});
+				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onCloseJobPress function");
 				this.handleException(e);
@@ -1143,7 +1153,7 @@ sap.ui.define([
 						that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 					}.bind(this);
-					oPrmTask.activity = 2;
+					oPrmTask.activity = 4;
 					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "ZRM_COS_TS", this);
 				} else {
 					MessageBox.error(
@@ -1328,7 +1338,7 @@ sap.ui.define([
 				oViewModel.setProperty("/sFlag", sFlag);
 				if (sFlag === "N") {
 					oViewModel.setProperty("/FairEditFlag", false);
-				}else{
+				} else {
 					oViewModel.setProperty("/FairEditFlag", true);
 				}
 				oViewModel.setProperty("/sModId", sModId);
@@ -1738,6 +1748,7 @@ sap.ui.define([
 		_fnUpdateJob: function(oEvent) {
 			try {
 				var that = this,
+					oObject,
 					sjobid = "",
 					oModel, oFlag,
 					oPayload;
@@ -1747,9 +1758,9 @@ sap.ui.define([
 				var oParameter = {};
 
 				oPayload = that.getView().getModel("JobModel").getData();
-				 if (oPayload.etrtm === "") {
-                    oPayload.etrtm = null;
-                }
+				if (oPayload.etrtm === "") {
+					oPayload.etrtm = null;
+				}
 
 				oParameter.error = function(response) {
 
@@ -1758,9 +1769,15 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 				}.bind(this);
+				if (oPayload.fstat === "R") {
+					oObject = "ZRM_FAIR_R";
+					oParameter.activity = 4;
+				} else {
+					oObject = "ZRM_COS_JB";
+					oParameter.activity = 2;
+				}
 
-				oParameter.activity = 2;
-				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_COS_JS", this);
+				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], oObject, this);
 
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnUpdateJob function");
@@ -1784,9 +1801,9 @@ sap.ui.define([
 				var oParameter = {};
 
 				oPayload = that.getView().getModel("JobModel").getData();
-				 if (oPayload.etrtm === "") {
-                    oPayload.etrtm = null;
-                }
+				if (oPayload.etrtm === "") {
+					oPayload.etrtm = null;
+				}
 
 				oParameter.error = function(response) {
 
@@ -1797,8 +1814,8 @@ sap.ui.define([
 					that.fnLoadSrv1Dashboard();
 				}.bind(this);
 
-				oParameter.activity = 2;
-				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_COS_JS", this);
+				oParameter.activity = 1;
+				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_FAIR_D", this);
 
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnUpdateFAIRJob function");
@@ -1863,7 +1880,7 @@ sap.ui.define([
 					that.onCloseAddWorkCenterDialog();
 				}.bind(this);
 				oPrmWorkCenter.activity = 1;
-				ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload], "ZRM_COS_JS", this);
+				ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnDefectWorkCenterCreate function");
 				this.handleException(e);
@@ -1882,7 +1899,7 @@ sap.ui.define([
 					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 				}.bind(this);
 				oPrmWorkCenter.activity = 7;
-				ajaxutil.fnDelete("/DefectWorkcenterSvc/" + oModel.getProperty("/sJobId") + "/" + sWorkCenterKey, oPrmWorkCenter, "ZRM_COS_JS",
+				ajaxutil.fnDelete("/DefectWorkcenterSvc/" + oModel.getProperty("/sJobId") + "/" + sWorkCenterKey, oPrmWorkCenter, "ZRM_COS_JB",
 					this);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnDefectWorkCenterDelete function");

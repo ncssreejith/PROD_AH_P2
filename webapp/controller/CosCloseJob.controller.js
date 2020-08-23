@@ -93,8 +93,7 @@ sap.ui.define([
 					oSelectedItemId = oSegmentedButton.getSelectedKey();
 				oPayload = that.getView().getModel("JobModel").getData();
 				if (oModel.getProperty("/sFlag") === "N") {
-					if (oPayload.notity !== null && oPayload.trail!=="0")
-					{
+					if (oPayload.notity !== null && oPayload.trail !== "0") {
 						if (oModel.getProperty("/bFlag") === false) {
 							try {
 								oPayload.rectdt = formatter.defaultOdataDateFormat(oPayload.rectdt);
@@ -133,10 +132,14 @@ sap.ui.define([
 						oModel.setProperty("/selectedIcon", "SignOff");
 					}
 				}.bind(this);
-				if (oModel.getProperty("/bFlag")) {
-					sObject = "ZRM_COS_JT";
+				if (oModel.getProperty("/sFlag") === "Y") {
+					sObject = "ZRM_COS_EO";
 				} else {
-					sObject = "ZRM_COS_JS";
+					if (oModel.getProperty("/bFlag")) {
+						sObject = "ZRM_COS_JT";
+					} else {
+						sObject = "ZRM_COS_JS";
+					}
 				}
 				oPrmTask.activity = 6;
 				ajaxutil.fnUpdate("/DefectJobSvc", oPrmTask, [oPayload], sObject, this);

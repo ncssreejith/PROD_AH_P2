@@ -13,7 +13,7 @@
 			</VBox>
 			<VBox class="sapUiLargeMarginBegin" visible="{oCreateTaskModel>/bTechOrderRef}">
 				<Label design="Bold" text="Technical Order/ Reference"/>
-				<Input width="250px" value="{oCreateTaskModel>/sTechOrderRef}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bTechOrderRef}"/>
+				<Input width="250px" value="IETM {oCreateTaskModel>/sTechOrderRef}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bTechOrderRef}"/>
 			</VBox>
 		</HBox>
 		<HBox class="sapUiSmallMarginTop" visible="{oCreateTaskModel>/bType}">

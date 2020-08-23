@@ -694,7 +694,7 @@ sap.ui.define([
 					this.getRouter().navTo("F16Cosjobs");
 				}.bind(this);
 				oPrmSchJob.activity = 2;
-				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_COS_JS", this);
+				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcessionPress function");
 			}
@@ -712,7 +712,7 @@ sap.ui.define([
 					this.getRouter().navTo("Cosjobs");
 				}.bind(this);
 				oPrmSchJob.activity = 1;
-				ajaxutil.fnCreate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_COS_JS", this);
+				ajaxutil.fnCreate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
 			} catch (e) {
 				Log.error("Exception in CosScheduleSummary:onStartJobPress function");
 				this.handleException(e);

@@ -303,11 +303,10 @@ sap.ui.define([
 				}.bind(this);
 				if (oViewModel.getProperty("/Flag") === "FS") {
 					sObject = "ZRM_FS_CTT";
-					oPrmTask.activity = 4;
 				} else {
 					sObject = "ZRM_COS_TT";
-					oPrmTask.activity = 4;
 				}
+					oPrmTask.activity = 4;
 
 				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, oPayload, sObject, this);
 			} catch (e) {

@@ -204,7 +204,7 @@ sap.ui.define([
 						});
 					}
 				}.bind(this);
-				oParameter.activity = 1;
+				oParameter.activity = 2;
 				ajaxutil.fnCreate("/TaskSvc", oParameter, oPayloads, "ZRM_COS_TP", this);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onApplySelection function");

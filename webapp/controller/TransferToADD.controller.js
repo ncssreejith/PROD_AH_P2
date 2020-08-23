@@ -222,7 +222,7 @@ sap.ui.define([
 					try {
 					oPayLoad.ENDDA = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
 					}catch(e){
-						oPayLoad.ENDDA =PayLoad.EXPDT;
+						oPayLoad.ENDDA =oPayLoad.EXPDT;
 					}
 					try{
 					oPayLoad.EXPDT = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);

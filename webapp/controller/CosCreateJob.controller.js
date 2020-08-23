@@ -590,7 +590,7 @@ sap.ui.define([
 					this.getRouter().navTo("Cosjobs");
 				}.bind(this);
 				oPrmTD.activity = 1;
-				ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_SCH", this);
 			} catch (e) {
 				Log.error("Exception in onESJobCreate function");
 			}
