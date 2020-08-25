@@ -14,7 +14,7 @@
 					<Label design="Bold" text="Technical Order/ Reference"/>
 					<Text text="Optional" class="sapUiSmallMarginBegin"/>
 				</HBox>
-				<Input width="250px" value="IETM {oCreateTaskModel>/sTechOrderRef}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bOthers}"/>
+				<Input width="250px" value="{oCreateTaskModel>/sTechOrderRef}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bOthers}"/>
 			</VBox>
 		</HBox>
 	</l:VerticalLayout>
