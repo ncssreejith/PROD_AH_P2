@@ -1,14 +1,14 @@
 <core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core">
 	<VBox backgroundDesign="Solid" class="atContainer">
-		<HBox justifyContent="SpaceBetween" backgroundDesign="Transparent" width="18rem" height="3rem"
-			class="vbox1BgColor defaultRadius">
+		<HBox justifyContent="SpaceBetween" backgroundDesign="Transparent" width="18rem" height="3rem" class="vbox1BgColor defaultRadius">
 			<HBox class="sapUiSmallMargin" width="100%" justifyContent="SpaceBetween">
 				<Label class="whiteText" width="8rem" text="{i18n>lblCustodian}" design="Bold"></Label>
 				<Title class="whiteText" width="6rem" text="{atckModel>/header/SQN}" textAlign="End"/>
 			</HBox>
 		</HBox>
 		<Title text="Aircraft Transfer Checklist" class="sapUiSmallMarginTopBottom" level="H3" titleStyle="H3"/>
-		<Table width="100%" items="{atckModel>/checklist}" class="sparesTable paddingNone">
+		<Table width="100%" visible="{= (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?true:false}"
+			items="{atckModel>/checklist}" class="sparesTable paddingNone">
 			<columns>
 				<Column minScreenWidth="Desktop" width="10%" demandPopin="true">
 					<Label class="whiteText" text="S.No."/>
@@ -21,12 +21,44 @@
 				</Column>
 			</columns>
 			<items>
-			
 				<ColumnListItem>
 					<cells>
 						<Text text="{path:'atckModel>SNo',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
 						<Text text="{atckModel>chkdesc}"/>
-						<SegmentedButton selectedKey="{atckModel>answ}" enabled="{= (${atckModel>/header/CSQNID}===${atckModel>/header/SQNID}) &amp;&amp; (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?true:false}" selectedButton="none" selectionChange="onSelecectionCustodian">
+						<SegmentedButton selectedKey="{atckModel>answ}"
+							enabled="{= (${atckModel>/header/CSQNID}===${atckModel>/header/SQNID}) &amp;&amp; (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?true:false}"
+							selectedButton="none" selectionChange="onSelecectionCustodian">
+							<items>
+								<SegmentedButtonItem width="6rem" text="Yes" key="Y"></SegmentedButtonItem>
+								<SegmentedButtonItem width="6rem" text="No" key="N"></SegmentedButtonItem>
+								<SegmentedButtonItem width="6rem" text="NA" key="NA"></SegmentedButtonItem>
+							</items>
+						</SegmentedButton>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<Table width="100%" visible="{= (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?false:true}"
+			items="{path:'atckModel>/checklist',filters:[{path:'answ',operator:'NE',value1:'NA'}]}" class="sparesTable paddingNone">
+			<columns>
+				<Column minScreenWidth="Desktop" width="10%" demandPopin="true">
+					<Label class="whiteText" text="S.No."/>
+				</Column>
+				<Column minScreenWidth="Desktop" width="70%" demandPopin="true">
+					<Label class="whiteText" text="Checklist"/>
+				</Column>
+				<Column minScreenWidth="Desktop" width="40%" demandPopin="true">
+					<Label class="whiteText" text="Main Custodian({atckModel>/header/CSQN})"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{path:'atckModel>SNo',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
+						<Text text="{atckModel>chkdesc}"/>
+						<SegmentedButton selectedKey="{atckModel>answ}"
+							enabled="{= (${atckModel>/header/CSQNID}===${atckModel>/header/SQNID}) &amp;&amp; (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?true:false}"
+							selectedButton="none" selectionChange="onSelecectionCustodian">
 							<items>
 								<SegmentedButtonItem width="6rem" text="Yes" key="Y"></SegmentedButtonItem>
 								<SegmentedButtonItem width="6rem" text="No" key="N"></SegmentedButtonItem>

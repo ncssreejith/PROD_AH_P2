@@ -1,6 +1,6 @@
 <mvc:View controllerName="avmet.ah.controller.DispatchAircraft" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:l="sap.ui.layout">
-	<Page showNavButton="true" title="{i18n>lblAircraftTransfer}" navButtonPress="onNavBackDispatch">
+	<Page showNavButton="true" title="{i18n>lblAircraftTransfer}" navButtonPress="onNavBack" id="pageDispatchId">
 		<IconTabBar selectedKey="{= (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?'dispatch':'receiver'}" editable="false" expandable="false" id="iconTabAC" select="onIconTabSelection">
 			<items class="sapUiLargeMarginTop">
 				<IconTabFilter key="dispatch" text="1.Dispatch">
