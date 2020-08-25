@@ -136,7 +136,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/sOpnForAccKeyText", "");
 				oCreateTaskModel.setProperty("/sRemoveForAccKeyText", "");
 				oCreateTaskModel.setProperty("/sTypDescKey", "");
-				oCreateTaskModel.setProperty("/sTechOrderRef", "");
+				oCreateTaskModel.setProperty("/sTechOrderRef", "IETM");
 				oCreateTaskModel.setProperty("/sType1", "");
 				oCreateTaskModel.setProperty("/sType1Value", "");
 				oCreateTaskModel.setProperty("/sType2", "");
@@ -154,7 +154,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/sOpsDesc", "");
 				oCreateTaskModel.setProperty("/sVisualInspection", "");
 				oCreateTaskModel.setProperty("/sOtherDesc", "");
-				oCreateTaskModel.setProperty("/sTechOrderRef", "");
+				oCreateTaskModel.setProperty("/sTechOrderRef", "IETM");
 				oCreateTaskModel.setProperty("/sSymbol", "0");
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_ResetTaskType function");
@@ -786,7 +786,7 @@ sap.ui.define([
 					sTypDesc: "",
 					sTaskType: "",
 					sTaskTypeText: "",
-					sTechOrderRef: "",
+					sTechOrderRef: "IETM",
 					sType1: "1",
 					sType1Value: "",
 					sType2: "1",
