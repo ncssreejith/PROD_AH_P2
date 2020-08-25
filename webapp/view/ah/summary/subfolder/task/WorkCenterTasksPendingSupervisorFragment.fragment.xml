@@ -41,7 +41,7 @@
 					<cells>
 						<Text text="{TaskPendingModel>tdesc}"/>
 						<Text
-							text="{path:'TaskPendingModel>credtm', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskPendingModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							text="{path:'TaskPendingModel>ftcredt', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskPendingModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 						<Text text="{TaskPendingModel>ftdesc}"/>
 						<Text text="{TaskPendingModel>LDESC}"/>
 						<VBox>

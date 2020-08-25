@@ -151,15 +151,16 @@ sap.ui.define([
 		_fnADDGet: function() {
 			try {
 				var that = this,
+					oModel = dataUtil.createNewJsonModel(),
+					oViewModel = this.getView().getModel("oViewModel"),
 					oPrmLimGet = {};
 				oPrmLimGet.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
 				oPrmLimGet.error = function() {};
 
 				oPrmLimGet.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel(),
+						var
 							sTempChar = "A",
-							oViewModel = this.getView().getModel("oViewModel"),
 							oMarkModel = this.getView().getModel("MarkModel").getData();
 						for (var i = 0; i < oData.results.length; i++) {
 							if ((oData.results[i].CAPTY === "A" || oData.results[i].CAPTY === "B") && oData.results[i].CSTAT === "A") {
@@ -191,11 +192,11 @@ sap.ui.define([
 						// To calculate the time difference of two dates 
 
 						oModel.setData(oData.results);
-						var Temp = oViewModel.getProperty("/totalCount");
-						oViewModel.setProperty("/totalCount", Temp + oData.results.length);
 
-						that.getView().setModel(oModel, "ADDLimSet");
 					}
+					var Temp = oViewModel.getProperty("/totalCount");
+					oViewModel.setProperty("/totalCount", Temp + oData.results.length);
+					that.getView().setModel(oModel, "ADDLimSet");
 				}.bind(this);
 
 				ajaxutil.fnRead("/GetAddLimitationsSvc", oPrmLimGet);
@@ -210,21 +211,18 @@ sap.ui.define([
 		_fnLimitationsGet: function() {
 			try {
 				var that = this,
+					oModel = dataUtil.createNewJsonModel(),
 					oViewModel = this.getView().getModel("oViewModel"),
 					oPrmLimGet = {};
 				oPrmLimGet.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
 				oPrmLimGet.error = function() {};
-
 				oPrmLimGet.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel();
 						oModel.setData(oData.results);
-						if (oViewModel) {
-							var Temp = oViewModel.getProperty("/totalCount");
-							oViewModel.setProperty("/totalCount", Temp + oData.results.length);
-						}
-						that.getView().setModel(oModel, "LimitationsSet");
 					}
+					var Temp = oViewModel.getProperty("/totalCount");
+					oViewModel.setProperty("/totalCount", Temp + oData.results.length);
+					that.getView().setModel(oModel, "LimitationsSet");
 				}.bind(this);
 
 				ajaxutil.fnRead("/GetAddLimitationsSvc", oPrmLimGet);
@@ -301,6 +299,7 @@ sap.ui.define([
 						val = sPath + "/css/img/limHelicopcreateAircraftLeft.png";
 					oModel.setProperty("/sImageUrl", val);
 					oModel.updateBindings(true);*/
+                this.resetCanvas();
 				var oModel = dataUtil.createNewJsonModel();
 				oModel.setData({
 					sADDCount: "",
@@ -312,6 +311,7 @@ sap.ui.define([
 				this._fnADDGet();
 				this._fnLimitationsGet();
 				this._fnLimitationsCompleteGet();
+
 			} catch (e) {
 				Log.error("Exception in Limitations:_onObjectMatched function");
 				this.handleException(e);
@@ -444,6 +444,29 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in Limitations:onSelectionDefectAreaChange function");
 				this.handleException(e);
+			}
+		},
+
+		resetCanvas: function() {
+			var oCanvasTop = document.getElementById("myCanvasTopLim");
+			if (oCanvasTop !== null) {
+				var ctx = oCanvasTop.getContext('2d');
+				ctx.clearRect(0, 0, oCanvasTop.width, oCanvasTop.height);
+			}
+			var oMyCanvasFront = document.getElementById("myCanvasFront");
+			if (oMyCanvasFront !== null) {
+				var ctxF = oMyCanvasFront.getContext('2d');
+				ctxF.clearRect(0, 0, oMyCanvasFront.width, oMyCanvasFront.height);
+			}
+			var oMyCanvasLeft = document.getElementById("myCanvasLeft");
+			if (oMyCanvasLeft !== null) {
+				var ctxL = oMyCanvasLeft.getContext('2d');
+				ctxL.clearRect(0, 0, oMyCanvasLeft.width, oMyCanvasLeft.height);
+			}
+			var oMyCanvasRight = document.getElementById("myCanvasRight");
+			if (oMyCanvasRight !== null) {
+				var ctxR = oMyCanvasRight.getContext('2d');
+				ctxR.clearRect(0, 0, oMyCanvasRight.width, oMyCanvasRight.height);
 			}
 		}
 	});

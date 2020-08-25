@@ -43,8 +43,7 @@
 			"libs": {
 				"sap.m": {},
 				"sap.ui.core": {},
-				"sap.ui.layout": {},
-				"it.designfuture.chartjs": {}
+				"sap.ui.layout": {}
 			}
 		},
 		"contentDensities": {
@@ -872,7 +871,6 @@
 					"parent": "TargetHome",
 					"viewType": "XML",
 					"viewName": "ah/limitations/Limitations",
-					"viewId": "Limitations",
 					"title": "Limitations"
 				},
 				"LimitationsOverView": {
@@ -881,7 +879,6 @@
 					"parent": "TargetHome",
 					"viewType": "XML",
 					"viewName": "ah/limitations/LimitationsOverView",
-					"viewId": "LimitationsOverView",
 					"title": "Limitations Overview"
 				},
 				"Approvals": {
