@@ -1870,8 +1870,8 @@ sap.ui.define([
 						"wrctr": sWorkCenterKey,
 						"isprime": "",
 						"wrctrtx": "",
-						"count": null
-
+						"count": null,
+						"PrimeCount": null
 					},
 
 					oPrmWorkCenter.error = function() {};
