@@ -49,6 +49,7 @@ sap.ui.define([
 			try {
 				var utilData = {};
 				utilData.selIndex = 0;
+				utilData.isChange = false;
 				utilData.ofptabId = "TABW_114";
 				utilData.ofp = [];
 				this.getView().setModel(new JSONModel(utilData), "oOFPModel");
@@ -126,6 +127,7 @@ sap.ui.define([
 					if (oItem.edtb === "X") {
 						sText = new sap.m.Input({
 							value: "{" + oDataModel + ">" + oItem.colid + "}",
+							valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
 							liveChange: that.onChange
 						});
 					}
@@ -148,6 +150,8 @@ sap.ui.define([
 		onChange: function(oEvent) {
 			try {
 				var oSource = oEvent.getSource();
+				this.getModel("oOFPModel").setProperty("/isChange",true);
+				this.getModel("oOFPModel").refresh();
 			} catch (e) {
 				Log.error("Exception in OFPUpdateView:onChange function");
 				this.handleException(e);

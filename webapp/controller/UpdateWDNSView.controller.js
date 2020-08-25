@@ -50,6 +50,7 @@ sap.ui.define([
 		_onObjectMatched: function() {
 			try {
 				var utilData = {};
+				utilData.isChange = false;
 				utilData.selIndex = 0;
 				utilData.harmotabId = "TABW_115";
 				utilData.harmo = [];
@@ -137,6 +138,7 @@ sap.ui.define([
 					if (oItem.edtb === "X") {
 						sText = new sap.m.Input({
 							value: "{" + oDataModel + ">" + oItem.colid + "}",
+							valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
 							liveChange: that.onChange
 						});
 					}
@@ -165,6 +167,8 @@ sap.ui.define([
 				// var oSource = oEvent.getSource();
 				// var oItem = oSource.getBindingContext("oWDNSDataModel").getObject();
 				// oItem.editFlag = "X";
+				this.getModel("oWDNSModel").setProperty("/isChange", true);
+				this.getModel("oWDNSModel").refresh();
 			} catch (e) {
 				Log.error("Exception in UpdateWDNSView:onChange function");
 				this.handleException(e);
