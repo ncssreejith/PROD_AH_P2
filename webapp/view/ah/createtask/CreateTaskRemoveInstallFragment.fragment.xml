@@ -36,9 +36,9 @@
 						<Text text="Optional" class="optionalTxtMargin" visible="{oCreateTaskModel>/bOptionalLabel}"/>
 					</HBox>
 						<Input width="170px" value="{oCreateTaskModel>/sType1Value}"
-						visible="{= ${oCreateTaskModel>/sTask}!=='TT2_10' ? true:false}"></Input>
-					<ComboBox width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1Value}" items="{SerialNumModel>/}"
-						visible="{= ${oCreateTaskModel>/sTask}==='TT2_10' ? true:false}">
+						visible="{=${oCreateTaskModel>/bSrComFlag} === 'N' ? true:false}"></Input>
+					<ComboBox id="cbSernr" width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1Value}" items="{SerialNumModel>/}"
+						visible="{=${oCreateTaskModel>/bSrComFlag} === 'N' ? true:false}">
 						<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
 					</ComboBox>
 				</VBox>

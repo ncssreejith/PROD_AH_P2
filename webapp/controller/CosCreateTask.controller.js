@@ -7,7 +7,7 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/base/Log",
 	"sap/m/MessageBox"
-], function(BaseController, dataUtil, FieldValidations, formatter, AvMetInitialRecord, ajaxutil, Log, MessageBox) {
+], function (BaseController, dataUtil, FieldValidations, formatter, AvMetInitialRecord, ajaxutil, Log, MessageBox) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAHUL THORAT   
@@ -48,9 +48,10 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 1. UI Events  
 		// ***************************************************************************
-		onInit: function() {
+		onInit: function () {
 			try {
 				var that = this,
+					oModelSr,
 					oModel, oDDT2Model,
 					oDDT1Model;
 				oDDT1Model = dataUtil.createNewJsonModel();
@@ -71,6 +72,8 @@ sap.ui.define([
 					"text": "Part No."
 				}]);
 				that.getView().setModel(oDDT2Model, "TT2Model");
+				oModelSr = dataUtil.createNewJsonModel();
+				this.getView().setModel(oModelSr, "SerialNumModel");
 				that._fnGetMainTaskDropDown();
 				that._fnGetTaskDropDown();
 				that._fnGetTaskTT310DropDown();
@@ -81,7 +84,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		onNavToDefectSummaryADD: function() {
+		onNavToDefectSummaryADD: function () {
 			try {
 				this.getOwnerComponent().getRouter().navTo("RouteDefectSummaryADD", {}, true);
 			} catch (e) {
@@ -90,7 +93,7 @@ sap.ui.define([
 			}
 		},
 
-		onTaskTypeChange: function(oEvent) {
+		onTaskTypeChange: function (oEvent) {
 			try {
 				var sSelectedKey = oEvent.getSource().getSelectedKey(),
 					sSelectedText = oEvent.getParameter("selectedItem").getText(),
@@ -119,7 +122,7 @@ sap.ui.define([
 			}
 		},
 
-		_ResetTaskType: function() {
+		_ResetTaskType: function () {
 			try {
 				var oCreateTaskModel = this.getModel("oCreateTaskModel");
 				oCreateTaskModel.setProperty("/bRemoveOrInstall", false);
@@ -159,7 +162,7 @@ sap.ui.define([
 			}
 		},
 
-		onSegmentOtherSelected: function(oEvent) {
+		onSegmentOtherSelected: function (oEvent) {
 			try {
 				var sSelectedKey = oEvent.getSource().getSelectedKey(),
 					oCreateTaskModel = this.getModel("oCreateTaskModel");
@@ -171,7 +174,7 @@ sap.ui.define([
 		},
 
 		//Remove and/or Install Sub Task Select
-		onRemoveInstallTaskChange: function(oEvent) {
+		onRemoveInstallTaskChange: function (oEvent) {
 			try {
 				var sSelectedKey = oEvent.getSource().getSelectedKey(),
 					oCreateTaskModel = this.getModel("oCreateTaskModel");
@@ -200,7 +203,7 @@ sap.ui.define([
 			}
 		},
 
-		onTypeDescChange: function(oEvent) {
+		onTypeDescChange: function (oEvent) {
 			try {
 				var sSelectedKey = oEvent.getSource().getSelectedKey(),
 					sSelectedText = oEvent.getSource().getSelectedItem().getText(),
@@ -227,7 +230,7 @@ sap.ui.define([
 			}
 		},
 
-		onOpenForAccessChange: function(oEvent) {
+		onOpenForAccessChange: function (oEvent) {
 			try {
 				var sSelectedKey = oEvent.getSource().getSelectedKey(),
 					sSelectedText = oEvent.getSource().getSelectedItem().getText(),
@@ -249,7 +252,7 @@ sap.ui.define([
 			}
 		},
 
-		onRemoveForAccessChange: function(oEvent) {
+		onRemoveForAccessChange: function (oEvent) {
 			try {
 				var sSelectedKey = oEvent.getSource().getSelectedKey(),
 					sSelectedText = oEvent.getSource().getSelectedItem().getText(),
@@ -274,12 +277,13 @@ sap.ui.define([
 			}
 		},
 
-		onAddTaskPress: function(oEvent) {
+		onAddTaskPress: function (oEvent) {
 			try {
 				var that = this;
 				var oCreateTaskModel = this.getModel("oCreateTaskModel");
 				oCreateTaskModel.setProperty("/bCreateTaskBtn", true);
 				oCreateTaskModel.setProperty("/bUpdateTaskBtn", false);
+				oCreateTaskModel.setProperty("/bSrComFlag", "N");
 				try {
 
 					if (this._oDialog !== undefined && this._oDialog.isOpen()) {
@@ -298,7 +302,7 @@ sap.ui.define([
 			}
 		},
 
-		onCancelCreateTaskPress: function() {
+		onCancelCreateTaskPress: function () {
 			try {
 				if (this._oDialog) {
 					this._oDialog.close(this);
@@ -311,7 +315,7 @@ sap.ui.define([
 			}
 		},
 
-		onCreateTaskPress: function() {
+		onCreateTaskPress: function () {
 			try {
 				FieldValidations.resetErrorStates(this);
 				if (FieldValidations.validateFields(this)) {
@@ -445,7 +449,7 @@ sap.ui.define([
 			}
 		},
 
-		onEditTaskPress: function(oEvent) {
+		onEditTaskPress: function (oEvent) {
 			try {
 				var that = this;
 				var oCreateTaskModel = that.getModel("oCreateTaskModel"),
@@ -513,7 +517,7 @@ sap.ui.define([
 			}
 		},
 
-		onUpdateTaskPress: function(oEvent) {
+		onUpdateTaskPress: function (oEvent) {
 			try {
 				var that = this;
 				var oCreateTaskModel = that.getModel("oCreateTaskModel"),
@@ -542,24 +546,24 @@ sap.ui.define([
 					oCreateTaskModel.setProperty(sEditTaskPath + "/sTechOrderRef", oCreateTaskModel.getProperty("/sTechOrderRef"));
 					oCreateTaskModel.setProperty(sEditTaskPath + "/sSymbol", oCreateTaskModel.getProperty("/sSymbol"));
 					switch (sTaskType) {
-						case "TT1_14":
-							oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
-							break;
-						case "TT1_15":
-							oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
-							break;
-						case "TT1_16":
-							oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
-							break;
-						case "TT1_17":
-							oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
-							break;
-						case "TT1_18":
-							oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
-							break;
-						case "TT1_19":
-							oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
-							break;
+					case "TT1_14":
+						oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
+						break;
+					case "TT1_15":
+						oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
+						break;
+					case "TT1_16":
+						oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
+						break;
+					case "TT1_17":
+						oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
+						break;
+					case "TT1_18":
+						oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
+						break;
+					case "TT1_19":
+						oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
+						break;
 					}
 				}
 				oCreateTaskModel.setProperty(sEditTaskPath + "/sTask", oCreateTaskModel.getProperty("/sTask"));
@@ -596,7 +600,7 @@ sap.ui.define([
 			}
 		},
 
-		onDeleteTaskPress: function(oEvent) {
+		onDeleteTaskPress: function (oEvent) {
 			try {
 				var that = this;
 				var oCreateTaskModel = that.getModel("oCreateTaskModel"),
@@ -610,7 +614,7 @@ sap.ui.define([
 			}
 		},
 
-		onSubmit: function() {
+		onSubmit: function () {
 			try {
 				var that = this,
 					oCreateTaskModel = that.getModel("oCreateTaskModel"),
@@ -649,20 +653,20 @@ sap.ui.define([
 					}
 					oTempData[0].indarea = aTasks[i].sIndicateArea;
 					switch (aTasks[i].sTaskType) {
-						case "TT1_14":
-						case "TT1_15":
-						case "TT1_16":
-						case "TT1_17":
-						case "TT1_18":
-						case "TT1_19":
-							oTempData[0].tdesc = aTasks[i].sOtherDesc;
-							break;
-						case "TT1_11":
-							oTempData[0].tdesc = aTasks[i].sOpsDesc;
-							break;
-						default:
-							oTempData[0].tdesc = null;
-							break;
+					case "TT1_14":
+					case "TT1_15":
+					case "TT1_16":
+					case "TT1_17":
+					case "TT1_18":
+					case "TT1_19":
+						oTempData[0].tdesc = aTasks[i].sOtherDesc;
+						break;
+					case "TT1_11":
+						oTempData[0].tdesc = aTasks[i].sOpsDesc;
+						break;
+					default:
+						oTempData[0].tdesc = null;
+						break;
 					}
 					//oTempData[0].tdesc = aTasks[i].sOpsDesc;
 					oTempData[0].symbol = aTasks[i].sSymbol;
@@ -719,7 +723,7 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 4. Private Methods   
 		// ***************************************************************************
-		_onObjectMatched: function(oEvent) {
+		_onObjectMatched: function (oEvent) {
 			try {
 				var that = this,
 					oModel,
@@ -808,7 +812,8 @@ sap.ui.define([
 					sDate: "",
 					Time: "",
 					sCheckfor: "",
-					sIndicateArea: ""
+					sIndicateArea: "",
+					bSrComFlag: "N"
 				});
 				that.getView().setModel(oModel, "oCreateTaskModel");
 			} catch (e) {
@@ -817,21 +822,22 @@ sap.ui.define([
 			}
 		},
 
-		getSerialNoPress: function() {
+		getSerialNoPress: function () {
 			try {
 				var oPrmDD = {},
+					oModelSr,
 					oModel = this.getModel("oCreateTaskModel"),
 					that = this,
 					oPayload;
 				oPrmDD.filter = "PARTNO eq " + oModel.getProperty("/sType2Value") + " and ESTAT eq I and INSON eq " + this.getTailId();
-				oPrmDD.error = function() {};
+				oPrmDD.error = function () {};
 
-				oPrmDD.success = function(oData) {
+				oPrmDD.success = function (oData) {
 					if (oData.results.length !== 0) {
-						oModel = dataUtil.createNewJsonModel();
-						oModel.setData(oData.results);
-						this.getView().setModel(oModel, "SerialNumModel");
-
+						oModelSr = this.getView().getModel("SerialNumModel");
+						oModelSr.setData(oData.results);
+						oModelSr.updateBindings(true);
+						oModel.setProperty("/bSrComFlag", "Y");
 					} else {
 						MessageBox.error(
 							"Part number is invalid.", {
@@ -847,7 +853,7 @@ sap.ui.define([
 				Log.error("Exception in getSerialNoPress function");
 			}
 		},
-		_ResetRemoveAndInstall: function() {
+		_ResetRemoveAndInstall: function () {
 			try {
 				var oCreateTaskModel = this.getModel("oCreateTaskModel");
 				oCreateTaskModel.setProperty("/bTechOrderRef", false);
@@ -872,17 +878,17 @@ sap.ui.define([
 			}
 		},
 
-		_fnCreateTask: function(oPayload) {
+		_fnCreateTask: function (oPayload) {
 			try {
 				var that = this;
 				var oPrmTask = {},
 					oCreateTaskModel = this.getModel("oCreateTaskModel"),
 					oModel = that.getView().getModel("ViewModel");
-				oPrmTask.error = function() {
+				oPrmTask.error = function () {
 
 				};
 
-				oPrmTask.success = function(oData) {
+				oPrmTask.success = function (oData) {
 					sap.m.MessageToast.show("Task Created Successfully");
 					if (oModel.getProperty("/sFlag") === "FS") {
 						that.getRouter().navTo("CTCloseTask", {
@@ -903,16 +909,16 @@ sap.ui.define([
 			}
 		},
 
-		_fnGetMainTaskDropDown: function() {
+		_fnGetMainTaskDropDown: function () {
 			try {
 				var oPrmDD = {},
 					oModel,
 					that = this,
 					oPayload;
 				oPrmDD.filter = "ttid eq TT1_ and airid eq " + that.getAircraftId();
-				oPrmDD.error = function() {};
+				oPrmDD.error = function () {};
 
-				oPrmDD.success = function(oData) {
+				oPrmDD.success = function (oData) {
 					oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TaskMainListModel");
@@ -924,16 +930,16 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		_fnGetTaskDropDown: function() {
+		_fnGetTaskDropDown: function () {
 			try {
 				var oPrmDD = {},
 					oModel,
 					that = this,
 					oPayload;
 				oPrmDD.filter = "ttid eq TT2_ and airid eq " + that.getAircraftId();
-				oPrmDD.error = function() {};
+				oPrmDD.error = function () {};
 
-				oPrmDD.success = function(oData) {
+				oPrmDD.success = function (oData) {
 					oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					this.getView().setModel(oModel, "TaskListModel");
@@ -947,16 +953,16 @@ sap.ui.define([
 			}
 		},
 
-		_fnGetTaskDescDropDown: function() {
+		_fnGetTaskDescDropDown: function () {
 			try {
 				var oPrmDD = {},
 					oModel,
 					that = this,
 					oPayload;
 				oPrmDD.filter = "ttid eq TT3_ and airid eq " + that.getAircraftId();
-				oPrmDD.error = function() {};
+				oPrmDD.error = function () {};
 
-				oPrmDD.success = function(oData) {
+				oPrmDD.success = function (oData) {
 					oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TaskDescModel");
@@ -969,16 +975,16 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		_fnGetTaskTT310DropDown: function() {
+		_fnGetTaskTT310DropDown: function () {
 			try {
 				var oPrmDD = {},
 					oModel,
 					that = this,
 					oPayload;
 				oPrmDD.filter = "ttid eq TT3_10 and tflag eq X and airid eq " + that.getAircraftId();
-				oPrmDD.error = function() {};
+				oPrmDD.error = function () {};
 
-				oPrmDD.success = function(oData) {
+				oPrmDD.success = function (oData) {
 					oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TT310Model");
@@ -990,16 +996,16 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		_fnGetTaskTT311DropDown: function() {
+		_fnGetTaskTT311DropDown: function () {
 			try {
 				var oPrmDD = {},
 					oModel,
 					that = this,
 					oPayload;
 				oPrmDD.filter = "ttid eq TT3_11 and tflag eq X and airid eq " + that.getAircraftId();
-				oPrmDD.error = function() {};
+				oPrmDD.error = function () {};
 
-				oPrmDD.success = function(oData) {
+				oPrmDD.success = function (oData) {
 					oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TT311Model");

@@ -153,7 +153,7 @@
 														<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
 													</ComboBox>
 													<Input width="150px" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin" fieldGroupIds="fgInput"
-														visible="{= ${TaskModel>tt2id}!=='TT2_10' ? true:false}"/>
+														visible="{= ${TaskModel>tt2id}!=='TT2_10' || ${TaskModel>partno}==='' ? true:false}"/>
 													<ComboBox width="150px" change="onTypeChange" selectedKey="{TaskModel>ftsernr}" items="{path:'SerialNumModel>/',templateShareable: false}"
 														visible="{= ${TaskModel>tt1id}==='TT1_10' &amp;&amp; ${TaskModel>tt2id}==='TT2_10' ? true:false}" class="sapUiSmallMarginBegin">
 														<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>

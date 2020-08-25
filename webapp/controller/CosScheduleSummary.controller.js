@@ -691,7 +691,7 @@ sap.ui.define([
 				}
 				oPrmSchJob.error = function() {};
 				oPrmSchJob.success = function(oData) {
-					this.getRouter().navTo("F16Cosjobs");
+					this.getRouter().navTo("Cosjobs");
 				}.bind(this);
 				oPrmSchJob.activity = 2;
 				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
