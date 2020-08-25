@@ -202,53 +202,52 @@ sap.ui.define([
 			}
 		},
 
-    /**
-         * Schedule button click
-         * @param oEvent
-         * @returns
-         */
-        onScheduleSegBtnChange: function(oEvent) {
-            try {
-                var sSelectedKey = oEvent.getSource().getSelectedKey();
-                var oItem = this.getModel("dashboardModel").getProperty("/scl");
-                if (!oItem) {
-                    return;
-                }
-                oItem.LV_COLOR = "Good";
-                switch (sSelectedKey) {
-                    case "Hrs":
-                        this._setRadialChartText("scheduleMicroChartId", oItem.LV_THRS, "", oItem.LV_THRS, oItem.LV_HRS);
-                        if (oItem.LV_THRS > 0) {
-                            oItem.LV_COLOR = "Critical";
-                        }
-                        // oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
-                        break;
-                    case "Days":
-                        this._setRadialChartText("scheduleMicroChartId", oItem.LV_TDAY, "", oItem.LV_TDAY, oItem.LV_DAY);
-                        if (oItem.LV_TDAY > 0) {
-                            oItem.LV_COLOR = "Critical";
-                        }
-                        // oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TDAY));
-                        break;
-                    case "TAC":
-                        this._setRadialChartText("scheduleMicroChartId", oItem.LV_TTAC, "", oItem.LV_TTAC, oItem.LV_TAC);
-                        if (oItem.LV_TTAC > 0) {
-                            oItem.LV_COLOR = "Critical";
-                        }
-                        // oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TTAC));
-                        break;
-                    default:
-                        this._setRadialChartText("scheduleMicroChartId", oItem.LV_THRS, "", oItem.LV_THRS, oItem.LV_HRS);
-                        // oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
-                        break;
-                }
-                this.getModel("dashboardModel").refresh();
-            } catch (e) {
-                this.Log.error("Exception in DashboardInitial:onScheduleSegBtnChange function");
-                this.handleException(e);
-            }
-        },
-
+		/**
+		 * Schedule button click
+		 * @param oEvent
+		 * @returns
+		 */
+		onScheduleSegBtnChange: function(oEvent) {
+			try {
+				var sSelectedKey = oEvent.getSource().getSelectedKey();
+				var oItem = this.getModel("dashboardModel").getProperty("/scl");
+				if (!oItem) {
+					return;
+				}
+				oItem.LV_COLOR = "Good";
+				switch (sSelectedKey) {
+					case "Hrs":
+						this._setRadialChartText("scheduleMicroChartId", oItem.LV_THRS, "", oItem.LV_THRS, oItem.LV_HRS);
+						if (oItem.LV_THRS > 0) {
+							oItem.LV_COLOR = "Critical";
+						}
+						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
+						break;
+					case "Days":
+						this._setRadialChartText("scheduleMicroChartId", oItem.LV_TDAY, "", oItem.LV_TDAY, oItem.LV_DAY);
+						if (oItem.LV_TDAY > 0) {
+							oItem.LV_COLOR = "Critical";
+						}
+						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TDAY));
+						break;
+					case "TAC":
+						this._setRadialChartText("scheduleMicroChartId", oItem.LV_TTAC, "", oItem.LV_TTAC, oItem.LV_TAC);
+						if (oItem.LV_TTAC > 0) {
+							oItem.LV_COLOR = "Critical";
+						}
+						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TTAC));
+						break;
+					default:
+						this._setRadialChartText("scheduleMicroChartId", oItem.LV_THRS, "", oItem.LV_THRS, oItem.LV_HRS);
+						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
+						break;
+				}
+				this.getModel("dashboardModel").refresh();
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:onScheduleSegBtnChange function");
+				this.handleException(e);
+			}
+		},
 
 		/** 
 		 * Air cap change
@@ -473,7 +472,7 @@ sap.ui.define([
 					//this.getOwnerComponent().getRouter().navTo("DashboardInitial");
 				}.bind(this);
 				oParameter.activity = 4;
-                ajaxutil.fnCreate("/declareSafeSvc", oParameter, oPayloadWeapExp, "ZRM_PFR_WE", this);
+				ajaxutil.fnCreate("/declareSafeSvc", oParameter, oPayloadWeapExp, "ZRM_PFR_WE", this);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onACSignOffConfirm function");
 				this.handleException(e);
@@ -521,6 +520,12 @@ sap.ui.define([
 						oData.results[0].txt3 = this.fnReplaceString(oData.results[0].txt3);
 						oData.results[0].txt2 = this.fnReplaceString(oData.results[0].txt2);
 						this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
+
+						var oModel = this.getView().getModel("avmetModel");
+						var oDash = oModel.getProperty("/dash");
+						oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
+						oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
+
 						this.getModel("avmetModel").refresh();
 					}
 					// this.fnCreateTableFromData();
@@ -532,75 +537,56 @@ sap.ui.define([
 			}
 		},
 
-		fnReplaceString: function(subTxt) {
-			try {
-				if (subTxt === undefined || subTxt === null) {
-					return;
-				}
-				var sAircraft = dataUtil.getDataSet("oUserSession").platform.Platform;
-				var sReplaceText = sAircraft +
-				//var sReplaceText = this.getModel("avmetModel").getProperty("/login/air") +
-					" " + this.getModel("avmetModel").getProperty("/airSel/modidtx") +
-					" " + this.getModel("avmetModel").getProperty("/airSel/tailno");
-				return subTxt.replace("&AMT&", sReplaceText);
-			} catch (e) {
-				this.Log.error("Exception in DashboardInitial:fnReplaceString function");
-				this.handleException(e);
-			}
-		},
-
 		/** 
 		 * Load Schedule data
 		 * @returns
 		 */
 		fnLoadSCLDashboard: function() {
-            try {
-                var oParameter = {};
-                oParameter.filter = "CTYPE eq ALL AND tailid eq " + this.getTailId();
-                oParameter.error = function() {};
-                oParameter.success = function(oData) {
-                    if (oData && oData.results && oData.results.length > 0) {
-                        var oLoad = oData.results.length > 0 ? oData.results[0] : undefined;
-                        this.getModel("dashboardModel").setProperty("/scl", oLoad);
-                        oLoad.LV_COUNT = 0;
-                        oLoad.LV_COLOR = "Good";
-                        if (oLoad.LV_THRS > 0) {
-                            oLoad.LV_COUNT += oLoad.LV_THRS;
-                            oLoad.LV_COLOR = "Critical";
-                            this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "sap-icon://alert");
-                        } else {
-                            this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "");
-                        }
-                        if (oLoad.LV_TDAY > 0) {
-                            oLoad.LV_COUNT += oLoad.LV_TDAY;
-                            this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "sap-icon://alert");
-                        } else {
-                            this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "");
-                        }
-                        if (oLoad.LV_TTAC > 0) {
-                            oLoad.LV_COUNT += oLoad.LV_TTAC;
-                            this.getModel("dashboardModel").setProperty("/scl/TACAlert", "sap-icon://alert");
-                        } else {
-                            this.getModel("dashboardModel").setProperty("/scl/TACAlert", "");
-                        }
-                        // this.getModel("dashboardModel").setProperty("/scl/LV_COUNT", JSON.parse(JSON.stringify(oLoad.LV_THRS)));
+			try {
+				var oParameter = {};
+				oParameter.filter = "CTYPE eq ALL AND tailid eq " + this.getTailId();
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					if (oData && oData.results && oData.results.length > 0) {
+						var oLoad = oData.results.length > 0 ? oData.results[0] : undefined;
+						this.getModel("dashboardModel").setProperty("/scl", oLoad);
+						oLoad.LV_COUNT = 0;
+						oLoad.LV_COLOR = "Good";
+						if (oLoad.LV_THRS > 0) {
+							oLoad.LV_COUNT += oLoad.LV_THRS;
+							oLoad.LV_COLOR = "Critical";
+							this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "sap-icon://alert");
+						} else {
+							this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "");
+						}
+						if (oLoad.LV_TDAY > 0) {
+							oLoad.LV_COUNT += oLoad.LV_TDAY;
+							this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "sap-icon://alert");
+						} else {
+							this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "");
+						}
+						if (oLoad.LV_TTAC > 0) {
+							oLoad.LV_COUNT += oLoad.LV_TTAC;
+							this.getModel("dashboardModel").setProperty("/scl/TACAlert", "sap-icon://alert");
+						} else {
+							this.getModel("dashboardModel").setProperty("/scl/TACAlert", "");
+						}
+						// this.getModel("dashboardModel").setProperty("/scl/LV_COUNT", JSON.parse(JSON.stringify(oLoad.LV_THRS)));
 
- 
-
-                        this.getModel("dashboardModel").refresh();
-                        if (oData.results.length > 0) {
-                            this._setRadialChartText("scheduleMicroChartId", oData.results[0].LV_THRS, "", oData.results[0].LV_THRS, oData.results[0].LV_HRS);
-                            return;
-                        }
-                        this._setRadialChartText("scheduleMicroChartId", "", "", 0, 0);
-                    }
-                }.bind(this);
-                ajaxutil.fnRead("/GetSchDueSoonSvc", oParameter);
-            } catch (e) {
-                this.Log.error("Exception in DashboardInitial:fnLoadSCLDashboard function");
-                this.handleException(e);
-            }
-        },
+						this.getModel("dashboardModel").refresh();
+						if (oData.results.length > 0) {
+							this._setRadialChartText("scheduleMicroChartId", oData.results[0].LV_THRS, "", oData.results[0].LV_THRS, oData.results[0].LV_HRS);
+							return;
+						}
+						this._setRadialChartText("scheduleMicroChartId", "", "", 0, 0);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/GetSchDueSoonSvc", oParameter);
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:fnLoadSCLDashboard function");
+				this.handleException(e);
+			}
+		},
 		/** 
 		 * Get engine header data
 		 * @constructor 
@@ -869,14 +855,71 @@ sap.ui.define([
 					this.getView().getModel("dashboardModel").setProperty("/editLoc", false);
 					this.getView().getModel("dashboardModel").refresh();
 					this.fnLoadSrv1Dashboard();
-					this.fnLoadSrv2Dashboard();
 				}.bind(this);
 				ajaxutil.fnUpdate("/AirtailSvc", oParameter, [oPayload], "ZRM_S_LOC", this);
+				//Reset data
+				this.getView().getModel("dashboardModel").setProperty("/editLoc", false);
+				this.getView().getModel("dashboardModel").refresh();
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnSubmitLocationChange function");
 				this.handleException(e);
 			}
 		},
+		/** 
+		 * Check whether to lock AVMET
+		 * @param sStatus
+		 * @returns
+		 */
+		fnCheckLockStatus: function(sStatus) {
+			try {
+				switch (sStatus) {
+					case "AST_FFF":
+					case "AST_RFF":
+						return true;
+					default:
+						return false;
+				}
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
+				this.handleException(e);
+			}
+		},
+		/** 
+		 *  Check whether to lock Jobs
+		 * @param sStatus
+		 * @returns
+		 */
+		fnCheckRecLockStatus: function(sStatus) {
+			try {
+				switch (sStatus) {
+					case "AST_FAIR":
+					case "AST_FAIR0":
+					case "AST_FAIR1":
+					case "AST_FAIR2":
+						return true;
+					default:
+						return false;
+				}
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
+				this.handleException(e);
+			}
+		},
+		fnReplaceString: function(subTxt) {
+			try {
+				if (subTxt === undefined || subTxt === null) {
+					return;
+				}
+				var sReplaceText = this.getModel("avmetModel").getProperty("/login/air") +
+					" " + this.getModel("avmetModel").getProperty("/airSel/modidtx") +
+					" " + this.getModel("avmetModel").getProperty("/airSel/tailno");
+				return subTxt.replace("&AMT&", sReplaceText);
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:fnReplaceString function");
+				this.handleException(e);
+			}
+		},
+
 		/**** 27/06/2020 Priya */
 		_setRadialChartText: function(sControlId, sText1, sText2, crt, ttl) {
 			try {

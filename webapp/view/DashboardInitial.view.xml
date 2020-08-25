@@ -49,7 +49,6 @@
 					<HBox width="44%" class="sapUiSmallMarginEnd">
 						<ct:DBStatusTile class="sapUiTinyMargin" subTitle="STATUS" title="{avmetModel>/dash/astat}" header="{avmetModel>/dash/txt1}"
 							subHeader="{avmetModel>/dash/txt2}" info="{avmetModel>/dash/txt3}">
-							<!--items="{dashboardModel>/btns}"-->
 							<ct:items>
 								<Button text="{avmetModel>/dash/SBTN1}" visible="{= ${avmetModel>/dash/SBTN1}!== null ? true:false}" type="Emphasized"
 									press="onButtnItem1Press"/>
@@ -103,10 +102,8 @@
 										<SegmentedButtonItem text="{dashboardModel>REDESC}" key="{dashboardModel>key}" width="30%"/>
 									</items>
 								</SegmentedButton>
-								<Link text="view" press="onFuelView"/>
+								<Link text="view" press="onFuelView" visible="{= !!${avmetModel>/dash/SRVID}}"/>
 							</ct:DashboardTile3>
-							<!--${dashboardModel>/role/ADPDESC1} ${dashboardModel>/role/Count1}-->
-							<!--{= ${dashboardModel>/role/ADPDESC1} === 'NoData' ? 'Nothing Installed' : ${dashboardModel>/role/ADPDESC1} + ' ' + ${dashboardModel>/role/Count1}}-->
 							<ct:DashboardTile6 class="sapUiTinyMargin" title="Aircraft Role" totalCount="{dashboardModel>/role/TOTAL}"
 								chart1Visible="{= !!${dashboardModel>/role/ADPDESC1}}" chart2Visible="{= !!${dashboardModel>/role/ADPDESC2}}"
 								chart3Visible="{= !!${dashboardModel>/role/ADPDESC3}}" chart4Visible="{= !!${dashboardModel>/role/ADPDESC4}}"
