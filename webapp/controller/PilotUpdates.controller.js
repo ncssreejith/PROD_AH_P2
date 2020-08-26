@@ -71,6 +71,13 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		onNavBackPilotUpdate: function() {
+			if (this.getOwnerComponent().getModel("oPilotUpdatesViewModel")) {
+				this.getOwnerComponent().getModel("oPilotUpdatesViewModel").setData(null);
+			}
+			this.onNavBack();
+		},
 		onDeleteTimings: function(oEvent) {
 			try {
 				var oIndex = oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getPath().split("/")[2];
@@ -85,6 +92,17 @@ sap.ui.define([
 		onTimeChange: function(oEvent) {
 
 		},
+
+		onViewAddLim: function() {
+			try {
+				var oModel = this.getView().getModel("oPilotUpdatesViewModel");
+				this.getOwnerComponent().setModel(oModel, "oPilotUpdatesViewModel");
+				this.getRouter().navTo("Limitations");
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
+		},
+
 		onAddDefectPress: function(oEvent) {
 			try {
 				var oItems = {
@@ -158,7 +176,7 @@ sap.ui.define([
 						sNextKey = "EnginePowerCheck";
 						break;
 					case "FlyingRecords":
-						this.onNavBack();
+						this.onNavBackPilotUpdate();
 						return;
 				}
 				this.getView().byId("idIconTabBar").setSelectedKey(sNextKey);
@@ -213,9 +231,10 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {
+					this.getOwnerComponent().getModel("oPilotUpdatesViewModel").setData(null);
 					this.onSendOthers();
 				}.bind(this);
-				oParameter.activity=4;
+				oParameter.activity = 4;
 				ajaxutil.fnCreate("/PilotAH4flySvc", oParameter, [oPayloads], "ZRM_PFR_P", this);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateFlyRecords function");
@@ -324,7 +343,7 @@ sap.ui.define([
 				}
 				oPayloads.forEach(function(oItem) {
 					oItem.astid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvable");
-					oItem.fair = oItem.astid ==='AST_S'?'':oItem.astid;	
+					oItem.fair = oItem.astid === 'AST_S' ? '' : oItem.astid;
 				}.bind(this));
 				var oParameter = {};
 				oParameter.error = function() {};
@@ -382,22 +401,28 @@ sap.ui.define([
 
 		_onObjectMatched: function(oEvent) {
 			try {
-				this.getModel("oPilotUpdatesViewModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
-				this.getModel("oPilotUpdatesViewModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
-				this.getModel("oPilotUpdatesViewModel").setData(this._fnCreateData());
-				this.getModel("oPilotUpdatesViewModel").refresh();
+				if (this.getOwnerComponent().getModel("oPilotUpdatesViewModel")) {
+					var oModel = this.getOwnerComponent().getModel("oPilotUpdatesViewModel");
+					this.getView().setModel(oModel, "oPilotUpdatesViewModel");
+				} else {
+					this.getModel("oPilotUpdatesViewModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
+					this.getModel("oPilotUpdatesViewModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
+					this.getModel("oPilotUpdatesViewModel").setData(this._fnCreateData());
+					this.getModel("oPilotUpdatesViewModel").refresh();
 
-				this.fnReadArming();
+					this.fnReadArming();
 
-				this.fnReadAmResults();
-				this.fnReadOpType();
-				this.fnReadflyResults();
-				this.fnReadAirMon();
-				this.fnReadFlyReq();
-				this.fnReadEngine();
-				this.fnReadAddLimitCount();
-				this.fnReadFuleTankFromRepl();
-				this.fnReadFuleTanksFromRole();
+					this.fnReadAmResults();
+					this.fnReadOpType();
+					this.fnReadflyResults();
+					this.fnReadAirMon();
+					this.fnReadFlyReq();
+					this.fnReadEngine();
+					this.fnReadAddLimitCount();
+					this.fnReadFuleTankFromRepl();
+					this.fnReadFuleTanksFromRole();
+				}
+
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:_onObjectMatched function");
 				this.handleException(e);
@@ -461,8 +486,10 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/engines", oData.results);
-					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/chkrn", oData.results[0].chkrn === null ? "1" : oData.results[0].chkrn);
-					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/chkrn", oData.results[1].chkrn === null ? "1" : oData.results[1].chkrn);
+					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/chkrn", oData.results[0].chkrn === null ? "1" : oData.results[0]
+						.chkrn);
+					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/chkrn", oData.results[1].chkrn === null ? "1" : oData.results[1]
+						.chkrn);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
 				ajaxutil.fnRead("/PilotAH4PowerSvc", oParameter);

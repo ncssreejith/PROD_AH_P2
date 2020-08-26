@@ -6,9 +6,9 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/ajaxutil",
 	"sap/base/Log"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil,Log) {
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log) {
 	"use strict";
-		/* ***************************************************************************
+	/* ***************************************************************************
 	 *	 Developer : AMIT KUMAR	
 	 *   Control name: WeaponConfig           
 	 *   Purpose : Add Equipment running log dialog controller
@@ -38,7 +38,7 @@ sap.ui.define([
 				oData.srnos = [];
 				oData.srvtid = "";
 				oData.stepid = "";
-			
+
 				this.getView().setModel(new JSONModel(oData), "oWCModel");
 				this.getView().setModel(new JSONModel({
 					busy: false,
@@ -64,8 +64,8 @@ sap.ui.define([
 				switch (sApprCount) {
 					case 1:
 						sOpenFrag = "AHFOToolsCheck";
-						oDialogData.TOTQTY = 0;//this.getModel("oWCModel").getProperty("/stns/0/TOTQTY");
-						oDialogData.SERNR = 0;//this.getModel("oWCModel").getProperty("/stns/0/QTYADD");
+						oDialogData.TOTQTY = 0; //this.getModel("oWCModel").getProperty("/stns/0/TOTQTY");
+						oDialogData.SERNR = 0; //this.getModel("oWCModel").getProperty("/stns/0/QTYADD");
 						break;
 				}
 				if (opType === "OPN") {
@@ -129,8 +129,8 @@ sap.ui.define([
 					// this.getView().byId("wizWeaponConfigId").nextStep();
 					this.fnLoadStation();
 				}.bind(this);
-				oParameter.activity=4;
-				ajaxutil.fnCreate("/WeaponConfigSvc", oParameter, [oPayloads],"ZRM_FS_WCS", this);
+				oParameter.activity = 4;
+				ajaxutil.fnCreate("/WeaponConfigSvc", oParameter, [oPayloads], "ZRM_FS_WCS", this);
 			} catch (e) {
 				Log.error("Exception in WeaponConfig:onSignOffClk function");
 				this.handleException(e);
@@ -140,12 +140,17 @@ sap.ui.define([
 			try {
 				if (oEvent.getParameter("srcControl").getId().search("station") !== -1) {
 					var oStation = oEvent.getSource().getBindingContext("oWCModel").getObject();
-					this.getOwnerComponent().getRouter().navTo("Station", {
-						srvtid: this.getModel("oWCModel").getProperty("/srvtid"),
-						stepid: this.getModel("oWCModel").getProperty("/stepid"),
-						stns: oStation.STNSID,
-						stnmid: oStation.STNMID
-					});
+					if (oStation.EFLAG === "X") {
+						sap.m.MessageBox.information("Pending supervisor to signoff role change");
+						return;
+					} else {
+						this.getOwnerComponent().getRouter().navTo("Station", {
+							srvtid: this.getModel("oWCModel").getProperty("/srvtid"),
+							stepid: this.getModel("oWCModel").getProperty("/stepid"),
+							stns: oStation.STNSID,
+							stnmid: oStation.STNMID
+						});
+					}
 				}
 			} catch (e) {
 				Log.error("Exception in WeaponConfig:onStationPress function");

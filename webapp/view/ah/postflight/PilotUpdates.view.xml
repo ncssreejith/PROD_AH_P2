@@ -1,6 +1,6 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.PilotUpdates"
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="Post-Flight Records" showFooter="true" showNavButton="true" enableScrolling="true" navButtonPress="onNavBack">
+	<Page title="Post-Flight Records" showFooter="true" showNavButton="true" enableScrolling="true" navButtonPress="onNavBackPilotUpdate">
 		<content>
 			<IconTabBar expanded="true" id="idIconTabBar" selectedKey="{oPilotUpdatesViewModel>/selTab}" select="handleIconTabBarSelect" >
 				<items>

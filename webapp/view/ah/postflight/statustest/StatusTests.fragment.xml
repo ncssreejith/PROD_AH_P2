@@ -14,7 +14,7 @@
 						<f:content>
 							<VBox height="6rem" class="sapUiSmallMargin" justifyContent="SpaceBetween">
 								<Text text="Skip this section if all reasons for declaring aircraft ‘Unserviceable’ has been stated above."/>
-								<Link text="View ADD({oPilotUpdatesViewModel>/ADDAndLIMIT/ADDCT}) and Limitations ({oPilotUpdatesViewModel>/ADDAndLIMIT/LIMITCT})"/>
+								<Link press="onViewAddLim" text="View ADD({oPilotUpdatesViewModel>/ADDAndLIMIT/ADDCT}) and Limitations ({oPilotUpdatesViewModel>/ADDAndLIMIT/LIMITCT})"/>
 							</VBox>
 						</f:content>
 					</f:Card>

@@ -124,7 +124,7 @@
 										<Label text="Date" design="Bold"/>
 									</Column>
 									<Column hAlign="Left" width="6%" class="textColor">
-										<Label text="Item In" design="Bold"/>
+										<Label text="Item Out" design="Bold"/>
 									</Column>
 									<Column hAlign="Left" width="15%" class="textColor">
 										<Label text="Description" design="Bold"/>

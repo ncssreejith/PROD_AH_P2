@@ -90,6 +90,7 @@ sap.ui.define([
 					sSelectedStationPath = oModel.getProperty("/sSelectedStationPath"),
 					iSLNo = oModel.getProperty("/iSLNo");
 				oModel.setProperty(sSelectedStationPath + "/SERNR", iSLNo);
+				oModel.setProperty(sSelectedStationPath + "/changeFlag", true);
 				if (this.bTankOrLauncher === "Launcher") {
 					this.onLauncherChange1();
 				} else if (this.bTankOrLauncher === "Tank") {
@@ -771,7 +772,7 @@ sap.ui.define([
 				}
 				oModel.refresh(true);
 				if (oSelObj.DDID !== "STNM_O") {
-					this._getAdaptors(oSelObj.SUBID);
+					this._getAdaptors(oSelObj);
 				}
 			} catch (e) {
 				Log.error("Exception in onSelectionChange function");
@@ -858,12 +859,25 @@ sap.ui.define([
 			try {
 				var oModel = this.getView().getModel("oRoleChangeModel"),
 					that = this,
-					aStationData = oModel.getProperty("/aPayload"),
+					aStationData = oModel.getProperty("/Stations"),
 					oParameter = {},
 					aPayload = [];
 				for (var i in aStationData) {
 					aStationData[i].tailid = this.getTailId();
 					aStationData[i].STNMID = null;
+					delete aStationData[i].Drop0;
+					delete aStationData[i].AdpId0;
+					delete aStationData[i].Drop1;
+					delete aStationData[i].AdpId1;
+					delete aStationData[i].Drop2;
+					delete aStationData[i].AdpId2;
+					delete aStationData[i].Tank;
+					delete aStationData[i].TankId;
+					delete aStationData[i].SLNo0;
+					delete aStationData[i].SLNo1;
+					delete aStationData[i].SLNo2;
+					delete aStationData[i].selected;
+					delete aStationData[i].Drop0Apd;
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -1259,13 +1273,14 @@ sap.ui.define([
 			}
 		},
 
-		_getAdaptors: function(sStationId) {
+		_getAdaptors: function(sObj) {
 			try {
 				var that = this,
 					oRoleChange = this.getView().getModel("oRoleChangeModel"),
 					oParameter = {},
 					aAdaptors = [],
-					aTanks = [];
+					aTanks = [],
+					sStationId = sObj.SUBID;
 				oRoleChange.setProperty("/sStationId", sStationId);
 				oParameter.error = function() {};
 				oParameter.filter = "airid eq '" + this.getAircraftId() + "' and adpflag eq 'X' and stnsid eq '" + sStationId + "'";
@@ -1351,7 +1366,9 @@ sap.ui.define([
 						}
 						//that._applyStationFilter("NoAdpId");
 						that._checkSelectedAdaptors();
-						that._fnGetRoleChange();
+						if (sObj.changeFlag !== true) {
+							that._fnGetRoleChange();
+						}
 					}
 				}.bind(this);
 				ajaxutil.fnRead("/RoleChangeSvc", oParameter);
@@ -1491,6 +1508,7 @@ sap.ui.define([
 						}
 						oRoleChange.setProperty("/Stations", oData.results);
 						that._setFirstItemSelected();
+						that._fnOpentab(oData.results[0].HCFLAG);
 					}
 				}.bind(this);
 				ajaxutil.fnRead("/RoleChangeSvc", oParameter);
@@ -1499,6 +1517,13 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		_fnOpentab: function(iFlag) {
+			var sProp = iFlag === "1" ? "Supervisor" : "Tradesman";
+			this.getModel("oRoleChangeModel").setProperty("/tabSelected", sProp);
+
+		},
+
 		_setFirstItemSelected: function() {
 			try {
 				var oList = this.getView().byId("list"),
@@ -1509,7 +1534,7 @@ sap.ui.define([
 				oRoleChange.setProperty("/StationName", oSelObj.L_TXT);
 				oRoleChange.setProperty("/oSelectedStation", oSelObj);
 				oRoleChange.setProperty("/sSelectedStationPath", sSelObjPath);
-				this._getAdaptors(oSelObj.SUBID);
+				this._getAdaptors(oSelObj);
 				if (oSelObj.SUBID === "STNS_102" && oSelObj.DDID === "STNM_O") {
 					oRoleChange.setProperty("/bGunSection", true);
 					oRoleChange.setProperty("/bDropSection", false);
