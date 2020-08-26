@@ -612,42 +612,88 @@ sap.ui.define([
 			}
 			return "#0a6cd6";
 		},
+		/** 
+		 * AVMET frame button status color
+		 * @param oSt
+		 * @param sSttxt
+		 * @returns
+		 */
 		statusColor: function(oSt, sSttxt) {
 			switch (oSt) {
 				case "AST_S":
+					this.removeStyleClass("redbtn");
+					this.removeStyleClass("yellowbtn");
+					this.removeStyleClass("greybtn");
+					this.removeStyleClass("infobtn");
 					this.addStyleClass("greenbtn");
 					break;
 				case "AST_FS":
+					this.removeStyleClass("redbtn");
+					this.removeStyleClass("yellowbtn");
+					this.removeStyleClass("greenbtn");
+					this.removeStyleClass("infobtn");
 					this.addStyleClass("greybtn");
 					break;
 				case "AST_FFF":
+					this.removeStyleClass("redbtn");
+					this.removeStyleClass("yellowbtn");
+					this.removeStyleClass("greybtn");
+					this.removeStyleClass("infobtn");
 					this.addStyleClass("greenbtn");
 					break;
 				case "AST_RFF":
+					this.removeStyleClass("redbtn");
+					this.removeStyleClass("yellowbtn");
+					this.removeStyleClass("greybtn");
+					this.removeStyleClass("infobtn");
 					this.addStyleClass("greenbtn");
 					break;
 				case "AST_US":
 				case "AST_US0":
 				case "AST_US1":
 				case "AST_US2":
+					this.removeStyleClass("redbtn");
+					this.removeStyleClass("greenbtn");
+					this.removeStyleClass("greybtn");
+					this.removeStyleClass("infobtn");
 					this.addStyleClass("yellowbtn");
 					break;
 				case "AST_FAIR":
 				case "AST_FAIR0":
 				case "AST_FAIR1":
 				case "AST_FAIR2":
+					this.removeStyleClass("yellowbtn");
+					this.removeStyleClass("greenbtn");
+					this.removeStyleClass("greybtn");
+					this.removeStyleClass("infobtn");
 					this.addStyleClass("redbtn");
 					break;
 				case "AST_FFC":
+					this.removeStyleClass("redbtn");
+					this.removeStyleClass("yellowbtn");
+					this.removeStyleClass("greybtn");
+					this.removeStyleClass("infobtn");
 					this.addStyleClass("greenbtn");
 					break;
 				case "AST_FFG":
+					this.removeStyleClass("redbtn");
+					this.removeStyleClass("yellowbtn");
+					this.removeStyleClass("greybtn");
+					this.removeStyleClass("infobtn");
 					this.addStyleClass("greenbtn");
 					break;
 				case "AST_REC":
+					this.removeStyleClass("redbtn");
+					this.removeStyleClass("greenbtn");
+					this.removeStyleClass("greybtn");
+					this.removeStyleClass("infobtn");
 					this.addStyleClass("yellowbtn");
 					break;
 				default:
+					this.removeStyleClass("redbtn");
+					this.removeStyleClass("greenbtn");
+					this.removeStyleClass("greybtn");
+					this.removeStyleClass("yellowbtn");
 					this.addStyleClass("infobtn");
 					break;
 			}

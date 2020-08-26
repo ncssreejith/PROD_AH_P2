@@ -386,8 +386,8 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this, oSerialNumberPayload);
 				// this.getModel("configModel").getProperty("/stepid")
-				oParameter.activity=4;
-				ajaxutil.fnCreate("/WeaponConfigSvc", oParameter, oPayloads,"ZRM_FS_WCT", this);
+				oParameter.activity = 4;
+				ajaxutil.fnCreate("/WeaponConfigSvc", oParameter, oPayloads, "ZRM_FS_WCT", this);
 			} catch (e) {
 				Log.error("Exception in Station:onStationSignOff function");
 				this.handleException(e);
@@ -397,30 +397,32 @@ sap.ui.define([
 			try {
 				var oPayloads = [];
 				oItem.selADP.selWpn.serialNos.forEach(function(srNo, sIndex) {
-					var oPayload = {};
-					oPayload.STNMID = oItem.selADP.selWpn.STNMID; //STNM_S;
-					oPayload.STNSID = oItem.selADP.selWpn.STNSID; //STNS_101;
-					oPayload.airid = this.getAircraftId();
-					oPayload.WEMID = oItem.selADP.selWpn.WEMID;
-					oPayload.WESID = oItem.selADP.selWpn.WESID;
-					oPayload.TAILID = this.getTailId();
-					oPayload.SRVID = "";
-					oPayload.NUM1 = (oItem.selADP.NUM1 === null || oItem.selADP.NUM1 === 0) ? 1 : oItem.selADP.NUM1;
-					oPayload.NUM2 = (sIndex + 1);
-					oPayload.SERNR = srNo.srno;
-					oPayload.endda = null;
-					oPayload.begda = null;
-					oPayload.ADPFLAG = "";
-					oPayload.POT = null;
-					oPayload.ADPID = oItem.selADP.ADPID;
-					oPayload.ADPDESC = oItem.selADP.ADPDESC;
-					oPayload.ROLEID = oItem.selADP.ROLEID;
-					oPayload.SEQID = oItem.selADP.SEQID;
-					oPayload.ICART = null;
-					oPayload.CONTOR = null;
-					oPayload.ISSER = oItem.selADP.ISSER;
+					if (srNo.srno) {
+						var oPayload = {};
+						oPayload.STNMID = oItem.selADP.selWpn.STNMID; //STNM_S;
+						oPayload.STNSID = oItem.selADP.selWpn.STNSID; //STNS_101;
+						oPayload.airid = this.getAircraftId();
+						oPayload.WEMID = oItem.selADP.selWpn.WEMID;
+						oPayload.WESID = oItem.selADP.selWpn.WESID;
+						oPayload.TAILID = this.getTailId();
+						oPayload.SRVID = "";
+						oPayload.NUM1 = (oItem.selADP.NUM1 === null || oItem.selADP.NUM1 === 0) ? 1 : oItem.selADP.NUM1;
+						oPayload.NUM2 = (sIndex + 1);
+						oPayload.SERNR = srNo.srno;
+						oPayload.endda = null;
+						oPayload.begda = null;
+						oPayload.ADPFLAG = "";
+						oPayload.POT = null;
+						oPayload.ADPID = oItem.selADP.ADPID;
+						oPayload.ADPDESC = oItem.selADP.ADPDESC;
+						oPayload.ROLEID = oItem.selADP.ROLEID;
+						oPayload.SEQID = oItem.selADP.SEQID;
+						oPayload.ICART = null;
+						oPayload.CONTOR = null;
+						oPayload.ISSER = oItem.selADP.ISSER;
 
-					oPayloads.push(oPayload);
+						oPayloads.push(oPayload);
+					}
 				}.bind(this));
 			} catch (e) {
 				Log.error("Exception in Station:onCreateMissile function");
@@ -503,11 +505,11 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					// var sSelWpn = this.getModel("configModel").setProperty("/selStn/selADP/selWpn");
 					var sSrNo = [];
-					oData.results.forEach(function(oItem,sIndex) {
+					oData.results.forEach(function(oItem, sIndex) {
 						var oSrNo = {};
-						oSrNo.srno= oItem.SERNR;
-						oSrNo.dlt= sIndex>0?true:false;
-						oSrNo.delimit= false;
+						oSrNo.srno = oItem.SERNR;
+						oSrNo.dlt = sIndex > 0 ? true : false;
+						oSrNo.delimit = false;
 						sSrNo.push(oSrNo);
 					}.bind(this));
 					sSelWpn.serialNos = sSrNo;

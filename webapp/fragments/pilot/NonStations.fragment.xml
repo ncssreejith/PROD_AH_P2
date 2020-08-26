@@ -24,7 +24,7 @@
 				<cells>
 					<Text text="{oWeaponExpModel>position}"/>
 					<StepInput value="{oWeaponExpModel>QtyRemained}" max="{path: 'oWeaponExpModel>totqty', formatter : '.formatter.formatMaxValue'}"
-						description=" / {oWeaponExpModel>totqty}" change="onQtyChange"/>
+						min="0" description=" / {oWeaponExpModel>totqty}" change="onQtyChange"/>
 					<!--<HBox>
 						<Input value="{WeaponExpModel>QtyRemained}"/>
 						<Text text=" / {WeaponExpModel>TotalQty}" class="sapUiSmallMarginTop sapUiSmallMarginBegin"/>

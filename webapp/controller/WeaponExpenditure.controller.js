@@ -188,6 +188,7 @@ sap.ui.define([
 					if (oData.results.length) {
 						for (var i in oData.results) {
 							if (oData.results[i].stndt === "STNM_O") {
+								oData.results[i].expqty = JSON.parse(JSON.stringify(oData.results[i].totqty));
 								aNonStations.push(oData.results[i]);
 							} else if (oData.results[i].stndt === "STNM_S") {
 								aStations.push(oData.results[i]);
