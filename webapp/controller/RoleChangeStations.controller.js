@@ -1500,7 +1500,6 @@ sap.ui.define([
 							oData.results[i].TankId = "";
 							oData.results[i].SERNR = "";
 							oData.results[i].QTYADD = "";
-							oData.results[i].HCFLAG = "";
 							oData.results[i].SLNo0 = "";
 							oData.results[i].SLNo1 = "";
 							oData.results[i].SLNo2 = "";

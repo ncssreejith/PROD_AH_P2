@@ -90,7 +90,18 @@ sap.ui.define([
 		},
 
 		onTimeChange: function(oEvent) {
-
+			var oSrc = oEvent.getSource(),
+			sTime = oSrc.getValue();
+			sTime = sTime.concat(":00");
+			var tDate = new Date();
+			var sCurrTime = tDate.getHours() + ":" + tDate.getMinutes() + ":00";
+			if (Date.parse("01/01/2020 "+sTime) > Date.parse("01/01/2020 "+sCurrTime)){
+				oSrc.setValueState("Error");
+				oSrc.setValueStateText("Selected time cannot be greater than current time");
+			} else {
+				oSrc.setValueState("None");
+				oSrc.setValueStateText("");
+			}
 		},
 
 		onViewAddLim: function() {
@@ -231,7 +242,6 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {
-					this.getOwnerComponent().getModel("oPilotUpdatesViewModel").setData(null);
 					this.onSendOthers();
 				}.bind(this);
 				oParameter.activity = 4;
@@ -290,6 +300,9 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function() {
 					if (this.getModel("oPilotUpdatesViewModel").getProperty("/armingReq") === "Y") {
+						if (this.getOwnerComponent().getModel("oPilotUpdatesViewModel")) {
+				this.getOwnerComponent().getModel("oPilotUpdatesViewModel").setData(null);
+			}
 						this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 					}
 				}.bind(this);
@@ -343,7 +356,7 @@ sap.ui.define([
 				}
 				oPayloads.forEach(function(oItem) {
 					oItem.astid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvable");
-					oItem.fair = oItem.astid === 'AST_S' ? '' : oItem.astid;
+					oItem.fair = oItem.astid === 'AST_S' ? 'N' : oItem.fair;
 				}.bind(this));
 				var oParameter = {};
 				oParameter.error = function() {};
@@ -378,6 +391,9 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {
+					if (this.getOwnerComponent().getModel("oPilotUpdatesViewModel")) {
+				this.getOwnerComponent().getModel("oPilotUpdatesViewModel").setData(null);
+			}
 					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 				}.bind(this);
 				ajaxutil.fnCreate("/PilotAH4ManoeuvringSvc", oParameter, [oPayloads]);

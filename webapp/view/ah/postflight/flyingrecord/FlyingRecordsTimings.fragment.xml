@@ -27,9 +27,9 @@
 						<cells>
 							<Text text="{path:'oPilotUpdatesViewModel>num1',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
 							<TimePicker value="{oPilotUpdatesViewModel>egspt}" valueFormat="HH:mm" displayFormat="HH:mm" change="onTimeChange" required="true"/>
-							<TimePicker value="{oPilotUpdatesViewModel>woffw}" valueFormat="HH:mm" displayFormat="HH:mm"  required="true"/>
-							<TimePicker value="{oPilotUpdatesViewModel>wonw}"  valueFormat="HH:mm" displayFormat="HH:mm"  required="true"/>
-							<TimePicker value="{oPilotUpdatesViewModel>egstt}" valueFormat="HH:mm" displayFormat="HH:mm"  required="true"/>
+							<TimePicker value="{oPilotUpdatesViewModel>woffw}" valueFormat="HH:mm" displayFormat="HH:mm" change="onTimeChange" required="true"/>
+							<TimePicker value="{oPilotUpdatesViewModel>wonw}"  valueFormat="HH:mm" displayFormat="HH:mm" change="onTimeChange" required="true"/>
+							<TimePicker value="{oPilotUpdatesViewModel>egstt}" valueFormat="HH:mm" displayFormat="HH:mm" change="onTimeChange" required="true"/>
 							<Button type="Transparent" icon="sap-icon://decline" press="onDeleteTimings" visible="{= ${oPilotUpdatesViewModel>num2}>1}"/>
 						</cells>
 					</ColumnListItem>
