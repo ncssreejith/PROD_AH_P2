@@ -91,16 +91,18 @@ sap.ui.define([
 
 		onTimeChange: function(oEvent) {
 			var oSrc = oEvent.getSource(),
-			sTime = oSrc.getValue();
-			sTime = sTime.concat(":00");
-			var tDate = new Date();
-			var sCurrTime = tDate.getHours() + ":" + tDate.getMinutes() + ":00";
-			if (Date.parse("01/01/2020 "+sTime) > Date.parse("01/01/2020 "+sCurrTime)){
-				oSrc.setValueState("Error");
-				oSrc.setValueStateText("Selected time cannot be greater than current time");
-			} else {
-				oSrc.setValueState("None");
-				oSrc.setValueStateText("");
+				sTime = oSrc.getValue();
+			if (sTime) {
+				sTime = sTime.concat(":00");
+				var tDate = new Date();
+				var sCurrTime = tDate.getHours() + ":" + tDate.getMinutes() + ":00";
+				if (Date.parse("01/01/2020 " + sTime) > Date.parse("01/01/2020 " + sCurrTime)) {
+					oSrc.setValueState("Error");
+					oSrc.setValueStateText("Selected time cannot be greater than current time");
+				} else {
+					oSrc.setValueState("None");
+					oSrc.setValueStateText("");
+				}
 			}
 		},
 
@@ -301,8 +303,8 @@ sap.ui.define([
 				oParameter.success = function() {
 					if (this.getModel("oPilotUpdatesViewModel").getProperty("/armingReq") === "Y") {
 						if (this.getOwnerComponent().getModel("oPilotUpdatesViewModel")) {
-				this.getOwnerComponent().getModel("oPilotUpdatesViewModel").setData(null);
-			}
+							this.getOwnerComponent().getModel("oPilotUpdatesViewModel").setData(null);
+						}
 						this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 					}
 				}.bind(this);
@@ -392,8 +394,8 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function() {
 					if (this.getOwnerComponent().getModel("oPilotUpdatesViewModel")) {
-				this.getOwnerComponent().getModel("oPilotUpdatesViewModel").setData(null);
-			}
+						this.getOwnerComponent().getModel("oPilotUpdatesViewModel").setData(null);
+					}
 					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 				}.bind(this);
 				ajaxutil.fnCreate("/PilotAH4ManoeuvringSvc", oParameter, [oPayloads]);

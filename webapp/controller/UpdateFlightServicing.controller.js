@@ -191,37 +191,37 @@ sap.ui.define([
 				oParameter.success = function(oItem, oData) {
 					if (oData.results.length) {
 						for (var i in oData.results) {
-							if (oData.results[i].subid === "S_RE" && oData.results[i].status === "") {
+							if (oData.results[i].subid === "S_RE" && oData.results[i].status !== "X") {
 								oData.results[i].ImgSrc = "css/img/Replenish.jpg";
 								oData.results[i].SignOff = "Pending";
 							} else if (oData.results[i].subid === "S_RE" && oData.results[i].status === "X") {
 								oData.results[i].ImgSrc = "css/img/ReplenishGrn.JPG";
 								oData.results[i].SignOff = "true";
-							} else if (oData.results[i].subid === "S_RT" && oData.results[i].status === "") {
+							} else if (oData.results[i].subid === "S_RT" && oData.results[i].status !== "X") {
 								oData.results[i].ImgSrc = "css/img/RoutineTasks.jpg";
 								oData.results[i].SignOff = "Pending";
 							} else if (oData.results[i].subid === "S_RT" && oData.results[i].status === "X") {
 								oData.results[i].ImgSrc = "css/img/RTGrn.JPG";
 								oData.results[i].SignOff = "true";
-							} else if (oData.results[i].subid === "S_FT" && oData.results[i].status === "") {
+							} else if (oData.results[i].subid === "S_FT" && oData.results[i].status !== "X") {
 								oData.results[i].ImgSrc = "css/img/FollowupTask.jpg";
 								oData.results[i].SignOff = "Pending";
 							} else if (oData.results[i].subid === "S_FT" && oData.results[i].status === "X") {
 								oData.results[i].ImgSrc = "css/img/FollowupGrn.JPG";
 								oData.results[i].SignOff = "true";
-							} else if (oData.results[i].subid === "S_WC" && oData.results[i].status === "") {
+							} else if (oData.results[i].subid === "S_WC" && oData.results[i].status !== "X") {
 								oData.results[i].ImgSrc = "css/img/Arming.jpg";
 								oData.results[i].SignOff = "Pending";
 							} else if (oData.results[i].subid === "S_WC" && oData.results[i].status === "X") {
 								oData.results[i].ImgSrc = "css/img/ArmingGrn.JPG";
 								oData.results[i].SignOff = "true";
-							} else if (oData.results[i].subid === "S_CS" && oData.results[i].status === "") {
+							} else if (oData.results[i].subid === "S_CS" && oData.results[i].status !== "X") {
 								oData.results[i].ImgSrc = "css/img/BFNoArm.jpg";
 								oData.results[i].SignOff = "Pending";
 							} else if (oData.results[i].subid === "S_CS" && oData.results[i].status === "X") {
 								oData.results[i].ImgSrc = "css/img/BFNoArm.jpg";
 								oData.results[i].SignOff = "true";
-							} else if (oData.results[i].subid === "S_CT" && oData.results[i].status === "") {
+							} else if (oData.results[i].subid === "S_CT" && oData.results[i].status !== "X") {
 								oData.results[i].ImgSrc = "css/img/FollowupTask.jpg";
 								oData.results[i].SignOff = "Pending";
 							} else if (oData.results[i].subid === "S_CT" && oData.results[i].status === "X") {

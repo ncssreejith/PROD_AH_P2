@@ -7,12 +7,12 @@
 					<VBox class="sapUiSmallMarginBeginEnd">
 						<Label design="Bold" text="Date" width="150px"/>
 						<DatePicker id="date" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" value="{path:'oRoutineTasksViewModel>/Date', formatter:'.formatter.defaultDateFormatDisplay'}"
-							width="200px" fieldGroupIds="fgDate" required="true"/>
+							width="200px" fieldGroupIds="fgDate" required="true" change="onDpToolCheck"/>
 					</VBox>
 					<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
 						<Label design="Bold" text="Time" width="150px"/>
 						<TimePicker id="time" width="200px" value="{path:'oRoutineTasksViewModel>/Time', formatter:'.formatter.defaultTimeFormatDisplay'}"
-							valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true"/>
+							valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true" change="onTpToolCheck"/>
 					</VBox>
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd bgColorWhite" width="70%">

@@ -678,6 +678,7 @@ Description : This control used to add new work center in Rectifications area in
     padding: 5px;
     float: left;
 }
+
 .StatusLeftYellowDiv {
     background: #f0a90a;
     width: 140px !important;
@@ -687,6 +688,7 @@ Description : This control used to add new work center in Rectifications area in
     padding: 5px;
     float: left;
 }
+
 .StatusLeftRedDiv {
     background: #F44c4c;
     width: 140px !important;
@@ -1059,6 +1061,27 @@ Description : This control used to add new work center in Rectifications area in
     margin-bottom: 0.6px;
 }
 
+.IconHeaderFooterClockIMG {
+    width: 60px;
+    height: 45px;
+    float: right;
+    position: relative;
+    margin-right: 0.6px;
+    margin-bottom: 0.6px;
+}
+
+.IconHeaderFooterClockIMG span {
+    position: absolute;
+    top: 10px;
+    width: 100px;
+    right: -18px;
+    text-align: center;
+    font-size: 15px;
+    font-family: arial;
+    display: block;
+    color: white;
+}
+
 .IconHeaderFooterIMG span {
     position: absolute;
     top: 10px;
@@ -1074,6 +1097,12 @@ Description : This control used to add new work center in Rectifications area in
 
 .CompletedTickIcon {
     border-bottom: 42px solid #4cce94;
+    border-left: 60px solid transparent;
+    border-top: 2px solid transparent;
+}
+
+.clockIconCSS {
+    border-bottom: 42px solid #bec7c3;
     border-left: 60px solid transparent;
     border-top: 2px solid transparent;
 }

@@ -148,6 +148,54 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		onDpToolCheck: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					sVal = oSrc.getDateValue().getTime(),
+					sDate = "";
+				if (oEvent.getParameter("valid")) {
+					var tDate = new Date();
+					var dd = tDate.getDate();
+					var mm = tDate.getMonth();
+					var yyyy = tDate.getFullYear();
+
+					sDate =
+						tDate = new Date(yyyy, mm, dd);
+					if (sVal > tDate.getTime()) {
+						oSrc.setValueState("Error");
+						oSrc.setValueStateText("Selected date cannot be greater than current date");
+					} else {
+						oSrc.setValueState("None");
+						oSrc.setValueStateText("");
+					}
+				} else {
+					oSrc.setValueState("Error");
+					oSrc.setValueStateText("Please Enter valid date");
+				}
+			} catch (e) {
+				Log.error("Exception in onDpToolCheck function");
+				this.handleException(e);
+			}
+		},
+
+		onTpToolCheck: function(oEvent) {
+			var oSrc = oEvent.getSource(),
+				sTime = oSrc.getValue();
+			if (sTime) {
+				sTime = sTime.concat(":00");
+				var tDate = new Date();
+				var sCurrTime = tDate.getHours() + ":" + tDate.getMinutes() + ":00";
+				if (Date.parse("01/01/2020 " + sTime) > Date.parse("01/01/2020 " + sCurrTime)) {
+					oSrc.setValueState("Error");
+					oSrc.setValueStateText("Selected time cannot be greater than current time");
+				} else {
+					oSrc.setValueState("None");
+					oSrc.setValueStateText("");
+				}
+			}
+		},
+
 		onSignOffClick: function() {
 			try {
 				//this.onSignOffClk("Routine_Tasks");
@@ -232,8 +280,8 @@ sap.ui.define([
 					var dDate = this.getView().byId("date").getValue(),
 						dTime = this.getView().byId("time").getValue();
 					aPostPayload[0].APR_NO = "4";
-					aPostPayload[0].TLCDT = dDate;
-					aPostPayload[0].TLCTM = dTime;
+					aPostPayload[0].TLCDT = dDate ? dDate : null;
+					aPostPayload[0].TLCTM = dTime ? dTime : null;
 					aPostPayload[0].TLQTY = oRoutineTaskModel.getProperty("/ToolQty") === undefined ? 1 : oRoutineTaskModel.getProperty("/ToolQty");
 					aPostPayload[0].PUBQTY = oRoutineTaskModel.getProperty("/PubQty") === undefined ? 1 : oRoutineTaskModel.getProperty("/PubQty");
 					var bValidation = true;
@@ -423,30 +471,34 @@ sap.ui.define([
 
 				if (bPageRefresh) {
 					if (sStep === "1") {
-						oWizard.nextStep();
 						oWizard.getSteps()[0]._deactivate();
+						oWizard.setCurrentStep(oWizard.getSteps()[1]);
+						oWizard.goToStep(oWizard.getSteps()[1], true);
+
 					} else if (sStep === "2") {
-						oWizard.nextStep();
-						oWizard.nextStep();
 						oWizard.getSteps()[0]._deactivate();
 						oWizard.getSteps()[1]._deactivate();
-						oWizard.getSteps()[3]._deactivate();
+						oWizard.setCurrentStep(oWizard.getSteps()[2]);
+						oWizard.goToStep(oWizard.getSteps()[2], true);
 					} else if (sStep === "3") {
-						oWizard.nextStep();
-						oWizard.nextStep();
-						oWizard.nextStep();
 						oWizard.getSteps()[0]._deactivate();
 						oWizard.getSteps()[1]._deactivate();
 						oWizard.getSteps()[2]._deactivate();
+						oWizard.setCurrentStep(oWizard.getSteps()[3]);
+						oWizard.goToStep(oWizard.getSteps()[3], true);
 					} else if (sStep === "4") {
-						oWizard.nextStep();
-						oWizard.getSteps()[0]._deactivate();
-						oWizard.getSteps()[2]._deactivate();
+						oWizard.getSteps()[0]._activate();
+						oWizard.getSteps()[1]._activate();
+						oWizard.getSteps()[2]._activate();
+						oWizard.getSteps()[3]._activate();
+						oWizard.goToStep(oWizard.getSteps()[0], true);
 						oRoutineTasksViewModel.setProperty("/bTMSignOffEnable", false);
 					}
 				} else {
 					this._nextStep();
 					if (sStep === "4") {
+						oWizard.nextStep();
+						oWizard.nextStep();
 						oRoutineTasksViewModel.setProperty("/bTMSignOffEnable", false);
 					}
 				}

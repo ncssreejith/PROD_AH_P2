@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/Control",
 	"sap/m/Label",
-	"sap/m/Button"
-], function (Control, Label, Button) {
+	"sap/m/Button",
+	"sap/ui/core/Icon"
+], function(Control, Label, Button, Icon) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name:            
@@ -25,6 +26,11 @@ sap.ui.define([
 				}
 			},
 			aggregations: {
+				_Icon: {
+					type: "sap.ui.core.Control",
+					multiple: false,
+					hidden: true
+				},
 				image: {
 					type: "sap.ui.core.Control"
 				},
@@ -39,23 +45,26 @@ sap.ui.define([
 				hoverOut: {}
 			}
 		},
-		onmouseover: function (evt) {
+		onmouseover: function(evt) {
 			this.fireHover({});
 		},
-		ontap: function (oEvent) {
+		ontap: function(oEvent) {
 			//console.log('Called');
 			this.firePress(oEvent);
 		},
 
-		onmouseout: function (evt) {
+		onmouseout: function(evt) {
 			this.fireHoverOut({});
 		},
 
-		init: function () {
-
+		init: function() {
+			this.clock = new Icon({
+				src: "sap-icon://pending"
+			});
+			this.setAggregation("_Icon", this.clock);
 		},
 
-		renderer: function (oRM, oControl) {
+		renderer: function(oRM, oControl) {
 			var bSignOffFlag = oControl.getSignOffFlag();
 			oRM.write("<div");
 			oRM.writeControlData(oControl);
@@ -75,12 +84,20 @@ sap.ui.define([
 			oRM.write(oControl.getTitle());
 			oRM.write("</div>");
 			oRM.write("</div>");
-			oRM.write("<div class='IconFooterDiv'>");
-			oRM.write("<div class='IconHeaderFooterIMG'>");
 			if (bSignOffFlag === "X") {
+				oRM.write("<div class='IconFooterDiv'>");
+				oRM.write("<div class='IconHeaderFooterIMG'>");
 				oRM.write("<div class='CompletedTickIcon'>");
 				oRM.write("<span>");
 				oRM.renderControl(aChildren[1]);
+				oRM.write("</span>");
+				oRM.write("</div>");
+			} else if (bSignOffFlag === "I") {
+				oRM.write("<div>");
+				oRM.write("<div class='IconHeaderFooterClockIMG'>");
+				oRM.write("<div class='clockIconCSS'>");
+				oRM.write("<span>");
+				oRM.renderControl(oControl.getAggregation('_Icon'));
 				oRM.write("</span>");
 				oRM.write("</div>");
 			}
