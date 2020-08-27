@@ -43,7 +43,8 @@ sap.ui.define([
 			try {
 				var oPayload = this.getModel("oAddEngCycLogModel").getProperty("/");
 				var aPayload = [oPayload];
-				if(this.getModel("oAddEng2CycLogModel").getProperty("/")){
+				//If engine 2 installed
+				if(this.getModel("oAddEng2CycLogModel").getProperty("/ENGID")){
 					var oTemp = this.getModel("oAddEng2CycLogModel").getProperty("/");
 					aPayload.push(oTemp);
 				}
