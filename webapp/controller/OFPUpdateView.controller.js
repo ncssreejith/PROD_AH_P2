@@ -3,8 +3,9 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, ajaxutil, JSONModel, formatter, Log) {
+	"sap/base/Log",
+	"../util/cvUtil"
+], function(BaseController, ajaxutil, JSONModel, formatter, Log, cvUtil) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name: WDNSCoefficients           
@@ -127,8 +128,11 @@ sap.ui.define([
 					if (oItem.edtb === "X") {
 						sText = new sap.m.Input({
 							value: "{" + oDataModel + ">" + oItem.colid + "}",
-							valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
-							liveChange: that.onChange
+							fieldGroupIds: ["fgNumber"],
+							// valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
+							liveChange: function(oEvent) {
+								cvUtil.onLiveChange(oEvent, false);
+							}
 						});
 					}
 					oCells.push(sText);
@@ -150,7 +154,7 @@ sap.ui.define([
 		onChange: function(oEvent) {
 			try {
 				var oSource = oEvent.getSource();
-				this.getModel("oOFPModel").setProperty("/isChange",true);
+				this.getModel("oOFPModel").setProperty("/isChange", true);
 				this.getModel("oOFPModel").refresh();
 			} catch (e) {
 				Log.error("Exception in OFPUpdateView:onChange function");

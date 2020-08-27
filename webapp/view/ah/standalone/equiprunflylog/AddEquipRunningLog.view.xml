@@ -29,32 +29,38 @@
 					</VBox>
 					<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd bgCOLorWhite" width="70%">
 						<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTop">
-							<Title text="Airframe Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<Input width="250px" value="{oAircraftAddModel>/record/COL_12}" editable="false"/>
+							<Label text="Airframe Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_12}" fieldGroupIds="fgNumber" editable="false"/>
+							<!--<Input width="250px" id="" value="{oAircraftAddModel>/record/COL_12}" liveChange="onLiveChange" fieldGroupIds="fgNumber" maxLength="2" required="true"  editable="true"/>-->
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
-							<Title text="#1 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<Input width="250px" value="{oAircraftAddModel>/record/COL_13}" editable="{= ${oAircraftAddModel>/type} === '0'}"/>
+							<Label text="#1 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_13}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgNumber"
+							required="{= ${oAircraftAddModel>/type} === '0'}" editable="{= ${oAircraftAddModel>/type} === '0'}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
-							<Title text="#2 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<Input width="250px" value="{oAircraftAddModel>/record/COL_14}" editable="{= ${oAircraftAddModel>/type} === '1'}"/>
+							<Label text="#2 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_14}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgNumber"
+							 required="{= ${oAircraftAddModel>/type} === '1'}" editable="{= ${oAircraftAddModel>/type} === '1'}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
-							<Title text="APU Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<Input width="250px" value="{oAircraftAddModel>/record/COL_15}" editable="{= ${oAircraftAddModel>/type} === '2'}"/>
+							<Label text="APU Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_15}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgNumber"
+							 required="{= ${oAircraftAddModel>/type} === '2'}" editable="{= ${oAircraftAddModel>/type} === '2'}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
-							<Title text="APU Start" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<Input width="250px" value="{oAircraftAddModel>/record/COL_16}" editable="{= ${oAircraftAddModel>/type} === '2'}"/>
+							<Label text="APU Start" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_16}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgNumber"
+							 required="{= ${oAircraftAddModel>/type} === '2'}" editable="{= ${oAircraftAddModel>/type} === '2'}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
-							<Title text="ALQ144" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<Input width="250px" value="{oAircraftAddModel>/record/COL_17}" editable="{= ${oAircraftAddModel>/type} === '3'}"/>
+							<Label text="ALQ144" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_17}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgNumber"
+							required="{= ${oAircraftAddModel>/type} === '3'}" editable="{= ${oAircraftAddModel>/type} === '3'}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
-							<Title text="Reason" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<Input width="250px" value="{oAircraftAddModel>/record/COL_18}" editable="false"/>
+							<Label text="Reason" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_18}" maxLength="20" fieldGroupIds="fgString" editable="false"/>
 						</HBox>
 					</VBox>
 				</HBox>

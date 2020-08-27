@@ -1345,7 +1345,7 @@ sap.ui.define([
 				oViewModel.setProperty("/WorkCenterKey", "Summary");
 				oViewModel.setProperty("/SummaryFlag", true);
 				oViewModel.setProperty("/WorcenterFlag", false);
-				oViewModel.setProperty("/FairEditFlag", true);
+				// oViewModel.setProperty("/FairEditFlag", true);
 				oViewModel.updateBindings(true);
 				that._fnJobDetailsGet(sJobId, sAirId);
 				that._fnTaskStatusGet(sJobId);

@@ -635,6 +635,7 @@ sap.ui.define([
 					this.addStyleClass("greybtn");
 					break;
 				case "AST_FFF":
+				case "AST_FFF0":	
 					this.removeStyleClass("redbtn");
 					this.removeStyleClass("yellowbtn");
 					this.removeStyleClass("greybtn");
@@ -642,6 +643,7 @@ sap.ui.define([
 					this.addStyleClass("greenbtn");
 					break;
 				case "AST_RFF":
+				case "AST_RFF0":		
 					this.removeStyleClass("redbtn");
 					this.removeStyleClass("yellowbtn");
 					this.removeStyleClass("greybtn");

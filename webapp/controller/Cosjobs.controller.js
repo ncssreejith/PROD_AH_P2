@@ -135,9 +135,10 @@ sap.ui.define([
 		onDefectsAllPress: function(oEvent) {
 			try {
 				var oJobId = oEvent.getSource().getBindingContext("JobModelAll").getObject().jobid;
+				var aState = this.getModel("avmetModel").getProperty("/dash/astid");
 				this.getRouter().navTo("CosDefectsSummary", {
 					"JobId": oJobId,
-					"Flag": "Y"
+					"Flag": this._fnCheckStatus(aState)
 				});
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
@@ -147,9 +148,10 @@ sap.ui.define([
 		onDefectsDetailsPress: function(oEvent) {
 			try {
 				var oJobId = oEvent.getSource().getBindingContext("JobModelD").getObject().jobid;
+				var aState = this.getModel("avmetModel").getProperty("/dash/astid");
 				this.getRouter().navTo("CosDefectsSummary", {
 					"JobId": oJobId,
-					"Flag": "Y"
+					"Flag": this._fnCheckStatus(aState)
 				});
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
@@ -158,9 +160,10 @@ sap.ui.define([
 		onScheduleDetailsPress: function(oEvent) {
 			try {
 				var oJobId = oEvent.getSource().getBindingContext("JobModelS").getObject().jobid;
+				var aState = this.getModel("avmetModel").getProperty("/dash/astid");
 				this.getRouter().navTo("CosDefectsSummary", {
 					"JobId": oJobId,
-					"Flag": "Y"
+					"Flag": this._fnCheckStatus(aState)
 				});
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
@@ -170,9 +173,10 @@ sap.ui.define([
 		onUnscheduledDetailsPress: function(oEvent) {
 			try {
 				var oJobId = oEvent.getSource().getBindingContext("JobModelU").getObject().jobid;
+				var aState = this.getModel("avmetModel").getProperty("/dash/astid");
 				this.getRouter().navTo("CosDefectsSummary", {
 					"JobId": oJobId,
-					"Flag": "Y"
+					"Flag": this._fnCheckStatus(aState)
 				});
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
@@ -549,6 +553,19 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetSerLogSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
+			}
+		},
+		_fnCheckStatus: function(aState) {
+			switch (aState) {
+				case "AST_FFF":
+				case "AST_RFF":
+				case "AST_FAIR":
+				case "AST_FAIR0":
+				case "AST_FAIR1":
+				case "AST_FAIR2":
+					return "N";
+				default:
+					return "Y";
 			}
 		}
 

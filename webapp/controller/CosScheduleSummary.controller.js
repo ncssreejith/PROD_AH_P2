@@ -550,6 +550,7 @@ sap.ui.define([
 				sAirId = that.getAircraftId();
 				sSqnId = that.getSqunId();
 				sModId = that.getModelId();
+				var sState = this._fnCheckStatus(this.getModel("avmetModel").getProperty("/dash/astid"));
 				var oSummaryModel = dataUtil.createNewJsonModel();
 				that.getView().setModel(oSummaryModel, "SummaryModel");
 				var oLocalModel = dataUtil.createNewJsonModel();
@@ -572,6 +573,7 @@ sap.ui.define([
 					CompleteCount: 0,
 					WorkCenterKey: "Summary",
 					ESJobId: sESJobId,
+					FairEditFlag: sState,
 					CreateTaskMenu: [{
 						"Text": "New Task",
 						"Visible": true
@@ -716,6 +718,19 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosScheduleSummary:onStartJobPress function");
 				this.handleException(e);
+			}
+		},
+		_fnCheckStatus: function(aState) {
+			switch (aState) {
+				case "AST_FFF":
+				case "AST_RFF":
+				case "AST_FAIR":
+				case "AST_FAIR0":
+				case "AST_FAIR1":
+				case "AST_FAIR2":
+					return false;
+				default:
+					return true;
 			}
 		}
 

@@ -4,8 +4,9 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
-	"sap/base/Log"
-], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log) {
+	"sap/base/Log",
+	"../util/cvUtil"
+], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log,cvUtil) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : Teck Meng
@@ -40,6 +41,10 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		onSignOffPress: function() {
 			try {
+				if (this.fnCheckValueState("fgNumber")) {
+					sap.m.MessageToast.show("Fill in all required input first");
+					return;
+				}
 				var oPayload = this.getModel("oAircraftAddModel").getProperty("/record");
 				oPayload.COL_11 = this.formatter.defaultDateTimeFormat(oPayload.Date);
 				delete oPayload.time;
@@ -108,6 +113,29 @@ sap.ui.define([
 				this.fnLogById();
 			} catch (e) {
 				Log.error("Exception in AddEquipRunningLog:_onObjectMatched function");
+				this.handleException(e);
+			}
+		},
+		onLiveChange:function(oEvent){
+			cvUtil.onLiveChange(oEvent,false);
+		},
+		/** 
+		 * Check for function group error state
+		 * @param sFunctionGroupId
+		 * @returns
+		 */
+		fnCheckValueState: function(sFunctionGroupId) {
+			try {
+			var aGroupControls = sap.ui.getCore().byFieldGroupId(sFunctionGroupId);
+			var bError = false;
+			aGroupControls.forEach(function(oControl) {
+				if (oControl.getValueState() === "Error") {
+					bError = true;
+				}
+			});
+			return bError;
+			} catch (e) {
+				Log.error("Exception in fnCheckValueState function");
 				this.handleException(e);
 			}
 		},

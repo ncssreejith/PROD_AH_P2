@@ -125,9 +125,9 @@
 		<Toolbar>
 			<Title text="{i18n>tiRectificationsbyWorkCenter}"/>
 			<ToolbarSpacer/>
-			<Button text="{i18n>btnDemandSpares}" type="Default" class="btnClass" press="onAddDemandSpares" enabled="{LocalModel>/FairEditFlag}"/>
-			<Button icon="sap-icon://vertical-grip" type="Transparent" press="onOpenQuickView('WC',$event)" class="sapUiSmallMarginEnd"
-				enabled="{LocalModel>/FairEditFlag}"/>
+				<Button text="{i18n>btnDemandSpares}" type="Default" class="btnClass" press="onAddDemandSpares" enabled="{LocalModel>/FairEditFlag}"/>
+				<Button icon="sap-icon://vertical-grip" type="Transparent" press="onOpenQuickView('WC',$event)" class="sapUiSmallMarginEnd"
+					enabled="{LocalModel>/FairEditFlag}"/>
 		</Toolbar>
 		<HBox>
 			<!--{CreateJobLocalModel>Prime}-->
@@ -136,7 +136,8 @@
 					prime="{= ${CreatedWorkCenterModel>isprime} !== null ? true:false }" title="{CreatedWorkCenterModel>wrctrtx}" select="onWorkCenterSelect"
 					visible="{= ${CreatedWorkCenterModel>wrctr} !== 'Summary' }"/>
 			</HBox>
-			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter" enabled="true" visible="{LocalModel>/FairEditFlag}">
+			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter"
+				visible="{LocalModel>/FairEditFlag}">
 				<core:Icon src="sap-icon://sys-add" size="35px" color="blue" press="onIconPress"/>
 			</cc:RectificationTileAdd>
 		</HBox>

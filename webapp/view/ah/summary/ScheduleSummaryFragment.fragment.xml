@@ -4,8 +4,8 @@
 			<Title text="{i18n>tiAircraftServicingJobSummary}" level="H3" titleStyle="H3" class="sapUiSmallMargin"/>
 			<ToolbarSpacer/>
 			<Button text="{i18n>btnManageJobs}" type="Transparent" icon="sap-icon://megamenu" iconFirst=" false" class="btnClass"
-				press="onOpenQuickView('SD',$event)"/>
-			<Button text="{i18n>btnStartJob}" type="Emphasized" press="onStartJobPress"/>
+				press="onOpenQuickView('SD',$event)" visible="{LocalModel>/FairEditFlag}"/>
+			<Button text="{i18n>btnStartJob}" type="Emphasized" press="onStartJobPress" visible="{LocalModel>/FairEditFlag}"/>
 		</Toolbar>
 		<l:VerticalLayout class="sapUiContentPadding equalColumns" width="100%">
 			<l:content>
