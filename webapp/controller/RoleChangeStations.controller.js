@@ -68,6 +68,7 @@ sap.ui.define([
 				oModel.setProperty("/oSelTank", oSelTank);
 
 				if (oSelTank.ISSER === "X") {
+					oModel.setProperty("/oSelLauncher/ADPDESC", oSelTank.ADPDESC);
 					this.bTankOrLauncher = "Tank";
 					this._fnShowSLNo();
 
@@ -789,15 +790,15 @@ sap.ui.define([
 					aPayload = [];
 				if (aStations.length) {
 					for (var i in aStations) {
-						if (aStations[i].Drop0 !== "") {
+						if (aStations[i].Drop0 && aStations[i].Drop0 !== "") {
 							aStations[i].Drop0Apd.SERNR = aStations[i].SLNo0;
 							aPayload.push(aStations[i].Drop0Apd);
 						}
-						if (aStations[i].Drop1 !== "") {
+						if (aStations[i].Drop1 && aStations[i].Drop1 !== "") {
 							aStations[i].Drop1Apd.SERNR = aStations[i].SLNo1;
 							aPayload.push(aStations[i].Drop1Apd);
 						}
-						if (aStations[i].Drop2 !== "") {
+						if (aStations[i].Drop2 && aStations[i].Drop2 !== "") {
 							aStations[i].Drop2Apd.SERNR = aStations[i].SLNo2;
 							aPayload.push(aStations[i].Drop2Apd);
 						}
@@ -807,7 +808,7 @@ sap.ui.define([
 						// 	aPayload.push(aStations[i].TankApd);
 						// }
 						//To Post Gun, Chaff and Flare
-						if (aStations[i].QTYADD !== "" || aStations[i].HCFLAG !== "") {
+						if (aStations[i].QTYADD !== "") {
 							aStations[i].NUM1 = "1";
 							delete aStations[i].Drop1;
 							delete aStations[i].Drop2;
@@ -834,6 +835,7 @@ sap.ui.define([
 						//aPayload[i].stepid = "S_RL";
 					}
 				}
+				var plStations = this._fnGetStationPayload(aPayload, 1);
 				oModel.setProperty("/aPayload", aPayload);
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -848,7 +850,7 @@ sap.ui.define([
 					}, 100);
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/RoleChangeSvc", oParameter, aPayload, "ZRM_FS_RCT", this);
+				ajaxutil.fnCreate("/RoleChangeSvc", oParameter, plStations, "ZRM_FS_RCT", this);
 			} catch (e) {
 				Log.error("Exception in onStationSignOff function");
 				this.handleException(e);
@@ -865,20 +867,8 @@ sap.ui.define([
 				for (var i in aStationData) {
 					aStationData[i].tailid = this.getTailId();
 					aStationData[i].STNMID = null;
-					delete aStationData[i].Drop0;
-					delete aStationData[i].AdpId0;
-					delete aStationData[i].Drop1;
-					delete aStationData[i].AdpId1;
-					delete aStationData[i].Drop2;
-					delete aStationData[i].AdpId2;
-					delete aStationData[i].Tank;
-					delete aStationData[i].TankId;
-					delete aStationData[i].SLNo0;
-					delete aStationData[i].SLNo1;
-					delete aStationData[i].SLNo2;
-					delete aStationData[i].selected;
-					delete aStationData[i].Drop0Apd;
 				}
+				var plStations = this._fnGetStationPayload(aStationData, 2);
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					sap.m.MessageToast.show("Signoff Successful");
@@ -891,7 +881,7 @@ sap.ui.define([
 					oModel.setProperty("/tabSelected", "Tradesman");
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/GetRoleSvc", oParameter, aStationData, "ZRM_FS_RCS", this);
+				ajaxutil.fnCreate("/GetRoleSvc", oParameter, plStations, "ZRM_FS_RCS", this);
 			} catch (e) {
 				Log.error("Exception in onSecondSignOff function");
 				this.handleException(e);
@@ -1367,6 +1357,7 @@ sap.ui.define([
 						//that._applyStationFilter("NoAdpId");
 						that._checkSelectedAdaptors();
 						if (sObj.changeFlag !== true) {
+							oRoleChange.setProperty("/bICART", false);
 							that._fnGetRoleChange();
 						}
 					}
@@ -1597,6 +1588,45 @@ sap.ui.define([
 				Log.error("Exception in _navToDashboard function");
 				this.handleException(e);
 			}
+		},
+		
+		_fnGetStationPayload: function(aPayload, iType) {
+			var plStations = {};
+			var aStations = [];
+			for (var i in aPayload) {
+				plStations.DDID = aPayload[i].DDID;
+				plStations.SUBID = aPayload[i].SUBID;
+				plStations.MAX = aPayload[i].MAX;
+				plStations.L_TXT = aPayload[i].L_TXT;
+				plStations.SEQID = aPayload[i].SEQID;
+				plStations.NUM1 = aPayload[i].NUM1;
+				plStations.ADPID = aPayload[i].ADPID;
+				plStations.ADPDESC = aPayload[i].ADPDESC;
+				plStations.ADPFLAG = aPayload[i].ADPFLAG;
+				plStations.AIRID = aPayload[i].AIRID;
+				plStations.STNSID = aPayload[i].STNSID;
+				plStations.ROLEID = aPayload[i].ROLEID;
+				plStations.endda = aPayload[i].endda;
+				plStations.begda = aPayload[i].begda;
+				plStations.tailid = aPayload[i].tailid;
+				plStations.SGUSR = aPayload[i].SGUSR;
+				plStations.SGTIME = aPayload[i].SGTIME ? aPayload[i].SGTIME : null;
+				plStations.WESDESC = aPayload[i].WESDESC;
+				plStations.WESID = aPayload[i].WESID;
+				plStations.WEMID = aPayload[i].WEMID;
+				plStations.ICART = aPayload[i].ICART;
+				plStations.ISSER = aPayload[i].ISSER;
+				plStations.QTYADD = aPayload[i].QTYADD;
+				plStations.HCFLAG = aPayload[i].HCFLAG;
+				plStations.SERNR = aPayload[i].SERNR;
+				plStations.POT = aPayload[i].POT;
+				if (iType === 2) {
+					plStations.STNMID = "";
+				}
+				aStations.push(JSON.parse(JSON.stringify(plStations)));
+			}
+
+			return aStations;
 		}
 	});
 });

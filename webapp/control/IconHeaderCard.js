@@ -59,7 +59,7 @@ sap.ui.define([
 
 		init: function() {
 			this.clock = new Icon({
-				src: "sap-icon://pending"
+				src: "sap-icon://history"
 			});
 			this.setAggregation("_Icon", this.clock);
 		},
