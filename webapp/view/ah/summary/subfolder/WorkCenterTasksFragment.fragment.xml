@@ -14,14 +14,14 @@
 					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.task.WorkCenterTasksOutstandingFragment" type="XML"/>
 					<OverflowToolbar class="toolbarBorder sapUiTinyMarginTop">
 						<ToolbarSpacer/>
-						<Button text="{i18n>btnCloseTask}" press="onCloseTask" class="btnClass sapUiSizeCompact" type="Emphasized" width="7rem" enabled="{LocalModel>/FairEditFlag}"/>
+						<Button text="{i18n>btnCloseTask}" press="onCloseTask" class="btnClass sapUiSizeCompact" type="Emphasized" width="7rem" enabled="{LocalModel>/FairEditFlag}" visible="{= (${LocalModel>/sFlag}==='Y' &amp;&amp; ${TaskOutModel>/}.length !== 0) ? true:false}"/>
 					</OverflowToolbar>
 				</IconTabFilter>
 				<IconTabFilter text="{i18n>itPENDINGSUPERVISOR}" count="{=${TaskPendingModel>/}.length}">
 					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.task.WorkCenterTasksPendingSupervisorFragment" type="XML"/>
 					<OverflowToolbar class="toolbarBorder sapUiTinyMarginTop">
 						<ToolbarSpacer/>
-						<Button text="{i18n>btnSignOff}" type="Emphasized" press="onSignOffTask" class="btnClass sapUiSizeCompact" width="7rem" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+						<Button text="{i18n>btnSignOff}" type="Emphasized" press="onSignOffTask" class="btnClass sapUiSizeCompact" width="7rem" enabled="{LocalModel>/FairEditFlag}" visible="{= (${LocalModel>/sFlag}==='Y' &amp;&amp; ${TaskPendingModel>/}.length !== 0) ? true:false}"/>
 					</OverflowToolbar>
 				</IconTabFilter>
 				<IconTabFilter text="{i18n>itCOMPLETED}" count="{=${TaskCompleteModel>/}.length}">
