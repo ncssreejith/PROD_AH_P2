@@ -40,7 +40,7 @@ sap.ui.define([
 			},
 			aggregations: {
 				items: {
-					type: "sap.m.Button",
+					type: "sap.ui.core.Control",
 					multiple: true,
 					singularName: "item"
 				},
@@ -74,7 +74,7 @@ sap.ui.define([
 			} else if (oControl.getTitle() === "Unserviceable") {
 				oRM.write("<div class='StatusLeftYellowDiv'>");
 			} else if (oControl.getTitle() === "Flight Servicing") {
-				oRM.write("<div class='StatusLeftGreyDiv'>");	
+				oRM.write("<div class='StatusLeftGreyDiv'>");
 			} else if (oControl.getTitle() === "Awaiting Recipient") {
 				oRM.write("<div class='StatusLeftOrgDiv'>");
 			} else {
@@ -99,15 +99,22 @@ sap.ui.define([
 			oRM.write("</div>");
 
 			oRM.write("<div class='StatusCenterDiv'>");
-			oRM.write("<div class='StatusHeaderDiv'>");
-			oRM.write(oControl.getHeader());
-			oRM.write("</div>");
-			oRM.write("<div class='StatusSubHeaderDiv'>");
-			oRM.write(oControl.getSubHeader());
-			oRM.write("</div>");
-			oRM.write("<div class='StatusInfoDiv'>");
-			oRM.write(oControl.getInfo());
-			oRM.write("</div>");
+			if (oControl.getHeader()) {
+				oRM.write("<div class='StatusHeaderDiv'>");
+				oRM.write(oControl.getHeader());
+				oRM.write("</div>");
+			}
+			if (oControl.getSubHeader()) {
+				oRM.write("<div class='StatusSubHeaderDiv'>");
+				oRM.write(oControl.getSubHeader());
+				oRM.write("</div>");
+			}
+			if (oRM.write(oControl.getInfo())) {
+				oRM.write("<div class='StatusInfoDiv'>");
+				oRM.write(oControl.getInfo());
+				oRM.write("</div>");
+			}
+
 			oRM.write("</div>");
 			oRM.write("<div class='StatusRightDiv'>");
 

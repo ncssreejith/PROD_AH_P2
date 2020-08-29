@@ -279,18 +279,29 @@ sap.ui.define([
 				} else if (sStep === "3") {
 					var dDate = this.getView().byId("date").getValue(),
 						dTime = this.getView().byId("time").getValue();
+
+					if (!dDate) {
+						this.getView().byId("date").setValueState("Error");
+						this.getView().byId("date").setValueStateText("Please enter the date");
+						sap.m.MessageToast.show("Please fill all mandatory fields");
+						return;
+					}
+					if (!dTime) {
+						this.getView().byId("time").setValueState("Error");
+						this.getView().byId("time").setValueStateText("Please enter the time");
+						sap.m.MessageToast.show("Please fill all mandatory fields");
+						return;
+					}
 					aPostPayload[0].APR_NO = "4";
 					aPostPayload[0].TLCDT = dDate ? dDate : null;
 					aPostPayload[0].TLCTM = dTime ? dTime : null;
 					aPostPayload[0].TLQTY = oRoutineTaskModel.getProperty("/ToolQty") === undefined ? 1 : oRoutineTaskModel.getProperty("/ToolQty");
 					aPostPayload[0].PUBQTY = oRoutineTaskModel.getProperty("/PubQty") === undefined ? 1 : oRoutineTaskModel.getProperty("/PubQty");
-					var bValidation = true;
+
 					oRoutineTaskModel.setProperty("/bNavBack", true);
-					if (bValidation) {
-						this._SignOffPost(aPostPayload);
-					} else {
-						sap.m.MessageToast.show("Please fill all mandatory fields");
-					}
+
+					this._SignOffPost(aPostPayload);
+
 				}
 			} catch (e) {
 				Log.error("Exception in onSignOff function");

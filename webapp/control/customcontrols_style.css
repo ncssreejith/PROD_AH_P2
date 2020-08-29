@@ -748,7 +748,8 @@ Description : This control used to add new work center in Rectifications area in
 }
 
 .StatusCenterDiv {
-    width: 170px !important;
+    max-width: 170px !important;
+    width: auto !important;
     height: 83px !important;
     border-radius: 5px;
     margin: 10px;
@@ -1732,14 +1733,6 @@ Description : This control used to add new work center in Rectifications area in
     font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
 }
 
-.StatusCenterDiv {
-    width: 170px !important;
-    height: 83px !important;
-    border-radius: 5px;
-    margin: 10px;
-    padding: 5px;
-    float: left;
-}
 
 .StatusHeaderDiv {
     font-size: 13px !important;
