@@ -863,6 +863,9 @@ sap.ui.define([
 			return sPercentAge;
 		},
 		fuelMC: function(oState, sState1) {
+			if( !oState || !sState1){
+				return 0;
+			}
 			var sPercentAge = 0;
 			if (oState === undefined || oState === null) {
 				return sPercentAge;
@@ -919,6 +922,9 @@ sap.ui.define([
 			}
 		},
 		FuelMC: function(sValue, iMax) {
+			if( !sValue || !iMax){
+				return 0;
+			}
 			var iValue = 0;
 			if (sValue === null || iMax === null) {
 				return iValue;

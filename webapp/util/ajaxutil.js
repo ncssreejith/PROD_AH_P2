@@ -6,7 +6,7 @@ sap.ui.define([
 	"use strict";
 	return {
 		// http://localhost:58983/AVMET/avmetDB/AircraftModelSvc
-		fnBasePath: "/DBSRV17/avmet",
+		fnBasePath: "/DBSRV17/avmetdb",
 		//fnBasePath: "",
 		fnCreate: function(sPath, oParameters, oPayLoad, oObjectId, ref) {
 			try {
@@ -35,7 +35,7 @@ sap.ui.define([
 					oData.beforeSend = this.fnEncryptDetails.bind(this,user);
 				}
 				oData.type = "POST";
-				oData.headers= {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="};
+				//oData.headers= {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="};
 				oData.url = this.fnBasePath + "" + sPath;
 				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
@@ -85,7 +85,7 @@ sap.ui.define([
 				}
 
 				oData.type = "PUT";
-				oData.headers= {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="};
+				//oData.headers= {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="};
 				oData.url = this.fnBasePath + "" + sPath;
 				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
@@ -113,7 +113,7 @@ sap.ui.define([
 				oParameters = this.fnCheckForParameters(oParameters);
 				$.ajax({
 					type: 'DELETE',
-					headers: {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="},
+				//	headers: {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="},
 					url: this.fnBasePath + "" + sPath,
 					/*	dataType: "json",*/
 					error: oParameters.error.bind(this),
@@ -129,7 +129,7 @@ sap.ui.define([
 				oParameters = this.fnCheckForParameters(oParameters);
 				$.ajax({
 					type: 'GET',
-					headers: {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="},
+					//headers: {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="},
 					url: this.fnBasePath + "" + sPath + "" + oParameters.queryParam,
 					error: oParameters.error.bind(this),
 					success: oParameters.success.bind(this)

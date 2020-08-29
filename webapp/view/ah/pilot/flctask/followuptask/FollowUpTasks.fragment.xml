@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Table class="CERTable sapUiSmallMargin" width="97%" items="{paModel>ft}">
+		<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="Follow-Up Tasks" level="H1"/>
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column class="CERTableTextColor">
+				<Label text="Symbol" design="Bold" wrapping="true"/>
+			</Column>
+			<Column demandPopin="true">
+				<Label text="Task" design="Bold" wrapping="true"/>
+			</Column>
+			<Column demandPopin="true">
+				<Label text="Technical Order" design="Bold" wrapping="true"/>
+			</Column>
+			<Column demandPopin="true">
+				<Label text="Tradesman" design="Bold" wrapping="true"/>
+			</Column>
+			<Column demandPopin="true">
+				<Label text="Supervisor" design="Bold" wrapping="true"/>
+			</Column>
+			<Column demandPopin="true">
+				<Label text="Date / Time (Close)" design="Bold" wrapping="true"/>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<core:Icon src="sap-icon://decline" size="30px" color="#da2d2d"/>
+					<Text text="{paModel>ftdesc}" wrapping="true"/>
+					<Text text="{paModel>toref}"/>
+					<Text text="{paModel>sg1usr}"/>
+					<Text text="{paModel>sg2usr}"/>
+					<Text text="{path:'paModel>sg2dtm', formatter:'.formatter.defaultDateFormatDisplay'} {path:'paModel>sg2uzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

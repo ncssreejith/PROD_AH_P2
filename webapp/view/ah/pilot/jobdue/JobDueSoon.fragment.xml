@@ -1,0 +1,69 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<Page id="T9_JDUE">
+		<content>
+			<VBox class="WhiteVBox sapUiTinyMargin" height="450px">
+				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+					<items>
+						<Text class="PDSFragTitle" text="Jobs Due Soon"/>
+						<Button text="Reviewed" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
+					</items>
+				</FlexBox>
+				<!--getBindingContext("paModel")-->
+				<!--,filters:[{path:'DUEIN',operator:'LE',value1:'5'},{path:'UM',operator:'EQ',value1:'DAYS'}]-->
+				<Table class="sapUiResponsivePadding CERTable sapUiSizeCompact"
+					items="{path:'paModel>dueJobs', 
+					filters: [{
+					filters:[
+						{filters:[{path: 'DUEIN',operator: 'LE',value1: '5'},{path: 'UM',operator: 'EQ',value1: 'DAYS'}],and:true},
+						{filters:[{path: 'DUEIN',operator: 'LE',value1: '10'},{path: 'UM',operator: 'NE',value1: 'DAYS'}],and:true}
+					],and:false
+					}], sorter:{path:'DUEIN'}}"
+					updateFinished="onJobDueUpdateFinished">
+					<columns>
+						<Column width="10%" hAlign="Center" class="CERTableTextColor">
+							<Label text="{i18n>lbDueIn}" design="Bold" wrapping="true"/>
+						</Column>
+						<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+							<Label text="Um" design="Bold" wrapping="true"/>
+						</Column>
+						<Column width="15%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+							<Label text="{i18n>lbServicingDue}" design="Bold" wrapping="true"/>
+						</Column>
+						<Column width="35%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="{i18n>lbJobDescription}" design="Bold" wrapping="true"/>
+						</Column>
+						<Column width="20%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="{i18n>lbType}" design="Bold" wrapping="true"/>
+						</Column>
+						<Column width="10%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="{i18n>lbPrime}" design="Bold" wrapping="true"/>
+						</Column>
+						<Column width="10%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="{i18n>lbOtherTrades}" design="Bold" wrapping="true"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem vAlign="Middle" type="Inactive" press="onDefectsDetailsPress">
+							<cells>
+								<Text text="{paModel>DUEIN}"/>
+								<Text text="{paModel>UM}"/>
+								<Text text="{path:'paModel>SERVDT',formatter:'.formatter.defaultDateFormatDisplay'}{paModel>SERVDUE}"/>
+								<Text text="{paModel>JOBDESC}"/>
+								<Text text="{paModel>CTYPE}"/>
+								<Text text="{paModel>WRCTR}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onNavBack"/>
+				<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</core:FragmentDefinition>

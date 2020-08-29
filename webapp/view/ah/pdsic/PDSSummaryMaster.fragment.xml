@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core"
+	xmlns:filterbar="sap.ui.comp.filterbar">
+	<Page showHeader="true" showFooter="true" title="Certificate of serviceability" showNavButton="true" navButtonPress="onNavBack">
+		<content>
+			<List mode="SingleSelectMaster" noDataText="No Data"
+				items="{path : 'pdsSummaryModel>/masterList' , sorter : { path : 'sequence', descending: false}}"  selectionChange="onListItemPress">
+				<ObjectListItem icon="{pdsSummaryModel>Icon}" title="{pdsSummaryModel>ddesc}" selected="{= ${pdsSummaryModel>ddid}===${pdsSummaryModel>/selItem}}" type="{pdsSummaryModel>Type}"
+					number="{pdsSummaryModel>count}"></ObjectListItem>
+			</List>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</core:FragmentDefinition>

@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cs="avmet.ah.control" xmlns:tnt="sap.tnt">
+	<Page id="T1_MCARD">
+		<content>
+			<VBox class="WhiteVBox sapUiTinyMargin" height="450px">
+				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+					<items>
+						<Text class="PDSFragTitle" text="Sortie Monitoring"/>
+						<Button text="Reviewed" type="Emphasized" enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
+					</items>
+				</FlexBox>
+				<Table class="CERTable sapUiSmallMargin" width="97%" items="{pdsSummaryModel>sortList}">
+					<columns>
+						<Column class="CERTableTextColor">
+							<Label text="Date / Time" design="Bold"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet">
+							<Label text="Aircraft Monitoring" design="Bold"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet">
+							<Label text="No. of Sorties" design="Bold"/>
+						</Column>
+						<Column demandPopin="true" minScreenWidth="Tablet">
+							<Label text="Tradesman" design="Bold"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Navigation" press="onClickSortieDetails">
+							<cells>
+								<Text
+									text="{path:'pdsSummaryModel>SORDT', formatter:'.formatter.defaultDateFormatDisplay'} {path:'pdsSummaryModel>SORTM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{pdsSummaryModel>SORDESC}"/>
+								<Text text="{pdsSummaryModel>SORCNT}"/>
+								<Text text="{pdsSummaryModel>SG1USR}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</content>
+			<footer>
+		<OverflowToolbar>
+			<ToolbarSpacer/>
+			<Button text="Back" press="onNavBack"/>
+			<Button text="Sign Off" press="onPresSignOff" enabled="{pdsSummaryModel>/enableSign}" type="Emphasized"></Button>
+		</OverflowToolbar>
+	</footer>
+	</Page>
+</core:FragmentDefinition>

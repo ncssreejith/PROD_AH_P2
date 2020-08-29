@@ -447,7 +447,7 @@
 					"pattern": "PDSSummary/{srvtid}/{stepid}",
 					"name": "PDSSummary",
 					"target": [
-						"PDS-Summary"
+						"PDSSummary"
 					]
 				},
 				{
@@ -1001,7 +1001,7 @@
 					"viewLevel": 2,
 					"title": "{i18n>followuptasksTitle}"
 				},
-				"PDS-Summary": {
+				"PDSSummary": {
 					"controlId": "nvMainContainerId",
 					"controlAggregation": "pages",
 					"parent": "TargetHome",
@@ -1050,7 +1050,7 @@
 					"controlAggregation": "pages",
 					"parent": "TargetHome",
 					"viewType": "XML",
-					"viewName": "ah/pilot/WeaponExpenditure",
+					"viewName": "ah/weaponexpend/WeaponExpenditure",
 					"viewId": "WeaponExpenditure",
 					"viewLevel": 2,
 					"title": "{i18n>weaponexpenditure}"

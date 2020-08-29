@@ -1,0 +1,99 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Page id="T11_TMOD">
+		<content>
+			<VBox class="WhiteVBox sapUiTinyMargin" height="100%">
+				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+					<items>
+						<Text class="PDSFragTitle" text="Trial Modifications"/>
+						<Button text="Reviewed" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
+					</items>
+				</FlexBox>
+				<VBox>
+					<Title class="sapUiMediumMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="No Trial Modification "
+						visible="{= (${path:'paModel>trailMod/length'} === 0)}"/>
+					<VBox items="{path:'paModel>trailMod'}" visible="{= (${path:'paModel>trailMod/length'}!== 0)}" backgroundDesign="Solid">
+					<items>
+						<HBox justifyContent="Center" alignItems="Center"
+							class="sapUiLargeMarginTop" backgroundDesign="Transparent">
+							<VBox backgroundDesign="Solid" class="vbox1BgColor" height="30rem" width="25rem">
+									<Title class="sapUiMediumMarginTop whiteText sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>headingMod}"/>
+									<Text class="sapUiMediumMarginBegin whiteText" text="{paModel>jobdesc}"/>
+									<VBox class="sapUiSmallMargin sapUiLargeMarginTop">
+										<l:Grid hSpacing="1" defaultSpan="XL10 L10 M10 S12">
+											<HBox justifyContent="SpaceBetween">
+												<Label width="7rem" class="whiteText" text="Job No." design="Bold"></Label>
+												<Text width="9rem" class="whiteText" text="{paModel>jobid}"/>
+												<layoutData>
+													<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+												</layoutData>
+											</HBox>
+											<HBox justifyContent="SpaceBetween">
+												<Label width="7rem" class="whiteText" wrapping="true" text="Purpose and Authority Ref" design="Bold"></Label>
+												<Text width="9rem" class="whiteText" wrapping="true" text="{paModel>purpose}"/>
+												<!--{path:'paModel>/jobdesc'}-->
+												<layoutData>
+													<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+												</layoutData>
+											</HBox>
+										</l:Grid>
+									</VBox>
+								</VBox>
+							<VBox backgroundDesign="Solid" height="30rem" width="30rem">
+									<Title class="sapUiMediumMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>titlePage}"/>
+									<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+										<VBox class="sapUiMediumMargin">
+											<VBox justifyContent="Center" alignItems="Center" class=" vbox2BgColor">
+												<items>
+													<Label class="whiteText" text="Unit De Modification Call Out by ALD, HQ RSAF"/>
+													<Label class="whiteText" text="Period of Trial: {path:'paModel>pddval1',formatter:'.formatter.defaultDateFormatDisplay} {path:'paModel>pddval2' , formatter:'.formatter.defaultDateFormatDisplay}"
+														design="Bold"/>
+												</items>
+											</VBox>
+											<VBox class="vbox3BgBorder sapUiSmallMarginTop">
+												<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+													<HBox justifyContent="SpaceBetween">
+														<Label text="Tradesman" design="Bold"></Label>
+														<Text
+															text="{path:'paModel>SG1USR'}, {path:'paModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'paModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+														<!--{path:'paModel>/sg1user'}-->
+														<layoutData>
+															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+														</layoutData>
+													</HBox>
+													<HBox justifyContent="SpaceBetween">
+														<Label text="Approver" design="Bold"></Label>
+														<Text
+															text="{path:'paModel>SG2USR'}, {path:'paModel>SG2DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'paModel>SG2UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+														<!--{path:'paModel>/sg2user'}-->
+														<layoutData>
+															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+														</layoutData>
+													</HBox>
+													<HBox justifyContent="SpaceBetween">
+														<Label text="Extension(s)" design="Bold"></Label>
+														<Text text="{path:'paModel>extn'}"/>
+														<!--{path:'paModel>/CAP managed ADD'}-->
+														<layoutData>
+															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+														</layoutData>
+													</HBox>
+												</l:Grid>
+											</VBox>
+										</VBox>
+									</l:Grid>
+								</VBox>
+						</HBox>
+					</items>
+					</VBox>
+				</VBox>
+			</VBox>
+		</content>
+			<footer>
+		<OverflowToolbar>
+			<ToolbarSpacer/>
+			<Button text="Back" press="onNavBack"/>
+			<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
+		</OverflowToolbar>
+	</footer>
+	</Page>
+</core:FragmentDefinition>

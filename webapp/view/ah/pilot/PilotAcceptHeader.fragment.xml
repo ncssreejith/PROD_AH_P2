@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core"
+	xmlns:filterbar="sap.ui.comp.filterbar">
+	<Page showHeader="true" showFooter="true" title="Pilot Acceptance" showNavButton="true" navButtonPress="onNavBack">
+		<content>
+			<List mode="SingleSelectMaster" noDataText="No Data"
+				items="{path : 'paModel>/masterList',sorter:{path:'reftyp',descending:true,group:true}}"  selectionChange="onListItemPress">
+				<ObjectListItem icon="{paModel>Icon}" title="{paModel>ddesc}" selected="{= ${paModel>ddid}===${paModel>/selItem}}" type="{paModel>Type}"
+					number="{paModel>count}"></ObjectListItem>
+			</List>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</core:FragmentDefinition>

@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f" xmlns:tnt="sap.tnt">
+	<Page id="T2_PAPPR">
+		<content>
+			<VBox class="WhiteVBox sapUiTinyMargin" height="450px">
+				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+					<items>
+						<Text class="PDSFragTitle" text="Pending Approvals"/>
+						<Button text="Reviewed" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
+					</items>
+				</FlexBox>
+				<List  noDataText="No Data" items="{paModel>appr}" >
+					<CustomListItem press="onApprovalDetails" type="Active">
+						<VBox class="sapUiSmallMargin">
+							<HBox>
+								<Text text="{path:'paModel>capdt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{path:'paModel>captm', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+							</HBox>
+							<HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
+								<Label wrapping="true" text="{paModel>description}" design="Bold" width="20rem"/>
+								<core:Icon src="sap-icon://navigation-right-arrow"/>
+							</HBox>
+							<HBox class="sapUiTinyMarginTop">
+								<tnt:InfoLabel text="{path:'paModel>flag', formatter:'.formatter.approvalMasterText'}" renderMode="Narrow" colorScheme="7"
+									displayOnly="true"/>
+							</HBox>
+						</VBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onNavBack"/>
+				<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</core:FragmentDefinition>

@@ -1,0 +1,99 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Page id="T11_TMOD">
+		<content>
+			<VBox class="WhiteVBox sapUiTinyMargin" height="100%">
+				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+					<items>
+						<Text class="PDSFragTitle" text="Trial Modifications"/>
+						<Button text="Reviewed" type="Emphasized" enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
+					</items>
+				</FlexBox>
+				<VBox>
+					<Title class="sapUiMediumMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="No Trial Modification "
+						visible="{= (${path:'pdsSummaryModel>trailMod/length'} === 0)}"/>
+					<VBox items="{path:'pdsSummaryModel>trailMod'}" visible="{= (${path:'pdsSummaryModel>trailMod/length'}!== 0)}" backgroundDesign="Solid">
+					<items>
+						<HBox justifyContent="Center" alignItems="Center"
+							class="sapUiLargeMarginTop" backgroundDesign="Transparent">
+							<VBox backgroundDesign="Solid" class="vbox1BgColor" height="30rem" width="25rem">
+									<Title class="sapUiMediumMarginTop whiteText sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>headingMod}"/>
+									<Text class="sapUiMediumMarginBegin whiteText" text="{pdsSummaryModel>jobdesc}"/>
+									<VBox class="sapUiSmallMargin sapUiLargeMarginTop">
+										<l:Grid hSpacing="1" defaultSpan="XL10 L10 M10 S12">
+											<HBox justifyContent="SpaceBetween">
+												<Label width="7rem" class="whiteText" text="Job No." design="Bold"></Label>
+												<Text width="9rem" class="whiteText" text="{pdsSummaryModel>jobid}"/>
+												<layoutData>
+													<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+												</layoutData>
+											</HBox>
+											<HBox justifyContent="SpaceBetween">
+												<Label width="7rem" class="whiteText" wrapping="true" text="Purpose and Authority Ref" design="Bold"></Label>
+												<Text width="9rem" class="whiteText" wrapping="true" text="{pdsSummaryModel>purpose}"/>
+												<!--{path:'pdsSummaryModel>/jobdesc'}-->
+												<layoutData>
+													<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+												</layoutData>
+											</HBox>
+										</l:Grid>
+									</VBox>
+								</VBox>
+							<VBox backgroundDesign="Solid" height="30rem" width="30rem">
+									<Title class="sapUiMediumMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>titlePage}"/>
+									<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+										<VBox class="sapUiMediumMargin">
+											<VBox justifyContent="Center" alignItems="Center" class=" vbox2BgColor">
+												<items>
+													<Label class="whiteText" text="Unit De Modification Call Out by ALD, HQ RSAF"/>
+													<Label class="whiteText" text="Period of Trial: {path:'pdsSummaryModel>pddval1',formatter:'.formatter.defaultDateFormatDisplay} {path:'pdsSummaryModel>pddval2' , formatter:'.formatter.defaultDateFormatDisplay}"
+														design="Bold"/>
+												</items>
+											</VBox>
+											<VBox class="vbox3BgBorder sapUiSmallMarginTop">
+												<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+													<HBox justifyContent="SpaceBetween">
+														<Label text="Tradesman" design="Bold"></Label>
+														<Text
+															text="{path:'pdsSummaryModel>SG1USR'}, {path:'pdsSummaryModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'pdsSummaryModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+														<!--{path:'pdsSummaryModel>/sg1user'}-->
+														<layoutData>
+															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+														</layoutData>
+													</HBox>
+													<HBox justifyContent="SpaceBetween">
+														<Label text="Approver" design="Bold"></Label>
+														<Text
+															text="{path:'pdsSummaryModel>SG2USR'}, {path:'pdsSummaryModel>SG2DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'pdsSummaryModel>SG2UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+														<!--{path:'pdsSummaryModel>/sg2user'}-->
+														<layoutData>
+															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+														</layoutData>
+													</HBox>
+													<HBox justifyContent="SpaceBetween">
+														<Label text="Extension(s)" design="Bold"></Label>
+														<Text text="{path:'pdsSummaryModel>extn'}"/>
+														<!--{path:'pdsSummaryModel>/CAP managed ADD'}-->
+														<layoutData>
+															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+														</layoutData>
+													</HBox>
+												</l:Grid>
+											</VBox>
+										</VBox>
+									</l:Grid>
+								</VBox>
+						</HBox>
+					</items>
+					</VBox>
+				</VBox>
+			</VBox>
+		</content>
+			<footer>
+		<OverflowToolbar>
+			<ToolbarSpacer/>
+			<Button text="Back" press="onNavBack"/>
+			<Button text="Sign Off" press="onPresSignOff" enabled="{pdsSummaryModel>/enableSign}" type="Emphasized"></Button>
+		</OverflowToolbar>
+	</footer>
+	</Page>
+</core:FragmentDefinition>

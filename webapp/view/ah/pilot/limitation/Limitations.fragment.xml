@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cs="avmet.ah.control" xmlns:tnt="sap.tnt">
+	<Page id="T3_LIMIT">
+		<content>
+	<VBox class="WhiteVBox sapUiTinyMargin">
+		<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+			<items>
+				<Text class="PDSFragTitle" text="Limitations"/>
+				<Button text="Reviewed" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
+			</items>
+		</FlexBox>
+		<List items="{ path: 'paModel>addLimit'}" width="100%" class="sapUiResponsivePadding hboxColor">
+			<CustomListItem class="sapUiSmallMargin hboxColor" type="Navigation" press="onLimitationItemPress">
+				<HBox class="sapUiResponsivePadding hboxColor">
+					<!--<cs:ColorStatus title="{localViewModel>Title}" status="{localViewModel>Status}"/>-->
+					<cs:ColorStatus status="{paModel>CFLAG}" statushr="{paModel>AFHR}"/>
+					<HBox class="sapUiSmallMargin">
+						<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin"
+							visible="{=${paModel>EXPDT} !== null ? true : false}">
+							<Label text="{paModel>AFDAY}" design="Bold"></Label>
+							<Label text="Day left"></Label>
+						</VBox>
+						<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center"
+							visible="{=${paModel>UTIL1} !== null ? true : false}">
+							<Label text="{paModel>AFHR}" design="Bold"></Label>
+							<Label text="{paModel>UTIL1TEXT}"></Label>
+						</VBox>
+					</HBox>
+					<HBox class="sapUiSmallMargin">
+						<VBox>
+							<Label text="{paModel>LDESC}" design="Bold"/>
+							<HBox visible="{= ${paModel>CAPTY} === 'A' || ${paModel>CAPTY} === 'B'}">
+								<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${paModel>JOBDESC} !== null}" renderMode="Narrow" colorScheme="7"
+									class="sapUiTinyMarginTop" displayOnly="true"/>
+								<Label text="{paModel>JOBDESC}" visible="{= ${paModel>JOBDESC} !== null}" class="sapUiTinyMargin"/>
+							</HBox>
+						</VBox>
+					</HBox>
+				</HBox>
+			</CustomListItem>
+		</List>
+	</VBox>
+	</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onNavBack"/>
+				<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</core:FragmentDefinition>
