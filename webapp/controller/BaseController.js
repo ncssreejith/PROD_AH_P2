@@ -264,7 +264,7 @@ sap.ui.define([
 		fnSetMenuVisible: function(oFlag, fnCallBack) {
 			var aMenu = this.getModel("menuModel").getData();
 			var oFound = {};
-			if (oFlag === "X") {
+			if (oFlag === "X" || oFlag) {
 				oFound = aMenu.find(fnCallBack);
 				oFound.visible = true;
 			} else {
@@ -391,6 +391,66 @@ sap.ui.define([
 				return "";
 			}
 			oData.results.splice(oData.results.length - 2, 2);
+		},
+		/**
+		 * Event handler for refresh event. Keeps filter, sort
+		 * and group settings and refreshes the list binding.
+		 * @public
+		 */
+		onSort: function(oEvent, sFieldName) {
+			var aSorters = [];
+			// var oTable = this.byId("AllJobId");
+			var oBinding = oEvent.getSource().getParent().getParent().getParent().getBinding("items");//oTable.getBinding("items");
+			var sPath = sFieldName; // mParams.sortItem.getKey();
+			var bDescending = true;
+			if(oBinding && oBinding.aSorters && oBinding.aSorters.length && oBinding.aSorters.length > 0
+				&& oBinding.aSorters[0].sPath === sFieldName){
+				bDescending = !oBinding.aSorters[0].bDescending;
+			}
+			
+			aSorters.push(new sap.ui.model.Sorter(sPath, bDescending));
+			oBinding.sort(aSorters);
+		},
+		onSearch: function(oEvent, sTableId, sModel, sPath) {
+			if (oEvent.getParameters().refreshButtonPressed) {
+				// Search field's 'refresh' button has been pressed.
+				// This is visible if you select any master list item.
+				// In this case no new search is triggered, we only
+				// refresh the list binding.
+				this.onRefresh(sTableId);
+			} else {
+				var aTableSearchState = [];
+				var sQuery = oEvent.getParameter("query");
+
+				if (sQuery && sQuery.length > 0) {
+					aTableSearchState = [new sap.ui.model.Filter(sPath, sap.ui.model.FilterOperator.Contains, sQuery)];
+				}
+				this._applySearch(aTableSearchState, sTableId, sModel);
+			}
+
+		},
+		/**
+		 * Event handler for refresh event. Keeps filter, sort
+		 * and group settings and refreshes the list binding.
+		 * @public
+		 */
+		onRefresh: function(sTableId) {
+			var oTable = this.byId(sTableId);
+			oTable.getBinding("items").refresh();
+		},
+		/**
+		 * Internal helper method to apply both filter and search state together on the list binding
+		 * @param {sap.ui.model.Filter[]} aTableSearchState An array of filters for the search
+		 * @private
+		 */
+		_applySearch: function(aTableSearchState, sTableId, sModel) {
+			var oTable = this.byId(sTableId),
+				oViewModel = this.getModel(sModel);
+			oTable.getBinding("items").filter(aTableSearchState, "Application");
+			// changes the noDataText of the list in case there are no filter results
+			// if (aTableSearchState.length !== 0) {
+			// 	oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
+			// }
 		},
 		onLogoffPress: function(oEvent) {
 			try {

@@ -525,7 +525,9 @@ sap.ui.define([
 						var oDash = oModel.getProperty("/dash");
 						oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
 						oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
-
+						this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
+						this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
+						this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
 						this.getModel("avmetModel").refresh();
 					}
 					// this.fnCreateTableFromData();
