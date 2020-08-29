@@ -50,8 +50,6 @@ sap.ui.define([
 		onInit: function() {
 			try {
 				var that = this;
-				that._oRouter = sap.ui.core.UIComponent.getRouterFor(that);
-				that._oRouter.attachRoutePatternMatched(that._handleRouteMatched, that);
 				var oLocalModel = dataUtil.createNewJsonModel();
 				oLocalModel.setData({
 					TaksFlag: true,
@@ -105,6 +103,7 @@ sap.ui.define([
 					}]
 				});
 				this.getView().setModel(oLocalModel, "LocalModel");
+					this.getRouter().getRoute("CosScheduleSummary").attachPatternMatched(this._handleRouteMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosScheduleSummary:onInit function");
 				this.handleException(e);

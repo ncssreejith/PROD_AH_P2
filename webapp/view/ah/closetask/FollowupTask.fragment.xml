@@ -202,7 +202,7 @@
 										<VBox
 											visible="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}">
 											<Label text="{i18n>lblTechRef}" design="Bold"></Label>
-											<Input fieldGroupIds="fgInput" width="50%" required="{TaskModel>/singelSelect}" value="IETM {TaskModel>fttoref}"></Input>
+											<Input fieldGroupIds="fgInput" width="50%" required="{TaskModel>/singelSelect}" value="{TaskModel>fttoref}"></Input>
 											<layoutData>
 												<l:GridData span="XL4 L4 M6 S6" linebreak="true"/>
 											</layoutData>
