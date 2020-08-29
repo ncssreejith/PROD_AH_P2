@@ -277,6 +277,7 @@ sap.ui.define([
 				for (var i = 0; i < oPayload.length; i++) {
 					oPayload[i].tstat = "P";
 					oPayload[i].multi = oFLag;
+					oPayload[i].sernr = oPayload[i].ftsernr;
 					try {
 						oPayload[i].ftcredt = formatter.defaultOdataDateFormat(oPayload[i].ftcredt);
 					} catch (e) {
