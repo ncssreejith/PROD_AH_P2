@@ -4,7 +4,7 @@ sap.ui.define([], function () {
 		isRest = false,
 		isChange = false,
 		ref = null,
-		fieldGroupIndex = 0,
+		fieldGroupIndex = 1,
 		minDate = new Date("01.01.1800"),
 		maxDate = new Date("31.12.9999"),
 		currentDate = new Date(),

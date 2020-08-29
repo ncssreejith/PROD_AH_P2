@@ -552,21 +552,21 @@ sap.ui.define([
 						this.getModel("dashboardModel").setProperty("/scl", oLoad);
 						oLoad.LV_COUNT = 0;
 						oLoad.LV_COLOR = "Good";
-						if (oLoad.LV_THRS > 0) {
-							oLoad.LV_COUNT += oLoad.LV_THRS;
+						if (oLoad.LV_HRS > 0) {
+							oLoad.LV_COUNT += oLoad.LV_HRS;
 							oLoad.LV_COLOR = "Critical";
 							this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "sap-icon://alert");
 						} else {
 							this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "");
 						}
-						if (oLoad.LV_TDAY > 0) {
-							oLoad.LV_COUNT += oLoad.LV_TDAY;
+						if (oLoad.LV_DAY > 0) {
+							oLoad.LV_COUNT += oLoad.LV_DAY;
 							this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "sap-icon://alert");
 						} else {
 							this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "");
 						}
-						if (oLoad.LV_TTAC > 0) {
-							oLoad.LV_COUNT += oLoad.LV_TTAC;
+						if (oLoad.LV_TAC > 0) {
+							oLoad.LV_COUNT += oLoad.LV_TAC;
 							this.getModel("dashboardModel").setProperty("/scl/TACAlert", "sap-icon://alert");
 						} else {
 							this.getModel("dashboardModel").setProperty("/scl/TACAlert", "");

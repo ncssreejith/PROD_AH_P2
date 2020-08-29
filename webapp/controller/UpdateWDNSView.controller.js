@@ -3,8 +3,9 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, ajaxutil, JSONModel, formatter, Log) {
+	"sap/base/Log",
+	"../util/cvUtil"
+], function(BaseController, ajaxutil, JSONModel, formatter, Log, cvUtil) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name: UpdateWDNSView           
@@ -138,8 +139,13 @@ sap.ui.define([
 					if (oItem.edtb === "X") {
 						sText = new sap.m.Input({
 							value: "{" + oDataModel + ">" + oItem.colid + "}",
-							valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
-							liveChange: that.onChange
+							maxLength: 20,
+							fieldGroupIds: ["fgNString"],
+							required: true,
+							// valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
+							liveChange: function(oEvent) {
+								cvUtil.onLiveChange(oEvent, false);
+							}
 						});
 					}
 					// if (oItem && oItem.coltxt && (oItem.coltxt === "Updated By" || oItem.coltxt === "Date")) {
