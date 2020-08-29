@@ -267,7 +267,7 @@ sap.ui.define([
 					oParameter = {};
 				// var sEngID = oEngineModel.getProperty("/ENGID");
 				if (sEngID) {
-					oParameter.filter = "ENGID eq " + sEngID + " and FLAG eq P";
+					oParameter.filter = "ENGID eq " + sEngID + " and FLAG eq P and tailid eq " + this.getTailId();
 				} else {
 					oParameter.filter = "tailid eq " + this.getTailId() + " and FLAG eq P";
 				}
