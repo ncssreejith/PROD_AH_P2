@@ -239,10 +239,11 @@ sap.ui.define([
 						oEngineModel.setProperty("/headerDetails", oData.results[0]);
 						if (oData.results && oData.results.length > 1) { // Get Engine 2 data
 							oEngineModel.setProperty("/header2Details", oData.results[1]);
+							this._getEngPowerCheck(oData.results[1].ENGID, 2);
 							this._getEngCyclicLife(oData.results[1].ENGID, 2);
 							this._getEngineOilRepl(oData.results[1].ENGID, 2);
 						}
-						this._getEngPowerCheck();
+						this._getEngPowerCheck(oData.results[0].ENGID, 1);
 						this._getEngineOilRepl(oData.results[0].ENGID, 1);
 						this._getEngCyclicLife(oData.results[0].ENGID, 1);
 						this._getEngScheule();
@@ -259,12 +260,12 @@ sap.ui.define([
 		 * Get Power check data
 		 * @constructor 
 		 */
-		_getEngPowerCheck: function() {
+		_getEngPowerCheck: function(sEngID, iEngine) {
 			try {
 				var
 					oEngineModel = this.getView().getModel("oEngineModel"),
 					oParameter = {};
-				var sEngID = oEngineModel.getProperty("/ENGID");
+				// var sEngID = oEngineModel.getProperty("/ENGID");
 				if (sEngID) {
 					oParameter.filter = "ENGID eq " + sEngID + " and FLAG eq P";
 				} else {
@@ -272,9 +273,21 @@ sap.ui.define([
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					if (oData.results.length) {
-						oEngineModel.setProperty("/EngPowerCheck", oData.results);
-						this._setData();
+					if (oData && oData.results && oData.results.length) {
+
+						if (oData) {
+							if (iEngine === 1) {
+								oEngineModel.setProperty("/EngPowerCheck", oData.results);
+								this._setData();
+								// oEngineModel.setProperty("/soapTableData", oData.results);
+							} else {
+								oEngineModel.setProperty("/EngPowerCheck2", oData.results);
+								this._setData();
+								// oEngineModel.setProperty("/soapTableData2", oData.results);
+							}
+						}
+						// oEngineModel.setProperty("/EngPowerCheck", oData.results);
+						// this._setData();
 					}
 				}.bind(this);
 				ajaxutil.fnRead("/EHSERSvc", oParameter);
@@ -385,7 +398,6 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		//  Get Method to get Reason for SOAP samplling
 		//-------------------------------------------------------------
-		
 
 		//2.Data for the chart 
 		_setData: function() {
@@ -448,14 +460,14 @@ sap.ui.define([
 			}
 		},
 
-		onPrint: function(oEvent,id1, id2, id3) {
+		onPrint: function(oEvent, id1, id2, id3) {
 			var tabName = this.getSelectedTab();
 			var engKey = this.getView().byId("itbEngines").getSelectedKey(),
-			engText = this.getView().byId(engKey).getProperty("text"),
-			engDetailKey = "",
-			engDetailText = "";
+				engText = this.getView().byId(engKey).getProperty("text"),
+				engDetailKey = "",
+				engDetailText = "";
 			id1 = this.getView().byId(engKey).getContent()[0].getId();
-			if (engKey.search("itfEng1") !== -1){
+			if (engKey.search("itfEng1") !== -1) {
 				engDetailKey = this.getView().byId("itbEngine1").getSelectedKey();
 				engDetailText = this.getView().byId(engDetailKey).getProperty("text");
 				id2 = this.getView().byId(engDetailKey).getContent()[0].getId();
@@ -464,10 +476,10 @@ sap.ui.define([
 				engDetailText = this.getView().byId(engDetailKey).getProperty("text");
 				id2 = this.getView().byId(engDetailKey).getContent()[0].getId();
 			}
-			tabName = engText+" - "+engDetailText;
+			tabName = engText + " - " + engDetailText;
 			var html = "<html><body><div  style='width:95%;'>";
 			html += "<div style='padding-left:3rem; padding-top:1rem;'>" + engText + "</div>";
-			html = id1 !== undefined ? "<div style='width:95%;'>"+ this.generateHtml(this, html, id1) +"</div>" : html;
+			html = id1 !== undefined ? "<div style='width:95%;'>" + this.generateHtml(this, html, id1) + "</div>" : html;
 			html += "</div><div style='padding-left: 3rem;'>" + engDetailText + "</div>";
 			html += "<div style='padding:1rem;'>";
 			html = id2 !== undefined ? this.generateHtml(this, html, id2) : html;
@@ -484,8 +496,8 @@ sap.ui.define([
 					/*format: 'a0',*/
 					compressPDF: true
 				},
-				mode : {
-					avoidAll : 'avoid-all'
+				mode: {
+					avoidAll: 'avoid-all'
 				}
 			}).save();
 		},
