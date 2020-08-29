@@ -528,6 +528,12 @@ sap.ui.define([
 						this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
 						this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
 						this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
+						if (oData.results[0].WFLAG === "X") {
+							oModel.setProperty("/WarningFlag", true);
+							this._fnSetWarningMessage(oData.results[0]);
+						} else {
+							oModel.setProperty("/WarningFlag", false);
+						}
 						this.getModel("avmetModel").refresh();
 					}
 					// this.fnCreateTableFromData();
@@ -957,6 +963,51 @@ sap.ui.define([
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:_setRadialChartTextDisplay function");
 				this.handleException(e);
+			}
+		},
+
+		_fnSetWarningMessage: function(aData) {
+			try {
+				aData = aData.WTEXT.split("@");
+				this.getModel("avmetModel").setProperty("/WarningIndex", 0);
+				this.getModel("avmetModel").setProperty("/WarningText", aData);
+				this.getModel("avmetModel").setProperty("/WarningIndexText", aData[0]);
+				this.getModel("avmetModel").setProperty("/WarningLeftBtn", false);
+				var bFlag = aData.length > 1 ? true : false;
+				this.getModel("avmetModel").setProperty("/WarningRightBtn", bFlag);
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:_fnSetWarningMessage function");
+				this.handleException(e);
+			}
+		},
+
+		onRightWarnPress: function() {
+			var iIndex = this.getModel("avmetModel").getProperty("/WarningIndex");
+			iIndex = parseInt(iIndex, 10);
+			var aData = this.getModel("avmetModel").getProperty("/WarningText");
+			var newIndex = iIndex + 1;
+			if (aData[newIndex]) {
+				this.getModel("avmetModel").setProperty("/WarningIndex", newIndex);
+				this.getModel("avmetModel").setProperty("/WarningIndexText", aData[newIndex]);
+				this.getModel("avmetModel").setProperty("/WarningLeftBtn", true);
+			}
+			if (newIndex === aData.length - 1) {
+				this.getModel("avmetModel").setProperty("/WarningRightBtn", false);
+			}
+		},
+
+		onLeftWarnPress: function() {
+			var iIndex = this.getModel("avmetModel").getProperty("/WarningIndex");
+			iIndex = parseInt(iIndex, 10);
+			var aData = this.getModel("avmetModel").getProperty("/WarningText");
+			var newIndex = iIndex - 1;
+			if (aData[newIndex]) {
+				this.getModel("avmetModel").setProperty("/WarningIndex", newIndex);
+				this.getModel("avmetModel").setProperty("/WarningIndexText", aData[newIndex]);
+				this.getModel("avmetModel").setProperty("/WarningRightBtn", true);
+			}
+			if (newIndex === 0) {
+				this.getModel("avmetModel").setProperty("/WarningLeftBtn", false);
 			}
 		}
 	});
