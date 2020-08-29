@@ -1,0 +1,129 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f" xmlns:tnt="sap.tnt">
+	<Dialog title="Approvals Details" contentWidth="55%">
+		<HBox justifyContent="Center" alignItems="Center" class="sapUiSmalMarginTop" backgroundDesign="Transparent">
+			<items>
+				<HBox>
+					<VBox backgroundDesign="Solid">
+						<VBox>
+							<tnt:InfoLabel class="sapUiMediumMarginBegin sapUiSmallMarginTop" text="{path:'pdsSummaryModel>flag', formatter:'.formatter.approvalText'}"
+								renderMode="Narrow" colorScheme="7" displayOnly="true"/>
+							<Title class="sapUiMediumMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>titleDefectInfo}"/>
+							<Text class="sapUiMediumMarginBegin " text="{pdsSummaryModel>description}" wrapping="true" width="20rem"/>
+						</VBox>
+						<VBox visible="{= ${pdsSummaryModel>detail/ldesc}===null ? false:true}" class="sapUiTinyMarginTop">
+							<Title class="sapUiSmallMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="Limitation Information"/>
+							<Text class="sapUiMediumMarginBegin " text="{pdsSummaryModel>detail/ldesc}" width="70%" wrapping="true"/>
+						</VBox>
+						<VBox class="sapUiSmallMargin sapUiMediumMarginTop">
+							<l:Grid hSpacing="1" defaultSpan="XL10 L10 M10 S12">
+								<HBox justifyContent="SpaceBetween">
+									<Label width="7rem" text="Job No." design="Bold"></Label>
+									<Text width="11rem" text="{pdsSummaryModel>detail/jobid}"/>
+									<layoutData>
+										<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+									</layoutData>
+								</HBox>
+								<HBox justifyContent="SpaceBetween">
+									<Label width="7rem" wrapping="true" text="Found during" design="Bold"></Label>
+									<Text width="11rem" wrapping="true" text="{pdsSummaryModel>detail/fndduring}"/>
+									<layoutData>
+										<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+									</layoutData>
+								</HBox>
+								<HBox justifyContent="SpaceBetween">
+									<Label width="7rem" wrapping="true" text="Found by" design="Bold"></Label>
+									<Text width="11rem" wrapping="true" text="{pdsSummaryModel>detail/fndby}"/>
+									<layoutData>
+										<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+									</layoutData>
+								</HBox>
+								<HBox justifyContent="SpaceBetween">
+									<Label width="7rem" wrapping="true" text="Work Center" design="Bold"></Label>
+									<Text width="11rem" wrapping="true" text="{pdsSummaryModel>detail/prime}"/>
+									<layoutData>
+										<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+									</layoutData>
+								</HBox>
+							</l:Grid>
+						</VBox>
+					</VBox>
+					<VBox backgroundDesign="Solid">
+						<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+							<VBox>
+								<VBox class="vbox3BgBorder sapUiSmallMarginTop">
+									<Title class="sapUiMediumMarginBottom sapUiSmallMarginBegin" level="H3" titleStyle="H3"
+										text="{path:'ViewModel>flag', formatter:'.formatter.approvalText'}"/>
+									<l:Grid hSpacing="1" vSpacing="1" defaultSpan="XL12 L12 M12 S12">
+										<HBox justifyContent="SpaceBetween">
+											<Label width="5rem" text="Date/ Time" design="Bold"></Label>
+											<HBox>
+												<Text text="{path:'pdsSummaryModel>detail/capdt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+												<Text text="{path:'pdsSummaryModel>detail/captm', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+											</HBox>
+											<layoutData>
+												<l:GridData linebreak="true" span="XL11 L11 M11 S11"/>
+											</layoutData>
+										</HBox>
+										<HBox justifyContent="SpaceBetween">
+											<Label width="9rem" text="Requested by" design="Bold"></Label>
+											<Text width="9rem" text="{pdsSummaryModel>detail/subusr}"/>
+											<layoutData>
+												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+											</layoutData>
+										</HBox>
+										<HBox justifyContent="SpaceBetween" visible="{=${ViewModel>flag} !== 'L' ? true : false}">
+											<Label width="9rem" text="Reason for ADD" design="Bold"></Label>
+											<Text width="9rem" text="{pdsSummaryModel>detail/cprid}"/>
+											<layoutData>
+												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+											</layoutData>
+										</HBox>
+										<HBox visible="{=${pdsSummaryModel>detail/expdt} !== null ? true : false}">
+											<Label width="9rem" wrapping="true" text="{pdsSummaryModel>detail/defpdtx}" design="Bold"></Label>
+											<HBox class="sapUiTinyMarginTop">
+												<Text text="{path:'pdsSummaryModel>detail/expdt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+												<Text text="{path:'pdsSummaryModel>detail/exptm', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+											</HBox>
+											<layoutData>
+												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+											</layoutData>
+										</HBox>
+										<HBox visible="{=${pdsSummaryModel>detail/UTILVL} !== null ? true : false}">
+											<Label width="9rem" wrapping="true" text="{pdsSummaryModel>detail/UTIL1Text}" design="Bold"></Label>
+											<HBox>
+												<Text text="{pdsSummaryModel>detail/UTILVL}" visible="{=${pdsSummaryModel>detail/UTILVL} !== null ? true : false}"/>
+												<Text text="{path:'pdsSummaryModel>detail/UTILDT', formatter:'.formatter.defaultDateFormatDisplay'}"
+													visible="{=${pdsSummaryModel>detail/UTILDT} !== null ? true : false}"/>
+											</HBox>
+											<layoutData>
+												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+											</layoutData>
+										</HBox>
+										<HBox justifyContent="SpaceBetween" visible="{=${pdsSummaryModel>detail/past_count} !== null ? true : false}">
+											<Label width="9rem" text="Past ADD(s)" design="Bold"></Label>
+											<Text width="9rem" text="{pdsSummaryModel>detail/past_count}"/>
+											<layoutData>
+												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+											</layoutData>
+										</HBox>
+										<HBox justifyContent="SpaceBetween" visible="{=${pdsSummaryModel>detail/past_count} !== null ? true : false}">
+											<Label width="9rem" text="Initial ADD Date" design="Bold"></Label>
+											<Text width="9rem" text="{path:'pdsSummaryModel>detail/ini_date', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+											<layoutData>
+												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+											</layoutData>
+										</HBox>
+									</l:Grid>
+								</VBox>
+							</VBox>
+						</l:Grid>
+					</VBox>
+				</HBox>
+			</items>
+		</HBox>
+		<buttons>
+			<Button text="Cancel" press="onCancelApprovalDetail($evt,'ALBApprovalDetailDialog')" type="Reject"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

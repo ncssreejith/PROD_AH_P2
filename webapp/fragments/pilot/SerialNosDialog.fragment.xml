@@ -7,8 +7,8 @@
 				<!--</items>-->
 			</VBox>
 			<Toolbar height="0px"/>
-			<List items="{oPilotAccpModel>/srnos}">
-				<StandardListItem title="{oPilotAccpModel>SERNR}"/>
+			<List items="{paModel>/srnos}">
+				<StandardListItem title="{paModel>SERNR}"/>
 			</List>
 		</content>
 		<endButton>

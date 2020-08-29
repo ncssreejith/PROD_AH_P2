@@ -297,13 +297,14 @@ sap.ui.define([
 			this._getWeaponConfig();
 			this._getSignOffOptions();
 		},
+		
 		_getSortie: function() {
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.filter = "TAILID EQ '" + this.getTailId() + "' and FLAG eq 'FS'";
 				oParameter.success = function(oData) {
-					var sIndex = this._fnGetIndexById("T1_SORTIE");
+					var sIndex = this._fnGetIndexById("T1_MCARD");
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/count", oData.results.length);
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data", {});
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/reviewd", oData.results.length > 0 ? false : true);
