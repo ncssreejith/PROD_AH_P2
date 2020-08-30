@@ -61,7 +61,7 @@
 										<VBox class="sapUiTinyMarginBottom"
 											visible="{= ${TaskModel>tt1id}!=='TT1_11' &amp;&amp; ${TaskModel>tt1id}!=='TT1_14' &amp;&amp; ${TaskModel>tt1id}!=='TT1_15' &amp;&amp; ${TaskModel>tt1id}!=='TT1_17' &amp;&amp; ${TaskModel>tt1id}!=='TT1_18' ? true:false}">
 											<Label text=" Follow-Up Task" design="Bold"></Label>
-											<Input fieldGroupIds="fgInput" value="{TaskModel>ftcdesc}"></Input>
+											<Input fieldGroupIds="fgInput" value="{TaskModel>ftdesc}"></Input>
 											<layoutData>
 												<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 											</layoutData>

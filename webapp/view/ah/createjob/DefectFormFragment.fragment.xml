@@ -35,7 +35,7 @@
 							deletePress="onDeleteImagePress" visibleDelete="true" visibleEdit="false"></UploadCollectionItem>
 					</items>
 				</UploadCollection>
-				<FlexBox alignItems="Center" justifyContent="Center">
+				<FlexBox id="fbImageId" alignItems="Center" justifyContent="Center" visible="false">
 					<items>
 						<Image press="onPressSeeImagen" class="imageBorder" id="iImageTicket" densityAware="false" width="300px" height="230px"/>
 					</items>

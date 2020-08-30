@@ -339,6 +339,7 @@ sap.ui.define([
 		onUploadedImagePress: function(oEvent) {
 			try {
 				var obj = oEvent.getSource().getBindingContext("appModel").getObject();
+				this.getView().byId("fbImageId").setVisible(true);
 				this.getView().byId("iImageTicket").setSrc(obj.RAWBASE);
 			} catch (e) {
 				Log.error("Exception in onUploadedImagePress function");
