@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
 	xmlns:f="sap.f">
 	<ScrollContainer horizontal="false" vertical="true" width="100%" focusable="false" class="sapUiTinyMarginTop">
-		<Table class="sapUiResponsivePadding CERTable sapUiSizeCompact" items="{SchJobModelAll>/}" growing="true"
+		<Table id="AllScheduledJobId" class="sapUiResponsivePadding CERTable sapUiSizeCompact" items="{SchJobModelAll>/}" growing="true"
 			growingTriggerText="{i18n>lbLoadMore}">
 			<headerToolbar>
 				<OverflowToolbar>
@@ -9,7 +9,7 @@
 					<ToolbarSpacer/>
 					<!--<Button text="Create Schedule Job" type="Default" class="btnColor sapUiSizeCompact sortBtnColor"
 						press="onCreateScheduleJob"/>-->
-					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"/>
+					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" value="{LocalJobsModel>/AllScheduledJobId}" search="onSearch($event,'AllScheduledJobId','SchJobModelAll','JOBDESC')"/>
 					<ComboBox width="10rem">
 						<core:Item key="{key}" text="{text}"/>
 					</ComboBox>

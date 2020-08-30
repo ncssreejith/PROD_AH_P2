@@ -240,7 +240,7 @@ sap.ui.define([
 					oPayload.ENDDA = "9999-12-31";
 					oPayload.BEGDA = that.formatter.defaultOdataDateFormat(new Date(), "yyyyMMdd");
 					oPayload.WRCTR = oModel.getProperty("/header/wc");
-					oPayload.SSTAT1 = "P";
+					oPayload.SSTAT1 = null;
 					oPayload.SORDT = that.formatter.defaultOdataDateFormat(oModel.getProperty("/header/ddt"), "yyyyMMdd");
 					oPayload.SORTM = oModel.getProperty("/header/tme");
 					oPayload.TAILID = oModel.getProperty("/header/sTailId");

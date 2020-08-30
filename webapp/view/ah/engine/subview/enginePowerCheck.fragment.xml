@@ -145,11 +145,12 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>
+								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<!--<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>-->
 								<Text text="{oEngineModel>TEMP}"/>
 								<Text text="{oEngineModel>BPRESS}"/>
 								<Text text="{oEngineModel>TGTTAB}"/>
-								<Text text="{oEngineModel>INDTGT}"/>
+								<Text text="{oEngineModel>TGTIND}"/>
 								<Text text="{oEngineModel>TGTDIFF}"/>
 								<Text text="{oEngineModel>NG}"/>
 								<Text text="{oEngineModel>TQACT}"/>
@@ -209,11 +210,12 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>
+								<!--<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>-->
+								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
 								<Text text="{oEngineModel>TEMP}"/>
 								<Text text="{oEngineModel>BPRESS}"/>
 								<Text text="{oEngineModel>TGTTAB}"/>
-								<Text text="{oEngineModel>INDTGT}"/>
+								<Text text="{oEngineModel>TGTIND}"/>
 								<Text text="{oEngineModel>NG}"/>
 								<Text text="{oEngineModel>TQACT}"/>
 								<Text text="{oEngineModel>NP}"/>

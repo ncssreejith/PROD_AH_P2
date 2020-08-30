@@ -417,6 +417,7 @@ sap.ui.define([
 					oObj.bOpsCheck = true;
 					oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
 					oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
+					oObj.sTechOrderRef = oCreateTaskModel.getProperty("/sTechOrderRef");
 					oObj.sOpsDesc = oCreateTaskModel.getProperty("/sOpsDesc");
 					oObj.sSymbol = "3";
 				} else if (sTaskType === "TT1_12") {

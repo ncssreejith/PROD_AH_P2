@@ -64,7 +64,9 @@ sap.ui.define([
 					sWrctrText = oEvent.getSource().getSelectedItem().getText(),
 					sJobId = this.getModel("ViewModel").getProperty("/sJobId"),
 					oModelView = this.getView().getModel("ViewModel"),
+					oTable = that.getView().byId("tbWorkCenterCJ"),
 					oPrmTask = {};
+				oTable.removeSelections(true);
 				oPrmTask.filter = "jobid eq " + sJobId + " and TSTAT eq ALL and WRCTR eq " + sWrctr;
 				oModelView.setProperty("/WCText", sWrctrText);
 				oPrmTask.error = function() {};
@@ -130,6 +132,7 @@ sap.ui.define([
 							});
 						oModel.setProperty("/bFlag", true);
 						oModel.setProperty("/selectedIcon", "SignOff");
+						this.byId("pageCloseId").scrollTo(0);
 					}
 				}.bind(this);
 				if (oModel.getProperty("/sFlag") === "Y") {
@@ -321,7 +324,7 @@ sap.ui.define([
 		//------------------------------------------------------------------------------------------
 		onSelectTaskList: function(oEvent) {
 			try {
-				var oModel = this.getView().getModel("ViewModel"),
+				var oModel = this.getView().getModel("ViewModel"),oFlag=true,
 					oObj, newArray = [];
 				newArray = this.getView().getModel("ViewModel").getData().selectedTask;
 				if (oEvent.getSource().getSelectedItems().length === 1) {
@@ -332,17 +335,28 @@ sap.ui.define([
 					oModel.setProperty("/selectedTask", newArray);
 					oModel.updateBindings(true);
 				} else {
-					newArray = [];
+					//newArray = [];
 					if (oEvent.getSource().getSelectedItems().length >= 1) {
 						var oData = oEvent.getSource().getSelectedItems();
 						for (var i = 0; i < oData.length; i++) {
 							oObj = oData[i].getBindingContext("TaskModel").getObject();
-							newArray.push(oObj);
-							oObj.wrctr = oModel.getProperty("/WCText");
-							oModel.setProperty("/selectedTask", newArray);
-							oModel.updateBindings(true);
+							for (var j = 0; j < newArray.length; j++) {
+								if (newArray[j].taskid === oObj.taskid) {
+									oFlag=false;
+									break;
+								}else{
+									oFlag=true;
+								}
+							}
+							if (oFlag) {
+								newArray.push(oObj);
+								oObj.wrctr = oModel.getProperty("/WCText");
+							}
+
 						}
 					}
+					oModel.setProperty("/selectedTask", newArray);
+					oModel.updateBindings(true);
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onSelectTaskList function");

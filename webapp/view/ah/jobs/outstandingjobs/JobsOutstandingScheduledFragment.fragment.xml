@@ -6,7 +6,8 @@
 				<OverflowToolbar>
 					<Title text="{i18n>tiScheduled}" level="H2"/>
 					<ToolbarSpacer/>
-					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"/>
+					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"
+					value="{LocalJobsModel>/SchedID}" search="onSearch($event,'SchedID','JobModelS','jobdesc')"/>
 					<ComboBox width="10rem">
 						<core:Item key="{key}" text="{text}"/>
 					</ComboBox>
@@ -16,13 +17,13 @@
 				<Column width="8rem" hAlign="Center" class="CERTableTextColor">
 					<HBox>
 						<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobid', 'creuzt')"/>
 					</HBox>
 				</Column>
 				<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>
 						<Label text="{i18n>lbJobNo}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobid')"/>
 					</HBox>
 				</Column>
 				<Column width="15rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
@@ -31,7 +32,7 @@
 				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>
 						<Label text="{i18n>lbPrime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ptext')"/>
 					</HBox>
 				</Column>
 				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">

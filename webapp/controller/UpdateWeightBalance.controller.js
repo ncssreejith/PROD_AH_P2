@@ -324,7 +324,7 @@ sap.ui.define([
 					this.getOwnerComponent().getRouter().navTo("DashboardInitial");
 				}.bind(this);
 				oPrmWBMCreate.activity = 1;
-				ajaxutil.fnCreate("/WeBalISvc", oPrmWBMCreate, oPayload, "ZRM_WNB", this);
+				ajaxutil.fnCreate("/WeBalISvc", oPrmWBMCreate, oPayload);
 			} else {
 				this.getRouter().navTo("DashboardInitial");
 			}

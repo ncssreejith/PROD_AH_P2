@@ -2,7 +2,7 @@
 	<u:Menu itemSelect="handleMenuItemPress">
 		<u:MenuItem icon="sap-icon://edit" text="{i18n>muEditJob}" visible="{SummaryModel>/MenuVisible}">
 			<u:Menu>
-				<u:MenuItem icon="sap-icon://edit" text="{i18n>muEditJobDetails}"/>
+				<u:MenuItem icon="sap-icon://edit" text="{i18n>muEditJobDetails}" visible="{SummaryModel>/MenuVisibleEdit}"/>
 				<u:MenuItem icon="sap-icon://sys-cancel-2" text="{i18n>muJobEnterinError}"/>
 			</u:Menu>
 		</u:MenuItem>

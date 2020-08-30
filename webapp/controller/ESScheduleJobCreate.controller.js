@@ -121,8 +121,11 @@ sap.ui.define([
 					oPayload,
 					oPrmTD = {};
 				oPayload = this.getView().getModel("JobCreateModel").getData();
-
+               try{
 				oPayload.CREDT = formatter.defaultOdataDateFormat(oPayload.CREDT);
+               }catch(e){
+               	oPayload.CREDT = oPayload.CREDT;
+               }
 				oPayload.J_FLAG = "N";
 				oPayload.FLAG = "ES";
 				oPayload.TAILID = this.getTailId();

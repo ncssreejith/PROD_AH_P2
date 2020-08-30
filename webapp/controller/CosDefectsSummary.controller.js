@@ -192,7 +192,8 @@ sap.ui.define([
 				/*	that._oQuickView = sap.ui.xmlfragment(that.createId("ManageJob_Defect_Id"), "avmet.ah.fragments.ManageJobDefectMenu", this);*/
 				that._oQuickView = sap.ui.xmlfragment("OpenViewId", "avmet.ah.fragments.ManageJobDefectMenu", this);
 				that.getView().addDependent(that._oQuickView);
-				var oSummaryModel = that.getView().getModel("SummaryModel");
+				var oSummaryModel = that.getView().getModel("SummaryModel"),
+					oJobModel = that.getView().getModel("JobModel");
 				if (sFlag === 'DF') {
 					if (oSummaryModel.getProperty("/FAIRStatusText") === 'ACTIVATED') {
 						oSummaryModel.setProperty("/MenuVisible", false);
@@ -201,6 +202,11 @@ sap.ui.define([
 						oSummaryModel.setProperty("/MenuWorkCenterVisible", false);
 					} else {
 						oSummaryModel.setProperty("/MenuVisible", true);
+						if (oJobModel.getProperty("/jobty") === 'S') {
+							oSummaryModel.setProperty("/MenuVisibleEdit", false);
+						} else {
+							oSummaryModel.setProperty("/MenuVisibleEdit", true);
+						}
 						oSummaryModel.setProperty("/MenuScheduleVisible", false);
 						oSummaryModel.setProperty("/MenuActivateVisible", false);
 						oSummaryModel.setProperty("/MenuWorkCenterVisible", false);
@@ -512,8 +518,6 @@ sap.ui.define([
 						}
 					} else {
 						that._fnDefectWorkCenterCreate(sSelectedKey, sState);
-
-						//that._fnupdateWorkCenterJson(sSelectedText, sState);
 					}
 				} else {
 
@@ -1876,11 +1880,19 @@ sap.ui.define([
 
 					oPrmWorkCenter.error = function() {};
 				oPrmWorkCenter.success = function(oData) {
-					that._fnUpdateJob();
+					if (sState) {
+						that._fnUpdateJob();
+					} else {
+						that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
+					}
 					that.onCloseAddWorkCenterDialog();
 				}.bind(this);
-				oPrmWorkCenter.activity = 1;
-				ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload], "ZRM_COS_JB", this);
+				if (sState) {
+					oPrmWorkCenter.activity = 1;
+					ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload]);
+				} else {
+					ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload], "ZRM_COS_JB", this);
+				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnDefectWorkCenterCreate function");
 				this.handleException(e);

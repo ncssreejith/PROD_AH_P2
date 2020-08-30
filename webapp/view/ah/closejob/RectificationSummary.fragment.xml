@@ -197,7 +197,7 @@
 						<VBox backgroundDesign="Solid" visible="{=${ViewModel>/sFlag}==='N'? true:false}" class="sapUiTinyMarginTop">
 							<l:Grid hSpacing="2" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
 								<Label text="{i18n>lblSelectKey}" design="Bold"></Label>
-								<Table mode="MultiSelect" class="sparesTable sapUiSizeCompact" selectionChange="onSelectTaskList" items="{TaskModel>/}"
+								<Table id="tbWorkCenterCJ" mode="MultiSelect" class="sparesTable sapUiSizeCompact" selectionChange="onSelectTaskList" items="{TaskModel>/}"
 									rememberSelections="true">
 									<headerToolbar>
 										<OverflowToolbar class="sapUiTinyMarginBottom">
