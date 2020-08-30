@@ -51,8 +51,10 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-	
-		onAfterRendering: function() {},
+
+		onAfterRendering: function() {
+			// this.fnRemovePerFromRadial();
+		},
 
 		onListItemPress: function(oEvent) {
 			try {
@@ -99,7 +101,7 @@ sap.ui.define([
 			} catch (e) {
 				var selArea1 = this.getModel("pdsSummaryModel").getProperty("/defectArea")[0];
 				var oMarks1 = oEvent.getBindingContext("pdsSummaryModel").getProperty("marks");
-				this.getModel("pdsSummaryModel").setProperty("/addViewSel",selArea1.key);
+				this.getModel("pdsSummaryModel").setProperty("/addViewSel", selArea1.key);
 				this.getModel("pdsSummaryModel").refresh();
 				this.fnDrawDefect(oMarks1, selArea1);
 			}
@@ -111,7 +113,7 @@ sap.ui.define([
 			var oJobCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T8_OJOBS") + "/count");
 			if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && parseInt(oJobCount) > 0) {
 				sFlag = false;
-				MessageToast.show("There is "+parseInt(oJobCount)+" outstanding jobs");
+				MessageToast.show("There is " + parseInt(oJobCount) + " outstanding jobs");
 			}
 			this.getModel("pdsSummaryModel").setProperty("/confirm/selSignOff", selItem);
 			this.getModel("pdsSummaryModel").setProperty("/confirm/sgEnable", sFlag);
@@ -158,13 +160,13 @@ sap.ui.define([
 				var sFlag = true;
 				var selItem = this.getModel("pdsSummaryModel").getProperty("/confirm/selSignOff");
 				if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && parseInt(oJobCount) > 0) {
-				sFlag = false;
-					MessageToast.show("There is "+parseInt(oJobCount)+" outstanding jobs");
+					sFlag = false;
+					MessageToast.show("There is " + parseInt(oJobCount) + " outstanding jobs");
 				}
-			
-			this.getModel("pdsSummaryModel").setProperty("/confirm/sgEnable", sFlag);
-			this.getModel("pdsSummaryModel").refresh();
-			
+
+				this.getModel("pdsSummaryModel").setProperty("/confirm/sgEnable", sFlag);
+				this.getModel("pdsSummaryModel").refresh();
+
 				var oDialog = this.openDialog("SignOffConfirmDialog", ".fragments.pdsic.");
 				oDialog.bindElement({
 					path: "/confirm",
@@ -195,12 +197,12 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-		
-		onWeightWUpdateFinished:function(oEvent){
+
+		onWeightWUpdateFinished: function(oEvent) {
 			var sFlag = false;
-			if(oEvent.getSource().getItems().length>0){
+			if (oEvent.getSource().getItems().length > 0) {
 				var sObject = oEvent.getSource().getItems()[0].getBindingContext("pdsSummaryModel").getObject();
-				if(sObject.WTIND==="W" && sObject.FLAG==="X"){
+				if (sObject.WTIND === "W" && sObject.FLAG === "X") {
 					sFlag = true;
 				}
 			}
@@ -307,7 +309,7 @@ sap.ui.define([
 			this._getWeaponConfig();
 			this._getSignOffOptions();
 		},
-		
+
 		_getSortie: function() {
 			try {
 				var oParameter = {};
@@ -385,7 +387,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T6_FLC");
 					var oFules = this.getModel("pdsSummaryModel").getProperty("/masterList/" + sIndex + "/data/repl/fuel").concat(oData.results);
-                    this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/repl/fuel",oFules);
+					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/repl/fuel", oFules);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
 				ajaxutil.fnRead("/ReplRoleSvc", oParameter);
@@ -715,7 +717,7 @@ sap.ui.define([
 				oPrmWBM.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/detail", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
-					
+
 				}.bind(this);
 				ajaxutil.fnRead("/WeBalHSvc", oPrmWBM);
 			} catch (e) {
@@ -808,7 +810,7 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.closeDialog("FitForFlightSignOff");
-					this.getRouter().navTo("DashboardInitial",false);
+					this.getRouter().navTo("DashboardInitial", false);
 				}.bind(this);
 				oParameter.activity = 4;
 				ajaxutil.fnCreate("/PDSSummarySvc", oParameter, [oSignOffPayload], "ZRM_FS_FFF", this);
@@ -890,6 +892,16 @@ sap.ui.define([
 					ctx.fill();
 				}
 			});
+		},
+
+		fnRemovePerFromRadial: function(oEvent) {
+			oEvent.getSource().onAfterRendering = function(oEvt) {
+				oEvt.srcControl.getItems().forEach(function(oItem) {
+					if (document.querySelector("#" + oItem.getId() + ">div>div>div>div>div>div>div")) {
+						document.querySelector("#" + oItem.getId() + ">div>div>div>div>div>div>div").textContent = "";
+					}
+				}.bind(this));
+			};
 		}
 
 	});

@@ -3,8 +3,8 @@
 	<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTop">
 		<l:VerticalLayout width="100%">
 			<Title text="Fuel" class="sapUiTinyMarginBegin"/>
-			<grid:CSSGrid items="{pdsSummaryModel>repl/fuel}" id="FuleTilesHBoxId" gridTemplateColumns="250px 250px 250px" gridTemplateRows="150px"
-				gridGap="10px">
+			<grid:CSSGrid items="{pdsSummaryModel>repl/fuel}" gridTemplateColumns="250px 250px 250px" gridTemplateRows="150px"
+				gridGap="10px" modelContextChange="fnRemovePerFromRadial">
 				<cs:FuelTile title="{pdsSummaryModel>resdescription}" showNote="{pdsSummaryModel>ShowNote}" count="{path:'pdsSummaryModel>totamt',formatter:'.formatter.formatMaxValue'}"
 					unit="{pdsSummaryModel>units}" press="onReplBtnClk" maxCount="{pdsSummaryModel>max}" status="{pdsSummaryModel>defuel}"
 					servicedCount="{path:'pdsSummaryModel>srvamt',formatter:'.formatter.formatMaxValue'}">
@@ -18,21 +18,10 @@
 				</cs:FuelTile>
 			</grid:CSSGrid>
 		</l:VerticalLayout>
-		<!--<l:VerticalLayout width="100%" class="sapUiSmallMarginTop"-->
-		<!--	visible="{path :'pdsSummaryModel>/srvtid', formatter : '.formatter.ShowTire'}">-->
-		<!--	<Title text="Tire" class="sapUiTinyMarginBegin"/>-->
-		<!--	<grid:CSSGrid class="sapUiTinyMarginBegin sapUiTinyMarginTop" items="{pdsSummaryModel>repl/tire}"-->
-		<!--		gridTemplateColumns="220px 220px 220px 220px" gridTemplateRows="130px" gridGap="10px">-->
-		<!--		<cs:Others title="{pdsSummaryModel>resdescription}" press="onReplBtnClk" subTitle="" count="{pdsSummaryModel>totamt}"-->
-		<!--			footerLeftInfo="Max {pdsSummaryModel>max}">-->
-		<!--			<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onIconPress"/>-->
-		<!--		</cs:Others>-->
-		<!--	</grid:CSSGrid>-->
-		<!--</l:VerticalLayout>-->
 		<l:VerticalLayout width="100%">
 			<Title text="{i18n>oilandMisc}" class="sapUiTinyMarginBegin"/>
-			<grid:CSSGrid items="{pdsSummaryModel>repl/oil}" id="OilTilesHBoxId" gridTemplateColumns="220px 220px 220px 220px"
-				gridTemplateRows="130px" gridGap="10px">
+			<grid:CSSGrid items="{pdsSummaryModel>repl/oil}"  gridTemplateColumns="220px 220px 220px 220px"
+				gridTemplateRows="130px" gridGap="10px" modelContextChange="fnRemovePerFromRadial">
 				<cs:FuelTile title="{pdsSummaryModel>resdescription}" showNote="{pdsSummaryModel>ShowNote}" count="{pdsSummaryModel>totamt}"
 					unit="{pdsSummaryModel>units}" press="onReplBtnClk" maxCount="{pdsSummaryModel>max}" status="{pdsSummaryModel>defuel}"
 					servicedCount="{pdsSummaryModel>srvamt}">

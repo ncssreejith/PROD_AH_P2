@@ -514,6 +514,20 @@ sap.ui.define([
 		},
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
+		FuelMCState1: function(sValue, iMax) {
+			// if(this.getId() && document.querySelector("#"+this.getId()+" > div > div > div")){
+			// 	document.querySelector("#"+this.getId()+" > div > div > div").textContent="";
+			// }
+			var iValue = 0;
+			if (sValue === null || iMax === null) {
+				return "Neutral";
+			} else if ((parseInt(sValue) < parseInt(iMax))) {
+				return "Critical";
+			} else if ((parseInt(sValue) === parseInt(iMax))) {
+				return "Good";
+			}
+		},
+		
 	ADDLimitColorByDay: function(sValue) {
 			this.removeStyleClass("vboxOrangebgColorr");
 			this.removeStyleClass("vbox6BgColor");

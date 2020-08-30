@@ -112,7 +112,7 @@ sap.ui.define([
 				var sCurrentIndex = parseInt(sBindingContext.getPath().split("/")[2]);
 				var oList = this.getModel("paModel").getProperty("/masterList");
 				for (var i = 0; i < oList.length; i++) {
-					if (i > sCurrentIndex && !oList[i].data.reviewd) {
+					if (i > sCurrentIndex && !oList[i].data.reviewd && oList[i].reftyp !== "OTHERS") {
 						sNextIndex = i;
 						break;
 					}

@@ -15,6 +15,9 @@ sap.ui.define([
 	 *   Available Functions are Exception Handling, Dialog Handling  
 	 *************************************************************************** */
 	return Controller.extend("avmet.ah.controller.BaseController", {
+		
+	
+		
 		/** 
 		 * Function : getRouter
 		 * Convenience method for accessing the router.
@@ -478,10 +481,20 @@ sap.ui.define([
 				sValue = sValue.substring(0, iMaxLen);
 				oSource.setValue(sValue);
 			}
-		}
+		},
 
 		////////////////////////////////////////////////////END DIALOG CREATION////////////////////////////////////
-
+		//AMIT KUMAR CHANGES 31082020 0207 
+		fnRemovePerFromRadial: function(oEvent) {
+			oEvent.getSource().onAfterRendering = function(oEvt) {
+				oEvt.srcControl.getItems().forEach(function(oItem) {
+					if (document.querySelector("#" + oItem.getId() + ">div>div>div>div>div>div>div")) {
+						document.querySelector("#" + oItem.getId() + ">div>div>div>div>div>div>div").textContent = "";
+					}
+				}.bind(this));
+			};
+		}
+		
 	});
 
 });
