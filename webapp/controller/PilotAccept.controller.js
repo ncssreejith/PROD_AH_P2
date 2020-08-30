@@ -271,7 +271,7 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.filter = "TAILID EQ '" + this.getTailId() + "' and FLAG eq 'FS'";
 				oParameter.success = function(oData) {
-					var sIndex = this._fnGetIndexById("T1_SORTIE");
+					var sIndex = this._fnGetIndexById("T1_MCARD");
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/count", oData.results.length);
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data", {});
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/reviewd", oData.results.length > 0 ? false : true);
@@ -703,7 +703,7 @@ sap.ui.define([
 		fnDrawDefect: function(oMarks, selArea) {
 			var oCanvas = document.getElementById("myCanvas");
 			oCanvas.getContext("2d").clearRect(0, 0, oCanvas.width, oCanvas.height);
-			oCanvas.style.backgroundImage = "url('" + jQuery.sap.getModulePath("avmet.ah") + "/css/img/AH" + selArea.img + "')";
+			oCanvas.style.backgroundImage = "url('" + jQuery.sap.getModulePath("avmet.ah") + "/css/img/AH/" + selArea.img + "')";
 			oMarks.forEach(function(mark) {
 				if (selArea.key === mark.placeId) {
 					var ctx = oCanvas.getContext("2d");

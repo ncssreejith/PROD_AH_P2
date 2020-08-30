@@ -78,7 +78,7 @@ sap.ui.define([
 		},
 
 		defaultDateFormatLimDisplay: function(dDate, sFormat) {
-			if (dDate === "-" || dDate === "_") {
+			if (dDate === "-" || dDate === "_" || dDate === null) {
 				return "_";
 			}
 			/*var nDate=new Date(dDate);
@@ -514,7 +514,29 @@ sap.ui.define([
 		},
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
-
+	ADDLimitColorByDay: function(sValue) {
+			this.removeStyleClass("vboxOrangebgColorr");
+			this.removeStyleClass("vbox6BgColor");
+			if (sValue === "1") {
+				this.addStyleClass("vboxOrangebgColorr");
+			} else {
+				this.addStyleClass("vbox6BgColor");
+			}
+			return "13%";
+		},
+		fnLblAddLimit: function(sValue) {
+			var oTemp = "";
+			switch (sValue) {
+				case "A":
+				case "B":
+					oTemp = "Acceptable Deferred Defects";
+					break;
+				case "L":
+					oTemp = "Limitation";
+					break;
+			}
+			return oTemp;
+		},
 		wConnect: function(sState, isCart) {
 			var sCText = "";
 			if (sState === "C") {
