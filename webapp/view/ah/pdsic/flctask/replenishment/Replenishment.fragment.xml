@@ -5,12 +5,12 @@
 			<Title text="Fuel" class="sapUiTinyMarginBegin"/>
 			<grid:CSSGrid items="{pdsSummaryModel>repl/fuel}" id="FuleTilesHBoxId" gridTemplateColumns="250px 250px 250px" gridTemplateRows="150px"
 				gridGap="10px">
-				<cs:FuelTile title="{pdsSummaryModel>resdescription}" showNote="{pdsSummaryModel>ShowNote}" count="{pdsSummaryModel>totamt}"
+				<cs:FuelTile title="{pdsSummaryModel>resdescription}" showNote="{pdsSummaryModel>ShowNote}" count="{path:'pdsSummaryModel>totamt',formatter:'.formatter.formatMaxValue'}"
 					unit="{pdsSummaryModel>units}" press="onReplBtnClk" maxCount="{pdsSummaryModel>max}" status="{pdsSummaryModel>defuel}"
-					servicedCount="{pdsSummaryModel>srvamt}">
+					servicedCount="{path:'pdsSummaryModel>srvamt',formatter:'.formatter.formatMaxValue'}">
 					<mc:RadialMicroChart tooltip=" "
 						percentage="{parts : ['pdsSummaryModel>totamt','pdsSummaryModel>max'], formatter : '.formatter.FuelMC'}" size="M"
-						valueColor="{parts : ['pdsSummaryModel>totamt','pdsSummaryModel>max'], formatter : '.formatter.FuelMCState'}" press="press"
+						valueColor="{parts : ['pdsSummaryModel>totamt','pdsSummaryModel>max'], formatter : 'avmet.ah.model.formatter.FuelMCState'}" press="press"
 						class="percentageHidden"></mc:RadialMicroChart>
 					<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onEditIconPress"/>
 					<core:Icon src="sap-icon://up" useIconTooltip="false" color="green" size="10px" press="onEditIconPress"/>

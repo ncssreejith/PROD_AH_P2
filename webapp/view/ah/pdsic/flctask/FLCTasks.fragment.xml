@@ -11,8 +11,8 @@
 				</FlexBox>
 				<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.flctask.replenishment.Replenishment" type="XML"/>
 				<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.flctask.routinetask.RoutineTasks" type="XML"/>
-				<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.flctask.followuptask.FollowUpTasks" type="XML"/>
-				<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.flctask.createtask.CreateTasks" type="XML"/>
+				<!--<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.flctask.followuptask.FollowUpTasks" type="XML"/>-->
+				<!--<core:Fragment fragmentName="avmet.ah.view.ah.pdsic.flctask.createtask.CreateTasks" type="XML"/>-->
 			</VBox>
 		</content>
 		<footer>

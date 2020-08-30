@@ -5,9 +5,9 @@
 			<Title text="Fuel" class="sapUiTinyMarginBegin"/>
 			<grid:CSSGrid items="{paModel>repl/fuel}" id="FuleTilesHBoxId" gridTemplateColumns="250px 250px 250px" gridTemplateRows="150px"
 				gridGap="10px">
-				<cs:FuelTile title="{paModel>resdescription}" showNote="{paModel>ShowNote}" count="{paModel>totamt}"
+				<cs:FuelTile title="{paModel>resdescription}" showNote="{paModel>ShowNote}" count="{path:'paModel>totamt',formatter:'.formatter.formatMaxValue'}"
 					unit="{paModel>units}" press="onReplBtnClk" maxCount="{paModel>max}" status="{paModel>defuel}"
-					servicedCount="{paModel>srvamt}">
+					servicedCount="{path:'paModel>srvamt',formatter:'.formatter.formatMaxValue'}">
 					<mc:RadialMicroChart tooltip=" "
 						percentage="{parts : ['paModel>totamt','paModel>max'], formatter : '.formatter.FuelMC'}" size="M"
 						valueColor="{parts : ['paModel>totamt','paModel>max'], formatter : '.formatter.FuelMCState'}" press="press"
