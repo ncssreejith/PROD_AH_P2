@@ -335,6 +335,13 @@ sap.ui.define([
 			}
 			return oDailog;
 		},
+			getDialog: function(oDialogName) {
+			try {
+				return this[oDialogName];
+			} catch (e) {
+				Log.error("Exception in closeDialog function");
+			}
+		},
 		onClose: function(oEvent) {
 			this.closeoDialog(this._oDialog);
 		},
