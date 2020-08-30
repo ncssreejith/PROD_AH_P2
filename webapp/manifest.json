@@ -44,7 +44,7 @@
 				"sap.m": {},
 				"sap.ui.core": {},
 				"sap.ui.layout": {},
-				"it.designfuture.chartjs": {}
+				"it.designfuture.chartjs":{}
 			}
 		},
 		"contentDensities": {
