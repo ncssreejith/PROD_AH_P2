@@ -965,7 +965,7 @@ sap.ui.define([
 			if (sValue === null || iMax === null) {
 				return iValue;
 			} else {
-				iValue = ((parseInt(sValue) / parseInt(iMax))) * 100;
+				iValue = ((parseFloat(sValue) / parseInt(iMax))) * 100;
 				return iValue;
 			}
 		},
