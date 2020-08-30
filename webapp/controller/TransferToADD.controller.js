@@ -545,7 +545,7 @@ sap.ui.define([
 				oModel = this.getView().getModel("oViewGlobalModel");
 				if (!this._oAddGetRemark) {
 					this._oAddGetRemark = sap.ui.xmlfragment(this.createId("idRemarksDialog"),
-						"avmet.f16.fragments.RemarksDialog",
+						"avmet.ah.fragments.RemarksDialog",
 						this);
 					this.getView().addDependent(this._oAddGetRemark);
 				}

@@ -2,7 +2,7 @@
 	xmlns:u="sap.ui.unified" xmlns:f="sap.f" xmlns:card="sap.f.cards">
 	<VBox class="sapUiSmallMargin" width="100%">
 		<HBox width="100%">
-			<VBox width="{path:'paModel>CFLAG',formatter:'avmet.f16.model.formatter.ADDLimitColorByDay'}" alignContent="Center"
+			<VBox width="{path:'paModel>CFLAG',formatter:'avmet.ah.model.formatter.ADDLimitColorByDay'}" alignContent="Center"
 				alignItems="Center">
 				<VBox alignContent="Center" alignItems="Center" visible="{=${paModel>ADDLimit/EXPDT} !== null ? true : false}"
 					class="sapUiSmallMarginTop">

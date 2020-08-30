@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cs="avmet.f16.control">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cs="avmet.ah.control">
 	<Dialog title="Confirm sign off">
 		<VBox class="sapUiSmallMarginBeginEnd sapUiLargeMarginBottom sapUiSmallMarginTop">
 			<HBox>
