@@ -109,7 +109,7 @@ sap.ui.define([
 				oRM.write(oControl.getSubHeader());
 				oRM.write("</div>");
 			}
-			if (oRM.write(oControl.getInfo())) {
+			if (oControl.getInfo()) {
 				oRM.write("<div class='StatusInfoDiv'>");
 				oRM.write(oControl.getInfo());
 				oRM.write("</div>");

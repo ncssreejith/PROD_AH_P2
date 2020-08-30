@@ -468,7 +468,7 @@ sap.ui.define([
 				oParameter.filter = "CTYPE eq ALL and tailid eq " + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					oData.results = this.fnDueJob(oData.results);
+					// oData.results = this.fnDueJob(oData.results);
 					var sIndex = this._fnGetIndexById("T9_JDUE");
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/count", oData.results.length);
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data", {});
