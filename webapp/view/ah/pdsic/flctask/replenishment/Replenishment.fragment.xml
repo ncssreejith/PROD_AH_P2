@@ -18,17 +18,17 @@
 				</cs:FuelTile>
 			</grid:CSSGrid>
 		</l:VerticalLayout>
-		<l:VerticalLayout width="100%" class="sapUiSmallMarginTop"
-			visible="{path :'pdsSummaryModel>/srvtid', formatter : '.formatter.ShowTire'}">
-			<Title text="Tire" class="sapUiTinyMarginBegin"/>
-			<grid:CSSGrid class="sapUiTinyMarginBegin sapUiTinyMarginTop" items="{pdsSummaryModel>repl/tire}"
-				gridTemplateColumns="220px 220px 220px 220px" gridTemplateRows="130px" gridGap="10px">
-				<cs:Others title="{pdsSummaryModel>resdescription}" press="onReplBtnClk" subTitle="" count="{pdsSummaryModel>totamt}"
-					footerLeftInfo="Max {pdsSummaryModel>max}">
-					<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onIconPress"/>
-				</cs:Others>
-			</grid:CSSGrid>
-		</l:VerticalLayout>
+		<!--<l:VerticalLayout width="100%" class="sapUiSmallMarginTop"-->
+		<!--	visible="{path :'pdsSummaryModel>/srvtid', formatter : '.formatter.ShowTire'}">-->
+		<!--	<Title text="Tire" class="sapUiTinyMarginBegin"/>-->
+		<!--	<grid:CSSGrid class="sapUiTinyMarginBegin sapUiTinyMarginTop" items="{pdsSummaryModel>repl/tire}"-->
+		<!--		gridTemplateColumns="220px 220px 220px 220px" gridTemplateRows="130px" gridGap="10px">-->
+		<!--		<cs:Others title="{pdsSummaryModel>resdescription}" press="onReplBtnClk" subTitle="" count="{pdsSummaryModel>totamt}"-->
+		<!--			footerLeftInfo="Max {pdsSummaryModel>max}">-->
+		<!--			<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onIconPress"/>-->
+		<!--		</cs:Others>-->
+		<!--	</grid:CSSGrid>-->
+		<!--</l:VerticalLayout>-->
 		<l:VerticalLayout width="100%">
 			<Title text="{i18n>oilandMisc}" class="sapUiTinyMarginBegin"/>
 			<grid:CSSGrid items="{pdsSummaryModel>repl/oil}" id="OilTilesHBoxId" gridTemplateColumns="220px 220px 220px 220px"

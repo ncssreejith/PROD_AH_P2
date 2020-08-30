@@ -21,13 +21,14 @@
 			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left"></Column>
 		</columns>
 		<items>
+			<!--max="{parts: ['oRepDetailsModel>totamt','oRepDetailsModel>max'], formatter : '.formatter.FormatMaxValueFloat'}"-->
 			<ColumnListItem class="tableTextColor">
 				<cells>
 					<Text text="{oRepDetailsModel>resdescription}"/>
 					<StepInput value="{oRepDetailsModel>srvamt}" step="{path : 'oRepDetailsModel>resdescription', formatter : '.formatter.formatStepOil'}"
 						displayValuePrecision="{path : 'oRepDetailsModel>resdescription', formatter : '.formatter.formatDecimalOil' }" validationMode="LiveChange"
 						min="0" change="onOilTblValueChange"
-						max="{parts: ['oRepDetailsModel>totamt','oRepDetailsModel>max'], formatter : '.formatter.FormatMaxValueFloat'}"
+						max="{path:'oRepDetailsModel>max',formatter:'.formatter.formatMaxValue'}"
 						description="/ {oRepDetailsModel>max}"/>
 					<!--<StepInput value="{oRepDetailsModel>totamt}" step="{path : 'oRepDetailsModel>resdescription', formatter : '.formatter.formatStepOil'}"
 						validationMode="LiveChange" change="onOilTblValueChange" min="0"

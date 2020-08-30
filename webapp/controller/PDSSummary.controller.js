@@ -121,7 +121,6 @@ sap.ui.define([
 			try {
 				var sBindingContext = oEvent.getSource().getBindingContext("pdsSummaryModel");
 				this.getModel("pdsSummaryModel").setProperty(sBindingContext.getPath() + "/reviewd", true);
-
 				var sNextIndex = -1;
 				var sCurrentIndex = parseInt(sBindingContext.getPath().split("/")[2]);
 				var oList = this.getModel("pdsSummaryModel").getProperty("/masterList");
@@ -155,6 +154,17 @@ sap.ui.define([
 					this._fnNavToDetail("/masterList/" + sNextIndex);
 					return;
 				}
+				var oJobCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T8_OJOBS") + "/count");
+				var sFlag = true;
+				var selItem = this.getModel("pdsSummaryModel").getProperty("/confirm/selSignOff");
+				if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && parseInt(oJobCount) > 0) {
+				sFlag = false;
+					MessageToast.show("There is "+parseInt(oJobCount)+" outstanding jobs");
+				}
+			
+			this.getModel("pdsSummaryModel").setProperty("/confirm/sgEnable", sFlag);
+			this.getModel("pdsSummaryModel").refresh();
+			
 				var oDialog = this.openDialog("SignOffConfirmDialog", ".fragments.pdsic.");
 				oDialog.bindElement({
 					path: "/confirm",
@@ -798,7 +808,7 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.closeDialog("FitForFlightSignOff");
-					this.onNavBack();
+					this.getRouter().navTo("DashboardInitial",false);
 				}.bind(this);
 				oParameter.activity = 4;
 				ajaxutil.fnCreate("/PDSSummarySvc", oParameter, [oSignOffPayload], "ZRM_FS_FFF", this);
