@@ -5,23 +5,18 @@
 			alignItems="Center" class="vboxAlign">
 			<items>
 				<Title text="{i18n>txtNoTexttStanding}" level="H1" titleStyle="H3"/>
-				<Button text="{i18n>btnCreateTask}" press="handlePressWorkCenterFragmentOpenMenu('WCT',$event)" type="Default" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+				<Button text="{i18n>btnCreateTask}" press="handlePressWorkCenterFragmentOpenMenu('WCT',$event)" type="Default"
+					enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 			</items>
 		</VBox>
 		<VBox backgroundDesign="Solid" visible="{=${TaskOutModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
 			<Table id="tbWcOutstandingId" class="sapUiResponsivePadding sapUiSizeCompact sapUiSmallMarginEnd CERTable tableHFont" mode="MultiSelect"
 				growing="true" growingThreshold="6" growingScrollToLoad="true" items="{ path: 'TaskOutModel>/'}" noDataText="{i18n>txtNoTexttStanding}"
 				showNoData="true">
-				<headerToolbar>
-				<OverflowToolbar>
-					<ToolbarSpacer/>
-					<SearchField placeholder="Search" width="15rem" value="{LocalModel>/tbWcOutstandingId}" search="onSearch($event,'tbWcOutstandingId','TaskOutModel','tdesc')"/>
-				</OverflowToolbar>
-				</headerToolbar>
 				<columns>
 					<Column width="29%" hAlign="Start" minScreenWidth="Tablet" demandPopin="true" class="textColor">
 						<HBox>
-							<Label text="{i18n>lbTask}" design="Bold" wrapping="true"/>
+							<Label text="{i18n>lbTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'tdesc')"/>
 						</HBox>
 					</Column>
@@ -34,7 +29,7 @@
 					<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center" class="textColor">
 						<HBox>
 							<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'taskid')"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'creuzt')"/>
 						</HBox>
 					</Column>
 				</columns>
@@ -43,7 +38,7 @@
 						<cells>
 							<Text text="{TaskOutModel>tdesc}"/>
 							<Text text="{TaskOutModel>ftdesc}"/>
-							<Text
+							<Text press="onSort($event,'credtm','')"
 								text="{path:'TaskOutModel>credtm', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskOutModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 						</cells>
 					</ColumnListItem>
