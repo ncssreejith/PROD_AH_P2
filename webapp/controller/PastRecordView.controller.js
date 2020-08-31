@@ -98,9 +98,8 @@ sap.ui.define([
 		fnLoadPastData: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and tabid eq ('" + this.getModel(
-					"oPastModel").getProperty(
-					"/cnpytabId") + "') and otype eq P";
+				oParameter.filter = "tailid eq " + this.getTailId() + " and refid eq " + this.getAircraftId() +
+				" and tabid eq ('" + this.getModel("oPastModel").getProperty("/cnpytabId") + "') and otype eq P";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oPastModel").setProperty("/past", oData.results);

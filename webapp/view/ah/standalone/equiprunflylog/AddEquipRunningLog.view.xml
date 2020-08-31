@@ -36,7 +36,10 @@
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="#1 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
 							<Input width="250px" value="{oAircraftAddModel>/record/COL_13}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgNumber"
-							required="{= ${oAircraftAddModel>/type} === '0'}" editable="{= ${oAircraftAddModel>/type} === '0'}"/>
+							required="{= ${oAircraftAddModel>/type} === '0'}" editable="{= ${oAircraftAddModel>/type} === '0'}"
+							
+							/>
+							<!--valueState="{= (!${oAircraftAddModel>/record/COL_13} &amp;&amp; (${oAircraftAddModel>/type} === '0')) ? 'Error': 'None'}"-->
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="#2 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>

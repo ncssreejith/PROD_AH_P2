@@ -92,7 +92,7 @@
 										<SegmentedButtonItem text="Limitation" key="LMT" width="50%"/>
 									</items>
 								</SegmentedButton>
-								<Link text="view" press="onAircraftView" visible="{= !!${dashboardModel>/cap/LV_COUNT}}"/>
+								<Link text="view" press="onAircraftView" visible="{= !!${dashboardModel>/cap/LV_TADD} || !!${dashboardModel>/cap/LV_TLIMI}}"/>
 							</ct:DashboardTile4>
 						</HBox>
 						<HBox>
