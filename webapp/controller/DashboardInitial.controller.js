@@ -181,6 +181,7 @@ sap.ui.define([
 				//var aRenderSafePopup = this.getModel("avmetModel").getProperty("/dash/WEXPE");
 				switch (aState) {
 					case "AST_RFF":
+					case "AST_RFF0":
 						this.getRouter().navTo("PilotAccept", {
 							srvtid: sSrvtId,
 							stepid: "S_PA"
@@ -193,6 +194,7 @@ sap.ui.define([
 						});
 						break;
 					case "AST_FFF":
+					case "AST_FFF0":
 						this.onPilotChanges();
 						break;
 				}
@@ -217,22 +219,25 @@ sap.ui.define([
 				oItem.LV_COLOR = "Good";
 				switch (sSelectedKey) {
 					case "Hrs":
-						this._setRadialChartText("scheduleMicroChartId", oItem.LV_THRS, "", oItem.LV_THRS, oItem.LV_HRS);
-						if (oItem.LV_THRS > 0) {
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_THRS ? oItem.LV_THRS : 0), "", (oItem.LV_THRS ? oItem.LV_THRS : 0),
+							oItem.LV_HRS);
+						if (oItem.LV_HRS > 0) {
 							oItem.LV_COLOR = "Critical";
 						}
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
 						break;
 					case "Days":
-						this._setRadialChartText("scheduleMicroChartId", oItem.LV_TDAY, "", oItem.LV_TDAY, oItem.LV_DAY);
-						if (oItem.LV_TDAY > 0) {
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TDAY ? oItem.LV_TDAY : 0), "", (oItem.LV_TDAY ? oItem.LV_TDAY : 0),
+							oItem.LV_DAY);
+						if (oItem.LV_DAY > 0) {
 							oItem.LV_COLOR = "Critical";
 						}
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TDAY));
 						break;
 					case "TAC":
-						this._setRadialChartText("scheduleMicroChartId", oItem.LV_TTAC, "", oItem.LV_TTAC, oItem.LV_TAC);
-						if (oItem.LV_TTAC > 0) {
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC ? oItem.LV_TTAC : 0, ""), (oItem.LV_TTAC ? oItem.LV_TTAC : 0),
+							oItem.LV_TAC);
+						if (oItem.LV_TAC > 0) {
 							oItem.LV_COLOR = "Critical";
 						}
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TTAC));
@@ -482,7 +487,42 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
+		fnLoadSrv1Dashboard: function() {
+			try {
+				var oParameter = {};
+				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				// + " and REFID eq " + this.getAircraftId() ;
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					if (oData && oData.results.length && oData.results.length > 0) {
+						oData.results[0].txt3 = this.fnReplaceString(oData.results[0].txt3);
+						oData.results[0].txt2 = this.fnReplaceString(oData.results[0].txt2);
+						this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
 
+						var oModel = this.getView().getModel("avmetModel");
+						var oDash = oModel.getProperty("/dash");
+						oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
+						oModel.setProperty("/dash/TBTN3", !(this.fnCheckLockStatus(oDash.astid)));
+						oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
+						this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
+						this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
+						this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
+						if (oData.results[0].WFLAG === "X") {
+							oModel.setProperty("/WarningFlag", true);
+							this._fnSetWarningMessage(oData.results[0]);
+						} else {
+							oModel.setProperty("/WarningFlag", false);
+						}
+						this.getModel("menuModel").refresh();
+						this.getModel("avmetModel").refresh(true);
+						// this.fnCreateTableFromData();
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
+			} catch (e) {
+				this.Log.error("Exception in fnLoadSrv1Dashboard function");
+			}
+		},
 		// ***************************************************************************
 		//                 3.  Specific Methods  
 		// ***************************************************************************
@@ -510,41 +550,6 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnLoadSrv1Dashboard: function() {
-			try {
-				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
-				oParameter.error = function() {};
-				oParameter.success = function(oData) {
-					if (oData && oData.results.length && oData.results.length > 0) {
-						oData.results[0].txt3 = this.fnReplaceString(oData.results[0].txt3);
-						oData.results[0].txt2 = this.fnReplaceString(oData.results[0].txt2);
-						this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
-
-						var oModel = this.getView().getModel("avmetModel");
-						var oDash = oModel.getProperty("/dash");
-						oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
-						oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
-						this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
-						this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
-						this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
-						if (oData.results[0].WFLAG === "X") {
-							oModel.setProperty("/WarningFlag", true);
-							this._fnSetWarningMessage(oData.results[0]);
-						} else {
-							oModel.setProperty("/WarningFlag", false);
-						}
-						this.getModel("avmetModel").refresh();
-					}
-					// this.fnCreateTableFromData();
-				}.bind(this);
-				ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
-			} catch (e) {
-				this.Log.error("Exception in DashboardInitial:fnLoadSrv1Dashboard function");
-				this.handleException(e);
-			}
-		},
-
 		/** 
 		 * Load Schedule data
 		 * @returns
@@ -658,31 +663,34 @@ sap.ui.define([
 					// LETOTAMT: "7000@8000@",
 					// LEUOM: "Pound@Pound@Pound@"
 				};
-				var aFuel = oFuel.REDESC ? oFuel.REDESC.split("@") : [{}];
-				aFuel.splice(-1, 1);
-				var aFL = [];
-				aFuel.forEach(function(oItem, i) {
-					var oTemp = {};
-					oTemp.REDESC = oItem;
-					oTemp.key = i;
-					oTemp.LTOTAMT = parseInt(oFuel.LETOTAMT.split("@")[i]);
-					oTemp.LEMAX = parseInt(oFuel.LEMAX.split("@")[i]);
-					oTemp.LEUOM = oFuel.LEUOM.split("@")[i];
-					aFL.push(oTemp);
-				});
-				var oFL = aFL[0] ? JSON.parse(JSON.stringify(aFL[0])) : {};
-				oFL.TOTAT = 0;
-				oFL.list = aFL;
+				if (oFuel.LETOTAMT && oFuel.LEMAX) {
+					var aFuel = oFuel.REDESC ? oFuel.REDESC.split("@") : [{}];
+					aFuel.splice(-1, 1);
+					var aFL = [];
+					aFuel.forEach(function(oItem, i) {
+						var oTemp = {};
+						oTemp.REDESC = oItem;
+						oTemp.key = i;
+						oTemp.LTOTAMT = parseInt(oFuel.LETOTAMT.split("@")[i]);
+						oTemp.LEMAX = parseInt(oFuel.LEMAX.split("@")[i]);
+						oTemp.LEUOM = oFuel.LEUOM.split("@")[i];
+						aFL.push(oTemp);
+					});
+					var oFL = aFL[0] ? JSON.parse(JSON.stringify(aFL[0])) : {};
+					oFL.TOTAT = 0;
+					oFL.list = aFL;
 
-				oFL.list.forEach(function(oItem) {
-					oFL.TOTAT += oItem.LTOTAMT;
-				});
+					oFL.list.forEach(function(oItem) {
+						oFL.TOTAT += oItem.LTOTAMT;
+					});
+				}
 				this.getModel("dashboardModel").setProperty("/fl", oFL);
 				this.getModel("dashboardModel").refresh();
 				if (oFL) {
 					this._setRadialChartTextDisplay("fuelMicroChartId", oFL.LTOTAMT, oFL.LEMAX, oFL.LTOTAMT, oFL.LEMAX);
 					return;
 				}
+
 				this._setRadialChartTextDisplay("fuelMicroChartId", "", "", 0, 0);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnProcessFuel function");
@@ -873,46 +881,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		/** 
-		 * Check whether to lock AVMET
-		 * @param sStatus
-		 * @returns
-		 */
-		fnCheckLockStatus: function(sStatus) {
-			try {
-				switch (sStatus) {
-					case "AST_FFF":
-					case "AST_RFF":
-						return true;
-					default:
-						return false;
-				}
-			} catch (e) {
-				this.Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
-				this.handleException(e);
-			}
-		},
-		/** 
-		 *  Check whether to lock Jobs
-		 * @param sStatus
-		 * @returns
-		 */
-		fnCheckRecLockStatus: function(sStatus) {
-			try {
-				switch (sStatus) {
-					case "AST_FAIR":
-					case "AST_FAIR0":
-					case "AST_FAIR1":
-					case "AST_FAIR2":
-						return true;
-					default:
-						return false;
-				}
-			} catch (e) {
-				this.Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
-				this.handleException(e);
-			}
-		},
+
 		fnReplaceString: function(subTxt) {
 			try {
 				if (subTxt === undefined || subTxt === null) {
@@ -940,7 +909,7 @@ sap.ui.define([
 					document.querySelector(scheduleMicroChartId).textContent = sText1 + "\n" + sText2;
 					// document.querySelector(scheduleMicroChartId).textContent = "2 \n ADDs";
 					// document.querySelector(FueltMicroChartId).textContent = "2500 \n /2500 lbs";
-				}.bind(this, scheduleMicroChartId), 0);
+				}.bind(this, scheduleMicroChartId), 10);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:_setRadialChartText function");
 				this.handleException(e);
@@ -959,7 +928,7 @@ sap.ui.define([
 					document.querySelector(scheduleMicroChartId).textContent = sT1 + "\n/" + sT2;
 					// document.querySelector(scheduleMicroChartId).textContent = "2 \n ADDs";
 					// document.querySelector(FueltMicroChartId).textContent = "2500 \n /2500 lbs";
-				}.bind(this, scheduleMicroChartId), 0);
+				}.bind(this, scheduleMicroChartId), 10);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:_setRadialChartTextDisplay function");
 				this.handleException(e);

@@ -131,7 +131,7 @@ sap.ui.define([
 			}
 
 		},
-		
+
 		onAircraftTransferMenu: function(oEvent) {
 			this.getRouter().navTo("AircraftTransfer");
 		},
@@ -221,51 +221,55 @@ sap.ui.define([
 		// ***************************************************************************	
 
 		fnLoadSrv1Dashboard: function() {
-			var oParameter = {};
-			oParameter.filter = "tailid eq " + this.getTailId();
-			oParameter.error = function() {};
-			oParameter.success = function(oData) {
-				this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
-				var oDash = this.getModel("avmetModel").getProperty("/dash");
-				this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
-				this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
-				this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
-				var oModel = this.getView().getModel("avmetModel");
-				oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
-				oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
-
-				this.getModel("avmetModel").refresh();
-			}.bind(this);
-			ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
-		},
-		fnCheckLockStatus: function(sStatus) {
 			try {
-				switch (sStatus) {
-					case "AST_FFF":
-					case "AST_RFF":
-						return true;
-					default:
-						return false;
-				}
+				var oParameter = {};
+				oParameter.filter = "tailid eq " + this.getTailId();
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
+					var oDash = this.getModel("avmetModel").getProperty("/dash");
+					this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
+					this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
+					this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
+					// var oModel = this.getView().getModel("avmetModel");
+					// oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
+					// oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
+					this.getModel("menuModel").refresh();
+					this.getModel("avmetModel").refresh();
+				}.bind(this);
+				ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
 			} catch (e) {
-				Log.error("Exception in fnCheckLockStatus function");
+				Log.error("Exception in fnLoadSrv1Dashboard function");
 			}
 		},
-		fnCheckRecLockStatus: function(sStatus) {
-			try {
-				switch (sStatus) {
-					case "AST_FAIR":
-					case "AST_FAIR0":
-					case "AST_FAIR1":
-					case "AST_FAIR2":	
-						return true;
-					default:
-						return false;
-				}
-			} catch (e) {
-				Log.error("Exception in fnCheckLockStatus function");
-			}
-		},
+		// fnCheckLockStatus: function(sStatus) {
+		// 	try {
+		// 		switch (sStatus) {
+		// 			case "AST_FFF":
+		// 			case "AST_RFF":
+		// 				return true;
+		// 			default:
+		// 				return false;
+		// 		}
+		// 	} catch (e) {
+		// 		Log.error("Exception in fnCheckLockStatus function");
+		// 	}
+		// },
+		// fnCheckRecLockStatus: function(sStatus) {
+		// 	try {
+		// 		switch (sStatus) {
+		// 			case "AST_FAIR":
+		// 			case "AST_FAIR0":
+		// 			case "AST_FAIR1":
+		// 			case "AST_FAIR2":	
+		// 				return true;
+		// 			default:
+		// 				return false;
+		// 		}
+		// 	} catch (e) {
+		// 		Log.error("Exception in fnCheckLockStatus function");
+		// 	}
+		// },
 
 		// ***************************************************************************
 		//   3. Specific Function 

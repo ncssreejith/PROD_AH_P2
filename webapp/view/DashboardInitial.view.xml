@@ -82,7 +82,7 @@
                                         <SegmentedButtonItem text="TAC" key="TAC" icon="{dashboardModel>/scl/TACAlert}"/>
                                     </items>
                                 </SegmentedButton>
-								<Link text="view" press="onSchedulesView('SCH')"/>
+								<Link text="view" press="onSchedulesView('SCH')" visible="{= !!${dashboardModel>/scl/LV_COUNT}}"/>
 							</ct:DashboardTile3>
 							<ct:DashboardTile4 class="sapUiTinyMargin" title="Aircraft Capabilities">
 								<mc:RadialMicroChart id="capMicroChartId" size="L" valueColor="{path : 'dashboardModel>/cap/LV_TADD', formatter : '.formatter.DBSchedule'}" press="press" class="customChartFont numFontColor"></mc:RadialMicroChart>
@@ -92,7 +92,7 @@
 										<SegmentedButtonItem text="Limitation" key="LMT" width="50%"/>
 									</items>
 								</SegmentedButton>
-								<Link text="view" press="onAircraftView"/>
+								<Link text="view" press="onAircraftView" visible="{= !!${dashboardModel>/cap/LV_COUNT}}"/>
 							</ct:DashboardTile4>
 						</HBox>
 						<HBox>
@@ -120,7 +120,7 @@
 								chart2Count="{= ${dashboardModel>/role/ADPC2} ? ${dashboardModel>/role/ADPC2} : 0}"
 								chart3Count="{= ${dashboardModel>/role/ADPC3} ? ${dashboardModel>/role/ADPC3} : 0}"
 								chart4Count="{= ${dashboardModel>/role/ADPC4} ? ${dashboardModel>/role/ADPC4} : 0}">
-								<Link text="view" press="onRoleDisplay"/>
+								<Link text="view" press="onRoleDisplay" visible="{= !!${avmetModel>/dash/LOCON}}"/>
 								<ProgressIndicator percentValue="{parts:['dashboardModel>/role/ADPC1','dashboardModel>/role/TOTAL'],formatter:'.formatter.percentAge'}"
 									state="Information"/>
 								<ProgressIndicator percentValue="{parts:['dashboardModel>/role/ADPC2','dashboardModel>/role/TOTAL'],formatter:'.formatter.percentAge'}"
