@@ -137,9 +137,10 @@ sap.ui.define([
 		},
 		onAircraftUnlock: function(oEvent) {
 			try {
-				var oDash = this.getModel("avmetModel").getProperty("/dash"); //astid
-				oDash.TBTN3 = true;
-				this.getModel("avmetModel").refresh();
+				this.fnUnlockSignOff();
+				// var oDash = this.getModel("avmetModel").getProperty("/dash"); //astid
+				// oDash.TBTN3 = true;
+				// this.getModel("avmetModel").refresh();
 			} catch (e) {
 				this.handleException(e);
 				Log.error("Exception in onAircraftInfoPress function");
@@ -242,34 +243,33 @@ sap.ui.define([
 				Log.error("Exception in fnLoadSrv1Dashboard function");
 			}
 		},
-		// fnCheckLockStatus: function(sStatus) {
-		// 	try {
-		// 		switch (sStatus) {
-		// 			case "AST_FFF":
-		// 			case "AST_RFF":
-		// 				return true;
-		// 			default:
-		// 				return false;
-		// 		}
-		// 	} catch (e) {
-		// 		Log.error("Exception in fnCheckLockStatus function");
-		// 	}
-		// },
-		// fnCheckRecLockStatus: function(sStatus) {
-		// 	try {
-		// 		switch (sStatus) {
-		// 			case "AST_FAIR":
-		// 			case "AST_FAIR0":
-		// 			case "AST_FAIR1":
-		// 			case "AST_FAIR2":	
-		// 				return true;
-		// 			default:
-		// 				return false;
-		// 		}
-		// 	} catch (e) {
-		// 		Log.error("Exception in fnCheckLockStatus function");
-		// 	}
-		// },
+		/** 
+		 * AVMET unlock signoff
+		 */
+		fnUnlockSignOff: function() {
+			try {
+				var oPayload = {}; //this.getModel("avmetModel").getProperty("/record");
+				oPayload.TAILID = this.getTailId();
+				oPayload.LFLAG = "X";
+				oPayload.SRVTID = this.getModel("avmetModel").getProperty("/dash/SRVTID");
+				var oParameter = {};
+				oParameter.activity = 2;
+				oParameter.error = function() {};
+				oParameter.success = function() {
+					var oDash = this.getModel("avmetModel").getProperty("/dash"); //astid
+					oDash.TBTN3 = true;
+					var oModel = this.getView().getModel("avmetModel");
+					oModel.setProperty("/UnlockAVMET", false);
+					this.getModel("avmetModel").refresh();
+					this.fnLoadSrv1Dashboard();
+				}.bind(this);
+				var oModel = this.getView().getModel("avmetModel");
+				oModel.setProperty("/UnlockAVMET", true);
+				ajaxutil.fnCreate("/TailLockSvc", oParameter, [oPayload], "ZRM_AC_U", this);
+			} catch (e) {
+				Log.error("Exception in onSignOffPress function");
+			}
+		},
 
 		// ***************************************************************************
 		//   3. Specific Function 
