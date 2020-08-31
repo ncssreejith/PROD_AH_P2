@@ -12,20 +12,29 @@
 			<Table id="tbWcOutstandingId" class="sapUiResponsivePadding sapUiSizeCompact sapUiSmallMarginEnd CERTable tableHFont" mode="MultiSelect"
 				growing="true" growingThreshold="6" growingScrollToLoad="true" items="{ path: 'TaskOutModel>/'}" noDataText="{i18n>txtNoTexttStanding}"
 				showNoData="true">
+				<headerToolbar>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<SearchField placeholder="Search" width="15rem" value="{LocalModel>/tbWcOutstandingId}" search="onSearch($event,'tbWcOutstandingId','TaskOutModel','tdesc')"/>
+				</OverflowToolbar>
+				</headerToolbar>
 				<columns>
 					<Column width="29%" hAlign="Start" minScreenWidth="Tablet" demandPopin="true" class="textColor">
-						<Label text="{i18n>lbTask}" design="Bold" wrapping="true"/>
+						<HBox>
+							<Label text="{i18n>lbTask}" design="Bold" wrapping="true"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'tdesc')"/>
+						</HBox>
 					</Column>
 					<Column width="29%" minScreenWidth="Tablet" demandPopin="true" hAlign="Start">
 						<HBox>
 							<Label text="{i18n>lbFollowupTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')"/>
 						</HBox>
 					</Column>
 					<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center" class="textColor">
 						<HBox>
 							<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'taskid')"/>
 						</HBox>
 					</Column>
 				</columns>

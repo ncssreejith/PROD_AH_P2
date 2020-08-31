@@ -10,6 +10,12 @@
 		<Table id="tbWcPendingSuperId" visible="{=${TaskPendingModel>/}.length !== 0 ? true :false}"
 			class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" growing="true" growingThreshold="6"
 			growingScrollToLoad="false" items="{ path: 'TaskPendingModel>/'}" noDataText="{i18n>txtNoTextSuprPend}" showNoData="true">
+			<headerToolbar>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<SearchField placeholder="Search" width="15rem" value="{LocalModel>/tbWcPendingSuperId}" search="onSearch($event,'tbWcPendingSuperId','TaskPendingModel','tdesc')"/>
+				</OverflowToolbar>
+			</headerToolbar>
 			<columns>
 				<Column width="13%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 					<Label text="{i18n>lbTask}" design="Bold" wrapping="true"/>
@@ -17,19 +23,19 @@
 				<Column width="10%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>
 						<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'taskid')"/>
 					</HBox>
 				</Column>
 				<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>
 						<Label text="{i18n>lbFollowupTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')"/>
 					</HBox>
 				</Column>
 				<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>
 						<Label text="{i18n>lblLimitations}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'LDESC')"/>
 					</HBox>
 				</Column>
 				<Column width="13%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">

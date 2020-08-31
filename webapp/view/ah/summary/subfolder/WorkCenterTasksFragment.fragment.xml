@@ -4,7 +4,6 @@
 		<OverflowToolbar>
 			<Title text="{i18n>liTaks}" level="H2"/>
 			<ToolbarSpacer/>
-			<SearchField placeholder="Search" width="15rem"/>
 			<Button text="{i18n>btnCreateTask}" press="handlePressWorkCenterFragmentOpenMenu('WCT',$event)" type="Default" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 		</OverflowToolbar>
 		<IconTabBar expanded="{device>/isNoPhone}" headerMode="Inline"
