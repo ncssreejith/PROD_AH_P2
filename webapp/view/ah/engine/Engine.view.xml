@@ -13,7 +13,7 @@
 							<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.Engine1Details" type="XML"/>
 						</HBox>
 					</IconTabFilter>
-					<IconTabFilter visible="{= !!${oEngineModel>/header2Details/ENGID}}" text="{i18n>lbEngine2}" id="itfEng2">
+					<IconTabFilter  text="{i18n>lbEngine2}" id="itfEng2">
 						<HBox class="sapUiMediumMarginBeginEnd sapUiSmallMarginTop"  id="hbHeader2">
 							<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.Engine2Header" type="XML"/>
 						</HBox>
@@ -23,12 +23,6 @@
 					</IconTabFilter>
 				</items>
 			</IconTabBar>
-			<!--<HBox class="sapUiMediumMarginBeginEnd sapUiSmallMarginTop">-->
-			<!--	<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.engineheaderfragment" type="XML"/>-->
-			<!--</HBox>-->
-			<!--<HBox class="sapUiMediumMarginBeginEnd">-->
-			<!--	<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.enginedetailsfragment" type="XML"/>-->
-			<!--</HBox>-->
 		</content>
 	</Page>
 </mvc:View>

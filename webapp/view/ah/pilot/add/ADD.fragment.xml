@@ -13,7 +13,7 @@
 						<VBox>
 							<VBox justifyContent="Center" alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin">
 								<core:HTML
-									content='&lt;canvas id="myCanvas" click="getPointPosition($event)" width="340" height="240" style="border: 1px solid rgb(0, 0, 0); background-repeat: no-repeat; background-size: 100%; background-image: url(&amp;quot;./css/img/createAircraftTop.png&amp;quot;);" data-sap-ui-preserve="__html0"&gt;&lt;/canvas&gt;'></core:HTML>
+									content='&lt;canvas id="myCanvas" click="getPointPosition($event)" width="370" height="180" style="border: 1px solid rgb(0, 0, 0); background-repeat: no-repeat; background-size: 100%; background-image: url(&amp;quot;./css/img/createAircraftTop.png&amp;quot;);" data-sap-ui-preserve="__html0"&gt;&lt;/canvas&gt;'></core:HTML>
 							</VBox>
 							<SegmentedButton class="sapUiSmallMarginBegin" items="{paModel>/defectArea}" selectedKey="{paModel>/addViewSel}"
 								selectionChange="onSelectionDefectAreaChange">

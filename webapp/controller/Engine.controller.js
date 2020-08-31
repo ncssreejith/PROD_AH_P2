@@ -236,17 +236,26 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length > 0) {
-						oEngineModel.setProperty("/headerDetails", oData.results[0]);
-						if (oData.results && oData.results.length > 1) { // Get Engine 2 data
-							oEngineModel.setProperty("/header2Details", oData.results[1]);
-							this._getEngPowerCheck(oData.results[1].ENGID, 2);
-							this._getEngCyclicLife(oData.results[1].ENGID, 2);
-							this._getEngineOilRepl(oData.results[1].ENGID, 2);
-						}
-						this._getEngPowerCheck(oData.results[0].ENGID, 1);
-						this._getEngineOilRepl(oData.results[0].ENGID, 1);
-						this._getEngCyclicLife(oData.results[0].ENGID, 1);
+						oData.results.forEach(function(oItem){
+						oEngineModel.setProperty("/"+(oItem.ENGNO==="2"?"header2Details":"headerDetails"), oItem);
+						this._getEngPowerCheck(oItem.ENGID, oItem.ENGNO);
+						this._getEngineOilRepl(oItem.ENGID, oItem.ENGNO);
+						this._getEngCyclicLife(oItem.ENGID, oItem.ENGNO);
 						this._getEngScheule();
+
+						}.bind(this));
+
+						//oEngineModel.setProperty("/headerDetails", oData.results[0]);
+						//if (oData.results && oData.results.length > 1) { // Get Engine 2 data
+						//	oEngineModel.setProperty("/header2Details", oData.results[1]);
+						//	this._getEngPowerCheck(oData.results[1].ENGID, 2);
+						//	this._getEngCyclicLife(oData.results[1].ENGID, 2);
+						//	this._getEngineOilRepl(oData.results[1].ENGID, 2);
+						//}
+						//this._getEngPowerCheck(oData.results[0].ENGID, 1);
+						//this._getEngineOilRepl(oData.results[0].ENGID, 1);
+						//this._getEngCyclicLife(oData.results[0].ENGID, 1);
+						//this._getEngScheule();
 					}
 				}.bind(this);
 				ajaxutil.fnRead("/EngineDisSvc", oParameter);
@@ -276,7 +285,7 @@ sap.ui.define([
 					if (oData && oData.results && oData.results.length) {
 
 						if (oData) {
-							if (iEngine === 1) {
+							if (iEngine === "1") {
 								oEngineModel.setProperty("/EngPowerCheck", oData.results);
 								this._setData();
 								// oEngineModel.setProperty("/soapTableData", oData.results);
@@ -379,7 +388,7 @@ sap.ui.define([
 				oParameter.filter = "FLAG eq L and TAILID eq " + this.getTailId() + " and ENGID eq " + sEngID;
 				oParameter.success = function(oData) {
 					if (oData && oData.results.length) {
-						if (iEngine === 1) {
+						if (iEngine === "1") {
 							oEngineModel.setProperty("/EngCyclicLife", oData.results);
 							// if(this.getModel("oEngineModel").getProperty("/navType") === "X"){
 							// 	this.onAddEngCycLog();

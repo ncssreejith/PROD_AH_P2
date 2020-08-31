@@ -2,8 +2,8 @@
 	xmlns:f="sap.f">
 	<VBox class="sapUiResponsiveMargin flexboxBackground" width="100%">
 		<OverflowToolbar class="sapUiResponsiveMargin toolbarBorderColor">
-			 <!--{oEngineModel>/headerDetails/ENGID}-->
-			<Title text="Engine" level="H2" class="titleColor"/>
+			<!--{oEngineModel>/header2Details/ENGID}-->
+			<Title text="{= ${oEngineModel>/header2Details}===undefined ? 'No engine installed':'Engine'}" level="H2" class="titleColor"/>
 			<Button icon="sap-icon://navigation-down-arrow" type="Transparent" class="sapUiSizeCompact sortBtnColor"/>
 			<ToolbarSpacer/>
 			<Button text="{i18n>btnPrint}" icon="sap-icon://print" type="Transparent" press="onPrint" class="sapUiSizeCompact sortBtnColor"
@@ -13,37 +13,25 @@
 			<VBox class="sapUiSmallMarginEnd">
 				<HBox>
 					<Label text="{i18n>lbSN}" design="Bold" width="5rem" class="labelTextColor"/>
-					<Text text="{oEngineModel>/headerDetails/SERIAL}" class="textColor"/>
+					<Text text="{oEngineModel>/header2Details/SERIAL}" class="textColor"/>
 				</HBox>
 				<HBox class="sapUiTinyMarginTop">
 					<Label text="{i18n>lbInstalled}" design="Bold" width="5rem" class="labelTextColor"/>
-					<Text text="{path:'oEngineModel>/headerDetails/INSDT', formatter:'.formatter.defaultDateFormatDisplay'}" class="textColor"/>
+					<Text text="{path:'oEngineModel>/header2Details/INSDT', formatter:'.formatter.defaultDateFormatDisplay'}" class="textColor"/>
 				</HBox>
 				<HBox class="sapUiTinyMarginTop">
 					<Label text="{i18n>lbRemoved}" design="Bold" width="5rem" class="labelTextColor"/>
-					<Text text="{path:'oEngineModel>/headerDetails/RMVDT', formatter:'.formatter.defaultDateFormatDisplay'}" class="textColor"/>
+					<Text text="{path:'oEngineModel>/header2Details/RMVDT', formatter:'.formatter.defaultDateFormatDisplay'}" class="textColor"/>
 				</HBox>
 			</VBox>
 			<VBox class="sapUiMediumMarginBeginEnd">
 				<HBox>
 					<Label text="{i18n>lbAirframeHrs}" design="Bold" width="7rem" class="labelTextColor"/>
-					<Text text="{oEngineModel>/headerDetails/EFT} Hrs" class="textColor"/>
+					<Text text="{oEngineModel>/header2Details/EFT} Hrs" class="textColor"/>
 				</HBox>
-				<!--<HBox class="sapUiTinyMarginTop">-->
-				<!--	<Label text="{i18n>lbEOT}" design="Bold" width="7rem" class="labelTextColor"/>-->
-				<!--	<Text text="{oEngineModel>/headerDetails/EOT}" class="textColor"/>-->
-				<!--</HBox>-->
+			
 			</VBox>
-			<!--<VBox class="sapUiMediumMarginBeginEnd">-->
-			<!--	<HBox>-->
-			<!--		<Label text="{i18n>lbEngineCycle}" design="Bold" width="7rem" class="labelTextColor"/>-->
-			<!--		<Text text="{oEngineModel>/headerDetails/EGCYC}" class="textColor"/>-->
-			<!--	</HBox>-->
-			<!--	<HBox class="sapUiTinyMarginTop">-->
-			<!--		<Label text="{i18n>lbJFS}" design="Bold" width="7rem" class="labelTextColor"/>-->
-			<!--		<Text text="{oEngineModel>/headerDetails/JFS}" class="textColor"/>-->
-			<!--	</HBox>-->
-			<!--</VBox>-->
+		
 		</HBox>
 	</VBox>
 </core:FragmentDefinition>
