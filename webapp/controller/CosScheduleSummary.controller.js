@@ -3,45 +3,16 @@ sap.ui.define([
 	"../model/dataUtil",
 	"../model/formatter",
 	"../util/ajaxutil",
-	"sap/base/Log"
-], function(BaseController, dataUtil, formatter, ajaxutil, Log) {
+	"sap/base/Log",
+	"sap/m/MessageBox"
+], function(BaseController, dataUtil, formatter, ajaxutil, Log, MessageBox) {
 	"use strict";
 	/* ***************************************************************************
-	 *     Developer : RAHUL THORAT 
-	 *   Control name: PilotUpdates          
-	 *   Purpose : Add Equipment running log dialog controller
-	 *   Functions :
-	 *   1.UI Events
-	 *        1.1 onInit
-	 *        1.2 onSignOffPress
-	 *   2. Backend Calls
-	 *        2.1 _fnUtilizationGet
-	 *        2.2 _fnSumamryDetailsGet
-	 *        2.3 onRaiseScheduleConcessionPress
-	 *        2.4 onStartJobPress
-	 *   3. Private calls
-	 *        3.1 onOpenQuickView
-	 *        3.2 onCloseDialog
-	 *        3.3 handleMenuItemPress
-	 *        3.4 onRaiseExtension
-	 *        3.5 onCloseAddWorkCenterDialog
-	 *        3.6 onRaiseScheduleConcession
-	 *        3.7 onUilisationChange
-	 *        3.8 onCloseRaiseScheduleConcession
-	 *        3.9 onCloseConfirmDialog
-	 *        3.10 onAddWorkcenterSubmitPress
-	 *        3.11 onAEFMMenuPress
-	 *        3.12 onCloseAEMFDialog
-	 *        3.13 handlePressWorkCenterFragmentOpenMenu
-	 *        3.14 onCloseWorkCenterMenu
-	 *        3.15 handleWorkCenterMenuItemPress
-	 *        3.16 onSummaryIconTabBarSelect
-	 *        3.17 onAddFlyingRequirements
-	 *        3.18 onAddSortieMonitoring
-	 *        3.19 _handleRouteMatched
-	 **   Note :
+	 *   This file is for ???????            
+	 *   1. Purpose for this file ????
+	 *	Note: ??????????
+	 * IMPORTANT : Must give documentation for all functions
 	 *************************************************************************** */
-
 	return BaseController.extend("avmet.ah.controller.CosScheduleSummary", {
 		formatter: formatter,
 		// ***************************************************************************
@@ -50,6 +21,7 @@ sap.ui.define([
 		onInit: function() {
 			try {
 				var that = this;
+				this.getRouter().getRoute("CosScheduleSummary").attachPatternMatched(this._handleRouteMatched, this);
 				var oLocalModel = dataUtil.createNewJsonModel();
 				oLocalModel.setData({
 					TaksFlag: true,
@@ -103,12 +75,15 @@ sap.ui.define([
 					}]
 				});
 				this.getView().setModel(oLocalModel, "LocalModel");
-					this.getRouter().getRoute("CosScheduleSummary").attachPatternMatched(this._handleRouteMatched, this);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onInit function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
+
+		onNavBackPrevious: function() {
+			this.onNavBack();
+		},
+
 		onOpenQuickView: function(sFlag, oEvent) {
 			try {
 				if (this._oQuickView) {
@@ -140,8 +115,7 @@ sap.ui.define([
 				var oButton = oEvent.getSource();
 				this._oQuickView.open(this._bKeyboard, oButton, eDock.BeginTop, eDock.BeginBottom, oButton);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onOpenQuickView function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -153,8 +127,7 @@ sap.ui.define([
 					delete this._oQuickView;
 				}
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onCloseDialog function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -168,37 +141,40 @@ sap.ui.define([
 				}
 				this.getView().getModel("SummaryModel").updateBindings(true);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:handleMenuItemPress function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
-		onRaiseExtension: function() {
+		onAddNewWorkCenter: function() {
 			try {
-				var that = this;
-				if (!this._oAddWorkCenter) {
-					this._oAddWorkCenter = sap.ui.xmlfragment(this.createId("idWorkCenterDialog"),
-						"avmet.ah.fragments.AddWorkCenterDialog",
+				var that = this,
+					oModel = this.getView().getModel("WorkCenterSet");
+				if (!that._oAddWorkCenter) {
+					that._oAddWorkCenter = sap.ui.xmlfragment(that.createId("idWorkCenterDialog"),
+						"avmet.ah.fragments.AddSchWorkCenterDialog",
 						this);
-					this.getView().addDependent(this._oAddWorkCenter);
+					that.getView().addDependent(that._oAddWorkCenter);
 				}
-				this._oAddWorkCenter.open(this);
+				that._oAddWorkCenter.setModel(oModel, "WorkCenterSet");
+				that._oAddWorkCenter.open(that);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onRaiseExtension function");
-				this.handleException(e);
+				Log.error("Exception in onAddNewWorkCenter function");
 			}
 		},
 
-		onCloseAddWorkCenterDialog: function() {
+		onCloseAddWorkCenterDialog: function(oFLag) {
 			try {
+				if (oFLag === "Y") {
+					var oModel = this.getView().getModel("SummaryModel");
+					oModel.setProperty("/PRIME", "");
+				}
 				if (this._oAddWorkCenter) {
 					this._oAddWorkCenter.close(this);
 					this._oAddWorkCenter.destroy();
 					delete this._oAddWorkCenter;
 				}
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onCloseAddWorkCenterDialog function");
-				this.handleException(e);
+				Log.error("Exception in onCloseAddWorkCenterDialog function");
 			}
 		},
 		onRaiseScheduleConcession: function() {
@@ -222,8 +198,7 @@ sap.ui.define([
 				}
 				this._oRaiseConcession.open(this);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onRaiseScheduleConcession function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -233,8 +208,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("SummaryModel");
 				oModel.setProperty("/UM", oTemp);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onUilisationChange function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -246,8 +220,7 @@ sap.ui.define([
 					delete this._oRaiseConcession;
 				}
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onCloseRaiseScheduleConcession function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 		onCloseConfirmDialog: function() {
@@ -256,8 +229,7 @@ sap.ui.define([
 				that.getFragmentControl("idWorkCenterDialog", "addWCId").setVisible(true);
 				that.getFragmentControl("idWorkCenterDialog", "confirmWCId").setVisible(false);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onCloseConfirmDialog function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -271,28 +243,10 @@ sap.ui.define([
 				sState = that.getFragmentControl("idWorkCenterDialog", "switchId").getState();
 				sSelectedItem = oComboBoxInstance.getSelectedItem();
 				sSelectedText = sSelectedItem.getText();
-				oValidateWC = that._fnValidateWorkCenterRecord(sSelectedText);
-				if (oValidateWC) {
-					if (sState) {
-						if (sValue !== "CON") {
-							that.getFragmentControl("idWorkCenterDialog", "addWCId").setVisible(false);
-							that.getFragmentControl("idWorkCenterDialog", "workCenterId").setText(sSelectedText);
-							that.getFragmentControl("idWorkCenterDialog", "confirmWCId").setVisible(true);
+				//oValidateWC = that._fnValidateWorkCenterRecord(sSelectedText);
 
-						} else {
-							that._fnupdateWorkCenterJson(sSelectedText, sState);
-						}
-					} else {
-						that._fnupdateWorkCenterJson(sSelectedText, sState);
-					}
-				} else {
-
-					oComboBoxInstance.setValueState("Error");
-					oComboBoxInstance.setValueStateText("Work Center already added");
-				}
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onAddWorkcenterSubmitPress function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -339,8 +293,7 @@ sap.ui.define([
 
 				this.getView().getModel("LocalModel").updateBindings(true);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onAEFMMenuPress function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -352,8 +305,7 @@ sap.ui.define([
 					delete this._oWCMenuFrag;
 				}
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onCloseAEMFDialog function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -397,8 +349,7 @@ sap.ui.define([
 				oButton = oEvent.getSource();
 				this._oWCMenuFrag.open(this._bKeyboard, oButton, eDock.BeginTop, eDock.BeginBottom, oButton);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:handlePressWorkCenterFragmentOpenMenu function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 		onCloseWorkCenterMenu: function() {
@@ -409,8 +360,7 @@ sap.ui.define([
 					delete this._oWCMenuFrag;
 				}
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onCloseWorkCenterMenu function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 		handleWorkCenterMenuItemPress: function(oEvent) {
@@ -444,8 +394,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 				this.onCloseWorkCenterMenu();
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:handleWorkCenterMenuItemPress function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -472,8 +421,67 @@ sap.ui.define([
 				}
 				oModel.updateBindings(true);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onSummaryIconTabBarSelect function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
+			}
+		},
+
+		onAddFlyingRequirements: function() {
+			try {
+				var oModel = this.getView().getModel("LocalModel");
+				this.getRouter().navTo("CosAddFlyingRequirements", {
+					"jobId": this.getView().byId("txtJobID").getText(),
+					"WorkCenter": oModel.getProperty("/WorkCenterTitle")
+				});
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
+		},
+
+		onAddSortieMonitoring: function() {
+			try {
+				var oModel = this.getView().getModel("LocalModel");
+				this.getRouter().navTo("CosAddSoritieMonitoring", {
+					"jobId": this.getView().byId("txtJobID").getText(),
+					"WorkCenter": oModel.getProperty("/WorkCenterTitle")
+				});
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
+		},
+		onAddTMDE: function() {
+			try {
+				var oModel = this.getView().getModel("LocalModel");
+				this.getRouter().navTo("CosAddTMDE", {
+					"jobId": this.getView().byId("txtJobID").getText(),
+					"WorkCenter": oModel.getProperty("/WorkCenterTitle")
+				});
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
+		},
+
+		onAddDemandSpares: function() {
+			try {
+				var oModel = this.getView().getModel("LocalModel");
+				this.getRouter().navTo("CosAddDemandSpares", {
+					"jobId": this.getView().byId("txtJobID").getText(),
+					"WorkCenter": oModel.getProperty("/WorkCenterTitle")
+				});
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
+		},
+
+		onAddCreateTask: function() {
+			try {
+				var oModel = this.getView().getModel("LocalModel");
+				this.getRouter().navTo("RouteCreateTask", {
+					"jobId": this.getView().byId("txtJobID").getText(),
+					"WorkCenter": oModel.getProperty("/WorkCenterTitle"),
+					"flag": true
+				});
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -512,8 +520,7 @@ sap.ui.define([
 
 				}
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onWoorkCenTblUpdateFinished function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -529,8 +536,7 @@ sap.ui.define([
 					}
 				}
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onWorkCenterSelect function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 		// ***************************************************************************
@@ -539,6 +545,11 @@ sap.ui.define([
 		//	4.1 First level Private functions
 		_handleRouteMatched: function(oEvent) {
 			try {
+				/*var oSummaryData = dataUtil.getDataSet("CreateJob");
+				oSummaryData.DefectData.Date = new Date(oSummaryData.DefectData.Date);
+				var oSummaryModel = dataUtil.createNewJsonModel(oSummaryData);
+				oSummaryModel.setData(oSummaryData);
+				this.getView().setModel(oSummaryModel, "SummaryModel");*/
 				var that = this,
 					sTailId, sESJobId, sSqnId,
 					sModId,
@@ -608,8 +619,7 @@ sap.ui.define([
 				this.getView().setModel(oLocalModel, "LocalModel");
 				that._fnSumamryDetailsGet(sESJobId);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:_handleRouteMatched function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -632,8 +642,7 @@ sap.ui.define([
 
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:_fnUtilizationGet function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -651,16 +660,17 @@ sap.ui.define([
 					if (oData.results.length !== 0) {
 						oModel = dataUtil.createNewJsonModel();
 						oModel.setData(oData.results[0]);
-
-						oModelLocal.WorkCenter.push({
-							jobid: "",
-							tailid: "",
-							wrctr: oData.results[0].PRIME,
-							isprime: "true",
-							wrctrtx: oData.results[0].WRCTR
-						});
+						if (oData.results[0].PRIME !== null && oData.results[0].PRIME !== "") {
+							oModelLocal.WorkCenter.push({
+								jobid: "",
+								tailid: "",
+								wrctr: oData.results[0].PRIME,
+								isprime: "true",
+								wrctrtx: oData.results[0].WRCTR
+							});
+						}
 						that.getView().getModel("LocalModel").updateBindings(true);
-
+						that._fnWorkCenterGet();
 						that.setModel(oModel, "SummaryModel");
 					}
 
@@ -668,34 +678,46 @@ sap.ui.define([
 
 				ajaxutil.fnRead("/GetSerLogSvc", oPrmSummary);
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:_fnSumamryDetailsGet function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
-		onRaiseScheduleConcessionPress: function() {
+		onRaiseScheduleConcessionPress: function(oFlag) {
 			try {
 				var that = this,
-					oPayload, oModel = this.getView().getModel("RSModel").getData(),
+					oPayload, oModel,
 					oPrmSchJob = {};
+				try {
+					oModel = this.getView().getModel("RSModel").getData();
+				} catch (e) {
+					oModel = "";
+				}
 				oPayload = this.getView().getModel("SummaryModel").getData();
 				//oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
-				if (oModel.ExpDate !== "") {
-					oPayload.SERVDT = oModel.ExpDate;
-					oPayload.UM = "Date";
-					oPayload.UMKEY = "JDU_10";
-					oPayload.SERVDUE = null;
-				} else {
-					oPayload.SERVDT = null;
-					oPayload.SERVDUE = (oModel.UtilVal).toString();
-					oPayload.UMKEY = oModel.Util;
+				if (oFlag === "Y") {
+					if (oModel.ExpDate !== "") {
+						oPayload.SERVDT = oModel.ExpDate;
+						oPayload.UM = "Date";
+						oPayload.UMKEY = "JDU_10";
+						oPayload.SERVDUE = null;
+					} else {
+						oPayload.SERVDT = null;
+						oPayload.SERVDUE = (oModel.UtilVal).toString();
+						oPayload.UMKEY = oModel.Util;
+					}
 				}
 				oPrmSchJob.error = function() {};
 				oPrmSchJob.success = function(oData) {
-					this.getRouter().navTo("Cosjobs");
+					if (oFlag === "Y") {
+						this.getRouter().navTo("Cosjobs");
+					} else {
+						this._fnSumamryDetailsGet(that.getView().getModel("LocalModel").getProperty("/ESJobId"));
+						that.onCloseAddWorkCenterDialog("N");
+					}
 				}.bind(this);
-				oPrmSchJob.activity = 2;
-				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
+				/*				oPrmSchJob.activity = 2;
+								, "ZRM_SCH_SJ", this*/
+				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcessionPress function");
 			}
@@ -707,18 +729,54 @@ sap.ui.define([
 					oPayload,
 					oPrmSchJob = {};
 				oPayload = this.getView().getModel("SummaryModel").getData();
-				oPayload.FLAG = "";
-				oPrmSchJob.error = function() {};
-				oPrmSchJob.success = function(oData) {
-					this.getRouter().navTo("Cosjobs");
-				}.bind(this);
-				oPrmSchJob.activity = 1;
-				ajaxutil.fnCreate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
+				if (oPayload.PRIME !== null && oPayload.PRIME !== "") {
+					oPayload.FLAG = "";
+					oPrmSchJob.error = function() {};
+					oPrmSchJob.success = function(oData) {
+						this.getRouter().navTo("Cosjobs");
+					}.bind(this);
+					oPrmSchJob.activity = 1;
+					ajaxutil.fnCreate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
+				} else {
+					MessageBox.error(
+						"Please add workcenter to start schedule job.", {
+							icon: sap.m.MessageBox.Icon.Error,
+							title: "Error",
+							styleClass: "sapUiSizeCompact"
+						});
+				}
 			} catch (e) {
-				Log.error("Exception in CosScheduleSummary:onStartJobPress function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
+
+		//------------------------------------------------------------------
+		// Function: _fnWorkCenterGet
+		// Parameter: sAirId
+		// Description: This will get called, when to get workcenter database.
+		//Table: DDREF, DDVAL
+		//------------------------------------------------------------------
+		_fnWorkCenterGet: function() {
+			try {
+				var that = this,
+					oPrmWorkCen = {};
+				oPrmWorkCen.filter = "REFID eq " + that.getAircraftId();
+				oPrmWorkCen.error = function() {
+
+				};
+
+				oPrmWorkCen.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "WorkCenterSet");
+				}.bind(this);
+
+				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
+			} catch (e) {
+				Log.error("Exception in _fnWorkCenterGet function");
+			}
+		},
+
 		_fnCheckStatus: function(aState) {
 			switch (aState) {
 				case "AST_FFF":

@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog showHeader="false" horizontalScrolling="false" draggable="true">
+		<content>
+			<VBox id="addWCId" visible="true">
+				<Toolbar class="toolbarBackground">
+					<Title text="{i18n>tiAddWorkCenter}" class="sapUiSmallMarginBegin" level="H2"></Title>
+					<ToolbarSpacer/>
+				</Toolbar>
+				<VBox class="sapUiLargeMarginBeginEnd sapUiSmallMarginTopBottom">
+					<Label text="{i18n>lbSelectWOrCenter}" wrapping="true" design="Bold" class="sapUiTinyMarginBegin"></Label>
+					<ComboBox id="ComboWCId" width="15rem" placeholder="{i18n>phSelect}" selectedKey="{SummaryModel>/PRIME}" items="{WorkCenterSet>/}" class="sapUiTinyMargin">
+						<core:Item key="{WorkCenterSet>wrctr}" text="{WorkCenterSet>name}"/>
+					</ComboBox>
+				</VBox>
+				<Toolbar class="sapUiSmallMarginBottom toolbarBorder">
+					<ToolbarSpacer/>
+					<Button width="6rem" text="{i18n>btnCancel}" press="onCloseAddWorkCenterDialog('Y')" type="Default" class="btnClass"></Button>
+					<Button width="6rem" text="{i18n>btnConfirm}" class="btnColor" press="onRaiseScheduleConcessionPress('N')"></Button>
+					<ToolbarSpacer/>
+				</Toolbar>
+			</VBox>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

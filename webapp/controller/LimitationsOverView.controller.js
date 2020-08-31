@@ -351,7 +351,7 @@ sap.ui.define([
 				} else {
 					oPayload.PAST_COUNT = (parseInt(oPayload.PAST_COUNT) + 1).toString();
 				}
-				if (oPayload.OPPR === 'U') {
+				if (oPayload.OPPR === 'U' || oPayload.OPPR === 'N') {
 					oPayload.EXPDT = null;
 					oPayload.EXPTM = null;
 				}

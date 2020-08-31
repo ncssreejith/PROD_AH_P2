@@ -57,8 +57,9 @@
 				<cc:RectificationTile footerText="Incomplete Entries" count="0" prime="{= ${LocalModel>isprime} !== null ? true:false }"
 					title="{LocalModel>wrctrtx}" select="onWorkCenterSelect" visible="{= ${LocalModel>wrctr} !== 'ZSummary' }"/>
 			</HBox>
-			<cc:RectificationTileAdd select="onAddNewRectification" enabled="false">
-				<core:Icon src="sap-icon://sys-add" size="35px" color="gray" press="onIconPress"/>
+			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter" enabled="true"
+					visible="{=(${SummaryModel>/PRIME}==='' || ${SummaryModel>/PRIME} === null)?true:false}">
+				<core:Icon src="sap-icon://sys-add" size="35px" color="blue" press="onIconPress"/>
 			</cc:RectificationTileAdd>
 		</HBox>
 	</l:VerticalLayout>

@@ -35,46 +35,6 @@ sap.ui.define([
 				var oDDT1Model, oDDT2Model;
 				this._InitializeLimDialogModel();
 				this.getView().setModel(dataUtil.createNewJsonModel(), "oViewGlobalModel");
-
-				oDDT1Model = dataUtil.createNewJsonModel();
-				oDDT1Model.setData([{
-					"key": "Serial No. (S/N)",
-					"text": "Serial No. (S/N)"
-				}, {
-					"key": "Batch No.",
-					"text": "Batch No."
-				}]);
-				this.getView().setModel(oDDT1Model, "TT1Model");
-				var oFollowModelOther = dataUtil.createNewJsonModel();
-				oFollowModelOther.setData([{
-					"key": "TT1_14",
-					"text": "Others"
-				}, {
-					"key": "TT1_ADD",
-					"text": "Transfer to Acceptable Deferred Defects Log"
-				}]);
-				this.getView().setModel(oFollowModelOther, "FollowOtherModel");
-
-				var oFollowModelOPS = dataUtil.createNewJsonModel();
-				oFollowModelOPS.setData([{
-					"key": "TT1_11",
-					"text": "OPS Check"
-				}, {
-					"key": "TT1_AD",
-					"text": "Transfer to Acceptable Deferred Defects Log"
-				}]);
-				this.getView().setModel(oFollowModelOPS, "FollowOPSModel");
-
-				oDDT2Model = dataUtil.createNewJsonModel();
-				oDDT2Model.setData([{
-					"key": "Material No.",
-					"text": "Material No."
-				}, {
-					"key": "Part No.",
-					"text": "Part No."
-				}]);
-				this.getView().setModel(oDDT2Model, "TT2Model");
-
 				this.getRouter().getRoute("CosCloseTask").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onInit function");
@@ -307,7 +267,7 @@ sap.ui.define([
 				} else {
 					sObject = "ZRM_COS_TT";
 				}
-					oPrmTask.activity = 4;
+				oPrmTask.activity = 4;
 
 				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, oPayload, sObject, this);
 			} catch (e) {
@@ -369,6 +329,7 @@ sap.ui.define([
 					oViewLimitModel.setProperty("/bDateSection", true);
 					oViewLimitModel.setProperty("/bUtilisationSection", false);
 					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
+						oModel.setProperty("/UTILVL", null);
 				} else if (sSelectedKey === "U") {
 					oViewLimitModel.setProperty("/bDateSection", false);
 					oViewLimitModel.setProperty("/bUtilisationSection", true);
@@ -377,6 +338,8 @@ sap.ui.define([
 					oViewLimitModel.setProperty("/bScheduleService", false);
 					oViewLimitModel.setProperty("/bPhaseService", false);
 					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
+					oModel.setProperty("/EXPDT", null);
+					oModel.setProperty("/EXPTM", null);
 				} else if (sSelectedKey === "B") {
 					oViewLimitModel.setProperty("/bDateSection", true);
 					oViewLimitModel.setProperty("/bUtilisationSection", true);
@@ -384,8 +347,8 @@ sap.ui.define([
 				}
 				oModel.setProperty("/OPPR", sSelectedKey);
 				oViewLimitModel.setProperty("/bLimitationSection", true);
-				/*	oViewLimitModel.setProperty("/bLimitation", false);
-					oViewLimitModel.setProperty("/bAddLimitationBtn", true);*/
+				oViewLimitModel.setProperty("/bLimitation", true);
+				oViewLimitModel.setProperty("/bAddLimitationBtn", false);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onReasonTypeChange function");
 				this.handleException(e);
@@ -544,7 +507,7 @@ sap.ui.define([
 					that = this,
 					oPayload;
 				oModelObj.getObject("partno");
-				oPrmDD.filter = "PARTNO eq " + oModelObj.getObject("partno") + " and ESTAT eq R and INSON eq "+this.getTailId();
+				oPrmDD.filter = "PARTNO eq " + oModelObj.getObject("partno") + " and ESTAT eq R and INSON eq " + this.getTailId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -694,15 +657,18 @@ sap.ui.define([
 				var oPayLoad = {};
 				oPayLoad = this.getModel("oViewGlobalModel").getData();
 				if (oPayLoad.EXPDT !== null && oPayLoad.EXPDT !== "") {
-					oPayLoad.EXPDT = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
+					try {
+						oPayLoad.EXPDT = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
+					} catch (e) {
+						oPayLoad.EXPDT = oPayLoad.EXPDT;
+					}
 				} else {
 					oPayLoad.EXPDT = null;
 				}
-
-				if ((oPayLoad.LDESC !== "" && oPayLoad.LDESC !== null) && (oPayLoad.CPRID !== "" && oPayLoad.CPRID !== null)) {
+				if ((oPayLoad.LDESC !== null) && (oPayLoad.CPRID !== null)) {
 					oPayLoad.CAPTY = "B";
 					oPayLoad.FLAG_ADD = "B";
-				} else if ((oPayLoad.LDESC === "" && oPayLoad.LDESC === null) && (oPayLoad.CPRID !== "" && oPayLoad.CPRID !== null)) {
+				} else if ((oPayLoad.LDESC === null) && (oPayLoad.CPRID !== "" || oPayLoad.CPRID !== null)) {
 					oPayLoad.CAPTY = "A";
 				} else {
 					oPayLoad.CAPTY = "L";
@@ -717,11 +683,12 @@ sap.ui.define([
 					this._fnTasksGet(oModel.getProperty("/TaskId"));
 					this.onCloseAddLimDialog();
 					this.onCloseADDDialog();
+					var ViewGlobalModel = this.getModel("oViewGlobalModel");
+					ViewGlobalModel.setData(null);
 				}.bind(this);
 				oParameter.activity = 1;
 				ajaxutil.fnCreate("/ADDSvc", oParameter, [oPayLoad], "ZRM_ADDL", this);
-				var ViewGlobalModel = this.getModel("oViewGlobalModel");
-				ViewGlobalModel.setData(null);
+
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onCreateLimitationPress function");
 				this.handleException(e);
@@ -784,9 +751,47 @@ sap.ui.define([
 					ssrvtid = oEvent.getParameters().arguments.srvtid,
 					ViewModel = dataUtil.createNewJsonModel(),
 					oDate = new Date(),
+					oDDT1Model = dataUtil.createNewJsonModel(),
+					oDDT2Model = dataUtil.createNewJsonModel(),
 					oTempJB;
-
 				oTempJB = JSON.parse(sTaskId);
+
+				oDDT1Model.setData([{
+					"key": "Serial No. (S/N)",
+					"text": "Serial No. (S/N)"
+				}, {
+					"key": "Batch No.",
+					"text": "Batch No."
+				}]);
+				this.getView().setModel(oDDT1Model, "TT1Model");
+				var oFollowModelOther = dataUtil.createNewJsonModel();
+				oFollowModelOther.setData([{
+					"key": "TT1_14",
+					"text": "Others"
+				}, {
+					"key": "TT1_ADD",
+					"text": "Transfer to Acceptable Deferred Defects Log"
+				}]);
+				this.getView().setModel(oFollowModelOther, "FollowOtherModel");
+
+				var oFollowModelOPS = dataUtil.createNewJsonModel();
+				oFollowModelOPS.setData([{
+					"key": "TT1_11",
+					"text": "OPS Check"
+				}, {
+					"key": "TT1_AD",
+					"text": "Transfer to Acceptable Deferred Defects Log"
+				}]);
+				this.getView().setModel(oFollowModelOPS, "FollowOPSModel");
+
+				oDDT2Model.setData([{
+					"key": "Material No.",
+					"text": "Material No."
+				}, {
+					"key": "Part No.",
+					"text": "Part No."
+				}]);
+				this.getView().setModel(oDDT2Model, "TT2Model");
 
 				ViewModel.setData({
 					JobId: sJobId,
@@ -923,7 +928,7 @@ sap.ui.define([
 					bScheduleService: false,
 					bPhaseService: false,
 					bLimitation: false,
-					bAddLimitationBtn: true,
+					bAddLimitationBtn: false,
 					sSlectedKey: "N",
 					Date: new Date(),
 					Time: new Date().getHours() + ":" + new Date().getMinutes()

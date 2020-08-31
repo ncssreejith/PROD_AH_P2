@@ -324,7 +324,8 @@ sap.ui.define([
 		//------------------------------------------------------------------------------------------
 		onSelectTaskList: function(oEvent) {
 			try {
-				var oModel = this.getView().getModel("ViewModel"),oFlag=true,
+				var oModel = this.getView().getModel("ViewModel"),
+					oFlag = true,
 					oObj, newArray = [];
 				newArray = this.getView().getModel("ViewModel").getData().selectedTask;
 				if (oEvent.getSource().getSelectedItems().length === 1) {
@@ -342,10 +343,10 @@ sap.ui.define([
 							oObj = oData[i].getBindingContext("TaskModel").getObject();
 							for (var j = 0; j < newArray.length; j++) {
 								if (newArray[j].taskid === oObj.taskid) {
-									oFlag=false;
+									oFlag = false;
 									break;
-								}else{
-									oFlag=true;
+								} else {
+									oFlag = true;
 								}
 							}
 							if (oFlag) {
@@ -393,6 +394,8 @@ sap.ui.define([
 			try {
 				var oModel = this.getView().getModel("ViewModel");
 				this.selectedTab = "Summary";
+				this.getView().getModel("TaskModel").setData(null);
+				this.getView().byId("cbWorkCenterId").setSelectedKey("");
 				oModel.setProperty("/selectedIcon", "Summary");
 				oModel.setProperty("/signOffBtn", false);
 				oModel.setProperty("/signOffBtn1", false);

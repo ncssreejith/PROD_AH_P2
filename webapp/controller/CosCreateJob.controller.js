@@ -579,10 +579,10 @@ sap.ui.define([
 				oPayload.MODID = this.getModelId();
 				oPayload.JOBDESC = oJobModel.getProperty("/jobdesc");
 				oPayload.JOBTY = "ZA";
-				if (oJobModel.getProperty("/jduvl") !== null) {
-					oPayload.SERVDUE = oJobModel.getProperty("/jduvl");
-				} else {
+				if (oJobModel.getProperty("/jduid") === 'JDU_10') {
 					oPayload.SERVDT = oJobModel.getProperty("/jduvl");
+				} else {
+					oPayload.SERVDUE = oJobModel.getProperty("/jduvl");
 				}
 				oPayload.UMKEY = oJobModel.getProperty("/jduid");
 				oPayload.PRIME = oJobModel.getProperty("/prime");
