@@ -11,8 +11,7 @@
 		</VBox>
 		<VBox backgroundDesign="Solid" visible="{=${TaskOutModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
 			<Table id="tbWcOutstandingId" class="sapUiResponsivePadding sapUiSizeCompact sapUiSmallMarginEnd CERTable tableHFont" mode="MultiSelect"
-				growing="true" growingThreshold="6" growingScrollToLoad="true" items="{ path: 'TaskOutModel>/'}" noDataText="{i18n>txtNoTexttStanding}"
-				showNoData="true">
+				items="{ path: 'TaskOutModel>/'}" noDataText="{i18n>txtNoTexttStanding}" showNoData="true">
 				<columns>
 					<Column width="29%" hAlign="Start" minScreenWidth="Tablet" demandPopin="true" class="textColor">
 						<HBox>

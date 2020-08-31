@@ -9,8 +9,7 @@
 		</VBox>
 		<VBox backgroundDesign="Solid" visible="{=${TaskCompleteModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
 			<Table id="tbWcCompletedId"
-				class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" growing="true" growingThreshold="6"
-				growingScrollToLoad="false" items="{ path: 'TaskCompleteModel>/'}" noDataText="{i18n>txtNoTextCompleted}" showNoData="true">
+				class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" items="{ path: 'TaskCompleteModel>/'}" noDataText="{i18n>txtNoTextCompleted}" showNoData="true">
 				<columns>
 					<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 						<HBox>

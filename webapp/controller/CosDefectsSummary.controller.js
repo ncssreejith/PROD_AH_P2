@@ -773,6 +773,7 @@ sap.ui.define([
 					that._fnTasksCompleteGet(sJobId, sSelectedKey);
 					that._fnFlyingRequirementsGet(sJobId, sSelectedKey);
 					that._fnSortieMonitoringGet(sJobId, sSelectedKey);
+					that.getView().byId("itbTaskId").setSelectedKey("OS");
 				}
 				that._fnCreatedWorkCenterGet(sJobId);
 				oModel.updateBindings(true);

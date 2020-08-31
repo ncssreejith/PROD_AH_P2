@@ -6,24 +6,24 @@
 			<ToolbarSpacer/>
 			<Button text="{i18n>btnCreateTask}" press="handlePressWorkCenterFragmentOpenMenu('WCT',$event)" type="Default" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 		</OverflowToolbar>
-		<IconTabBar expanded="{device>/isNoPhone}" headerMode="Inline"
+		<IconTabBar id="itbTaskId" expanded="{device>/isNoPhone}" headerMode="Inline"
 			class="sapUiResponsiveContentPadding iconTabBarContentDimensions iconTabBarBGTran iconTabBarBorder">
 			<items>
-				<IconTabFilter text="{i18n>itOUTSTANDING}" count="{=${TaskOutModel>/}.length}">
+				<IconTabFilter text="{i18n>itOUTSTANDING}" count="{=${TaskOutModel>/}.length}" key="OS">
 					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.task.WorkCenterTasksOutstandingFragment" type="XML"/>
 					<OverflowToolbar class="toolbarBorder sapUiTinyMarginTop">
 						<ToolbarSpacer/>
 						<Button text="{i18n>btnCloseTask}" press="onCloseTask" class="btnClass sapUiSizeCompact" type="Emphasized" width="7rem" enabled="{LocalModel>/FairEditFlag}" visible="{= (${LocalModel>/sFlag}==='Y' &amp;&amp; ${TaskOutModel>/}.length !== 0) ? true:false}"/>
 					</OverflowToolbar>
 				</IconTabFilter>
-				<IconTabFilter text="{i18n>itPENDINGSUPERVISOR}" count="{=${TaskPendingModel>/}.length}">
+				<IconTabFilter text="{i18n>itPENDINGSUPERVISOR}" count="{=${TaskPendingModel>/}.length}" key="SP">
 					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.task.WorkCenterTasksPendingSupervisorFragment" type="XML"/>
 					<OverflowToolbar class="toolbarBorder sapUiTinyMarginTop">
 						<ToolbarSpacer/>
 						<Button text="{i18n>btnSignOff}" type="Emphasized" press="onSignOffTask" class="btnClass sapUiSizeCompact" width="7rem" enabled="{LocalModel>/FairEditFlag}" visible="{= (${LocalModel>/sFlag}==='Y' &amp;&amp; ${TaskPendingModel>/}.length !== 0) ? true:false}"/>
 					</OverflowToolbar>
 				</IconTabFilter>
-				<IconTabFilter text="{i18n>itCOMPLETED}" count="{=${TaskCompleteModel>/}.length}">
+				<IconTabFilter text="{i18n>itCOMPLETED}" count="{=${TaskCompleteModel>/}.length}" key="CM">
 					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.task.WorkCenterTasksCompletedFragment" type="XML"/>
 				</IconTabFilter>
 			</items>

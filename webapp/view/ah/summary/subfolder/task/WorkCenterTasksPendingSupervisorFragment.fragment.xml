@@ -8,8 +8,7 @@
 			</items>
 		</VBox>
 		<VBox backgroundDesign="Solid" visible="{=${TaskPendingModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
-			<Table id="tbWcPendingSuperId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" growing="true"
-				growingThreshold="6" growingScrollToLoad="false" items="{ path: 'TaskPendingModel>/'}" noDataText="{i18n>txtNoTextSuprPend}"
+			<Table id="tbWcPendingSuperId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" items="{ path: 'TaskPendingModel>/'}" noDataText="{i18n>txtNoTextSuprPend}"
 				showNoData="true">
 				<headerToolbar>
 					<OverflowToolbar>
@@ -20,12 +19,15 @@
 				</headerToolbar>
 				<columns>
 					<Column width="13%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
-						<Label text="{i18n>lbTask}" design="Bold" wrapping="true"/>
+						<HBox>
+							<Label text="{i18n>lbTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'tdesc')"/>
+						</HBox>
 					</Column>
 					<Column width="10%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 						<HBox>
 							<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'taskid')"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftcredt')"/>
 						</HBox>
 					</Column>
 					<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
@@ -41,7 +43,10 @@
 						</HBox>
 					</Column>
 					<Column width="13%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
-						<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true"/>
+						<HBox>
+							<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SG1DTM')"/>
+						</HBox>
 					</Column>
 				</columns>
 				<items>
