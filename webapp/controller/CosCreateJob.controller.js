@@ -507,7 +507,7 @@ sap.ui.define([
 							}*/
 				oPayload = this.getView().getModel("oViewCreateModel").getData();
 				oPayload.DOCREFID = this.docRefId;
-				if (oModel.getProperty("/sRJobId") === undefined) {
+				/*if (oModel.getProperty("/sRJobId") === undefined) {*/
 					oPayload.jobid = sjobid.concat("JOB_", dDate.getFullYear(), dDate.getMonth(), dDate.getDate(), dDate.getHours(), dDate.getMinutes(),
 						dDate.getSeconds());
 					oPayload.endda = formatter.defaultOdataDateFormat(oPayload.credt);
@@ -549,9 +549,9 @@ sap.ui.define([
 					oParameter.activity = 1;
 					ajaxutil.fnCreate("/DefectJobSvc", oParameter, [oPayload], "ZRM_COS_JB", this);
 
-				} else {
+				/*} else {
 					that._fnUpdateJob(oPayload);
-				}
+				}*/
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onCreateJob function");
 				this.handleException(e);
@@ -605,8 +605,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					sjobid = "",
-					oModel,
-					oPayload;
+					oModel;
 				var dDate = new Date();
 				oModel = that.getView().getModel("LocalModel");
 				var oParameter = {};
@@ -1107,6 +1106,7 @@ sap.ui.define([
 				sModId = this.getModelId();
 				this.docRefId = "";
 				sRJobId = oEvent.getParameters("").arguments.JobId;
+				sRJobIdFlag = oEvent.getParameters("").arguments.RJobId;
 				var oAppModel = dataUtil.createNewJsonModel();
 				oAppModel.setData({
 					"Top": [],
@@ -1139,7 +1139,7 @@ sap.ui.define([
 				sModId = this.getModelId();
 				sRJobId = oEvent.getParameters("").arguments.JobId;
 				if (sRJobId) {
-					sRJobIdFlag = oEvent.getParameters("").arguments.RJobId;
+					
 					if (sRJobIdFlag !== "Y") {
 						this._fnJobDetailsGet(sRJobId, sAirId);
 					} else {

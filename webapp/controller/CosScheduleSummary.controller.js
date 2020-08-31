@@ -661,13 +661,15 @@ sap.ui.define([
 						oModel = dataUtil.createNewJsonModel();
 						oModel.setData(oData.results[0]);
 						if (oData.results[0].PRIME !== null && oData.results[0].PRIME !== "") {
-							oModelLocal.WorkCenter.push({
-								jobid: "",
-								tailid: "",
-								wrctr: oData.results[0].PRIME,
-								isprime: "true",
-								wrctrtx: oData.results[0].WRCTR
-							});
+							if (oModelLocal.WorkCenter.length <= 1) {
+								oModelLocal.WorkCenter.push({
+									jobid: "",
+									tailid: "",
+									wrctr: oData.results[0].PRIME,
+									isprime: "true",
+									wrctrtx: oData.results[0].WRCTR
+								});
+							}
 						}
 						that.getView().getModel("LocalModel").updateBindings(true);
 						that._fnWorkCenterGet();
@@ -711,8 +713,9 @@ sap.ui.define([
 					if (oFlag === "Y") {
 						this.getRouter().navTo("Cosjobs");
 					} else {
-						this._fnSumamryDetailsGet(that.getView().getModel("LocalModel").getProperty("/ESJobId"));
 						that.onCloseAddWorkCenterDialog("N");
+						this._fnSumamryDetailsGet(that.getView().getModel("LocalModel").getProperty("/ESJobId"));
+						
 					}
 				}.bind(this);
 				/*				oPrmSchJob.activity = 2;

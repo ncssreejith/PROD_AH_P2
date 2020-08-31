@@ -42,7 +42,7 @@
 		</VBox>
 		<buttons>
 			<Button text="Cancel" press="onCloseRaiseScheduleConcession"/>
-			<Button text="Raise Schedule Concession" press="onRaiseScheduleConcessionPress" type="Emphasized"/>
+			<Button text="Raise Schedule Concession" press="onRaiseScheduleConcessionPress('Y')" type="Emphasized"/>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>
