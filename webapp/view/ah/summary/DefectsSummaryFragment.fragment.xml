@@ -40,7 +40,8 @@
 						<ToolbarSpacer/>
 						<Button text="{i18n>btnManageJobs}" type="Default" icon="sap-icon://megamenu" iconFirst=" false" class="btnClass"
 							press="onOpenQuickView('DF',$event)" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
-						<Button text=" {i18n>btnCloseJob}" type="Emphasized" class="sapUiSmallMarginEnd" enabled="{LocalModel>/JobStatus}"
+						<Button text=" {i18n>btnCloseJob}" type="Emphasized" class="sapUiSmallMarginEnd"	
+							enabled="{parts:['LocalModel>/JobStatus','LocalModel>/FairEditFlag'],templateShareable: false,formatter:'.formatter.CloseJobBtnStatus'}"	
 							press="onCloseJobPress('N')" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 					</Toolbar>
 					<l:VerticalLayout class="equalColumns" width="100%">

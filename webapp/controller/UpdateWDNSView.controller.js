@@ -140,8 +140,8 @@ sap.ui.define([
 						sText = new sap.m.Input({
 							value: "{" + oDataModel + ">" + oItem.colid + "}",
 							maxLength: 20,
-							fieldGroupIds: ["fgNString"],
-							required: true,
+							fieldGroupIds: ["fgDesc"],
+							// required: true,
 							// valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
 							liveChange: function(oEvent) {
 								cvUtil.onLiveChange(oEvent, false);

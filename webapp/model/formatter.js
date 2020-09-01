@@ -43,7 +43,6 @@ sap.ui.define([
 			if (!dDate || typeof dDate.getMonth !== "function") {
 				return "";
 			}
-			return dDate;
 			var fnDateFormatter = DateFormat.getDateInstance({
 				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy"
 			});
@@ -377,8 +376,8 @@ sap.ui.define([
 		taskContentVisible3: function(stTask1, stTask2, stTask3) {
 			if ((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
 					"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
-					stTask2 === "TT2_14" && stTask3 === null)||(stTask1 === "TT1_10" &&
-					stTask2 === "TT2_10" && stTask3 === null)  || (stTask1 ===
+					stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
+					stTask2 === "TT2_10" && stTask3 === null) || (stTask1 ===
 					"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === null && stTask2 === null && stTask3 === null) || (stTask1 ===
 					"TT1_15" && stTask3 === null) || (stTask1 === "TT1_17" && stTask3 === null) ||
 				(stTask1 === "TT1_18" && stTask3 === null)) {
@@ -528,8 +527,8 @@ sap.ui.define([
 				return "Good";
 			}
 		},
-		
-	ADDLimitColorByDay: function(sValue) {
+
+		ADDLimitColorByDay: function(sValue) {
 			this.removeStyleClass("vboxOrangebgColorr");
 			this.removeStyleClass("vbox6BgColor");
 			if (sValue === "1") {
@@ -672,7 +671,7 @@ sap.ui.define([
 					this.addStyleClass("greybtn");
 					break;
 				case "AST_FFF":
-				case "AST_FFF0":	
+				case "AST_FFF0":
 					this.removeStyleClass("redbtn");
 					this.removeStyleClass("yellowbtn");
 					this.removeStyleClass("greybtn");
@@ -680,7 +679,7 @@ sap.ui.define([
 					this.addStyleClass("greenbtn");
 					break;
 				case "AST_RFF":
-				case "AST_RFF0":		
+				case "AST_RFF0":
 					this.removeStyleClass("redbtn");
 					this.removeStyleClass("yellowbtn");
 					this.removeStyleClass("greybtn");
@@ -697,6 +696,7 @@ sap.ui.define([
 					this.removeStyleClass("infobtn");
 					this.addStyleClass("yellowbtn");
 					break;
+				case "AST_RECT":	
 				case "AST_FAIR":
 				case "AST_FAIR0":
 				case "AST_FAIR1":
@@ -900,7 +900,7 @@ sap.ui.define([
 			return sPercentAge;
 		},
 		fuelMC: function(oState, sState1) {
-			if( !oState || !sState1){
+			if (!oState || !sState1) {
 				return 0;
 			}
 			var sPercentAge = 0;
@@ -959,7 +959,7 @@ sap.ui.define([
 			}
 		},
 		FuelMC: function(sValue, iMax) {
-			if( !sValue || !iMax){
+			if (!sValue || !iMax) {
 				return 0;
 			}
 			var iValue = 0;
@@ -1039,6 +1039,27 @@ sap.ui.define([
 				return "Done";
 			} else {
 				return "";
+			}
+		},
+		CheckTailStatus: function(aState) {
+			switch (aState) {
+				case "AST_FFF":
+				case "AST_RFF":
+				case "AST_FAIR":
+				case "AST_FAIR0":
+				case "AST_FAIR1":
+				case "AST_FAIR2":
+					return false;
+				default:
+					return true;
+			}
+		},
+
+		CloseJobBtnStatus: function(sStatus1, sStatus2) {
+			if ((sStatus1 === true && sStatus2 === true)) {
+				return true;
+			} else {
+				return false;
 			}
 		},
 		FormatRoleChangeSLNo: function(sSlNo) {

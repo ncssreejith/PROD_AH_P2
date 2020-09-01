@@ -197,9 +197,9 @@ sap.ui.define([
 						that.getView().getModel("appModel").setProperty("/visibleDefect", true);
 						oModel.setProperty("/jobty", oSelectedItemId);
 						if (typeof sValue === "string") {
-							that.onSelectionDefectAreaChange("X",sValue);
+							that.onSelectionDefectAreaChange("X", sValue);
 						} else {
-							that.onSelectionDefectAreaChange("X","DEA_T");
+							that.onSelectionDefectAreaChange("X", "DEA_T");
 						}
 						break;
 					case "S":
@@ -224,7 +224,7 @@ sap.ui.define([
 		 * Parameter: sKey
 		 * Description: To select Defected area image.
 		 */
-		onSelectionDefectAreaChange: function(oEvent,sKey) {
+		onSelectionDefectAreaChange: function(oEvent, sKey) {
 			try {
 
 				var oSegmentedButton, oSelectedItemId, that = this,
@@ -507,7 +507,7 @@ sap.ui.define([
 							}*/
 				oPayload = this.getView().getModel("oViewCreateModel").getData();
 				oPayload.DOCREFID = this.docRefId;
-				/*if (oModel.getProperty("/sRJobId") === undefined) {*/
+				if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === undefined) {
 					oPayload.jobid = sjobid.concat("JOB_", dDate.getFullYear(), dDate.getMonth(), dDate.getDate(), dDate.getHours(), dDate.getMinutes(),
 						dDate.getSeconds());
 					oPayload.endda = formatter.defaultOdataDateFormat(oPayload.credt);
@@ -549,9 +549,9 @@ sap.ui.define([
 					oParameter.activity = 1;
 					ajaxutil.fnCreate("/DefectJobSvc", oParameter, [oPayload], "ZRM_COS_JB", this);
 
-				/*} else {
+				} else {
 					that._fnUpdateJob(oPayload);
-				}*/
+				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onCreateJob function");
 				this.handleException(e);
@@ -881,7 +881,7 @@ sap.ui.define([
 						"isprime": "",
 						"wrctrtx": "",
 						"count": null,
-						"PrimeCount":null
+						"PrimeCount": null
 					},
 
 					oPrmWorkCenter.error = function() {};
@@ -908,7 +908,7 @@ sap.ui.define([
 						"isprime": "",
 						"wrctrtx": "",
 						"count": null,
-						"PrimeCount":null
+						"PrimeCount": null
 					},
 
 					oPrmWorkCenter.error = function() {};
@@ -1073,16 +1073,16 @@ sap.ui.define([
 					oCanvas = document.getElementById("myCanvasTopDefect"),
 					oAppModel = this.getView().getModel("appModel"),
 					sImagePath, sRootPath;
-					var that = this;
+				var that = this;
 				this.removeCoordinates(oAppModel.getProperty("/XCor"), oAppModel.getProperty("/YCor"), oCanvas);
 				this._fnRestMarkArea();
-			/*	var image = oCanvas.style.backgroundImage;
-				image  = image.split("\"");
-				if (image[1]) {
-						setTimeout(function demo() {
-					that._fnRenderImage(image[1], oCanvas);
-				}, 500);
-				}*/
+				/*	var image = oCanvas.style.backgroundImage;
+					image  = image.split("\"");
+					if (image[1]) {
+							setTimeout(function demo() {
+						that._fnRenderImage(image[1], oCanvas);
+					}, 500);
+					}*/
 				sRootPath = jQuery.sap.getModulePath("avmet.ah");
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onRefersh function");
@@ -1137,9 +1137,7 @@ sap.ui.define([
 				sAirId = this.getAircraftId();
 				sSqnId = this.getSqunId();
 				sModId = this.getModelId();
-				sRJobId = oEvent.getParameters("").arguments.JobId;
 				if (sRJobId) {
-					
 					if (sRJobIdFlag !== "Y") {
 						this._fnJobDetailsGet(sRJobId, sAirId);
 					} else {

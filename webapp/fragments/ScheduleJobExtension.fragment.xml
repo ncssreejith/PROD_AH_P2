@@ -4,7 +4,7 @@
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
 				<VBox>
 					<Label design="Bold" text="Due By:" width="350px"/>
-					<SegmentedButton selectedKey="{RSModel>/DueBy}" selectionChange="onReasonTypeChange" fieldGroupIds="fgSGBtn">
+					<SegmentedButton selectedKey="{RSModel>/DueBy}" selectionChange="onOpprChange" fieldGroupIds="fgSGBtn">
 						<items>
 							<SegmentedButtonItem text="Date" key="D" width="70%"/>
 							<SegmentedButtonItem text="Utilisation" key="U" width="70%"/>

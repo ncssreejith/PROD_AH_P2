@@ -130,10 +130,12 @@ sap.ui.define([
 							value: "{" + oDataModel + ">" + oItem.colid + "}",
 							fieldGroupIds: ["fgNString"],
 							maxLength: 20,
+							required: true,
 							// valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
-							liveChange: function(oEvent) {
-								cvUtil.onLiveChange(oEvent, false);
-							}
+							liveChange: that.onChange
+								// function(oEvent) {
+								// 	cvUtil.onLiveChange(oEvent, false);
+								// }
 						});
 					}
 					oCells.push(sText);
@@ -154,9 +156,10 @@ sap.ui.define([
 		},
 		onChange: function(oEvent) {
 			try {
-				var oSource = oEvent.getSource();
+				// var oSource = oEvent.getSource();
 				this.getModel("oOFPModel").setProperty("/isChange", true);
-				this.getModel("oOFPModel").refresh();
+				// this.getModel("oOFPModel").refresh();
+				cvUtil.onLiveChange(oEvent, false);
 			} catch (e) {
 				Log.error("Exception in OFPUpdateView:onChange function");
 				this.handleException(e);
@@ -188,14 +191,20 @@ sap.ui.define([
 				// 	oPayload = oItem;
 				// 	oData.push(oPayload);
 				// });
-
-				oData = this.getModel(oDataModel).getProperty("/" + sClmPath);
+				if (this.getView().getModel(oModel).getProperty("/isChange")) {
+					oData = this.getModel(oDataModel).getProperty("/" + sClmPath);
+				}
 				oParameter.error = function() {};
 				oParameter.success = function(oRespond) {
 					this.onNavBack();
 					sap.m.MessageToast.show("Tables updated");
 				}.bind(this);
-				ajaxutil.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_O", this);
+				if (oData.length > 0) {
+					ajaxutil.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_O", this);
+				} else {
+					sap.m.MessageToast.show("No table are changed");
+				}
+				// ajaxutil.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_O", this);
 			} catch (e) {
 				Log.error("Exception in OFPUpdateView:fnSubmitSignOff function");
 				this.handleException(e);
