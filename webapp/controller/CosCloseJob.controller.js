@@ -395,6 +395,7 @@ sap.ui.define([
 				var oModel = this.getView().getModel("ViewModel");
 				this.selectedTab = "Summary";
 				this.getView().getModel("TaskModel").setData(null);
+				this.getView().getModel("ViewModel").setProperty("/selectedTask",[]);
 				this.getView().byId("cbWorkCenterId").setSelectedKey("");
 				oModel.setProperty("/selectedIcon", "Summary");
 				oModel.setProperty("/signOffBtn", false);
