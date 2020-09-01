@@ -696,6 +696,7 @@ sap.ui.define([
 					this.removeStyleClass("infobtn");
 					this.addStyleClass("yellowbtn");
 					break;
+				case "AST_RECT":	
 				case "AST_FAIR":
 				case "AST_FAIR0":
 				case "AST_FAIR1":
