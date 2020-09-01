@@ -14,7 +14,9 @@
 				visible="{=${CapExtensionSet>/}.length !== 0 ? true:false}">
 				<columns>
 					<Column width="10rem" hAlign="Begin">
-						<Label text="ADD Reasons" class="whiteText" design="Bold" wrapping="true"/>
+						<Label text="ADD Reasons" class="whiteText" design="Bold" wrapping="true"
+							visible="{=${CapSet>/CAPTY}==='A' || ${CapSet>/CAPTY}==='B' ? true :false}"/>
+						<Label text="Limitation" class="whiteText" design="Bold" wrapping="true"/>
 					</Column>
 					<Column width="15rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 						<Label text="Tradesman" class="whiteText" design="Bold" wrapping="true"/>
@@ -26,7 +28,10 @@
 				<items>
 					<ColumnListItem>
 						<cells>
-							<Text text="{CapExtensionSet>DDDESC}"/>
+							<VBox>
+								<Text text="{CapExtensionSet>DDDESC}" visible="{=${CapSet>/CAPTY}==='A' || ${CapSet>/CAPTY}==='B' ? true :false}"/>
+								<Text text="{CapExtensionSet>LDESC}" visible="{= ${CapSet>/CAPTY}==='L' ? true :false}"/>
+							</VBox>
 							<VBox alignContent="Center">
 								<ObjectIdentifier title="{CapExtensionSet>SUBUSR}" titleActive="false" class="sapUiTinyMarginTopBottom"/>
 								<HBox class="sapUiLargeMarginBegin">

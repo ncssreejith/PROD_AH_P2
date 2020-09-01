@@ -18,11 +18,13 @@
 				<!-- -->
 				<HBox width="100%">
 					<VBox width="40%" alignContent="SpaceAround" alignItems="Start" class="sapUiMediumMarginBegin"></VBox>
-					<VBox alignItems="Start" class="sapUiLargeMarginBegin" visible="{=${CapSet>/CAPTY}==='A' ? true :false}">
+					<VBox alignItems="Start" class="sapUiLargeMarginBegin">
+						<!--visible="{=${CapSet>/CAPTY}==='A' ? true :false}"-->
 						<Label design="Bold" text="Past ADD(s)" class="sapUiTinyMarginTopBottom"/>
 						<Text text="{CapSet>/PAST_COUNT}" class="sapUiLargeMarginBegin"/>
 					</VBox>
-					<VBox alignItems="Start" class="sapUiLargeMarginBegin sapUiSmallMarginBottom" visible="{=${CapSet>/CAPTY}==='A' ? true :false}">
+					<VBox alignItems="Start" class="sapUiLargeMarginBegin sapUiSmallMarginBottom">
+					<!--	visible="{=${CapSet>/CAPTY}==='A' ? true :false}"-->
 						<Label design="Bold" text="Initial ADD Date" class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd"/>
 						<!--<Text text="{CapSet>/IDATE}"/>-->
 						<Text text="{path:'CapSet>/IDATE', formatter:'.formatter.defaultDateFormatLimDisplay'}"/>
