@@ -138,7 +138,7 @@ sap.ui.define([
 				var aState = this.getModel("avmetModel").getProperty("/dash/astid");
 				this.getRouter().navTo("CosDefectsSummary", {
 					"JobId": oJobId,
-					"Flag": this._fnCheckStatus(aState)
+					"Flag": "Y"
 				});
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
@@ -151,7 +151,7 @@ sap.ui.define([
 				var aState = this.getModel("avmetModel").getProperty("/dash/astid");
 				this.getRouter().navTo("CosDefectsSummary", {
 					"JobId": oJobId,
-					"Flag": this._fnCheckStatus(aState)
+					"Flag": "Y"
 				});
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
@@ -163,7 +163,7 @@ sap.ui.define([
 				var aState = this.getModel("avmetModel").getProperty("/dash/astid");
 				this.getRouter().navTo("CosDefectsSummary", {
 					"JobId": oJobId,
-					"Flag": this._fnCheckStatus(aState)
+					"Flag": "Y"
 				});
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
@@ -176,7 +176,7 @@ sap.ui.define([
 				var aState = this.getModel("avmetModel").getProperty("/dash/astid");
 				this.getRouter().navTo("CosDefectsSummary", {
 					"JobId": oJobId,
-					"Flag": this._fnCheckStatus(aState)
+					"Flag": "Y"
 				});
 			} catch (e) {
 				Log.error("Exception in xxxxx function");

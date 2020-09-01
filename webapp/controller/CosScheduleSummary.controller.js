@@ -42,6 +42,7 @@ sap.ui.define([
 					CompleteCount: 0,
 					WorkCenterKey: "Summary",
 					ESJobId: "",
+					SelectedOPPR: "",
 					CreateTaskMenu: [{
 						"Text": "New Task",
 						"Visible": true
@@ -83,7 +84,11 @@ sap.ui.define([
 		onNavBackPrevious: function() {
 			this.onNavBack();
 		},
+		onOpprChange: function(oEvent) {
+			var oModel = this.getView().getModel("LocalModel");
+			oModel.setProperty("/SelectedOPPR", oEvent.getSource().getSelectedKey());
 
+		},
 		onOpenQuickView: function(sFlag, oEvent) {
 			try {
 				if (this._oQuickView) {
@@ -715,7 +720,7 @@ sap.ui.define([
 					} else {
 						that.onCloseAddWorkCenterDialog("N");
 						this._fnSumamryDetailsGet(that.getView().getModel("LocalModel").getProperty("/ESJobId"));
-						
+
 					}
 				}.bind(this);
 				/*				oPrmSchJob.activity = 2;

@@ -280,7 +280,8 @@ sap.ui.define([
 						break;
 					case "Edit Job Details":
 						that.getRouter().navTo("CosCreateJob", {
-							"JobId": oLocalModel.getProperty("/sJobId")
+							"JobId": oLocalModel.getProperty("/sJobId"),
+							"RJobId": "N"
 						});
 						break;
 					case "Job Enter in Error":
@@ -1341,30 +1342,40 @@ sap.ui.define([
 				oViewModel.setProperty("/sSqnId", sSqnId);
 				oViewModel.setProperty("/sJobId", sJobId);
 				oViewModel.setProperty("/sFlag", sFlag);
-				if (sFlag === "N") {
-					oViewModel.setProperty("/FairEditFlag", false);
-				} else {
-					oViewModel.setProperty("/FairEditFlag", true);
-				}
+				oViewModel.setProperty("/FairEditFlag", true);
 				oViewModel.setProperty("/sModId", sModId);
 				oViewModel.setProperty("/WorkCenterKey", "Summary");
 				oViewModel.setProperty("/SummaryFlag", true);
 				oViewModel.setProperty("/WorcenterFlag", false);
-				// oViewModel.setProperty("/FairEditFlag", true);
 				oViewModel.updateBindings(true);
 				that._fnJobDetailsGet(sJobId, sAirId);
 				that._fnTaskStatusGet(sJobId);
-				try {
-					if (oGBAppModel.getProperty("/dash/astid") === "AST_FAIR") {
-						oSummaryModelData = that.getView().getModel("SummaryModel");
-						oSummaryModel.setProperty("/FAIRStatusText", 'ACTIVATED');
-					}
-				} catch (e) {
-					Log.error("Exception in oGBAppModel FAIR STATUS function");
-				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_handleRouteMatched function");
 				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnCheckStatus
+		// Parameter: aState
+		// Description: This will get called, to check Tail status.
+		//Table: 
+		//------------------------------------------------------------------ 
+		_fnCheckStatus: function(aState) {
+			if (aState !== undefined) {
+				switch (aState) {
+					case "AST_FFF":
+					case "AST_RFF":
+					case "AST_FAIR":
+					case "AST_FAIR0":
+					case "AST_FAIR1":
+					case "AST_FAIR2":
+						return true;
+					default:
+						return false;
+				}
+			} else {
+				return false;
 			}
 		},
 
@@ -1391,6 +1402,39 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTaskStatusGet function");
 				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnTaskStatusGet
+		// Parameter: sJobId
+		// Description: This will get called, when to get Outstanding and Pending Supervisor tasks count.
+		//Table: TASK
+		//------------------------------------------------------------------
+		_fnTailStatusGet: function(sTailId) {
+			try {
+				var that = this,
+					oSummaryModel, oLocalModel = this.getView().getModel("LocalModel"),
+					oPrmTaskDue = {};
+				oPrmTaskDue.filter = "TAILID eq " + sTailId;
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					try {
+						var bTailStatus = this._fnCheckStatus(oData.results[0].ASTID);
+						if (bTailStatus) {
+							oSummaryModel = that.getView().getModel("SummaryModel");
+							oSummaryModel.setProperty("/FAIRStatusText", 'ACTIVATED');
+							oLocalModel.setProperty("/FairEditFlag", false);
+						} else {
+							oLocalModel.setProperty("/FairEditFlag", true);
+						}
+					} catch (e) {
+						Log.error("Exception in oGBAppModel FAIR STATUS function");
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/GetTailStatusSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnTailStatusGet function");
 			}
 		},
 
@@ -1660,6 +1704,8 @@ sap.ui.define([
 						oModel.setData(oData.results[0]);
 						that.getView().setModel(oModel, "JobModel");
 					}
+					that._fnTailStatusGet(that.getTailId());
+					that.fnLoadSrv1Dashboard();
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -1809,19 +1855,15 @@ sap.ui.define([
 				if (oPayload.etrtm === "") {
 					oPayload.etrtm = null;
 				}
-
-				oParameter.error = function(response) {
-
-				};
+				oParameter.error = function(response) {};
 
 				oParameter.success = function(oData) {
-					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 					that.fnLoadSrv1Dashboard();
-				}.bind(this);
+					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 
+				}.bind(this);
 				oParameter.activity = 1;
 				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_FAIR_D", this);
-
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnUpdateFAIRJob function");
 				this.handleException(e);
