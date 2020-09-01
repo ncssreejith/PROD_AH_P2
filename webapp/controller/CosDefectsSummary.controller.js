@@ -344,7 +344,7 @@ sap.ui.define([
 						oModel.setProperty("/factby", "Test User");
 						oModel.setProperty("/factdtm", dData);
 						oModel.setProperty("/factuzt", tTime);
-						that._fnTaskStatusGet();
+						that._fnTaskStatusGet(oLocalModel.getProperty("/sJobId"));
 						oSummaryModel.setProperty("/FAIRStatus", "None");
 						oSummaryModel.setProperty("/MenuVisible", true);
 						oSummaryModel.setProperty("/MenuActivateVisible", false);
@@ -363,7 +363,7 @@ sap.ui.define([
 						oModel.setProperty("/rectdt", dData);
 						oModel.setProperty("/recttm", tTime);
 						oModel.updateBindings(true);
-						that._fnUpdateJob(oLocalModel.getProperty("/sJobId"));
+						that._fnUpdateJob();
 						var oModelData = [];
 						oModelData.push({
 							"PastAdd": "1",
@@ -1349,7 +1349,6 @@ sap.ui.define([
 				oViewModel.setProperty("/WorcenterFlag", false);
 				oViewModel.updateBindings(true);
 				that._fnJobDetailsGet(sJobId, sAirId);
-				that._fnTaskStatusGet(sJobId);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_handleRouteMatched function");
 				this.handleException(e);
@@ -1706,6 +1705,7 @@ sap.ui.define([
 					}
 					that._fnTailStatusGet(that.getTailId());
 					that.fnLoadSrv1Dashboard();
+					that._fnTaskStatusGet(sJobId);
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -1812,9 +1812,7 @@ sap.ui.define([
 				if (oPayload.etrtm === "") {
 					oPayload.etrtm = null;
 				}
-
 				oParameter.error = function(response) {
-
 				};
 
 				oParameter.success = function(oData) {
@@ -1858,9 +1856,7 @@ sap.ui.define([
 				oParameter.error = function(response) {};
 
 				oParameter.success = function(oData) {
-					that.fnLoadSrv1Dashboard();
-					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
-
+				that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 				}.bind(this);
 				oParameter.activity = 1;
 				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_FAIR_D", this);

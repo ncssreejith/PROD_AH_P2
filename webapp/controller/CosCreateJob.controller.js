@@ -1076,13 +1076,15 @@ sap.ui.define([
 				var that = this;
 				this.removeCoordinates(oAppModel.getProperty("/XCor"), oAppModel.getProperty("/YCor"), oCanvas);
 				this._fnRestMarkArea();
-				/*	var image = oCanvas.style.backgroundImage;
-					image  = image.split("\"");
+				if (oCanvas) {
+					var image = oCanvas.style.backgroundImage;
+					image = image.split("\"");
 					if (image[1]) {
-							setTimeout(function demo() {
-						that._fnRenderImage(image[1], oCanvas);
-					}, 500);
-					}*/
+						setTimeout(function demo() {
+							that._fnRenderImage(image[1], oCanvas);
+						}, 500);
+					}
+				}
 				sRootPath = jQuery.sap.getModulePath("avmet.ah");
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onRefersh function");
