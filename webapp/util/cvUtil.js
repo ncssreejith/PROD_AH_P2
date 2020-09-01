@@ -1,18 +1,19 @@
-sap.ui.define([], function () {
+sap.ui.define([], function() {
 	"use strict";
 	var isError = false,
 		isRest = false,
 		isChange = false,
 		ref = null,
-		fieldGroupIndex = 1,
+		fieldGroupIndex = 0,
 		minDate = new Date("01.01.1800"),
 		maxDate = new Date("31.12.9999"),
 		currentDate = new Date(),
 		lblCurrentDate = "Today date",
-		sScale = 3, // Included .
+		// sScale = 3, // Included .
 		sMaxDec = 255,
-		fieldGroups = ["fgInput", "fgString", "fgNString", "fgNumber", "fgDecimal", "fgEmail", "fgDesc", "fgFDate", "fgPDate", "fgDR",
-			"fgCombo"
+		fieldGroups = ["fgInput", "fgString", "fgNString", "fgNumber", "fgSignedNumber", "fgDecimal", "fgDecimal1", "fgDecimal2",
+			"fgSignedDecimal",
+			"fgEmail", "fgDesc", "fgFDate", "fgPDate", "fgDR", "fgCombo"
 		];
 
 	//Live change validation 
@@ -44,10 +45,39 @@ sap.ui.define([], function () {
 		return "";
 	}
 
-	function _fnValidateDecimal(value, minValue, maxValue, sLabel) {
+	function _fnValidateSigned(value, minValue, maxValue, sLabel) {
+		// Check for numeric only  // ^-?[0-9]\d*(\.\d+)?$
+		if (!value.match("^-?[0-9]+$")) {
+			return sLabel + " number must be numeric only";
+		}
+		// Check for length
+		if (!value.match("^-?[0-9]{" + minValue + "," + maxValue + "}$")) {
+			if (minValue === maxValue && value.length < maxValue) {
+				return sLabel + " number must be " + maxValue + " digit.";
+			}
+			return sLabel + " must be between " + minValue + "-" + maxValue + " characters";
+		}
+		return "";
+	}
+
+	function _fnValidateDecimal(value, minValue, maxValue, sLabel, sScale) {
 		var sRegex = new RegExp("^\\d{1," + (maxValue - sScale) + "}(\\.\\d{1," + sScale + "})?$");
 		if (!value.match(sRegex)) {
-			return sLabel + " should be " + ("0".repeat(maxValue - sScale) + "." + "0".repeat(sScale) + " formate.");
+			return sLabel + " should be " + ("0".repeat(maxValue - sScale) + "." + "0".repeat(sScale) + " format.");
+		}
+
+		if (parseFloat(value).toFixed(sScale) <= minValue) {
+			return sLabel + " should be greater then " + minValue + ".";
+		}
+		return "";
+	}
+
+	function _fnValidateSignedDecimal(value, minValue, maxValue, sLabel, sScale) {
+		// ^-?[0-9]\d*(\.\d+)?$
+
+		var sRegex = new RegExp("^-?\\d{1," + (maxValue - sScale) + "}(\\.\\d{1," + sScale + "})?$");
+		if (!value.match(sRegex)) {
+			return sLabel + " should be " + ("0".repeat(maxValue - sScale) + "." + "0".repeat(sScale) + " format.");
 		}
 
 		if (parseFloat(value).toFixed(sScale) <= minValue) {
@@ -125,6 +155,16 @@ sap.ui.define([], function () {
 		return _fnUpdateValueState(oControl, sMsg);
 	}
 
+	function _fnSignedNumberValidation(oControl) {
+		var value = oControl.getValue(),
+			sScale = 1,
+			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		var maxValue = oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5,
+			minValue = 0; // - Math.pow(10, maxValue);
+		var sMsg = _fnValidateSigned(value, minValue, maxValue, sLabel);
+		return _fnUpdateValueState(oControl, sMsg);
+	}
+
 	function _fnStringValidation(oControl) {
 		var value = oControl.getValue(),
 			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
@@ -154,10 +194,41 @@ sap.ui.define([], function () {
 
 	function _fnDecimalValidation(oControl, reset) {
 		var value = oControl.getValue(),
+			sScale = 3,
 			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5,
 			minValue = 0;
-		var sMsg = _fnValidateDecimal(value, minValue, maxValue, sLabel);
+		var sMsg = _fnValidateDecimal(value, minValue, maxValue, sLabel, sScale);
+		return _fnUpdateValueState(oControl, sMsg);
+	}
+
+	function _fnDecimal1Validation(oControl, reset) {
+		var value = oControl.getValue(),
+			sScale = 1,
+			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		var maxValue = oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5,
+			minValue = 0;
+		var sMsg = _fnValidateDecimal(value, minValue, maxValue, sLabel, sScale);
+		return _fnUpdateValueState(oControl, sMsg);
+	}
+
+	function _fnDecimal2Validation(oControl, reset) {
+		var value = oControl.getValue(),
+			sScale = 2,
+			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		var maxValue = oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5,
+			minValue = 0;
+		var sMsg = _fnValidateDecimal(value, minValue, maxValue, sLabel, sScale);
+		return _fnUpdateValueState(oControl, sMsg);
+	}
+
+	function _fnSignedDecimalValidation(oControl, reset) {
+		var value = oControl.getValue(),
+			sScale = 3,
+			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		var maxValue = oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5,
+			minValue = 0 - Math.pow(10, (oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5));
+		var sMsg = _fnValidateSignedDecimal(value, minValue, maxValue, sLabel, sScale);
 		return _fnUpdateValueState(oControl, sMsg);
 	}
 
@@ -352,54 +423,67 @@ sap.ui.define([], function () {
 		}
 
 		switch (fieldGroupId) {
-		case "fgString":
-			_fnStringValidation(oControl, reset);
-			break;
-		case "fgNString":
-			_fnNumberStringValidation(oControl, reset);
-			break;
-		case "fgNumber":
-			_fnNumberValidation(oControl, reset);
-		case "fgDecimal":
-			_fnDecimalValidation(oControl, reset);
-			break;
-		case "fgEmail":
-			_fnEmailValidation(oControl, reset);
-			break;
-		case "fgDesc":
-			_fnDescriptionValidation(oControl, reset);
-			break;
-		case "fgDate":
-			_fnDateValidation(oControl, reset);
-			break;
-		case "fgFDate":
-			_fnFuturDateValidation(oControl, reset);
-			break;
-		case "fgPDate":
-			_fnPastDateValidation(oControl, reset);
-		case "fgDR":
-			_fnDateRangeValidation(oControl, reset);
-			break;
-		case "fgCombo":
-			_fnValidateComboBox(oControl, reset);
-			break;
-		default:
-			// _fnDateRangeValidation(oControl, reset);
-			break;
+			case "fgString":
+				_fnStringValidation(oControl, reset);
+				break;
+			case "fgNString":
+				_fnNumberStringValidation(oControl, reset);
+				break;
+			case "fgNumber":
+				_fnNumberValidation(oControl, reset);
+				break;
+			case "fgSignedNumber":
+				_fnSignedNumberValidation(oControl, reset);
+				break;
+			case "fgDecimal":
+				_fnDecimalValidation(oControl, reset);
+				break;
+			case "fgDecimal1":
+				_fnDecimal1Validation(oControl, reset);
+				break;
+			case "fgDecimal2":
+				_fnDecimal2Validation(oControl, reset);
+				break;
+			case "fgSignedDecimal":
+				_fnSignedDecimalValidation(oControl, reset);
+				break;
+			case "fgEmail":
+				_fnEmailValidation(oControl, reset);
+				break;
+			case "fgDesc":
+				_fnDescriptionValidation(oControl, reset);
+				break;
+			case "fgDate":
+				_fnDateValidation(oControl, reset);
+				break;
+			case "fgFDate":
+				_fnFuturDateValidation(oControl, reset);
+				break;
+			case "fgPDate":
+				_fnPastDateValidation(oControl, reset);
+			case "fgDR":
+				_fnDateRangeValidation(oControl, reset);
+				break;
+			case "fgCombo":
+				_fnValidateComboBox(oControl, reset);
+				break;
+			default:
+				// _fnDateRangeValidation(oControl, reset);
+				break;
 		}
 	}
 
 	function validForm(parentControl) {
-		fieldGroups.forEach(function (oItem) {
-			parentControl.getControlsByFieldGroupId(oItem).forEach(function (oControl) {
+		fieldGroups.forEach(function(oItem) {
+			parentControl.getControlsByFieldGroupId(oItem).forEach(function(oControl) {
 				_fnChangeValidation(oControl);
 			});
 		});
 	}
 
 	function resetValidation(parentControl) {
-		fieldGroups.forEach(function (oItem) {
-			parentControl.getControlsByFieldGroupId(oItem).forEach(function (oControl) {
+		fieldGroups.forEach(function(oItem) {
+			parentControl.getControlsByFieldGroupId(oItem).forEach(function(oControl) {
 				_fnResetControl(oControl);
 			});
 		});
@@ -415,25 +499,25 @@ sap.ui.define([], function () {
 	}
 
 	return {
-		setRef: function (sRef) {
+		setRef: function(sRef) {
 			this.ref = sRef;
 			this.isChange = false;
 			this.isError = false;
 			this.isRest = false;
 		},
-		setChanges: function (isChange) {
+		setChanges: function(isChange) {
 			this.isChange = isChange;
 		},
-		getChanges: function () {
+		getChanges: function() {
 			return this.isChange;
 		},
 
-		onLiveChange: function (oEvent, reset) {
+		onLiveChange: function(oEvent, reset) {
 			this.isChange = true;
 			_fnChangeValidation(oEvent.getSource(), reset);
 		},
 
-		resetForm: function (oParentControl) {
+		resetForm: function(oParentControl) {
 			isRest = false;
 			isChange = false;
 			isError = false;
@@ -441,34 +525,34 @@ sap.ui.define([], function () {
 			return !isRest;
 		},
 
-		validateForm: function (oParentControl) {
+		validateForm: function(oParentControl) {
 			isError = false;
 			validForm(oParentControl);
 			return !isError;
 		},
-		createFilter: function (filters) {
+		createFilter: function(filters) {
 			var aFilter = [];
-			filters.filters.mult.forEach(function (oItem) {
+			filters.filters.mult.forEach(function(oItem) {
 				var oFilter = [];
-				oItem.vals1.forEach(function (val, index) {
+				oItem.vals1.forEach(function(val, index) {
 					oFilter.push(new sap.ui.model.Filter(oItem.key, oItem.op, val, oItem.vals2[index]));
 				});
 				if (oFilter.length > 0) {
 					aFilter.push(new sap.ui.model.Filter(oFilter, false));
 				}
 			});
-			filters.filters.sing.forEach(function (oItem) {
+			filters.filters.sing.forEach(function(oItem) {
 				aFilter.push(new sap.ui.model.Filter(oItem.key, oItem.op, oItem.val1, oItem.val2));
 			});
 			return aFilter;
 		},
 
-		resetFilter: function (filters) {
-			filters.filters.mult.forEach(function (oItem) {
+		resetFilter: function(filters) {
+			filters.filters.mult.forEach(function(oItem) {
 				oItem.vals1 = [];
 				oItem.vals2 = [];
 			});
-			filters.filters.sing.forEach(function (oItem) {
+			filters.filters.sing.forEach(function(oItem) {
 				oItem.val1 = "";
 				oItem.val2 = "";
 			});

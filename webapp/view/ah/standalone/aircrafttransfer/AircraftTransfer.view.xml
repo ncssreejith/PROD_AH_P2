@@ -19,7 +19,7 @@
 					</layoutData>
 				</VBox>
 			</l:Grid>
-			<Button class="sapUiSmallMargin btnheight" enabled="{= (${atModel>/header/ASTAT}==='AST_S'||${atModel>/header/ASTID}==='AST_US'||${atModel>/header/ASTID}==='AST_FAIR')?true:false}" press="onTransferAircraft" text="{= (${atModel>/header/ASTID}==='AST_REC')?${i18n>btnReceiveAC}:${i18n>btnTransferAC}}" type="Default"></Button>
+			<Button class="sapUiSmallMargin btnheight" enabled="{= (${atModel>/header/ASTAT}==='AST_S'||${atModel>/header/ASTAT}==='AST_US'||${atModel>/header/ASTAT}==='AST_FAIR')?true:false}" press="onTransferAircraft" text="{= (${atModel>/header/ASTID}==='AST_REC')?${i18n>btnReceiveAC}:${i18n>btnTransferAC}}" type="Default"></Button>
 		</HBox>
 		<VBox backgroundDesign="Solid" class="sapUiSmallMarginTop">
 			<Title text="Transfer History" class="sapUiSmallMarginBegin sapUiSmallMarginTop" level="H4" titleStyle="H4"/>
