@@ -251,15 +251,19 @@ sap.ui.define([
 		fnLoadSrv1Dashboard: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId();
+				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results.length && oData.results.length > 0) {
+						oData.results[0].txt3 = this.fnReplaceString(oData.results[0].txt3);
+						oData.results[0].txt2 = this.fnReplaceString(oData.results[0].txt2);
 						this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
 						var oDash = this.getModel("avmetModel").getProperty("/dash");
 						var oModel = this.getView().getModel("avmetModel");
 						oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
-						oModel.setProperty("/dash/TBTN3", !(this.fnCheckLockStatus(oDash.astid)));
+						if(this.fnOverwriteStatus(oDash.astid)){
+							oModel.setProperty("/dash/TBTN3", true);
+						}
 						oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
 						this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
 						this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
@@ -270,7 +274,7 @@ sap.ui.define([
 				}.bind(this);
 				avmet.ah.util.ajaxutil.ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
 			} catch (e) {
-				this.Log.error("Exception in fnLoadSrv1Dashboard function");
+				Log.error("Exception in fnLoadSrv1Dashboard function");
 			}
 		},
 		
@@ -516,6 +520,25 @@ sap.ui.define([
 			}
 		},
 		/** 
+		 * Check whether to unlock AVMET
+		 * @param sStatus
+		 * @returns
+		 */
+		fnOverwriteStatus: function(sStatus) {
+			try {
+				switch (sStatus) {
+					case "AST_FFF0":
+					case "AST_RFF0":
+						return true;
+					default:
+						return false;
+				}
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
+				this.handleException(e);
+			}
+		},
+		/** 
 		 *  Check whether to lock Jobs
 		 * @param sStatus
 		 * @returns
@@ -547,6 +570,20 @@ sap.ui.define([
 				this.getModel("avmetModel").setProperty("/WarningRightBtn", bFlag);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:_fnSetWarningMessage function");
+				this.handleException(e);
+			}
+		},
+		fnReplaceString: function(subTxt) {
+			try {
+				if (subTxt === undefined || subTxt === null) {
+					return;
+				}
+				var sReplaceText = this.getModel("avmetModel").getProperty("/login/air") +
+					" " + this.getModel("avmetModel").getProperty("/airSel/modidtx") +
+					" " + this.getModel("avmetModel").getProperty("/airSel/tailno");
+				return subTxt.replace("&AMT&", sReplaceText);
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:fnReplaceString function");
 				this.handleException(e);
 			}
 		},
