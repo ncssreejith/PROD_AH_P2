@@ -500,6 +500,10 @@ sap.ui.define([
 		fnCheckLockStatus: function(sStatus) {
 			try {
 				switch (sStatus) {
+					case "AST_FAIR":
+					case "AST_FAIR0":
+					case "AST_FAIR1":
+					case "AST_FAIR2":
 					case "AST_FFF":
 					case "AST_RFF":
 						return true;
