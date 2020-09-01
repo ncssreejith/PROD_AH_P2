@@ -92,6 +92,8 @@ sap.ui.define([
 				oRM.renderControl(aChildren[1]);
 				oRM.write("</span>");
 				oRM.write("</div>");
+				oRM.write("</div>");
+				oRM.write("</div>");
 			} else if (bSignOffFlag === "I") {
 				oRM.write("<div>");
 				oRM.write("<div class='IconHeaderFooterClockIMG'>");
@@ -100,9 +102,10 @@ sap.ui.define([
 				oRM.renderControl(oControl.getAggregation('_Icon'));
 				oRM.write("</span>");
 				oRM.write("</div>");
+				oRM.write("</div>");
+				oRM.write("</div>");
 			}
-			oRM.write("</div>");
-			oRM.write("</div>");
+
 			//get icon aggregation img (cornerFooterIMG)
 			oRM.write("</div>");
 		}
