@@ -498,11 +498,12 @@ sap.ui.define([
 						oData.results[0].txt3 = this.fnReplaceString(oData.results[0].txt3);
 						oData.results[0].txt2 = this.fnReplaceString(oData.results[0].txt2);
 						this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
-
 						var oModel = this.getView().getModel("avmetModel");
 						var oDash = oModel.getProperty("/dash");
 						oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
-						oModel.setProperty("/dash/TBTN3", !(this.fnCheckLockStatus(oDash.astid)));
+						if(this.fnOverwriteStatus(oDash.astid)){
+							oModel.setProperty("/dash/TBTN3", true);
+						}
 						oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
 						this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
 						this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
@@ -882,20 +883,7 @@ sap.ui.define([
 			}
 		},
 
-		fnReplaceString: function(subTxt) {
-			try {
-				if (subTxt === undefined || subTxt === null) {
-					return;
-				}
-				var sReplaceText = this.getModel("avmetModel").getProperty("/login/air") +
-					" " + this.getModel("avmetModel").getProperty("/airSel/modidtx") +
-					" " + this.getModel("avmetModel").getProperty("/airSel/tailno");
-				return subTxt.replace("&AMT&", sReplaceText);
-			} catch (e) {
-				this.Log.error("Exception in DashboardInitial:fnReplaceString function");
-				this.handleException(e);
-			}
-		},
+		
 
 		/**** 27/06/2020 Priya */
 		_setRadialChartText: function(sControlId, sText1, sText2, crt, ttl) {

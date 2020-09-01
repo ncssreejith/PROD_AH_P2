@@ -221,28 +221,28 @@ sap.ui.define([
 		//   2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
 
-		fnLoadSrv1Dashboard: function() {
-			try {
-				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId();
-				oParameter.error = function() {};
-				oParameter.success = function(oData) {
-					this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
-					var oDash = this.getModel("avmetModel").getProperty("/dash");
-					this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
-					this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
-					this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
-					// var oModel = this.getView().getModel("avmetModel");
-					// oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
-					// oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
-					this.getModel("menuModel").refresh();
-					this.getModel("avmetModel").refresh();
-				}.bind(this);
-				ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
-			} catch (e) {
-				Log.error("Exception in fnLoadSrv1Dashboard function");
-			}
-		},
+		// fnLoadSrv1Dashboard: function() {
+		// 	try {
+		// 		var oParameter = {};
+		// 		oParameter.filter = "tailid eq " + this.getTailId();
+		// 		oParameter.error = function() {};
+		// 		oParameter.success = function(oData) {
+		// 			this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
+		// 			var oDash = this.getModel("avmetModel").getProperty("/dash");
+		// 			this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
+		// 			this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
+		// 			this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
+		// 			// var oModel = this.getView().getModel("avmetModel");
+		// 			// oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
+		// 			// oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
+		// 			this.getModel("menuModel").refresh();
+		// 			this.getModel("avmetModel").refresh();
+		// 		}.bind(this);
+		// 		ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
+		// 	} catch (e) {
+		// 		Log.error("Exception in fnLoadSrv1Dashboard function");
+		// 	}
+		// },
 		/** 
 		 * AVMET unlock signoff
 		 */
@@ -260,8 +260,8 @@ sap.ui.define([
 					oDash.TBTN3 = true;
 					var oModel = this.getView().getModel("avmetModel");
 					oModel.setProperty("/UnlockAVMET", false);
-					this.getModel("avmetModel").refresh();
 					this.fnLoadSrv1Dashboard();
+					this.getModel("avmetModel").refresh();
 				}.bind(this);
 				var oModel = this.getView().getModel("avmetModel");
 				oModel.setProperty("/UnlockAVMET", true);
@@ -283,17 +283,17 @@ sap.ui.define([
 		_onObjectMatched: function() {
 			this.fnLoadInitialData();
 		},
-		fnSetMenuVisible: function(oFlag, fnCallBack) {
-			var aMenu = this.getModel("menuModel").getData();
-			var oFound = {};
-			if (oFlag === "X") {
-				oFound = aMenu.find(fnCallBack);
-				oFound.visible = true;
-			} else {
-				oFound = aMenu.find(fnCallBack);
-				oFound.visible = false;
-			}
-		},
+		// fnSetMenuVisible: function(oFlag, fnCallBack) {
+		// 	var aMenu = this.getModel("menuModel").getData();
+		// 	var oFound = {};
+		// 	if (oFlag === "X") {
+		// 		oFound = aMenu.find(fnCallBack);
+		// 		oFound.visible = true;
+		// 	} else {
+		// 		oFound = aMenu.find(fnCallBack);
+		// 		oFound.visible = false;
+		// 	}
+		// },
 		fnLoadInitialData: function() {
 			this.fnLoadSrv1Dashboard();
 			this.fnLoadUtilization();

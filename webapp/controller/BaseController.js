@@ -248,6 +248,9 @@ sap.ui.define([
 			}
 			this._fnRenderImage(sImagePath, sCanvasName);
 		},
+		/** 
+		 * Load dashboard data
+		 */
 		fnLoadSrv1Dashboard: function() {
 			try {
 				var oParameter = {};
@@ -515,7 +518,7 @@ sap.ui.define([
 						return false;
 				}
 			} catch (e) {
-				this.Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
+				Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
 				this.handleException(e);
 			}
 		},
@@ -534,7 +537,7 @@ sap.ui.define([
 						return false;
 				}
 			} catch (e) {
-				this.Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
+				Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
 				this.handleException(e);
 			}
 		},
@@ -555,7 +558,7 @@ sap.ui.define([
 						return false;
 				}
 			} catch (e) {
-				this.Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
+				Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
 				this.handleException(e);
 			}
 		},
@@ -569,7 +572,7 @@ sap.ui.define([
 				var bFlag = aData.length > 1 ? true : false;
 				this.getModel("avmetModel").setProperty("/WarningRightBtn", bFlag);
 			} catch (e) {
-				this.Log.error("Exception in DashboardInitial:_fnSetWarningMessage function");
+				Log.error("Exception in DashboardInitial:_fnSetWarningMessage function");
 				this.handleException(e);
 			}
 		},
@@ -583,7 +586,7 @@ sap.ui.define([
 					" " + this.getModel("avmetModel").getProperty("/airSel/tailno");
 				return subTxt.replace("&AMT&", sReplaceText);
 			} catch (e) {
-				this.Log.error("Exception in DashboardInitial:fnReplaceString function");
+				Log.error("Exception in DashboardInitial:fnReplaceString function");
 				this.handleException(e);
 			}
 		},
