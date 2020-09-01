@@ -272,7 +272,7 @@ sap.ui.define([
 						this.getModel("avmetModel").refresh();
 					}
 				}.bind(this);
-				avmet.ah.util.ajaxutil.ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
+				avmet.ah.util.ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadSrv1Dashboard function");
 			}
