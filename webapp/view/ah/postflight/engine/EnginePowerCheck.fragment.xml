@@ -69,12 +69,12 @@
 						<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?false:true}">
 							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 								<Label text="Upper Limit" design="Bold"/>
-								<StepInput width="150px"  editable="false" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>ulimit}" id="upperLimitId" fieldGroupIds="fgStepInput"
+								<StepInput width="150px"  editable="{= ${oPilotUpdatesViewModel>chkrn}==='3'?true:false}" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>ulimit}" id="upperLimitId" fieldGroupIds="fgStepInput"
 									required="true"/>
 							</VBox>
 							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 								<Label text="Lower Limit" design="Bold"/>
-								<StepInput width="150px" editable="false" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>llimit}" id="lowerLimitId" fieldGroupIds="fgStepInput"
+								<StepInput width="150px" editable="{= ${oPilotUpdatesViewModel>chkrn}==='3'?true:false}" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>llimit}" id="lowerLimitId" fieldGroupIds="fgStepInput"
 									required="true"/>
 							</VBox>
 						</HBox>
