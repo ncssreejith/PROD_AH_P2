@@ -140,12 +140,13 @@ sap.ui.define([
 						sText = new sap.m.Input({
 							value: "{" + oDataModel + ">" + oItem.colid + "}",
 							maxLength: 20,
-							fieldGroupIds: ["fgDesc"],
+							fieldGroupIds: ["fgSignedDecimal"],
 							// required: true,
 							// valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
-							liveChange: function(oEvent) {
-								cvUtil.onLiveChange(oEvent, false);
-							}
+							liveChange: that.onChange
+							// function(oEvent) {
+							// 	cvUtil.onLiveChange(oEvent, false);
+							// }
 						});
 					}
 					// if (oItem && oItem.coltxt && (oItem.coltxt === "Updated By" || oItem.coltxt === "Date")) {
@@ -174,6 +175,7 @@ sap.ui.define([
 				// var oItem = oSource.getBindingContext("oWDNSDataModel").getObject();
 				// oItem.editFlag = "X";
 				this.getModel("oWDNSModel").setProperty("/isChange", true);
+				cvUtil.onLiveChange(oEvent, false);
 				this.getModel("oWDNSModel").refresh();
 			} catch (e) {
 				Log.error("Exception in UpdateWDNSView:onChange function");
@@ -202,17 +204,23 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.activity = 2;
 				var sClmPath = "harmo";
-				this.getModel(oDataModel).getProperty("/" + sClmPath).forEach(function(oItem) {
-					var oPayload = {};
-					oPayload = oItem;
-					oData.push(oPayload);
-				});
+				if (this.getView().getModel(oModel).getProperty("/isChange")) {
+					this.getModel(oDataModel).getProperty("/" + sClmPath).forEach(function(oItem) {
+						var oPayload = {};
+						oPayload = oItem;
+						oData.push(oPayload);
+					});
+				}
 				oParameter.error = function() {};
 				oParameter.success = function(oRespond) {
 					sap.m.MessageToast.show("Tables updated");
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_C", this);
+				if (oData.length > 0) {
+					ajaxutil.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_C", this);
+				} else {
+					sap.m.MessageToast.show("No table are changed");
+				}
 			} catch (e) {
 				Log.error("Exception in UpdateWDNSView:fnSubmitSignOff function");
 				this.handleException(e);

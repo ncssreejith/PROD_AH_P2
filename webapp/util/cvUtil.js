@@ -47,11 +47,11 @@ sap.ui.define([], function() {
 
 	function _fnValidateSigned(value, minValue, maxValue, sLabel) {
 		// Check for numeric only  // ^-?[0-9]\d*(\.\d+)?$
-		if (!value.match("^-?[0-9]+$")) {
+		if (!value.match("^[-+]?[0-9]+$")) {
 			return sLabel + " number must be numeric only";
 		}
 		// Check for length
-		if (!value.match("^-?[0-9]{" + minValue + "," + maxValue + "}$")) {
+		if (!value.match("^[-+]?[0-9]{" + minValue + "," + maxValue + "}$")) {
 			if (minValue === maxValue && value.length < maxValue) {
 				return sLabel + " number must be " + maxValue + " digit.";
 			}
@@ -75,7 +75,7 @@ sap.ui.define([], function() {
 	function _fnValidateSignedDecimal(value, minValue, maxValue, sLabel, sScale) {
 		// ^-?[0-9]\d*(\.\d+)?$
 
-		var sRegex = new RegExp("^-?\\d{1," + (maxValue - sScale) + "}(\\.\\d{1," + sScale + "})?$");
+		var sRegex = new RegExp("^[-+]?\\d{1," + (maxValue - sScale) + "}(\\.\\d{1," + sScale + "})?$");
 		if (!value.match(sRegex)) {
 			return sLabel + " should be " + ("0".repeat(maxValue - sScale) + "." + "0".repeat(sScale) + " format.");
 		}
@@ -401,8 +401,9 @@ sap.ui.define([], function() {
 			sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
 		}
 		var sMsg = "";
-
+		//Not required and empty field
 		if (!isRequired && value === "") {
+			_fnUpdateValueState(oControl, sMsg);
 			return false;
 		}
 		if (isRequired && value === "") {
