@@ -3,6 +3,15 @@
 	<VBox backgroundDesign="Solid" width="100%" alignItems="Center">
 		<FlexBox class="sapUiSmallMarginTopBottom">
 			<VBox>
+				<VBox visible="{= !!${oEngineModel>/displayPowerLineChart}}" class="vboxChart sapUiLargeMargin" width="850px">
+					<Link text="view table" press="onPowerCheckPress"/>
+					<!--<Label text="HIT Chart" design="Bold"/>-->
+					<lab:LineChartJS datasets="{engine2Chart>/lineChart/datasets}" labels="{engine2Chart>/lineChart/labels}"
+					options="{engine2Chart>/lineChart/options}"
+						titleDisplay="true" titleText="HIT Chart" onLegendItemClick="onLegendItemClick" onLegendItemHover="onLegendItemHover"
+						onClick="onClick" onHover="onHover" tooltipEnabled="true" onAnimationProgress="onAnimationProgress"
+						onAnimationComplete="onAnimationComplete" showLines="true" spanGaps="true"></lab:LineChartJS>
+				</VBox>
 				<HBox>
 					<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 						growingScrollToLoad="false" items="{ path: 'oEngineModel>/EngPowerCheck2', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="{i18n>noDataHitTable}" showNoData="true">
@@ -69,9 +78,31 @@
 									<Text text="{oEngineModel>TQACT}"/>
 									<Text text="{oEngineModel>NP}"/>
 									<Text text="{oEngineModel>ULIMIT}"/>
-									<Text text="{oEngineModel>AmbTemp}"/>
+									<HBox>
+										<core:Icon src="sap-icon://accept" color="#00FF00" visible="{= !${oEngineModel>ULimitFlag}}">
+											<core:layoutData>
+												<FlexItemData growFactor="1"/>
+											</core:layoutData>
+										</core:Icon>
+										<core:Icon src="sap-icon://negative" color="#FF0000" visible="{= !!${oEngineModel>ULimitFlag}}">
+											<core:layoutData>
+												<FlexItemData growFactor="1"/>
+											</core:layoutData>
+										</core:Icon>
+									</HBox>
 									<Text text="{oEngineModel>LLIMIT}"/>
-									<Text text="{oEngineModel>AmbTemp}"/>
+									<HBox>
+										<core:Icon src="sap-icon://accept" color="#00FF00" visible="{= !${oEngineModel>LLimitFlag}}">
+											<core:layoutData>
+												<FlexItemData growFactor="1"/>
+											</core:layoutData>
+										</core:Icon>
+										<core:Icon src="sap-icon://negative" color="#FF0000" visible="{= !!${oEngineModel>LLimitFlag}}">
+											<core:layoutData>
+												<FlexItemData growFactor="1"/>
+											</core:layoutData>
+										</core:Icon>
+									</HBox>
 								</cells>
 							</ColumnListItem>
 						</items>
@@ -79,20 +110,6 @@
 							<FlexItemData growFactor="2" baseSize="0" minWidth="70%" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
 						</layoutData>
 					</Table>
-					<VBox visible="{= !!${oEngineModel>/displayPowerLineChart}}" alignItems="Center" class="vboxChart sapUiMediumMarginTop dimensionClass">
-						<!--<HBox width="100%">-->
-						<!--<HBox width="20%"></HBox>-->
-	
-						<Link text="view table" press="onPowerCheckPress"/>
-						<Label text="HIT Chart" design="Bold"/>
-						<lab:LineChartJS datasets="{temp>/lineChart/datasets}" labels="{temp>/lineChart/labels}" titleDisplay="false"
-							titleText="Replenishment Frequency" onLegendItemClick="onLegendItemClick" onLegendItemHover="onLegendItemHover" onClick="onClick"
-							onHover="onHover" tooltipEnabled="true" class="dimensionClass" onAnimationProgress="onAnimationProgress"
-							onAnimationComplete="onAnimationComplete" showLines="true" spanGaps="true"></lab:LineChartJS>
-						<core:HTML content="&lt;canvas id=&quot;myChart1&quot; &gt;&lt;/canvas&gt;"></core:HTML>
-	
-						<!--</HBox>-->
-					</VBox>
 				</HBox>
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 					growingScrollToLoad="false" items="{ path: 'oEngineModel>/EngPowerCheck2', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="No Re-stablish Records" showNoData="true">

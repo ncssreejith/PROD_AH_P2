@@ -3,9 +3,17 @@
 	<VBox backgroundDesign="Solid" width="100%" alignItems="Center">
 		<FlexBox class="sapUiSmallMarginTopBottom">
 			<VBox>
+				<VBox visible="{= !!${oEngineModel>/displayPowerLineChart}}" class="vboxChart sapUiLargeMargin" width="850px">
+					<Link text="view table" press="onPowerCheckPress"/>
+					<!--<Label text="HIT Chart" design="Bold"/>-->
+					<lab:LineChartJS datasets="{engine1Chart>/lineChart/datasets}" labels="{engine1Chart>/lineChart/labels}"
+						options="{engine1Chart>/lineChart/options}" titleDisplay="true" titleText="HIT Chart" onLegendItemClick="onLegendItemClick"
+						onLegendItemHover="onLegendItemHover" onClick="onClick" onHover="onHover" tooltipEnabled="true" onAnimationProgress="onAnimationProgress"
+						onAnimationComplete="onAnimationComplete" showLines="true" spanGaps="true"></lab:LineChartJS>
+				</VBox>
 				<HBox>
-					<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
-						growingScrollToLoad="false"
+					<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"
+						growing="true" growingThreshold="5" growingScrollToLoad="false"
 						items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}"
 						noDataText="{i18n>noDataHitTable}" showNoData="true">
 						<headerToolbar>
@@ -71,9 +79,33 @@
 									<Text text="{oEngineModel>TQACT}"/>
 									<Text text="{oEngineModel>NP}"/>
 									<Text text="{oEngineModel>ULIMIT}"/>
-									<Text text="{oEngineModel>AmbTemp}"/>
+									<HBox>
+										<core:Icon src="sap-icon://accept" color="#00FF00" visible="{= !${oEngineModel>ULimitFlag}}">
+											<core:layoutData>
+												<FlexItemData growFactor="1"/>
+											</core:layoutData>
+										</core:Icon>
+										<core:Icon src="sap-icon://negative" color="#FF0000" visible="{= !!${oEngineModel>ULimitFlag}}">
+											<core:layoutData>
+												<FlexItemData growFactor="1"/>
+											</core:layoutData>
+										</core:Icon>
+									</HBox>
+									<!--<Text text="{oEngineModel>AmbTemp}"/>-->
 									<Text text="{oEngineModel>LLIMIT}"/>
-									<Text text="{oEngineModel>AmbTemp}"/>
+									<HBox>
+										<core:Icon src="sap-icon://accept" color="#00FF00" visible="{= !${oEngineModel>LLimitFlag}}">
+											<core:layoutData>
+												<FlexItemData growFactor="1"/>
+											</core:layoutData>
+										</core:Icon>
+										<core:Icon src="sap-icon://negative" color="#FF0000" visible="{= !!${oEngineModel>LLimitFlag}}">
+											<core:layoutData>
+												<FlexItemData growFactor="1"/>
+											</core:layoutData>
+										</core:Icon>
+									</HBox>
+									<!--<Text text="{oEngineModel>AmbTemp}"/>-->
 								</cells>
 							</ColumnListItem>
 						</items>
@@ -81,20 +113,20 @@
 							<FlexItemData growFactor="2" baseSize="0" minWidth="70%" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
 						</layoutData>
 					</Table>
-					<VBox visible="{= !!${oEngineModel>/displayPowerLineChart}}" alignItems="Center" class="vboxChart sapUiMediumMarginTop dimensionClass">
-						<!--<HBox width="100%">-->
-						<!--<HBox width="20%"></HBox>-->
-	
-						<Link text="view table" press="onPowerCheckPress"/>
-						<Label text="HIT Chart" design="Bold"/>
-						<lab:LineChartJS datasets="{temp>/lineChart/datasets}" labels="{temp>/lineChart/labels}" titleDisplay="false"
-							titleText="Replenishment Frequency" onLegendItemClick="onLegendItemClick" onLegendItemHover="onLegendItemHover" onClick="onClick"
-							onHover="onHover" tooltipEnabled="true" class="dimensionClass" onAnimationProgress="onAnimationProgress"
-							onAnimationComplete="onAnimationComplete" showLines="true" spanGaps="true"></lab:LineChartJS>
-						<core:HTML content="&lt;canvas id=&quot;myChart1&quot; &gt;&lt;/canvas&gt;"></core:HTML>
-	
-						<!--</HBox>-->
-					</VBox>
+					<!--<VBox>-->
+					<!--</VBox>	-->
+					<!--<VBox visible="{= !!${oEngineModel>/displayPowerLineChart}}" alignItems="Center" width="800px" class="vboxChart sapUiMediumMarginTop">-->
+					<!--<HBox width="100%">-->
+					<!--<HBox width="20%"></HBox>-->
+					<!--	<Link text="view table" press="onPowerCheckPress"/>-->
+					<!--	<Label text="HIT Chart" design="Bold"/>-->
+					<!--	<lab:LineChartJS datasets="{temp>/lineChart/datasets}" width="500" height="500" labels="{temp>/lineChart/labels}" titleDisplay="false"-->
+					<!--		titleText="Replenishment Frequency" onLegendItemClick="onLegendItemClick" onLegendItemHover="onLegendItemHover" onClick="onClick"-->
+					<!--		onHover="onHover" tooltipEnabled="true" onAnimationProgress="onAnimationProgress"-->
+					<!--		onAnimationComplete="onAnimationComplete" showLines="true" spanGaps="true"></lab:LineChartJS>-->
+					<!--<core:HTML content="&lt;canvas id=&quot;myChart1&quot; width=&quot;500px&quot; &gt;&lt;/canvas&gt;"></core:HTML>-->
+					<!--</HBox>-->
+					<!--</VBox>-->
 				</HBox>
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 					growingScrollToLoad="false"

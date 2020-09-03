@@ -90,7 +90,7 @@ sap.ui.define([
 				// }).then(function(oPopover) {
 				// 	this._oPopoverEdit = oPopover;
 				// 	this.getView().addDependent(this._oPopoverEdit);
-				// 	this._oPopoverEdit.setModel(this.getModel("temp"));
+				// 	this._oPopoverEdit.setModel(this.getModel("engine1Chart"));
 				// 	this._oPopoverEdit.openBy(source);
 				// }.bind(this));
 			} catch (e) {
@@ -195,12 +195,13 @@ sap.ui.define([
 		 */
 		_onObjectMatched: function(oEvent) {
 			try {
-				var oModel = dataUtil.createJsonModel({
-					lineChart: {}
-				});
+
 				var that = this;
 				that.getView().setModel(new JSONModel({}), "oViewModel");
-				this.getView().setModel(oModel, "temp");
+				// var oModel = dataUtil.createJsonModel({
+				// 	lineChart: {}
+				// });
+				// this.getView().setModel(oModel, "engine1Chart");
 
 				var oEngineModel = dataUtil.createJsonModel({
 					EngCyclicLife: [],
@@ -236,12 +237,12 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length > 0) {
-						oData.results.forEach(function(oItem){
-						oEngineModel.setProperty("/"+(oItem.ENGNO==="2"?"header2Details":"headerDetails"), oItem);
-						this._getEngPowerCheck(oItem.ENGID, oItem.ENGNO);
-						this._getEngineOilRepl(oItem.ENGID, oItem.ENGNO);
-						this._getEngCyclicLife(oItem.ENGID, oItem.ENGNO);
-						this._getEngScheule();
+						oData.results.forEach(function(oItem) {
+							oEngineModel.setProperty("/" + (oItem.ENGNO === "2" ? "header2Details" : "headerDetails"), oItem);
+							this._getEngPowerCheck(oItem.ENGID, oItem.ENGNO);
+							this._getEngineOilRepl(oItem.ENGID, oItem.ENGNO);
+							this._getEngCyclicLife(oItem.ENGID, oItem.ENGNO);
+							this._getEngScheule();
 
 						}.bind(this));
 
@@ -287,11 +288,11 @@ sap.ui.define([
 						if (oData) {
 							if (iEngine === "1") {
 								oEngineModel.setProperty("/EngPowerCheck", oData.results);
-								this._setData();
+								this._setData(iEngine);
 								// oEngineModel.setProperty("/soapTableData", oData.results);
 							} else {
 								oEngineModel.setProperty("/EngPowerCheck2", oData.results);
-								this._setData();
+								this._setData(iEngine);
 								// oEngineModel.setProperty("/soapTableData2", oData.results);
 							}
 						}
@@ -409,20 +410,42 @@ sap.ui.define([
 		//-------------------------------------------------------------
 
 		//2.Data for the chart 
-		_setData: function() {
+		_setData: function(iEngine) {
 			try {
 				var oEngineModel = this.getView().getModel("oEngineModel");
-				var aEngPowerCheck = oEngineModel.getProperty("/EngPowerCheck");
+				var aEngPowerCheck = {};
+				if (iEngine === "1") {
+					aEngPowerCheck = oEngineModel.getProperty("/EngPowerCheck");
+				} else {
+					aEngPowerCheck = oEngineModel.getProperty("/EngPowerCheck2");
+				}
 				var aLowerLimit = [];
 				var aUpperLimit = [];
 				var aDataPoints = [];
+				var aRedPoints = [];
 				aEngPowerCheck.forEach(function(oItem) {
+					var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
+					var iLLimit = parseInt(oItem.LLIMIT ? oItem.LLIMIT : 0) + 5;
+					var iDiff = parseInt(oItem.TGTDIFF);
+					if (iDiff >= iULimit) {
+						oItem.ULimitFlag = true;
+						aRedPoints.push(iDiff);
+						aDataPoints.push(NaN);
+					}
+					else if (iDiff <= iLLimit) {
+						oItem.LLimitFlag = true;
+						aRedPoints.push(iDiff);
+						aDataPoints.push(NaN);
+					} else {
+						aDataPoints.push(iDiff);
+						aRedPoints.push(NaN);
+					}
 					aLowerLimit.push(oItem.LLIMIT);
 					aUpperLimit.push(oItem.ULIMIT);
-					aDataPoints.push(oItem.TGTIND);
 				});
 
 				var oModel, lineChartData = {
+					// width:500,
 					labels: ["", "", "", "", ""],
 					datasets: [{
 						label: "Last 5 Sorties",
@@ -441,11 +464,20 @@ sap.ui.define([
 						pointHoverBackgroundColor: "rgba(75,192,192,1)",
 						pointHoverBorderColor: "rgba(220,220,220,1)",
 						pointHoverBorderWidth: 2,
-						pointRadius: 4,
+						pointRadius: 10,
 						pointStyle: 'circle',
 						pointHitRadius: 5,
 						data: aDataPoints, //[-3.5, 5, 16, 8.5, 12.5],
-						spanGaps: false
+						spanGaps: false,
+						showLine: false
+					}, {
+						data: aRedPoints, //[20, 20, 20, 20, 20],
+						label: "Out",
+						borderColor: "red",
+						fill: false,
+						pointRadius: 10,
+						pointStyle: "crossRot",
+						showLine: false
 					}, {
 						data: aUpperLimit, //[20, 20, 20, 20, 20],
 						label: "Upper Limit",
@@ -456,11 +488,36 @@ sap.ui.define([
 						label: "Lower Limit",
 						borderColor: "blue",
 						fill: false
-					}]
+					}],
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero: true
+								}
+							}]
+						},
+						layout: {
+							padding: {
+								left: 150,
+								right: 150,
+								top: 150,
+								bottom: 150
+							}
+						}
+					}
 
 				};
-				oModel = this.getView().getModel("temp");
-				oModel.setProperty("/lineChart", lineChartData);
+				oModel = dataUtil.createJsonModel({
+					lineChart: lineChartData
+				});
+				// this.getView().getModel("engine1Chart");
+				// oModel.setProperty("/lineChart", lineChartData);
+				if (iEngine === "1") {
+					this.getView().setModel(oModel, "engine1Chart");
+				} else {
+					this.getView().setModel(oModel, "engine2Chart");
+				}
 				oModel.refresh();
 				// this.getView().byId("line_chart").invalidate();
 			} catch (e) {
@@ -485,6 +542,8 @@ sap.ui.define([
 				engDetailText = this.getView().byId(engDetailKey).getProperty("text");
 				id2 = this.getView().byId(engDetailKey).getContent()[0].getId();
 			}
+
+			//oCanvase.style.width = ""
 			tabName = engText + " - " + engDetailText;
 			var html = "<html><body><div  style='width:95%;'>";
 			html += "<div style='padding-left:3rem; padding-top:1rem;'>" + engText + "</div>";
