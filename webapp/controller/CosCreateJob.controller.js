@@ -119,15 +119,27 @@ sap.ui.define([
 				switch (oModel.SelectedKey) {
 					case "DEA_T":
 						oAppModel = oModel.Top;
+						oModel.Front = [];
+						oModel.Left = [];
+						oModel.Right = [];
 						break;
 					case "DEA_F":
 						oAppModel = oModel.Front;
+						oModel.Top = [];
+						oModel.Left = [];
+						oModel.Right = [];
 						break;
 					case "DEA_l":
 						oAppModel = oModel.Left;
+						oModel.Top = [];
+						oModel.Front = [];
+						oModel.Right = [];
 						break;
 					case "DEA_R":
 						oAppModel = oModel.Right;
+						oModel.Top = [];
+						oModel.Front = [];
+						oModel.Left = [];
 						break;
 				}
 				var ctx = oCanvas.getContext("2d");
@@ -233,6 +245,7 @@ sap.ui.define([
 				sRootPath = jQuery.sap.getModulePath("avmet.ah");
 				oSegmentedButton = this.byId("sbDfArea");
 				var oAppModel = that.getView().getModel("appModel");
+				var sType = "Top";
 				if (sKey !== undefined) {
 					oSelectedItemId = sKey;
 				} else {
@@ -241,7 +254,7 @@ sap.ui.define([
 				oModel.setProperty("/deadid", oSelectedItemId);
 				oCanvas = document.getElementById("myCanvasTopDefect");
 
-				that._fnRestMarkArea();
+				//that._fnRestMarkArea();
 				that.removeCoordinates(oAppModel.getProperty("/XCor"), oAppModel.getProperty("/YCor"), oCanvas);
 
 				switch (oSelectedItemId) {
@@ -250,29 +263,38 @@ sap.ui.define([
 						oSegmentedButton.setSelectedKey(sKey);
 						this.getView().byId("topId").setVisible(true);
 						oAppModel.setProperty("/SelectedKey", oSelectedItemId);
+						sType = "Top";
 						break;
 					case "DEA_F":
 						sImagePath = sRootPath + "/css/img/AH/AH-Front.png";
 						this.getView().byId("topId").setVisible(true);
 						oAppModel.setProperty("/SelectedKey", oSelectedItemId);
+						sType = "Front";
 						break;
 					case "DEA_l":
 						sImagePath = sRootPath + "/css/img/AH/AH-Left.png";
 						this.getView().byId("topId").setVisible(true);
 						oAppModel.setProperty("/SelectedKey", oSelectedItemId);
+						sType = "Left";
 						break;
 					case "DEA_R":
 						sImagePath = sRootPath + "/css/img/AH/AH-Right.png";
 						this.getView().byId("topId").setVisible(true);
 						oAppModel.setProperty("/SelectedKey", oSelectedItemId);
+						sType = "Right";
 						break;
 				}
+
 				if (oAppModel.getProperty("/oFlagEdit")) {
 					that.onRefersh();
 				}
 				setTimeout(function demo() {
 					that._fnRenderImage(sImagePath, oCanvas);
 				}, 500);
+				var coordinates = oAppModel.getProperty("/" + sType);
+				if (coordinates && coordinates.length > 0) {
+					that.drawCoordinates(coordinates[0].xaxis, coordinates[0].yaxis);
+				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onSelectionDefectAreaChange function");
 				this.handleException(e);
