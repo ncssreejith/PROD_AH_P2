@@ -423,23 +423,27 @@ sap.ui.define([
 				var aUpperLimit = [];
 				var aDataPoints = [];
 				var aRedPoints = [];
+				var aLDashPoints = [];
+				var aUDashPoints = [];
 				aEngPowerCheck.forEach(function(oItem) {
 					var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
 					var iLLimit = parseInt(oItem.LLIMIT ? oItem.LLIMIT : 0) + 5;
 					var iDiff = parseInt(oItem.TGTDIFF);
-					if (iDiff >= iULimit) {
+					if (iDiff > iULimit) {
 						oItem.ULimitFlag = true;
 						aRedPoints.push(iDiff);
-						aDataPoints.push(NaN);
+						aDataPoints.push(iDiff);
 					}
-					else if (iDiff <= iLLimit) {
+					else if (iDiff < iLLimit) {
 						oItem.LLimitFlag = true;
 						aRedPoints.push(iDiff);
-						aDataPoints.push(NaN);
+						aDataPoints.push(iDiff);
 					} else {
 						aDataPoints.push(iDiff);
 						aRedPoints.push(NaN);
 					}
+					aLDashPoints.push(iLLimit);
+					aUDashPoints.push(iULimit);
 					aLowerLimit.push(oItem.LLIMIT);
 					aUpperLimit.push(oItem.ULIMIT);
 				});
@@ -448,7 +452,7 @@ sap.ui.define([
 					// width:500,
 					labels: ["", "", "", "", ""],
 					datasets: [{
-						label: "Last 5 Sorties",
+						label: "Diff TGT",
 						fill: false,
 						lineTension: 0.1,
 						backgroundColor: "rgba(75,192,192,0.4)",
@@ -470,24 +474,38 @@ sap.ui.define([
 						data: aDataPoints, //[-3.5, 5, 16, 8.5, 12.5],
 						spanGaps: false,
 						showLine: false
-					}, {
-						data: aRedPoints, //[20, 20, 20, 20, 20],
-						label: "Out",
-						borderColor: "red",
-						fill: false,
-						pointRadius: 10,
-						pointStyle: "crossRot",
-						showLine: false
-					}, {
+					},
+					// {
+					// 	data: aRedPoints, //[20, 20, 20, 20, 20],
+					// 	label: "Out",
+					// 	borderColor: "red",
+					// 	fill: false,
+					// 	pointRadius: 10,
+					// 	pointStyle: "crossRot",
+					// 	showLine: false
+					// }, 
+					{
 						data: aUpperLimit, //[20, 20, 20, 20, 20],
 						label: "Upper Limit",
-						borderColor: "pink",
+						borderColor: "red",
 						fill: false
 					}, {
 						data: aLowerLimit, //[-15, -15, -15, -15, -15],
 						label: "Lower Limit",
 						borderColor: "blue",
 						fill: false
+					}, {
+						data: aLDashPoints, //[20, 20, 20, 20, 20],
+						label: "Limit",
+						borderColor: "red",
+						fill: false,
+						borderDash: [5,10]
+					}, {
+						data: aUDashPoints, //[20, 20, 20, 20, 20],
+						label: "",
+						borderColor: "red",
+						fill: false,
+						borderDash: [5,10]
 					}],
 					options: {
 						scales: {

@@ -12,7 +12,7 @@
 				</HBox>
 				<HBox class="bgColorWhite sapUiSmallMarginTop">
 					<Title text="{i18n>lbQtyAdded}" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-					<StepInput width="250px" value="{oAddEngCycLogModel>/SRVAMT}"/>
+					<StepInput width="250px" min="0" value="{oAddEngCycLogModel>/SRVAMT}"/>
 				</HBox>
 			</VBox>
 		</content>
