@@ -108,6 +108,9 @@ sap.ui.define([
 					"/harmotabId") + " and otype eq D";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
+					// if(oData.results) {
+					// 	oData.results.forEach(function(oItem))
+					// }
 					this.getModel("oWDNSDataModel").setProperty("/harmo", oData.results);
 					this.getModel("oWDNSDataModel").refresh();
 				}.bind(this);
@@ -138,16 +141,16 @@ sap.ui.define([
 					});
 
 					if (oItem.edtb === "X") {
-						// if (oItem.colid === "COL_15") {
-						// 	oCells.push(sText);
-						// 	console.log(oItem);
-						// 	return;
-						// }
+
+						var sEditProp = {};
+						sEditProp.path = oDataModel + ">" + oItem.colid;
+						sEditProp.formatter = this.formatter.fnEditableCol;
+
 						sText = new sap.m.Input({
 							value: "{" + oDataModel + ">" + oItem.colid + "}",
 							maxLength: 20,
 							fieldGroupIds: ["fgSignedDecimal"],
-							editable: "{path:'" + oDataModel + ">colid', formatter:'.formatter.fnEditableCol'}",
+							editable: (oItem.colid === "COL_15") ? sEditProp : true,
 							// required: true,
 							// valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
 							liveChange: that.onChange
@@ -161,7 +164,7 @@ sap.ui.define([
 					// }
 
 					oCells.push(sText);
-				});
+				}.bind(this));
 				if (oCells.length === 0) {
 					tblRef.setVisible(false);
 				}
@@ -176,9 +179,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnEditable: function(iColId){
-			var that = this;
-		},
+
 		onChange: function(oEvent) {
 			try {
 				// var oSource = oEvent.getSource();

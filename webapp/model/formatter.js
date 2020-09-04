@@ -1074,8 +1074,13 @@ sap.ui.define([
 		},
 		//////////////////////********************    PRIYA - ENDS   *****************************///////////////
 		fnEditableCol: function(iColId) {
-			var that = this;
-			return true;
+			var bEditable = true;
+			var oRow = this.getBindingContext("oWDNSDataModel").getObject();
+			// iColId === oRow.COL_15 &&
+			if( oRow.COL_12 === "GUN DH"){
+				bEditable = false;
+			}
+			return bEditable;
 		},
 
 		intFormat: function(sValue) {

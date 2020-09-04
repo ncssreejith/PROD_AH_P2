@@ -128,7 +128,7 @@ sap.ui.define([
 					if (oItem.edtb === "X") {
 						sText = new sap.m.Input({
 							value: "{" + oDataModel + ">" + oItem.colid + "}",
-							fieldGroupIds: ["fgNString"],
+							fieldGroupIds: ["fgInput"],
 							maxLength: 20,
 							required: true,
 							// valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
