@@ -483,6 +483,17 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		/** 
+		 * Show warning message
+		 */
+		handleLinkPress: function() {
+			try {
+				sap.m.MessageBox.alert(this.getModel("avmetModel").getProperty("/WarningIndexText"));
+			} catch (e) {
+				this.Log.error("Exception in handleLinkPress function");
+				this.handleException(e);
+			}
+		},
 
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
@@ -522,6 +533,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
 			} catch (e) {
 				this.Log.error("Exception in fnLoadSrv1Dashboard function");
+				this.handleException(e);
 			}
 		},
 		// ***************************************************************************
