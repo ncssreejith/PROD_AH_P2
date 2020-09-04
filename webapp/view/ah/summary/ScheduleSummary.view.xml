@@ -2,7 +2,7 @@
 	xmlns:core="sap.ui.core">
 	<Page showHeader="false">
 		<Toolbar id="tbId" height="4rem" class="backgroundWhite">
-			<Button icon="sap-icon://arrow-left" type="Transparent" class="iconColorWhite sapUiMediumMarginBegin" press="onNavBack"></Button>
+			<Button icon="sap-icon://arrow-left" type="Transparent" class="iconColorWhite sapUiMediumMarginBegin" press="onNavBack($event, 'DashboardInitial')"></Button>
 			<VBox >
 				<Title text="{SummaryModel>/JOBDESC}" class="titleTextBoldToolbar sapUiTinyMarginTop"></Title>
 			</VBox>

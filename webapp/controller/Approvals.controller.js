@@ -42,66 +42,67 @@ sap.ui.define([
 				} catch (e) {
 					oData = this.getView().byId("lstMasterApprovals").getSelectedContexts()[0].getObject();
 				}
-				this.Obj = oData;
-				oModel.setProperty("/flag", oData.flag);
-				oModel.setProperty("/dialogTitle", oData.text);
-				oModel.setProperty("/btnText", "Edit");
-				switch (oData.flag) {
-					case "B":
-						oModel.setProperty("/text", oData.text);
-						oModel.setProperty("/Capid", oData.id);
-						oModel.setProperty("/description", oData.description);
-						oModel.setProperty("/flag", oData.flag);
-						oModel.setProperty("/successText", "This ADD with Limitation is approved");
-						this._fnApprovalDetailsRequestGet(oData.id);
-						this._fnCAPDataGet("O", oData.jobid, oData.id);
-						break;
-					case "L":
-						oModel.setProperty("/text", oData.text);
-						oModel.setProperty("/Capid", oData.id);
-						oModel.setProperty("/description", oData.description);
-						oModel.setProperty("/flag", oData.flag);
-						oModel.setProperty("/successText", "This Limitation is approved");
-						this._fnApprovalDetailsRequestGet(oData.id);
-						this._fnCAPDataGet("O", oData.jobid, oData.id);
-						break;
-					case "A":
-						oModel.setProperty("/text", oData.text);
-						oModel.setProperty("/Capid", oData.id);
-						oModel.setProperty("/description", oData.description);
-						oModel.setProperty("/flag", oData.flag);
-						oModel.setProperty("/successText", "This Acceptable Deferred Defect (ADD) is approved");
-						this._fnApprovalDetailsRequestGet(oData.id);
-						this._fnCAPDataGet("O", oData.jobid, oData.id);
-						break;
-					case "W":
-						oModel.setProperty("/flag", oData.flag);
-						oModel.setProperty("/successText", "Weight and Balance data is approved");
-						oModel.setProperty("/Capid", oData.id);
-						this._fnWeightBalanceGet(oData.TAILID);
-						break;
-					case "LP":
-						oModel.setProperty("/flag", oData.flag);
-						oModel.setProperty("/successText", "Leading Particular data is endorsed");
-						oModel.setProperty("/Capid", oData.USSERNR);
-						oModel.setProperty("/TAILID", oData.TAILID);
-						this._fnAirOverViewHeaderGet(oData.TAILID);
-						break;
-					case "TM":
-						oModel.setProperty("/flag", oData.flag);
-						oModel.setProperty("/successText", "Trial Mod is endorsed");
-						oModel.setProperty("/JOBID", oData.JOBID);
-						oModel.setProperty("/TAILID", oData.TAILID);
-						this._fnTrialModGet(oData.JOBID);
-						break;
+				if (oData !== undefined) {
+					this.Obj = oData;
+					oModel.setProperty("/flag", oData.flag);
+					oModel.setProperty("/dialogTitle", oData.text);
+					oModel.setProperty("/btnText", "Edit");
+					switch (oData.flag) {
+						case "B":
+							oModel.setProperty("/text", oData.text);
+							oModel.setProperty("/Capid", oData.id);
+							oModel.setProperty("/description", oData.description);
+							oModel.setProperty("/flag", oData.flag);
+							this._fnApprovalDetailsRequestGet(oData.id);
+							this._fnCAPDataGet("O", oData.jobid, oData.id);
+							break;
+						case "L":
+							oModel.setProperty("/text", oData.text);
+							oModel.setProperty("/Capid", oData.id);
+							oModel.setProperty("/description", oData.description);
+							oModel.setProperty("/flag", oData.flag);
+							this._fnApprovalDetailsRequestGet(oData.id);
+							this._fnCAPDataGet("O", oData.jobid, oData.id);
+							break;
+						case "A":
+							oModel.setProperty("/text", oData.text);
+							oModel.setProperty("/Capid", oData.id);
+							oModel.setProperty("/description", oData.description);
+							oModel.setProperty("/flag", oData.flag);
+							this._fnApprovalDetailsRequestGet(oData.id);
+							this._fnCAPDataGet("O", oData.jobid, oData.id);
+							break;
+						case "W":
+							oModel.setProperty("/flag", oData.flag);
+							oModel.setProperty("/successText", "Weight and Balance data is approved");
+							oModel.setProperty("/Capid", oData.id);
+							this._fnWeightBalanceGet(oData.TAILID);
+							break;
+						case "LP":
+							oModel.setProperty("/flag", oData.flag);
+							oModel.setProperty("/successText", "Leading Particular data is endorsed");
+							oModel.setProperty("/Capid", oData.USSERNR);
+							oModel.setProperty("/TAILID", oData.TAILID);
+							this._fnAirOverViewHeaderGet(oData.TAILID);
+							break;
+						case "TM":
+							oModel.setProperty("/flag", oData.flag);
+							oModel.setProperty("/successText", "Trial Mod is endorsed");
+							oModel.setProperty("/JOBID", oData.JOBID);
+							oModel.setProperty("/TAILID", oData.TAILID);
+							this._fnTrialModGet(oData.JOBID);
+							break;
+					}
+					/*	if (oData.flag === 'B' || oData.flag === 'L' || oData.flag === 'A') {
+
+						} else {
+
+						}*/
+
+					oModel.updateBindings(true);
+				} else {
+					this.getView().byId("MasterId").setVisible(false);
 				}
-				/*	if (oData.flag === 'B' || oData.flag === 'L' || oData.flag === 'A') {
-
-					} else {
-
-					}*/
-
-				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in onSelectionChange function");
 			}
@@ -111,9 +112,13 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		onApprovalUpdateFinished: function(oEvent) {
 			try {
-				var listItem = this.getView().byId("lstMasterApprovals").getItems()[0];
-				this.getView().byId("lstMasterApprovals").setSelectedItem(listItem, true);
-				this.onSelectionChange();
+				var listItem = this.getView().byId("lstMasterApprovals");
+				if (listItem.length !== 0) {
+					this.getView().byId("lstMasterApprovals").setSelectedItem(listItem.getItems()[0], true);
+					this.onSelectionChange();
+				} else {
+					this.getView().byId("MasterId").setVisible(false);
+				}
 			} catch (e) {
 				Log.error("Exception in onApprovalUpdateFinished function");
 			}
@@ -174,14 +179,33 @@ sap.ui.define([
 			try {
 				var that = this,
 					oModel = this.getView().getModel("ViewModel");
-
 				switch (oModel.getProperty("/flag")) {
 					case "W":
 						this._fnUpdateWB(sValue);
 						break;
 					case "A":
+						if (sValue === "A") {
+							oModel.setProperty("/successText", "This Acceptable Deferred Defect (ADD) is approved");
+						} else {
+							oModel.setProperty("/successText", "This Acceptable Deferred Defect (ADD) is rejected");
+						}
+						this._fnUpdateADD(sValue);
+						break;
 					case "B":
+						if (sValue === "A") {
+							oModel.setProperty("/successText", "This ADD with Limitation is approved");
+						} else {
+							oModel.setProperty("/successText", "This ADD with Limitation is rejected");
+						}
+						this._fnUpdateADD(sValue);
+						break;
 					case "L":
+						if (sValue === "A") {
+							oModel.setProperty("/successText", "This Limitation is approved");
+						} else {
+							oModel.setProperty("/successText", "This Limitation is rejected");
+						}
+
 						this._fnUpdateADD(sValue);
 						break;
 					case "LP":
@@ -370,12 +394,13 @@ sap.ui.define([
 				};
 
 				oParameter.success = function(oData) {
-					if (sValue === "R") {
+					/*if (sValue === "R") {
 						that.getRouter().navTo("Cosjobs");
 					} else {
 						that.onOpenDialogApp();
-					}
-
+					}*/
+					this.getView().byId("MasterId").setVisible(false);
+					that.onOpenDialogApp(sValue);
 				}.bind(this);
 				oParameter.activity = 2;
 				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], "ZRM_ADDL", this);
@@ -584,7 +609,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID + " AND LPTYPE EQ LPTYREPRES";
+				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID +
+					" AND LPTYPE EQ LPTYREPRES";
 				oPrmWB.error = function() {
 
 				};
@@ -605,7 +631,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID + " AND LPTYPE EQ LPTANK";
+				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID +
+					" AND LPTYPE EQ LPTANK";
 				oPrmWB.error = function() {
 
 				};
@@ -626,7 +653,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID + " AND LPTYPE EQ LPFUELOIL";
+				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID +
+					" AND LPTYPE EQ LPFUELOIL";
 				oPrmWB.error = function() {
 
 				};

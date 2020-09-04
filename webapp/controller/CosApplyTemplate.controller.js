@@ -36,23 +36,6 @@ sap.ui.define([
 		onInit: function() {
 			try {
 				this.getRouter().getRoute("CosApplyTemplate").attachPatternMatched(this._onObjectMatched, this);
-				var oApplTmplData = {};
-				oApplTmplData.header = {
-					selTmpl: "",
-					selTask: "",
-					selDat: null,
-					selTim: null,
-					selJobId: "",
-					selWC: "",
-					selAirId: "",
-					selTailId: "",
-					dDate: new Date(),
-					dTime: new Date().getHours() + ":" + new Date().getMinutes()
-
-				};
-				oApplTmplData.tmpls = [];
-				oApplTmplData.tasks = [];
-				this.getView().setModel(new JSONModel(oApplTmplData), "applTmplModel");
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onInit function");
 				this.handleException(e);
@@ -291,6 +274,23 @@ sap.ui.define([
 		// ***************************************************************************
 		_onObjectMatched: function(oEvent) {
 			try {
+				var oApplTmplData = {};
+				oApplTmplData.header = {
+					selTmpl: "",
+					selTask: "",
+					selDat: null,
+					selTim: null,
+					selJobId: "",
+					selWC: "",
+					selAirId: "",
+					selTailId: "",
+					dDate: new Date(),
+					dTime: new Date().getHours() + ":" + new Date().getMinutes()
+
+				};
+				oApplTmplData.tmpls = [];
+				oApplTmplData.tasks = [];
+				this.getView().setModel(new JSONModel(oApplTmplData), "applTmplModel");
 				this.getModel("applTmplModel").setProperty("/header/selWC", oEvent.getParameter("arguments").wc);
 				this.getModel("applTmplModel").setProperty("/header/selJobId", oEvent.getParameter("arguments").jobid);
 				this.getModel("applTmplModel").setProperty("/header/selAirId", oEvent.getParameter("arguments").airid);
