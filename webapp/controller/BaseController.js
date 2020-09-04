@@ -442,7 +442,7 @@ sap.ui.define([
 			aSorters.push(new sap.ui.model.Sorter(sPath, bDescending));
 			oBinding.sort(aSorters);
 		},
-		onSearch: function(oEvent, sTableId, sModel, sPath) {
+		onSearch: function(oEvent, sTableId, sModel, sPath, sFilter) {
 			if (oEvent.getParameters().refreshButtonPressed) {
 				// Search field's 'refresh' button has been pressed.
 				// This is visible if you select any master list item.
