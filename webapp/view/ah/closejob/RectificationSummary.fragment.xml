@@ -33,7 +33,7 @@
 										valueStateText="{i18n>MSG_DATE}"/>-->
 									<DatePicker id="DP1" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
 										value="{path: 'JobModel>/rectdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-										change="handleChange" class="sapUiSmallMarginBottom"/>
+										change="handleChange" class="sapUiSmallMarginBottom" minDate="{JobModel>/credt}" maxDate="{ViewModel>/dDate}"/>
 									<layoutData>
 										<l:GridData linebreak="false" span="XL3 L3 M3 S12"/>
 									</layoutData>
@@ -203,7 +203,7 @@
 										<OverflowToolbar class="sapUiTinyMarginBottom">
 											<content>
 												<Label text="{i18n>lblWorkCenter}"/>
-												<ComboBox items="{CreatedWorkCenterModel>/}" selectionChange="onWorkCenterSelect">
+												<ComboBox id="cbWorkCenterId" items="{CreatedWorkCenterModel>/}" selectionChange="onWorkCenterSelect">
 													<core:Item key="{CreatedWorkCenterModel>wrctr}" text="{CreatedWorkCenterModel>wrctrtx}"/>
 												</ComboBox>
 												<ToolbarSpacer/>

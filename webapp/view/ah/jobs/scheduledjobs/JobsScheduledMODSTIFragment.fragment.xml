@@ -40,11 +40,7 @@
 					<cells>
 						<Text text="{JobModelMODSTI>DUEIN}"/>
 						<Text text="{JobModelMODSTI>UM}"/>
-						<VBox alignItems="Center" alignContent="Center">
-							<Text text="{JobModelMODSTI>SERVDUE}" visible="{=${JobModelMODSTI>SERVDUE} !== '' || ${JobModelMODSTI>SERVDUE} !== null ? true : false}"/>
-							<Text text="{path:'JobModelMODSTI>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}"
-								visible="{=${JobModelMODSTI>SERVDUE} === '' || ${JobModelMODSTI>SERVDUE} === null ? true : false}"/>
-						</VBox>
+						<Text text="{path:'JobModelMODSTI>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}{JobModelMODSTI>SERVDUE}"/>
 						<Text text="{JobModelMODSTI>JOBDESC}"/>
 						<Text text="{JobModelMODSTI>CTYPE}"/>
 						<Text text="{JobModelMODSTI>WRCTR}"/>

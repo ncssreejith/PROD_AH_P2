@@ -9,7 +9,8 @@
 					<ToolbarSpacer/>
 					<!--<Button text="Create Schedule Job" type="Default" class="btnColor sapUiSizeCompact sortBtnColor"
 						press="onCreateScheduleJob"/>-->
-					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" value="{LocalJobsModel>/AllScheduledJobId}" search="onSearch($event,'AllScheduledJobId','SchJobModelAll','JOBDESC')"/>
+					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" value="{LocalJobsModel>/AllScheduledJobId}"
+						search="onSearch($event,'AllScheduledJobId','SchJobModelAll','JOBDESC')"/>
 					<ComboBox width="10rem">
 						<core:Item key="{key}" text="{text}"/>
 					</ComboBox>
@@ -42,11 +43,7 @@
 					<cells>
 						<Text text="{SchJobModelAll>DUEIN}"/>
 						<Text text="{SchJobModelAll>UM}"/>
-						<VBox alignItems="Center" alignContent="Center">
-							<Text text="{SchJobModelAll>SERVDUE}" visible="{=${SchJobModelAll>SERVDUE} !== '' || ${SchJobModelAll>SERVDUE} !== null ? true : false}"/>
-							<Text text="{path:'SchJobModelAll>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}"
-								visible="{=${SchJobModelAll>SERVDUE} === '' || ${SchJobModelAll>SERVDUE} === null ? true : false}"/>
-						</VBox>
+						<Text text="{path:'SchJobModelAll>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}{SchJobModelAll>SERVDUE}"/>
 						<Text text="{SchJobModelAll>JOBDESC}"/>
 						<Text text="{SchJobModelAll>CTYPE}"/>
 						<Text text="{SchJobModelAll>WRCTR}"/>

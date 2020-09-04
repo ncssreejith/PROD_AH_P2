@@ -81,6 +81,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
 		//-------------------------------------------------------------
 		//  This will get called, when signing off the Job for closer.
 		//-------------------------------------------------------------
@@ -101,6 +102,11 @@ sap.ui.define([
 								oPayload.rectdt = formatter.defaultOdataDateFormat(oPayload.rectdt);
 							} catch (e) {
 								oPayload.rectdt = oPayload.rectdt;
+							}
+							try {
+								oPayload.credt = formatter.defaultOdataDateFormat(oPayload.credt);
+							} catch (e) {
+								oPayload.credt = oPayload.credt;
 							}
 						}
 						oPayload.jstat = "P";
@@ -175,6 +181,7 @@ sap.ui.define([
 					oData.results[0].recttm = new Date().getHours() + ":" + new Date().getMinutes();
 					oData.results[0].dupli = "0";
 					oData.results[0].recur = "0";
+					oData.results[0].credt = new Date(oData.results[0].credt);
 					/*	if (oData.results[0].notity !== null) {*/
 					oData.results[0].trail = "0";
 					oData.results[0].fchar = "0";
@@ -366,6 +373,79 @@ sap.ui.define([
 		},
 
 		//------------------------------------------------------------------------------------------
+		//  Private Method: This will get called, to validate job closer time with respective current date.
+		//------------------------------------------------------------------------------------------
+		_fnValidateTime: function() {
+			try {
+				var oJobModel = this.getView().getModel("JobModel"),
+					oRectDate, oJobCredt,
+					sFlag;
+
+				//Create date object and set the time to that
+				var startTimeObject = new Date();
+				var oRectdt = oJobModel.getProperty("/rectdt");
+				oRectDate = new Date(oRectdt.getFullYear(), oRectdt.getMonth(), oRectdt.getDate());
+				oJobCredt = new Date(startTimeObject.getFullYear(), startTimeObject.getMonth(), startTimeObject.getDate());
+				if (+oJobCredt === +oRectDate) {
+					startTimeObject.setHours(startTimeObject.getHours(), startTimeObject.getMinutes(), "00");
+					//Create date object and set the time to that
+					var endTimeObject = new Date(startTimeObject);
+					var TempTime = oJobModel.getProperty("/recttm").split(":");
+					endTimeObject.setHours(TempTime[0], TempTime[1], "00");
+					if (startTimeObject.toLocaleString('en-GB', {
+							hour12: false
+						}) >= endTimeObject.toLocaleString('en-GB', {
+							hour12: false
+						})) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
+			} catch (e) {
+				Log.error("Exception in CosCloseJob:_fnValidateTime function");
+				this.handleException(e);
+			}
+
+		},
+		//------------------------------------------------------------------------------------------
+		//  Private Method: This will get called, to validate job closer time with respective Job Creation date.
+		//------------------------------------------------------------------------------------------
+		_fnValidateCreationDateTime: function() {
+			try {
+				var oJobModel = this.getView().getModel("JobModel"),
+					TempTime, endTimeObject, oRectDate, oJobCredt,
+					oRectdt = oJobModel.getProperty("/rectdt"),
+					oCredt = oJobModel.getProperty("/credt");
+				oRectDate = new Date(oRectdt.getFullYear(), oRectdt.getMonth(), oRectdt.getDate());
+				oJobCredt = new Date(oCredt.getFullYear(), oCredt.getMonth(), oCredt.getDate());
+				if (+oJobCredt === +oRectDate) {
+					var TempCreTime = oJobModel.getProperty("/cretm").split(":");
+					oJobCredt.setHours(TempCreTime[0], TempCreTime[1], "00");
+					endTimeObject = new Date(oJobCredt);
+					TempTime = oJobModel.getProperty("/recttm").split(":");
+					endTimeObject.setHours(TempTime[0], TempTime[1], "00");
+					if (oJobCredt.toLocaleString('en-GB', {
+							hour12: false
+						}) <= endTimeObject.toLocaleString('en-GB', {
+							hour12: false
+						})) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
+			} catch (e) {
+				Log.error("Exception in CosCloseJob:_fnValidateTime function");
+				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------------------------------
 		//  Private Method: This will get called, on click of proceed.
 		//------------------------------------------------------------------------------------------
 		onProceed: function() {
@@ -374,13 +454,34 @@ sap.ui.define([
 				if (FieldValidations.validateFields(this)) {
 					return;
 				}
-				var oModel = this.getView().getModel("ViewModel");
-				oModel.setProperty("/selectedIcon", "Confirmation");
-				oModel.setProperty("/signOffBtn", true);
-				oModel.setProperty("/proccedBtn", false);
-				oModel.setProperty("/backBtn", true);
-				this.selectedTab = "Confirmation";
-				oModel.setProperty("/selectedIcon", this.selectedTab);
+
+				var oModel = this.getView().getModel("ViewModel"),
+					oJobModel = this.getView().getModel("JobModel"),
+					oTemp, bFlag, bFlagCurrentTime, oResource = this.getView().getModel("i18n").getResourceBundle();
+				bFlag = this._fnValidateTime();
+				bFlagCurrentTime = this._fnValidateCreationDateTime();
+				if (bFlag && bFlagCurrentTime) {
+					oModel.setProperty("/selectedIcon", "Confirmation");
+					oModel.setProperty("/signOffBtn", true);
+					oModel.setProperty("/proccedBtn", false);
+					oModel.setProperty("/backBtn", true);
+					this.selectedTab = "Confirmation";
+					oModel.setProperty("/selectedIcon", this.selectedTab);
+				} else {
+					if (!bFlag) {
+						oTemp = oResource.getText("errorCloserMessageCurrent");
+					}
+					if (!bFlagCurrentTime) {
+						oTemp = oResource.getText("errorCloserMessage") + " " + formatter.defaultTimeFormatDisplay(oJobModel.getProperty("/cretm"));
+					}
+
+					MessageBox.error(
+						oTemp, {
+							icon: sap.m.MessageBox.Icon.Error,
+							title: "Error",
+							styleClass: "sapUiSizeCompact"
+						});
+				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onProceed function");
 				this.handleException(e);
@@ -395,7 +496,7 @@ sap.ui.define([
 				var oModel = this.getView().getModel("ViewModel");
 				this.selectedTab = "Summary";
 				this.getView().getModel("TaskModel").setData(null);
-				this.getView().getModel("ViewModel").setProperty("/selectedTask",[]);
+				this.getView().getModel("ViewModel").setProperty("/selectedTask", []);
 				this.getView().byId("cbWorkCenterId").setSelectedKey("");
 				oModel.setProperty("/selectedIcon", "Summary");
 				oModel.setProperty("/signOffBtn", false);

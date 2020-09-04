@@ -192,18 +192,22 @@ sap.ui.define([
 						"avmet.ah.fragments.ScheduleJobExtension",
 						this);
 					oModel.setData({
-						"DueBy": "N",
+						"DueBy": "",
 						"ExpDate": "",
 						"Util": "",
-						"UtilVal": ""
+						"UtilVal": "",
+						"ExpDateFlag": false,
+						"UtilValFlag": false,
+						"UM": ""
+
 					});
-					this._fnUtilizationGet();
+					this._fnJobDueGet();
 					this.getView().setModel(oModel, "RSModel");
 					this.getView().addDependent(this._oRaiseConcession);
 				}
 				this._oRaiseConcession.open(this);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onRaiseScheduleConcession function");
 			}
 		},
 
@@ -544,6 +548,24 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
+
+		onDueSelectChange: function(oEvent) {
+			var oModel = this.getView().getModel("RSModel");
+			var oSelectedKey = oEvent.getSource().getSelectedKey();
+			if (oSelectedKey === "JDU_10") {
+				oModel.setProperty("/ExpDateFlag", true);
+				oModel.setProperty("/UtilValFlag", false);
+				oModel.setProperty("/UtilVal", "");
+				oModel.setProperty("/UM", "DAYS");
+
+			} else {
+				oModel.setProperty("/UtilValFlag", true);
+				oModel.setProperty("/ExpDateFlag", false);
+				oModel.setProperty("/ExpDate", null);
+				oModel.setProperty("/UM", oEvent.getSource().getSelectedItem().getText());
+			}
+
+		},
 		// ***************************************************************************
 		//   4. Private Function   
 		// ***************************************************************************
@@ -702,15 +724,16 @@ sap.ui.define([
 				oPayload = this.getView().getModel("SummaryModel").getData();
 				//oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
 				if (oFlag === "Y") {
-					if (oModel.ExpDate !== "") {
+					if (oModel.DueBy === "JDU_10") {
 						oPayload.SERVDT = oModel.ExpDate;
-						oPayload.UM = "Date";
-						oPayload.UMKEY = "JDU_10";
+						oPayload.UM = oModel.UM;
+						oPayload.UMKEY = oModel.DueBy;
 						oPayload.SERVDUE = null;
 					} else {
 						oPayload.SERVDT = null;
+						oPayload.UM = oModel.UM;
 						oPayload.SERVDUE = (oModel.UtilVal).toString();
-						oPayload.UMKEY = oModel.Util;
+						oPayload.UMKEY = oModel.DueBy;
 					}
 				}
 				oPrmSchJob.error = function() {};
@@ -720,7 +743,6 @@ sap.ui.define([
 					} else {
 						that.onCloseAddWorkCenterDialog("N");
 						this._fnSumamryDetailsGet(that.getView().getModel("LocalModel").getProperty("/ESJobId"));
-
 					}
 				}.bind(this);
 				/*				oPrmSchJob.activity = 2;
@@ -753,6 +775,27 @@ sap.ui.define([
 							styleClass: "sapUiSizeCompact"
 						});
 				}
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
+		},
+
+		_fnJobDueGet: function(sAir) {
+			try {
+				var that = this,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq JDU";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "JobDueSet");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
