@@ -1712,6 +1712,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oViewModel = that.getView().getModel("LocalModel"),
+					oSummaryModel = this.getView().getModel("SummaryModel"),
 					oPrmJobDue = {};
 				oPrmJobDue.filter = "jobid eq " + sJobId;
 				oPrmJobDue.error = function() {
@@ -1731,6 +1732,7 @@ sap.ui.define([
 						}
 						if (oData.results[0].fstat === 'A') {
 							oViewModel.setProperty("/FairEditFlag", false);
+							oSummaryModel.setProperty("/FAIRStatus", "Error");
 						}
 
 						if (oData.results[0].mark === '1') {
