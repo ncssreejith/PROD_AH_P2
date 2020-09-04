@@ -696,7 +696,7 @@ sap.ui.define([
 					this.removeStyleClass("infobtn");
 					this.addStyleClass("yellowbtn");
 					break;
-				case "AST_RECT":	
+				case "AST_RECT":
 				case "AST_FAIR":
 				case "AST_FAIR0":
 				case "AST_FAIR1":
@@ -897,7 +897,7 @@ sap.ui.define([
 				return sPercentAge;
 			}
 			sPercentAge = ((oState * 100) / sState1);
-			if(sPercentAge > 100){
+			if (sPercentAge > 100) {
 				sPercentAge = 100;
 			}
 			return sPercentAge;
@@ -1066,16 +1066,23 @@ sap.ui.define([
 			}
 		},
 		FormatRoleChangeSLNo: function(sSlNo) {
-				if (sSlNo !== "") {
-					return "S/N: " + sSlNo;
-				} else {
-					return sSlNo;
-				}
-			},
-			//////////////////////********************    PRIYA - ENDS   *****************************///////////////
-			fnEditableCol: function(iColId){
+			if (sSlNo !== "") {
+				return "S/N: " + sSlNo;
+			} else {
+				return sSlNo;
+			}
+		},
+		//////////////////////********************    PRIYA - ENDS   *****************************///////////////
+		fnEditableCol: function(iColId) {
 			var that = this;
 			return true;
+		},
+
+		intFormat: function(sValue) {
+			if (sValue) {
+				return parseInt(sValue, 10);
+			}
+			return sValue;
 		}
 
 	};
