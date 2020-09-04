@@ -442,7 +442,7 @@ sap.ui.define([
 			aSorters.push(new sap.ui.model.Sorter(sPath, bDescending));
 			oBinding.sort(aSorters);
 		},
-		onSearch: function(oEvent, sTableId, sModel, sPath) {
+		onSearch: function(oEvent, sTableId, sModel, sPath, sFilter) {
 			if (oEvent.getParameters().refreshButtonPressed) {
 				// Search field's 'refresh' button has been pressed.
 				// This is visible if you select any master list item.
@@ -450,11 +450,16 @@ sap.ui.define([
 				// refresh the list binding.
 				this.onRefresh(sTableId);
 			} else {
-				var aTableSearchState = [];
+			var aTableSearchState = [];
 				var sQuery = oEvent.getParameter("query");
 
 				if (sQuery && sQuery.length > 0) {
-					aTableSearchState = [new sap.ui.model.Filter(sPath, sap.ui.model.FilterOperator.Contains, sQuery)];
+					if (sFilter) {
+						aTableSearchState = [new sap.ui.model.Filter(sPath, sFilter, sQuery)];
+					} else {
+						aTableSearchState = [new sap.ui.model.Filter(sPath, sap.ui.model.FilterOperator.Contains, sQuery)];
+					}
+
 				}
 				this._applySearch(aTableSearchState, sTableId, sModel);
 			}

@@ -1,5 +1,10 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
 	<l:VerticalLayout class="backgroundBlue">
+		<Toolbar>
+			<ToolbarSpacer/>
+			<!--addTaskBtn-->
+			<Button icon="sap-icon://sys-add" text="Add Equip Running Log" press="onAddEquipRunLog"/>
+		</Toolbar>
 		<Table id="tblEquip" columns="{oAircraftUtilModel>/equip}" class="TableHeaderBGColor">
 			<columns>
 				<Column hAlign="Center">
@@ -8,6 +13,6 @@
 			</columns>
 		</Table>
 		
-		<Button icon="sap-icon://sys-add" class="addTaskBtn" text="Add Equip Running Log" press="onAddEquipRunLog" width="100%"/>
+		<!--<Button icon="sap-icon://sys-add" class="addTaskBtn" text="Add Equip Running Log" press="onAddEquipRunLog" width="100%"/>-->
 	</l:VerticalLayout>
 </core:FragmentDefinition>

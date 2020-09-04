@@ -4,14 +4,21 @@
 		<Toolbar>
 			<Title text="{i18n>tiFlyingRequirements}" level="H2"/>
 			<ToolbarSpacer/>
-			<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"/>
-			<Button text="{i18n>btnAddFlyingRequirements}" type="Default" press="onAddFlyingRequirements" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+			<ComboBox width="12rem" id="cbtbWcFlyingReqId" placeholder="Select column filter" change="onFilterChange"
+				items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'FlyReq' }]}">
+				<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
+			</ComboBox>
+			<SearchField placeholder="Search" width="15rem" value="{LocalModel>/tbWcFlyingReqId}"
+				search="onSearchTable($event,'tbWcFlyingReqId','FRModel')"/>
+			<Button text="{i18n>btnAddFlyingRequirements}" type="Default" press="onAddFlyingRequirements" enabled="{LocalModel>/FairEditFlag}"
+				visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 		</Toolbar>
 		<VBox backgroundDesign="Solid" alignContent="Center" visible="{=${FRModel>/}.length === 0 ? true:false}" alignItems="Center"
 			class="vboxAlign">
 			<items>
 				<Title text="{i18n>txtNoTextFLR}" level="H1" titleStyle="H3"/>
-				<Button text="{i18n>btnAddFlyingRequirements}" type="Default" press="onAddFlyingRequirements" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+				<Button text="{i18n>btnAddFlyingRequirements}" type="Default" press="onAddFlyingRequirements" enabled="{LocalModel>/FairEditFlag}"
+					visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 			</items>
 		</VBox>
 		<VBox visible="{=${FRModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
@@ -38,11 +45,11 @@
 									text="{path:'FRModel>FR_DT', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'FRModel>FR_TM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 							</VBox>
 							<Text text="{FRModel>FRDESC}"/>
-						<!--	<VBox>
+							<!--	<VBox>
 								<Text text="{FRModel>SGUSR}"/>-->
-								<Text
-									text="{path:'FRModel>SGDTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'FRModel>SGUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-						<!--	</VBox>-->
+							<Text
+								text="{path:'FRModel>SGDTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'FRModel>SGUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							<!--	</VBox>-->
 							<Button icon="sap-icon://overflow" press="handlePressWorkCenterFragmentOpenMenu('FLR',$event)" type="Transparent"/>
 						</cells>
 					</ColumnListItem>

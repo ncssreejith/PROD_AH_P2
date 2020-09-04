@@ -6,11 +6,12 @@
 				<OverflowToolbar>
 					<Title text="{i18n>tiScheduled}" level="H2"/>
 					<ToolbarSpacer/>
-					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"
-					value="{LocalJobsModel>/SchedID}" search="onSearch($event,'SchedID','JobModelS','jobdesc')"/>
-					<ComboBox width="10rem">
-						<core:Item key="{key}" text="{text}"/>
+					
+					<ComboBox width="10rem" id="cbSchedID" change="onFilterChange" placeholder="Select column filter" items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'DefectJobOut' }]}">
+						<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}" />
 					</ComboBox>
+					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"
+					value="{LocalJobsModel>/SchedID}" search="onSearchTable($event,'SchedID','JobModelS')"/>
 				</OverflowToolbar>
 			</headerToolbar>
 			<columns>
@@ -27,7 +28,10 @@
 					</HBox>
 				</Column>
 				<Column width="15rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-					<Label text="{i18n>lbDefect}" design="Bold" wrapping="true"/>
+					<HBox>
+						<Label text="{i18n>lbDefect}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobdesc')"/>
+					</HBox>
 				</Column>
 				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>

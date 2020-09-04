@@ -8,8 +8,19 @@
 			</items>
 		</VBox>
 		<VBox backgroundDesign="Solid" visible="{=${TaskCompleteModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
-			<Table id="tbWcCompletedId"
-				class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" items="{ path: 'TaskCompleteModel>/'}" noDataText="{i18n>txtNoTextCompleted}" showNoData="true">
+			<Table id="tbWcCompletedId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect"
+				items="{ path: 'TaskCompleteModel>/'}" noDataText="{i18n>txtNoTextCompleted}" showNoData="true">
+				<headerToolbar>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<ComboBox width="10rem" id="cbtbWcCompletedId" placeholder="Select column filter" change="onFilterChange"
+							items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'TaskCompleted' }]}">
+							<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
+						</ComboBox>
+						<SearchField placeholder="Search" width="15rem" value="{LocalModel>/tbWcPendingSuperId}"
+							search="onSearchTable($event,'tbWcCompletedId','TaskCompleteModel')"/>
+					</OverflowToolbar>
+				</headerToolbar>
 				<columns>
 					<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 						<HBox>

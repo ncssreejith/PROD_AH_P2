@@ -169,7 +169,8 @@ sap.ui.define([
 					}]
 				});
 				that.getView().setModel(oLocalModel, "LocalModel");
-
+				var oModel = dataUtil.createJsonModel("model/aircraftInfo.json");
+				this.getView().setModel(oModel, "DDModel");
 				this.getRouter().getRoute("CosDefectsSummary").attachPatternMatched(this._handleRouteMatched, this);
 				var sAirId = that.getAircraftId();
 				that._fnWorkCenterGet(sAirId);

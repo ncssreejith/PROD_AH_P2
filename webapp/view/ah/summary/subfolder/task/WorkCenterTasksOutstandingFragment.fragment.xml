@@ -12,20 +12,31 @@
 		<VBox backgroundDesign="Solid" visible="{=${TaskOutModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
 			<Table id="tbWcOutstandingId" class="sapUiResponsivePadding sapUiSizeCompact sapUiSmallMarginEnd CERTable tableHFont" mode="MultiSelect"
 				items="{ path: 'TaskOutModel>/'}" noDataText="{i18n>txtNoTexttStanding}" showNoData="true">
+				<headerToolbar>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<ComboBox width="10rem" id="cbtbWcOutstandingId" placeholder="Select column filter" change="onFilterChange"
+							items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'TaskOut' }]}">
+							<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
+						</ComboBox>
+						<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" value="{LocalJobsModel>/tbWcOutstandingId}"
+							search="onSearchTable($event,'tbWcOutstandingId','TaskOutModel')"/>
+					</OverflowToolbar>
+				</headerToolbar>
 				<columns>
-					<Column width="29%" hAlign="Start" minScreenWidth="Tablet" demandPopin="true" class="textColor">
+					<Column width="auto" hAlign="Start" minScreenWidth="Tablet" demandPopin="true" class="textColor">
 						<HBox>
 							<Label text="{i18n>lbTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'tdesc')"/>
 						</HBox>
 					</Column>
-					<Column width="29%" minScreenWidth="Tablet" demandPopin="true" hAlign="Start">
-						<HBox>
-							<Label text="{i18n>lbFollowupTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')"/>
-						</HBox>
-					</Column>
-					<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center" class="textColor">
+					<!--<Column width="29%" minScreenWidth="Tablet" demandPopin="true" hAlign="Start">-->
+					<!--	<HBox>-->
+					<!--		<Label text="{i18n>lbFollowupTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>-->
+					<!--		<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')"/>-->
+					<!--	</HBox>-->
+					<!--</Column>-->
+					<Column width="auto" minScreenWidth="Tablet" demandPopin="true" hAlign="Center" class="textColor">
 						<HBox>
 							<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'creuzt')"/>
@@ -36,8 +47,8 @@
 					<ColumnListItem vAlign="Middle" type="Navigation" press="onAllOutStandingDetailsPress">
 						<cells>
 							<Text text="{TaskOutModel>tdesc}"/>
-							<Text text="{TaskOutModel>ftdesc}"/>
-							<Text press="onSort($event,'credtm','')"
+							<!--<Text text="{TaskOutModel>ftdesc}"/>-->
+							<Text
 								text="{path:'TaskOutModel>credtm', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskOutModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 						</cells>
 					</ColumnListItem>

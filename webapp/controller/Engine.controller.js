@@ -318,7 +318,7 @@ sap.ui.define([
 				// 	sEngId1 = oEngineModel.getProperty("/headerDetails/ENGID"),
 				// 	sEngId = sEngId1 === "" ? this.getEngine() : sEngId1;
 				var oParameter = {};
-				oParameter.filter = "engid eq '" + sEngID + "' AND sflag eq S AND tailid eq '" + this.getTailId() + "'";
+				oParameter.filter = "engid eq " + sEngID + " AND sflag eq S AND tailid eq " + this.getTailId();
 				oParameter.error = function() {
 
 				};
@@ -334,7 +334,7 @@ sap.ui.define([
 					// 	}
 					// }
 					if (oData) {
-						if (iEngine === 1) {
+						if (iEngine === "1") {
 							oEngineModel.setProperty("/soapTableData", oData.results);
 						} else {
 							oEngineModel.setProperty("/soapTableData2", oData.results);

@@ -13,8 +13,12 @@
 				<headerToolbar>
 					<OverflowToolbar>
 						<ToolbarSpacer/>
+						<ComboBox width="10rem" id="cbtbWcPendingSuperId" placeholder="Select column filter" change="onFilterChange"
+							items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'TaskPending' }]}">
+							<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
+						</ComboBox>
 						<SearchField placeholder="Search" width="15rem" value="{LocalModel>/tbWcPendingSuperId}"
-							search="onSearch($event,'tbWcPendingSuperId','TaskPendingModel','tdesc')"/>
+							search="onSearchTable($event,'tbWcPendingSuperId','TaskPendingModel')"/>
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
