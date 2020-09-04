@@ -136,17 +136,24 @@ sap.ui.define([
 					var sText = new sap.m.Text({
 						text: "{" + oDataModel + ">" + oItem.colid + "}"
 					});
+
 					if (oItem.edtb === "X") {
+						// if (oItem.colid === "COL_15") {
+						// 	oCells.push(sText);
+						// 	console.log(oItem);
+						// 	return;
+						// }
 						sText = new sap.m.Input({
 							value: "{" + oDataModel + ">" + oItem.colid + "}",
 							maxLength: 20,
 							fieldGroupIds: ["fgSignedDecimal"],
+							editable: "{path:'" + oDataModel + ">colid', formatter:'.formatter.fnEditableCol'}",
 							// required: true,
 							// valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
 							liveChange: that.onChange
-							// function(oEvent) {
-							// 	cvUtil.onLiveChange(oEvent, false);
-							// }
+								// function(oEvent) {
+								// 	cvUtil.onLiveChange(oEvent, false);
+								// }
 						});
 					}
 					// if (oItem && oItem.coltxt && (oItem.coltxt === "Updated By" || oItem.coltxt === "Date")) {
@@ -168,6 +175,9 @@ sap.ui.define([
 				Log.error("Exception in UpdateWDNSView:fnCreateRow function");
 				this.handleException(e);
 			}
+		},
+		fnEditable: function(iColId){
+			var that = this;
 		},
 		onChange: function(oEvent) {
 			try {

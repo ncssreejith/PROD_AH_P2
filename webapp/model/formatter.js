@@ -897,6 +897,9 @@ sap.ui.define([
 				return sPercentAge;
 			}
 			sPercentAge = ((oState * 100) / sState1);
+			if(sPercentAge > 100){
+				sPercentAge = 100;
+			}
 			return sPercentAge;
 		},
 		fuelMC: function(oState, sState1) {
@@ -1068,8 +1071,12 @@ sap.ui.define([
 				} else {
 					return sSlNo;
 				}
-			}
+			},
 			//////////////////////********************    PRIYA - ENDS   *****************************///////////////
+			fnEditableCol: function(iColId){
+			var that = this;
+			return true;
+		}
 
 	};
 

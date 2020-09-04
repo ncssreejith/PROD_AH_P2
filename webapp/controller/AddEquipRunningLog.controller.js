@@ -41,7 +41,7 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		onSignOffPress: function() {
 			try {
-				if (this.fnCheckValueState("fgNumber")) {
+				if (this.fnCheckValueState("AddEquipRunningLog")) {
 					sap.m.MessageToast.show("Fill in all required input first");
 					return;
 				}
@@ -59,6 +59,9 @@ sap.ui.define([
 				Log.error("Exception in AddEquipRunningLog:onSignOffPress function");
 				this.handleException(e);
 			}
+		},
+		onLiveChange: function(oEvent){
+			cvUtil.onLiveChange(oEvent, false);
 		},
 		// ***************************************************************************
 		//     2. Backend Calls
@@ -109,15 +112,13 @@ sap.ui.define([
 				
 				this.getModel("oAircraftAddModel").setProperty("/type", oEvent.getParameter("arguments").type);
 				this.getModel("oAircraftAddModel").setProperty("/logid", oEvent.getParameter("arguments").logid);
+				this.fnClearValueState("AddEquipRunningLog");
 				this.getModel("oAircraftAddModel").refresh(true);
 				this.fnLogById();
 			} catch (e) {
 				Log.error("Exception in AddEquipRunningLog:_onObjectMatched function");
 				this.handleException(e);
 			}
-		},
-		onLiveChange:function(oEvent){
-			cvUtil.onLiveChange(oEvent,false);
 		},
 		/** 
 		 * Check for function group error state
@@ -136,6 +137,24 @@ sap.ui.define([
 			return bError;
 			} catch (e) {
 				Log.error("Exception in fnCheckValueState function");
+				this.handleException(e);
+			}
+		},
+		/** 
+		 * Clear for function group error state
+		 * @param sFunctionGroupId
+		 * @returns
+		 */
+		fnClearValueState: function(sFunctionGroupId) {
+			try {
+			var aGroupControls = sap.ui.getCore().byFieldGroupId(sFunctionGroupId);
+			
+			aGroupControls.forEach(function(oControl) {
+				oControl.setValueState("None");
+			});
+			return;
+			} catch (e) {
+				Log.error("Exception in fnClearValueState function");
 				this.handleException(e);
 			}
 		},
