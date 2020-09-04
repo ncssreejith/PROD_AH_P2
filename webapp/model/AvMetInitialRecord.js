@@ -70,7 +70,8 @@ sap.ui.define([
 						"airhrs": null,
 						"TRAILKEY": null,
 						"TRAILKVAL": null,
-						"TRAILKDT": null
+						"TRAILKDT": null,
+						"fstatflag": null
 					};
 					oArray.push(CREATEJOB);
 					break;

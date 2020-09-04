@@ -13,7 +13,7 @@
 			</VBox>
 			<VBox class="sapUiLargeMarginBegin" visible="{oCreateTaskModel>/bTechOrderRef}">
 				<Label design="Bold" text="Technical Order/ Reference"/>
-				<Input width="250px" value="{oCreateTaskModel>/sTechOrderRef}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bTechOrderRef}"/>
+				<Input width="250px" value="{oCreateTaskModel>/sTechOrderRef}"/>
 			</VBox>
 		</HBox>
 		<HBox class="sapUiSmallMarginTop" visible="{oCreateTaskModel>/bType}">
@@ -60,7 +60,7 @@
 						<Text text="Optional" class="optionalTxtMargin"/>
 					</HBox>
 					<HBox>
-						<Input width="170px" value="{oCreateTaskModel>/sType2Value}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bType}"/>
+						<Input width="170px" value="{oCreateTaskModel>/sType2Value}"/>
 					</HBox>
 				</VBox>
 				<VBox class="sapUiTinyMarginBegin" 	visible="{= ${oCreateTaskModel>/sType2}==='Part No.' &amp;&amp; ${oCreateTaskModel>/sTask}==='TT2_10' ? true:false}">

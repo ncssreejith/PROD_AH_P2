@@ -22,7 +22,7 @@
 						</items>
 					</IconTabBar>-->
 					<IconTabBar id="itbDefectSummary" class="sapUiResponsiveContentPadding iconTabBarContentDimensions iconTabBarBackground"
-						selectedKey="{LocalModel>/WorkCenterKey}" items="{path:'CreatedWorkCenterModel>/',sorter:{path:'wrctr'}}"
+						selectedKey="{LocalModel>/WorkCenterKey}" items="{path:'CreatedWorkCenterModel>/',sorter:{path:'PrimeCount'}}"
 						select="onSummaryIconTabBarSelect">
 						<items>
 							<IconTabFilter text="{CreatedWorkCenterModel>wrctrtx}" key="{CreatedWorkCenterModel>wrctr}"></IconTabFilter>

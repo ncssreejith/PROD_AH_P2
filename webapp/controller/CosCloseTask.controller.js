@@ -96,7 +96,7 @@ sap.ui.define([
 				oModel.setProperty("/proccedBtn", false);
 				oModel.setProperty("/backBtn", true);
 				oModel.setProperty("/tradeTable", false);
-				oModel.setProperty("/MulitiFlag", "noKey");
+				oModel.setProperty("/MulitiFlag", "N");
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onProceed function");
 				this.handleException(e);
@@ -163,7 +163,9 @@ sap.ui.define([
 					} else {
 						that.getRouter().navTo("CosDefectsSummary", {
 							"JobId": oViewModel.getProperty("/JobId"),
-							"Flag": "Y"
+							"Flag": "Y",
+							"WcKey": oViewModel.getProperty("/WorkKey"),
+							"goTo": "SP"
 						});
 					}
 				}.bind(this);
@@ -199,7 +201,7 @@ sap.ui.define([
 					oModel.setProperty("/signOffBtn", true);
 					oModel.setProperty("/proccedBtn", false);
 					oModel.setProperty("/backBtn", true);
-					oModel.setProperty("/MulitiFlag", "noKey");
+					oModel.setProperty("/MulitiFlag", "N");
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onIconTabSelection function");
@@ -258,7 +260,9 @@ sap.ui.define([
 					} else {
 						that.getRouter().navTo("CosDefectsSummary", {
 							"JobId": oViewModel.getProperty("/JobId"),
-							"Flag": "Y"
+							"Flag": "Y",
+							"WcKey": oViewModel.getProperty("/WorkKey"),
+							"goTo": "SP"
 						});
 					}
 				}.bind(this);
@@ -329,7 +333,7 @@ sap.ui.define([
 					oViewLimitModel.setProperty("/bDateSection", true);
 					oViewLimitModel.setProperty("/bUtilisationSection", false);
 					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
-						oModel.setProperty("/UTILVL", null);
+					oModel.setProperty("/UTILVL", null);
 				} else if (sSelectedKey === "U") {
 					oViewLimitModel.setProperty("/bDateSection", false);
 					oViewLimitModel.setProperty("/bUtilisationSection", true);
@@ -804,7 +808,7 @@ sap.ui.define([
 					srvtid: ssrvtid,
 					sDate: oDate,
 					Time: oDate.getHours() + ":" + oDate.getMinutes(),
-					MulitiFlag: "noKey",
+					MulitiFlag: "N",
 					proccedBtn: true,
 					backBtn: true,
 					signOffBtn: false,
