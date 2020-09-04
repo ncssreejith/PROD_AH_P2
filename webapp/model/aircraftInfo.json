@@ -92,37 +92,37 @@
 	}, {
 		"key": "credtm",
 		"text": "Creation Date/Time",
-		"type": "Completed",
+		"type": "JobC",
 		"filter": "Contains"
 	}, {
 		"key": "jobid",
 		"text": "Job No.",
-		"type": "Completed",
+		"type": "JobC",
 		"filter": "Contains"
 	}, {
 		"key": "jobdesc",
 		"text": "Job Description",
-		"type": "Completed",
+		"type": "JobC",
 		"filter": "Contains"
 	}, {
 		"key": "rectdt",
 		"text": "Closure Date/Time",
-		"type": "Completed",
+		"type": "JobC",
 		"filter": "Contains"
 	}, {
 		"key": "recttxt",
 		"text": "Rectification Summary",
-		"type": "Completed",
+		"type": "JobC",
 		"filter": "Contains"
 	}, {
 		"key": "jobty",
 		"text": "Job Type",
-		"type": "Completed",
+		"type": "JobC",
 		"filter": "Contains"
 	}, {
 		"key": "ptext",
 		"text": "Prime Work Center",
-		"type": "Completed",
+		"type": "JobC",
 		"filter": "Contains"
 	}, {
 		"key": "tdesc",

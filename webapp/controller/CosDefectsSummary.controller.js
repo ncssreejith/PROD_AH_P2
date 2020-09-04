@@ -171,7 +171,8 @@ sap.ui.define([
 					}]
 				});
 				that.getView().setModel(oLocalModel, "LocalModel");
-
+				var oModel = dataUtil.createJsonModel("model/aircraftInfo.json");
+				this.getView().setModel(oModel, "DDModel");
 				this.getRouter().getRoute("CosDefectsSummary").attachPatternMatched(this._handleRouteMatched, this);
 				var sAirId = that.getAircraftId();
 				that._fnWorkCenterGet(sAirId);
@@ -246,6 +247,24 @@ sap.ui.define([
 				Log.error("Exception in CosDefectsSummary:onCloseDialog function");
 				this.handleException(e);
 			}
+		},
+
+		onFilterChange: function(oEvent) {
+			if (oEvent.getSource().getSelectedKey().length > 0) {
+				oEvent.getSource().setValueState("None");
+			}
+		},
+
+		onSearchTable: function(oEvent, sId, oModel) {
+			var sKey = this.getView().byId("cb" + sId).getSelectedKey();
+			if (sKey && sKey.length > 0) {
+				sKey = sKey.split("-");
+				this.onSearch(oEvent, sId, oModel, sKey[0].trim(), sKey[1].trim());
+			} else {
+				this.getView().byId("cb" + sId).setValueState("Error");
+				this.getView().byId("cb" + sId).setValueStateText("Please select column");
+			}
+
 		},
 
 		onImagePress: function(oEvent) {
@@ -1920,7 +1939,7 @@ sap.ui.define([
 							oSummaryModel.setProperty("/MenuActivateVisible", false);
 							break;
 					}
-					oSummaryModel.UpdateBindings("true");
+					oSummaryModel.updateBindings(true);
 
 					that._fnJobDetailsGet(oLocalModel.getProperty("/sJobId"), oLocalModel.getProperty("/sTailId"));
 				}.bind(this);

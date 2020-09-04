@@ -27,13 +27,22 @@
 				updateFinished="onWoorkCenTblUpdateFinished('FR',$event)">
 				<columns>
 					<Column width="7rem" hAlign="Center" class="CERTableTextColor">
-						<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<HBox>
+							<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'FR_DT')"/>
+						</HBox>
 					</Column>
 					<Column width="10rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
-						<Label text="{i18n>lbFlyingRequirements}" design="Bold" wrapping="true"/>
+						<HBox>
+							<Label text="{i18n>lbFlyingRequirements}" design="Bold" wrapping="true"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'FRDESC')"/>
+						</HBox>
 					</Column>
 					<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-						<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<HBox>
+							<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SGDTM')"/>
+						</HBox>
 					</Column>
 					<Column width="3rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
 				</columns>

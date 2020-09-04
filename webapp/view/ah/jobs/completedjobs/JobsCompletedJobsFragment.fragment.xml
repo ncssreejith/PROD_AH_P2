@@ -8,7 +8,7 @@
 					<Title text="{i18n>tiCompletedJobs}" level="H2"/>
 					<ToolbarSpacer/>
 					<ComboBox width="10rem" id="cbAllCompletedJobId" placeholder="Select column filter" change="onFilterChange"
-						items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'Completed' }]}">
+						items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'JobC' }]}">
 						<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
 					</ComboBox>
 					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" value="{LocalJobsModel>/AllCompletedJobId}"

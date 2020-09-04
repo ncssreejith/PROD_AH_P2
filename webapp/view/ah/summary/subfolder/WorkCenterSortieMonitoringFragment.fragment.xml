@@ -10,13 +10,15 @@
 			</ComboBox>
 			<SearchField placeholder="Search" width="15rem" value="{LocalModel>/tbWcSortieMonId}"
 				search="onSearchTable($event,'tbWcSortieMonId','SRMModel')"/>
-			<Button text="{i18n>btnAddSortieMonitoring}" type="Default" press="onAddSortieMonitoring" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+			<Button text="{i18n>btnAddSortieMonitoring}" type="Default" press="onAddSortieMonitoring" enabled="{LocalModel>/FairEditFlag}"
+				visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 		</Toolbar>
 		<VBox backgroundDesign="Solid" alignContent="Center" visible="{= ${SRMModel>/}.length === 0 ? true :false}" alignItems="Center"
 			class="vboxAlign">
 			<items>
 				<Title text="{i18n>txtNoTextSM}" level="H1" titleStyle="H3"/>
-				<Button text="{i18n>btnAddSortieMonitoring}" type="Default" press="onAddSortieMonitoring" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+				<Button text="{i18n>btnAddSortieMonitoring}" type="Default" press="onAddSortieMonitoring" enabled="{LocalModel>/FairEditFlag}"
+					visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 			</items>
 		</VBox>
 		<VBox visible="{=${SRMModel>/}.length !== 0 ? true :false}" alignContent="Center" alignItems="Center">
@@ -25,19 +27,34 @@
 				updateFinished="onWoorkCenTblUpdateFinished('SM',$event)">
 				<columns>
 					<Column width="7rem" hAlign="Center" class="CERTableTextColor">
-						<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<HBox>
+							<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SORDT')"/>
+						</HBox>
 					</Column>
 					<Column width="10rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
-						<Label text="{i18n>lbSortieMonitoring}" design="Bold" wrapping="true"/>
+						<HBox>
+							<Label text="{i18n>lbSortieMonitoring}" design="Bold" wrapping="true"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SORDESC')"/>
+						</HBox>
 					</Column>
 					<Column width="10rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
-						<Label text="Restriction Imposed" design="Bold" wrapping="true"/>
+						<HBox>
+							<Label text="Restriction Imposed" design="Bold" wrapping="true"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'REST_IMPOSE')"/>
+						</HBox>
 					</Column>
 					<Column width="8rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
-						<Label text="To be Monitorised For" design="Bold" wrapping="true"/>
+						<HBox>
+							<Label text="To be Monitorised For" design="Bold" wrapping="true"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'MON_FORTXT')"/>
+						</HBox>
 					</Column>
 					<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-						<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<HBox>
+							<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SG1USR')"/>
+						</HBox>
 					</Column>
 					<Column width="3rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
 				</columns>
@@ -53,7 +70,7 @@
 							<HBox>
 								<Text text="{SRMModel>SORCNT}"/>
 								<Text text="{SRMModel>MON_FORTXT}" class="sapUiTinyMarginBegin"/>
-							</HBox> 
+							</HBox>
 							<VBox>
 								<Text text="{SRMModel>SG1USR}"/>
 								<Text
