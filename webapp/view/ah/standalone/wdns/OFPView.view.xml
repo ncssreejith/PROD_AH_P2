@@ -4,7 +4,8 @@
 		<content>
 			<Toolbar>
 				<ToolbarSpacer/>
-				<Button text="View Past records" press="onPastRecords"/>
+				<Button text="Print" icon="sap-icon://print" press="onPrint"/>
+				<Button text="View Past records" press="onPastRecords" class="sapUiTinyMarginBeginEnd"/>
 				<Button text="Update Records" type="Emphasized" press="onUpdateRecords"/>
 			</Toolbar>
 			<VBox width="100%" class="sapUiSmallMarginTop" >

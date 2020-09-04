@@ -4,7 +4,8 @@
 		<content>
 			<VBox class="sapUiSmallMargin">
 				<HBox justifyContent="End">
-					<Button text="View Past Record" type="Transparent" press="onViewPastRecord"></Button>
+					<Button text="Print" icon="sap-icon://print" press="onPrint"/>
+					<Button text="View Past Record" type="Transparent" class="sapUiTinyMarginBeginEnd" press="onViewPastRecord"></Button>
 					<Button text="Update Record" type="Emphasized" press="onUpdateRecord"></Button>
 				</HBox>
 				<HBox>

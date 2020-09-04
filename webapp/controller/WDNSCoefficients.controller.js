@@ -41,6 +41,43 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		onPrint: function() {
+			var html = "<html><body><div  style='width:95%;'>";
+			html += "<div style='padding-left:3rem; padding-top:1rem;'> WDNS Coefficients Records - Aircraft OFP </div>";
+			html = "<div style='width:95%;'>" + this.generateHtml(this, html, "tblHarmonisation") + "</div>";
+			html += "</div></body></html>";
+			html2pdf().from(html).set({
+				margin: 0,
+				filename: 'WDNS Coefficients Records - Aircraft OFP.pdf',
+				html2canvas: {
+					scale: 2
+				},
+				jsPDF: {
+					orientation: 'landscape',
+					unit: 'in',
+					/*format: 'a0',*/
+					compressPDF: true
+				},
+				mode: {
+					avoidAll: 'avoid-all'
+				}
+			}).save();
+		},
+
+		generateHtml: function(that, html, id) {
+			try {
+				html += "<div style='padding:15px; page-break-before: always;'>";
+				var oTarget1 = that.getView().byId(id);
+				var $domTarget1 = oTarget1.$()[0];
+				if ($domTarget1 !== undefined) {
+					html += $domTarget1.innerHTML;
+				}
+				return html;
+			} catch (e) {
+				return null;
+			}
+		},
 		/** 
 		 * on page load
 		 * @constructor 
