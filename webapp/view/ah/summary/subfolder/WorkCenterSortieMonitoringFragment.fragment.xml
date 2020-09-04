@@ -4,7 +4,12 @@
 		<Toolbar>
 			<Title text="{i18n>tiSortieMonitoring}" level="H2"/>
 			<ToolbarSpacer/>
-			<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"/>
+			<ComboBox width="12rem" id="cbtbWcSortieMonId" placeholder="Select column filter" change="onFilterChange"
+				items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'SortieMon' }]}">
+				<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
+			</ComboBox>
+			<SearchField placeholder="Search" width="15rem" value="{LocalModel>/tbWcSortieMonId}"
+				search="onSearchTable($event,'tbWcSortieMonId','SRMModel')"/>
 			<Button text="{i18n>btnAddSortieMonitoring}" type="Default" press="onAddSortieMonitoring" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 		</Toolbar>
 		<VBox backgroundDesign="Solid" alignContent="Center" visible="{= ${SRMModel>/}.length === 0 ? true :false}" alignItems="Center"

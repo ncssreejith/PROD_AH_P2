@@ -27,6 +27,178 @@
 		"Name": "Approvals"
 	}, {
 		"Name": "Aircraft Capabilities"
+	}],
+
+	"FilterDDModel": [{
+		"key": "jobid",
+		"text": "Date / Time",
+		"type": "AllJobOut DefectJobOut",
+		"filter": "Contains"
+	}, {
+		"key": "jobid",
+		"text": "Job No.",
+		"type": "AllJobOut DefectJobOut",
+		"filter": "Contains"
+	}, {
+		"key": "jobdesc",
+		"text": "Job Description",
+		"type": "AllJobOut",
+		"filter": "Contains"
+	}, {
+		"key": "jobdesc",
+		"text": "Defect",
+		"type": "DefectJobOut",
+		"filter": "Contains"
+	}, {
+		"key": "jobty",
+		"text": "Job Type",
+		"type": "AllJobOut",
+		"filter": "Contains"
+	}, {
+		"key": "ptext",
+		"text": "Prime",
+		"type": "AllJobOut DefectJobOut",
+		"filter": "Contains"
+	}, {
+		"key": "DUEIN",
+		"text": "Due In",
+		"type": "OutPhase",
+		"filter": "LE"
+	}, {
+		"key": "UM",
+		"text": "Um",
+		"type": "OutPhase",
+		"filter": "Contains"
+	}, {
+		"key": "SERVDUE",
+		"text": "Servicing Due",
+		"type": "OutPhase",
+		"filter": "LE"
+	}, {
+		"key": "JOBDESC",
+		"text": "Job Description",
+		"type": "OutPhase",
+		"filter": "Contains"
+	}, {
+		"key": "CTYPE",
+		"text": "Type",
+		"type": "OutPhase",
+		"filter": "Contains"
+	}, {
+		"key": "WRCTR",
+		"text": "Prime",
+		"type": "OutPhase",
+		"filter": "Contains"
+	}, {
+		"key": "credtm",
+		"text": "Creation Date/Time",
+		"type": "Completed",
+		"filter": "Contains"
+	}, {
+		"key": "jobid",
+		"text": "Job No.",
+		"type": "Completed",
+		"filter": "Contains"
+	}, {
+		"key": "jobdesc",
+		"text": "Job Description",
+		"type": "Completed",
+		"filter": "Contains"
+	}, {
+		"key": "rectdt",
+		"text": "Closure Date/Time",
+		"type": "Completed",
+		"filter": "Contains"
+	}, {
+		"key": "recttxt",
+		"text": "Rectification Summary",
+		"type": "Completed",
+		"filter": "Contains"
+	}, {
+		"key": "jobty",
+		"text": "Job Type",
+		"type": "Completed",
+		"filter": "Contains"
+	}, {
+		"key": "ptext",
+		"text": "Prime Work Center",
+		"type": "Completed",
+		"filter": "Contains"
+	}, {
+		"key": "tdesc",
+		"text": "Task",
+		"type": "TaskOut TaskPending TaskCompleted",
+		"filter": "Contains"
+	}, {
+		"key": "credtm",
+		"text": "Date/Time",
+		"type": "TaskOut",
+		"filter": "Contains"
+	}, {
+		"key": "ftcredt",
+		"text": "Date/Time",
+		"type": "TaskPending TaskCompleted",
+		"filter": "Contains"
+	}, {
+		"key": "ftdesc",
+		"text": "Follow-Up Task",
+		"type": "TaskPending TaskCompleted",
+		"filter": "Contains"
+	}, {
+		"key": "LDESC",
+		"text": "Limitations",
+		"type": "TaskPending TaskCompleted",
+		"filter": "Contains"
+	}, {
+		"key": "SG1USR",
+		"text": "Tradesman",
+		"type": "TaskPending TaskCompleted",
+		"filter": "Contains"
+	}, {
+		"key": "SG2USR",
+		"text": "Supervisor",
+		"type": "TaskCompleted",
+		"filter": "Contains"
+	}, {
+		"key": "FR_DT",
+		"text": "Date/Time",
+		"type": "FlyReq",
+		"filter": "Contains"
+	}, {
+		"key": "FRDESC",
+		"text": "Flying Requirements",
+		"type": "FlyReq",
+		"filter": "Contains"
+	}, {
+		"key": "SGDTM",
+		"text": "Tradesman",
+		"type": "FlyReq",
+		"filter": "Contains"
+	}, {
+		"key": "SORDT",
+		"text": "Date/Time",
+		"type": "SortieMon",
+		"filter": "Contains"
+	}, {
+		"key": "SORDESC",
+		"text": "Aircraft Monitoring",
+		"type": "SortieMon",
+		"filter": "Contains"
+	}, {
+		"key": "REST_IMPOSE",
+		"text": "Restriction Imposed",
+		"type": "SortieMon",
+		"filter": "Contains"
+	}, {
+		"key": "MON_FORTXT",
+		"text": "To Be Monitorised",
+		"type": "SortieMon",
+		"filter": "Contains"
+	}, {
+		"key": "SG1USR",
+		"text": "Tradesman",
+		"type": "SortieMon",
+		"filter": "Contains"
 	}]
 
 }

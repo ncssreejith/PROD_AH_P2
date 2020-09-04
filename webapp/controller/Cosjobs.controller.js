@@ -114,6 +114,25 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
+		
+		onFilterChange : function (oEvent){
+			if (oEvent.getSource().getSelectedKey().length > 0){
+				oEvent.getSource().setValueState("None");   	
+			}
+		},
+		
+		onSearchTable : function (oEvent,sId, oModel){
+			var sKey = this.getView().byId("cb"+sId).getSelectedKey();
+			if (sKey && sKey.length > 0) {
+				sKey = sKey.split("-");
+				this.onSearch(oEvent,sId, oModel,sKey[0].trim(), sKey[1].trim());
+			} else {
+				this.getView().byId("cb"+sId).setValueState("Error");
+				this.getView().byId("cb"+sId).setValueStateText("Please select column");
+			}
+			
+			
+		},
 
 		onJobTabSelect: function(oEvent) {
 			try {
@@ -340,6 +359,8 @@ sap.ui.define([
 					sSelectedKey: ""
 				});
 				this.getView().setModel(oLocalJobsModel, "LocalJobsModel");
+				var oModel = dataUtil.createJsonModel("model/aircraftInfo.json");
+				this.getView().setModel(oModel, "DDModel");
 				this._fnJobDetailsGetAll();
 				this._fnJobDetailsGetDefect();
 				this._fnJobDetailsGetScheduled();
@@ -465,6 +486,13 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
+					for (var i in oData.results) {
+						var iVal = parseFloat(oData.results[i].DUEIN);
+						oData.results[i].DUEIN = iVal;
+						iVal = parseFloat(oData.results[i].SERVDUE);
+						oData.results[i].SERVDUE = iVal;
+					}
+
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "SchJobModelAll");
@@ -485,6 +513,12 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
+					for (var i in oData.results) {
+						var iVal = parseFloat(oData.results[i].DUEIN);
+						oData.results[i].DUEIN = iVal;
+						iVal = parseFloat(oData.results[i].SERVDUE);
+						oData.results[i].SERVDUE = iVal;
+					}
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "JobModelAIR");
@@ -505,6 +539,12 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
+					for (var i in oData.results) {
+						var iVal = parseFloat(oData.results[i].DUEIN);
+						oData.results[i].DUEIN = iVal;
+						iVal = parseFloat(oData.results[i].SERVDUE);
+						oData.results[i].SERVDUE = iVal;
+					}
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "JobModelCOM");
@@ -525,6 +565,12 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
+					for (var i in oData.results) {
+						var iVal = parseFloat(oData.results[i].DUEIN);
+						oData.results[i].DUEIN = iVal;
+						iVal = parseFloat(oData.results[i].SERVDUE);
+						oData.results[i].SERVDUE = iVal;
+					}
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "JobModelENG");
@@ -545,6 +591,12 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
+					for (var i in oData.results) {
+						var iVal = parseFloat(oData.results[i].DUEIN);
+						oData.results[i].DUEIN = iVal;
+						iVal = parseFloat(oData.results[i].SERVDUE);
+						oData.results[i].SERVDUE = iVal;
+					}
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "JobModelMODSTI");

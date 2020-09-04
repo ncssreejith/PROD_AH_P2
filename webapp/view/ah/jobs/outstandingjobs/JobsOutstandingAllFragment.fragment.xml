@@ -6,10 +6,12 @@
 				<OverflowToolbar>
 					<Title text="{i18n>tiAllOutstandingJobs}" level="H2"/>
 					<ToolbarSpacer/>
-					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" value="{LocalJobsModel>/AllJobId}" search="onSearch($event,'AllJobId','JobModelAll','jobdesc')"/>
-					<ComboBox width="10rem">
-						<core:Item key="{key}" text="{text}"/>
+					<ComboBox width="10rem" id="cbAllJobId" placeholder="Select column filter" change="onFilterChange"
+						items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'AllJobOut' }]}">
+						<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
 					</ComboBox>
+					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" value="{LocalJobsModel>/AllJobId}"
+						search="onSearchTable($event,'AllJobId','JobModelAll')"/>
 				</OverflowToolbar>
 			</headerToolbar>
 			<columns>
@@ -26,7 +28,10 @@
 					</HBox>
 				</Column>
 				<Column width="12rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-					<Label text="{i18n>lbJobDescription}" design="Bold" wrapping="true"/>
+					<HBox>
+						<Label text="{i18n>lbJobDescription}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobdesc')"/>
+					</HBox>
 				</Column>
 				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>

@@ -293,7 +293,9 @@ sap.ui.define([
 				}, 500);
 				var coordinates = oAppModel.getProperty("/" + sType);
 				if (coordinates && coordinates.length > 0) {
-					that.drawCoordinates(coordinates[0].xaxis, coordinates[0].yaxis);
+					setTimeout(function demo() {
+						that.drawCoordinates(coordinates[0].xaxis, coordinates[0].yaxis);
+					}, 600);
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onSelectionDefectAreaChange function");
