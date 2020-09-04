@@ -3,7 +3,7 @@
 	<Page showHeader="false">
 		<subHeader>
 			<OverflowToolbar>
-				<Button icon="sap-icon://nav-back" class="sapUiLargeMarginBegin" press="onNavBack"></Button>
+				<Button icon="sap-icon://nav-back" class="sapUiLargeMarginBegin" press="onNavBack($event, 'DashboardInitial')"></Button>
 				<Title level="H3" text="{i18n>tiJobs}" class="sapUiTinyMarginBegin"/>
 				<ToolbarSpacer/>
 				<Button text="{i18n>btnCreateJob}" class="btnColor sapUiMediumMarginEnd" press="onCreateScheduleJobPress"

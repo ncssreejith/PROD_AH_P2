@@ -745,9 +745,9 @@ sap.ui.define([
 						this._fnSumamryDetailsGet(that.getView().getModel("LocalModel").getProperty("/ESJobId"));
 					}
 				}.bind(this);
-				/*				oPrmSchJob.activity = 2;
-								, "ZRM_SCH_SJ", this*/
-				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload]);
+				oPrmSchJob.activity = 2;
+
+				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcessionPress function");
 			}

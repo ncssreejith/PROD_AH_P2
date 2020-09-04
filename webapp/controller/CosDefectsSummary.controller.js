@@ -269,113 +269,116 @@ sap.ui.define([
 
 		handleMenuItemPress: function(oEvent) {
 			try {
+
 				var that = this;
 				var oSummaryModel = this.getView().getModel("SummaryModel"),
 					oModel = this.getView().getModel("JobModel"),
 					oLocalModel = this.getView().getModel("LocalModel");
-				var dData = formatter.defaultOdataDateFormat(new Date());
-				var tTime = new Date().getHours() + ":" + new Date().getMinutes();
-				switch (oEvent.getParameter("item").getText()) {
-					case "Edit Job":
-						break;
-					case "Edit Job Details":
-						that.getRouter().navTo("CosCreateJob", {
-							"JobId": oLocalModel.getProperty("/sJobId"),
-							"RJobId": "N"
-						});
-						break;
-					case "Job Enter in Error":
-						if (oLocalModel.getProperty("/JobStatus")) {
-							this.onCloseJobPress("Y");
-						} else {
-							MessageBox.error(
-								"Please close all tasks of the job : " + oLocalModel.getProperty("/sJobId"), {
-									icon: sap.m.MessageBox.Icon.Error,
-									title: "Error",
-									styleClass: "sapUiSizeCompact"
-								});
-						}
-						break;
-					case "Transfer Job to ADD/ Limitation":
-						that.getRouter().navTo("RouteTransferToADD", {
-							"JobId": oLocalModel.getProperty("/sJobId"),
-							"FndBy": that.getView().getModel("JobModel").getProperty("/fndby"),
-							"FndId": that.getView().getModel("JobModel").getProperty("/fndid"),
-							"JobDesc": that.getView().getModel("JobModel").getProperty("/jobdesc")
-						});
-						break;
-					case "View History Log":
-						break;
-					case "Work Center":
-						break;
-					case "Add Work Center":
-						that.onAddNewWorkCenter();
-						break;
-					case "Manage Work Center":
-						break;
-					case "Add Related Job":
-						var oTestModel = dataUtil.createNewJsonModel();
-						oTestModel.setData({
-							"Test": true
-						});
-						that.getOwnerComponent().setModel(oTestModel, "oTestModel");
+				if (oLocalModel.getProperty("/sFlag") === "Y") {
+					var dData = formatter.defaultOdataDateFormat(new Date());
+					var tTime = new Date().getHours() + ":" + new Date().getMinutes();
+					switch (oEvent.getParameter("item").getText()) {
+						case "Edit Job":
+							break;
+						case "Edit Job Details":
+							that.getRouter().navTo("CosCreateJob", {
+								"JobId": oLocalModel.getProperty("/sJobId"),
+								"RJobId": "N"
+							});
+							break;
+						case "Job Enter in Error":
+							if (oLocalModel.getProperty("/JobStatus")) {
+								this.onCloseJobPress("Y");
+							} else {
+								MessageBox.error(
+									"Please close all tasks of the job : " + oLocalModel.getProperty("/sJobId"), {
+										icon: sap.m.MessageBox.Icon.Error,
+										title: "Error",
+										styleClass: "sapUiSizeCompact"
+									});
+							}
+							break;
+						case "Transfer Job to ADD/ Limitation":
+							that.getRouter().navTo("RouteTransferToADD", {
+								"JobId": oLocalModel.getProperty("/sJobId"),
+								"FndBy": that.getView().getModel("JobModel").getProperty("/fndby"),
+								"FndId": that.getView().getModel("JobModel").getProperty("/fndid"),
+								"JobDesc": that.getView().getModel("JobModel").getProperty("/jobdesc")
+							});
+							break;
+						case "View History Log":
+							break;
+						case "Work Center":
+							break;
+						case "Add Work Center":
+							that.onAddNewWorkCenter();
+							break;
+						case "Manage Work Center":
+							break;
+						case "Add Related Job":
+							var oTestModel = dataUtil.createNewJsonModel();
+							oTestModel.setData({
+								"Test": true
+							});
+							that.getOwnerComponent().setModel(oTestModel, "oTestModel");
 
-						that.getRouter().navTo("CosCreateJob", {
-							"JobId": oLocalModel.getProperty("/sJobId"),
-							"RJobId": "Y"
-						});
-						break;
-					case "Declare FAIR":
-						oLocalModel.setProperty("/FairEditFlag", false);
-						oLocalModel.setProperty("/JobStatus", false);
-						oSummaryModel.setProperty("/FAIRStatusText", "ACTIVATED");
-						oModel.setProperty("/fstat", "A");
-						oModel.setProperty("/factby", null);
-						oModel.setProperty("/factdtm", null);
-						oModel.setProperty("/factuzt", null);
-						oSummaryModel.setProperty("/FAIRStatus", "Error");
-						oModel.updateBindings();
-						that._fnUpdateFAIRJob();
-						break;
-					case "Undo FAIR":
-						oLocalModel.setProperty("/FairEditFlag", true);
-						oSummaryModel.setProperty("/FAIRStatusText", "");
-						oModel.setProperty("/fstat", "U");
-						oModel.setProperty("/factby", "Test User");
-						oModel.setProperty("/factdtm", dData);
-						oModel.setProperty("/factuzt", tTime);
-						that._fnTaskStatusGet(oLocalModel.getProperty("/sJobId"));
-						oSummaryModel.setProperty("/FAIRStatus", "None");
-						oSummaryModel.setProperty("/MenuVisible", true);
-						oSummaryModel.setProperty("/MenuActivateVisible", false);
-						oModel.updateBindings(true);
-						that._fnUpdateFAIRJob();
-						break;
-					case "Release for Rectification":
-						oLocalModel.setProperty("/FairEditFlag", true);
-						oSummaryModel.setProperty("/FAIRStatusText", "Release for Rectifications");
-						oSummaryModel.setProperty("/FAIRReleasedby", "Test User");
-						oSummaryModel.setProperty("/FAIRStatus", "None");
-						oSummaryModel.setProperty("/MenuVisible", true);
-						oSummaryModel.setProperty("/MenuActivateVisible", false);
-						oModel.setProperty("/fstat", "R");
-						oModel.setProperty("/frelby", "Test User");
-						oModel.setProperty("/rectdt", dData);
-						oModel.setProperty("/recttm", tTime);
-						oModel.updateBindings(true);
-						that._fnUpdateJob();
-						var oModelData = [];
-						oModelData.push({
-							"PastAdd": "1",
-							"PastAddDate": formatter.defaultDateFormat(new Date())
-						});
-						dataUtil.setDataSet("TransferJobModel", oModelData[0]);
-						break;
-					case "Raise Extension":
-						break;
+							that.getRouter().navTo("CosCreateJob", {
+								"JobId": oLocalModel.getProperty("/sJobId"),
+								"RJobId": "Y"
+							});
+							break;
+						case "Declare FAIR":
+							oLocalModel.setProperty("/FairEditFlag", false);
+							oLocalModel.setProperty("/JobStatus", false);
+							oSummaryModel.setProperty("/FAIRStatusText", "ACTIVATED");
+							oModel.setProperty("/fstat", "A");
+							oModel.setProperty("/factby", null);
+							oModel.setProperty("/factdtm", null);
+							oModel.setProperty("/factuzt", null);
+							oSummaryModel.setProperty("/FAIRStatus", "Error");
+							oModel.updateBindings();
+							that._fnUpdateFAIRJob();
+							break;
+						case "Undo FAIR":
+							oLocalModel.setProperty("/FairEditFlag", true);
+							oSummaryModel.setProperty("/FAIRStatusText", "");
+							oModel.setProperty("/fstat", "U");
+							oModel.setProperty("/factby", "Test User");
+							oModel.setProperty("/factdtm", dData);
+							oModel.setProperty("/factuzt", tTime);
+							that._fnTaskStatusGet(oLocalModel.getProperty("/sJobId"));
+							oSummaryModel.setProperty("/FAIRStatus", "None");
+							oSummaryModel.setProperty("/MenuVisible", true);
+							oSummaryModel.setProperty("/MenuActivateVisible", false);
+							oModel.updateBindings(true);
+							that._fnUpdateFAIRJob();
+							break;
+						case "Release for Rectification":
+							oLocalModel.setProperty("/FairEditFlag", true);
+							oSummaryModel.setProperty("/FAIRStatusText", "Release for Rectifications");
+							oSummaryModel.setProperty("/FAIRReleasedby", "Test User");
+							oSummaryModel.setProperty("/FAIRStatus", "None");
+							oSummaryModel.setProperty("/MenuVisible", true);
+							oSummaryModel.setProperty("/MenuActivateVisible", false);
+							oModel.setProperty("/fstat", "R");
+							oModel.setProperty("/frelby", "Test User");
+							oModel.setProperty("/rectdt", dData);
+							oModel.setProperty("/recttm", tTime);
+							oModel.updateBindings(true);
+							that._fnUpdateJob();
+							var oModelData = [];
+							oModelData.push({
+								"PastAdd": "1",
+								"PastAddDate": formatter.defaultDateFormat(new Date())
+							});
+							dataUtil.setDataSet("TransferJobModel", oModelData[0]);
+							break;
+						case "Raise Extension":
+							break;
+					}
+					that.getView().getModel("SummaryModel").updateBindings(true);
+					oModel.updateBindings(true);
 				}
-				that.getView().getModel("SummaryModel").updateBindings(true);
-				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:handleMenuItemPress function");
 				this.handleException(e);
@@ -386,15 +389,19 @@ sap.ui.define([
 		onAddNewWorkCenter: function() {
 			try {
 				var that = this,
+					oLocalModel,
 					oModel = this.getView().getModel("WorkCenterSet");
-				if (!that._oAddWorkCenter) {
-					that._oAddWorkCenter = sap.ui.xmlfragment(that.createId("idWorkCenterDialog"),
-						"avmet.ah.fragments.AddWorkCenterDialog",
-						this);
-					that.getView().addDependent(that._oAddWorkCenter);
+				oLocalModel = this.getView().getModel("LocalModel");
+				if (oLocalModel.getProperty("/sFlag") === "Y") {
+					if (!that._oAddWorkCenter) {
+						that._oAddWorkCenter = sap.ui.xmlfragment(that.createId("idWorkCenterDialog"),
+							"avmet.ah.fragments.AddWorkCenterDialog",
+							this);
+						that.getView().addDependent(that._oAddWorkCenter);
+					}
+					that._oAddWorkCenter.setModel(oModel, "WorkCenterSet");
+					that._oAddWorkCenter.open(that);
 				}
-				that._oAddWorkCenter.setModel(oModel, "WorkCenterSet");
-				that._oAddWorkCenter.open(that);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onAddNewWorkCenter function");
 				this.handleException(e);
@@ -609,44 +616,47 @@ sap.ui.define([
 					oStatus,
 					oButton, eDock, oModel, oDialogModel;
 				oModel = that.getView().getModel("LocalModel");
-				oDialogModel = dataUtil.createNewJsonModel();
-				if (!that._oWCMenuFrag) {
-					that._oWCMenuFrag = sap.ui.xmlfragment("WorkMenuId",
-						"avmet.ah.fragments.WorkCenterFragmentMenu",
-						that);
-					that.getView().addDependent(that._oWCMenuFrag);
-				}
-				switch (sText) {
-					case "WCT":
-						oDialogModel.setData(oModel.getData().CreateTaskMenu);
-						break;
-					case "WCA":
-						oStatus = that._fnGetWorkCenterPrimeStatus(oModel.getProperty("/WorkCenterTitle"));
-						if (oStatus) {
-							oModel.getData().WorkCenterActionMenu[0].Visible = false;
-						} else {
-							oModel.getData().WorkCenterActionMenu[0].Visible = true;
-						}
-						oModel.updateBindings(true);
-						oDialogModel.setData(oModel.getData().WorkCenterActionMenu);
-						break;
-					case "TDM":
-					case "SMT":
-						oEvent.getSource().getParent().setSelected(true);
-						oModel.setProperty("/TableFlag", sText);
-						oDialogModel.setData(oModel.getData().SpareMenu);
-					case "SPR":
-					case "FLR":
-						oModel.setProperty("/TableFlag", sText);
-						oEvent.getSource().getParent().setSelected(true);
-						oDialogModel.setData(oModel.getData().SpareMenu);
-						break;
+				if (oModel.getProperty("/sFlag") === "Y") {
+					oDialogModel = dataUtil.createNewJsonModel();
 
+					if (!that._oWCMenuFrag) {
+						that._oWCMenuFrag = sap.ui.xmlfragment("WorkMenuId",
+							"avmet.ah.fragments.WorkCenterFragmentMenu",
+							that);
+						that.getView().addDependent(that._oWCMenuFrag);
+					}
+					switch (sText) {
+						case "WCT":
+							oDialogModel.setData(oModel.getData().CreateTaskMenu);
+							break;
+						case "WCA":
+							oStatus = that._fnGetWorkCenterPrimeStatus(oModel.getProperty("/WorkCenterTitle"));
+							if (oStatus) {
+								oModel.getData().WorkCenterActionMenu[0].Visible = false;
+							} else {
+								oModel.getData().WorkCenterActionMenu[0].Visible = true;
+							}
+							oModel.updateBindings(true);
+							oDialogModel.setData(oModel.getData().WorkCenterActionMenu);
+							break;
+						case "TDM":
+						case "SMT":
+							oEvent.getSource().getParent().setSelected(true);
+							oModel.setProperty("/TableFlag", sText);
+							oDialogModel.setData(oModel.getData().SpareMenu);
+						case "SPR":
+						case "FLR":
+							oModel.setProperty("/TableFlag", sText);
+							oEvent.getSource().getParent().setSelected(true);
+							oDialogModel.setData(oModel.getData().SpareMenu);
+							break;
+
+					}
+					that._oWCMenuFrag.setModel(oDialogModel, "DialogModel");
+					eDock = sap.ui.core.Popup.Dock;
+					oButton = oEvent.getSource();
+					that._oWCMenuFrag.open(this._bKeyboard, oButton, eDock.BeginTop, eDock.BeginFront, oButton);
 				}
-				that._oWCMenuFrag.setModel(oDialogModel, "DialogModel");
-				eDock = sap.ui.core.Popup.Dock;
-				oButton = oEvent.getSource();
-				that._oWCMenuFrag.open(this._bKeyboard, oButton, eDock.BeginTop, eDock.BeginFront, oButton);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:handlePressWorkCenterFragmentOpenMenu function");
 				this.handleException(e);
@@ -686,22 +696,31 @@ sap.ui.define([
 					oObj,
 					sKey, oTable,
 					oModel = that.getView().getModel("LocalModel"),
+					oJobModel = that.getView().getModel("JobModel"),
 					oSelectedItem;
 				oSelectedItem = oEvent.getParameter("item").getText();
 				switch (oSelectedItem) {
 					case "Set as Prime":
 						sKey = oModel.getProperty("/WorkCenterKey");
-						that.getView().getModel("JobModel").setProperty("/prime", sKey);
+						oJobModel.setProperty("/prime", sKey);
 						that._fnUpdateJob();
 						break;
 					case "Switch Work Center":
 						break;
 					case "Delete Work Center":
-						/*that._fnRemoveWorkCenter(oModel.getProperty("/WorkCenterTitle"));*/
 						sKey = oModel.getProperty("/WorkCenterKey");
-						this._fnDefectWorkCenterDelete(sKey);
-						oModel.setProperty("/SummaryFlag", true);
-						oModel.setProperty("/WorcenterFlag", false);
+						if (oJobModel.getProperty("/prime") !== sKey) {
+							this._fnDefectWorkCenterDelete(sKey);
+							oModel.setProperty("/SummaryFlag", true);
+							oModel.setProperty("/WorcenterFlag", false);
+						} else {
+							MessageBox.error(
+								"Prime workcenter can not be deleted.", {
+									icon: sap.m.MessageBox.Icon.Error,
+									title: "Error",
+									styleClass: "sapUiSizeCompact"
+								});
+						}
 						break;
 					case "New Task":
 						this.onAddCreateTask();
@@ -860,11 +879,13 @@ sap.ui.define([
 			try {
 				var that = this,
 					oModel = this.getView().getModel("LocalModel");
-				that.getRouter().navTo("CosAddDemandSpares", {
-					"jobId": this.getView().byId("txtJobID").getText(),
-					"WorkCenter": oModel.getProperty("/WorkCenterTitle"),
-					"WorkKey": oModel.getProperty("/WorkCenterKey")
-				});
+				if (oModel.getProperty("/sFlag") === "Y") {
+					that.getRouter().navTo("CosAddDemandSpares", {
+						"jobId": this.getView().byId("txtJobID").getText(),
+						"WorkCenter": oModel.getProperty("/WorkCenterTitle"),
+						"WorkKey": oModel.getProperty("/WorkCenterKey")
+					});
+				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onAddDemandSpares function");
 				this.handleException(e);
@@ -1812,8 +1833,7 @@ sap.ui.define([
 				if (oPayload.etrtm === "") {
 					oPayload.etrtm = null;
 				}
-				oParameter.error = function(response) {
-				};
+				oParameter.error = function(response) {};
 
 				oParameter.success = function(oData) {
 					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
@@ -1856,7 +1876,7 @@ sap.ui.define([
 				oParameter.error = function(response) {};
 
 				oParameter.success = function(oData) {
-				that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
+					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 				}.bind(this);
 				oParameter.activity = 1;
 				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_FAIR_D", this);

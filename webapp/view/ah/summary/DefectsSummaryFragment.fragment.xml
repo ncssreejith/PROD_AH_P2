@@ -80,9 +80,9 @@
 												<HBox>
 													<DatePicker width="8rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
 														value="{path: 'JobModel>/etrdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-														change="handleChange" enabled="{LocalModel>/FairEditFlag}" editable="{LocalModel>/FairEditFlag}"/>
+														change="handleChange" enabled="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}" editable="{LocalModel>/FairEditFlag}"/>
 													<TimePicker id="TP1" required="true" fieldGroupIds="fgTime" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/etrtm}" width="7rem"
-														valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" enabled="{LocalModel>/FairEditFlag}" editable="{LocalModel>/FairEditFlag}"/>
+														valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" enabled="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}" editable="{LocalModel>/FairEditFlag}"/>
 												</HBox>
 											</HBox>
 											<HBox visible="{=${JobModel>/fstat}!=='' &amp;&amp; ${JobModel>/fstat}!==undefined ? true :false}" class="sapUiTinyMarginTop">

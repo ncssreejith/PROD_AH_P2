@@ -676,7 +676,7 @@ sap.ui.define([
 					oTempData[0].isser = aTasks[i].sType1;
 					/*oTempData[0].servl = aTasks[i].sType1Value;*/
 					oTempData[0].sernr = aTasks[i].sType1Value;
-					oTempData[0].ftsernr = aTasks[i].sType1Value;
+					/*oTempData[0].ftsernr = aTasks[i].sType1Value;*/
 					oTempData[0].ismat = aTasks[i].sType2;
 					oTempData[0].partno = aTasks[i].sType2Value;
 					oTempData[0].otherss = aTasks[i].sIndicateItem;

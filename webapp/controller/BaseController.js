@@ -15,9 +15,7 @@ sap.ui.define([
 	 *   Available Functions are Exception Handling, Dialog Handling  
 	 *************************************************************************** */
 	return Controller.extend("avmet.ah.controller.BaseController", {
-		
-	
-		
+
 		/** 
 		 * Function : getRouter
 		 * Convenience method for accessing the router.
@@ -176,18 +174,24 @@ sap.ui.define([
 		// 		this.getRouter().navTo("Overview", {}, true /*no history*/ );
 		// 	}
 		// },
-		onNavBack: function(oEvent) {
-			var oHistory, sPreviousHash;
-			oHistory = sap.ui.core.routing.History.getInstance();
-			sPreviousHash = oHistory.getPreviousHash();
+		onNavBack: function(oEvent, viewName) {
 
-			if (sPreviousHash !== undefined) {
-				window.history.go(-1);
+			if (viewName !== undefined && viewName !== null) {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo(viewName);
 			} else {
-				this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
+
+				var oHistory, sPreviousHash;
+				oHistory = sap.ui.core.routing.History.getInstance();
+				sPreviousHash = oHistory.getPreviousHash();
+
+				if (sPreviousHash !== undefined) {
+					window.history.go(-1);
+				} else {
+					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
+				}
 			}
 		},
-
 		getFragmentControl: function(sFragId, sControlId) {
 			var sId = Fragment.createId(sFragId, sControlId);
 			return this.byId(sId);
@@ -264,7 +268,7 @@ sap.ui.define([
 						var oDash = this.getModel("avmetModel").getProperty("/dash");
 						var oModel = this.getView().getModel("avmetModel");
 						oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
-						if(this.fnOverwriteStatus(oDash.astid)){
+						if (this.fnOverwriteStatus(oDash.astid)) {
 							oModel.setProperty("/dash/TBTN3", true);
 						}
 						oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
@@ -280,7 +284,7 @@ sap.ui.define([
 				Log.error("Exception in fnLoadSrv1Dashboard function");
 			}
 		},
-		
+
 		fnSetMenuVisible: function(oFlag, fnCallBack) {
 			var aMenu = this.getModel("menuModel").getData();
 			var oFound = {};
@@ -355,7 +359,7 @@ sap.ui.define([
 			}
 			return oDailog;
 		},
-			getDialog: function(oDialogName) {
+		getDialog: function(oDialogName) {
 			try {
 				return this[oDialogName];
 			} catch (e) {
@@ -427,14 +431,14 @@ sap.ui.define([
 		onSort: function(oEvent, sFieldName) {
 			var aSorters = [];
 			// var oTable = this.byId("AllJobId");
-			var oBinding = oEvent.getSource().getParent().getParent().getParent().getBinding("items");//oTable.getBinding("items");
+			var oBinding = oEvent.getSource().getParent().getParent().getParent().getBinding("items"); //oTable.getBinding("items");
 			var sPath = sFieldName; // mParams.sortItem.getKey();
 			var bDescending = true;
-			if(oBinding && oBinding.aSorters && oBinding.aSorters.length && oBinding.aSorters.length > 0
-				&& oBinding.aSorters[0].sPath === sFieldName){
+			if (oBinding && oBinding.aSorters && oBinding.aSorters.length && oBinding.aSorters.length > 0 && oBinding.aSorters[0].sPath ===
+				sFieldName) {
 				bDescending = !oBinding.aSorters[0].bDescending;
 			}
-			
+
 			aSorters.push(new sap.ui.model.Sorter(sPath, bDescending));
 			oBinding.sort(aSorters);
 		},
@@ -601,7 +605,7 @@ sap.ui.define([
 				}.bind(this));
 			};
 		}
-		
+
 	});
 
 });
