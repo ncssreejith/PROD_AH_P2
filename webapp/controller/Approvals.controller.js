@@ -291,7 +291,7 @@ sap.ui.define([
 					that.getView().byId("MasterId").setVisible(false);
 					that.onOpenDialogApp();
 				}.bind(this);
-				oParameter.activity = 2;
+				oParameter.activity = 5;
 				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], "ZRM_WNB", this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateWB function");
@@ -359,7 +359,7 @@ sap.ui.define([
 					that.getView().byId("MasterId").setVisible(false);
 					that.onOpenDialogApp();
 				}.bind(this);
-				oParameter.activity = 2;
+				oParameter.activity = 5;
 				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], "ZRM_AC_O", this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateLP function");
@@ -402,7 +402,7 @@ sap.ui.define([
 					this.getView().byId("MasterId").setVisible(false);
 					that.onOpenDialogApp(sValue);
 				}.bind(this);
-				oParameter.activity = 2;
+				oParameter.activity = 5;
 				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateADD function");
@@ -514,7 +514,7 @@ sap.ui.define([
 					this.getView().byId("MasterId").setVisible(false);
 					this.onOpenDialogApp();
 				}.bind(this);
-				oParameter.activity = 2;
+				oParameter.activity = 5;
 				ajaxutil.fnUpdate(sPath, oParameter, [oPayload], "ZRM_T_MOD", this);
 			} catch (e) {
 				Log.error("Exception in fnUpdateDeMod function");
