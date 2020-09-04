@@ -141,6 +141,8 @@ sap.ui.define([
 					FairEditFlag: true,
 					TableFlag: "",
 					sFlag: "",
+					sWcKey: "",
+					sGoTo: "",
 					JobStatus: false,
 					DefectImageSrc: [],
 					CreateTaskMenu: [{
@@ -169,8 +171,7 @@ sap.ui.define([
 					}]
 				});
 				that.getView().setModel(oLocalModel, "LocalModel");
-				var oModel = dataUtil.createJsonModel("model/aircraftInfo.json");
-				this.getView().setModel(oModel, "DDModel");
+
 				this.getRouter().getRoute("CosDefectsSummary").attachPatternMatched(this._handleRouteMatched, this);
 				var sAirId = that.getAircraftId();
 				that._fnWorkCenterGet(sAirId);
@@ -329,44 +330,13 @@ sap.ui.define([
 							});
 							break;
 						case "Declare FAIR":
-							oLocalModel.setProperty("/FairEditFlag", false);
-							oLocalModel.setProperty("/JobStatus", false);
-							oSummaryModel.setProperty("/FAIRStatusText", "ACTIVATED");
-							oModel.setProperty("/fstat", "A");
-							oModel.setProperty("/factby", null);
-							oModel.setProperty("/factdtm", null);
-							oModel.setProperty("/factuzt", null);
-							oSummaryModel.setProperty("/FAIRStatus", "Error");
-							oModel.updateBindings();
-							that._fnUpdateFAIRJob();
+							that._fnUpdateFAIRJob("A");
 							break;
 						case "Undo FAIR":
-							oLocalModel.setProperty("/FairEditFlag", true);
-							oSummaryModel.setProperty("/FAIRStatusText", "");
-							oModel.setProperty("/fstat", "U");
-							oModel.setProperty("/factby", "Test User");
-							oModel.setProperty("/factdtm", dData);
-							oModel.setProperty("/factuzt", tTime);
-							that._fnTaskStatusGet(oLocalModel.getProperty("/sJobId"));
-							oSummaryModel.setProperty("/FAIRStatus", "None");
-							oSummaryModel.setProperty("/MenuVisible", true);
-							oSummaryModel.setProperty("/MenuActivateVisible", false);
-							oModel.updateBindings(true);
-							that._fnUpdateFAIRJob();
+							that._fnUpdateFAIRJob("U");
 							break;
 						case "Release for Rectification":
-							oLocalModel.setProperty("/FairEditFlag", true);
-							oSummaryModel.setProperty("/FAIRStatusText", "Release for Rectifications");
-							oSummaryModel.setProperty("/FAIRReleasedby", "Test User");
-							oSummaryModel.setProperty("/FAIRStatus", "None");
-							oSummaryModel.setProperty("/MenuVisible", true);
-							oSummaryModel.setProperty("/MenuActivateVisible", false);
-							oModel.setProperty("/fstat", "R");
-							oModel.setProperty("/frelby", "Test User");
-							oModel.setProperty("/rectdt", dData);
-							oModel.setProperty("/recttm", tTime);
-							oModel.updateBindings(true);
-							that._fnUpdateJob();
+							that._fnUpdateFAIRJob("R");
 							var oModelData = [];
 							oModelData.push({
 								"PastAdd": "1",
@@ -699,21 +669,18 @@ sap.ui.define([
 					oModel = that.getView().getModel("LocalModel"),
 					oJobModel = that.getView().getModel("JobModel"),
 					oSelectedItem;
+				sKey = oModel.getProperty("/WorkCenterKey");
 				oSelectedItem = oEvent.getParameter("item").getText();
 				switch (oSelectedItem) {
 					case "Set as Prime":
-						sKey = oModel.getProperty("/WorkCenterKey");
 						oJobModel.setProperty("/prime", sKey);
 						that._fnUpdateJob();
 						break;
 					case "Switch Work Center":
 						break;
 					case "Delete Work Center":
-						sKey = oModel.getProperty("/WorkCenterKey");
 						if (oJobModel.getProperty("/prime") !== sKey) {
 							this._fnDefectWorkCenterDelete(sKey);
-							oModel.setProperty("/SummaryFlag", true);
-							oModel.setProperty("/WorcenterFlag", false);
 						} else {
 							MessageBox.error(
 								"Prime workcenter can not be deleted.", {
@@ -795,6 +762,7 @@ sap.ui.define([
 					that._fnFlyingRequirementsGet(sJobId, sSelectedKey);
 					that._fnSortieMonitoringGet(sJobId, sSelectedKey);
 					that.getView().byId("itbTaskId").setSelectedKey("OS");
+					this._fnTaskCount();
 				}
 				that._fnCreatedWorkCenterGet(sJobId);
 				oModel.updateBindings(true);
@@ -1334,6 +1302,25 @@ sap.ui.define([
 			}
 		},
 
+		//------------------------------------------------------------------
+		// Function: _fnCheckWCTaskCount
+		// Parameter: sWorkCenterKey
+		// Description: This will get called, when deleteing workcenter, to check active task count.
+		//Table: MARK
+		//------------------------------------------------------------------
+		_fnCheckWCTaskCount: function(sWorkCenterKey) {
+			var oWorkCenterModel = this.getView().getModel("CreatedWorkCenterModel");
+			for (var i = 0; i < oWorkCenterModel.getData().length; i++) {
+				if (oWorkCenterModel.getData()[i].wrctr === sWorkCenterKey) {
+					if (oWorkCenterModel.getData()[i].count !== "0") {
+						return false;
+					} else {
+						return true;
+					}
+				}
+			}
+		},
+
 		// ***************************************************************************
 		//   4. Private Function   
 		// ***************************************************************************
@@ -1342,7 +1329,7 @@ sap.ui.define([
 			try {
 
 				var that = this;
-				var sTailId, sJobId, sSqnId, sFlag, oSummaryModelData,
+				var sTailId, sJobId, sSqnId, sFlag, oSummaryModelData, sWcKey, sGoTo,
 					sModId, oGBAppModel = this.getView().getModel("avmetModel"),
 					sAirId, oViewModel = that.getView().getModel("LocalModel");
 				var oSummaryModel = dataUtil.createNewJsonModel();
@@ -1350,6 +1337,8 @@ sap.ui.define([
 				that.getView().setModel(new JSONModel({}), "PhotoModel");
 				sJobId = oEvent.getParameters("").arguments.JobId;
 				sFlag = oEvent.getParameters("").arguments.Flag;
+				sWcKey = oEvent.getParameters("").arguments.WcKey;
+				sGoTo = oEvent.getParameters("").arguments.goTo;
 				sTailId = that.getTailId();
 				sAirId = that.getAircraftId();
 				sSqnId = that.getSqunId();
@@ -1364,11 +1353,26 @@ sap.ui.define([
 				oViewModel.setProperty("/sSqnId", sSqnId);
 				oViewModel.setProperty("/sJobId", sJobId);
 				oViewModel.setProperty("/sFlag", sFlag);
+				oViewModel.setProperty("/sWcKey", sWcKey);
+				oViewModel.setProperty("/sGoTo", sGoTo);
 				oViewModel.setProperty("/FairEditFlag", true);
 				oViewModel.setProperty("/sModId", sModId);
-				oViewModel.setProperty("/WorkCenterKey", "Summary");
-				oViewModel.setProperty("/SummaryFlag", true);
-				oViewModel.setProperty("/WorcenterFlag", false);
+				if (sGoTo === "SP" || sGoTo === "OS") {
+					oViewModel.setProperty("/WorkCenterKey", sWcKey);
+					this.getView().byId("itbTaskId").setSelectedKey(sGoTo);
+					oViewModel.setProperty("/SummaryFlag", false);
+					oViewModel.setProperty("/WorcenterFlag", true);
+					that._fnTasksOutStandingGet(sJobId, sWcKey);
+					that._fnTasksPendingSupGet(sJobId, sWcKey);
+					that._fnTasksCompleteGet(sJobId, sWcKey);
+					that._fnFlyingRequirementsGet(sJobId, sWcKey);
+					that._fnSortieMonitoringGet(sJobId, sWcKey);
+				} else {
+					oViewModel.setProperty("/WorkCenterKey", "Summary");
+					oViewModel.setProperty("/SummaryFlag", true);
+					oViewModel.setProperty("/WorcenterFlag", false);
+				}
+
 				oViewModel.updateBindings(true);
 				that._fnJobDetailsGet(sJobId, sAirId);
 			} catch (e) {
@@ -1822,36 +1826,30 @@ sap.ui.define([
 			try {
 				var that = this,
 					oObject,
-					sjobid = "",
-					oModel, oFlag,
+					oLocalModel, oFlag,
 					oPayload;
 				var dDate = new Date();
-				oModel = that.getView().getModel("LocalModel");
-				oFlag = oModel.setProperty("/FairEditFlag");
+				oLocalModel = that.getView().getModel("LocalModel");
 				var oParameter = {};
-
 				oPayload = that.getView().getModel("JobModel").getData();
 				if (oPayload.etrtm === "") {
 					oPayload.etrtm = null;
 				}
 				oParameter.error = function(response) {};
-
 				oParameter.success = function(oData) {
-					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
+					that._fnJobDetailsGet(oLocalModel.getProperty("/sJobId"), oLocalModel.getProperty("/sTailId"));
 				}.bind(this);
+
 				if (oPayload.fstat === "R") {
 					oObject = "ZRM_FAIR_R";
 					oParameter.activity = 4;
 				} else {
-					oObject = "ZRM_COS_JB";
+					oObject = "ZRM_COS_JS";
 					oParameter.activity = 2;
 				}
-
 				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], oObject, this);
-
 			} catch (e) {
-				Log.error("Exception in CosDefectsSummary:_fnUpdateJob function");
-				this.handleException(e);
+				Log.error("Exception in _fnUpdateJob function");
 			}
 		},
 
@@ -1859,31 +1857,77 @@ sap.ui.define([
 		 * Parameter: oEvent
 		 * Description: To Create new Job.
 		 */
-		_fnUpdateFAIRJob: function(oEvent) {
+		_fnUpdateFAIRJob: function(oFlag) {
 			try {
 				var that = this,
+					oSummaryModel,
 					sjobid = "",
+					oLocalModel,
 					oModel, oFlag,
 					oPayload;
-				var dDate = new Date();
-				oModel = that.getView().getModel("LocalModel");
-				oFlag = oModel.setProperty("/FairEditFlag");
+				var dData = formatter.defaultOdataDateFormat(new Date());
+				var tTime = new Date().getHours() + ":" + new Date().getMinutes();
+				oLocalModel = that.getView().getModel("LocalModel");
+				oModel = this.getView().getModel("JobModel");
+				oSummaryModel = this.getView().getModel("SummaryModel");
 				var oParameter = {};
-
 				oPayload = that.getView().getModel("JobModel").getData();
 				if (oPayload.etrtm === "") {
 					oPayload.etrtm = null;
 				}
-				oParameter.error = function(response) {};
+				switch (oFlag) {
+					case "A":
+						oPayload.fstatflag = "A";
+						oPayload.factby = null;
+						oPayload.factdtm = null;
+						oPayload.factuzt = null;
+						break;
+					case "U":
+						oPayload.fstatflag = "U";
+						oPayload.factby = null;
+						oPayload.factdtm = dData;
+						oPayload.factuzt = tTime;
+						break;
+					case "R":
+						oPayload.fstatflag = "R";
+						oPayload.factby = null;
+						oPayload.factdtm = dData;
+						oPayload.factuzt = tTime;
+						break;
+				}
 
+				oParameter.error = function(response) {};
 				oParameter.success = function(oData) {
-					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
+					switch (oFlag) {
+						case "A":
+							oLocalModel.setProperty("/FairEditFlag", false);
+							oLocalModel.setProperty("/JobStatus", false);
+							oSummaryModel.setProperty("/FAIRStatusText", "ACTIVATED");
+							oSummaryModel.setProperty("/FAIRStatus", "Error");
+							break;
+						case "U":
+							oLocalModel.setProperty("/FairEditFlag", true);
+							oSummaryModel.setProperty("/FAIRStatusText", "");
+							oSummaryModel.setProperty("/FAIRStatus", "None");
+							oSummaryModel.setProperty("/MenuVisible", true);
+							oSummaryModel.setProperty("/MenuActivateVisible", false);
+							break;
+						case "R":
+							oLocalModel.setProperty("/FairEditFlag", true);
+							oSummaryModel.setProperty("/FAIRStatusText", "Release for Rectifications");
+							oSummaryModel.setProperty("/FAIRStatus", "None");
+							oSummaryModel.setProperty("/MenuVisible", true);
+							oSummaryModel.setProperty("/MenuActivateVisible", false);
+							break;
+					}
+					oSummaryModel.UpdateBindings("true");
+
+					that._fnJobDetailsGet(oLocalModel.getProperty("/sJobId"), oLocalModel.getProperty("/sTailId"));
 				}.bind(this);
 				oParameter.activity = 1;
 				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_FAIR_D", this);
 			} catch (e) {
-				Log.error("Exception in CosDefectsSummary:_fnUpdateFAIRJob function");
-				this.handleException(e);
+				Log.error("Exception in _fnUpdateFAIRJob function");
 			}
 		},
 
@@ -1905,7 +1949,8 @@ sap.ui.define([
 						tailid: oModel.getProperty("/sTailId"),
 						wrctr: "Summary",
 						isprime: "",
-						wrctrtx: "Summary"
+						wrctrtx: "Summary",
+						"PrimeCount": "0"
 					});
 					oModel.setData(oData.results);
 					that.setModel(oModel, "CreatedWorkCenterModel");
@@ -1961,21 +2006,36 @@ sap.ui.define([
 
 		_fnDefectWorkCenterDelete: function(sWorkCenterKey) {
 			try {
+
 				var that = this,
+					bTaskFlag,
 					oPrmWorkCenter = {},
 					oModel = this.getView().getModel("LocalModel");
 
-				/*oPrmWorkCenter.filter="jobid eq "+sJobId+" and taild eq "+sTailId;*/
-				oPrmWorkCenter.error = function() {};
-				oPrmWorkCenter.success = function(oData) {
-					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
-				}.bind(this);
-				oPrmWorkCenter.activity = 7;
-				ajaxutil.fnDelete("/DefectWorkcenterSvc/" + oModel.getProperty("/sJobId") + "/" + sWorkCenterKey, oPrmWorkCenter, "ZRM_COS_JB",
-					this);
+				bTaskFlag = this._fnCheckWCTaskCount(sWorkCenterKey);
+				if (bTaskFlag) {
+					/*oPrmWorkCenter.filter="jobid eq "+sJobId+" and taild eq "+sTailId;*/
+					oPrmWorkCenter.error = function() {};
+					oPrmWorkCenter.success = function(oData) {
+						oModel.setProperty("/SummaryFlag", true);
+						oModel.setProperty("/WorcenterFlag", false);
+						that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
+
+					}.bind(this);
+					oPrmWorkCenter.activity = 7;
+					ajaxutil.fnDelete("/DefectWorkcenterSvc/" + oModel.getProperty("/sJobId") + "/" + sWorkCenterKey, oPrmWorkCenter, "ZRM_COS_JB",
+						this);
+				} else {
+					MessageBox.error(
+						"Please close all task's from selected workcentr : " + oModel.getProperty("/WorkCenterTitle"), {
+							icon: sap.m.MessageBox.Icon.Error,
+							title: "Error",
+							styleClass: "sapUiSizeCompact"
+						});
+
+				}
 			} catch (e) {
-				Log.error("Exception in CosDefectsSummary:_fnDefectWorkCenterDelete function");
-				this.handleException(e);
+				Log.error("Exception in _fnDefectWorkCenterDelete function");
 			}
 		},
 
