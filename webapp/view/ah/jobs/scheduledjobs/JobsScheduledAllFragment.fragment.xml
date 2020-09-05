@@ -20,6 +20,9 @@
 				</OverflowToolbar>
 			</headerToolbar>
 			<columns>
+				<Column width="0rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<HBox></HBox>
+				</Column>
 				<Column width="4rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 					<HBox>
 						<Label text="{i18n>lbDueIn}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
@@ -60,7 +63,9 @@
 			<items>
 				<ColumnListItem vAlign="Middle" type="Navigation" press="onScheduleJobPress('ALL',$event)">
 					<cells>
-						<Text text="{SchJobModelAll>DUEIN}"/>
+						<Avatar initials="E" displaySize="XS" class="avatarIconJob" backgroundColor="Accent5"
+							visible="{= ${SchJobModelAll>SCONFLAG}==='E' ? true:false}"/>
+						<Text text="{SchJobModelAll>DUEIN}" class="sapUiTinyMarginBegin"/>
 						<Text text="{SchJobModelAll>UM}"/>
 						<Text text="{path:'SchJobModelAll>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}{SchJobModelAll>SERVDUE}"/>
 						<Text text="{SchJobModelAll>JOBDESC}"/>

@@ -15,7 +15,10 @@
 				</OverflowToolbar>
 			</headerToolbar>
 			<columns>
-			<Column width="4rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+				<Column width="0rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<HBox></HBox>
+				</Column>
+				<Column width="4rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 					<HBox>
 						<Label text="{i18n>lbDueIn}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event, 'DUEIN')"/>
@@ -55,7 +58,9 @@
 			<items>
 				<ColumnListItem vAlign="Middle" type="Navigation" press="onScheduleJobPress('ENG',$event)">
 					<cells>
-						<Text text="{JobModelENG>DUEIN}"/>
+						<Avatar initials="E" displaySize="XS" class="avatarIconJob" backgroundColor="Accent5"
+							visible="{= ${JobModelENG>SCONFLAG}==='E' ? true:false}"/>
+						<Text text="{JobModelENG>DUEIN}" class="sapUiTinyMarginBegin"/>
 						<Text text="{JobModelENG>UM}"/>
 						<Text text="{path:'JobModelENG>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}{JobModelENG>SERVDUE}"/>
 						<Text text="{JobModelENG>JOBDESC}"/>

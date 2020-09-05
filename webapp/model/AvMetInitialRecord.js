@@ -209,9 +209,44 @@ sap.ui.define([
 						"CREDT": null,
 						"CRETM": null,
 						"CDESC": null,
-						"UMKEY": null
+						"UMKEY": null,
+						"SCONFLAG": null
 					};
 					oArray.push(SCHJobData);
+					break;
+				case "ToolTip":
+					var ToolTip = [{
+						"id": "JOB",
+						"TTi18N": "ttJobs"
+					}, {
+						"id": "FR",
+						"TTi18N": "ttFR"
+					}, {
+						"id": "SORT",
+						"TTi18N": "ttSortMon"
+					}, {
+						"id": "TRM",
+						"TTi18N": "ttTrialMod"
+					}, {
+						"id": "ITEMNO",
+						"TTi18N": "ttItemNo"
+					}, {
+						"id": "DSCT",
+						"TTi18N": "ttDescribeTask"
+					}, {
+						"id": "COMPDESC",
+						"TTi18N": "ttCompDesc"
+					}, {
+						"id": "CHEKON",
+						"TTi18N": "ttCheckonArea"
+					}, {
+						"id": "FIND",
+						"TTi18N": "ttFindings"
+					}, {
+						"id": "RECTSUM",
+						"TTi18N": "ttRectificationSummary"
+					}];
+					oArray.push(ToolTip);
 					break;
 			}
 			return oArray;

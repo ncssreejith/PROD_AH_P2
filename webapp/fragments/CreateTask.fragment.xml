@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog title="Create Task" contentHeight="80%" contentWidth="70%">
+	<Dialog title="Create Task" contentHeight="80%" contentWidth="80%">
 		<VBox>
 			<VBox height="100%" class="bgColorWhite sapUiSmallMargin">
 				<VBox class="sapUiSmallMargin">

@@ -299,7 +299,8 @@ sap.ui.define([
 						val = sPath + "/css/img/limHelicopcreateAircraftLeft.png";
 					oModel.setProperty("/sImageUrl", val);
 					oModel.updateBindings(true);*/
-                this.resetCanvas();
+				this.fnCheckCapStatus();
+				this.resetCanvas();
 				var oModel = dataUtil.createNewJsonModel();
 				oModel.setData({
 					sADDCount: "",

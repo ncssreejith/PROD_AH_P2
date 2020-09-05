@@ -655,7 +655,13 @@ Description :
 			  CreateJob,
 			  AddWorkenterDialog (Fragment),
 -----------------------------------------------------------------------------------------*/
+/*  AvataoIconSize  */
 
+.avatarIconJob{
+    height: 1rem !important;
+    width: 1rem !important;
+    font-size: 0.7rem !important;
+}
 
 /* Button with text only font size*/
 

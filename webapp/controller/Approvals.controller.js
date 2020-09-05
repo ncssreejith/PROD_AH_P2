@@ -824,6 +824,7 @@ sap.ui.define([
 		_onObjectMatched: function(oEvent) {
 			try {
 				var that = this;
+				this.fnCheckCapStatus();
 				this._fnApprovalRequestGet();
 				var oViewModel = dataUtil.createNewJsonModel();
 				oViewModel.setData({

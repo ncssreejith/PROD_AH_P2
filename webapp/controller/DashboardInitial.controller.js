@@ -549,7 +549,7 @@ sap.ui.define([
 				this.getView().getModel("avmetModel").setProperty("/login", oAppData.login);
 				this.getView().getModel("avmetModel").setProperty("/airSel", oAppData.airSel);
 				this.getView().getModel("avmetModel").refresh();
-
+                this.fnCheckCapStatus();
 				this.fnLoadSrv1Dashboard();
 				this.fnGetEngine();
 				this.fnLoadSCLDashboard();

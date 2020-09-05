@@ -722,6 +722,7 @@ sap.ui.define([
 					oModel = "";
 				}
 				oPayload = this.getView().getModel("SummaryModel").getData();
+				oPayload.SCONFLAG="E";     
 				//oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
 				if (oFlag === "Y") {
 					if (oModel.DueBy === "JDU_10") {

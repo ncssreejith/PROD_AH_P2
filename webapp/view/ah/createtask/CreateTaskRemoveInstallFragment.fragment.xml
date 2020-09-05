@@ -6,7 +6,7 @@
 					<Label design="Bold" text="Task"/>
 					<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 				</HBox>
-				<ComboBox width="350px" change="onRemoveInstallTaskChange" items="{TaskListModel>/}" selectedKey="{oCreateTaskModel>/sTask}"
+				<ComboBox width="360px" change="onRemoveInstallTaskChange" items="{TaskListModel>/}" selectedKey="{oCreateTaskModel>/sTask}"
 					fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bRemoveOrInstall}">
 					<core:Item text="{TaskListModel>ttype}" key="{TaskListModel>ttid}"/>
 				</ComboBox>
@@ -35,7 +35,7 @@
 						<Label/>
 						<Text text="Optional" class="optionalTxtMargin" visible="{oCreateTaskModel>/bOptionalLabel}"/>
 					</HBox>
-						<Input width="170px" value="{oCreateTaskModel>/sType1Value}"
+						<Input width="180px" maxLength="20" value="{oCreateTaskModel>/sType1Value}"
 						visible="{=${oCreateTaskModel>/bSrComFlag} === 'N' ? true:false}"></Input>
 					<ComboBox id="cbSernr" width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1Value}" items="{SerialNumModel>/}"
 						visible="{=${oCreateTaskModel>/bSrComFlag} !== 'N' ? true:false}">
@@ -60,7 +60,7 @@
 						<Text text="Optional" class="optionalTxtMargin"/>
 					</HBox>
 					<HBox>
-						<Input width="170px" value="{oCreateTaskModel>/sType2Value}"/>
+						<Input width="180px" value="{oCreateTaskModel>/sType2Value}"/>
 					</HBox>
 				</VBox>
 				<VBox class="sapUiTinyMarginBegin" 	visible="{= ${oCreateTaskModel>/sType2}==='Part No.' &amp;&amp; ${oCreateTaskModel>/sTask}==='TT2_10' ? true:false}">
@@ -80,7 +80,7 @@
 					<Label design="Bold" text="Component Description"/>
 					<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 				</HBox>
-				<Input width="350px" placeholder="eg. Engine" value="{oCreateTaskModel>/sCompDesc}" fieldGroupIds="fgInput"
+				<Input width="360px" placeholder="eg. Engine" value="{oCreateTaskModel>/sCompDesc}" fieldGroupIds="fgInput"
 					required="{oCreateTaskModel>/bCompDesc}"/>
 			</VBox>
 		</HBox>

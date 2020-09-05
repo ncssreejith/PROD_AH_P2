@@ -40,8 +40,8 @@
 						<ToolbarSpacer/>
 						<Button text="{i18n>btnManageJobs}" type="Default" icon="sap-icon://megamenu" iconFirst=" false" class="btnClass"
 							press="onOpenQuickView('DF',$event)" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
-						<Button text=" {i18n>btnCloseJob}" type="Emphasized" class="sapUiSmallMarginEnd"	
-							enabled="{parts:['LocalModel>/JobStatus','LocalModel>/FairEditFlag'],templateShareable: false,formatter:'.formatter.CloseJobBtnStatus'}"	
+						<Button text=" {i18n>btnCloseJob}" type="Emphasized" class="sapUiSmallMarginEnd"
+							enabled="{parts:['LocalModel>/JobStatus','LocalModel>/FairEditFlag'],templateShareable: false,formatter:'.formatter.CloseJobBtnStatus'}"
 							press="onCloseJobPress('N')" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 					</Toolbar>
 					<l:VerticalLayout class="equalColumns" width="100%">
@@ -80,9 +80,12 @@
 												<HBox>
 													<DatePicker width="8rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
 														value="{path: 'JobModel>/etrdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-														change="handleChange" enabled="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}" editable="{LocalModel>/FairEditFlag}"/>
-													<TimePicker id="TP1" required="true" fieldGroupIds="fgTime" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/etrtm}" width="7rem"
-														valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" enabled="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}" editable="{LocalModel>/FairEditFlag}"/>
+														change="handleChange" enabled="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}"
+														editable="{LocalModel>/FairEditFlag}"/>
+													<TimePicker id="TP1" required="true" fieldGroupIds="fgTime" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/etrtm}" width="5.4rem"
+														valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange"
+														enabled="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}" editable="{LocalModel>/FairEditFlag}"/>
+													<Button type="Transparent" icon="sap-icon://save" press="_fnUpdateJob"/>
 												</HBox>
 											</HBox>
 											<HBox visible="{=${JobModel>/fstat}!=='' &amp;&amp; ${JobModel>/fstat}!==undefined ? true :false}" class="sapUiTinyMarginTop">
@@ -126,9 +129,9 @@
 		<Toolbar>
 			<Title text="{i18n>tiRectificationsbyWorkCenter}"/>
 			<ToolbarSpacer/>
-				<Button text="{i18n>btnDemandSpares}" type="Default" class="btnClass" press="onAddDemandSpares" enabled="{LocalModel>/FairEditFlag}"/>
-				<Button icon="sap-icon://vertical-grip" type="Transparent" press="onOpenQuickView('WC',$event)" class="sapUiSmallMarginEnd"
-					enabled="{LocalModel>/FairEditFlag}"/>
+			<Button text="{i18n>btnDemandSpares}" type="Default" class="btnClass" press="onAddDemandSpares" enabled="{LocalModel>/FairEditFlag}"/>
+			<Button icon="sap-icon://vertical-grip" type="Transparent" press="onOpenQuickView('WC',$event)" class="sapUiSmallMarginEnd"
+				enabled="{LocalModel>/FairEditFlag}"/>
 		</Toolbar>
 		<HBox>
 			<!--{CreateJobLocalModel>Prime}-->
@@ -137,8 +140,7 @@
 					prime="{= ${CreatedWorkCenterModel>isprime} !== null ? true:false }" title="{CreatedWorkCenterModel>wrctrtx}" select="onWorkCenterSelect"
 					visible="{= ${CreatedWorkCenterModel>wrctr} !== 'Summary' }"/>
 			</HBox>
-			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter"
-				visible="{LocalModel>/FairEditFlag}">
+			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter" visible="{LocalModel>/FairEditFlag}">
 				<core:Icon src="sap-icon://sys-add" size="35px" color="blue" press="onIconPress"/>
 			</cc:RectificationTileAdd>
 		</HBox>

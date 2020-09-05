@@ -450,7 +450,7 @@ sap.ui.define([
 				// refresh the list binding.
 				this.onRefresh(sTableId);
 			} else {
-			var aTableSearchState = [];
+				var aTableSearchState = [];
 				var sQuery = oEvent.getParameter("query");
 
 				if (sQuery && sQuery.length > 0) {
@@ -599,6 +599,59 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		fnCheckCapStatus: function() {
+			try {
+				var that = this,
+					oPrmCAPStatus = {};
+				oPrmCAPStatus.filter = "airid eq " + that.getAircraftId() + " and Tailid eq " + that.getTailId();
+				oPrmCAPStatus.error = function() {};
+
+				oPrmCAPStatus.success = function(oData) {}.bind(this);
+
+				ajaxutil.fnRead("/CheckCapStatusSvc", oPrmCAPStatus);
+			} catch (e) {
+				Log.error("Exception in fnCheckCapStatus function");
+			}
+		},
+			//------------------------------------------------------------------
+		// Function: handlePressToolTipMenu
+		// Parameter: 
+		// Description: Generic: This will get called, when open tooltip menu fragment.
+		//Table: 
+		//------------------------------------------------------------------
+
+		handlePressToolTipMenu: function(sText, oEvent) {
+			try {
+				var that = this,
+					oStatus, oTextdata, oResouceData,
+					oButton, eDock, oModel, oDialogModel;
+				oModel = AvMetInitialRecord.createInitialBlankRecord("ToolTip")[0];
+				oResouceData = this.getView().getModel("i18n").getResourceBundle();
+				oDialogModel = dataUtil.createNewJsonModel();
+				if (!that._oToolTipFrag) {
+					that._oToolTipFrag = sap.ui.xmlfragment("ToolTipId",
+						"avmet.ah.fragments.ToolTipFragmentMenu",
+						that);
+					that.getView().addDependent(that._oToolTipFrag);
+				}
+				for (var i = 0; i < oModel.length; i++) {
+					if (oModel[i].id === sText) {
+						oDialogModel.setData([{
+							"Text": oResouceData.getText(oModel[i].TTi18N)
+						}]);
+
+					}
+				}
+				that._oToolTipFrag.setModel(oDialogModel, "ToolTipModel");
+				eDock = sap.ui.core.Popup.Dock;
+				oButton = oEvent.getSource();
+				that._oToolTipFrag.open(this._bKeyboard, oButton, eDock.BeginTop, eDock.BeginBottom, oButton);
+
+			} catch (e) {
+				Log.error("Exception in handlePressToolTipMenu function");
+			}
+		},
+
 		////////////////////////////////////////////////////END DIALOG CREATION////////////////////////////////////
 		//AMIT KUMAR CHANGES 31082020 0207 
 		fnRemovePerFromRadial: function(oEvent) {

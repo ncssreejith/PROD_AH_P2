@@ -7,16 +7,19 @@
 				<OverflowToolbar>
 					<Title text="Aircraft" level="H2"/>
 					<ToolbarSpacer/>
-					
 					<ComboBox width="10rem" id="cbAircraftScheduledJobId" change="onFilterChange" placeholder="Select column filter"
 						items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'OutPhase' }]}">
 						<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
 					</ComboBox>
-					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" search="onSearchTable($event,'AircraftScheduledJobId','JobModelAIR')"/>
+					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin"
+						search="onSearchTable($event,'AircraftScheduledJobId','JobModelAIR')"/>
 				</OverflowToolbar>
 			</headerToolbar>
 			<columns>
-			<Column width="4rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+				<Column width="0rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<HBox></HBox>
+				</Column>
+				<Column width="4rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 					<HBox>
 						<Label text="{i18n>lbDueIn}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event, 'DUEIN')"/>
@@ -56,7 +59,9 @@
 			<items>
 				<ColumnListItem vAlign="Middle" type="Navigation" press="onScheduleJobPress('AIR',$event)">
 					<cells>
-						<Text text="{JobModelAIR>DUEIN}"/>
+						<Avatar initials="E" displaySize="XS" class="avatarIconJob" backgroundColor="Accent5"
+							visible="{= ${JobModelAIR>SCONFLAG}==='E' ? true:false}"/>
+						<Text text="{JobModelAIR>DUEIN}" class="sapUiTinyMarginBegin"/>
 						<Text text="{JobModelAIR>UM}"/>
 						<Text text="{path:'JobModelAIR>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}{JobModelAIR>SERVDUE}"/>
 						<Text text="{JobModelAIR>JOBDESC}"/>
