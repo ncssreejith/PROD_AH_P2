@@ -102,6 +102,7 @@ sap.ui.define([
 				var oPayloads = this.getModel("oWeaponExpModel").getProperty("/stations");
 				if (oPayloads.length === 0) {
 					this.fnDeclaredSafeSignOff();
+					return;
 				}
 
 				var oParameter = {};
