@@ -85,28 +85,26 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		onWarningMessageSelect: function(oEvent) {
 			try {
-				var that = this,
-					oButton, eDock,oDialogModel;
-				var oSrc = oEvent.getSource();
+				var oButton = oEvent.getSource(),
 				oDialogModel = dataUtil.createNewJsonModel();
-				if (!that._oToolTipFrag) {
-					that._oToolTipFrag = sap.ui.xmlfragment("ToolTipId",
-						"avmet.ah.fragments.ToolTipFragmentMenu",
-						that);
-					that.getView().addDependent(that._oToolTipFrag);
+
+				if (!this._oPopover) {
+					sap.ui.core.Fragment.load({
+						name: "avmet.ah.fragments.WarningMessage",
+						controller: this
+					}).then(function(oPopover) {
+						this._oPopover = oPopover;
+						this.getView().addDependent(this._oPopover);
+						this._oPopover.setModel(oDialogModel, "ToolTipModel");
+						this._oPopover.getModel("ToolTipModel").setProperty("/Text",oButton.getText());
+						this._oPopover.openBy(oButton);
+					}.bind(this));
+				} else {
+					this._oPopover.openBy(oButton);
 				}
-				oDialogModel.setData([{
-					"Text": oSrc.getText()
-				}]);
-
-				that._oToolTipFrag.setModel(oDialogModel, "ToolTipModel");
-				eDock = sap.ui.core.Popup.Dock;
-				oButton = oEvent.getSource();
-				that._oToolTipFrag.open(this._bKeyboard, oButton, eDock.BeginTop, eDock.BeginBottom, oButton);
-
 			} catch (e) {
 				//Log.error("Exception in handlePressToolTipMenu function");
 			}

@@ -323,7 +323,7 @@ sap.ui.define([
 
 					this.getOwnerComponent().getRouter().navTo("DashboardInitial");
 				}.bind(this);
-				oPrmWBMCreate.activity = 1;
+				oPrmWBMCreate.activity = 4;
 				ajaxutil.fnCreate("/WeBalISvc", oPrmWBMCreate, oPayload);
 			} else {
 				this.getRouter().navTo("DashboardInitial");
