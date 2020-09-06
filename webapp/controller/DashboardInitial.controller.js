@@ -85,6 +85,32 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+		onWarningMessageSelect: function(oEvent) {
+			try {
+				var that = this,
+					oButton, eDock,oDialogModel;
+				var oSrc = oEvent.getSource();
+				oDialogModel = dataUtil.createNewJsonModel();
+				if (!that._oToolTipFrag) {
+					that._oToolTipFrag = sap.ui.xmlfragment("ToolTipId",
+						"avmet.ah.fragments.ToolTipFragmentMenu",
+						that);
+					that.getView().addDependent(that._oToolTipFrag);
+				}
+				oDialogModel.setData([{
+					"Text": oSrc.getText()
+				}]);
+
+				that._oToolTipFrag.setModel(oDialogModel, "ToolTipModel");
+				eDock = sap.ui.core.Popup.Dock;
+				oButton = oEvent.getSource();
+				that._oToolTipFrag.open(this._bKeyboard, oButton, eDock.BeginTop, eDock.BeginBottom, oButton);
+
+			} catch (e) {
+				//Log.error("Exception in handlePressToolTipMenu function");
+			}
+		},
 
 		onButtnItem1Press: function(oEvent) {
 			try {

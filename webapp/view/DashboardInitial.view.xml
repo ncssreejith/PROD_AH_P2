@@ -57,8 +57,7 @@
 									press="onButtnItem2Press"/>
 								<HBox visible="{avmetModel>/WarningFlag}">
 									<Button icon="sap-icon://slim-arrow-left" type="Transparent" press="onLeftWarnPress" enabled="{avmetModel>/WarningLeftBtn}"></Button>
-									<Link text="{avmetModel>/WarningIndexText}" press="handleLinkPress" />
-									<!--<Label text="{avmetModel>/WarningIndexText}" tooltip="{avmetModel>/WarningIndexText}" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop"></Label>-->
+									<Link text="{avmetModel>/WarningIndexText}" wrapping="false" width="5rem" press="onWarningMessageSelect" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop"></Link>
 									<Button icon="sap-icon://slim-arrow-right" type="Transparent" press="onRightWarnPress" enabled="{avmetModel>/WarningRightBtn}"></Button>
 								</HBox>
 							</ct:items>
