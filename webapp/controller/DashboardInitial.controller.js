@@ -923,8 +923,8 @@ sap.ui.define([
 				// var aircraftMicroChartId = "#" + this.getView().byId("aircraftMicroChartId").sId + " > div > div > div";
 				// var FueltMicroChartId = "#" + this.getView().byId("FueltMicroChartId").sId + " > div > div > div";
 				window.setTimeout(function() {
-					var sT1 = sText1 ? sText1 : "";
-					var sT2 = sText2 ? sText2 : "";
+					var sT1 = sText1 ? sText1 : "0";
+					var sT2 = sText2 ? sText2 : "0";
 					document.querySelector(scheduleMicroChartId).textContent = sT1 + "\n/" + sT2;
 					// document.querySelector(scheduleMicroChartId).textContent = "2 \n ADDs";
 					// document.querySelector(FueltMicroChartId).textContent = "2500 \n /2500 lbs";
