@@ -29,10 +29,10 @@
 							<l:Grid hSpacing="1" class="sapUiSmallMarginTop" defaultSpan="XL3 L3 M3 S12">
 								<l:content>
 									<VBox >
-										<Label design="Bold" text="Date"/> <!--required="true" fieldGroupIds="fgDate"-->
+										<Label design="Bold" text="Date"/>
 										<!--	<DatePicker fieldGroupIds="fgDate" displayFormat="dd.MM.YYY" width="10rem" 
 											value="{path:'TaskModel>ftcredt', formatter:'.formatter.defaultDateFormatDisplay'}" valueStateText="{i18n>MSG_DATE}"/>-->
-										<DatePicker id="DP1" width="10rem"  valueStateText="{i18n>ERROR_GENERIC}"
+										<DatePicker id="DP1" width="10rem" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
 											value="{path: 'TaskModel>ftcredt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 											placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 										<layoutData>
@@ -40,8 +40,8 @@
 										</layoutData>
 									</VBox>
 									<VBox>
-										<Label design="Bold" text="Time"/> <!--fieldGroupIds="fgTime" required="true"-->
-										<TimePicker width="10rem"  displayFormat="HH:mm" valueStateText="{i18n>MSG_TIME}"
+										<Label design="Bold" text="Time"/>
+										<TimePicker width="10rem" displayFormat="HH:mm" valueStateText="{i18n>MSG_TIME}" fieldGroupIds="fgTime" required="true"
 											value="{path:'TaskModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 										<!--<Text text="{path:'TaskModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>-->
 										<layoutData>
@@ -72,8 +72,7 @@
 											<!--OPS-->
 											<VBox visible="{= ${TaskModel>CPRID}===null ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
-												<ComboBox width="330px" change="onTypeChangeOPS" selectedKey="TT1_11"
-													items="{path:'FollowOPSModel>/',templateShareable: false}">
+												<ComboBox width="330px" change="onTypeChangeOPS" selectedKey="TT1_11" items="{path:'FollowOPSModel>/',templateShareable: false}">
 													<core:Item text="{FollowOPSModel>text}" key="{FollowOPSModel>key}"/>
 												</ComboBox>
 											</VBox>
@@ -96,8 +95,7 @@
 											<!--Other-->
 											<VBox visible="{= ${TaskModel>CPRID}===null ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
-												<ComboBox width="330px" change="onTypeChangeOther" selectedKey="TT1_14"
-													items="{path:'FollowOtherModel>/',templateShareable: false}">
+												<ComboBox width="330px" change="onTypeChangeOther" selectedKey="TT1_14" items="{path:'FollowOtherModel>/',templateShareable: false}">
 													<core:Item text="{FollowOtherModel>text}" key="{FollowOtherModel>key}"/>
 												</ComboBox>
 											</VBox>
@@ -131,7 +129,8 @@
 														color="#031E48"/>
 												</HBox>
 												<StepInput width="200px" value="{TaskModel>TOOLQTY}"
-													required="{parts:['TaskModel>tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}" fieldGroupIds="fgStepInput"/>
+													required="{parts:['TaskModel>tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}"
+													fieldGroupIds="fgStepInput"/>
 											</VBox>
 											<VBox class="sapUiTinyMarginTop sapUiSmallMarginBegin">
 												<HBox>
@@ -140,7 +139,8 @@
 														color="#031E48"/>
 												</HBox>
 												<StepInput width="200px" value="{TaskModel>PUBLCQTY}"
-													required="{parts:['TaskModel>tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}" fieldGroupIds="fgStepInput"/>
+													required="{parts:['TaskModel>tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}"
+													fieldGroupIds="fgStepInput"/>
 											</VBox>
 											<layoutData>
 												<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
@@ -158,8 +158,7 @@
 														visible="{= ${TaskModel>tt1id}==='TT1_10' &amp;&amp; ${TaskModel>tt2id}==='TT2_10' ? true:false}"/>
 												</HBox>
 												<HBox>
-													<ComboBox width="150px" change="onTypeChange" selectedKey="{TaskModel>ismat}"
-														items="{path:'TT2Model>/',templateShareable: false}">
+													<ComboBox width="150px" change="onTypeChange" selectedKey="{TaskModel>ismat}" items="{path:'TT2Model>/',templateShareable: false}">
 														<core:Item text="{TT2Model>key}" key="{TT2Model>text}"/>
 													</ComboBox>
 													<Input width="180px" value="{TaskModel>partno}" class="sapUiSmallMarginBegin"/>
@@ -183,11 +182,14 @@
 													<ComboBox width="150px" change="onTypeChange" selectedKey="{TaskModel>isser}" items="{path:'TT1Model>/',templateShareable: false}">
 														<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
 													</ComboBox>
-													<Input width="180px" maxLength="20" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin"
-														visible="{= ${TaskModel>tt2id}!=='TT2_10' || ${TaskModel>partno}==='' ? true:false}" required="{= (${TaskModel>tt2id}!=='TT2_10' || ${TaskModel>partno}==='') &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)'? true:false}"/>
-													<ComboBox width="180px" change="onTypeChange" selectedKey="{TaskModel>ftsernr}" items="{path:'SerialNumModel>/',templateShareable: false}"
-														fieldGroupIds="fgCmbBox" visible="{= ${TaskModel>tt1id}==='TT1_10' &amp;&amp; ${TaskModel>tt2id}==='TT2_10' ? true:false}"
-														class="sapUiSmallMarginBegin" required="{= ${TaskModel>tt1id}==='TT1_10' &amp;&amp; ${TaskModel>tt2id}==='TT2_10' &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)' ? true:false}">
+													<Input width="180px" maxLength="20" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin" fieldGroupIds="fgInput"
+														visible="{= ${TaskModel>tt2id}!=='TT2_10' || ${TaskModel>partno}==='' ? true:false}"
+														required="{= (${TaskModel>tt2id}!=='TT2_10' || ${TaskModel>partno}==='') &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)'? true:false}"/>
+													<ComboBox width="180px" selectedKey="{TaskModel>ftsernr}" items="{path:'SerialNumModel>/',templateShareable: false}"
+														fieldGroupIds="fgCmbBox"
+														visible="{= ${TaskModel>tt1id}==='TT1_10' &amp;&amp; ${TaskModel>tt2id}==='TT2_10' &amp;&amp; ${TaskModel>partno}!=='' ? true:false}"
+														class="sapUiSmallMarginBegin"
+														required="{= ${TaskModel>tt1id}==='TT1_10' &amp;&amp; ${TaskModel>tt2id}==='TT2_10' &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)' ? true:false}">
 														<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
 													</ComboBox>
 												</HBox>
@@ -218,7 +220,8 @@
 													color="#031E48"/>
 											</HBox>
 											<TextArea maxLength="1000" value="{TaskModel>ftfind}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
-												liveChange="handleLiveChangeFlyingRequirements" required="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible2'}"/>
+												liveChange="handleLiveChangeFlyingRequirements"
+												required="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible2'}"/>
 											<layoutData>
 												<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>
 											</layoutData>
