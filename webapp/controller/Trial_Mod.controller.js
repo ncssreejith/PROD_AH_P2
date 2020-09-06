@@ -5,8 +5,9 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"sap/ui/model/json/JSONModel",
 	"../util/ajaxutil",
-	"../model/formatter"
-], function(BaseController, dataUtil, Fragment, FieldValidations, JSONModel, ajaxutil, formatter) {
+	"../model/formatter",
+	"sap/base/Log"
+], function(BaseController, dataUtil, Fragment, FieldValidations, JSONModel, ajaxutil, formatter, Log) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -29,6 +30,67 @@ sap.ui.define([
 		},
 		onDeModClick: function() {
 			this.fnUpdateDeMod();
+		},
+
+		onRaiseTrailMod: function() {
+			try {
+				var oModel = this.getModel("trialModel"),
+					payload = oModel.getProperty("/")[0];
+				payload.JDUID = oModel.getProperty("/DueBy");
+				if (oModel.getProperty("/DueBy") === "JDU_10") {
+					payload.pddval2 = oModel.getProperty("/UtilVal");
+				} else {
+					payload.pddval1 = oModel.getProperty("/UtilVal");
+				}
+
+				var oParameter = {};
+				oParameter.error = function(response) {};
+				oParameter.success = function(oData) {
+					this.onCloseTrailMod();
+					this.fnLoadTrialMod();
+				}.bind(this);
+				oParameter.activity = 2;
+				ajaxutil.fnUpdate("/TRAILMONSvc", oParameter, [payload], "ZRM_T_MOD", this);
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnUpdateJob function");
+				this.handleException(e);
+			}
+
+		},
+
+		onCloseTrailMod: function() {
+			this.closeDialog("TrialModExtension");
+		},
+
+		onTModExtension: function() {
+			try {
+				this.TrialModExtension = this.fnLoadFragment("TrialModExtension", null, true);
+				var oPrmMark = {},
+					oModel = this.getModel("trialModel"),
+					that = this,
+					oPayload;
+				oModel.setProperty("/isVisInput", false);
+				oPrmMark.filter = "refid eq " + this.getAircraftId() + " and ddid eq JDU";
+				oPrmMark.error = function() {};
+				oPrmMark.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						oModel.setProperty("/JobDueSet", oData.results);
+						this.TrialModExtension.open();
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmMark);
+			} catch (e) {
+				Log.error("Exception in Trial_Mod:onTModExtension function");
+				this.handleException(e);
+			}
+		},
+
+		onDueSelectChange: function(oEvent) {
+			var oSrc = oEvent.getSource(),
+				sKey = oSrc.getSelectedKey(),
+				aKey = this.getResourceBundle("i18n").getText("jobDueKey");
+			var bFlag = aKey.search(sKey) !== -1 ? true : false;
+			this.getModel("trialModel").setProperty("/isVisInput", bFlag);
 		},
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  

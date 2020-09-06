@@ -122,7 +122,9 @@
 							</VBox>
 							<VBox class="sapUiSmallMarginBegin">
 								<Label/>
-								<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" visible="{oViewModel>/bAirFrameAndTAC}" required="{oViewModel>/bAirFrameAndTAC}"/>
+								<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" visible="{= ${oViewModel>/bAirFrameAndTAC} &amp;&amp; (${oViewGlobalModel>/UTIL1} !== 'UTIL1_10')}" required="{oViewModel>/bAirFrameAndTAC}"/>
+								<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" displayValuePrecision="1" visible="{= ${oViewModel>/bAirFrameAndTAC} &amp;&amp; (${oViewGlobalModel>/UTIL1} === 'UTIL1_10')}" required="{oViewModel>/bAirFrameAndTAC}"/>
+								
 								<ComboBox width="200px" items="{Utilization2CBModel>/}" visible="{oViewModel>/bScheduleService}" selectedKey="{oViewGlobalModel>/UTIL2}"
 									fieldGroupIds="fgCmbBox" required="{oViewModel>/bScheduleService}">
 									<core:Item text="{Utilization2CBModel>description}" key="{Utilization2CBModel>ddid}"/>

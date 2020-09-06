@@ -6,6 +6,8 @@
 				<Button icon="sap-icon://arrow-left" press="onNavBack" class="sapUiSmallMarginBegin"/>
 				<ObjectIdentifier title="{i18n>hdngPage}" titleActive="false" class="sapUiSmallMarginBegin"/>
 				<ToolbarSpacer/>
+				<Button width="10rem" class="sapUiSmallMarginEnd" text="Trial Mod Extension" type="Ghost" press="onTModExtension"
+					visible="{= (${path:'trialModel>/length'} > 0)}"/>
 				<Button width="10rem" class="sapUiSmallMarginEnd" text="De Mod" type="Ghost" press="onDeModClick"
 					visible="{= (${path:'trialModel>/length'} > 0)}"/>
 			</OverflowToolbar>
@@ -81,9 +83,8 @@
 												<HBox justifyContent="SpaceBetween">
 													<Label wrapping="true" width="9rem" text="Period of trial" design="Bold"></Label>
 													<!--dateValue="{trialModel>pddval1}"-->
-													<DateTimePicker displayFormat="dd/MM/yy HH:mm" value="{trialModel>pddval1}"
-														width="200px" fieldGroupIds="fgDate" required="true" editable="true"/>
-													<!--<Text width="9rem" text="{trialModel>pddval1} {trialModel>ddesc}"/>-->
+													<Text text="{trialModel>pddval1}  ({trialModel>JDUIDD})" visible="{= ${trialModel>JDUID} !== 'JDU_10'}"/>
+													<Text text="{trialModel>pddval2}  ({trialModel>JDUIDD})" visible="{= ${trialModel>JDUID} === 'JDU_10'}"/>
 													<layoutData>
 														<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 													</layoutData>

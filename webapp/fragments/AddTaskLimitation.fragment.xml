@@ -5,7 +5,8 @@
 				<VBox>
 					<HBox>
 						<Label design="Bold" text="Limitation"/>
-						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>
+						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" size="12px" class="sapUiTinyMarginBegin"
+							color="#031E48"/>
 					</HBox>
 					<TextArea width="400px" value="{oViewGlobalModel>/LDESC}" maxLength="100" showExceededText="true" fieldGroupIds="fgTxtArea"
 						required="{oViewLimitModel>/bLimitation}" liveChange="handleLiveChangeFlyingRequirements"/>
@@ -19,7 +20,8 @@
 				<VBox>
 					<HBox>
 						<Label design="Bold" text="Period of Deferment"/>
-						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PERIODOFDEFER',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PERIODOFDEFER',$event)" class="sapUiTinyMarginBegin" size="12px"
+							color="#031E48"/>
 					</HBox>
 					<ComboBox width="245px" selectionChange="onPrdOfDefermentChange" items="{PerioOfDeferCBModel>/}" selectedKey="{oViewGlobalModel>/DEFPD}"
 						required="true" fieldGroupIds="fgCmbBox">
@@ -63,7 +65,9 @@
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin">
 					<Label/>
-					<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}"/>
+					<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" visible="{= ${oViewGlobalModel>/UTIL1} !== 'UTIL1_10'}"/>
+					<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" displayValuePrecision="1"
+						visible="{= ${oViewGlobalModel>/UTIL1} === 'UTIL1_10'}"/>
 				</VBox>
 			</HBox>
 		</VBox>

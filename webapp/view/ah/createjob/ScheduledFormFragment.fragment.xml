@@ -19,7 +19,9 @@
 					</ComboBox>
 					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin" visible="false">
 						<StepInput required="true" min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}"
-							visible="{=${oViewCreateModel>/jduid}!=='JDU_10' ? true:false}"/>
+							visible="{=${oViewCreateModel>/jduid}!=='JDU_10'}"/>
+						<StepInput required="true" min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}"
+							visible="{=${oViewCreateModel>/jduid} ==='JDU_10'}" displayValuePrecision="1"/>
 					</HBox>
 					<DatePicker width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
 						visible="{=${oViewCreateModel>/jduid}==='JDU_10' ? true:false}"

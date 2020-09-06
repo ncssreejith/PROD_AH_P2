@@ -285,9 +285,9 @@ sap.ui.define([
 						break;
 				}
 
-				if (oAppModel.getProperty("/oFlagEdit")) {
-					that.onRefersh();
-				}
+				// if (oAppModel.getProperty("/oFlagEdit")) {
+				// 	that.onRefersh();
+				// }
 				setTimeout(function demo() {
 					that._fnRenderImage(sImagePath, oCanvas);
 				}, 500);

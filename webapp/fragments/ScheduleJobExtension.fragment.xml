@@ -7,8 +7,11 @@
 					<ComboBox width="13rem" placeholder="{i18n>phSelect}" selectedKey="{RSModel>/DueBy}" items="{JobDueSet>/}" change="onDueSelectChange">
 						<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 					</ComboBox>
-					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin">
-						<StepInput width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" value="{RSModel>/UtilVal}" visible="{RSModel>/UtilValFlag}"/>
+					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin" visible="{RSModel>/UtilValFlag}">
+						<StepInput width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" visible="{= ${CapExtendSet>/UTIL1} !== 'JDU_10'}"
+							value="{RSModel>/UtilVal}"/>
+						<StepInput width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" visible="{= ${CapExtendSet>/UTIL1} === 'JDU_10'}"
+							displayValuePrecision="1" value="{RSModel>/UtilVal}"/>
 					</HBox>
 					<DatePicker width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{RSModel>/ExpDateFlag}"
 						value="{path: 'RSModel>/ExpDate', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
