@@ -80,7 +80,7 @@ sap.ui.define([
 
 		onSignOffPress: function() {
 			try {
-				this.openDialog("AircraftSignOff",".fragments.fs.weaponexpend.");
+				this.openDialog("AircraftSignOff", ".fragments.fs.weaponexpend.");
 			} catch (e) {
 				Log.error("Exception in onSignOffPress function");
 				this.handleException(e);
@@ -100,6 +100,10 @@ sap.ui.define([
 			try {
 				this.closeDialog("AircraftSignOff");
 				var oPayloads = this.getModel("oWeaponExpModel").getProperty("/stations");
+				if (oPayloads.length === 0) {
+					this.fnDeclaredSafeSignOff();
+				}
+
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {
@@ -140,7 +144,8 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "TAILID eq " + this.getTailId()+" and srvtid eq "+this.getModel("oWeaponExpModel").getProperty("/srvtid")+" and stepid eq "+this.getModel("oWeaponExpModel").getProperty("/stepid"); 
+				oParameter.filter = "TAILID eq " + this.getTailId() + " and srvtid eq " + this.getModel("oWeaponExpModel").getProperty("/srvtid") +
+					" and stepid eq " + this.getModel("oWeaponExpModel").getProperty("/stepid");
 				oParameter.success = function(oData) {
 					this.getModel("oWeaponExpModel").setProperty("/stations", oData.results);
 					this.getModel("oWeaponExpModel").refresh();
@@ -148,6 +153,28 @@ sap.ui.define([
 				ajaxutil.fnRead("/WeapexpSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in _getWeaponExp function");
+				this.handleException(e);
+			}
+		},
+		fnDeclaredSafeSignOff: function() {
+			try {
+				var that = this;
+
+				var oParameter = {},
+					oPayloadWeapExp = [{
+						tailid: that.getTailId(),
+						refid: that.getAircraftId(),
+						stepid: "S_WE",
+						srvtid: this.getModel("oWeaponExpModel").getProperty("/srvtid")
+					}];
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					this.onNavBack();
+				}.bind(this);
+				oParameter.activity = 4;
+				ajaxutil.fnCreate("/declareSafeSvc", oParameter, oPayloadWeapExp, "ZRM_PFR_WE", this);
+			} catch (e) {
+				Log.error("Exception in createEmptyPayload function");
 				this.handleException(e);
 			}
 		}
