@@ -97,7 +97,7 @@
 							</ct:DashboardTile4>
 						</HBox>
 						<HBox>
-							<ct:DashboardTile3 select="onViewClick" class="sapUiTinyMargin" title="Fuel" leftNumeric="{dashboardModel>/fl/TOTAT}" leftHeading="Total Amount"
+							<ct:DashboardTile3 id="dbTileFuel" select="onViewClick" class="sapUiTinyMargin" title="Fuel" leftNumeric="{dashboardModel>/fl/TOTAT}" leftHeading="Total Amount"
 								leftSubHeading="{dashboardModel>/fl/LEUOM}">
 								<mc:RadialMicroChart
 								id="fuelMicroChartId"
@@ -105,7 +105,7 @@
 									valueColor="{path : 'dashboardModel>/fl/COLOR', formatter : '.formatter.DBFuelPercentage'}" press="press" class="numFontColor"></mc:RadialMicroChart>
 								<SegmentedButton items="{dashboardModel>/fl/list}" selectionChange="onFuelSegBtnChange" width="80%" class="sapUiSizeCompact" >
 									<items>
-										<SegmentedButtonItem text="{dashboardModel>REDESC}" key="{dashboardModel>key}" width="30%"/>
+										<SegmentedButtonItem text="{dashboardModel>REDESC}" key="{dashboardModel>key}" width="80px"/>
 									</items>
 								</SegmentedButton>
 								<Link text="view" press="onFuelView" visible="{= !!${avmetModel>/dash/SRVID}}"/>

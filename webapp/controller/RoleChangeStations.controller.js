@@ -1462,18 +1462,18 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					if (oData.results.length) {
 						for (var i in oData.results) {
-							if (oData.results[i].SUBID === "STNS_100" && oData.results[i].DDID === "STNM_S") { //Station 1
-								oData.results[i].ImgSrc = "css/img/Section-1.png";
-							} else if (oData.results[i].SUBID === "STNS_101" && oData.results[i].DDID === "STNM_S") { //Station 2
-								oData.results[i].ImgSrc = "css/img/Section-2.png";
-							} else if (oData.results[i].SUBID === "STNS_102" && oData.results[i].DDID === "STNM_S") { //"Station 3
-								oData.results[i].ImgSrc = "css/img/Section-3.png";
-							} else if (oData.results[i].SUBID === "STNS_103" && oData.results[i].DDID === "STNM_S") { //Station 4
-								oData.results[i].ImgSrc = "css/img/Section-4.png";
+							if (oData.results[i].SUBID === "STNS_109" && oData.results[i].DDID === "STNM_S") { //Station 1
+								oData.results[i].ImgSrc = "css/img/ConfigLOB.png";
+							} else if (oData.results[i].SUBID === "STNS_110" && oData.results[i].DDID === "STNM_S") { //Station 2
+								oData.results[i].ImgSrc = "css/img/ConfigLIB.png";
+							} else if (oData.results[i].SUBID === "STNS_111" && oData.results[i].DDID === "STNM_S") { //"Station 3
+								oData.results[i].ImgSrc = "css/img/ConfigRIB.png";
+							} else if (oData.results[i].SUBID === "STNS_112" && oData.results[i].DDID === "STNM_S") { //Station 4
+								oData.results[i].ImgSrc = "css/img/ConfigROB.png";
 							} else if (oData.results[i].SUBID === "STNS_104" && oData.results[i].DDID === "STNM_S") { //Station 5
-								oData.results[i].ImgSrc = "css/img/Section-5.png";
+								oData.results[i].ImgSrc = "css/img/ConfigCHAFF.png";
 							} else if (oData.results[i].SUBID === "STNS_105" && oData.results[i].DDID === "STNM_S") { //"Station 6
-								oData.results[i].ImgSrc = "css/img/Section-6.png";
+								oData.results[i].ImgSrc = "css/img/ConfigFLARE.png";
 							} else if (oData.results[i].SUBID === "STNS_106" && oData.results[i].DDID === "STNM_S") { //Station 7
 								oData.results[i].ImgSrc = "css/img/Section-7.png";
 							} else if (oData.results[i].SUBID === "STNS_107" && oData.results[i].DDID === "STNM_S") { //Station 8
@@ -1534,14 +1534,14 @@ sap.ui.define([
 					oRoleChange.setProperty("/bGunSection", false);
 					oRoleChange.setProperty("/bNoDrop", true);
 				}
-				if (oSelObj.SUBID === "STNS_100" && oSelObj.DDID === "STNM_S") { //Station 1
-					oRoleChange.setProperty("/ImagePath", "css/img/Section-1.png");
-				} else if (oSelObj.SUBID === "STNS_101" && oSelObj.DDID === "STNM_S") { //Station 2
-					oRoleChange.setProperty("/ImagePath", "css/img/Section-2.png");
-				} else if (oSelObj.SUBID === "STNS_102" && oSelObj.DDID === "STNM_S") { //"Station 3
-					oRoleChange.setProperty("/ImagePath", "css/img/Section-3.png");
-				} else if (oSelObj.SUBID === "STNS_103" && oSelObj.DDID === "STNM_S") { //Station 4
-					oRoleChange.setProperty("/ImagePath", "css/img/Section-4.png");
+				if (oSelObj.SUBID === "STNS_109" && oSelObj.DDID === "STNM_S") { //Station 1
+					oRoleChange.setProperty("/ImagePath", "css/img/ConfigLOB.png");
+				} else if (oSelObj.SUBID === "STNS_110" && oSelObj.DDID === "STNM_S") { //Station 2
+					oRoleChange.setProperty("/ImagePath", "css/img/ConfigLIB.png");
+				} else if (oSelObj.SUBID === "STNS_111" && oSelObj.DDID === "STNM_S") { //"Station 3
+					oRoleChange.setProperty("/ImagePath", "css/img/ConfigRIB.png");
+				} else if (oSelObj.SUBID === "STNS_112" && oSelObj.DDID === "STNM_S") { //Station 4
+					oRoleChange.setProperty("/ImagePath", "css/img/ConfigROB.png");
 				} else if (oSelObj.SUBID === "STNS_104" && oSelObj.DDID === "STNM_S") { //Station 5
 					oRoleChange.setProperty("/ImagePath", "css/img/Section-5.png");
 				} else if (oSelObj.SUBID === "STNS_105" && oSelObj.DDID === "STNM_S") { //"Station 6

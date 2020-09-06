@@ -1716,3 +1716,9 @@ Description :
 .photoSelection {
 	border: 1px solid black !important;
 }
+
+.dbTile3ExtraBtns .DBTile3RightSegBtn {
+	    padding-left: 0px !important;
+	    overflow : auto;
+	    height : auto !important;
+}

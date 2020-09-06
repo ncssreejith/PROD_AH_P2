@@ -567,6 +567,18 @@ sap.ui.define([
 			sDiff = Math.abs(sCurrentDate - new Date(oDate)) / 36e5;
 			return "Top up " + parseFloat(sDiff).toFixed(2) + "hrs ago";
 		},
+		fnDateTimeDiff: function(sDate, sTime) {
+			var sDiff = 0;
+			if (!sDate) {
+				return "";
+			}
+			if (!sTime) {
+				return "";
+			}
+			var sCurrentDate = new Date();
+			sDiff = Math.abs(sCurrentDate - new Date(sDate+" "+sTime)) / 36e5;
+			return parseFloat(sDiff).toFixed(2);// + " hrs";
+		},
 		FuelMCState1: function(sValue, iMax) {
 			// if(this.getId() && document.querySelector("#"+this.getId()+" > div > div > div")){
 			// 	document.querySelector("#"+this.getId()+" > div > div > div").textContent="";

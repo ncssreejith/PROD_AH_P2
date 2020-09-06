@@ -512,7 +512,7 @@ sap.ui.define([
 						var oModel = this.getView().getModel("avmetModel");
 						var oDash = oModel.getProperty("/dash");
 						oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
-						if(this.fnOverwriteStatus(oDash.astid)){
+						if (this.fnOverwriteStatus(oDash.astid)) {
 							oModel.setProperty("/dash/TBTN3", true);
 						}
 						oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
@@ -549,7 +549,7 @@ sap.ui.define([
 				this.getView().getModel("avmetModel").setProperty("/login", oAppData.login);
 				this.getView().getModel("avmetModel").setProperty("/airSel", oAppData.airSel);
 				this.getView().getModel("avmetModel").refresh();
-                this.fnCheckCapStatus();
+				this.fnCheckCapStatus();
 				this.fnLoadSrv1Dashboard();
 				this.fnGetEngine();
 				this.fnLoadSCLDashboard();
@@ -699,6 +699,8 @@ sap.ui.define([
 				}
 				this.getModel("dashboardModel").setProperty("/fl", oFL);
 				this.getModel("dashboardModel").refresh();
+
+				this.getView().byId("dbTileFuel").addStyleClass("dbTile3ExtraBtns");
 				if (oFL) {
 					this._setRadialChartTextDisplay("fuelMicroChartId", oFL.LTOTAMT, oFL.LEMAX, oFL.LTOTAMT, oFL.LEMAX);
 					return;
@@ -894,8 +896,6 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
-		
 
 		/**** 27/06/2020 Priya */
 		_setRadialChartText: function(sControlId, sText1, sText2, crt, ttl) {
