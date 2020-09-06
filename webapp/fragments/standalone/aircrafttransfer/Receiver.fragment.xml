@@ -21,8 +21,8 @@
 								<HBox justifyContent="SpaceBetween" backgroundDesign="Transparent" class="borderTableReceiver">
 									<Label width="8rem" text="{i18n>lnlRecipient}" design="Bold"></Label>
 									<ComboBox items="{atckModel>/sqn}" selectedKey="{atckModel>/header/SQNID}" required="true"
-										valueState="{= ${atckModel>/header/RSQN} === ${atckModel>/header/CSQN}?'Error':'None'}"
-										valueStateText="{= ${atckModel>/header/RSQN} === ${atckModel>/header/CSQN}?'Cannot transfer platform to dispatcher':''}"
+										valueState="{= ${atckModel>/header/RSQN} === ${atckModel>/header/SQN}?'Error':'None'}"
+										valueStateText="{= ${atckModel>/header/RSQN} === ${atckModel>/header/SQN}?'Cannot transfer platform to dispatcher':''}"
 										selectionChange="onSelectionChangesqn">
 										<core:Item text="{atckModel>SQNID}" key="{atckModel>SQN}"/>
 									</ComboBox>
