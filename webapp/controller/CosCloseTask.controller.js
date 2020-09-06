@@ -583,6 +583,19 @@ sap.ui.define([
 			}
 		},
 
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called,icon bar selection change.
+		// Table: 
+		//--------------------------------------------------------------------------------------
+		onTimeChange: function(oEvent) {
+			try {
+				var oTime = oEvent.getSource().getValue(),
+					oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
+				oObject.ftcretm = oTime;
+			} catch (e) {
+				Log.error("Exception in onIconSelected function");
+			}
+		},
 		_fnADDCountGet: function() {
 			try {
 				var that = this,

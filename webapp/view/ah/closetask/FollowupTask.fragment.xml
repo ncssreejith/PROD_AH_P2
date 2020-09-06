@@ -42,7 +42,7 @@
 									<VBox>
 										<Label design="Bold" text="Time"/>
 										<TimePicker width="10rem" displayFormat="HH:mm" valueStateText="{i18n>MSG_TIME}" fieldGroupIds="fgTime" required="true"
-											value="{path:'TaskModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+											value="{path:'TaskModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}" change="onTimeChange"/>
 										<!--<Text text="{path:'TaskModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>-->
 										<layoutData>
 											<l:GridData linebreak="true" span="XL5 L5 M10 S12"/>
