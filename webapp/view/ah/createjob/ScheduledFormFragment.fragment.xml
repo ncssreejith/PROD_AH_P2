@@ -1,6 +1,9 @@
 <core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
 	xmlns:f="sap.f" xmlns:u="sap.ui.unified">
-	<Label text="{i18n>lbJobDescription}" design="Bold"/>
+	<HBox>
+		<Label text="{i18n>lbJobDescription}" design="Bold"/>
+		<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('JOB',$event)" size="12px" color="#031E48"/>
+	</HBox>
 	<TextArea width="27rem" maxLength="1000" rows="7" growing="true" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"
 		required="{=${oViewCreateModel>/jobty} === 'S' ? true : false}" value="{oViewCreateModel>/jobdesc}"
 		fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S'? 'fgTxtArea' : ''}"></TextArea>

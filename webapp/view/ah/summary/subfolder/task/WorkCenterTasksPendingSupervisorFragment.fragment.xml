@@ -8,8 +8,8 @@
 			</items>
 		</VBox>
 		<VBox backgroundDesign="Solid" visible="{=${TaskPendingModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
-			<Table id="tbWcPendingSuperId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" items="{ path: 'TaskPendingModel>/'}" noDataText="{i18n>txtNoTextSuprPend}"
-				showNoData="true">
+			<Table id="tbWcPendingSuperId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect"
+				items="{ path: 'TaskPendingModel>/'}" noDataText="{i18n>txtNoTextSuprPend}" showNoData="true">
 				<headerToolbar>
 					<OverflowToolbar>
 						<ToolbarSpacer/>
@@ -56,7 +56,12 @@
 				<items>
 					<ColumnListItem vAlign="Middle" type="Navigation" press="onPendingSupDetailsPress">
 						<cells>
-							<Text text="{TaskPendingModel>tdesc}"/>
+							<HBox>
+								<Text text="{TaskPendingModel>tdesc}"
+									visible="{= ${TaskPendingModel>tt1id}!=='TT1_15'|| ${TaskPendingModel>tt1id}!=='TT1_17' || ${TaskPendingModel>tt1id}!=='TT1_18'? true:false}"/>
+								<Text text="{TaskPendingModel>cdesc}"
+									visible="{= ${TaskPendingModel>tt1id}==='TT1_15'|| ${TaskPendingModel>tt1id}==='TT1_17' || ${TaskPendingModel>tt1id}==='TT1_18'? true:false}"/>
+							</HBox>
 							<Text
 								text="{path:'TaskPendingModel>ftcredt', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskPendingModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 							<Text text="{TaskPendingModel>ftdesc}"/>

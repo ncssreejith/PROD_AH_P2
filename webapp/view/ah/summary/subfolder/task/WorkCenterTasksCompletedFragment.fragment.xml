@@ -62,7 +62,12 @@
 				<items>
 					<ColumnListItem vAlign="Middle">
 						<cells>
-							<Text text="{TaskCompleteModel>tdesc}"/>
+							<HBox>
+								<Text text="{TaskCompleteModel>tdesc}"
+									visible="{= ${TaskCompleteModel>tt1id}!=='TT1_15'|| ${TaskCompleteModel>tt1id}!=='TT1_17' || ${TaskCompleteModel>tt1id}!=='TT1_18'? true:false}"/>
+								<Text text="{TaskCompleteModel>cdesc}"
+									visible="{= ${TaskCompleteModel>tt1id}==='TT1_15'|| ${TaskCompleteModel>tt1id}==='TT1_17' || ${TaskCompleteModel>tt1id}==='TT1_18'? true:false}"/>
+							</HBox>
 							<Text
 								text="{path:'TaskCompleteModel>ftcredt', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskCompleteModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 							<Text text="{TaskCompleteModel>ftdesc}"/>

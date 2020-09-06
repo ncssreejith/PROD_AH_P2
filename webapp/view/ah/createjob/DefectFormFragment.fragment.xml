@@ -1,7 +1,10 @@
 <core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
 	xmlns:f="sap.f" xmlns:u="sap.ui.unified">
 	<VBox class="sapUiSmallMarginBottom">
-		<Label text="Defect Write Up" design="Bold"/>
+		<HBox>
+			<Label text="Defect Write Up" design="Bold"/>
+			<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('JOB',$event)" size="12px" color="#031E48"/>
+		</HBox>
 		<TextArea id="taCommentByAA" required="{=${oViewCreateModel>/jobty} === 'D' ? true : false}"
 			fieldGroupIds="{=${oViewCreateModel>/jobty} === 'D'? 'fgTxtArea' : ''}" width="27rem" valueStateText="{i18n>ERROR_GENERIC}"
 			value="{oViewCreateModel>/jobdesc}" maxLength="1000" growing="true" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"

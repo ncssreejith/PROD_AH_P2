@@ -64,7 +64,7 @@
 				<VBox>
 					<HBox visible="{oViewModel>/bLimitation}">
 						<Label design="Bold" text="Limitation"/>
-						<core:Icon src="sap-icon://sys-help-2" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>
+						<core:Icon src="sap-icon://sys-help-2" size="12px" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" class="sapUiTinyMarginBegin" color="#031E48"/>
 					</HBox>
 					<TextArea width="400px" value="{oViewGlobalModel>/LDESC}" visible="{oViewModel>/bLimitation}" maxLength="100" showExceededText="true"
 						fieldGroupIds="fgTxtArea" required="{oViewModel>/bLimitation}" liveChange="handleLiveChangeFlyingRequirements"/>

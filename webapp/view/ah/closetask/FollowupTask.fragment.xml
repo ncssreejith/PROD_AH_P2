@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.ah.control">
-	<VBox backgroundDesign="Transparent" class="sapUiSmallMargin" items="{path:'TaskModel>/',templateShareable: false}">
+	<VBox id="vbTaskId" backgroundDesign="Transparent" class="sapUiSmallMargin" items="{path:'TaskModel>/',templateShareable: false}">
 		<items>
 			<l:Splitter height="auto" class="sapUiTinyMarginTopBottom">
 				<VBox backgroundDesign="Solid">
@@ -127,14 +127,14 @@
 											<VBox class="sapUiTinyMarginTop">
 												<HBox>
 													<Label design="Bold" text="Tool quantity"/>
-													<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+													<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('TOOLQUAN',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 												</HBox>
 												<StepInput width="200px" value="{TaskModel>TOOLQTY}"/>
 											</VBox>
 											<VBox class="sapUiTinyMarginTop sapUiSmallMarginBegin">
 												<HBox>
 													<Label design="Bold" text="Publication quantity"/>
-													<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+													<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PUBQUAN',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 												</HBox>
 												<StepInput width="200px" value="{TaskModel>PUBLCQTY}"/>
 											</VBox>
@@ -147,7 +147,9 @@
 											<VBox class="sapUiTinyMarginBegin">
 												<HBox>
 													<Label design="Bold" text="Type"/>
-													<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+													<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PARTNO',$event)" class="sapUiTinyMarginBegin" size="12px"
+														color="#031E48"/>
+													<Text width="12rem"/>
 													<Text text="For Engine Only" class="optionalTxtMargin"
 														visible="{= ${TaskModel>tt1id}==='TT1_10' &amp;&amp; ${TaskModel>tt2id}==='TT2_10' ? true:false}"/>
 												</HBox>
@@ -170,7 +172,8 @@
 											<VBox class="sapUiMediumMarginEnd">
 												<HBox>
 													<Label design="Bold" text="Type"/>
-													<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+													<core:Icon press="handlePressToolTipMenu('SERIALNO',$event)" src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px"
+														color="#031E48"/>
 												</HBox>
 												<HBox>
 													<ComboBox width="150px" change="onTypeChange" selectedKey="{TaskModel>isser}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bType}"
@@ -191,7 +194,11 @@
 										</HBox>
 										<VBox class="sapUiTinyMarginTop"
 											visible="{parts:['TaskModel>tt1id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible1'}">
-											<Label text="Describe Task" design="Bold"></Label>
+											<HBox>
+												<Label text="Describe Task" design="Bold"></Label>
+												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('DSCT',$event)" size="12px"
+													color="#031E48"/>
+											</HBox>
 											<TextArea maxLength="1000" value="{TaskModel>ftdesc}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
 												liveChange="handleLiveChangeFlyingRequirements"/>
 											<layoutData>
@@ -200,7 +207,11 @@
 										</VBox>
 										<VBox
 											visible="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible2'}">
-											<Label text="Findings" design="Bold"></Label>
+											<HBox>
+												<Label text="Findings" design="Bold"/>
+												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('FIND',$event)" size="12px"
+													color="#031E48"/>
+											</HBox>
 											<TextArea maxLength="1000" value="{TaskModel>ftfind}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
 												liveChange="handleLiveChangeFlyingRequirements"/>
 											<layoutData>
@@ -232,24 +243,22 @@
 												<VBox>
 													<HBox>
 														<Label design="Bold" text="Reason for ADD"/>
-														<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 													</HBox>
-													<ComboBox width="200px" editable="false" selectionChange="onReasonForADDChange" items="{ReasonforADDModel>/}"
-														selectedKey="{TaskModel>CPRID}" required="true" fieldGroupIds="fgCmbBox" placeholder="Select">
+													<ComboBox width="200px" editable="false" selectionChange="onReasonForADDChange"
+														items="{path:'ReasonforADDModel>/',templateShareable: false}" selectedKey="{TaskModel>CPRID}" required="true" fieldGroupIds="fgCmbBox"
+														placeholder="Select">
 														<core:Item text="{ReasonforADDModel>description}" key="{ReasonforADDModel>ddid}"/>
 													</ComboBox>
 												</VBox>
 												<VBox class=" sapUiSmallMarginBegin" visible="{= ${TaskModel>CPRID}==='CPR_10' ? true:false}">
 													<HBox>
 														<Label design="Bold" text="Demand No"/>
-														<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 													</HBox>
 													<Input width="200px" editable="false" fieldGroupIds="fgInput" value="{TaskModel>DMDID}" required="{oViewLimitModel>/bDemandNo}"/>
 												</VBox>
 												<VBox class="sapUiSmallMarginBegin" visible="{= ${TaskModel>CPRID}==='CPR_14' ? true:false}">
 													<HBox>
 														<Label design="Bold" text="Other Reason"/>
-														<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 													</HBox>
 													<Input width="200px" editable="false" fieldGroupIds="fgInput" required="{oViewLimitModel>/bOtherReason}" value="{TaskModel>OTHER_RSN}"/>
 												</VBox>
@@ -258,10 +267,9 @@
 												<VBox>
 													<HBox>
 														<Label design="Bold" text="Period of Deferment"/>
-														<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 													</HBox>
-													<ComboBox width="245px" editable="false" selectionChange="onPrdOfDefermentChange" items="{PerioOfDeferCBModel>/}"
-														selectedKey="{TaskModel>DEFPD}" required="true" fieldGroupIds="fgCmbBox">
+													<ComboBox width="245px" editable="false" selectionChange="onPrdOfDefermentChange"
+														items="{path:'PerioOfDeferCBModel>/',templateShareable: false}" selectedKey="{TaskModel>DEFPD}" required="true" fieldGroupIds="fgCmbBox">
 														<core:Item text="{PerioOfDeferCBModel>description}" key="{PerioOfDeferCBModel>ddid}"/>
 													</ComboBox>
 												</VBox>
@@ -307,7 +315,8 @@
 												<VBox>
 													<HBox>
 														<Label design="Bold" text="Limitation"/>
-														<core:Icon src="sap-icon://sys-help-2" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>
+													<!--	<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" size="12px" class="sapUiTinyMarginBegin"
+															color="#031E48"/>-->
 													</HBox>
 													<TextArea width="400px" showExceededText="true" maxLength="100" rows="5" value="{TaskModel>ldesc}" editable="false"
 														liveChange="handleLiveChangeFlyingRequirements"/>

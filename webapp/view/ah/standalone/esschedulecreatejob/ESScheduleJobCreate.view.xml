@@ -34,7 +34,7 @@
 								</items>
 							</SegmentedButton>
 						</VBox>
-					<!--	<VBox visible="{=${JobCreateModel>/CTYPE}==='MODSTI' ? true:false}">
+						<!--	<VBox visible="{=${JobCreateModel>/CTYPE}==='MODSTI' ? true:false}">
 							<Label text="Type 2" design="Bold"/>
 							<SegmentedButton id="SB2" class="sapUiSmallMarginBottom" selectionChange="onSelectionNatureofJobChange"
 								selectedKey="{JobCreateModel>/TYPE2}">
@@ -57,7 +57,8 @@
 										<VBox>
 											<HBox>
 												<Label design="Bold" text="Type"/>
-												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+												<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('SERIALNO',$event)" class="sapUiTinyMarginBegin" size="12px"
+													color="#031E48"/>
 											</HBox>
 											<!--	<ComboBox id="Type1Id" width="170px" change="onTypeChange" selectedKey="{JobCreateModel>/sType1}" fieldGroupIds="fgCmbBox"
 											required="{JobCreateModel>/bType}" items="{TT1Model>/}">
@@ -70,14 +71,14 @@
 												<Label/>
 												<Text text="Optional" class="optionalTxtMargin"/>
 											</HBox>
-											<Input width="200px" value="{JobCreateModel>/SN}"/>
+											<Input width="200px" maxLength="20" value="{JobCreateModel>/SN}"/>
 										</VBox>
 									</HBox>
 									<HBox class="sapUiLargeMarginBegin">
 										<VBox>
 											<HBox>
 												<Label design="Bold" text="Type"/>
-												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+												<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PARTNO',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 											</HBox>
 											<!--	<ComboBox width="170px" change="onTypeChange" selectedKey="{JobCreateModel>/sType2}" fieldGroupIds="fgCmbBox"
 											required="{JobCreateModel>/bType}" items="{TT2Model>/}">
@@ -98,7 +99,7 @@
 									<VBox>
 										<HBox>
 											<Label design="Bold" text="Component Description"/>
-											<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+											<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('COMPDESC',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 										</HBox>
 										<Input width="500px" placeholder="eg. Engine" value="{JobCreateModel>/CDESC}" fieldGroupIds="fgInput"/>
 									</VBox>

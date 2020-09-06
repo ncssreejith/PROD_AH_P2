@@ -1270,7 +1270,7 @@ sap.ui.define([
 		 */
 
 		_fnRenderImage: function(sImagePath) {
-			try {
+			/*try {*/
 				var that = this,
 					oCanvas;
 				oCanvas = document.getElementById("myCanvasTop");
@@ -1278,10 +1278,10 @@ sap.ui.define([
 				oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
 				oCanvas.style.backgroundRepeat = "no-repeat";
 				oCanvas.style.backgroundSize = "100%";
-			} catch (e) {
+		/*	} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnRenderImage function");
 				this.handleException(e);
-			}
+			}*/
 		},
 
 		/* Function: drawCoordinates
@@ -1290,7 +1290,7 @@ sap.ui.define([
 		 */
 
 		drawCoordinates: function(sDaid, oArray) {
-			try {
+			/*try {*/
 				var oCanvas = document.getElementById("myCanvasTop");
 				var ctx = oCanvas.getContext("2d");
 				var grd = ctx.createLinearGradient(0, 0, 170, 0);
@@ -1301,10 +1301,10 @@ sap.ui.define([
 				ctx.beginPath();
 				ctx.arc(Number(oArray.xaxis), Number(oArray.yaxis), 10, 0, 2 * Math.PI);
 				ctx.fill();
-			} catch (e) {
+		/*	} catch (e) {
 				Log.error("Exception in CosDefectsSummary:drawCoordinates function");
 				this.handleException(e);
-			}
+			}*/
 		},
 
 		_fnTaskCount: function() {

@@ -280,6 +280,49 @@ sap.ui.define([
 			}
 		},
 
+		//8.on click of Sign Off button
+		onSaveAsDraft: function(oEvent) {
+			try {
+				var oModel = this.getView().getModel("TaskModel"),
+					oFLag = "0",
+					sObject,
+					oViewModel = this.getView().getModel("ViewModel"),
+					oPrmTask = {},
+					that = this,
+					oPayload = [];
+
+				oPayload = oModel.getData();
+
+				for (var i = 0; i < oPayload.length; i++) {
+					//oPayload[i].sernr = oPayload[i].ftsernr;
+					try {
+						oPayload[i].ftcredt = formatter.defaultOdataDateFormat(oPayload[i].ftcredt);
+					} catch (e) {
+						oPayload[i].ftcredt = oPayload[i].ftcredt;
+					}
+				}
+
+				oPrmTask.filter = "";
+				oPrmTask.error = function() {
+
+				};
+				oPrmTask.success = function(oData) {
+					this.byId("pageCloseTaskId").scrollTo(0);
+				}.bind(this);
+				if (oViewModel.getProperty("/Flag") === "FS") {
+					sObject = "ZRM_FS_CTT";
+				} else {
+					sObject = "ZRM_COS_TT";
+				}
+				oPrmTask.activity = 4;
+
+				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, oPayload, sObject, this);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:onSaveAsDraft function");
+				this.handleException(e);
+			}
+		},
+
 		onPrdOfDefermentChange: function(oEvent) {
 			try {
 				var oViewLimitModel = this.getModel("oViewLimitModel"),
@@ -412,6 +455,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oObject;
+
 				oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
 				if (!this._oAddLim) {
 					this._oAddLim = sap.ui.xmlfragment(this.createId("idWorkCenterDialog"),
@@ -445,6 +489,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oObject;
+
 				oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
 				if (!this._oAddADD) {
 					this._oAddADD = sap.ui.xmlfragment(this.createId("idAddTaskADDDialog"),
@@ -879,6 +924,8 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TaskModel");
 					that.getView().byId("vbLimId").invalidate();
+					that.getView().byId("vbTaskId").invalidate();
+					this.byId("pageCloseTaskId").scrollTo(0);
 				}.bind(this);
 
 				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);

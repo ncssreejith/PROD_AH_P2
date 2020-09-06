@@ -5,10 +5,10 @@
 				<VBox>
 					<HBox>
 						<Label design="Bold" text="Limitation"/>
-						<core:Icon src="sap-icon://sys-help-2" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>
+						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>
 					</HBox>
-					<TextArea width="400px" value="{oViewGlobalModel>/LDESC}" maxLength="100" showExceededText="true"
-						fieldGroupIds="fgTxtArea" required="{oViewLimitModel>/bLimitation}" liveChange="handleLiveChangeFlyingRequirements"/>
+					<TextArea width="400px" value="{oViewGlobalModel>/LDESC}" maxLength="100" showExceededText="true" fieldGroupIds="fgTxtArea"
+						required="{oViewLimitModel>/bLimitation}" liveChange="handleLiveChangeFlyingRequirements"/>
 					<!--	<Button icon="sap-icon://sys-add" text="Add Limitation" width="400px" class="sapUiTinyMarginTop addLimitationBtn addTemBtn"
 						press="onAddLimitaionPress" visible="{oViewLimitModel>/bAddLimitationBtn}" iconFirst="true"/>
 					<Button icon="sap-icon://sys-minus" text="Remove Limitation" width="400px" class="sapUiTinyMarginTop removeLimitationBtn"
@@ -19,7 +19,7 @@
 				<VBox>
 					<HBox>
 						<Label design="Bold" text="Period of Deferment"/>
-						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PERIODOFDEFER',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 					</HBox>
 					<ComboBox width="245px" selectionChange="onPrdOfDefermentChange" items="{PerioOfDeferCBModel>/}" selectedKey="{oViewGlobalModel>/DEFPD}"
 						required="true" fieldGroupIds="fgCmbBox">

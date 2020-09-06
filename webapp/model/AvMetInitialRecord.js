@@ -245,6 +245,42 @@ sap.ui.define([
 					}, {
 						"id": "RECTSUM",
 						"TTi18N": "ttRectificationSummary"
+					}, {
+						"id": "REASONADD",
+						"TTi18N": "ttReasonForAdd"
+					}, {
+						"id": "DMANDNO",
+						"TTi18N": "ttDemandNo"
+					}, {
+						"id": "OTHERREASON",
+						"TTi18N": "ttOtherReason"
+					}, {
+						"id": "PERIODOFDEFER",
+						"TTi18N": "ttPeriodofDeferment"
+					}, {
+						"id": "LIMITATION",
+						"TTi18N": "ttLimitation"
+					}, {
+						"id": "LIMITATIONTASK",
+						"TTi18N": "ttLimitationTask"
+					}, {
+						"id": "TASKTYPE",
+						"TTi18N": "tttaskType"
+					}, {
+						"id": "SERIALNO",
+						"TTi18N": "ttSerialNo"
+					}, {
+						"id": "PARTNO",
+						"TTi18N": "ttPartNo"
+					}, {
+						"id": "TASKDESC",
+						"TTi18N": "tttaskDesc"
+					}, {
+						"id": "TOOLQUAN",
+						"TTi18N": "tttoolquan"
+					}, {
+						"id": "PUBQUAN",
+						"TTi18N": "ttpubquan"
 					}];
 					oArray.push(ToolTip);
 					break;

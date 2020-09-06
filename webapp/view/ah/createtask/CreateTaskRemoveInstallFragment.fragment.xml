@@ -4,7 +4,7 @@
 			<VBox>
 				<HBox>
 					<Label design="Bold" text="Task"/>
-					<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('TASKTYPE',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 				</HBox>
 				<ComboBox width="360px" change="onRemoveInstallTaskChange" items="{TaskListModel>/}" selectedKey="{oCreateTaskModel>/sTask}"
 					fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bRemoveOrInstall}">
@@ -21,7 +21,7 @@
 				<VBox>
 					<HBox>
 						<Label design="Bold" text="Type"/>
-						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('SERIALNO',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 					</HBox>
 					<ComboBox id="Type1Id" width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1}" fieldGroupIds="fgCmbBox"
 						required="{oCreateTaskModel>/bType}" items="{TT1Model>/}">
@@ -47,7 +47,7 @@
 				<VBox>
 					<HBox>
 						<Label design="Bold" text="Type"/>
-						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('PARTNO',$event)" size="12px" color="#031E48"/>
 					</HBox>
 					<ComboBox width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType2}" fieldGroupIds="fgCmbBox"
 						required="{oCreateTaskModel>/bType}" items="{TT2Model>/}">
@@ -78,7 +78,7 @@
 			<VBox>
 				<HBox>
 					<Label design="Bold" text="Component Description"/>
-					<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('COMPDESC',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 				</HBox>
 				<Input width="360px" placeholder="eg. Engine" value="{oCreateTaskModel>/sCompDesc}" fieldGroupIds="fgInput"
 					required="{oCreateTaskModel>/bCompDesc}"/>
@@ -89,7 +89,7 @@
 				<VBox>
 					<HBox>
 						<Label design="Bold" text="Task Description"/>
-						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+						<core:Icon src="sap-icon://sys-help-2"  press="handlePressToolTipMenu('TASKDESC',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 					</HBox>
 					<ComboBox width="170px" change="onTypeDescChange" items="{TaskDescModel>/}" selectedKey="{oCreateTaskModel>/sTypDescKey}"
 						fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bAccess}">
@@ -118,7 +118,7 @@
 			<VBox>
 				<HBox>
 					<Label design="Bold" text="Item No"/>
-					<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('ITEMNO',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 				</HBox>
 				<Input width="170px" value="{oCreateTaskModel>/sItemNo}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bItemNo}"/>
 			</VBox>
@@ -128,14 +128,14 @@
 				<VBox visible="{oCreateTaskModel>/bSLNo}">
 					<HBox>
 						<Label design="Bold" text="Serial No"/>
-						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('SERIALNO',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 					</HBox>
-					<Input width="170px" value="{oCreateTaskModel>/sSLNo}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bSLNo}"/>
+					<Input width="180px" maxLength="20" value="{oCreateTaskModel>/sSLNo}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bSLNo}"/>
 				</VBox>
 				<VBox class="sapUiTinyMarginBegin" visible="{oCreateTaskModel>/bCompCompDesc}">
 					<HBox>
 						<Label design="Bold" text="Component Description"/>
-						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('COMPDESC',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 					</HBox>
 					<Input width="170px" placeholder="eg. Test Set" value="{oCreateTaskModel>/sCompCompDesc}" fieldGroupIds="fgInput"
 						required="{oCreateTaskModel>/bCompCompDesc}"/>

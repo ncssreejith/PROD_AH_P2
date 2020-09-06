@@ -240,7 +240,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/bSLNo", false);
 				oCreateTaskModel.setProperty("/bCompCompDesc", false);
 				oCreateTaskModel.setProperty("/sTypDescValue", sSelectedText);
-				if (sSelectedKey === "TT4_10") {
+				if (sSelectedKey === "TT4_10" || sSelectedKey === "TT4_11") {
 					oCreateTaskModel.setProperty("/bItemNo", true);
 				} else if (sSelectedKey === "TT4_14" || sSelectedKey === "TT1_15") {
 					oCreateTaskModel.setProperty("/bItemNo", true);
