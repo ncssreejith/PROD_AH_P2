@@ -31,11 +31,6 @@
 
 	"FilterDDModel": [{
 		"key": "jobid",
-		"text": "Date / Time",
-		"type": "AllJobOut DefectJobOut",
-		"filter": "Contains"
-	}, {
-		"key": "jobid",
 		"text": "Job No.",
 		"type": "AllJobOut DefectJobOut",
 		"filter": "Contains"
@@ -63,7 +58,7 @@
 		"key": "DUEIN",
 		"text": "Due In",
 		"type": "OutPhase",
-		"filter": "LE"
+		"filter": "Contains"
 	}, {
 		"key": "UM",
 		"text": "Um",
@@ -73,7 +68,7 @@
 		"key": "SERVDUE",
 		"text": "Servicing Due",
 		"type": "OutPhase",
-		"filter": "LE"
+		"filter": "Contains"
 	}, {
 		"key": "JOBDESC",
 		"text": "Job Description",
@@ -89,12 +84,7 @@
 		"text": "Prime",
 		"type": "OutPhase",
 		"filter": "Contains"
-	}, {
-		"key": "credtm",
-		"text": "Creation Date/Time",
-		"type": "JobC",
-		"filter": "Contains"
-	}, {
+	},{
 		"key": "jobid",
 		"text": "Job No.",
 		"type": "JobC",
@@ -102,11 +92,6 @@
 	}, {
 		"key": "jobdesc",
 		"text": "Job Description",
-		"type": "JobC",
-		"filter": "Contains"
-	}, {
-		"key": "rectdt",
-		"text": "Closure Date/Time",
 		"type": "JobC",
 		"filter": "Contains"
 	}, {
@@ -130,16 +115,6 @@
 		"type": "TaskOut TaskPending TaskCompleted",
 		"filter": "Contains"
 	}, {
-		"key": "credtm",
-		"text": "Date/Time",
-		"type": "TaskOut",
-		"filter": "Contains"
-	}, {
-		"key": "ftcredt",
-		"text": "Date/Time",
-		"type": "TaskPending TaskCompleted",
-		"filter": "Contains"
-	}, {
 		"key": "ftdesc",
 		"text": "Follow-Up Task",
 		"type": "TaskPending TaskCompleted",
@@ -160,11 +135,6 @@
 		"type": "TaskCompleted",
 		"filter": "Contains"
 	}, {
-		"key": "FR_DT",
-		"text": "Date/Time",
-		"type": "FlyReq",
-		"filter": "Contains"
-	}, {
 		"key": "FRDESC",
 		"text": "Flying Requirements",
 		"type": "FlyReq",
@@ -174,12 +144,7 @@
 		"text": "Tradesman",
 		"type": "FlyReq",
 		"filter": "Contains"
-	}, {
-		"key": "SORDT",
-		"text": "Date/Time",
-		"type": "SortieMon",
-		"filter": "Contains"
-	}, {
+	},  {
 		"key": "SORDESC",
 		"text": "Aircraft Monitoring",
 		"type": "SortieMon",

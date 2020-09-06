@@ -14,7 +14,7 @@
 				<Button text="{i18n>btnAdd}" type="Default" width="7rem" press="onAddTMDE" enabled="{LocalModel>/FairEditFlag}" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 			</items>
 		</VBox>
-		<VBox visible="{=${CreateJobLocalModel>/TMDE}.length !== 0 ? true :false}" alignContent="Center" alignItems="Center">
+	<!--	<VBox visible="{=${CreateJobLocalModel>/TMDE}.length !== 0 ? true :false}" alignContent="Center" alignItems="Center">
 			<Table id="tbWcTDMEId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" growing="true" growingThreshold="4"
 				growingScrollToLoad="false" items="{CreateJobLocalModel>/TMDE}" noDataText="{i18n>txtNoTextTMDE}" showNoData="true" updateFinished="onWoorkCenTblUpdateFinished('TM',$event)">
 			
@@ -53,6 +53,6 @@
 					</ColumnListItem>
 				</items>
 			</Table>
-		</VBox>
+		</VBox>-->
 	</VBox>
 </core:FragmentDefinition>

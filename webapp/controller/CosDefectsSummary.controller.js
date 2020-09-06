@@ -1271,17 +1271,17 @@ sap.ui.define([
 
 		_fnRenderImage: function(sImagePath) {
 			/*try {*/
-				var that = this,
-					oCanvas;
-				oCanvas = document.getElementById("myCanvasTop");
-				var ctx = oCanvas.getContext("2d");
-				oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
-				oCanvas.style.backgroundRepeat = "no-repeat";
-				oCanvas.style.backgroundSize = "100%";
-		/*	} catch (e) {
-				Log.error("Exception in CosDefectsSummary:_fnRenderImage function");
-				this.handleException(e);
-			}*/
+			var that = this,
+				oCanvas;
+			oCanvas = document.getElementById("myCanvasTop");
+			var ctx = oCanvas.getContext("2d");
+			oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
+			oCanvas.style.backgroundRepeat = "no-repeat";
+			oCanvas.style.backgroundSize = "100%";
+			/*	} catch (e) {
+					Log.error("Exception in CosDefectsSummary:_fnRenderImage function");
+					this.handleException(e);
+				}*/
 		},
 
 		/* Function: drawCoordinates
@@ -1291,20 +1291,20 @@ sap.ui.define([
 
 		drawCoordinates: function(sDaid, oArray) {
 			/*try {*/
-				var oCanvas = document.getElementById("myCanvasTop");
-				var ctx = oCanvas.getContext("2d");
-				var grd = ctx.createLinearGradient(0, 0, 170, 0);
-				grd.addColorStop(1, "red");
-				ctx.fillStyle = "red"; // Red color
-				ctx.strokeStyle = "black";
-				ctx.font = "15px Arial";
-				ctx.beginPath();
-				ctx.arc(Number(oArray.xaxis), Number(oArray.yaxis), 10, 0, 2 * Math.PI);
-				ctx.fill();
-		/*	} catch (e) {
-				Log.error("Exception in CosDefectsSummary:drawCoordinates function");
-				this.handleException(e);
-			}*/
+			var oCanvas = document.getElementById("myCanvasTop");
+			var ctx = oCanvas.getContext("2d");
+			var grd = ctx.createLinearGradient(0, 0, 170, 0);
+			grd.addColorStop(1, "red");
+			ctx.fillStyle = "red"; // Red color
+			ctx.strokeStyle = "black";
+			ctx.font = "15px Arial";
+			ctx.beginPath();
+			ctx.arc(Number(oArray.xaxis), Number(oArray.yaxis), 10, 0, 2 * Math.PI);
+			ctx.fill();
+			/*	} catch (e) {
+					Log.error("Exception in CosDefectsSummary:drawCoordinates function");
+					this.handleException(e);
+				}*/
 		},
 
 		_fnTaskCount: function() {
@@ -1381,17 +1381,21 @@ sap.ui.define([
 					this.getView().byId("itbTaskId").setSelectedKey(sGoTo);
 					oViewModel.setProperty("/SummaryFlag", false);
 					oViewModel.setProperty("/WorcenterFlag", true);
-					that._fnTasksOutStandingGet(sJobId, sWcKey);
-					that._fnTasksPendingSupGet(sJobId, sWcKey);
-					that._fnTasksCompleteGet(sJobId, sWcKey);
-					that._fnFlyingRequirementsGet(sJobId, sWcKey);
-					that._fnSortieMonitoringGet(sJobId, sWcKey);
+				} else if (sGoTo === "FR" || sGoTo === "SM") {
+					oViewModel.setProperty("/WorkCenterKey", sWcKey);
+					oViewModel.setProperty("/SummaryFlag", false);
+					oViewModel.setProperty("/WorcenterFlag", true);
+					this.onAEFMMenuPress(sGoTo);
 				} else {
 					oViewModel.setProperty("/WorkCenterKey", "Summary");
 					oViewModel.setProperty("/SummaryFlag", true);
 					oViewModel.setProperty("/WorcenterFlag", false);
 				}
-
+				that._fnTasksOutStandingGet(sJobId, sWcKey);
+				that._fnTasksPendingSupGet(sJobId, sWcKey);
+				that._fnTasksCompleteGet(sJobId, sWcKey);
+				that._fnFlyingRequirementsGet(sJobId, sWcKey);
+				that._fnSortieMonitoringGet(sJobId, sWcKey);
 				oViewModel.updateBindings(true);
 				that._fnJobDetailsGet(sJobId, sAirId);
 			} catch (e) {

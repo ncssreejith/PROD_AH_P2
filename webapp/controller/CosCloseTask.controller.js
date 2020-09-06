@@ -85,10 +85,10 @@ sap.ui.define([
 		//3.on click of procced button
 		onProceed: function(oEvent) {
 			try {
-				/*FieldValidations.resetErrorStates(this);
+				FieldValidations.resetErrorStates(this);
 				if (FieldValidations.validateFields(this)) {
 					return;
-				}*/
+				}
 				var oModel = this.getView().getModel("ViewModel");
 				oModel.setProperty("/bTradesMan", true);
 				oModel.setProperty("/selectedIcon", "tradesMan");
@@ -918,7 +918,11 @@ sap.ui.define([
 						oData.results[i].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();
 						if (oData.results[i].tt1id === 'TT1_12' && oData.results[i].tt2id === '' && oData.results[i].tt3id === '' && oData.results[i].tt4id ===
 							'') {
-							oData.results[i].ftrsltgd = "NA";
+								if(oData.results[i].ftrsltgd === "" || oData.results[i].ftrsltgd === null)
+								{
+									oData.results[i].ftrsltgd = "NA";
+								}
+							
 						}
 					}
 					oModel.setData(oData.results);

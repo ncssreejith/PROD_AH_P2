@@ -224,7 +224,9 @@ sap.ui.define([
 					if (oModel.getProperty("/sFlag") === "Y") {
 						this.getRouter().navTo("CosDefectsSummary", {
 							"JobId": oModel.getProperty("/JobId"),
-							"Flag": "Y"
+							"Flag": "Y",
+							"WcKey": oModel.getProperty("/sWorkKey"),
+							"goTo": "FR"
 						});
 					} else {
 						this.getRouter().navTo("FlyingRequirements");

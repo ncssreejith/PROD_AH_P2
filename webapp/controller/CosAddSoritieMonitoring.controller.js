@@ -8,7 +8,7 @@ sap.ui.define([
 	"sap/base/Log"
 ], function(BaseController, dataUtil, ajaxutil, FieldValidations, formatter, JSONModel, Log) {
 	"use strict";
-/* ***************************************************************************
+	/* ***************************************************************************
 	 *     Developer : RAJAT GUPTA 
 	 *   Control name: CosAddSortieMonitoring        
 	 *   Purpose : Add sortie monitoring functionality
@@ -285,10 +285,12 @@ sap.ui.define([
 					var oModelSMJ = that.getModel("ViewModel");
 					that.getRouter().navTo("CosDefectsSummary", {
 						"JobId": oModelSMJ.getProperty("/JobId"),
-						"Flag": "Y"
+						"Flag": "Y",
+						"WcKey": oModelSMJ.getProperty("/sWorkKey"),
+						"goTo": "SM"
 					});
 				}.bind(this);
-				oParameter.activity=1;
+				oParameter.activity = 1;
 				ajaxutil.fnCreate("/SortieMonSvc", oParameter, oPayloads, "ZRM_COS_JS", this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:fnCreateSorti function");

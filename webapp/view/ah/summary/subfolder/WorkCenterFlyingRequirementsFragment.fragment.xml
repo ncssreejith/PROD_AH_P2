@@ -34,7 +34,7 @@
 					</Column>
 					<Column width="10rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 						<HBox>
-							<Label text="{i18n>lbFlyingRequirements}" design="Bold" wrapping="true"/>
+							<Label text="{i18n>lbFlyingRequirements}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'FRDESC')"/>
 						</HBox>
 					</Column>
