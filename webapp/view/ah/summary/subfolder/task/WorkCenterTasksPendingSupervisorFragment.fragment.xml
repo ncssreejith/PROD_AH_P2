@@ -62,14 +62,16 @@
 								<Text text="{TaskPendingModel>cdesc}"
 									visible="{= ${TaskPendingModel>tt1id}==='TT1_15'|| ${TaskPendingModel>tt1id}==='TT1_17' || ${TaskPendingModel>tt1id}==='TT1_18'? true:false}"/>
 							</HBox>
-							<Text
-								text="{path:'TaskPendingModel>ftcredt', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskPendingModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							<VBox alignItems="Center" alignContent="Center">
+								<Text text="{path:'TaskPendingModel>ftcredt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{path:'TaskPendingModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							</VBox>
 							<Text text="{TaskPendingModel>ftdesc}"/>
 							<Text text="{TaskPendingModel>LDESC}"/>
-							<VBox>
+							<VBox alignItems="Center" alignContent="Center">
 								<Text text="{TaskPendingModel>SG1USR}"/>
-								<Text
-									text="{path:'TaskPendingModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskPendingModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{path:'TaskPendingModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{path:'TaskPendingModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 							</VBox>
 						</cells>
 					</ColumnListItem>

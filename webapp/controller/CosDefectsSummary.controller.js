@@ -1165,8 +1165,10 @@ sap.ui.define([
 					oPrmTask.error = function(oData) {};
 					oPrmTask.success = function(oData) {
 						that.onPendingSupDetailsClose();
+						that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
+						this.getView().byId("itbTaskId").setSelectedKey("CM");
 					}.bind(this);
 					oPrmTask.activity = 4;
 					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "ZRM_COS_TS", this);

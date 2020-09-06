@@ -68,19 +68,21 @@
 								<Text text="{TaskCompleteModel>cdesc}"
 									visible="{= ${TaskCompleteModel>tt1id}==='TT1_15'|| ${TaskCompleteModel>tt1id}==='TT1_17' || ${TaskCompleteModel>tt1id}==='TT1_18'? true:false}"/>
 							</HBox>
-							<Text
-								text="{path:'TaskCompleteModel>ftcredt', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskCompleteModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							<VBox alignItems="Center" alignContent="Center">
+								<Text text="{path:'TaskCompleteModel>ftcredt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{path:'TaskCompleteModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							</VBox>
 							<Text text="{TaskCompleteModel>ftdesc}"/>
 							<Text text="{TaskCompleteModel>LDESC}"/>
 							<VBox>
 								<Text text="{TaskCompleteModel>SG1USR}"/>
-								<Text
-									text="{path:'TaskCompleteModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskCompleteModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{path:'TaskCompleteModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{path:'TaskCompleteModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 							</VBox>
-							<VBox>
+							<VBox alignItems="Center" alignContent="Center">
 								<Text text="{TaskCompleteModel>SG2USR}"/>
-								<Text
-									text="{path:'TaskCompleteModel>SG2DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'TaskCompleteModel>SG2UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{path:'TaskCompleteModel>SG2DTM', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{path:'TaskCompleteModel>SG2UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 							</VBox>
 						</cells>
 					</ColumnListItem>
