@@ -1,6 +1,6 @@
 <mvc:View controllerName="avmet.ah.controller.CosCreateTask" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
 	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
-	<Page id="page" showNavButton="false" showHeader="false">
+	<Page showNavButton="false" showHeader="false">
 		<Toolbar id="tbId" height="4rem" class="backgroundWhite">
 			<Button icon="sap-icon://arrow-left" type="Transparent" press="onNavBack" class="iconColorWhite sapUiMediumMarginBegin"></Button>
 			<VBox>

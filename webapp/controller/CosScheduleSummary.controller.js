@@ -748,7 +748,7 @@ sap.ui.define([
 				}.bind(this);
 				oPrmSchJob.activity = 2;
 
-				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
+				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcessionPress function");
 			}

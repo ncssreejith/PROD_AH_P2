@@ -307,7 +307,11 @@ sap.ui.define([
 
 				};
 				oPrmTask.success = function(oData) {
+					this._fnTasksGet(oViewModel.getProperty("/TaskId"));
+					this.getView().getModel("ViewModel").setProperty("/bLiveChnage", true);
 					this.byId("pageCloseTaskId").scrollTo(0);
+					this.getView().getModel("FollowOtherModel").setData(null);
+					this.getView().getModel("FollowOPSModel").setData(null);
 				}.bind(this);
 				if (oViewModel.getProperty("/Flag") === "FS") {
 					sObject = "ZRM_FS_CTT";
@@ -451,29 +455,59 @@ sap.ui.define([
 			}
 		},
 
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called,to open Limitation dialog.
+		// Table: 
+		//--------------------------------------------------------------------------------------
 		onAddLimitaionDialog: function(oEvent) {
 			try {
 				var that = this,
+					oEventTemp = oEvent,
+					oViewModel = this.getView().getModel("ViewModel"),
 					oObject;
-
-				oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
-				if (!this._oAddLim) {
-					this._oAddLim = sap.ui.xmlfragment(this.createId("idWorkCenterDialog"),
-						"avmet.ah.fragments.AddTaskLimitation",
-						this);
-					this._InitializeLimDialogModel();
-					this.getView().addDependent(this._oAddLim);
-					this._fnUtilizationGet(oObject.tailid);
+				try {
+					oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
+				} catch (e) {
+					oObject = this.oTempoLimObject;
 				}
-				this._fnCreateLimitation(oObject);
-				this._oAddLim.open(this);
+				this.oTempoLimObject = oObject;
+				if (oViewModel.getProperty("/bLiveChnage")) {
+					if (!this._oAddLim) {
+						this._oAddLim = sap.ui.xmlfragment(this.createId("idWorkCenterDialog"),
+							"avmet.ah.fragments.AddTaskLimitation",
+							this);
+						this._InitializeLimDialogModel();
+						this.getView().addDependent(this._oAddLim);
+						this._fnUtilizationGet(oObject.tailid);
+					}
+					this._fnCreateLimitation(oObject);
+					this._oAddLim.open(this);
+				} else {
+					MessageBox.error("You have unsaved changes, data will be lost.\n Do you want to save?", {
+						actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+						emphasizedAction: "Manage Products",
+						onClose: function(sAction) {
+							if (sAction === "YES") {
+								that.onSaveAsDraft();
+							} else {
+								that.getView().getModel("ViewModel").setProperty("/bLiveChnage", true);
+								that.onAddLimitaionDialog(oEventTemp);
+							}
+
+						}
+					});
+				}
 			} catch (e) {
-				Log.error("Exception in CosCloseTask:onAddLimitaionDialog function");
-				this.handleException(e);
+				Log.error("Exception in onAddLimitaionDialog function");
 			}
 		},
 		onCloseAddLimDialog: function() {
 			try {
+				var oViewModel = this.getView().getModel("ViewModel");
+
+				this.getView().getModel("FollowOtherModel").setData(null);
+				this.getView().getModel("FollowOPSModel").setData(null);
+				this._fnTasksGet(oViewModel.getProperty("/TaskId"));
 				if (this._oAddLim) {
 					this._oAddLim.close(this);
 					this._oAddLim.destroy();
@@ -485,30 +519,59 @@ sap.ui.define([
 			}
 		},
 
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called,to open add ADD dialog.
+		// Table: 
+		//--------------------------------------------------------------------------------------
 		onAddADDDialog: function(oEvent) {
 			try {
 				var that = this,
+					oViewModel = this.getView().getModel("ViewModel"),
 					oObject;
-
-				oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
-				if (!this._oAddADD) {
-					this._oAddADD = sap.ui.xmlfragment(this.createId("idAddTaskADDDialog"),
-						"avmet.ah.fragments.AddTaskADD",
-						this);
-					this._InitializeLimDialogModel();
-					this._fnADDCountGet();
-					this.getView().addDependent(this._oAddADD);
-					this._fnUtilizationGet(oObject.tailid);
+				try {
+					oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
+				} catch (e) {
+					oObject = this.oTempoADDObject;
 				}
-				this._fnCreateLimitation(oObject);
-				this._oAddADD.open(this);
+				this.oTempoADDObject = oObject;
+				if (oViewModel.getProperty("/bLiveChnage")) {
+					if (!this._oAddADD) {
+						this._oAddADD = sap.ui.xmlfragment(this.createId("idAddTaskADDDialog"),
+							"avmet.ah.fragments.AddTaskADD",
+							this);
+						this._InitializeLimDialogModel();
+						this._fnADDCountGet();
+						this.getView().addDependent(this._oAddADD);
+						this._fnUtilizationGet(oObject.tailid);
+					}
+					this._fnCreateLimitation(oObject);
+					this._oAddADD.open(this);
+				} else {
+					MessageBox.error("You have unsaved changes, data will be lost.\n Do you want to save?", {
+						actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+						emphasizedAction: "Manage Products",
+						onClose: function(sAction) {
+							if (sAction === "YES") {
+								that.onSaveAsDraft();
+							} else {
+								that.getView().getModel("ViewModel").setProperty("/bLiveChnage", true);
+								that.onAddADDDialog(oEvent);
+							}
+
+						}
+					});
+				}
 			} catch (e) {
-				Log.error("Exception in CosCloseTask:onAddADDDialog function");
-				this.handleException(e);
+				Log.error("Exception in onAddADDDialog function");
 			}
 		},
 		onCloseADDDialog: function() {
 			try {
+				var oViewModel = this.getView().getModel("ViewModel");
+
+				this.getView().getModel("FollowOtherModel").setData(null);
+				this.getView().getModel("FollowOPSModel").setData(null);
+				this._fnTasksGet(oViewModel.getProperty("/TaskId"));
 				if (this._oAddADD) {
 					this._oAddADD.close(this);
 					this._oAddADD.destroy();
@@ -748,6 +811,7 @@ sap.ui.define([
 			try {
 				var oSelectedKey = oEvent.getSource().getSelectedKey(),
 					oModel = this.getView().getModel("ViewModel");
+				oModel.setProperty("/bLiveChnage", false);
 				oModel.setProperty("/bAddADDOther", oSelectedKey);
 				if (oSelectedKey === "TT1_ADD") {
 					this.onAddADDDialog(oEvent);
@@ -861,6 +925,7 @@ sap.ui.define([
 					selectedIcon: "followUp",
 					bAddADDOther: false,
 					bAddADDOps: false,
+					bLiveChnage: true,
 					ADDCount: "",
 					tradesManTable: [{
 						"Name": "",
@@ -918,17 +983,35 @@ sap.ui.define([
 						oData.results[i].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();
 						if (oData.results[i].tt1id === 'TT1_12' && oData.results[i].tt2id === '' && oData.results[i].tt3id === '' && oData.results[i].tt4id ===
 							'') {
-								if(oData.results[i].ftrsltgd === "" || oData.results[i].ftrsltgd === null)
-								{
-									oData.results[i].ftrsltgd = "NA";
-								}
-							
+							if (oData.results[i].ftrsltgd === "" || oData.results[i].ftrsltgd === null) {
+								oData.results[i].ftrsltgd = "NA";
+							}
+
 						}
 					}
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TaskModel");
 					that.getView().byId("vbLimId").invalidate();
 					that.getView().byId("vbTaskId").invalidate();
+					var oFollowModelOther = dataUtil.createNewJsonModel();
+					oFollowModelOther.setData([{
+						"key": "TT1_14",
+						"text": "Others"
+					}, {
+						"key": "TT1_ADD",
+						"text": "Transfer to Acceptable Deferred Defects Log"
+					}]);
+					this.getView().setModel(oFollowModelOther, "FollowOtherModel");
+
+					var oFollowModelOPS = dataUtil.createNewJsonModel();
+					oFollowModelOPS.setData([{
+						"key": "TT1_11",
+						"text": "OPS Check"
+					}, {
+						"key": "TT1_AD",
+						"text": "Transfer to Acceptable Deferred Defects Log"
+					}]);
+					this.getView().setModel(oFollowModelOPS, "FollowOPSModel");
 					this.byId("pageCloseTaskId").scrollTo(0);
 				}.bind(this);
 
@@ -966,6 +1049,45 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called,to add new tradesman to the list.
+		// Table: 
+		//--------------------------------------------------------------------------------------
+
+		//showing the message text and validation of maxlength
+		onChangeData: function(oEvent) {
+			try {
+				this.getView().getModel("ViewModel").setProperty("/bLiveChnage", false);
+
+			} catch (e) {
+				Log.error("Exception in handleLiveChangeFlyingRequirements function");
+			}
+		},
+
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called,to add new tradesman to the list.
+		// Table: 
+		//--------------------------------------------------------------------------------------
+
+		//showing the message text and validation of maxlength
+		handleLiveChange: function(oEvent) {
+			try {
+
+				var oSource = oEvent.getSource(),
+					sValue = oSource.getValue(),
+					iMaxLen = oSource.getMaxLength(),
+					iLen = sValue.length;
+				this.getView().getModel("ViewModel").setProperty("/bLiveChnage", false);
+				if (iLen && iMaxLen && iLen > iMaxLen) {
+					sValue = sValue.substring(0, iMaxLen);
+					oSource.setValue(sValue);
+				}
+			} catch (e) {
+				Log.error("Exception in handleLiveChangeFlyingRequirements function");
+			}
+		},
+
 		_InitializeLimDialogModel: function() {
 			try {
 				var oModel = dataUtil.createNewJsonModel();

@@ -766,8 +766,7 @@
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": true,
-					"viewName": "ah/createtask/CreateTask",
-					"viewId": "CreateTask"
+					"viewName": "ah/createtask/CreateTask"
 				},
 				"WDNSCoefficients": {
 					"controlId": "nvMainContainerId",
@@ -1001,7 +1000,7 @@
 					"viewLevel": 2,
 					"title": "{i18n>followuptasksTitle}"
 				},
-					"WeaponConfig": {
+				"WeaponConfig": {
 					"controlId": "nvMainContainerId",
 					"controlAggregation": "pages",
 					"parent": "TargetHome",
@@ -1020,7 +1019,6 @@
 					"viewLevel": 2,
 					"title": "{i18n>creatingFlightServicing}"
 				},
-				
 				"PDSSummary": {
 					"controlId": "nvMainContainerId",
 					"controlAggregation": "pages",
@@ -1061,9 +1059,6 @@
 					"viewLevel": 2,
 					"title": "{i18n>weaponexpenditure}"
 				},
-			
-				
-				
 				"PDSApprovals": {
 					"viewType": "XML",
 					"viewName": "ah/pdsic/PDSApprovals",
@@ -1078,7 +1073,6 @@
 					"viewLevel": 2,
 					"title": "{i18n>dashboard}"
 				},
-				
 				"DashboardInitial": {
 					"controlId": "nvMainContainerId",
 					"controlAggregation": "pages",
@@ -1099,7 +1093,6 @@
 					"viewLevel": 2,
 					"title": "{i18n>creatingFlightServicing}"
 				},
-			
 				"DBOngFlightService": {
 					"viewType": "XML",
 					"viewName": "DBOngFlightService",

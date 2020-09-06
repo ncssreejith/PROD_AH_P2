@@ -63,7 +63,7 @@
 											<Label text=" Follow-Up Task" design="Bold"></Label>
 											<!--<Input fieldGroupIds="fgInput" value="{TaskModel>ftdesc}"></Input>-->
 											<TextArea width="100%" rows="5" value="{TaskModel>ftdesc}" maxLength="1000" showExceededText="true"
-												liveChange="handleLiveChangeFlyingRequirements"/>
+												liveChange="handleLiveChange"/>
 											<layoutData>
 												<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 											</layoutData>
@@ -161,7 +161,7 @@
 													<ComboBox width="150px" change="onTypeChange" selectedKey="{TaskModel>ismat}" items="{path:'TT2Model>/',templateShareable: false}">
 														<core:Item text="{TT2Model>key}" key="{TT2Model>text}"/>
 													</ComboBox>
-													<Input width="180px" value="{TaskModel>partno}" class="sapUiSmallMarginBegin"/>
+													<Input width="180px" value="{TaskModel>partno}" class="sapUiSmallMarginBegin" change="onChangeData"/>
 													<Button text="Get Serial No." class="sapUiTinyMarginBegin"
 														visible="{= ${TaskModel>tt1id}==='TT1_10' &amp;&amp; ${TaskModel>tt2id}==='TT2_10' ? true:false}" press="getSerialNoPress"></Button>
 												</HBox>
@@ -182,7 +182,7 @@
 													<ComboBox width="150px" change="onTypeChange" selectedKey="{TaskModel>isser}" items="{path:'TT1Model>/',templateShareable: false}">
 														<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
 													</ComboBox>
-													<Input width="180px" maxLength="20" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin" fieldGroupIds="fgInput"
+													<Input width="180px" maxLength="20" change="onChangeData" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin" fieldGroupIds="fgInput"
 														visible="{= ${TaskModel>tt2id}!=='TT2_10' || ${TaskModel>partno}==='' ? true:false}"
 														required="{= (${TaskModel>tt2id}!=='TT2_10' || ${TaskModel>partno}==='') &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)'? true:false}"/>
 													<ComboBox width="180px" selectedKey="{TaskModel>ftsernr}" items="{path:'SerialNumModel>/',templateShareable: false}"
@@ -207,7 +207,7 @@
 											</HBox>
 											<TextArea maxLength="1000" value="{TaskModel>ftdesc}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
 												required="{parts:['TaskModel>tt1id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible1'}"
-												liveChange="handleLiveChangeFlyingRequirements"/>
+												liveChange="handleLiveChange"/>
 											<layoutData>
 												<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>
 											</layoutData>
@@ -220,7 +220,7 @@
 													color="#031E48"/>
 											</HBox>
 											<TextArea maxLength="1000" value="{TaskModel>ftfind}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
-												liveChange="handleLiveChangeFlyingRequirements"
+												liveChange="handleLiveChange"
 												required="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible2'}"/>
 											<layoutData>
 												<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>
@@ -229,7 +229,7 @@
 										<VBox
 											visible="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}">
 											<Label text="{i18n>lblTechRef}" design="Bold"></Label>
-											<Input fieldGroupIds="fgInput" width="50%"
+											<Input fieldGroupIds="fgInput" width="50%" change="onChangeData"
 												required="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}"
 												value="{TaskModel>fttoref}"></Input>
 											<layoutData>
@@ -328,7 +328,7 @@
 															color="#031E48"/>-->
 													</HBox>
 													<TextArea width="400px" showExceededText="true" maxLength="100" rows="5" value="{TaskModel>ldesc}" editable="false"
-														liveChange="handleLiveChangeFlyingRequirements"/>
+														liveChange="handleLiveChange"/>
 												</VBox>
 											</HBox>
 										</VBox>

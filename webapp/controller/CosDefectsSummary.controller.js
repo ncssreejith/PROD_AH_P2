@@ -1871,7 +1871,7 @@ sap.ui.define([
 					oObject = "ZRM_FAIR_R";
 					oParameter.activity = 4;
 				} else {
-					oObject = "ZRM_COS_JS";
+					oObject = "ZRM_COS_JB";
 					oParameter.activity = 2;
 				}
 				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], oObject, this);
