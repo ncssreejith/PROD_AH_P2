@@ -40,10 +40,10 @@
 						<ColumnListItem>
 							<cells>
 								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateFormatDisplay'} {path:'oEngineModel>CREUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-								<Text text="{oEngineModel>LCF1}"/>
-								<Text text="{oEngineModel>LCF2}"/>
-								<Text text="{oEngineModel>INDEX1}"/>
-								<Text text="{oEngineModel>ENGHR}"/>
+								<Text text="{= ${oEngineModel>LCF1} ? ${oEngineModel>LCF1} : '0'}"/>
+								<Text text="{= ${oEngineModel>LCF2} ? ${oEngineModel>LCF2} : '0'}"/>
+								<Text text="{= ${oEngineModel>INDEX1} ? ${oEngineModel>INDEX1} : '0'}"/>
+								<Text text="{= ${oEngineModel>ENGHR} ? ${oEngineModel>ENGHR} : '0'}"/>
 								<Text text="{oEngineModel>CREUSR}"/>
 							</cells>
 						</ColumnListItem>
@@ -83,10 +83,10 @@
 						<ColumnListItem>
 							<cells>
 								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateFormatDisplay'} {path:'oEngineModel>CREUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-								<Text text="{oEngineModel>TLCF1}"/>
-								<Text text="{oEngineModel>TLCF2}"/>
-								<Text text="{oEngineModel>TINDEX}"/>
-								<Text text="{oEngineModel>TENGHR}"/>
+								<Text text="{= ${oEngineModel>TLCF1} ? ${oEngineModel>TLCF1} : '0'}"/>
+								<Text text="{= ${oEngineModel>TLCF2} ? ${oEngineModel>TLCF2} : '0'}"/>
+								<Text text="{= ${oEngineModel>TINDEX} ? ${oEngineModel>TINDEX} : '0'}"/>
+								<Text text="{= ${oEngineModel>TENGHR} ? ${oEngineModel>TENGHR} : '0'}"/>
 								<Text text="{oEngineModel>CREUSR}"/>
 							</cells>
 						</ColumnListItem>

@@ -4,7 +4,7 @@
 		<FlexBox class="sapUiSmallMarginTopBottom">
 			<VBox>
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"  growing="true" growingThreshold="5" growingScrollToLoad="false"
-					items="{ path: 'oEngineModel>/soapTableData', filters : [{ path : 'SOAP', operator : 'EQ', value1 : '' }]}"
+					items="{ path: 'oEngineModel>/soapTableData',sorter: { path: 'ID', descending: true}, filters : [{ path : 'SOAP', operator : 'EQ', value1 : '' }]}"
 					noDataText="No Engine Oil Replenishment" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>

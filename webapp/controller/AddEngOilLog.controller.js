@@ -57,6 +57,7 @@ sap.ui.define([
 				var oPayload = this.getModel("oAddEngCycLogModel").getProperty("/");
 				delete oPayload.ReasonCodes;
 				oPayload.SPDT = formatter.defaultOdataDateFormat(new Date());
+				oPayload.SPTM = formatter.fnTimeFormat(new Date());
 				oPayload.BEGDA = formatter.defaultOdataDateFormat(new Date());
 				var oParameter = {};
 				oParameter.activity = 1;
