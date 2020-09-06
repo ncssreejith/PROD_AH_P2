@@ -8,9 +8,9 @@
 						<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 					</ComboBox>
 					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin" visible="{RSModel>/UtilValFlag}">
-						<StepInput width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" visible="{= ${CapExtendSet>/UTIL1} !== 'JDU_10'}"
+						<StepInput width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" visible="{= ${RSModel>/DueBy} !== 'JDU_11'}"
 							value="{RSModel>/UtilVal}"/>
-						<StepInput width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" visible="{= ${CapExtendSet>/UTIL1} === 'JDU_10'}"
+						<StepInput width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" visible="{= ${RSModel>/DueBy} === 'JDU_11'}"
 							displayValuePrecision="1" value="{RSModel>/UtilVal}"/>
 					</HBox>
 					<DatePicker width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{RSModel>/ExpDateFlag}"

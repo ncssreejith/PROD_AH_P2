@@ -53,8 +53,8 @@
 											selectedKey="{SortieMonitoringModel>MonFor}">
 											<core:Item key="{MonitoredForSet>ddid}" text="{MonitoredForSet>description}"/>
 										</ComboBox>
-										<StepInput required="true" min="0" fieldGroupIds="fgStepInput" visible="{=${SortieMonitoringModel>/MonFor}!=='JDU_10' ? true:false}" value="{SortieMonitoringModel>SortiesNo}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
-										<StepInput required="true" min="0" displayValuePrecision="1" visible="{=${SortieMonitoringModel>/MonFor}==='JDU_10' ? true:false}" fieldGroupIds="fgStepInput" value="{SortieMonitoringModel>SortiesNo}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
+										<StepInput required="true" min="0" fieldGroupIds="fgStepInput" visible="{= ${SortieMonitoringModel>MonFor} !=='SORTI_2' ? true:false}" value="{SortieMonitoringModel>SortiesNo}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
+										<!--<StepInput required="true" min="0" displayValuePrecision="1" visible="{= ${SortieMonitoringModel>MonFor} === 'SORTI_2' ? true:false}" fieldGroupIds="fgStepInput" value="{SortieMonitoringModel>SortiesNo}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>-->
 									</HBox>
 								</VBox>
 							</CustomListItem>
