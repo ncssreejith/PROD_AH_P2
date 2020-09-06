@@ -308,6 +308,12 @@ sap.ui.define([
 			}
 			return parseFloat(sValue).toFixed(2);
 		},
+		integerUnit: function(sValue) {
+			if (!sValue) {
+				return 0;
+			}
+			return parseInt(sValue);
+		},
 		// From BF
 		SignoffEnable: function(bAllToolsAcc, bCerfify) {
 			if (bAllToolsAcc && bCerfify) {
@@ -514,6 +520,53 @@ sap.ui.define([
 		},
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
+		fnTimeFormat: function(dDate, sFormat) {
+			if (!dDate) {
+				dDate = new Date();
+			}
+			var fnDateFormatter = DateFormat.getDateInstance({
+				pattern: sFormat !== undefined ? sFormat : "HH:mm"
+			});
+			if (dDate instanceof Date) {
+				var sDate = fnDateFormatter.format(dDate);
+				return sDate;
+			} else {
+				return dDate;
+			}
+		},
+		fnRTDeleteBtn: function(sTotalLeng) {
+			var srNo = parseInt(this.getId().split("-")[this.getId().split("-").length - 1], 0) + 1;
+			if (srNo > sTotalLeng) {
+				return true;
+			}
+			return false;
+		},
+		fnDateDiff: function(oDate) {
+			var sBindInfo = this.getBindingInfo("footerRightInfo") ? "footerRightInfo" : "text";
+
+			var sModel = this.getBindingInfo(sBindInfo).parts[0].model;
+			var resId = this.getBindingContext(sModel).getProperty("resid");
+			switch (resId) {
+				case "RES_105":
+					break;
+				case "RES_106":
+					break;
+				case "RES_107":
+					break;
+				case "RES_108":
+					break;
+				default:
+					return "";
+			}
+
+			var sDiff = 0;
+			if (!oDate) {
+				return sDiff + " hrs";
+			}
+			var sCurrentDate = new Date();
+			sDiff = Math.abs(sCurrentDate - new Date(oDate)) / 36e5;
+			return "Top up " + parseFloat(sDiff).toFixed(2) + "hrs ago";
+		},
 		FuelMCState1: function(sValue, iMax) {
 			// if(this.getId() && document.querySelector("#"+this.getId()+" > div > div > div")){
 			// 	document.querySelector("#"+this.getId()+" > div > div > div").textContent="";
@@ -878,8 +931,74 @@ sap.ui.define([
 			return sImageSrc;
 		},
 
+		srvLbl: function(srvId) {
+			var sSrvTitle = "";
+			switch (srvId) {
+				case "SRVT_AF":
+					sSrvTitle = "AF";
+					break;
+				case "SRVT_BF":
+					sSrvTitle = "BF";
+					break;
+				case "SRVT_BPO":
+					sSrvTitle = "BPO";
+					break;
+				case "SRVT_HCT":
+					sSrvTitle = "HCT";
+					break;
+				case "SRVT_ICT":
+					sSrvTitle = "ICT";
+					break;
+				case "SRVT_PO":
+					sSrvTitle = "PO";
+					break;
+				case "SRVT_PR":
+					sSrvTitle = "PR";
+					break;
+				case "SRVT_PRO":
+					sSrvTitle = "PRO";
+					break;
+				case "SRVT_PTR":
+					sSrvTitle = "PTR";
+					break;
+				case "SRVT_PTX":
+					sSrvTitle = "PTX";
+					break;
+				case "SRVT_QT":
+					sSrvTitle = "QT";
+					break;
+				case "SRVT_QTR":
+					sSrvTitle = "QTR";
+					break;
+				case "SRVT_TH":
+					sSrvTitle = "TH";
+					break;
+				case "SRVT_TR":
+					sSrvTitle = "TR";
+					break;
+				case "SRVT_WA":
+					sSrvTitle = "WA";
+					break;
+				case "SRVT_WAI":
+					sSrvTitle = "WAI";
+					break;
+				case "SRVT_DE":
+					sSrvTitle = "Defuel";
+					break;
+				case "SRVT_RE":
+					sSrvTitle = "Refuel";
+					break;
+				case "SRVT_PMSF":
+					sSrvTitle = "PMSF";
+					break;
+
+			}
+			return sSrvTitle;
+		},
+
 		serialNumber: function(oItem) {
 			var srNo = parseInt(this.getId().split("-")[this.getId().split("-").length - 1], 0) + 1;
+			// var oModel = this.getBindingInfo("text").parts[0].model;
 			if (this.getBindingContext("oPilotUpdatesViewModel")) {
 				this.getBindingContext("oPilotUpdatesViewModel").getObject().num2 = srNo;
 			}
@@ -888,6 +1007,9 @@ sap.ui.define([
 		},
 
 		formatMaxValue: function(oMax) {
+			if (!oMax) {
+				oMax = 0;
+			}
 			oMax = parseInt(oMax, 0);
 			return oMax;
 		},
@@ -912,6 +1034,49 @@ sap.ui.define([
 			}
 			sPercentAge = ((oState * 100) / sState1);
 			return sPercentAge;
+		},
+		fnMarkLable: function(sNumber) {
+			// var sNumber = parseInt(this.getId().split("-")[this.getId().split("-").length - 1], 0) + 1;
+			var sChar = "A";
+			switch (sNumber) {
+				case 0:
+					sChar = "A";
+					break;
+				case 1:
+					sChar = "B";
+					break;
+				case 2:
+					sChar = "C";
+					break;
+				case 3:
+					sChar = "D";
+					break;
+				case 4:
+					sChar = "E";
+					break;
+				case 5:
+					sChar = "F";
+					break;
+				case 6:
+					sChar = "G";
+					break;
+				case 7:
+					sChar = "H";
+					break;
+				case 8:
+					sChar = "I";
+					break;
+			}
+			return sChar;
+		},
+		fnOrgSrvAmt: function(orgAmt, srvAmt) {
+			if (!orgAmt) {
+				orgAmt = 0;
+			}
+			if (srvAmt) {
+				srvAmt = 0;
+			}
+			return parseInt(orgAmt) + parseInt(srvAmt);
 		},
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
 

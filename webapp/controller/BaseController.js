@@ -7,8 +7,9 @@ sap.ui.define([
 	"../model/dataUtil",
 	"sap/base/Log",
 	"../util/html2pdfbundle",
-	"avmet/ah/util/ajaxutil"
-], function(Controller, JSONModel, MessageToast, Fragment, dataUtil, Log, html2pdfbundle, ajaxutil) {
+	"avmet/ah/util/ajaxutil",
+	"avmet/ah/util/cvUtil"
+], function (Controller, JSONModel, MessageToast, Fragment, dataUtil, Log, html2pdfbundle, ajaxutil, cvUtil) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for Managing generic function across the project               
@@ -22,8 +23,8 @@ sap.ui.define([
 		 * @public
 		 * @returns {sap.ui.core.routing.Router} the router for this component
 		 */
-
-		getRouter: function() {
+		cvutil: cvUtil,
+		getRouter: function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
 
@@ -34,7 +35,7 @@ sap.ui.define([
 		 * @param {string} [sName] the model name
 		 * @returns {sap.ui.model.Model} the model instance
 		 */
-		getModel: function(sName) {
+		getModel: function (sName) {
 			return this.getView().getModel(sName);
 		},
 
@@ -46,27 +47,27 @@ sap.ui.define([
 		 * @param {string} sName the model name
 		 * @returns {sap.ui.mvc.View} the view instance
 		 */
-		setModel: function(oModel, sName) {
+		setModel: function (oModel, sName) {
 			return this.getView().setModel(oModel, sName);
 		},
 
-		getAircraftId: function() {
+		getAircraftId: function () {
 			dataUtil.getDataSet(this.getOwnerComponent().appModel).airSel.tailid
 			return dataUtil.getDataSet(this.getOwnerComponent().appModel).airSel.airid;
 		},
-		getModelId: function() {
+		getModelId: function () {
 			return dataUtil.getDataSet(this.getOwnerComponent().appModel).airSel.modid;
 		},
-		getTailId: function() {
+		getTailId: function () {
 			return dataUtil.getDataSet(this.getOwnerComponent().appModel).airSel.tailid;
 		},
-		getSqunId: function() {
+		getSqunId: function () {
 			return dataUtil.getDataSet(this.getOwnerComponent().appModel).airSel.sqnid;
 		},
-		getWC: function() {
+		getWC: function () {
 			return dataUtil.getDataSet(this.getOwnerComponent().appModel).airSel.wcid;
 		},
-		getEngine: function() {
+		getEngine: function () {
 			return dataUtil.getDataSet(this.getOwnerComponent().appModel).airSel.engid;
 		},
 
@@ -76,7 +77,7 @@ sap.ui.define([
 		 * @public
 		 * 
 		 */
-		passSignOff: function(obj, act) {
+		passSignOff: function (obj, act) {
 			try {
 				this._storage = new jQuery.sap.storage.Storage(jQuery.sap.storage.Type.local);
 				var oDataSet = this._storage.get(vDataSetName);
@@ -94,7 +95,7 @@ sap.ui.define([
 		 * @public
 		 * @returns {sap.ui.model.resource.ResourceModel} the resourceModel of the component
 		 */
-		getResourceBundle: function() {
+		getResourceBundle: function () {
 			return this.getOwnerComponent().getModel("i18n").getResourceBundle();
 		},
 		/** 
@@ -103,7 +104,7 @@ sap.ui.define([
 		 * @param {function} oDialog 
 		 * @public
 		 */
-		closeoDialog: function(oDialog) {
+		closeoDialog: function (oDialog) {
 			try {
 				oDialog = oDialog !== undefined ? oDialog : this._oDialog;
 				oDialog.close();
@@ -120,7 +121,7 @@ sap.ui.define([
 		 * @param {function} oDialog 
 		 * @public
 		 */
-		createoDialog: function(that, fragId, fragName) {
+		createoDialog: function (that, fragId, fragName) {
 			try {
 				if (fragId !== null && fragId !== undefined && fragId.length > 1) {
 					if (!that._oDialog) {
@@ -138,13 +139,20 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		updateModel: function (oData, sName) {
+			var oModel = this.getModel(sName);
+			Object.keys(oData).forEach(function (key, keyIndex) {
+				oModel.setProperty("/" + key, oData[key]);
+			});
+			oModel.refresh();
+		},
 		/**
 		 * Function handleException
 		 * This will destroy the elements which cause duplication
 		 * @return {} 
 		 * @public
 		 */
-		handleException: function(e) {
+		handleException: function (e) {
 			try {
 				if (e.message.indexOf("adding element with duplicate id") !== -1) {
 					if (sap.ui.getCore().byId(e.message.split("'")[1]) !== undefined) {
@@ -174,7 +182,7 @@ sap.ui.define([
 		// 		this.getRouter().navTo("Overview", {}, true /*no history*/ );
 		// 	}
 		// },
-		onNavBack: function(oEvent, viewName) {
+		onNavBack: function (oEvent, viewName) {
 
 			if (viewName !== undefined && viewName !== null) {
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -192,7 +200,7 @@ sap.ui.define([
 				}
 			}
 		},
-		getFragmentControl: function(sFragId, sControlId) {
+		getFragmentControl: function (sFragId, sControlId) {
 			var sId = Fragment.createId(sFragId, sControlId);
 			return this.byId(sId);
 		},
@@ -203,7 +211,7 @@ sap.ui.define([
 		 * Parameter: sKey,sSource
 		 * Description: To select Defected area image.
 		 */
-		onSelectionDefectAreaChange: function(sKey, sSource) {
+		onSelectionDefectAreaChange: function (sKey, sSource) {
 			var oSegmentedButton, oSelectedItemId, sCanvasName,
 				sRootPath, sImagePath,
 				sRootPath = jQuery.sap.getModulePath("avmet.ah");
@@ -228,39 +236,39 @@ sap.ui.define([
 				oSelectedItemId = "Top";
 			}
 			switch (oSelectedItemId) {
-				case "Top":
-					sImagePath = sRootPath + "/css/img/AH/AH-Top.png";
-					break;
-				case "Bottom":
-					sImagePath = sRootPath + "/css/img/AH/AH-Front.png";
-					break;
-				case "Left":
-					sImagePath = sRootPath + "/css/img/AH/AH-Left.png";
-					break;
-				case "Right":
-					sImagePath = sRootPath + "/css/img/AH/AH-Right.png";
-					break;
-				case "FLCTop":
-					sImagePath = sRootPath + "/css/img/FLCTaskTop.JPG";
-					break;
-				case "FLCLeft":
-					sImagePath = sRootPath + "/css/img/FLCTaskLeft.JPG";
-					break;
-				case "FLCRight":
-					sImagePath = sRootPath + "/css/img/FLCTaskRight.JPG";
-					break;
+			case "Top":
+				sImagePath = sRootPath + "/css/img/AH/AH-Top.png";
+				break;
+			case "Bottom":
+				sImagePath = sRootPath + "/css/img/AH/AH-Front.png";
+				break;
+			case "Left":
+				sImagePath = sRootPath + "/css/img/AH/AH-Left.png";
+				break;
+			case "Right":
+				sImagePath = sRootPath + "/css/img/AH/AH-Right.png";
+				break;
+			case "FLCTop":
+				sImagePath = sRootPath + "/css/img/FLCTaskTop.JPG";
+				break;
+			case "FLCLeft":
+				sImagePath = sRootPath + "/css/img/FLCTaskLeft.JPG";
+				break;
+			case "FLCRight":
+				sImagePath = sRootPath + "/css/img/FLCTaskRight.JPG";
+				break;
 			}
 			this._fnRenderImage(sImagePath, sCanvasName);
 		},
 		/** 
 		 * Load dashboard data
 		 */
-		fnLoadSrv1Dashboard: function() {
+		fnLoadSrv1Dashboard: function () {
 			try {
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
-				oParameter.error = function() {};
-				oParameter.success = function(oData) {
+				oParameter.error = function () {};
+				oParameter.success = function (oData) {
 					if (oData && oData.results.length && oData.results.length > 0) {
 						oData.results[0].txt3 = this.fnReplaceString(oData.results[0].txt3);
 						oData.results[0].txt2 = this.fnReplaceString(oData.results[0].txt2);
@@ -285,7 +293,7 @@ sap.ui.define([
 			}
 		},
 
-		fnSetMenuVisible: function(oFlag, fnCallBack) {
+		fnSetMenuVisible: function (oFlag, fnCallBack) {
 			var aMenu = this.getModel("menuModel").getData();
 			var oFound = {};
 			if (oFlag === "X" || oFlag) {
@@ -297,13 +305,13 @@ sap.ui.define([
 			}
 		},
 
-		fnFindRoleChangeStations: function(oMenu) {
+		fnFindRoleChangeStations: function (oMenu) {
 			return oMenu.pattern === "RoleChangeStations";
 		},
-		fnFindCreateFlightService: function(oMenu) {
+		fnFindCreateFlightService: function (oMenu) {
 			return oMenu.pattern === "CreateFlightService";
 		},
-		fnFindCosjobs: function(oMenu) {
+		fnFindCosjobs: function (oMenu) {
 			return oMenu.pattern === "Cosjobs";
 		},
 
@@ -314,7 +322,7 @@ sap.ui.define([
 		 * Parameter: sImagePath, sSelectedKey, oCanvas
 		 * Description: To render images in to canvas on segment button selections.
 		 */
-		_fnRenderImage: function(sImagePath, oCanvas) {
+		_fnRenderImage: function (sImagePath, oCanvas) {
 			var that = this;
 			var canvas = document.getElementById(oCanvas);
 			var ctx = canvas.getContext("2d");
@@ -352,24 +360,24 @@ sap.ui.define([
 		},*/
 
 		/////////////////////////////////////////////////////////DIALOG CREATION AND CLOSE //////////////////////////////////////////////
-		openDialog: function(oDialogName, sPath) {
+		openDialog: function (oDialogName, sPath) {
 			var oDailog = this.fnLoadFragment(oDialogName, sPath, true);
 			if (oDailog) {
 				oDailog.open();
 			}
 			return oDailog;
 		},
-		getDialog: function(oDialogName) {
+		getDialog: function (oDialogName) {
 			try {
 				return this[oDialogName];
 			} catch (e) {
 				Log.error("Exception in closeDialog function");
 			}
 		},
-		onClose: function(oEvent) {
+		onClose: function (oEvent) {
 			this.closeoDialog(this._oDialog);
 		},
-		closeDialog: function(oDialogName) {
+		closeDialog: function (oDialogName) {
 			if (this[oDialogName]) {
 				this[oDialogName].close();
 				// this[oDialogName].destroy();
@@ -378,7 +386,7 @@ sap.ui.define([
 			return this[oDialogName];
 		},
 
-		fnLoadFragment: function(oFragmentName, sPath, isDependend) {
+		fnLoadFragment: function (oFragmentName, sPath, isDependend) {
 			if (!sPath) {
 				sPath = ".fragments.";
 			}
@@ -393,12 +401,12 @@ sap.ui.define([
 			return this[oFragmentName];
 		},
 
-		fnCreateRow: function(tblRef, oModel, sClmPath, oDataModel, isEdit) {
+		fnCreateRow: function (tblRef, oModel, sClmPath, oDataModel, isEdit) {
 			if (isEdit === undefined) {
 				isEdit = false;
 			}
 			var oCells = [];
-			this.getModel(oModel).getProperty("/" + sClmPath).forEach(function(oItem) {
+			this.getModel(oModel).getProperty("/" + sClmPath).forEach(function (oItem) {
 				var sText = new sap.m.Text({
 					text: "{" + oDataModel + ">" + oItem.colid + "}"
 				});
@@ -417,7 +425,7 @@ sap.ui.define([
 			});
 			tblRef.bindAggregation("items", oDataModel + ">/" + sClmPath, sColum);
 		},
-		deleteColumn: function(oData) {
+		deleteColumn: function (oData) {
 			if (!oData || !oData.results || oData.results.length < 3) {
 				return "";
 			}
@@ -428,7 +436,7 @@ sap.ui.define([
 		 * and group settings and refreshes the list binding.
 		 * @public
 		 */
-		onSort: function(oEvent, sFieldName) {
+		onSort: function (oEvent, sFieldName) {
 			var aSorters = [];
 			// var oTable = this.byId("AllJobId");
 			var oBinding = oEvent.getSource().getParent().getParent().getParent().getBinding("items"); //oTable.getBinding("items");
@@ -442,7 +450,7 @@ sap.ui.define([
 			aSorters.push(new sap.ui.model.Sorter(sPath, bDescending));
 			oBinding.sort(aSorters);
 		},
-		onSearch: function(oEvent, sTableId, sModel, sPath, sFilter) {
+		onSearch: function (oEvent, sTableId, sModel, sPath, sFilter) {
 			if (oEvent.getParameters().refreshButtonPressed) {
 				// Search field's 'refresh' button has been pressed.
 				// This is visible if you select any master list item.
@@ -470,7 +478,7 @@ sap.ui.define([
 		 * and group settings and refreshes the list binding.
 		 * @public
 		 */
-		onRefresh: function(sTableId) {
+		onRefresh: function (sTableId) {
 			var oTable = this.byId(sTableId);
 			oTable.getBinding("items").refresh();
 		},
@@ -479,7 +487,7 @@ sap.ui.define([
 		 * @param {sap.ui.model.Filter[]} aTableSearchState An array of filters for the search
 		 * @private
 		 */
-		_applySearch: function(aTableSearchState, sTableId, sModel) {
+		_applySearch: function (aTableSearchState, sTableId, sModel) {
 			var oTable = this.byId(sTableId),
 				oViewModel = this.getModel(sModel);
 			oTable.getBinding("items").filter(aTableSearchState, "Application");
@@ -488,7 +496,7 @@ sap.ui.define([
 			// 	oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
 			// }
 		},
-		onLogoffPress: function(oEvent) {
+		onLogoffPress: function (oEvent) {
 			try {
 				dataUtil.setDataSet("oUserSession", null);
 				sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
@@ -498,7 +506,7 @@ sap.ui.define([
 		},
 
 		//showing the message text and validation of maxlength
-		handleLiveChangeFlyingRequirements: function(oEvent) {
+		handleLiveChangeFlyingRequirements: function (oEvent) {
 			var oSource = oEvent.getSource(),
 				sValue = oSource.getValue(),
 				iMaxLen = oSource.getMaxLength(),
@@ -513,18 +521,18 @@ sap.ui.define([
 		 * @param sStatus
 		 * @returns
 		 */
-		fnCheckLockStatus: function(sStatus) {
+		fnCheckLockStatus: function (sStatus) {
 			try {
 				switch (sStatus) {
-					case "AST_FAIR":
-					case "AST_FAIR0":
-					case "AST_FAIR1":
-					case "AST_FAIR2":
-					case "AST_FFF":
-					case "AST_RFF":
-						return true;
-					default:
-						return false;
+				case "AST_FAIR":
+				case "AST_FAIR0":
+				case "AST_FAIR1":
+				case "AST_FAIR2":
+				case "AST_FFF":
+				case "AST_RFF":
+					return true;
+				default:
+					return false;
 				}
 			} catch (e) {
 				Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
@@ -536,14 +544,14 @@ sap.ui.define([
 		 * @param sStatus
 		 * @returns
 		 */
-		fnOverwriteStatus: function(sStatus) {
+		fnOverwriteStatus: function (sStatus) {
 			try {
 				switch (sStatus) {
-					case "AST_FFF0":
-					case "AST_RFF0":
-						return true;
-					default:
-						return false;
+				case "AST_FFF0":
+				case "AST_RFF0":
+					return true;
+				default:
+					return false;
 				}
 			} catch (e) {
 				Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
@@ -555,23 +563,23 @@ sap.ui.define([
 		 * @param sStatus
 		 * @returns
 		 */
-		fnCheckRecLockStatus: function(sStatus) {
+		fnCheckRecLockStatus: function (sStatus) {
 			try {
 				switch (sStatus) {
-					case "AST_FAIR":
-					case "AST_FAIR0":
-					case "AST_FAIR1":
-					case "AST_FAIR2":
-						return true;
-					default:
-						return false;
+				case "AST_FAIR":
+				case "AST_FAIR0":
+				case "AST_FAIR1":
+				case "AST_FAIR2":
+					return true;
+				default:
+					return false;
 				}
 			} catch (e) {
 				Log.error("Exception in DashboardInitial:fnCheckLockStatus function");
 				this.handleException(e);
 			}
 		},
-		_fnSetWarningMessage: function(aData) {
+		_fnSetWarningMessage: function (aData) {
 			try {
 				aData = aData.WTEXT.split("@");
 				this.getModel("avmetModel").setProperty("/WarningIndex", 0);
@@ -585,7 +593,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnReplaceString: function(subTxt) {
+		fnReplaceString: function (subTxt) {
 			try {
 				if (subTxt === undefined || subTxt === null) {
 					return;
@@ -599,28 +607,28 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnCheckCapStatus: function() {
+		fnCheckCapStatus: function () {
 			try {
 				var that = this,
 					oPrmCAPStatus = {};
 				oPrmCAPStatus.filter = "airid eq " + that.getAircraftId() + " and Tailid eq " + that.getTailId();
-				oPrmCAPStatus.error = function() {};
+				oPrmCAPStatus.error = function () {};
 
-				oPrmCAPStatus.success = function(oData) {}.bind(this);
+				oPrmCAPStatus.success = function (oData) {}.bind(this);
 
 				ajaxutil.fnRead("/CheckCapStatusSvc", oPrmCAPStatus);
 			} catch (e) {
 				Log.error("Exception in fnCheckCapStatus function");
 			}
 		},
-			//------------------------------------------------------------------
+		//------------------------------------------------------------------
 		// Function: handlePressToolTipMenu
 		// Parameter: 
 		// Description: Generic: This will get called, when open tooltip menu fragment.
 		//Table: 
 		//------------------------------------------------------------------
 
-		handlePressToolTipMenu: function(sText, oEvent) {
+		handlePressToolTipMenu: function (sText, oEvent) {
 			try {
 				var that = this,
 					oStatus, oTextdata, oResouceData,
@@ -651,17 +659,58 @@ sap.ui.define([
 				Log.error("Exception in handlePressToolTipMenu function");
 			}
 		},
-
 		////////////////////////////////////////////////////END DIALOG CREATION////////////////////////////////////
+		_fnConvertCurrentTime: function (sValue) {
+			var currDate = new Date();
+			sValue.setSeconds(currDate.getSeconds());
+			sValue.setDate(currDate.getDate());
+			sValue.setMonth(currDate.getMonth());
+			sValue.setFullYear(currDate.getFullYear());
+			return sValue;
+		},
+		_fnDateTimeValid: function (sValue, minTime, maxTime, Lable) {
+
+			if (!sValue) {
+				return "";
+			}
+			sValue = this._fnConvertCurrentTime(sValue);
+			if (sValue < minTime || sValue > maxTime) {
+				return Lable + " can be " + this.formatter.defaultDateTimeFormat(minTime) + " - " + this.formatter.defaultDateTimeFormat(maxTime);
+			}
+			return "";
+		},
+
 		//AMIT KUMAR CHANGES 31082020 0207 
-		fnRemovePerFromRadial: function(oEvent) {
-			oEvent.getSource().onAfterRendering = function(oEvt) {
-				oEvt.srcControl.getItems().forEach(function(oItem) {
+		fnRemovePerFromRadial: function (oEvent) {
+			oEvent.getSource().onAfterRendering = function (oEvt) {
+				oEvt.srcControl.getItems().forEach(function (oItem) {
 					if (document.querySelector("#" + oItem.getId() + ">div>div>div>div>div>div>div")) {
 						document.querySelector("#" + oItem.getId() + ">div>div>div>div>div>div>div").textContent = "";
 					}
 				}.bind(this));
 			};
+		},
+		// S=SUCCESS, E=ERROR, I=INFORMATION,W=Warning
+		fnShowMessage: function (sType, oData, hrex, callBack) {
+			var sTitle = "";
+			var sMsg = "";
+			switch (sType) {
+			case "S":
+				sTitle = "Success";
+				break;
+			case "E":
+				sTitle = "Error";
+				break;
+			case "I":
+				sTitle = "Information";
+				break;
+			case "W":
+				sTitle = "Warning";
+				break;
+			}
+			sMsg = (!hrex ? "" : hrex.responseJSON.sortmessage);
+			sMsg = (sMsg === "") ? oData.messages[0] : sMsg;
+			sap.m.MessageBox.show(sTitle + ":" + sMsg);
 		}
 
 	});

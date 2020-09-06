@@ -43,7 +43,8 @@
 			"libs": {
 				"sap.m": {},
 				"sap.ui.core": {},
-				"sap.ui.layout": {}
+				"sap.ui.layout": {},
+				"it.designfuture.chartjs":{}
 			}
 		},
 		"contentDensities": {
@@ -425,7 +426,7 @@
 					"pattern": "ReplenishmentDetails/{srvtid}/{stepid}/{Replenish}",
 					"name": "ReplenishmentDetails",
 					"target": [
-						"Replenishment_Details"
+						"ReplenishmentDetails"
 					]
 				},
 				{
@@ -965,17 +966,17 @@
 					"controlId": "nvMainContainerId",
 					"controlAggregation": "pages",
 					"parent": "TargetHome",
-					"viewName": "ah/flc/Replenishment",
+					"viewName": "ah/fs/replenishment/Replenishment",
 					"viewId": "replenishment",
 					"viewLevel": 2,
 					"title": "{i18n>replenishmentTitle}"
 				},
-				"Replenishment_Details": {
+				"ReplenishmentDetails": {
 					"controlId": "nvMainContainerId",
 					"controlAggregation": "pages",
 					"parent": "TargetHome",
 					"viewType": "XML",
-					"viewName": "ah/flc/Replenishment_Details",
+					"viewName": "ah/fs/replenishment/detail/ReplenishmentDetails",
 					"viewId": "replenishmentdetails",
 					"viewLevel": 2,
 					"title": "{i18n>replenishmentdetailsTitle}"
@@ -985,7 +986,7 @@
 					"controlAggregation": "pages",
 					"parent": "TargetHome",
 					"viewType": "XML",
-					"viewName": "ah/flc/RoutineTasks",
+					"viewName": "ah/fs/routinetask/RoutineTasks",
 					"viewId": "routinetasks",
 					"viewLevel": 2,
 					"title": "{i18n>RoutineTasksTitle}"
@@ -1000,16 +1001,69 @@
 					"viewLevel": 2,
 					"title": "{i18n>followuptasksTitle}"
 				},
+					"WeaponConfig": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/fs/wlc/WeaponConfig",
+					"viewId": "WeaponConfig",
+					"viewLevel": 2,
+					"title": "{i18n>creatingFlightServicing}"
+				},
+				"Station": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/fs/wlc/wlcdetails/Station",
+					"viewLevel": 2,
+					"title": "{i18n>creatingFlightServicing}"
+				},
+				
 				"PDSSummary": {
 					"controlId": "nvMainContainerId",
 					"controlAggregation": "pages",
 					"parent": "TargetHome",
 					"viewType": "XML",
-					"viewName": "ah/pdsic/PDSSummary",
+					"viewName": "ah/fs/pdsic/PDSSummary",
 					"viewId": "pdssummary",
 					"viewLevel": 2,
 					"title": "{i18n>pdsSummary}"
 				},
+				"PilotAccept": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/fs/pilot/PilotAccept",
+					"viewId": "PilotAccept",
+					"viewLevel": 2,
+					"title": "{i18n>pilotaccept}"
+				},
+				"PilotUpdates": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/fs/postflight/PilotUpdates",
+					"viewId": "PilotUpdates",
+					"viewLevel": 2,
+					"title": "{i18n>pilotupdates}"
+				},
+				"WeaponExpenditure": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/fs/weaponexpend/WeaponExpenditure",
+					"viewId": "WeaponExpenditure",
+					"viewLevel": 2,
+					"title": "{i18n>weaponexpenditure}"
+				},
+			
+				
+				
 				"PDSApprovals": {
 					"viewType": "XML",
 					"viewName": "ah/pdsic/PDSApprovals",
@@ -1024,36 +1078,7 @@
 					"viewLevel": 2,
 					"title": "{i18n>dashboard}"
 				},
-				"PilotAccept": {
-					"controlId": "nvMainContainerId",
-					"controlAggregation": "pages",
-					"parent": "TargetHome",
-					"viewType": "XML",
-					"viewName": "ah/pilot/PilotAccept",
-					"viewId": "PilotAccept",
-					"viewLevel": 2,
-					"title": "{i18n>pilotaccept}"
-				},
-				"PilotUpdates": {
-					"controlId": "nvMainContainerId",
-					"controlAggregation": "pages",
-					"parent": "TargetHome",
-					"viewType": "XML",
-					"viewName": "ah/postflight/PilotUpdates",
-					"viewId": "PilotUpdates",
-					"viewLevel": 2,
-					"title": "{i18n>pilotupdates}"
-				},
-				"WeaponExpenditure": {
-					"controlId": "nvMainContainerId",
-					"controlAggregation": "pages",
-					"parent": "TargetHome",
-					"viewType": "XML",
-					"viewName": "ah/weaponexpend/WeaponExpenditure",
-					"viewId": "WeaponExpenditure",
-					"viewLevel": 2,
-					"title": "{i18n>weaponexpenditure}"
-				},
+				
 				"DashboardInitial": {
 					"controlId": "nvMainContainerId",
 					"controlAggregation": "pages",
@@ -1074,35 +1099,7 @@
 					"viewLevel": 2,
 					"title": "{i18n>creatingFlightServicing}"
 				},
-				"WeaponConfig": {
-					"controlId": "nvMainContainerId",
-					"controlAggregation": "pages",
-					"parent": "TargetHome",
-					"viewType": "XML",
-					"viewName": "ah/wlc/WeaponConfig",
-					"viewId": "WeaponConfig",
-					"viewLevel": 2,
-					"title": "{i18n>creatingFlightServicing}"
-				},
-				"Station": {
-					"controlId": "nvMainContainerId",
-					"controlAggregation": "pages",
-					"parent": "TargetHome",
-					"viewType": "XML",
-					"viewName": "ah/wlcdetails/Station",
-					"viewLevel": 2,
-					"title": "{i18n>creatingFlightServicing}"
-				},
-				"Missiles": {
-					"controlId": "nvMainContainerId",
-					"controlAggregation": "pages",
-					"parent": "TargetHome",
-					"viewType": "XML",
-					"viewName": "ah/wlcdetails/Missiles",
-					"viewId": "Missiles",
-					"viewLevel": 2,
-					"title": "{i18n>creatingFlightServicing}"
-				},
+			
 				"DBOngFlightService": {
 					"viewType": "XML",
 					"viewName": "DBOngFlightService",

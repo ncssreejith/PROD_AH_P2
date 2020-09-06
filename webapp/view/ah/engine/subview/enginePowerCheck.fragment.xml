@@ -236,7 +236,7 @@
 							<Label text="TTV" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="Airspeed (ICT)" design="Bold" wrapping="true" class="whiteText"/>
+							<Label text="Airspeed (IAS)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 					</columns>
 					<items>
