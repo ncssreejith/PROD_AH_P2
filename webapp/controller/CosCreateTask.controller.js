@@ -646,8 +646,8 @@ sap.ui.define([
 					} else {
 						oTempData[0].tt4id = "";
 					}
-					oTempData[0].credtm = formatter.defaultOdataDateFormat(aTasks[i].sDate);
-					oTempData[0].creuzt = aTasks[i].Time;
+					oTempData[0].credtm = formatter.defaultOdataDateFormat(oModel.getProperty("/sDate"));
+					oTempData[0].creuzt = oModel.getProperty("/Time");
 					if (aTasks[i].sCheckfor !== "") {
 						oTempData[0].chkfor = aTasks[i].sCheckfor;
 						oTempData[0].ftchkfor = aTasks[i].sCheckfor;
