@@ -32,6 +32,10 @@ sap.ui.define([
 				footerLeftInfo: {
 					type: "string",
 					defaultValue: ""
+				},
+				footerRightInfo: {
+					type: "string",
+					defaultValue: ""
 				}
 			},
 			aggregations: {
@@ -92,7 +96,7 @@ sap.ui.define([
 					// oRM.write("Hot");
 					// oRM.write("</div>");
 				}
-				
+
 				oRM.write("</div>");
 			}
 			oRM.write("</div>");
@@ -121,9 +125,15 @@ sap.ui.define([
 				oRM.write("<div class='OtherFooterLeftWhenSubTitle'>");
 				oRM.write(oControl.getFooterLeftInfo());
 				oRM.write("</div>");
-			} else {
+			} 
+			if (oControl.getFooterLeftInfo()) {
 				oRM.write("<div class='OtherFooterLeft'>");
 				oRM.write(oControl.getFooterLeftInfo());
+				oRM.write("</div>");
+			}
+			if (oControl.getFooterRightInfo()) {
+				oRM.write("<div class='OtherFooterRight'>");
+				oRM.write(oControl.getFooterRightInfo());
 				oRM.write("</div>");
 			}
 			oRM.write("</div>");

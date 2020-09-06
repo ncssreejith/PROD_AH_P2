@@ -1616,12 +1616,20 @@ Description : This control used to add new work center in Rectifications area in
 }
 
 .OtherFooterLeft {
-    width: 10.5rem;
+    width: 30%;
     padding: 0.5rem 0.5rem 0.4rem 1rem;
     float: left;
     font-size: 12px;
     background: #fdfdfd;
     text-align: start;
+}
+.OtherFooterRight {
+    width:46%;
+    padding: 0.5rem 0.5rem 0.4rem 0.5rem;
+    float: right;
+    font-size: 12px;
+    background: #fdfdfd;
+    text-align: end;
 }
 
 .OtherFooterLeftWhenSubTitle {

@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBegin CERTable tableHFont" updateFinished="onFuelTableUpdateFinish"
+		items="{path:'oWeaponExpModel>/stations',filters:[{path:'stndt',operator:'EQ',value1:'STNM_O'}]}" width="95%">
+		<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="Non-Stations" level="H2"/>
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column hAlign="Left" width="15%" class="textColor">
+				<Label text="Munition" design="Bold"/>
+			</Column>
+			<Column minScreenWidth="Tablet" width="20%" demandPopin="true" hAlign="Left" class="textColor">
+				<Label text="Qty Remained on Aircraft" design="Bold" wrapping="true"/>
+			</Column>
+			<Column hAlign="Left" width="15%" class="textColor">
+				<Label text="Expended" design="Bold"/>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text text="{oWeaponExpModel>position}"/>
+					<StepInput value="{oWeaponExpModel>QtyRemained}" min="0" max="{path: 'oWeaponExpModel>totqty', formatter : '.formatter.formatMaxValue'}"
+						description=" / {oWeaponExpModel>totqty}" change="onQtyChange"/>
+					<Input value="{oWeaponExpModel>expqty}" editable="false"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

@@ -33,6 +33,7 @@ sap.ui.define([
 			try {
 				this.getRouter().getRoute("WeaponConfig").attachPatternMatched(this._onObjectMatched, this);
 				var oData = {};
+				
 				oData.apprvlevl = 0;
 				oData.stns = [];
 				oData.srnos = [];
@@ -58,7 +59,9 @@ sap.ui.define([
 				var oDialog = null;
 				var oDialogData = {
 					TOTQTY: "",
-					SERNR: ""
+					SERNR: "",
+					chk1: false,
+					chk2: false
 				};
 				var sApprCount = this.getModel("oWCModel").getProperty("/stns/0/APPRCOUNT");
 				switch (sApprCount) {
@@ -69,11 +72,11 @@ sap.ui.define([
 						break;
 				}
 				if (opType === "OPN") {
-					oDialog = this.openDialog(sOpenFrag, ".fragments.wlc.");
+					oDialog = this.openDialog(sOpenFrag, ".fragments.fs.wlc.");
 					oDialog.setModel(new JSONModel(oDialogData), "oDialogModel");
 				}
 				if (opType === "CNL") {
-					oDialog = this.closeDialog(sOpenFrag, ".fragments.wlc.");
+					oDialog = this.closeDialog(sOpenFrag, ".fragments.fs.wlc.");
 				}
 				if (opType === "OK") {
 					oDialog = this.closeDialog(sOpenFrag, ".fragments.wlc.");
@@ -138,7 +141,8 @@ sap.ui.define([
 		},
 		onStationPress: function(oEvent) {
 			try {
-				if (oEvent.getParameter("srcControl").getId().search("station") !== -1) {
+				var sID = oEvent.getParameter("srcControl").getId();
+				if (sID.search("station") !== -1 || sID.search("others") !== -1) {
 					var oStation = oEvent.getSource().getBindingContext("oWCModel").getObject();
 					if (oStation.EFLAG === "X") {
 						sap.m.MessageBox.information("Pending supervisor to signoff role change");
@@ -157,6 +161,8 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+		
 
 		fnLoadStation: function() {
 			try {
@@ -223,7 +229,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					this.getModel("oWCModel").setProperty("/srnos", oData.results);
 					this.getModel("oWCModel").refresh();
-					this.openDialog("SerialNosDialog", ".fragments.wlc.");
+					this.openDialog("SerialNosDialog", ".fragments.fs.wlc.");
 				}.bind(this);
 				ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
 			} catch (e) {

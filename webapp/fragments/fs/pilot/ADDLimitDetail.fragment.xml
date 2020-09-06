@@ -1,0 +1,60 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:u="sap.ui.unified" xmlns:f="sap.f" xmlns:card="sap.f.cards">
+	<VBox class="sapUiSmallMargin" width="100%">
+		<HBox width="100%">
+			<VBox width="{path:'paModel>CFLAG',formatter:'avmet.ah.model.formatter.ADDLimitColorByDay'}" alignContent="Center"
+				alignItems="Center">
+				<VBox alignContent="Center" alignItems="Center" visible="{=${paModel>ADDLimit/EXPDT} !== null ? true : false}"
+					class="sapUiSmallMarginTop">
+					<Label design="Bold" text="{path:'paModel>ADDLimit/EXPDT', formatter:'.formatter.defaultDateFormatDisplay'}"
+						class="sapUiTinyMargin whiteText"/>
+					<Label text="Due Date" design="Bold" class="sapUiTinyMargin whiteText"/>
+				</VBox>
+				<VBox alignContent="Center" alignItems="Center" visible="{=${paModel>ADDLimit/UTIL1} !== null ? true : false}"
+					class="sapUiLargeMarginTop">
+					<Label design="Bold" text="{paModel>ADDLimit/UTILVL}" class="sapUiTinyMargin whiteText"/>
+					<Label text="{paModel>ADDLimit/UTIL1TEXT}" design="Bold" class="sapUiTinyMargin whiteText"/>
+				</VBox>
+			</VBox>
+			<VBox width="84%" class="vbox5bgColorr">
+				<HBox justifyContent="End" class="sapUiLargeMarginEnd">
+					<VBox width="46%" class="sapUiMediumMarginBegin" visible="{= ${paModel>CAPTY}==='B'}"  alignItems="Start" >
+						<Label design="Bold" text="{path:'paModel>CAPTY', formatter:'.formatter.fnLblAddLimit'}" />
+						<Text text="{= ${paModel>CAPTY}!=='L' ? ${paModel>ADDLimit/DDDESC}: ${paModel>ADDLimit/LDESC}}" wrapping="true"/>
+					</VBox>
+					<VBox width="25%">
+						<Label design="Bold" text="Past ADD(s)" />
+						<Text text="{paModel>ADDLimit/PAST_COUNT}"/>
+					</VBox>
+					<VBox width="25%">
+						<Label design="Bold" text="Initial ADD Date"/>
+						<Text text="{path:'paModel>ADDLimit/IDATE', formatter:'.formatter.defaultDateFormatLimDisplay'}"/>
+					</VBox>
+				</HBox>
+				<HBox width="100%" justifyContent="End" class="hboxbackground vbox4BgBorder sapUiLargeMarginEnd">
+					<VBox width="45%" alignItems="Start" justifyContent="Center">
+						<Button text="{= ${paModel>CAPTY}!=='L' ? 'Limitation': 'ADD'}" visible="{= ${paModel>CAPTY}==='B'}" type="Emphasized"></Button>
+						<Text class="sapUiTinyMarginBegin" text="{= ${paModel>CAPTY}!=='A' ? ${paModel>ADDLimit/LDESC}:${paModel>ADDLimit/DDDESC}}" wrapping="true"/>
+					</VBox>
+					<VBox width="25%">
+						<Label design="Bold" text="Tradesman" />
+						<!--CPRID-->
+						<Text text="{paModel>ADDLimit/SUBUSR}"/>
+						<HBox>
+							<Text text="{path:'paModel>ADDLimit/SUBDTM', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+							<Text class="sapUiTinyMarginBegin" text="{path:'paModel>ADDLimit/SUBUZT', formatter:'.formatter.defaultTimeFormatDisplay'}" />
+						</HBox>
+					</VBox>
+					<VBox width="30%">
+						<Label design="Bold" text="Approver" />
+						<Text text="{paModel>ADDLimit/APPRUSR}"/>
+						<HBox>
+							<Text text="{path:'paModel>ADDLimit/APPRDTM', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+							<Text class="sapUiTinyMarginBegin" text="{path:'paModel>ADDLimit/APPRUZT', formatter:'.formatter.defaultTimeFormatDisplay'}" />
+						</HBox>
+					</VBox>
+				</HBox>
+			</VBox>
+		</HBox>
+	</VBox>
+</core:FragmentDefinition>

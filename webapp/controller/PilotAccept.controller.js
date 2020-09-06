@@ -49,7 +49,7 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-	
+
 		onAfterRendering: function() {},
 
 		onListItemPress: function(oEvent) {
@@ -97,7 +97,7 @@ sap.ui.define([
 			} catch (e) {
 				var selArea1 = this.getModel("paModel").getProperty("/defectArea")[0];
 				var oMarks1 = oEvent.getBindingContext("paModel").getProperty("marks");
-				this.getModel("paModel").setProperty("/addViewSel",selArea1.key);
+				this.getModel("paModel").setProperty("/addViewSel", selArea1.key);
 				this.getModel("paModel").refresh();
 				this.fnDrawDefect(oMarks1, selArea1);
 			}
@@ -146,7 +146,7 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-	
+
 		onLimitationItemPress: function(oEvent) {
 			try {
 				this.openDialog("ADDLimitationDialog", ".fragments.pilot.");
@@ -342,7 +342,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T6_FLC");
 					var oFules = this.getModel("paModel").getProperty("/masterList/" + sIndex + "/data/repl/fuel").concat(oData.results);
-                    this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/repl/fuel",oFules);
+					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/repl/fuel", oFules);
 					this.getModel("paModel").refresh();
 				}.bind(this);
 				ajaxutil.fnRead("/ReplRoleSvc", oParameter);
@@ -387,9 +387,8 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "refid eq '" + this.getAircraftId() + "'" + " and srvtid eq '" + this.getModel("paModel").getProperty(
-						"/srvtid") + "'" + " and TAIL_ID eq " + this.getTailId() +
-					" and stepid eq 'S_RT'";
+				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("paModel").getProperty(
+						"/srvtid") + " and TAIL_ID eq " + this.getTailId() +" and stepid eq S_RT";
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T6_FLC");
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/rt", oData.results);
@@ -597,7 +596,7 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-		
+
 		onPressSignOffConfirm: function(oEvent) {
 			try {
 
@@ -620,18 +619,18 @@ sap.ui.define([
 					tileid: null,
 					sgusr: "test",
 					sign: "X",
-					T1_SORTIE: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T1_SORTIE") + "/data/reviewd") ? 1:0,
-					T1_MCARD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T1_MCARD") + "/data/reviewd") ? 1:0,
-					T2_PAPR: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T2_PAPR") + "/data/reviewd") ? 1:0,
-					T3_LIMIT: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T3_LIMIT") + "/data/reviewd") ? 1:0,
-					T4_ADD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T4_ADD") + "/data/reviewd") ? 1:0,
-					T5_FREQ: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T5_FREQ") + "/data/reviewd") ? 1:0,
-					T6_FLC: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T6_FLC") + "/data/reviewd") ? 1:0,
-					T7_WCONF: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T7_WCONF") + "/data/reviewd") ? 1:0,
-					T8_OJOBS: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T8_OJOBS") + "/data/reviewd") ? 1:0,
-					T9_JDUE: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T9_JDUE") + "/data/reviewd") ? 1:0,
-					T10_PASTD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T10_PASTD") + "/data/reviewd") ? 1:0,
-					T11_TMOD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T11_TMOD") + "/data/reviewd") ? 1:0,
+					T1_SORTIE: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T1_SORTIE") + "/data/reviewd") ? 1 : 0,
+					T1_MCARD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T1_MCARD") + "/data/reviewd") ? 1 : 0,
+					T2_PAPR: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T2_PAPR") + "/data/reviewd") ? 1 : 0,
+					T3_LIMIT: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T3_LIMIT") + "/data/reviewd") ? 1 : 0,
+					T4_ADD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T4_ADD") + "/data/reviewd") ? 1 : 0,
+					T5_FREQ: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T5_FREQ") + "/data/reviewd") ? 1 : 0,
+					T6_FLC: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T6_FLC") + "/data/reviewd") ? 1 : 0,
+					T7_WCONF: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T7_WCONF") + "/data/reviewd") ? 1 : 0,
+					T8_OJOBS: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T8_OJOBS") + "/data/reviewd") ? 1 : 0,
+					T9_JDUE: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T9_JDUE") + "/data/reviewd") ? 1 : 0,
+					T10_PASTD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T10_PASTD") + "/data/reviewd") ? 1 : 0,
+					T11_TMOD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T11_TMOD") + "/data/reviewd") ? 1 : 0,
 					couts: null,
 					cpend: null,
 					CFLAG: null
@@ -685,18 +684,21 @@ sap.ui.define([
 			if (oData.results.length === 0) {
 				return oMark;
 			}
-			oData.results.forEach(function(oItem) {
+			var sCount = 0;
+			oData.results.forEach(function(oItem, sIndex) {
+				oItem.NAME1 = this.formatter.fnMarkLable(sIndex);
 				if (oItem.DEAID_M !== "" && oItem.DEAID_M !== null) {
 					var sMark = {
-						name: oItem.NAME1,
+						name: this.formatter.fnMarkLable(sIndex),
 						place: oItem.DEAID,
 						placeId: oItem.DEAID_M,
 						x: oItem.XAXIS,
 						y: oItem.YAXIS
 					};
+					sCount++;
 					oMark.push(sMark);
 				}
-			});
+			}.bind(this));
 
 			return oMark;
 		},

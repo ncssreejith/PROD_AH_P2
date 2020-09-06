@@ -1,0 +1,57 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control" xmlns:f="sap.f"
+	xmlns:card="sap.f.cards">
+	<l:VerticalLayout class="sapUiSmallMargin backgroundBlue">
+		<l:content>
+			<VBox class="sapUiSmallMargin">
+				<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.statustest.AircraftMonitoring" type="XML"/>
+				<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.statustest.FlyRequirment" type="XML"/>
+				
+				<HBox class="sapUiSmallMarginTop" width="100%">
+					<f:Card class="sapUiMediumMargin" width="15rem">
+						<f:header>
+							<card:Header title="Additional Defect(s)"/>
+						</f:header>
+						<f:content>
+							<VBox height="6rem" class="sapUiSmallMargin" justifyContent="SpaceBetween">
+								<Text text="Skip this section if all reasons for declaring aircraft ‘Unserviceable’ has been stated above."/>
+								<Link press="onViewAddLim" text="View ADD({oPilotUpdatesViewModel>/ADDAndLIMIT/ADDCT}) and Limitations ({oPilotUpdatesViewModel>/ADDAndLIMIT/LIMITCT})"/>
+							</VBox>
+						</f:content>
+					</f:Card>
+					<VBox class="sapUiSmallMarginTop sapUiLargeMarginBegin">
+						<VBox class="sapUiSmallMarginBeginEnd" width="50%">
+							<Label text="Aircraft Status" design="Bold"/>
+							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/srvable}" selectionChange="onAircraftStatusChange"
+								items="{postflightModel>/srvState}" required="true" fieldGroupIds="fgSGBtn">
+								<items>
+									<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}" width="60%"/>
+								</items>
+							</SegmentedButton>
+						</VBox>
+						<List items="{oPilotUpdatesViewModel>/defects}" id="defectWriteUpId" visible="{= ${oPilotUpdatesViewModel>/srvable}==='AST_US'?true:false}">
+							<CustomListItem class="sapUiSmallMarginTopBottom">
+								<HBox class="sapUiSmallMarginTop" width="50%">
+									<VBox class="sapUiSmallMarginBeginEnd">
+										<Label text="Defect write up" design="Bold"/>
+										<TextArea value="{oPilotUpdatesViewModel>jobdesc}" cols="120" rows="3" showExceededText="true" maxLength="100"/>
+									</VBox>
+									<VBox class="sapUiSmallMarginBeginEnd" width="50%">
+										<Label text="Is this a FAIR entry?" design="Bold"/>
+										<SegmentedButton selectedKey="{oPilotUpdatesViewModel>fair}" items="{postflightModel>/yn}" selectionChange="onFairChange">
+											<items>
+												<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}" width="70%"/>
+											</items>
+										</SegmentedButton>
+									</VBox>
+								</HBox>
+							</CustomListItem>
+						</List>
+						<VBox class="sapUiSmallMargin" visible="{= ${oPilotUpdatesViewModel>/srvable}==='AST_US'?true:false}">
+							<Button icon="sap-icon://sys-add" text="Add defect" width="800px" class="sapUiTinyMargin addTaskBtn" press="onAddDefectPress"/>
+						</VBox>
+					</VBox>
+				</HBox>
+			</VBox>
+		</l:content>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

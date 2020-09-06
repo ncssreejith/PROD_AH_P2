@@ -6,8 +6,9 @@ sap.ui.define([
 	"../model/formatter",
 	"../model/FieldValidations",
 	"../util/ajaxutil",
-	"sap/base/Log"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, FieldValidations, ajaxutil, Log) {
+	"sap/base/Log",
+	"avmet/ah/util/cvUtil"
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, FieldValidations, ajaxutil, Log, cvUtil) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : AMIT KUMAR	
@@ -26,6 +27,7 @@ sap.ui.define([
 	 *************************************************************************** */
 	return BaseController.extend("avmet.ah.controller.PilotUpdates", {
 		formatter: formatter,
+		cvutil: cvUtil,
 
 		// ***************************************************************************
 		//                 1. UI Events  
@@ -33,7 +35,12 @@ sap.ui.define([
 		onInit: function() {
 			try {
 				this.getRouter().getRoute("PilotUpdates").attachPatternMatched(this._onObjectMatched, this);
+				this.getView().setModel(new JSONModel({
+					busy: true,
+					delay: 0
+				}), "viewModel");
 				this.getView().setModel(new JSONModel({}), "oPilotUpdatesViewModel");
+				// this.setRef(this);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:onInit function");
 				this.handleException(e);
@@ -53,16 +60,19 @@ sap.ui.define([
 		},
 		onAddTimings: function(oEvent) {
 			try {
+				var paDate = this.getModel("oPilotUpdatesViewModel").getProperty("/paDate");
+				var currentTime = new Date();
 				var oItem = {
 					"srvid": null,
 					"tailid": this.getTailId(),
 					"num2": 1,
 					"endda": null,
 					"begda": null,
-					"egstt": null,
-					"egspt": null,
-					"woffw": null,
-					"wonw": null
+					"egstt": paDate.getHours() + ":" + paDate.getMinutes(),
+					"woffw": currentTime.getHours() + ":" + currentTime.getMinutes(),
+					"wonw": currentTime.getHours() + ":" + currentTime.getMinutes(),
+					"egspt": currentTime.getHours() + ":" + currentTime.getMinutes()
+
 				};
 				this.getModel("oPilotUpdatesViewModel").getProperty("/timings").push(oItem);
 				this.getModel("oPilotUpdatesViewModel").refresh();
@@ -72,12 +82,6 @@ sap.ui.define([
 			}
 		},
 
-		onNavBackPilotUpdate: function() {
-			if (this.getOwnerComponent().getModel("oPilotUpdatesViewModel")) {
-				this.getOwnerComponent().getModel("oPilotUpdatesViewModel").setData(null);
-			}
-			this.onNavBack();
-		},
 		onDeleteTimings: function(oEvent) {
 			try {
 				var oIndex = oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getPath().split("/")[2];
@@ -89,21 +93,8 @@ sap.ui.define([
 			}
 		},
 
-		onTimeChange: function(oEvent) {
-			var oSrc = oEvent.getSource(),
-				sTime = oSrc.getValue();
-			if (sTime) {
-				sTime = sTime.concat(":00");
-				var tDate = new Date();
-				var sCurrTime = tDate.getHours() + ":" + tDate.getMinutes() + ":00";
-				if (Date.parse("01/01/2020 " + sTime) > Date.parse("01/01/2020 " + sCurrTime)) {
-					oSrc.setValueState("Error");
-					oSrc.setValueStateText("Selected time cannot be greater than current time");
-				} else {
-					oSrc.setValueState("None");
-					oSrc.setValueStateText("");
-				}
-			}
+		onLiveChange: function() {
+
 		},
 
 		onViewAddLim: function() {
@@ -124,7 +115,7 @@ sap.ui.define([
 					"fr_no": null,
 					"sgusr": null,
 					"astid": null,
-					"fair": "Y",
+					"fair": "N",
 					"srvtid": this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid"),
 					"stepid": this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid"),
 					"jobdesc": null,
@@ -150,6 +141,47 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		onTimingChange: function(oEvent) {
+			var sPath = oEvent.getSource().getBindingInfo("value").parts[0].path;
+			var sValidTime = oEvent.getSource().getDateValue();
+			var paDate = this.getModel("oPilotUpdatesViewModel").getProperty("/paDate");
+			var currDate = new Date();
+			var minTime = currDate,
+				maxTime = currDate;
+			var sMsg = true;
+			var sLbl = oEvent.getSource().getLabels()[0].getText();
+			switch (sPath) {
+				case "egstt":
+					minTime = paDate;
+					maxTime = this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
+					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
+					break;
+				case "wonw":
+					minTime = paDate;
+					maxTime = this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
+					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
+					break;
+				case "woffw":
+					minTime = paDate;
+					maxTime = this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
+					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
+					break;
+				case "egspt":
+					minTime = this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[1].getDateValue());
+					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
+					break;
+			}
+			if (sMsg !== "") {
+				oEvent.getSource().setValue(currDate.getHours() + ":" + currDate.getMinutes());
+				var oData = {
+					messages: [sMsg]
+				};
+				this.fnShowMessage("E", oData, null, function() {
+
+				});
+			}
+		},
+
 		onFlyingNext: function(oEvent) {
 			try {
 				var sSelTab = this.getModel("oPilotUpdatesViewModel").getProperty("/selTab");
@@ -419,6 +451,7 @@ sap.ui.define([
 
 		_onObjectMatched: function(oEvent) {
 			try {
+				// this.setRef(this);
 				if (this.getOwnerComponent().getModel("oPilotUpdatesViewModel")) {
 					var oModel = this.getOwnerComponent().getModel("oPilotUpdatesViewModel");
 					this.getView().setModel(oModel, "oPilotUpdatesViewModel");
@@ -427,9 +460,10 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
 					this.getModel("oPilotUpdatesViewModel").setData(this._fnCreateData());
 					this.getModel("oPilotUpdatesViewModel").refresh();
-
+					this.updateModel({
+						busy: true
+					}, "viewModel");
 					this.fnReadArming();
-
 					this.fnReadAmResults();
 					this.fnReadOpType();
 					this.fnReadflyResults();
@@ -453,9 +487,22 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and srvtid eq " + this.getModel("oPilotUpdatesViewModel").getProperty(
 					"/srvtid");
-				oParameter.error = function() {};
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
 				oParameter.success = function(oData) {
-					this.getModel("oPilotUpdatesViewModel").setProperty("/arming", oData.results.length > 0 ? oData.results[0] : {});
+					var oArming = oData.results.length > 0 ? oData.results[0] : null;
+					if (!oArming) {
+						oArming = {};
+						var paDate = new Date();
+					} else {
+						paDate = new Date(oArming.sgdate + " " + oArming.sgtime);
+					}
+					this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/egstt", (paDate.getHours() + ":" + paDate.getMinutes()));
+					this.getModel("oPilotUpdatesViewModel").setProperty("/paDate", paDate);
+					this.getModel("oPilotUpdatesViewModel").setProperty("/arming", oArming);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
 				ajaxutil.fnRead("/AlarmingSvc", oParameter);
@@ -469,7 +516,11 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and ddid eq TOP";
-				oParameter.error = function() {};
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
 				oParameter.success = function(oData) {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/toper", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
@@ -485,7 +536,11 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and ddid eq PILOT";
-				oParameter.error = function() {};
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
 				oParameter.success = function(oData) {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/amResult", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
@@ -501,8 +556,13 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId();
-				oParameter.error = function() {};
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
 				oParameter.success = function(oData) {
+					oData.results = this.fnSortEngine(oData.results);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/engines", oData.results);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/chkrn", oData.results[0].chkrn === null ? "1" : oData.results[0]
 						.chkrn);
@@ -521,7 +581,11 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and ddid eq FR";
-				oParameter.error = function() {};
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
 				oParameter.success = function(oData) {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/flyResult", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
@@ -537,7 +601,11 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId();
-				oParameter.error = function() {};
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
 				oParameter.success = function(oData) {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/airMon", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
@@ -553,7 +621,11 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId();
-				oParameter.error = function() {};
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
 				oParameter.success = function(oData) {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/flyReq", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
@@ -568,7 +640,11 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId();
-				oParameter.error = function() {};
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
 				oParameter.success = function(oData) {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/ADDAndLIMIT", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("oPilotUpdatesViewModel").refresh();
@@ -584,13 +660,20 @@ sap.ui.define([
 			try {
 				var sSrvtid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid");
 				var oParameter = {};
-				oParameter.error = function() {};
 				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and TAILID eq " + this.getTailId();
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
 				oParameter.success = function(oData) {
 					var oTanks = this.getModel("oPilotUpdatesViewModel").getProperty("/fuleTanks");
 					var tTotal = oTanks.concat(oData.results);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/fuleTanks", tTotal);
 					this.getModel("oPilotUpdatesViewModel").refresh();
+					this.updateModel({
+						busy: false
+					}, "viewModel");
 				}.bind(this);
 				ajaxutil.fnRead("/ReplRoleSvc", oParameter);
 			} catch (e) {
@@ -602,9 +685,13 @@ sap.ui.define([
 			try {
 				var sSrvtid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid");
 				var oParameter = {};
-				oParameter.error = function() {};
 				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and TAILID eq " + this.getTailId() +
 					" and REMID eq REM_F";
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
 				oParameter.success = function(oData) {
 					var oTanks = this.getModel("oPilotUpdatesViewModel").getProperty("/fuleTanks");
 					var tTotal = oTanks.concat(oData.results);
@@ -617,13 +704,25 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		fnSortEngine: function(oData) {
+			var sEngine = [];
+			// if engine 1 is not engine 1 then only sort 
+			if (oData[1].engno === "1") {
+				sEngine.push(oData[1]);
+				sEngine.push(oData[0]);
+			} else {
+				sEngine = oData;
+			}
+			return sEngine;
+		},
 		_fnCreateData: function() {
 			try {
+				var currentTime = new Date();
 				var oPayload = {};
 				oPayload.srvtid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid");
 				oPayload.stepid = this.getModel("oPilotUpdatesViewModel").getProperty("/stepid");
 				oPayload.selTab = "FlyingRecords";
+				oPayload.paDate = currentTime;
 				oPayload.ismano = "Y";
 				oPayload.armingReq = "N";
 				oPayload.srvable = "AST_S";
@@ -655,10 +754,10 @@ sap.ui.define([
 					"num2": 1,
 					"endda": null,
 					"begda": null,
-					"egstt": null,
-					"egspt": null,
-					"woffw": null,
-					"wonw": null
+					"egstt": currentTime.getHours() + ":" + currentTime.getMinutes(),
+					"egspt": currentTime.getHours() + ":" + currentTime.getMinutes(),
+					"woffw": currentTime.getHours() + ":" + currentTime.getMinutes(),
+					"wonw": currentTime.getHours() + ":" + currentTime.getMinutes()
 				}];
 				oPayload.defects = [{
 					"tailid": this.getTailId(),
@@ -666,7 +765,7 @@ sap.ui.define([
 					"fr_no": null,
 					"sgusr": null,
 					"astid": null,
-					"fair": "Y",
+					"fair": "N",
 					"srvtid": oPayload.srvtid,
 					"stepid": oPayload.stepid,
 					"jobdesc": null,

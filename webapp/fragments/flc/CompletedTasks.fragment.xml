@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Completed Tasks" contentWidth="50%">
+		<Panel>
+			<Table class="sapUiResponsivePadding sapUiTinyMarginTop CERTable tableHFont"
+				items="{ path: 'rtModel>/tasks', 
+				filters : [{ path : 'DONE', operator : 'EQ', value1 : 'Y' }]}">
+				<columns>
+					<Column hAlign="Left">
+						<Label text="SN" design="Bold" class="fontWhite"/>
+					</Column>
+					<Column hAlign="Left" width="50%">
+						<Label text="Task" design="Bold" class="fontWhite"/>
+					</Column>
+					<Column minScreenWidth="Tablet" width="15%" demandPopin="true" hAlign="Left">
+						<Label text="Status" design="Bold" wrapping="true"/>
+					</Column>
+					<Column minScreenWidth="Tablet" width="25%" demandPopin="true" hAlign="Left">
+						<Label text="Tradesman" design="Bold" wrapping="true"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{path:'rtModel>DDDESC',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
+							<Text text="{rtModel>DDDESC}"/>
+							<Text text="{parts : ['rtModel>DONE','rtModel>NA'], formatter:'.formatter.TradesmanStatusDisplay'}"/>
+							<Text text="{rtModel>TRADE_USER}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</Panel>
+		
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Close" class="addTaskBtn" type="Transparent" press="onCompletedTaskClose" icon="sap-icon://sys-cancel"/>
+			</OverflowToolbar>
+	
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,94 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control">
+	<l:VerticalLayout class="sapUiSmallMargin backgroundBlue">
+		<l:content>
+			<VBox class="sapUiSmallMargin">
+				<HBox width="100%">
+					<VBox width="30%">
+						<ct:HeaderCard title="{i18n>txtFlightStatus}"/>
+					</VBox>
+					<HBox class="sapUiSmallMargin" width="70%">
+						<VBox width="40%">
+							<Label text="{i18n>aircraftflightstatus}" design="Bold"/>
+							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/flyRecord/fstat}" width="50%" items="{postflightModel>/flystat}" required="true"
+								fieldGroupIds="fgSGBtn">
+								<items>
+									<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}"/>
+								</items>
+							</SegmentedButton>
+						</VBox>
+						<VBox width="60%">
+							<Label text="{i18n>typeOfOperation}" design="Bold"/>
+							<Select selectedKey="{oPilotUpdatesViewModel>/flyRecord/oprty}" items="{oPilotUpdatesViewModel>/toper}" width="40%">
+								<core:Item text="{oPilotUpdatesViewModel>description}" key="{oPilotUpdatesViewModel>ddid}"/>
+							</Select>
+							<Input width="40%" placeholder="Other" visible="{= ${oPilotUpdatesViewModel>/flyRecord/oprty} === 'other' ? true : false}"
+								value="{oPilotUpdatesViewModel>/flyRecord/Other}" required="{= ${oPilotUpdatesViewModel>/flyRecord/oprty} === 'other' ? true : false}"
+								fieldGroupIds="fgInput"/>
+						</VBox>
+					</HBox>
+				</HBox>
+				<Toolbar height="1rem" visible="{= ${oPilotUpdatesViewModel>/flyRecord/fstat}==='F'?true:false}"/>
+				<HBox width="100%" visible="{= ${oPilotUpdatesViewModel>/flyRecord/fstat}==='F'?true:false}">
+					<VBox width="30%">
+						<ct:HeaderCard title="Landings"/>
+					</VBox>
+					<HBox class="sapUiSmallMarginTop" width="70%">
+						<VBox width="40%">
+							<Label text="Normal" design="Bold"/>
+							<StepInput min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/flyRecord/lnor}" id="normalId" fieldGroupIds="fgStepInput"
+								required="{path : 'oPilotUpdatesViewModel>/flyRecord/fstat',formatter:'.formatter.ManageFRVisibility'}"/>
+						</VBox>
+						<VBox width="40%">
+							<Label text="Running" design="Bold"/>
+							<StepInput min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/flyRecord/lrun}" id="runningId" fieldGroupIds="fgStepInput"
+								required="{path : 'oPilotUpdatesViewModel>/flyRecord/fstat',formatter:'.formatter.ManageFRVisibility'}"/>
+						</VBox>
+					</HBox>
+				</HBox>
+				<Toolbar height="7px"/>
+				<HBox width="100%">
+					<VBox width="30%">
+						<ct:HeaderCard title="APU records"/>
+					</VBox>
+					<HBox class="sapUiSmallMarginTop" width="70%">
+						<VBox width="40%">
+							<Label text="APU running duration" design="Bold"/>
+							<StepInput width="20rem" min="0.0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/flyRecord/apudur}" id="apuRunningId"
+								fieldGroupIds="fgStepInput" step="0.1" displayValuePrecision="2" required="true"/>
+						</VBox>
+						<VBox width="40%">
+							<Label text="No. of APU start" design="Bold"/>
+							<StepInput width="20rem" min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/flyRecord/ltot}" id="apuStartId"
+								fieldGroupIds="fgStepInput" required="true"/>
+						</VBox>
+					</HBox>
+				</HBox>
+				<Toolbar height="1rem"/>
+				<HBox width="100%">
+					<VBox width="30%">
+						<ct:HeaderCard title="Fuel leftover amounts (lbs)"/>
+					</VBox>
+					<!--content="{oPilotUpdatesViewModel>/flyRecord/fuleTanks}"-->
+					<HBox class="sapUiSmallMarginTop" width="70%">
+						<l:Grid class="sapUiNoMarginBegin" defaultSpan="XL4 L4 M4 S6" content="{oPilotUpdatesViewModel>/fuleTanks}" hSpacing="0">
+							<VBox width="14rem">
+								<Label text="{oPilotUpdatesViewModel>resdescription}" design="Bold"/>
+								<Input  value="{oPilotUpdatesViewModel>orgamt}" required="true" fieldGroupIds="fgInput"/>
+							</VBox>
+						</l:Grid>
+					</HBox>
+				</HBox>
+				<Toolbar height="1rem"/>
+				<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.flyingrecord.FlyingRecordsTimings" type="XML"/>
+				<VBox class="sapUiLargeMarginBegin sapUiSmallMarginBottom" visible="{= ${oPilotUpdatesViewModel>/arming/armde}===''?false:true}">
+					<Label text="{= ${oPilotUpdatesViewModel>/arming/armde}==='A' ? 'Is arming required ?' : 'Is dearming required ?'}" design="Bold"/>
+					<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/armingReq}" selectionChange="onArmingDearmin" items="{postflightModel>/yn}" required="true" fieldGroupIds="fgSGBtn">
+						<items>
+							<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}"/>
+						</items>
+					</SegmentedButton>
+				</VBox>
+			</VBox>
+		</l:content>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

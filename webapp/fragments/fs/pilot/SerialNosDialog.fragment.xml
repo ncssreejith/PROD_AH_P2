@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="" showHeader="false">
+		<content>
+			<VBox alignItems="Center" alignContent="Center" justifyContent="SpaceBetween" class="greyBGColor">
+				<!--<items>-->
+					<Title text="Serial No" class="sapUiSmallMargin sapUiTinyMarginBegin"/>
+				<!--</items>-->
+			</VBox>
+			<Toolbar height="0px"/>
+			<List items="{paModel>/srnos}">
+				<StandardListItem title="{paModel>SERNR}"/>
+			</List>
+		</content>
+		<endButton>
+			<Button text="OK" type="Emphasized" press="onSerialNoOkClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

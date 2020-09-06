@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:u="sap.ui.unified" xmlns:f="sap.f" xmlns:card="sap.f.cards">
+	<Dialog showHeader="false" horizontalScrolling="false" draggable="true" contentWidth="80%">
+		<content>
+			<VBox class="sapUiSmallMarginTop">
+				<OverflowToolbar class="headerHeight">
+					<ObjectIdentifier title="{i18n>titleDefectInfo}" text="{paModel>JOBDESC}" titleActive="false" class="sapUiSmallMarginBegin"/>
+				</OverflowToolbar>
+				<HBox class="sapUiSmallMarginBegin">
+					<VBox>
+						<Label design="Bold" class="sapUiTinyMargin" text="{i18n>lblJobNo}"/>
+						<Label design="Bold" class="sapUiTinyMargin" text="{i18n>lblFoundDur}"/>
+						<Label design="Bold" class="sapUiTinyMargin" text="{i18n>lblFoundBy}"/>
+					</VBox>
+					<VBox>
+						<Text text="{paModel>JOBID}" class="sapUiTinyMargin"/>
+						<Text text="{paModel>FNDURING}" class="sapUiTinyMargin"/>
+						<Text text="{path:'paModel>FNDBY'}" class="sapUiTinyMargin"/>
+					</VBox>
+				</HBox>
+				<ObjectIdentifier title="{path:'paModel>CAPTY', formatter:'.formatter.LimOverViewText'}" titleActive="false"
+					class="sapUiSmallMargin"/>
+				<core:Fragment fragmentName="avmet.ah.fragments.pilot.ADDLimitDetail" type="XML"/>
+			</VBox>
+			<OverflowToolbar class="sapUiSmallMarginBottom toolbarBorder">
+				<ToolbarSpacer/>
+				<Button width="6rem" text="{i18n>btnCancel}" press="onCancelLimitationDetail" type="Default" class="btnClass"></Button>
+			</OverflowToolbar>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

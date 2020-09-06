@@ -1,0 +1,98 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" displayBlock="true" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt">
+	<Dialog title="Approvals Details" contentWidth="100%">
+		<HBox justifyContent="Center" alignItems="Center" class="sapUiLargeMarginTop" backgroundDesign="Transparent">
+			<items>
+				<HBox>
+					<VBox backgroundDesign="Solid">
+						<VBox>
+							<tnt:InfoLabel class="sapUiMediumMarginBegin sapUiSmallMarginTop"
+								text="{path:'oPDSSummaryViewModel>/flag', formatter:'.formatter.approvalText'}" renderMode="Narrow" colorScheme="7" displayOnly="true"/>
+						</VBox>
+						<VBox visible="{= ${trialModel>/jobdesc}===null ? false:true}" class="sapUiTinyMarginTop">
+							<Title class="sapUiSmallMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="Defect Information"/>
+							<Text class="sapUiMediumMarginBegin " text="{trialModel>/jobdesc}" width="70%" wrapping="true"/>
+						</VBox>
+						<VBox class="sapUiSmallMargin sapUiMediumMarginTop">
+							<l:Grid hSpacing="1" defaultSpan="XL10 L10 M10 S12">
+								<HBox justifyContent="SpaceBetween">
+									<Label width="7rem" text="Job No." design="Bold"></Label>
+									<Text width="11rem" text="{trialModel>/jobid}"/>
+									<layoutData>
+										<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+									</layoutData>
+								</HBox>
+								<HBox justifyContent="SpaceBetween">
+									<Label width="7rem" wrapping="true" text="Found during" design="Bold"></Label>
+									<Text width="11rem" wrapping="true" text="{trialModel>/fndduring}"/>
+									<layoutData>
+										<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+									</layoutData>
+								</HBox>
+								<HBox justifyContent="SpaceBetween">
+									<Label width="7rem" wrapping="true" text="Found by" design="Bold"></Label>
+									<Text width="11rem" wrapping="true" text="{trialModel>/fndby}"/>
+									<layoutData>
+										<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+									</layoutData>
+								</HBox>
+								<HBox justifyContent="SpaceBetween">
+									<Label width="7rem" wrapping="true" text="Work Center" design="Bold"></Label>
+									<Text width="11rem" wrapping="true" text="{trialModel>/prime}"/>
+									<layoutData>
+										<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+									</layoutData>
+								</HBox>
+							</l:Grid>
+						</VBox>
+					</VBox>
+					<VBox backgroundDesign="Solid">
+						<HBox justifyContent="End">
+							<Button text="Manage Request" type="Default" icon="sap-icon://megamenu" iconFirst="false" class="sapUiSmallMarginEnd"
+								press="onManageRequest"/>
+						</HBox>
+						<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
+							<VBox>
+								<VBox class="vbox3BgBorder sapUiSmallMarginTop">
+									<Title class="sapUiMediumMarginBottom sapUiSmallMarginBegin" level="H3" titleStyle="H3"
+										text="{path:'ViewModel>/flag', formatter:'.formatter.approvalText'}"/>
+									<l:Grid hSpacing="1" vSpacing="1" defaultSpan="XL12 L12 M12 S12">
+										<HBox justifyContent="SpaceBetween">
+											<Label width="5rem" text="Date/ Time" design="Bold"></Label>
+											<HBox>
+												<Text text="{path:'trialModel>/credt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+												<Text text="{path:'trialModel>/cretm', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+											</HBox>
+											<layoutData>
+												<l:GridData linebreak="true" span="XL11 L11 M11 S11"/>
+											</layoutData>
+										</HBox>
+										<HBox justifyContent="SpaceBetween">
+											<Label width="9rem" text="Requested by" design="Bold"></Label>
+											<Text width="9rem" text="{trialModel>/CREUSR}"/>
+											<layoutData>
+												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+											</layoutData>
+										</HBox>
+										<HBox/>
+										<HBox justifyContent="SpaceBetween" visible="{=${ViewModel>/flag} !== 'L' ? true : false}">
+											<Label wrapping="true" width="9rem" text="Period of trial" design="Bold"></Label>
+											<Text width="9rem" visible="{= ${trialModel>/JDUID} === 'Date' ? true : false}"
+												text="{path:'trialModel>/JDUVL', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+											<Text width="9rem" visible="{= ${trialModel>/JDUID} === 'Date' ? false : true}" text="{trialModel>/JDUVL} {trialModel>/JDUID}"/>
+											<layoutData>
+												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+											</layoutData>
+										</HBox>
+									</l:Grid>
+								</VBox>
+							</VBox>
+						</l:Grid>
+					</VBox>
+				</HBox>
+			</items>
+		</HBox>
+		<buttons>
+			<Button text="Cancel" press="onCancelApprovalDetail($evt,'TrialModApprovalDetailDialog')" type="Reject"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

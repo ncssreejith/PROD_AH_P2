@@ -1,0 +1,19 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.WeaponConfig"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Weapon Configuration" showFooter="true" busy="{oViewModel>/busy}" busyIndicatorDelay="{oViewModel>/delay}" showNavButton="true" enableScrolling="true" navButtonPress="onNavBack">
+		<content>
+			<HBox class="sapUiSmallMarginTop sapUiSmallMarginBegin">
+				<Image class="sapUiLargeMarginBegin sapUiLargeMarginTop sapUiLargeMarginEnd" src="css/img/AH64.JPG" />
+				<core:Fragment fragmentName="avmet.ah.view.ah.fs.wlc.WeaponConfigRightContent" type="XML"/>
+			</HBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onNavBack"></Button>
+				<Button text="{i18n>foandtoolscheck}" type="Emphasized" press="fnOpenCloseConfirmationDialog($event,'OPN')"
+					visible="{= ${oWCModel>/stns/0/APPRCOUNT}===1}"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

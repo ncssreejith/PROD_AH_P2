@@ -1,0 +1,66 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cs="avmet.ah.control" xmlns:tnt="sap.tnt">
+	<Page id="T4_ADD" showFooter="true">
+		<content>
+			<VBox class="WhiteVBox sapUiTinyMargin">
+				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+					<items>
+						<Text class="PDSFragTitle" text="Acceptable Deferred Defects"/>
+						<Button text="Reviewed" type="Emphasized" enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
+					</items>
+				</FlexBox>
+				<FlexBox direction="Column" alignItems="Center" class="sapUiSmallMarginTop">
+					<items>
+						<VBox alignItems="Center">
+							<VBox justifyContent="Center" alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin">
+								<core:HTML
+									content='&lt;canvas id="myCanvas" click="getPointPosition($event)" width="370" height="180" style="border: 1px solid rgb(0, 0, 0); background-repeat: no-repeat; background-size: 100%; background-image: url(&amp;quot;./css/img/AH/AH-Top.png&amp;quot;);" data-sap-ui-preserve="__html0"&gt;&lt;/canvas&gt;'></core:HTML>
+							</VBox>
+							<SegmentedButton class="sapUiSmallMarginBegin" items="{pdsSummaryModel>/defectArea}" selectedKey="{pdsSummaryModel>/addViewSel}"
+								selectionChange="onSelectionDefectAreaChange">
+								<items>
+									<SegmentedButtonItem text="{pdsSummaryModel>text}" key="{pdsSummaryModel>key}" width="5rem"/>
+								</items>
+							</SegmentedButton>
+						</VBox>
+						<List items="{ path: 'pdsSummaryModel>add'}" class="sapUiSmallMargin hboxColor">
+							<CustomListItem class="sapUiSmallMargin hboxColor" type="Navigation" press="onADDLimitationItemPress">
+								<HBox class="sapUiResponsivePadding">
+									<!--this.formatter.fnMarkLable-->
+									<cs:ColorStatus title="{pdsSummaryModel>NAME1}" status="{pdsSummaryModel>CFLAG}" statushr="{pdsSummaryModel>AFHR}"/>
+									<HBox class="sapUiSmallMargin" alignContent="Center" alignItems="Center">
+										<VBox alignContent="Center" alignItems="Center" visible="{=${pdsSummaryModel>EXPDT} !== null ? true : false}">
+											<Label text="{pdsSummaryModel>AFDAY}" design="Bold"></Label>
+											<Label text="days left"></Label>
+										</VBox>
+										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${pdsSummaryModel>AFHR} !== null ? true : false}">
+											<Label text="{pdsSummaryModel>AFHR}" design="Bold"></Label>
+											<Label text="{pdsSummaryModel>UTIL1}" visible="{=${pdsSummaryModel>UTIL1_10} !== null ? true : false}"></Label>
+											<Label text="{pdsSummaryModel>UTIL1} left" visible="{=${pdsSummaryModel>UTIL1_10} === null ? true : false}"></Label>
+										</VBox>
+									</HBox>
+									<HBox class="sapUiSmallMargin">
+										<VBox>
+											<Label text="{pdsSummaryModel>JOBDESC}" design="Bold"/>
+											<VBox visible="{= ${pdsSummaryModel>CAPTY} === 'A'|| ${pdsSummaryModel>CAPTY} === 'B'}">
+												<tnt:InfoLabel text="Limitation" renderMode="Narrow" visible="{= ${pdsSummaryModel>LDESC} !== null}" colorScheme="7"
+													class="sapUiTinyMarginTop" displayOnly="true"/>
+												<Label text="{pdsSummaryModel>LDESC}" class="sapUiTinyMargin" wrapping="true" width="20rem" visible="{= ${pdsSummaryModel>LDESC} !== null}"/>
+											</VBox>
+										</VBox>
+									</HBox>
+								</HBox>
+							</CustomListItem>
+						</List>
+					</items>
+				</FlexBox>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onNavBack"/>
+				<Button text="Sign Off" press="onPresSignOff" enabled="{pdsSummaryModel>/enableSign}" type="Emphasized"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</core:FragmentDefinition>

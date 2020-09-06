@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cs="avmet.ah.control" xmlns:l="sap.ui.layout"
+	xmlns:mc="sap.suite.ui.microchart">
+	<Page id="T6_FLC">
+		<content>
+			<VBox class="WhiteVBox sapUiTinyMargin">
+				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+					<items>
+						<Text class="PDSFragTitle" text="{i18n>flctask}"/>
+					<Button text="Reviewed" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
+					</items>
+				</FlexBox>
+				<core:Fragment fragmentName="avmet.ah.view.ah.fs.pilot.flctask.replenishment.Replenishment" type="XML"/>
+				<core:Fragment fragmentName="avmet.ah.view.ah.fs.pilot.flctask.routinetask.RoutineTasks" type="XML"/>
+				<!--<core:Fragment fragmentName="avmet.ah.view.ah.fs.pilot.flctask.followuptask.FollowUpTasks" type="XML"/>-->
+				<!--<core:Fragment fragmentName="avmet.ah.view.ah.fs.pilot.flctask.createtask.CreateTasks" type="XML"/>-->
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onNavBack"/>
+			<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</core:FragmentDefinition>

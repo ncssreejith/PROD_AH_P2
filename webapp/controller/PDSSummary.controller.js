@@ -21,13 +21,17 @@ sap.ui.define([
 					"selItem": "",
 					"enableSign": true,
 					"addViewSel": "DEA_T",
+					
 					"masterList": [],
 					"confirm": {
 						"signOffOption": [],
 						"selSignOff": {},
+						"selDDID": {},
+						"selDesc": {},
 						"chk1": false,
 						"chk2": false,
-						"sgEnable": true
+						"sgEnable": true,
+						"outjob": ""
 					},
 					"defectArea": [{
 						"key": "DEA_T",
@@ -74,7 +78,7 @@ sap.ui.define([
 		},
 		onClickSortieDetails: function(oEvent) {
 			try {
-				var oSortiDialog = this.openDialog("SortieDetailDialog", ".fragments.pdsic.");
+				var oSortiDialog = this.openDialog("SortieDetailDialog", ".fragments.fs.pdsic.");
 				var oObj = oEvent.getSource().getBindingContext("pdsSummaryModel").getObject();
 				var sPath = oEvent.getSource().getBindingContext("pdsSummaryModel").getPath();
 				oSortiDialog.bindElement({
@@ -113,9 +117,10 @@ sap.ui.define([
 			var oJobCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T8_OJOBS") + "/count");
 			if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && parseInt(oJobCount) > 0) {
 				sFlag = false;
-				MessageToast.show("There is " + parseInt(oJobCount) + " outstanding jobs");
+				// MessageToast.show("There is " + parseInt(oJobCount) + " outstanding jobs");
 			}
-			this.getModel("pdsSummaryModel").setProperty("/confirm/selSignOff", selItem);
+			
+			this.getModel("pdsSummaryModel").setProperty("/confirm/selDesc", selItem.description);
 			this.getModel("pdsSummaryModel").setProperty("/confirm/sgEnable", sFlag);
 			this.getModel("pdsSummaryModel").refresh();
 		},
@@ -158,16 +163,18 @@ sap.ui.define([
 				}
 				var oJobCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T8_OJOBS") + "/count");
 				var sFlag = true;
-				var selItem = this.getModel("pdsSummaryModel").getProperty("/confirm/selSignOff");
-				if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && parseInt(oJobCount) > 0) {
+				
+				var selDDID = this.getModel("pdsSummaryModel").getProperty("/confirm/selDDID");
+				var sMsg = "";
+				if ((selDDID === "AST_FFC" || selDDID === "AST_FFF") && parseInt(oJobCount) > 0) {
 					sFlag = false;
-					MessageToast.show("There is " + parseInt(oJobCount) + " outstanding jobs");
+					sMsg = "There is "+ parseInt(oJobCount) +" outstanding job you can not do Fit-for-Flight or Fit-for-Check Flight";
 				}
-
+				this.getModel("pdsSummaryModel").setProperty("/confirm/outjob", sMsg);
 				this.getModel("pdsSummaryModel").setProperty("/confirm/sgEnable", sFlag);
 				this.getModel("pdsSummaryModel").refresh();
 
-				var oDialog = this.openDialog("SignOffConfirmDialog", ".fragments.pdsic.");
+				var oDialog = this.openDialog("SignOffConfirmDialog", ".fragments.fs.pdsic.");
 				oDialog.bindElement({
 					path: "/confirm",
 					model: "pdsSummaryModel"
@@ -181,7 +188,7 @@ sap.ui.define([
 		},
 		onLimitationItemPress: function(oEvent) {
 			try {
-				this.openDialog("ADDLimitationDialog", ".fragments.pdsic.");
+				this.openDialog("ADDLimitationDialog", ".fragments.fs.pdsic.");
 				var sContext = oEvent.getSource().getBindingContext("pdsSummaryModel");
 				this.fnLoadAddLimitationDetail(sContext);
 			} catch (e) {
@@ -190,7 +197,7 @@ sap.ui.define([
 		},
 		onADDLimitationItemPress: function(oEvent) {
 			try {
-				this.openDialog("ADDLimitationDialog", ".fragments.pdsic.");
+				this.openDialog("ADDLimitationDialog", ".fragments.fs.pdsic.");
 				var sContext = oEvent.getSource().getBindingContext("pdsSummaryModel");
 				this.fnLoadAddLimitationDetail(sContext);
 			} catch (e) {
@@ -263,7 +270,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty("/srnos", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
-					this.openDialog("SerialNosDialog", ".fragments.pdsic.");
+					this.openDialog("SerialNosDialog", ".fragments.fs.pdsic.");
 				}.bind(this);
 				ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
 			} catch (e) {
@@ -432,9 +439,8 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "refid eq '" + this.getAircraftId() + "'" + " and srvtid eq '" + this.getModel("pdsSummaryModel").getProperty(
-						"/srvtid") + "'" + " and TAIL_ID eq " + this.getTailId() +
-					" and stepid eq 'S_RT'";
+				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("pdsSummaryModel").getProperty(
+						"/srvtid") + " and TAIL_ID eq " + this.getTailId() +" and stepid eq S_RT";
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T6_FLC");
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/rt", oData.results);
@@ -635,6 +641,8 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty("/confirm/signOffOption", oData.results);
+					this.getModel("pdsSummaryModel").setProperty("/confirm/selDDID", oData.results.length > 0 ? oData.results[0].ddid : "");
+					this.getModel("pdsSummaryModel").setProperty("/confirm/selDesc", oData.results.length > 0 ? oData.results[0].description : "");
 					this.getModel("pdsSummaryModel").setProperty("/confirm/selSignOff", oData.results.length > 0 ? oData.results[0] : "");
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
@@ -683,7 +691,7 @@ sap.ui.define([
 						this._fnTrialModGet(oContext);
 						break;
 				}
-				var oDialog = this.openDialog(oDialogName, ".fragments.pdsic.");
+				var oDialog = this.openDialog(oDialogName, ".fragments.fs.pdsic.");
 				oDialog.bindElement({
 					path: oContext.getPath(),
 					model: "pdsSummaryModel"
@@ -774,7 +782,7 @@ sap.ui.define([
 					refid: this.getAircraftId(),
 					tailid: this.getTailId(),
 					stepid: this.getModel("pdsSummaryModel").getProperty("/stepid"),
-					FFDT: this.getModel("pdsSummaryModel").getProperty("/confirm/selSignOff/ddid"),
+					FFDT: this.getModel("pdsSummaryModel").getProperty("/confirm/selDDID"),
 					srvtid: this.getModel("pdsSummaryModel").getProperty("/srvtid"),
 					reftyp: "AIR",
 					ddid: "HC_SG_S_FF",
@@ -855,18 +863,21 @@ sap.ui.define([
 			if (oData.results.length === 0) {
 				return oMark;
 			}
-			oData.results.forEach(function(oItem) {
+			var sCount = 0;
+			oData.results.forEach(function(oItem,sIndex) {
+				oItem.NAME1 = this.formatter.fnMarkLable(sIndex);
 				if (oItem.DEAID_M !== "" && oItem.DEAID_M !== null) {
 					var sMark = {
-						name: oItem.NAME1,
+						name: this.formatter.fnMarkLable(sIndex),
 						place: oItem.DEAID,
 						placeId: oItem.DEAID_M,
 						x: oItem.XAXIS,
 						y: oItem.YAXIS
 					};
+					sCount++;
 					oMark.push(sMark);
 				}
-			});
+			}.bind(this));
 
 			return oMark;
 		},
