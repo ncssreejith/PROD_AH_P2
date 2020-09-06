@@ -253,7 +253,7 @@ sap.ui.define([
 				oPayload.LFLAG = "X";
 				oPayload.SRVTID = this.getModel("avmetModel").getProperty("/dash/SRVTID");
 				var oParameter = {};
-				oParameter.activity = 2;
+				oParameter.activity = 4;
 				oParameter.error = function() {};
 				oParameter.success = function() {
 					var oDash = this.getModel("avmetModel").getProperty("/dash"); //astid

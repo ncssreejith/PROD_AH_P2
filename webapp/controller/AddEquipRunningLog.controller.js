@@ -49,7 +49,7 @@ sap.ui.define([
 				oPayload.COL_11 = this.formatter.defaultDateTimeFormat(oPayload.Date);
 				delete oPayload.time;
 				var oParameter = {};
-				oParameter.activity = 2;
+				oParameter.activity = 4;
 				oParameter.error = function() {};
 				oParameter.success = function() {
 					this.onNavBack();
