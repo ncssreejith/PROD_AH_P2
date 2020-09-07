@@ -180,6 +180,7 @@ sap.ui.define([
 					case "AST_S1":
 					case "AST_US1":
 					case "AST_FAIR1":
+					case "AST_RECT1":	
 						this.getRouter().navTo("AddEngCyclicLog", {
 							engid: this.getModel("avmetModel").getProperty("/Engine/ENGID"),
 							tailid: this.getTailId(),
@@ -190,6 +191,7 @@ sap.ui.define([
 					case "AST_S2":
 					case "AST_US2":
 					case "AST_FAIR2":
+					case "AST_RECT2":
 						this.getRouter().navTo("AircraftUtilisation");
 				}
 			} catch (e) {
