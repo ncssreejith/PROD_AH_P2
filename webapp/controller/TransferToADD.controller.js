@@ -131,7 +131,7 @@ sap.ui.define([
 				oViewModel.setProperty("/bLimitation", false);
 				oViewModel.setProperty("/bAddLimitationBtn", true);
 				oViewModel.updateBindings(true);
-				oModel.updateBindings(true);
+				//oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onReasonTypeChange function");
 				this.handleException(e);
