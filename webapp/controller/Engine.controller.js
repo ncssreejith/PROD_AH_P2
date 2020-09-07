@@ -438,7 +438,11 @@ sap.ui.define([
 				var aRedPoints = [];
 				var aLDashPoints = [];
 				var aUDashPoints = [];
+				//Loop
 				aEngPowerCheck.forEach(function(oItem) {
+					if(oItem.CHKRN !== "1"){
+						return;
+					}
 					var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
 					var iLLimit = parseInt(oItem.LLIMIT ? oItem.LLIMIT : 0) + 5;
 					var iDiff = parseInt(oItem.TGTDIFF);
