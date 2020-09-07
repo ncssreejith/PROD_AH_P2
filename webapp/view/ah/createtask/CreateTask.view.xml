@@ -43,7 +43,7 @@
 										</HBox>
 										<Input editable="false" value="{oCreateTaskModel>sTaskTypeText}" width="350px"/>
 									</VBox>
-									<VBox class="sapUiLargeMarginBegin sapUiTinyMarginTopBottom" visible="{oCreateTaskModel>/bType}">
+									<VBox class="sapUiLargeMarginBegin sapUiTinyMarginTopBottom" visible="{oCreateTaskModel>bType}">
 										<Label text="Request Type" design="Bold"/>
 										<SegmentedButton id="SBTaskId" enabled="false" class="sapUiSmallMarginBottom" selectionChange="onSelectionTaskTypeChange"
 											selectedKey="{oCreateTaskModel>sEngFlag}">
