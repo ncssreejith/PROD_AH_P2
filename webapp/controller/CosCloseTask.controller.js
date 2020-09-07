@@ -853,6 +853,25 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		//----------------------------------------------------------------------------------------------
+		//  Private method: This will get called,whene type for OPS task change.
+		// Table: 
+		//----------------------------------------------------------------------------------------------
+		onTypeChange: function(oEvent) {
+			try {
+				var oSelectedKey = oEvent.getSource().getSelectedKey(),
+					oModel = this.getView().getModel("ViewModel");
+				oModel.setProperty("/bAddADDOps", oSelectedKey);
+				if (oSelectedKey === "TT1_AD") {
+					this.onAddADDDialog(oEvent);
+				} else {
+					oEvent.getSource().setSelectedKey("TT1_11");
+				}
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
+		},
 		// ***************************************************************************
 		//                 4. Private Methods   
 		// ***************************************************************************

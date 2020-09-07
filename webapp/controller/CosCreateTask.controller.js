@@ -139,6 +139,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/sTechOrderRef", "IETM");
 				oCreateTaskModel.setProperty("/sType1", "");
 				oCreateTaskModel.setProperty("/sType1Value", "");
+				oCreateTaskModel.setProperty("/sEngFlag", "NA");
 				oCreateTaskModel.setProperty("/sType2", "");
 				oCreateTaskModel.setProperty("/sType2Value", "");
 				oCreateTaskModel.setProperty("/sCompDesc", "");
@@ -182,6 +183,7 @@ sap.ui.define([
 				if (sSelectedKey === "TT2_10" || sSelectedKey === "TT2_12") {
 					oCreateTaskModel.setProperty("/bTechOrderRef", true);
 					oCreateTaskModel.setProperty("/bType", true);
+
 					oCreateTaskModel.setProperty("/sType1", "Serial No. (S/N)");
 					oCreateTaskModel.setProperty("/sType2", "Part No.");
 					oCreateTaskModel.setProperty("/bCompDesc", true);
@@ -191,12 +193,26 @@ sap.ui.define([
 				} else if (sSelectedKey === "TT2_13" || sSelectedKey === "TT2_14") {
 					oCreateTaskModel.setProperty("/bTechOrderRef", true);
 					oCreateTaskModel.setProperty("/bType", true);
+
 					oCreateTaskModel.setProperty("/bCompDesc", true);
 					oCreateTaskModel.setProperty("/sType1", "Serial No. (S/N)");
 					oCreateTaskModel.setProperty("/sType2", "Part No.");
 					oCreateTaskModel.setProperty("/bOptionalLabel", true);
 				}
 				oCreateTaskModel.setProperty("/sTaskText", oEvent.getParameters("").value);
+			} catch (e) {
+				Log.error("Exception in CosCreateTask:onRemoveInstallTaskChange function");
+				this.handleException(e);
+			}
+		},
+
+		onSelectionTaskTypeChange: function(oEvent) {
+			try {
+				var sSelectedKey = oEvent.getSource().getSelectedKey(),
+					oCreateTaskModel = this.getModel("oCreateTaskModel");
+				oCreateTaskModel.setProperty("/sEngFlag", sSelectedKey);
+				oCreateTaskModel.setProperty("/sType1Value", "");
+				
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onRemoveInstallTaskChange function");
 				this.handleException(e);
@@ -284,6 +300,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/bCreateTaskBtn", true);
 				oCreateTaskModel.setProperty("/bUpdateTaskBtn", false);
 				oCreateTaskModel.setProperty("/bSrComFlag", "N");
+				oCreateTaskModel.setProperty("/sEngFlag", "NA");
 				try {
 
 					if (this._oDialog !== undefined && this._oDialog.isOpen()) {
@@ -345,6 +362,7 @@ sap.ui.define([
 						sTypDesc: "",
 						sType1: "",
 						sType1Value: "",
+						sEngFlag: "",
 						sType2: "",
 						sType2Value: "",
 						sCompDesc: "",
@@ -379,71 +397,83 @@ sap.ui.define([
 						sCheckfor: "",
 						sIndicateArea: ""
 					};
-				if (sTaskType === "TT1_10") {
-					oObj.bRemovalInstall = true;
-					oObj.sTask = oCreateTaskModel.getProperty("/sTask");
-					oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
-					oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
-					oObj.bTechOrderRef = oCreateTaskModel.getProperty("/bTechOrderRef");
-					oObj.sTechOrderRef = oCreateTaskModel.getProperty("/sTechOrderRef");
-					oObj.bType = oCreateTaskModel.getProperty("/bType");
-					oObj.sType1 = oCreateTaskModel.getProperty("/sType1");
-					oObj.sType1Value = oCreateTaskModel.getProperty("/sType1Value");
-					oObj.sType2 = oCreateTaskModel.getProperty("/sType2");
-					oObj.sType2Value = oCreateTaskModel.getProperty("/sType2Value");
-					oObj.bOptionalLabel = oCreateTaskModel.getProperty("/bOptionalLabel");
-					oObj.bCompDesc = oCreateTaskModel.getProperty("/bCompDesc");
-					oObj.sCompDesc = oCreateTaskModel.getProperty("/sCompDesc");
-					oObj.bAccess = oCreateTaskModel.getProperty("/bAccess");
-					oObj.sTypDesc = oCreateTaskModel.getProperty("/sTypDescKey");
-					oObj.sTypDescValue = oCreateTaskModel.getProperty("/sTypDescValue");
-					if (oCreateTaskModel.getProperty("/bOpenForAccess")) {
-						oObj.sTypDescKey = oCreateTaskModel.getProperty("/sOpnForAccKey");
-						oObj.bOpenForAccess = oCreateTaskModel.getProperty("/bOpenForAccess");
-					} else if (oCreateTaskModel.getProperty("/bRemoveForAccess")) {
-						oObj.sTypDescKey = oCreateTaskModel.getProperty("/sRemoveForAccKey");
-						oObj.bRemoveForAccess = oCreateTaskModel.getProperty("/bRemoveForAccess");
+
+				if (oCreateTaskModel.getProperty("/sEngFlag") !== "NA" && oCreateTaskModel.getProperty("/sEngFlag") !== "") {
+
+					if (sTaskType === "TT1_10") {
+						oObj.bRemovalInstall = true;
+						oObj.sTask = oCreateTaskModel.getProperty("/sTask");
+						oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
+						oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
+						oObj.bTechOrderRef = oCreateTaskModel.getProperty("/bTechOrderRef");
+						oObj.sTechOrderRef = oCreateTaskModel.getProperty("/sTechOrderRef");
+						oObj.bType = oCreateTaskModel.getProperty("/bType");
+						oObj.sType1 = oCreateTaskModel.getProperty("/sType1");
+						oObj.sType1Value = oCreateTaskModel.getProperty("/sType1Value");
+						oObj.sEngFlag = oCreateTaskModel.getProperty("/sEngFlag");
+						oObj.sType2 = oCreateTaskModel.getProperty("/sType2");
+						oObj.sType2Value = oCreateTaskModel.getProperty("/sType2Value");
+						oObj.bOptionalLabel = oCreateTaskModel.getProperty("/bOptionalLabel");
+						oObj.bCompDesc = oCreateTaskModel.getProperty("/bCompDesc");
+						oObj.sCompDesc = oCreateTaskModel.getProperty("/sCompDesc");
+						oObj.bAccess = oCreateTaskModel.getProperty("/bAccess");
+						oObj.sTypDesc = oCreateTaskModel.getProperty("/sTypDescKey");
+						oObj.sTypDescValue = oCreateTaskModel.getProperty("/sTypDescValue");
+						if (oCreateTaskModel.getProperty("/bOpenForAccess")) {
+							oObj.sTypDescKey = oCreateTaskModel.getProperty("/sOpnForAccKey");
+							oObj.bOpenForAccess = oCreateTaskModel.getProperty("/bOpenForAccess");
+						} else if (oCreateTaskModel.getProperty("/bRemoveForAccess")) {
+							oObj.sTypDescKey = oCreateTaskModel.getProperty("/sRemoveForAccKey");
+							oObj.bRemoveForAccess = oCreateTaskModel.getProperty("/bRemoveForAccess");
+						}
+						oObj.bIndicateItem = oCreateTaskModel.getProperty("/bIndicateItem");
+						oObj.sIndicateItem = oCreateTaskModel.getProperty("/sIndicateItem");
+						oObj.bItemNo = oCreateTaskModel.getProperty("/bItemNo");
+						oObj.sItemNo = oCreateTaskModel.getProperty("/sItemNo");
+						oObj.bSLNo = oCreateTaskModel.getProperty("/bSLNo");
+						oObj.sSLNo = oCreateTaskModel.getProperty("/sSLNo");
+						oObj.bCompCompDesc = oCreateTaskModel.getProperty("/bCompCompDesc");
+						oObj.sCompCompDesc = oCreateTaskModel.getProperty("/sCompCompDesc");
+						oObj.sSymbol = "1";
+					} else if (sTaskType === "TT1_11") {
+						oObj.bOpsCheck = true;
+						oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
+						oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
+						oObj.sTechOrderRef = oCreateTaskModel.getProperty("/sTechOrderRef");
+						oObj.sOpsDesc = oCreateTaskModel.getProperty("/sOpsDesc");
+						oObj.sSymbol = "3";
+					} else if (sTaskType === "TT1_12") {
+						oObj.bVisualInspection = true;
+						oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
+						oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
+						oObj.sOtherDesc = oCreateTaskModel.getProperty("/sOtherDesc");
+						oObj.bVisualInspection = oCreateTaskModel.getProperty("/bVisualInspection");
+						oObj.sVisualInspection = oCreateTaskModel.getProperty("/sVisualInspection");
+						oObj.sSymbol = "3";
+					} else if (sTaskType === "TT1_13") {
+						oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
+						oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
+						oObj.sSymbol = "3";
+					} else if (sTaskType === "TT1_14" || sTaskType === "TT1_15" || sTaskType === "TT1_16" || sTaskType === "TT1_17" || sTaskType ===
+						"TT1_18" || sTaskType === "TT1_19") {
+						oObj.bOthers = true;
+						oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
+						oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
+						oObj.sOtherDesc = oCreateTaskModel.getProperty("/sOtherDesc");
+						oObj.sTechOrderRef = oCreateTaskModel.getProperty("/sTechOrderRef");
+						oObj.sSymbol = oCreateTaskModel.getProperty("/sSymbol");
 					}
-					oObj.bIndicateItem = oCreateTaskModel.getProperty("/bIndicateItem");
-					oObj.sIndicateItem = oCreateTaskModel.getProperty("/sIndicateItem");
-					oObj.bItemNo = oCreateTaskModel.getProperty("/bItemNo");
-					oObj.sItemNo = oCreateTaskModel.getProperty("/sItemNo");
-					oObj.bSLNo = oCreateTaskModel.getProperty("/bSLNo");
-					oObj.sSLNo = oCreateTaskModel.getProperty("/sSLNo");
-					oObj.bCompCompDesc = oCreateTaskModel.getProperty("/bCompCompDesc");
-					oObj.sCompCompDesc = oCreateTaskModel.getProperty("/sCompCompDesc");
-					oObj.sSymbol = "1";
-				} else if (sTaskType === "TT1_11") {
-					oObj.bOpsCheck = true;
-					oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
-					oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
-					oObj.sTechOrderRef = oCreateTaskModel.getProperty("/sTechOrderRef");
-					oObj.sOpsDesc = oCreateTaskModel.getProperty("/sOpsDesc");
-					oObj.sSymbol = "3";
-				} else if (sTaskType === "TT1_12") {
-					oObj.bVisualInspection = true;
-					oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
-					oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
-					oObj.sOtherDesc = oCreateTaskModel.getProperty("/sOtherDesc");
-					oObj.bVisualInspection = oCreateTaskModel.getProperty("/bVisualInspection");
-					oObj.sVisualInspection = oCreateTaskModel.getProperty("/sVisualInspection");
-					oObj.sSymbol = "3";
-				} else if (sTaskType === "TT1_13") {
-					oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
-					oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
-					oObj.sSymbol = "3";
-				} else if (sTaskType === "TT1_14" || sTaskType === "TT1_15" || sTaskType === "TT1_16" || sTaskType === "TT1_17" || sTaskType ===
-					"TT1_18" || sTaskType === "TT1_19") {
-					oObj.bOthers = true;
-					oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
-					oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
-					oObj.sOtherDesc = oCreateTaskModel.getProperty("/sOtherDesc");
-					oObj.sTechOrderRef = oCreateTaskModel.getProperty("/sTechOrderRef");
-					oObj.sSymbol = oCreateTaskModel.getProperty("/sSymbol");
+					aTasks.push(oObj);
+					oCreateTaskModel.setProperty("/aTasks", aTasks);
+					that._oDialog.close();
+				} else {
+					MessageBox.error(
+						"Please select request type 'Engine' or 'Non-Engine'", {
+							icon: sap.m.MessageBox.Icon.Error,
+							title: "Error",
+							styleClass: "sapUiSizeCompact"
+						});
 				}
-				aTasks.push(oObj);
-				oCreateTaskModel.setProperty("/aTasks", aTasks);
-				that._oDialog.close();
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onCreateTaskPress function");
 				this.handleException(e);
@@ -487,6 +517,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/sTechOrderRef", oSelectedObj.sTechOrderRef);
 				oCreateTaskModel.setProperty("/sType1", oSelectedObj.sType1);
 				oCreateTaskModel.setProperty("/sType1Value", oSelectedObj.sType1Value);
+				oCreateTaskModel.setProperty("/sEngFlag", oSelectedObj.sEngFlag);
 				oCreateTaskModel.setProperty("/sType2", oSelectedObj.sType2);
 				oCreateTaskModel.setProperty("/sType2Value", oSelectedObj.sType2Value);
 				oCreateTaskModel.setProperty("/sVisualInspection", oSelectedObj.sVisualInspection);
@@ -574,6 +605,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty(sEditTaskPath + "/bType", oCreateTaskModel.getProperty("/bType"));
 				oCreateTaskModel.setProperty(sEditTaskPath + "/sType1", oCreateTaskModel.getProperty("/sType1"));
 				oCreateTaskModel.setProperty(sEditTaskPath + "/sType1Value", oCreateTaskModel.getProperty("/sType1Value"));
+				oCreateTaskModel.setProperty(sEditTaskPath + "/sEngFlag", oCreateTaskModel.getProperty("/sEngFlag"));
 				oCreateTaskModel.setProperty(sEditTaskPath + "/sType2", oCreateTaskModel.getProperty("/sType2"));
 				oCreateTaskModel.setProperty(sEditTaskPath + "/sType2Value", oCreateTaskModel.getProperty("/sType2Value"));
 				oCreateTaskModel.setProperty(sEditTaskPath + "/bOptionalLabel", oCreateTaskModel.getProperty("/bOptionalLabel"));
@@ -676,6 +708,7 @@ sap.ui.define([
 					oTempData[0].isser = aTasks[i].sType1;
 					/*oTempData[0].servl = aTasks[i].sType1Value;*/
 					oTempData[0].sernr = aTasks[i].sType1Value;
+					oTempData[0].engflag = aTasks[i].sEngFlag;
 					/*oTempData[0].ftsernr = aTasks[i].sType1Value;*/
 					oTempData[0].ismat = aTasks[i].sType2;
 					oTempData[0].partno = aTasks[i].sType2Value;
@@ -791,6 +824,7 @@ sap.ui.define([
 					sTechOrderRef: "IETM",
 					sType1: "1",
 					sType1Value: "",
+					sEngFlag: "NA",
 					sType2: "1",
 					sType2Value: "",
 					sCompDesc: "",
@@ -860,6 +894,7 @@ sap.ui.define([
 				var oCreateTaskModel = this.getModel("oCreateTaskModel");
 				oCreateTaskModel.setProperty("/bTechOrderRef", false);
 				oCreateTaskModel.setProperty("/bType", false);
+				oCreateTaskModel.setProperty("/sEngFlag", "NA");
 				oCreateTaskModel.setProperty("/bOptionalLabel", false);
 				oCreateTaskModel.setProperty("/bCompDesc", false);
 				oCreateTaskModel.setProperty("/bAccess", false);

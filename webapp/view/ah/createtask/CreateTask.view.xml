@@ -52,7 +52,18 @@
 										</VBox>
 										<VBox class="sapUiLargeMarginBegin" visible="{oCreateTaskModel>bTechOrderRef}">
 											<Label design="Bold" text="Technical Order/ Reference"/>
-											<Input editable="false" value="{oCreateTaskModel>sTechOrderRef}" width="350px"/>
+											<Input editable="false" value="{oCreateTaskModel>sTechOrderRef}" width="330px"/>
+										</VBox>
+										<VBox class="sapUiTinyMarginBegin" visible="{oCreateTaskModel>/bType}">
+											<Label text="Request Type" design="Bold"/>
+											<SegmentedButton id="SBTaskId" enabled="false" class="sapUiSmallMarginBottom" selectionChange="onSelectionTaskTypeChange"
+												selectedKey="{oCreateTaskModel>sEngFlag}">
+												<items>
+													<SegmentedButtonItem key="NA" visible="false"/>
+													<SegmentedButtonItem text="Engine" key="EG" width="6rem"/>
+													<SegmentedButtonItem text="Non-Engine" key="NE" width="6rem"/>
+												</items>
+											</SegmentedButton>
 										</VBox>
 									</HBox>
 									<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom" visible="{oCreateTaskModel>bType}">

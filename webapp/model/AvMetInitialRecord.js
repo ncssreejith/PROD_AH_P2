@@ -132,7 +132,8 @@ sap.ui.define([
 						'ldesc': null,
 						'srvtid': null,
 						'stepid': null,
-						'ftrsltgd': null
+						'ftrsltgd': null,
+						'engflag':null
 
 					};
 					oArray.push(oTask);

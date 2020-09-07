@@ -107,9 +107,13 @@ sap.ui.define([], function() {
 					if (oFieldSgBt.getVisible() && oFieldSgBt.getEnabled()) {
 						if (oFieldSgBt.getSelectedKey() === "" || oFieldSgBt.getSelectedKey() === null || oFieldSgBt.getSelectedKey() ===
 							undefined ||
-							oFieldSgBt.getSelectedKey() === "noKey") {
+							oFieldSgBt.getSelectedKey() === "noKey" ||
+							oFieldSgBt.getSelectedKey() === "NA") {
 							bErrorState = setErrortoFields(oFieldSgBt, that);
 							sap.m.MessageToast.show("Please fill all the required fields");
+						} else if (oFieldSgBt.getValueState() === "Error") {
+							FocusonFields(oFieldSgBt);
+							bErrorState = true;
 						}
 					}
 
@@ -147,7 +151,7 @@ sap.ui.define([], function() {
 			});
 			// Validating entire field group id's
 			if (bErrorState) {
-				var oFieldIds = that.getView().getControlsByFieldGroupId();
+				var oFieldIds = that.getView().getControlsByFieldGroupId("fgSGBtn");
 				for (var i = 0; i < oFieldIds.length; i++) {
 					if (oFieldIds[i].getFieldGroupIds()[0] !== "fgSGBtn" && oFieldIds[i].getFieldGroupIds()[0] !== "" && oFieldIds[i].getFieldGroupIds()
 						.length !== 0) {
@@ -159,6 +163,22 @@ sap.ui.define([], function() {
 				}
 				return bErrorState;
 			}
+			// validation for  Redio fields
+			var oFieldRadiobtn = that.getView().getControlsByFieldGroupId("fgRedioBtn");
+			oFieldRadiobtn.forEach(function(oFieldTxt) {
+				try {
+					for (var i = 0; i < oFieldIds.length; i++) {
+						if (oFieldIds[i].getFieldGroupIds()[0] !== "fgSGBtn" && oFieldIds[i].getFieldGroupIds()[0] !== "" && oFieldIds[i].getFieldGroupIds()
+							.length !== 0) {
+							if (oFieldIds[i].getValueState() === "Error") {
+								FocusonFields(oFieldIds[i]);
+								break;
+							}
+						}
+					}
+				} catch (e) {}
+			});
+
 		},
 		//2. Method for reseting the error state of the fields
 		resetErrorStates: function(that) {
