@@ -600,6 +600,7 @@ sap.ui.define([
 					if (oData && oData.results && oData.results.length > 0) {
 						var oLoad = oData.results.length > 0 ? oData.results[0] : undefined;
 						this.getModel("dashboardModel").setProperty("/scl", oLoad);
+						oLoad.Index = "Hrs";
 						oLoad.LV_COUNT = 0;
 						oLoad.LV_COLOR = "Good";
 						if (oLoad.LV_HRS > 0) {
@@ -750,6 +751,7 @@ sap.ui.define([
 					this.getModel("dashboardModel").setProperty("/cap", oData.results.length > 0 ? oData.results[0] : undefined);
 
 					if (oData && oData.results && oData.results.length && oData.results.length > 0) {
+						oData.results[0].Index = "ADD";
 						this._setRadialChartText("capMicroChartId", oData.results[0].LV_TADD ? oData.results[0].LV_TADD : "", "", oData.results[0].LV_TADD,
 							oData.results[0].LV_TADD);
 						return;

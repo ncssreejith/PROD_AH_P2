@@ -71,7 +71,7 @@
                                 leftHeading="Jobs Due Soon" leftSubHeading="(5 Days or 10h)" buttonText="View">
                                 <mc:RadialMicroChart id="scheduleMicroChartId" size="L"
                                     valueColor="{path : 'dashboardModel>/scl/LV_COLOR'}" press="press" class="customChartFont"></mc:RadialMicroChart>
-                                <SegmentedButton selectionChange="onScheduleSegBtnChange" width="100%" class="sapUiSizeCompact">
+                                <SegmentedButton selectedKey="{dashboardModel>/scl/Index}" selectionChange="onScheduleSegBtnChange" width="100%" class="sapUiSizeCompact">
                                     <items>
                                         <SegmentedButtonItem key="Hrs" text="Hrs" icon="{dashboardModel>/scl/HrsAlert}" width="30%" ariaDescribedBy="rejectButtonDescription genericButtonDescription">
                                             <customData>
@@ -86,7 +86,7 @@
 							</ct:DashboardTile3>
 							<ct:DashboardTile4 class="sapUiTinyMargin" title="Aircraft Capabilities">
 								<mc:RadialMicroChart id="capMicroChartId" size="L" valueColor="{path : 'dashboardModel>/cap/LV_TADD', formatter : '.formatter.DBSchedule'}" press="press" class="customChartFont numFontColor"></mc:RadialMicroChart>
-								<SegmentedButton selectionChange="onAircapSegBtnChange" width="100%" class="sapUiSizeCompact">
+								<SegmentedButton selectedKey="{dashboardModel>/cap/Index}" selectionChange="onAircapSegBtnChange" width="100%" class="sapUiSizeCompact">
 									<items>
 										<SegmentedButtonItem text="ADD" key="ADD" width="25%"/>
 										<SegmentedButtonItem text="Limitation" key="LMT" width="50%"/>
@@ -120,7 +120,7 @@
 								chart2Count="{= ${dashboardModel>/role/ADPC2} ? ${dashboardModel>/role/ADPC2} : 0}"
 								chart3Count="{= ${dashboardModel>/role/ADPC3} ? ${dashboardModel>/role/ADPC3} : 0}"
 								chart4Count="{= ${dashboardModel>/role/ADPC4} ? ${dashboardModel>/role/ADPC4} : 0}">
-								<Link text="view" press="onRoleDisplay" visible="{= !!${avmetModel>/dash/LOCON}}"/>
+								<Link text="view" press="onRoleDisplay" visible="{= !!${dashboardModel>/role/ADPDESC1}}"/>
 								<ProgressIndicator percentValue="{parts:['dashboardModel>/role/ADPC1','dashboardModel>/role/TOTAL'],formatter:'.formatter.percentAge'}"
 									state="Information"/>
 								<ProgressIndicator percentValue="{parts:['dashboardModel>/role/ADPC2','dashboardModel>/role/TOTAL'],formatter:'.formatter.percentAge'}"

@@ -132,28 +132,23 @@ sap.ui.define([
 
 		},
 
-		onAircraftTransferMenu: function(oEvent) {
+		onAircraftTransferMenu: function() {
 			this.getRouter().navTo("AircraftTransfer");
 		},
-		onAircraftUnlock: function(oEvent) {
+		onAircraftUnlock: function() {
 			try {
 				this.fnUnlockSignOff();
-				// var oDash = this.getModel("avmetModel").getProperty("/dash"); //astid
-				// oDash.TBTN3 = true;
-				// this.getModel("avmetModel").refresh();
 			} catch (e) {
 				this.handleException(e);
-				Log.error("Exception in onAircraftInfoPress function");
+				Log.error("Exception in onAircraftUnlock function");
 			}
 		},
-		onFSUnlock: function(oEvent) {
+		onFSUnlock: function() {
 			try {
-				var oDash = this.getModel("avmetModel").getProperty("/dash"); //astid
-				oDash.TBTN2 = true;
-				this.getModel("avmetModel").refresh();
+				this.fnFSUnlockSignOff();
 			} catch (e) {
 				this.handleException(e);
-				Log.error("Exception in onAircraftInfoPress function");
+				Log.error("Exception in onFSUnlock function");
 			}
 		},
 
@@ -221,28 +216,6 @@ sap.ui.define([
 		//   2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
 
-		// fnLoadSrv1Dashboard: function() {
-		// 	try {
-		// 		var oParameter = {};
-		// 		oParameter.filter = "tailid eq " + this.getTailId();
-		// 		oParameter.error = function() {};
-		// 		oParameter.success = function(oData) {
-		// 			this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
-		// 			var oDash = this.getModel("avmetModel").getProperty("/dash");
-		// 			this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
-		// 			this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
-		// 			this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
-		// 			// var oModel = this.getView().getModel("avmetModel");
-		// 			// oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
-		// 			// oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
-		// 			this.getModel("menuModel").refresh();
-		// 			this.getModel("avmetModel").refresh();
-		// 		}.bind(this);
-		// 		ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
-		// 	} catch (e) {
-		// 		Log.error("Exception in fnLoadSrv1Dashboard function");
-		// 	}
-		// },
 		/** 
 		 * AVMET unlock signoff
 		 */
@@ -270,6 +243,35 @@ sap.ui.define([
 				Log.error("Exception in onSignOffPress function");
 			}
 		},
+		/** 
+		 * FAIR unlock signoff
+		 */
+		fnFSUnlockSignOff: function() {
+			try {
+				var oPayload = {}; //this.getModel("avmetModel").getProperty("/record");
+				oPayload.TAILID = this.getTailId();
+				oPayload.LFLAG = "X";
+				oPayload.SRVTID = this.getModel("avmetModel").getProperty("/dash/SRVTID");
+				var oParameter = {};
+				oParameter.activity = 4;
+				oParameter.error = function() {};
+				oParameter.success = function() {
+					var oDash = this.getModel("avmetModel").getProperty("/dash"); //astid
+					oDash.TBTN2 = true;
+					var oModel = this.getView().getModel("avmetModel");
+					oModel.setProperty("/UnlockAVMET", false);
+					this.fnLoadSrv1Dashboard();
+					this.getModel("avmetModel").refresh();
+				}.bind(this);
+				var oModel = this.getView().getModel("avmetModel");
+				oModel.setProperty("/UnlockAVMET", true);
+				var sASTID = this.getModel("avmetModel").getProperty("/dash/astid");
+				var sAuthObj = sASTID === "AST_FFF" ? "ZRM_FS_FFF04" : "ZRM_FS_PA04";
+				ajaxutil.fnCreate("/TailLockSvc", oParameter, [oPayload], sAuthObj, this);
+			} catch (e) {
+				Log.error("Exception in onSignOffPress function");
+			}
+		},
 
 		// ***************************************************************************
 		//   3. Specific Function 
@@ -283,48 +285,12 @@ sap.ui.define([
 		_onObjectMatched: function() {
 			this.fnLoadInitialData();
 		},
-		// fnSetMenuVisible: function(oFlag, fnCallBack) {
-		// 	var aMenu = this.getModel("menuModel").getData();
-		// 	var oFound = {};
-		// 	if (oFlag === "X") {
-		// 		oFound = aMenu.find(fnCallBack);
-		// 		oFound.visible = true;
-		// 	} else {
-		// 		oFound = aMenu.find(fnCallBack);
-		// 		oFound.visible = false;
-		// 	}
-		// },
+
 		fnLoadInitialData: function() {
 			this.fnLoadSrv1Dashboard();
 			this.fnLoadUtilization();
 		},
 
-		// fnLoadSrv1Dashboard: function() {
-		// 	var oParameter = {};
-		// 	oParameter.filter = "tailid eq " + this.getTailId();
-		// 	oParameter.error = function() {};
-		// 	oParameter.success = function(oData) {
-		// 		this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
-		// 		var oDash = this.getModel("avmetModel").getProperty("/dash");
-		// 		this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
-		// 		this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
-		// 		this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
-
-		// 		this.getModel("avmetModel").refresh();
-		// 	}.bind(this);
-		// 	ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
-		// },
-		// fnSetMenuVisible: function(oFlag, fnCallBack) {
-		// 	var aMenu = this.getModel("menuModel").getData();
-		// 	var oFound = {};
-		// 	if (oFlag === "X") {
-		// 		oFound = aMenu.find(fnCallBack);
-		// 		oFound.visible = true;
-		// 	} else {
-		// 		oFound = aMenu.find(fnCallBack);
-		// 		oFound.visible = false;
-		// 	}
-		// },
 		fnFindRoleChangeStations: function(oMenu) {
 			return oMenu.pattern === "RoleChangeStations";
 		},
