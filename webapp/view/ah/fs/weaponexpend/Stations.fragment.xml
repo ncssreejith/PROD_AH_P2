@@ -37,7 +37,7 @@
 						<Text text="{oWeaponExpModel>sernr}"/>
 						<StepInput value="{oWeaponExpModel>QtyRemained}" min="0" max="{path: 'oWeaponExpModel>totqty', formatter : '.formatter.formatMaxValue'}"
 							description=" / {oWeaponExpModel>totqty}" change="onQtyStnChange" visible="{=${oWeaponExpModel>sernr} !== null ? false : true}"/>
-						<StepInput value="{oWeaponExpModel>expqty}" min="0" max="{=${oWeaponExpModel>sernr} !== null ? 1 : ${oWeaponExpModel>totqty}}" editable="{=${oWeaponExpModel>sernr} !== null ? true : false}"/>
+						<StepInput value="{oWeaponExpModel>expqty}" min="0" max="{=${oWeaponExpModel>sernr} !== null ? 1 : ${path: 'oWeaponExpModel>totqty', formatter : '.formatter.formatMaxValue'}}" editable="{=${oWeaponExpModel>sernr} !== null ? true : false}"/>
 					</cells>
 				</ColumnListItem>
 			</items>

@@ -131,9 +131,15 @@ sap.ui.define([
 			try {
 
 				if (this.formatter.integerUnit(this.getModel("rtModel").getProperty("/tasks/0/APR_NO")) === 0) {
-					if (!this.getModel("rtModel").getProperty("/isChange")) {
+					var isNotVaild = true;
+					this.getModel("rtModel").getProperty("/tasks").forEach(function(oItem){
+						if(oItem.DONE === "" || oItem.DONE === null){
+							isNotVaild= false;
+						}
+					});
+					if (!isNotVaild) {
 						var oData = {
-							messages: ["Please select atleast on record."]
+							messages: ["Please review every record."]
 						};
 						this.fnShowMessage("E", oData, null, function(oEvent) {});
 						return;

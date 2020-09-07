@@ -33,7 +33,7 @@ sap.ui.define([
 			try {
 				this.getRouter().getRoute("WeaponConfig").attachPatternMatched(this._onObjectMatched, this);
 				var oData = {};
-				
+
 				oData.apprvlevl = 0;
 				oData.stns = [];
 				oData.srnos = [];
@@ -141,7 +141,15 @@ sap.ui.define([
 		},
 		onStationPress: function(oEvent) {
 			try {
-				var sID = oEvent.getParameter("srcControl").getId();
+				var oStation = oEvent.getSource().getBindingContext("oWCModel").getObject();
+				this.getOwnerComponent().getRouter().navTo("Station", {
+					srvtid: this.getModel("oWCModel").getProperty("/srvtid"),
+					stepid: this.getModel("oWCModel").getProperty("/stepid"),
+					stns: oStation.STNSID,
+					stnmid: oStation.STNMID
+				});
+
+				/*var sID = oEvent.getParameter("srcControl").getId();
 				if (sID.search("station") !== -1 || sID.search("others") !== -1) {
 					var oStation = oEvent.getSource().getBindingContext("oWCModel").getObject();
 					if (oStation.EFLAG === "X") {
@@ -155,14 +163,12 @@ sap.ui.define([
 							stnmid: oStation.STNMID
 						});
 					}
-				}
+				}*/
 			} catch (e) {
 				Log.error("Exception in WeaponConfig:onStationPress function");
 				this.handleException(e);
 			}
 		},
-		
-		
 
 		fnLoadStation: function() {
 			try {

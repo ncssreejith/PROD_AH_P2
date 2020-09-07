@@ -77,8 +77,6 @@ sap.ui.define([
 				this.getModel("oReplModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
 				this.getModel("oReplModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
 				this.getModel("oReplModel").setProperty("/srv", []);
-				var oReplModel = this.getView().getModel("oReplModel");
-				oReplModel.setProperty("/sPageTitle", oEvent.getParameter("arguments").srvtid.split("_")[1]);
 				this.getModel("oReplModel").refresh();
 				this._getRepTiles();
 			} catch (e) {
