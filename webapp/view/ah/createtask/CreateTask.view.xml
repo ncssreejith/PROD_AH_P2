@@ -36,12 +36,25 @@
 									<Button text="Delete" press="onDeleteTaskPress" type="Reject"/>
 									<Button text="Edit" press="onEditTaskPress"/>
 								</Toolbar>
-								<VBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom">
-									<HBox>
-										<Label design="Bold" text="Task Type"/>
-									</HBox>
-									<Input editable="false" value="{oCreateTaskModel>sTaskTypeText}" width="350px"/>
-								</VBox>
+								<HBox>
+									<VBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom">
+										<HBox>
+											<Label design="Bold" text="Task Type"/>
+										</HBox>
+										<Input editable="false" value="{oCreateTaskModel>sTaskTypeText}" width="350px"/>
+									</VBox>
+									<VBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom" visible="{oCreateTaskModel>/bType}">
+										<Label text="Request Type" design="Bold"/>
+										<SegmentedButton id="SBTaskId" enabled="false" class="sapUiSmallMarginBottom" selectionChange="onSelectionTaskTypeChange"
+											selectedKey="{oCreateTaskModel>sEngFlag}">
+											<items>
+												<SegmentedButtonItem key="NA" visible="false"/>
+												<SegmentedButtonItem text="Engine" key="EG" width="6rem"/>
+												<SegmentedButtonItem text="Non-Engine" key="NE" width="6rem"/>
+											</items>
+										</SegmentedButton>
+									</VBox>
+								</HBox>
 								<VBox visible="{oCreateTaskModel>bRemovalInstall}">
 									<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom">
 										<VBox>
@@ -53,17 +66,6 @@
 										<VBox class="sapUiLargeMarginBegin" visible="{oCreateTaskModel>bTechOrderRef}">
 											<Label design="Bold" text="Technical Order/ Reference"/>
 											<Input editable="false" value="{oCreateTaskModel>sTechOrderRef}" width="330px"/>
-										</VBox>
-										<VBox class="sapUiTinyMarginBegin" visible="{oCreateTaskModel>/bType}">
-											<Label text="Request Type" design="Bold"/>
-											<SegmentedButton id="SBTaskId" enabled="false" class="sapUiSmallMarginBottom" selectionChange="onSelectionTaskTypeChange"
-												selectedKey="{oCreateTaskModel>sEngFlag}">
-												<items>
-													<SegmentedButtonItem key="NA" visible="false"/>
-													<SegmentedButtonItem text="Engine" key="EG" width="6rem"/>
-													<SegmentedButtonItem text="Non-Engine" key="NE" width="6rem"/>
-												</items>
-											</SegmentedButton>
 										</VBox>
 									</HBox>
 									<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom" visible="{oCreateTaskModel>bType}">
@@ -199,7 +201,7 @@
 							</CustomListItem>
 						</List>
 						<VBox class="bgColorWhite sapUiSmallMargin sapUiLargeMarginBegin">
-							<Button icon="sap-icon://sys-add" text="Add Task" width="844px" class="sapUiTinyMargin addTaskBtn" press="onAddTaskPress"/>
+							<Button icon="sap-icon://sys-add" text="Add Task" width="785px" class="sapUiTinyMargin addTaskBtn" press="onAddTaskPress"/>
 						</VBox>
 					</VBox>
 				</HBox>
