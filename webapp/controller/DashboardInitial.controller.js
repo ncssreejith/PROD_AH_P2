@@ -268,7 +268,7 @@ sap.ui.define([
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TDAY));
 						break;
 					case "TAC":
-						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC ? oItem.LV_TTAC : 0, ""), (oItem.LV_TTAC ? oItem.LV_TTAC : 0),
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC ? oItem.LV_TTAC : 0), "", (oItem.LV_TTAC ? oItem.LV_TTAC : 0),
 							oItem.LV_TAC);
 						if (oItem.LV_TAC > 0) {
 							oItem.LV_COLOR = "Critical";
@@ -941,7 +941,9 @@ sap.ui.define([
 				// var aircraftMicroChartId = "#" + this.getView().byId("aircraftMicroChartId").sId + " > div > div > div";
 				// var FueltMicroChartId = "#" + this.getView().byId("FueltMicroChartId").sId + " > div > div > div";
 				window.setTimeout(function() {
-					document.querySelector(scheduleMicroChartId).textContent = sText1 + "\n" + sText2;
+					var sT1 = sText1 ? sText1 : "0";
+					// var sT2 = sText2 ? sText2 : "0";
+					document.querySelector(scheduleMicroChartId).textContent = sT1 + "\n" + sText2;
 					// document.querySelector(scheduleMicroChartId).textContent = "2 \n ADDs";
 					// document.querySelector(FueltMicroChartId).textContent = "2500 \n /2500 lbs";
 				}.bind(this, scheduleMicroChartId), 10);
