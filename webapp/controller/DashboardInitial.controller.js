@@ -89,7 +89,7 @@ sap.ui.define([
 		onWarningMessageSelect: function(oEvent) {
 			try {
 				var oButton = oEvent.getSource(),
-				oDialogModel = dataUtil.createNewJsonModel();
+					oDialogModel = dataUtil.createNewJsonModel();
 
 				if (!this._oPopover) {
 					sap.ui.core.Fragment.load({
@@ -99,7 +99,7 @@ sap.ui.define([
 						this._oPopover = oPopover;
 						this.getView().addDependent(this._oPopover);
 						this._oPopover.setModel(oDialogModel, "ToolTipModel");
-						this._oPopover.getModel("ToolTipModel").setProperty("/Text",oButton.getText());
+						this._oPopover.getModel("ToolTipModel").setProperty("/Text", oButton.getText());
 						this._oPopover.openBy(oButton);
 					}.bind(this));
 				} else {
@@ -120,7 +120,7 @@ sap.ui.define([
 						this.getRouter().navTo("DispatchAircraft");
 						break;
 					case "AST_ARM":
-					case "AST_DEA":
+					case "AST_DEA1":
 					case "AST_FS":
 						this.getRouter().navTo("UpdateFlightServicing", {
 							srvid: sSrvtId
@@ -168,6 +168,7 @@ sap.ui.define([
 						}
 						break;
 					case "AST_FAIR0":
+
 						if (aRenderSafePopup === "X") {
 							this.getRouter().navTo("WeaponExpenditure", {
 								srvtid: sSrvtId,
@@ -177,10 +178,16 @@ sap.ui.define([
 							this._renderSafeNF();
 						}
 						break;
+					case "AST_DEA":
+						this.getRouter().navTo("WeaponExpenditure", {
+							srvtid: sSrvtId,
+							stepid: "S_WE"
+						});
+						break;
 					case "AST_S1":
 					case "AST_US1":
 					case "AST_FAIR1":
-					case "AST_RECT1":	
+					case "AST_RECT1":
 						this.getRouter().navTo("AddEngCyclicLog", {
 							engid: this.getModel("avmetModel").getProperty("/Engine/ENGID"),
 							tailid: this.getTailId(),
