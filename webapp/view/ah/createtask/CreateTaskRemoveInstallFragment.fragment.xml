@@ -16,7 +16,7 @@
 				<Label design="Bold" text="Technical Order/ Reference"/>
 				<Input width="250px" value="{oCreateTaskModel>/sTechOrderRef}"/>
 			</VBox>
-			<VBox class="sapUiLargeMarginBegin" visible="{oCreateTaskModel>/bType}">
+			<VBox class="sapUiLargeMarginBegin" visible="{oCreateTaskModel>/bEngFlag}">
 				<Label text="Request Type" design="Bold"/>
 				<SegmentedButton id="SBTaskId" class="sapUiSmallMarginBottom" selectionChange="onSelectionTaskTypeChange"
 					selectedKey="{oCreateTaskModel>/sEngFlag}">

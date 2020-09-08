@@ -12,7 +12,7 @@
 								</layoutData>
 							</VBox>
 							<VBox>
-								<Text text="{TaskModel>tdesc}"/>
+								<Text text="{TaskModel>tdesc}" wrapping="true"/>
 								<layoutData>
 									<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 								</layoutData>
@@ -71,7 +71,7 @@
 											<!--OPS-->
 											<VBox visible="{= ${TaskModel>CPRID}===null ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
-												<ComboBox width="330px" change="onTypeChangeOPS" selectedKey="TT1_11" items="{path:'FollowOPSModel>/',templateShareable: false}">
+												<ComboBox width="330px" change="onTypeChangeOPS" selectedKey="{TaskModel>tt1id}" items="{path:'FollowOPSModel>/',templateShareable: false}">
 													<core:Item text="{FollowOPSModel>text}" key="{FollowOPSModel>key}"/>
 												</ComboBox>
 											</VBox>
@@ -94,7 +94,8 @@
 											<!--Other-->
 											<VBox visible="{= ${TaskModel>CPRID}===null ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
-												<ComboBox width="330px" change="onTypeChangeOther" selectedKey="TT1_14" items="{path:'FollowOtherModel>/',templateShareable: false}">
+												<ComboBox width="330px" change="onTypeChangeOther" selectedKey="{TaskModel>tt1id}"
+													items="{path:'FollowOtherModel>/',templateShareable: false}">
 													<core:Item text="{FollowOtherModel>text}" key="{FollowOtherModel>key}"/>
 												</ComboBox>
 											</VBox>
@@ -127,7 +128,7 @@
 													<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('TOOLQUAN',$event)" class="sapUiTinyMarginBegin" size="12px"
 														color="#031E48"/>
 												</HBox>
-												<StepInput width="200px" value="{TaskModel>TOOLQTY}"
+												<StepInput width="200px" value="{TaskModel>TOOLQTY}" min="0"
 													required="{parts:['TaskModel>tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}"
 													fieldGroupIds="fgStepInput"/>
 											</VBox>
@@ -137,7 +138,7 @@
 													<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PUBQUAN',$event)" class="sapUiTinyMarginBegin" size="12px"
 														color="#031E48"/>
 												</HBox>
-												<StepInput width="200px" value="{TaskModel>PUBLCQTY}"
+												<StepInput width="200px" value="{TaskModel>PUBLCQTY}" min="0"
 													required="{parts:['TaskModel>tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}"
 													fieldGroupIds="fgStepInput"/>
 											</VBox>
@@ -153,8 +154,7 @@
 													<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PARTNO',$event)" class="sapUiTinyMarginBegin" size="12px"
 														color="#031E48"/>
 													<Text width="12rem"/>
-													<Text text="For Engine Only" class="optionalTxtMargin"
-														 visible="{= ${TaskModel>engflag}==='EG'? true:false}" />
+													<Text text="For Engine Only" class="optionalTxtMargin" visible="{= ${TaskModel>engflag}==='EG'? true:false}"/>
 												</HBox>
 												<HBox>
 													<ComboBox width="150px" change="onTypeChange" selectedKey="{TaskModel>ismat}" items="{path:'TT2Model>/',templateShareable: false}">

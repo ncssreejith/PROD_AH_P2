@@ -1722,3 +1722,7 @@ Description :
 	    overflow : auto;
 	    height : auto !important;
 }
+
+.textOverFlow .sapMFlexItemAlignAuto.sapMFlexBoxBGTransparent.sapMFlexItem {
+	overflow :auto !important;
+}

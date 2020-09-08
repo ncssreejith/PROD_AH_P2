@@ -62,8 +62,12 @@
 						<Avatar initials="E" displaySize="XS" class="avatarIconJob" backgroundColor="Accent5"
 							visible="{= ${JobModelAIR>SCONFLAG}==='E' ? true:false}"/>
 						<Text text="{JobModelAIR>DUEIN}" class="sapUiTinyMarginBegin"/>
-						<Text text="{JobModelAIR>UM}"/>
-						<Text text="{path:'JobModelAIR>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}{JobModelAIR>SERVDUE}"/>
+						<HBox>
+							<Text text="{JobModelAIR>UM}"/>
+							<Text text="{path:'JobModelAIR>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}"
+								visible="{= ${JobModelAIR>SERVDT}!=='' || ${JobModelAIR>SERVDT}!==null ? true:false}"/>
+							<Text text="{JobModelAIR>SERVDUE}" visible="{= ${JobModelAIR>SERVDT}==='' || ${JobModelAIR>SERVDT}===null ? true:false}"/>
+						</HBox>
 						<Text text="{JobModelAIR>JOBDESC}"/>
 						<Text text="{JobModelAIR>CTYPE}"/>
 						<Text text="{JobModelAIR>WRCTR}"/>

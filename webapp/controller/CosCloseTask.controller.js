@@ -41,6 +41,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		onRefresh: function() {
+			var oViewModel = this.getView().getModel("ViewModel");
+			this._fnTasksGet(oViewModel.getProperty("/TaskId"));
+		},
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
@@ -483,7 +487,7 @@ sap.ui.define([
 					this._fnCreateLimitation(oObject);
 					this._oAddLim.open(this);
 				} else {
-					MessageBox.error("You have unsaved changes, data will be lost.\n Do you want to save?", {
+					MessageBox.warning("You have unsaved changes, data will be lost.\n Do you want to save?", {
 						actions: [MessageBox.Action.YES, MessageBox.Action.NO],
 						emphasizedAction: "Manage Products",
 						onClose: function(sAction) {
@@ -547,7 +551,7 @@ sap.ui.define([
 					this._fnCreateLimitation(oObject);
 					this._oAddADD.open(this);
 				} else {
-					MessageBox.error("You have unsaved changes, data will be lost.\n Do you want to save?", {
+					MessageBox.warning("You have unsaved changes, data will be lost.\n Do you want to save?", {
 						actions: [MessageBox.Action.YES, MessageBox.Action.NO],
 						emphasizedAction: "Manage Products",
 						onClose: function(sAction) {
@@ -824,7 +828,7 @@ sap.ui.define([
 			try {
 				var oSelectedKey = oEvent.getSource().getSelectedKey(),
 					oModel = this.getView().getModel("ViewModel");
-				oModel.setProperty("/bLiveChnage", false);
+				/*	oModel.setProperty("/bLiveChnage", false);*/
 				oModel.setProperty("/bAddADDOther", oSelectedKey);
 				if (oSelectedKey === "TT1_ADD") {
 					this.onAddADDDialog(oEvent);
