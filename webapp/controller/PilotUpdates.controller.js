@@ -491,7 +491,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(oData) {
 					var oArming = oData.results.length > 0 ? oData.results[0] : null;
 					if (!oArming) {
@@ -520,7 +520,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(oData) {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/toper", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
@@ -540,7 +540,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(oData) {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/amResult", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
@@ -560,7 +560,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(oData) {
 					oData.results = this.fnSortEngine(oData.results);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/engines", oData.results);
@@ -585,7 +585,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(oData) {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/flyResult", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
@@ -605,7 +605,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(oData) {
 					this._fnMakeAllPass(oData,"PILOT_P");
 					this.getModel("oPilotUpdatesViewModel").setProperty("/airMon", oData.results);
@@ -626,7 +626,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(oData) {
 					this._fnMakeAllPass(oData,"FRR_P");
 					this.getModel("oPilotUpdatesViewModel").setProperty("/flyReq", oData.results);
@@ -646,7 +646,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(oData) {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/ADDAndLIMIT", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("oPilotUpdatesViewModel").refresh();
@@ -667,7 +667,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(oData) {
 					var oTanks = this.getModel("oPilotUpdatesViewModel").getProperty("/fuleTanks");
 					var tTotal = oTanks.concat(oData.results);
