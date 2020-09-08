@@ -84,7 +84,7 @@
 													<Label wrapping="true" width="9rem" text="Period of trial" design="Bold"></Label>
 													<!--dateValue="{trialModel>pddval1}"-->
 													<Text text="{trialModel>pddval1}  ({trialModel>JDUIDD})" visible="{= ${trialModel>JDUID} !== 'JDU_10'}"/>
-													<Text text="{trialModel>pddval2}  ({trialModel>JDUIDD})" visible="{= ${trialModel>JDUID} === 'JDU_10'}"/>
+													<Text text="{path:'trialModel>pddval2', formatter:'.formatter.defaultDateFormatDisplay'}  ({trialModel>JDUIDD})" visible="{= ${trialModel>JDUID} === 'JDU_10'}"/>
 													<layoutData>
 														<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 													</layoutData>

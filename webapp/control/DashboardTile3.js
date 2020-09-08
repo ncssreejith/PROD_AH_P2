@@ -34,6 +34,10 @@ sap.ui.define([
 				leftSubHeading: {
 					type: "string",
 					defaultValue: ""
+				},
+				fontColor: {
+					type: "sap.ui.core.CSSColor",
+					defaultValue: "green"
 				}
 			},
 			aggregations: {
@@ -106,7 +110,13 @@ sap.ui.define([
 				oRM.write("<div class='DBTile3Left'>");
 					oRM.write("<div class='DBTile3LeftTitleDiv'>");
 						oRM.write("<div class='DBTile3LeftInfo'>");
-							oRM.write("<div class='DBTile3LeftInfoNum'>");
+							oRM.write("<div");
+			oRM.writeControlData(oControl);
+			oRM.addClass("DBTile3LeftInfoNum");
+			oRM.addStyle("color", oControl.getFontColor());
+			oRM.writeStyles();
+			oRM.writeClasses();
+			oRM.write(">");
 								oRM.write(oControl.getLeftNumeric());
 							oRM.write("</div>");
 							oRM.write("<div class='DBTile3LeftInfoHeading'>");
