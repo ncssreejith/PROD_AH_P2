@@ -228,7 +228,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this);
 				if (oData.length > 0) {
-					ajaxutil.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_C", this);
+					ajaxutil.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
 				} else {
 					sap.m.MessageToast.show("No table are changed");
 				}
