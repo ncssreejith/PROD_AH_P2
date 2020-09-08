@@ -1,5 +1,5 @@
 <mvc:View controllerName="avmet.ah.controller.CosAddFlyingRequirements" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-	xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:u="sap.ui.unified">
+	xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
 	<Page showHeader="false" showNavButton="false" >
 		<Toolbar height="4rem" class="backgroundWhite">
 			<Button icon="sap-icon://arrow-left" type="Transparent" class="iconColorWhite sapUiMediumMarginBegin" press="onNavBack"></Button>
@@ -30,7 +30,10 @@
 						<List mode="Delete" items="{path: 'FlyingRequirementsModel>/FlyingRequirements'}" delete="onDeletePress">
 							<CustomListItem class="sapUiSmallMargin">
 								<VBox class="sapUiSmallMargin">
+									<HBox>
 									<Label text="{i18n>lbFlyingRequirement}" design="Bold"/>
+									<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('FR',$event)"  size="12px" color="#031E48"/>
+									</HBox>
 									<TextArea id="taComment" required="true" fieldGroupIds="fgTxtArea" width="100%" value="{FlyingRequirementsModel>FRDESC}" class="sapUiTinyMarginBegin" growing="true" growingMaxLines="7"
 										valueStateText="{i18n>ERROR_GENERIC}" change="onCommentBySupervisor" maxLength="500" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"/>
 								</VBox>

@@ -1,5 +1,5 @@
-<mvc:View controllerName="avmet.ah.controller.CosAddTMDE" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+<mvc:View controllerName="avmet.ah.controller.CosAddTMDE" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m">
 	<Page showHeader="false">
 		<Toolbar height="4rem" class="backgroundWhite">
 			<Button icon="sap-icon://arrow-left" type="Transparent" class="iconColorWhite sapUiMediumMarginBegin" press="onNavBack"></Button>
@@ -10,14 +10,20 @@
 				<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
 					<HBox >
 						<VBox class="sapUiSmallMargin">
-							<Label text="Part No."/>
+							<HBox>
+								<Label text="Part No."/>
+								<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('PARTNO',$event)"/>
+							</HBox>
 							<Input id="ipPartNo" value="{ViewModel>/PartNo}" required="true" valueStateText="{i18n>ERROR_GENERIC}" fieldGroupIds="fgInput"></Input>
 							<layoutData>
 								<l:GridData linebreak="true" span="XL3 L3 M6 S12"/>
 							</layoutData>
 						</VBox>
 						<VBox class="sapUiSmallMargin">
-							<Label text="Serial No."/>
+							<HBox>
+								<Label text="Serial No."/>
+								<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('SERIALNO',$event)"/>
+							</HBox>
 							<Input id="ipSerialNo" value="{ViewModel>/SerialNo}" required="true" valueStateText="{i18n>ERROR_GENERIC}" fieldGroupIds="fgInput"></Input>
 							<layoutData>
 								<l:GridData span="XL3 L3 M12 S12"/>
@@ -76,8 +82,8 @@
 							</ColumnListItem>
 						</items>
 					</Table>
-					<Button visible="{ViewModel>/TMDETableFlag}" class="sapUiLargeMarginBottom sapUiLargeMarginBegin tmdeIcon btnColor" icon="sap-icon://sys-add"
-						press="addNewTMDE" type="Default" text="Add" width="65rem"></Button>
+					<Button visible="{ViewModel>/TMDETableFlag}" class="sapUiLargeMarginBottom sapUiLargeMarginBegin tmdeIcon btnColor"
+						icon="sap-icon://sys-add" press="addNewTMDE" type="Default" text="Add" width="65rem"></Button>
 				</VBox>
 			</VBox>
 		</content>

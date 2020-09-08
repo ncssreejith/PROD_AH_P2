@@ -159,7 +159,9 @@
 											</ComboBox>
 											<HBox id="ipServdue" class="sapUiTinyMarginBegin">
 												<StepInput min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}"
-													visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' ? true:false}"/>
+													visible="{= ((${JobCreateModel>/UMKEY}!=='JDU_10') &amp;&amp; (${JobCreateModel>/UMKEY}!=='JDU_11')) ? true:false}"/>
+												<StepInput min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}"
+													displayValuePrecision="1" visible="{=${JobCreateModel>/UMKEY} === 'JDU_11' ? true:false}"/>
 											</HBox>
 											<DatePicker id="dpServdt" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
 												value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
@@ -184,7 +186,9 @@
 											</ComboBox>
 											<HBox id="ipServdueTR" class="sapUiTinyMarginBegin">
 												<StepInput min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/TRAILKVAL}"
-													visible="{=${JobModel>/TRAILKEY}!=='JDU_10' ? true:false}"/>
+													visible="{= ((${JobModel>/TRAILKEY}!=='JDU_10') &amp;&amp; (${JobModel>/TRAILKEY}!=='JDU_11')) ? true:false}"/>
+												<StepInput min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/TRAILKVAL}"
+													displayValuePrecision="1"  visible="{=${JobModel>/TRAILKEY}==='JDU_11' ? true:false}"/>
 											</HBox>
 											<DatePicker id="dpServdtTR" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobModel>/TRAILKEY}==='JDU_10' ? true:false}"
 												value="{path: 'JobModel>/TRAILKDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"

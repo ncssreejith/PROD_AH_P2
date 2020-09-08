@@ -10,7 +10,10 @@
 				<VBox class="sapUiSmallMargin">
 					<l:Grid hSpacing="2" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
 						<VBox>
-							<Label text="Work Center" design="Bold"/>
+							<HBox>
+								<Label text="Work Center" design="Bold"/>
+								<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('WRKCTR',$event)"/>
+							</HBox>
 							<ComboBox id="cbSpareId" required="true" fieldGroupIds="fgCmbBox" valueStateText="{i18n>ERROR_GENERIC}" width="100%"
 								selectedKey="{NewSpareModel>/workCenterSpares}" selectionChange="onWorkCenterChange">
 								<core:Item key="AEMF" text="AEMF"/>
@@ -45,7 +48,10 @@
 							</layoutData>
 						</VBox>
 						<VBox>
-							<Label text="Unloading Point" design="Bold"/>
+							<HBox>
+								<Label text="Unloading Point" design="Bold"/>
+								<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('LOADPT',$event)"/>
+							</HBox>
 							<Input id="ipUnloadPoId" value="{NewSpareModel>/unloadingptSpare}" required="true" valueStateText="{i18n>ERROR_GENERIC}"
 								fieldGroupIds="fgInput"/>
 							<layoutData>
@@ -91,8 +97,8 @@
 						</ColumnListItem>
 					</items>
 				</Table>
-				<Button class="sapUiLargeMarginBottom sapUiLargeMarginBegin IconSpares btnColor" icon="sap-icon://sys-add" press="addNewSpares" type="Default"
-					text="Add New Spare" width="64rem"></Button>
+				<Button class="sapUiLargeMarginBottom sapUiLargeMarginBegin IconSpares btnColor" icon="sap-icon://sys-add" press="addNewSpares"
+					type="Default" text="Add New Spare" width="64rem"></Button>
 			</VBox>
 		</content>
 		<footer>

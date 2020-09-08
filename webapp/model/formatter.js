@@ -576,8 +576,8 @@ sap.ui.define([
 				return "";
 			}
 			var sCurrentDate = new Date();
-			sDiff = Math.abs(sCurrentDate - new Date(sDate+" "+sTime)) / 36e5;
-			return parseFloat(sDiff).toFixed(2);// + " hrs";
+			sDiff = Math.abs(sCurrentDate - new Date(sDate + " " + sTime)) / 36e5;
+			return parseFloat(sDiff).toFixed(2); // + " hrs";
 		},
 		FuelMCState1: function(sValue, iMax) {
 			// if(this.getId() && document.querySelector("#"+this.getId()+" > div > div > div")){
@@ -762,6 +762,8 @@ sap.ui.define([
 					this.addStyleClass("yellowbtn");
 					break;
 				case "AST_RECT":
+				case "AST_RECT1":
+				case "AST_RECT2":
 				case "AST_FAIR":
 				case "AST_FAIR0":
 				case "AST_FAIR1":
@@ -1254,7 +1256,7 @@ sap.ui.define([
 			var bEditable = true;
 			var oRow = this.getBindingContext("oWDNSDataModel").getObject();
 			// iColId === oRow.COL_15 &&
-			if( oRow.COL_12 === "GUN DH"){
+			if (oRow.COL_12 === "GUN DH") {
 				bEditable = false;
 			}
 			return bEditable;

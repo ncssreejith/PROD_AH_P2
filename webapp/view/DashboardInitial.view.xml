@@ -67,7 +67,7 @@
 				<HBox>
 					<VBox>
 						<HBox>
-							<ct:DashboardTile3 select="onViewClick" class="sapUiTinyMargin" title="Schedules" leftNumeric="{dashboardModel>/scl/LV_COUNT}"
+							<ct:DashboardTile3 select="onViewClick" fontColor="black" class="sapUiTinyMargin" title="Schedules" leftNumeric="{dashboardModel>/scl/LV_COUNT}"
                                 leftHeading="Jobs Due Soon" leftSubHeading="(5 Days or 10h)" buttonText="View">
                                 <mc:RadialMicroChart id="scheduleMicroChartId" size="L"
                                     valueColor="{path : 'dashboardModel>/scl/LV_COLOR'}" press="press" class="customChartFont"></mc:RadialMicroChart>
@@ -97,7 +97,7 @@
 						</HBox>
 						<HBox>
 							<ct:DashboardTile3 id="dbTileFuel" select="onViewClick" class="sapUiTinyMargin" title="Fuel" leftNumeric="{dashboardModel>/fl/TOTAT}" leftHeading="Total Amount"
-								leftSubHeading="{dashboardModel>/fl/LEUOM}">
+								leftSubHeading="{dashboardModel>/fl/LEUOM}" fontColor="{dashboardModel>/fl/COLOR}">
 								<mc:RadialMicroChart
 								id="fuelMicroChartId"
 								size="L"

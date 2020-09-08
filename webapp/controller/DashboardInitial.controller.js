@@ -89,7 +89,7 @@ sap.ui.define([
 		onWarningMessageSelect: function(oEvent) {
 			try {
 				var oButton = oEvent.getSource(),
-				oDialogModel = dataUtil.createNewJsonModel();
+					oDialogModel = dataUtil.createNewJsonModel();
 
 				if (!this._oPopover) {
 					sap.ui.core.Fragment.load({
@@ -99,7 +99,7 @@ sap.ui.define([
 						this._oPopover = oPopover;
 						this.getView().addDependent(this._oPopover);
 						this._oPopover.setModel(oDialogModel, "ToolTipModel");
-						this._oPopover.getModel("ToolTipModel").setProperty("/Text",oButton.getText());
+						this._oPopover.getModel("ToolTipModel").setProperty("/Text", oButton.getText());
 						this._oPopover.openBy(oButton);
 					}.bind(this));
 				} else {
@@ -120,7 +120,7 @@ sap.ui.define([
 						this.getRouter().navTo("DispatchAircraft");
 						break;
 					case "AST_ARM":
-					case "AST_DEA":
+					case "AST_DEA1":
 					case "AST_FS":
 						this.getRouter().navTo("UpdateFlightServicing", {
 							srvid: sSrvtId
@@ -168,6 +168,7 @@ sap.ui.define([
 						}
 						break;
 					case "AST_FAIR0":
+
 						if (aRenderSafePopup === "X") {
 							this.getRouter().navTo("WeaponExpenditure", {
 								srvtid: sSrvtId,
@@ -177,9 +178,16 @@ sap.ui.define([
 							this._renderSafeNF();
 						}
 						break;
+					case "AST_DEA":
+						this.getRouter().navTo("WeaponExpenditure", {
+							srvtid: sSrvtId,
+							stepid: "S_WE"
+						});
+						break;
 					case "AST_S1":
 					case "AST_US1":
 					case "AST_FAIR1":
+					case "AST_RECT1":
 						this.getRouter().navTo("AddEngCyclicLog", {
 							engid: this.getModel("avmetModel").getProperty("/Engine/ENGID"),
 							tailid: this.getTailId(),
@@ -190,6 +198,7 @@ sap.ui.define([
 					case "AST_S2":
 					case "AST_US2":
 					case "AST_FAIR2":
+					case "AST_RECT2":
 						this.getRouter().navTo("AircraftUtilisation");
 				}
 			} catch (e) {
@@ -259,7 +268,7 @@ sap.ui.define([
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TDAY));
 						break;
 					case "TAC":
-						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC ? oItem.LV_TTAC : 0, ""), (oItem.LV_TTAC ? oItem.LV_TTAC : 0),
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC ? oItem.LV_TTAC : 0), "", (oItem.LV_TTAC ? oItem.LV_TTAC : 0),
 							oItem.LV_TAC);
 						if (oItem.LV_TAC > 0) {
 							oItem.LV_COLOR = "Critical";
@@ -932,7 +941,9 @@ sap.ui.define([
 				// var aircraftMicroChartId = "#" + this.getView().byId("aircraftMicroChartId").sId + " > div > div > div";
 				// var FueltMicroChartId = "#" + this.getView().byId("FueltMicroChartId").sId + " > div > div > div";
 				window.setTimeout(function() {
-					document.querySelector(scheduleMicroChartId).textContent = sText1 + "\n" + sText2;
+					var sT1 = sText1 ? sText1 : "0";
+					// var sT2 = sText2 ? sText2 : "0";
+					document.querySelector(scheduleMicroChartId).textContent = sT1 + "\n" + sText2;
 					// document.querySelector(scheduleMicroChartId).textContent = "2 \n ADDs";
 					// document.querySelector(FueltMicroChartId).textContent = "2500 \n /2500 lbs";
 				}.bind(this, scheduleMicroChartId), 10);

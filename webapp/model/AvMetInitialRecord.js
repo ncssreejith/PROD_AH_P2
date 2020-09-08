@@ -133,7 +133,7 @@ sap.ui.define([
 						'srvtid': null,
 						'stepid': null,
 						'ftrsltgd': null,
-						'engflag':null
+						'engflag': null
 
 					};
 					oArray.push(oTask);
@@ -226,6 +226,9 @@ sap.ui.define([
 						"id": "SORT",
 						"TTi18N": "ttSortMon"
 					}, {
+						"id": "RI",
+						"TTi18N": "ttResImp"
+					}, {
 						"id": "TRM",
 						"TTi18N": "ttTrialMod"
 					}, {
@@ -282,6 +285,12 @@ sap.ui.define([
 					}, {
 						"id": "PUBQUAN",
 						"TTi18N": "ttpubquan"
+					}, {
+						"id": "WRKCTR",
+						"TTi18N": "ttWorkCenter"
+					}, {
+						"id": "LOADPT",
+						"TTi18N": "ttLoadingPoint"
 					}];
 					oArray.push(ToolTip);
 					break;
