@@ -607,6 +607,7 @@ sap.ui.define([
 					}, "viewModel");
 				};
 				oParameter.success = function(oData) {
+					this._fnMakeAllPass(oData,"PILOT_P");
 					this.getModel("oPilotUpdatesViewModel").setProperty("/airMon", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
@@ -627,6 +628,7 @@ sap.ui.define([
 					}, "viewModel");
 				};
 				oParameter.success = function(oData) {
+					this._fnMakeAllPass(oData,"FRR_P");
 					this.getModel("oPilotUpdatesViewModel").setProperty("/flyReq", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
@@ -714,6 +716,11 @@ sap.ui.define([
 				sEngine = oData;
 			}
 			return sEngine;
+		},
+		_fnMakeAllPass:function(oData,sStat){
+			oData.results.forEach(function(oItem){
+				oItem.frrid = sStat;                      
+			});
 		},
 		_fnCreateData: function() {
 			try {
