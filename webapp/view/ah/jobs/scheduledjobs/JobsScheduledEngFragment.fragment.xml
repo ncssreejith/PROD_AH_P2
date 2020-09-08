@@ -62,7 +62,11 @@
 							visible="{= ${JobModelENG>SCONFLAG}==='E' ? true:false}"/>
 						<Text text="{JobModelENG>DUEIN}" class="sapUiTinyMarginBegin"/>
 						<Text text="{JobModelENG>UM}"/>
-						<Text text="{path:'JobModelENG>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}{JobModelENG>SERVDUE}"/>
+						<HBox>
+							<Text text="{path:'JobModelENG>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}"
+								visible="{= ${JobModelENG>SERVDT}!=='' || ${JobModelENG>SERVDT}!==null ? true:false}"/>
+							<Text text="{JobModelENG>SERVDUE}" visible="{= ${JobModelENG>SERVDT}==='' || ${JobModelENG>SERVDT}===null ? true:false}"/>
+						</HBox>
 						<Text text="{JobModelENG>JOBDESC}"/>
 						<Text text="{JobModelENG>CTYPE}"/>
 						<Text text="{JobModelENG>WRCTR}"/>
