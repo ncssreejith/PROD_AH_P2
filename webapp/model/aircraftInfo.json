@@ -58,7 +58,7 @@
 		"key": "DUEIN",
 		"text": "Due In",
 		"type": "OutPhase",
-		"filter": "Contains"
+		"filter": "EQ"
 	}, {
 		"key": "UM",
 		"text": "Um",
@@ -68,7 +68,7 @@
 		"key": "SERVDUE",
 		"text": "Servicing Due",
 		"type": "OutPhase",
-		"filter": "Contains"
+		"filter": "EQ"
 	}, {
 		"key": "JOBDESC",
 		"text": "Job Description",
