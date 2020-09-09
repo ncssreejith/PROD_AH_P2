@@ -1726,3 +1726,7 @@ Description :
 .textOverFlow .sapMFlexItemAlignAuto.sapMFlexBoxBGTransparent.sapMFlexItem {
 	overflow :auto !important;
 }
+
+.fontSizeSmall .sapMSegBBtnInner {
+	font-size: 0.725rem !important;
+}
