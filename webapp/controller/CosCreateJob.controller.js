@@ -983,6 +983,9 @@ sap.ui.define([
 						} else {
 							oViewModel.setProperty("/DefectImageSrc", []);
 						}
+						if (oData.results[0].prime !== "" || oData.results[0].prime !== null) {
+							that._fnTaskStatusGet(sJobId, oData.results[0].prime);
+						}
 
 						oModel.setData(oData.results[0]);
 						oModel.updateBindings(true);
@@ -993,6 +996,34 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDetailsGet function");
 				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnTaskStatusGet
+		// Parameter: sJobId
+		// Description: This will get called, when to get Outstanding and Pending Supervisor tasks count.
+		//Table: TASK
+		//------------------------------------------------------------------
+		_fnTaskStatusGet: function(sJobId, sPrime) {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("appModel"),
+					oPrmTaskDue = {};
+				oPrmTaskDue.filter = "JOBID eq " + sJobId + " and wrctr eq " + sPrime;
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData.results[0].COUNT !== "0") {
+						oModel.setProperty("/PrimeStatus", false);
+						oModel.updateBindings(true);
+					} else {
+						oModel.setProperty("/PrimeStatus", true);
+						oModel.updateBindings(true);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/GetJobTaskstatSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnTaskStatusGet function");
 			}
 		},
 

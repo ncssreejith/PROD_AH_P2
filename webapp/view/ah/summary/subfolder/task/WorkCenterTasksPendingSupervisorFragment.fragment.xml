@@ -28,16 +28,22 @@
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'tdesc')"/>
 						</HBox>
 					</Column>
-					<Column width="10%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 						<HBox>
-							<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftcredt')"/>
+							<Label text="Creation Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor sapUiTinyMarginTop" press="onSort($event,'ftcredt')"/>
 						</HBox>
 					</Column>
 					<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 						<HBox>
 							<Label text="{i18n>lbFollowupTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')" />
+						</HBox>
+					</Column>
+					<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<HBox>
+							<Label text="Closure Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor sapUiTinyMarginTop" press="onSort($event,'ftcredt')"/>
 						</HBox>
 					</Column>
 					<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
@@ -56,23 +62,27 @@
 				<items>
 					<ColumnListItem vAlign="Middle" type="Navigation" press="onPendingSupDetailsPress">
 						<cells>
-							<HBox>
+							<!--		<HBox>
 								<Text text="{TaskPendingModel>tdesc}"
 									visible="{= ${TaskPendingModel>tt1id}!=='TT1_15'|| ${TaskPendingModel>tt1id}!=='TT1_17' || ${TaskPendingModel>tt1id}!=='TT1_18'? true:false}"/>
 								<Text text="{TaskPendingModel>cdesc}"
 									visible="{= ${TaskPendingModel>tt1id}==='TT1_15'|| ${TaskPendingModel>tt1id}==='TT1_17' || ${TaskPendingModel>tt1id}==='TT1_18'? true:false}"/>
+							</HBox>-->
+							<HBox wrap="Wrap" class="textOverFlow">
+								<Text text="{TaskPendingModel>tdesc}" wrapping="true" visible="{= ${TaskOutModel>tt1id} !== 'TT1_12' ? true:false}"/>
+								<Text text="{TaskPendingModel>tdesc}" wrapping="true" visible="{= ${TaskOutModel>tt1id} === 'TT1_12' ? true:false}"/>
 							</HBox>
+							<VBox alignItems="Center" alignContent="Center">
+								<Text text="{path:'TaskPendingModel>credtm', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{path:'TaskPendingModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+							</VBox>
+							<Text text="{TaskPendingModel>ftdesc}"/>
 							<VBox alignItems="Center" alignContent="Center">
 								<Text text="{path:'TaskPendingModel>ftcredt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
 								<Text text="{path:'TaskPendingModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 							</VBox>
-							<Text text="{TaskPendingModel>ftdesc}"/>
 							<Text text="{TaskPendingModel>LDESC}"/>
-							<VBox alignItems="Center" alignContent="Center">
-								<Text text="{TaskPendingModel>SG1USR}"/>
-								<Text text="{path:'TaskPendingModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}"/>
-								<Text text="{path:'TaskPendingModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-							</VBox>
+							<Text text="{TaskPendingModel>SG1USR}"/>
 						</cells>
 					</ColumnListItem>
 				</items>

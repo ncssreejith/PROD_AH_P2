@@ -722,7 +722,7 @@ sap.ui.define([
 					oModel = "";
 				}
 				oPayload = this.getView().getModel("SummaryModel").getData();
-				oPayload.SCONFLAG="E";     
+				oPayload.SCONFLAG = "E";
 				//oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
 				if (oFlag === "Y") {
 					if (oModel.DueBy === "JDU_10") {
@@ -739,6 +739,16 @@ sap.ui.define([
 				}
 				oPrmSchJob.error = function() {};
 				oPrmSchJob.success = function(oData) {
+					this.getView().getModel("RSModel").setData({
+						"DueBy": "",
+						"ExpDate": "",
+						"Util": "",
+						"UtilVal": "",
+						"ExpDateFlag": false,
+						"UtilValFlag": false,
+						"UM": ""
+
+					});
 					if (oFlag === "Y") {
 						this.getRouter().navTo("Cosjobs");
 					} else {

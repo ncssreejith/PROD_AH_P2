@@ -50,6 +50,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
@@ -568,6 +569,7 @@ sap.ui.define([
 				oTempData = AvMetInitialRecord.createInitialBlankRecord("SCHJob");
 				oJobModel.setData(oTempData[0]);
 				this.getView().setModel(oJobModel, "JobCreateModel");
+				this.getView().byId("cbWorkCenterId").setSelectedKey("");
 				this.selectedTab = "Summary";
 				that._fnJobDetailsGet(sJobId);
 				that._fnTaskStatusGet(sJobId);

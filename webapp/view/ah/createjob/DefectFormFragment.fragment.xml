@@ -59,7 +59,7 @@
 						<Label text="{i18n>lbOptional}" class="sapUiLargeMarginBegin"/>
 					</HBox>
 					<ComboBox placeholder="{i18n>phSelect}" change="onWorkCenterChange('DEF',$event)" selectedKey="{oViewCreateModel>/prime}"
-						items="{WorkCenterSet>/}">
+						items="{WorkCenterSet>/}" enabled="{appModel>/PrimeStatus}">
 						<core:Item key="{WorkCenterSet>wrctr}" text="{WorkCenterSet>name}"/>
 					</ComboBox>
 				</VBox>

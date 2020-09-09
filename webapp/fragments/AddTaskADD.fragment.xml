@@ -64,7 +64,7 @@
 					</SegmentedButton>
 				</VBox>
 			</HBox>
-			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewLimitModel>/bDateSection}">
+			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{= ${oViewLimitModel>/bDateSection} === true ? true : false}">
 				<VBox>
 					<Label design="Bold" text="Expiry Date" width="150px"/>
 					<DatePicker

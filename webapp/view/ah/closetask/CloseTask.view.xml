@@ -6,6 +6,7 @@
 				<Button icon="sap-icon://arrow-left" press="onNavBack" class="sapUiSmallMarginBegin"/>
 				<ObjectIdentifier title="{i18n>lblcloseTask}" text="{ViewModel>/JobId}" titleActive="false" class="sapUiTinyMarginBottom"/>
 				<ToolbarSpacer/>
+				<Button icon="sap-icon://refresh" press="onRefresh" text="Refresh" type="Emphasized" class="sapUiSmallMarginBegin"/>
 			</OverflowToolbar>
 		</subHeader>
 		<content>
@@ -23,7 +24,7 @@
 		</content>
 		<footer>
 			<OverflowToolbar>
-				<Button text="Save as Draft" press="onSaveAsDraft" visible="{ViewModel>/proccedBtn}" type="Emphasized"/>
+			<!--	<Button text="Save as Draft" press="onSaveAsDraft" visible="{ViewModel>/proccedBtn}" type="Emphasized"/>-->
 				<ToolbarSpacer/>
 				<Button text="Back" press="onBack" visible="{ViewModel>/backBtn}" type="Default"/>
 				<Button text="Proceed" press="onProceed" visible="{ViewModel>/proccedBtn}" type="Emphasized"/>

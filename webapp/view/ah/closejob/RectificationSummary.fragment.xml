@@ -99,7 +99,7 @@
 										<l:GridData span="XL7 L7 M10 S12" linebreak="true"/>
 									</layoutData>
 								</HBox>
-								<VBox visible="{=${JobModel>/notity}!==null? true:false}">
+								<VBox visible="{=${JobModel>/notity}==='ZD'? true:false}">
 									<HBox>
 										<VBox>
 											<Label class="sapUiTinyMargin" design="Bold" text="{i18n>lblRaiseTrialMod}"/>

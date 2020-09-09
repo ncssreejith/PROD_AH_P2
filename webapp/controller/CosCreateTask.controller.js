@@ -140,6 +140,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/sType1", "");
 				oCreateTaskModel.setProperty("/sType1Value", "");
 				oCreateTaskModel.setProperty("/sEngFlag", "NA");
+				oCreateTaskModel.setProperty("/bEngFlag", false);
 				oCreateTaskModel.setProperty("/sType2", "");
 				oCreateTaskModel.setProperty("/sType2Value", "");
 				oCreateTaskModel.setProperty("/sCompDesc", "");
@@ -183,17 +184,22 @@ sap.ui.define([
 				if (sSelectedKey === "TT2_10" || sSelectedKey === "TT2_12") {
 					oCreateTaskModel.setProperty("/bTechOrderRef", true);
 					oCreateTaskModel.setProperty("/bType", true);
-
+					if (sSelectedKey === "TT2_10") {
+						oCreateTaskModel.setProperty("/bEngFlag", true);
+					} else {
+						oCreateTaskModel.setProperty("/bEngFlag", false);
+					}
 					oCreateTaskModel.setProperty("/sType1", "Serial No. (S/N)");
 					oCreateTaskModel.setProperty("/sType2", "Part No.");
 					oCreateTaskModel.setProperty("/bCompDesc", true);
 				} else if (sSelectedKey === "TT2_11") {
 					oCreateTaskModel.setProperty("/bTechOrderRef", true);
 					oCreateTaskModel.setProperty("/bAccess", true);
+					oCreateTaskModel.setProperty("/bEngFlag", false);
 				} else if (sSelectedKey === "TT2_13" || sSelectedKey === "TT2_14") {
 					oCreateTaskModel.setProperty("/bTechOrderRef", true);
 					oCreateTaskModel.setProperty("/bType", true);
-
+					oCreateTaskModel.setProperty("/bEngFlag", false);
 					oCreateTaskModel.setProperty("/bCompDesc", true);
 					oCreateTaskModel.setProperty("/sType1", "Serial No. (S/N)");
 					oCreateTaskModel.setProperty("/sType2", "Part No.");
@@ -301,6 +307,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/bUpdateTaskBtn", false);
 				oCreateTaskModel.setProperty("/bSrComFlag", "N");
 				oCreateTaskModel.setProperty("/sEngFlag", "NA");
+				oCreateTaskModel.setProperty("/bEngFlag", false);
 				try {
 
 					if (this._oDialog !== undefined && this._oDialog.isOpen()) {
@@ -365,6 +372,7 @@ sap.ui.define([
 						sType1: "",
 						sType1Value: "",
 						sEngFlag: "",
+						bEngFlag: false,
 						sType2: "",
 						sType2Value: "",
 						sCompDesc: "",
@@ -425,6 +433,7 @@ sap.ui.define([
 					oObj.sType1 = oCreateTaskModel.getProperty("/sType1");
 					oObj.sType1Value = oCreateTaskModel.getProperty("/sType1Value");
 					oObj.sEngFlag = oCreateTaskModel.getProperty("/sEngFlag");
+					oObj.bEngFlag = oCreateTaskModel.getProperty("/bEngFlag");
 					oObj.sType2 = oCreateTaskModel.getProperty("/sType2");
 					oObj.sType2Value = oCreateTaskModel.getProperty("/sType2Value");
 					oObj.bOptionalLabel = oCreateTaskModel.getProperty("/bOptionalLabel");
@@ -616,6 +625,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty(sEditTaskPath + "/sType1", oCreateTaskModel.getProperty("/sType1"));
 				oCreateTaskModel.setProperty(sEditTaskPath + "/sType1Value", oCreateTaskModel.getProperty("/sType1Value"));
 				oCreateTaskModel.setProperty(sEditTaskPath + "/sEngFlag", oCreateTaskModel.getProperty("/sEngFlag"));
+				oCreateTaskModel.setProperty(sEditTaskPath + "/bEngFlag", oCreateTaskModel.getProperty("/bEngFlag"));
 				oCreateTaskModel.setProperty(sEditTaskPath + "/sType2", oCreateTaskModel.getProperty("/sType2"));
 				oCreateTaskModel.setProperty(sEditTaskPath + "/sType2Value", oCreateTaskModel.getProperty("/sType2Value"));
 				oCreateTaskModel.setProperty(sEditTaskPath + "/bOptionalLabel", oCreateTaskModel.getProperty("/bOptionalLabel"));
@@ -739,6 +749,7 @@ sap.ui.define([
 					} else if (aTasks[i].sOpsDesc !== "") {
 						oTempData[0].cdesc = aTasks[i].sOpsDesc;
 						oTempData[0].ftcdesc = aTasks[i].sOpsDesc;
+						oTempData[0].tdesc = aTasks[i].sOpsDesc;
 					} else if (aTasks[i].sOtherDesc !== "") {
 						oTempData[0].cdesc = aTasks[i].sOtherDesc;
 						oTempData[0].ftcdesc = aTasks[i].sOtherDesc;
@@ -835,6 +846,7 @@ sap.ui.define([
 					sType1: "1",
 					sType1Value: "",
 					sEngFlag: "NA",
+					bEngFlag: false,
 					sType2: "1",
 					sType2Value: "",
 					sCompDesc: "",
@@ -905,6 +917,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/bTechOrderRef", false);
 				oCreateTaskModel.setProperty("/bType", false);
 				oCreateTaskModel.setProperty("/sEngFlag", "NA");
+				oCreateTaskModel.setProperty("/bEngFlag", false);
 				oCreateTaskModel.setProperty("/bOptionalLabel", false);
 				oCreateTaskModel.setProperty("/bCompDesc", false);
 				oCreateTaskModel.setProperty("/bAccess", false);

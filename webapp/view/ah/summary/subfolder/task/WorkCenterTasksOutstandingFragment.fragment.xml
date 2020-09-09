@@ -46,9 +46,15 @@
 				<items>
 					<ColumnListItem vAlign="Middle" type="Navigation" press="onAllOutStandingDetailsPress">
 						<cells>
-							<HBox>
-								<Text text="{TaskOutModel>tdesc}" visible="{= ${TaskOutModel>tt1id}!=='TT1_15'|| ${TaskOutModel>tt1id}!=='TT1_17' || ${TaskOutModel>tt1id}!=='TT1_18'? true:false}"/>
-								<Text text="{TaskOutModel>cdesc}" visible="{= ${TaskOutModel>tt1id}==='TT1_15'|| ${TaskOutModel>tt1id}==='TT1_17' || ${TaskOutModel>tt1id}==='TT1_18'? true:false}"/>
+					<!--		<HBox>
+								<Text text="{TaskOutModel>tdesc}"
+									visible="{= ${TaskOutModel>tt1id}!=='TT1_15'|| ${TaskOutModel>tt1id}!=='TT1_17' || ${TaskOutModel>tt1id}!=='TT1_18'? true:false}"/>
+								<Text text="{TaskOutModel>cdesc}"
+									visible="{= ${TaskOutModel>tt1id}==='TT1_15'|| ${TaskOutModel>tt1id}==='TT1_17' || ${TaskOutModel>tt1id}==='TT1_18'? true:false}"/>
+							</HBox>-->
+							<HBox wrap="Wrap" class="textOverFlow">
+								<Text text="{TaskOutModel>tdesc}" wrapping="true" visible="{= ${TaskOutModel>tt1id} !== 'TT1_12' ? true:false}"/>
+								<Text text="{TaskOutModel>tdesc}" wrapping="true" visible="{= ${TaskOutModel>tt1id} === 'TT1_12' ? true:false}"/>
 							</HBox>
 							<!--<Text text="{TaskOutModel>ftdesc}"/>-->
 							<Text
