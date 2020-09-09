@@ -323,7 +323,6 @@ sap.ui.define([
 
 					this.getOwnerComponent().getRouter().navTo("DashboardInitial");
 				}.bind(this);
-				oPrmWBMCreate.activity = 4;
 				ajaxutil.fnCreate("/WeBalISvc", oPrmWBMCreate, oPayload);
 			} else {
 				this.getRouter().navTo("DashboardInitial");
@@ -357,7 +356,7 @@ sap.ui.define([
 			var oAutoModel = this.getView().getModel("WeightBalanceHeaderSet").getProperty("/AutoCal");
 			oAutoModel[0].MOD = "C";
 			oPayload.push(oAutoModel[0]);
-			oPrmWBMUpdate.activity = 1;
+			oPrmWBMUpdate.activity = 4;
 			ajaxutil.fnCreate("/WeBalHSvc", oPrmWBMUpdate, oPayload, "ZRM_WNB", this);
 		},
 
