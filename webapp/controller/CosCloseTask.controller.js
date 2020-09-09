@@ -393,6 +393,7 @@ sap.ui.define([
 					oViewLimitModel.setProperty("/bScheduleService", false);
 					oViewLimitModel.setProperty("/bPhaseService", false);
 					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
+					oModel.setProperty("/bUtilisationSection", true);
 					oModel.setProperty("/EXPDT", null);
 					oModel.setProperty("/EXPTM", null);
 				} else if (sSelectedKey === "B") {
@@ -401,12 +402,12 @@ sap.ui.define([
 					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
 				}
 				oModel.setProperty("/OPPR", sSelectedKey);
+				oModel.updateBindings(true);
 				oViewLimitModel.setProperty("/bLimitationSection", true);
 				oViewLimitModel.setProperty("/bLimitation", true);
 				oViewLimitModel.setProperty("/bAddLimitationBtn", false);
 			} catch (e) {
-				Log.error("Exception in CosCloseTask:onReasonTypeChange function");
-				this.handleException(e);
+				Log.error("Exception in onReasonTypeChange function");
 			}
 		},
 
@@ -468,58 +469,40 @@ sap.ui.define([
 				var that = this,
 					oEventTemp = oEvent,
 					oViewModel = this.getView().getModel("ViewModel"),
+					oModel = this.getView().getModel("oViewGlobalModel"),
 					oObject;
-				try {
-					oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
-				} catch (e) {
-					oObject = this.oTempoLimObject;
+				oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
+				this.oObjectPath = oEvent.getSource().getBindingContext("TaskModel").getPath();
+				this.oObjectTask = oObject.tt1id;
+				if (!this._oAddLim) {
+					this._oAddLim = sap.ui.xmlfragment(this.createId("idWorkCenterDialog"),
+						"avmet.ah.fragments.AddTaskLimitation",
+						this);
+					oModel.setProperty("/EXPDT", null);
+					oModel.setProperty("/EXPTM", null);
+					this._InitializeLimDialogModel();
+					this.getView().addDependent(this._oAddLim);
+					this._fnUtilizationGet(oObject.tailid);
 				}
-				this.oTempoLimObject = oObject;
-				if (oViewModel.getProperty("/bLiveChnage")) {
-					if (!this._oAddLim) {
-						this._oAddLim = sap.ui.xmlfragment(this.createId("idWorkCenterDialog"),
-							"avmet.ah.fragments.AddTaskLimitation",
-							this);
-						this._InitializeLimDialogModel();
-						this.getView().addDependent(this._oAddLim);
-						this._fnUtilizationGet(oObject.tailid);
-					}
-					this._fnCreateLimitation(oObject);
-					this._oAddLim.open(this);
-				} else {
-					MessageBox.warning("You have unsaved changes, data will be lost.\n Do you want to save?", {
-						actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-						emphasizedAction: "Manage Products",
-						onClose: function(sAction) {
-							if (sAction === "YES") {
-								that.onSaveAsDraft();
-							} else {
-								that.getView().getModel("ViewModel").setProperty("/bLiveChnage", true);
-								that.onAddLimitaionDialog(oEventTemp);
-							}
+				this._fnCreateLimitation(oObject);
+				this._oAddLim.open(this);
 
-						}
-					});
-				}
 			} catch (e) {
 				Log.error("Exception in onAddLimitaionDialog function");
 			}
 		},
 		onCloseAddLimDialog: function() {
 			try {
-				var oViewModel = this.getView().getModel("ViewModel");
-
-				this.getView().getModel("FollowOtherModel").setData(null);
-				this.getView().getModel("FollowOPSModel").setData(null);
-				this._fnTasksGet(oViewModel.getProperty("/TaskId"));
+				var oViewModel = this.getView().getModel("TaskModel");
+				oViewModel.setProperty(this.oObjectPath + "/tt1id", this.oObjectTask);
+				oViewModel.updateBindings(true);
 				if (this._oAddLim) {
 					this._oAddLim.close(this);
 					this._oAddLim.destroy();
 					delete this._oAddLim;
 				}
 			} catch (e) {
-				Log.error("Exception in CosCloseTask:onCloseAddLimDialog function");
-				this.handleException(e);
+				Log.error("Exception in onCloseAddLimDialog function");
 			}
 		},
 
@@ -530,60 +513,43 @@ sap.ui.define([
 		onAddADDDialog: function(oEvent) {
 			try {
 				var that = this,
+					oObject,
 					oViewModel = this.getView().getModel("ViewModel"),
-					oObject;
-				try {
-					oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
-				} catch (e) {
-					oObject = this.oTempoADDObject;
-				}
-				this.oTempoADDObject = oObject;
-				if (oViewModel.getProperty("/bLiveChnage")) {
-					if (!this._oAddADD) {
-						this._oAddADD = sap.ui.xmlfragment(this.createId("idAddTaskADDDialog"),
-							"avmet.ah.fragments.AddTaskADD",
-							this);
-						this._InitializeLimDialogModel();
-						this._fnADDCountGet();
-						this.getView().addDependent(this._oAddADD);
-						this._fnUtilizationGet(oObject.tailid);
-					}
-					this._fnCreateLimitation(oObject);
-					this._oAddADD.open(this);
-				} else {
-					MessageBox.warning("You have unsaved changes, data will be lost.\n Do you want to save?", {
-						actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-						emphasizedAction: "Manage Products",
-						onClose: function(sAction) {
-							if (sAction === "YES") {
-								that.onSaveAsDraft();
-							} else {
-								that.getView().getModel("ViewModel").setProperty("/bLiveChnage", true);
-								that.onAddADDDialog(oEvent);
-							}
+					oModel = this.getView().getModel("oViewGlobalModel");
 
-						}
-					});
+				oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
+				this.oObjectPath = oEvent.getSource().getBindingContext("TaskModel").getPath();
+
+				if (!this._oAddADD) {
+					this._oAddADD = sap.ui.xmlfragment(this.createId("idAddTaskADDDialog"),
+						"avmet.ah.fragments.AddTaskADD",
+						this);
+					oModel.setProperty("/EXPDT", null);
+					oModel.setProperty("/EXPTM", null);
+					this._InitializeLimDialogModel();
+					this._fnADDCountGet();
+					this.getView().addDependent(this._oAddADD);
+					this._fnUtilizationGet(oObject.tailid);
 				}
+				this._fnCreateLimitation(oObject);
+				this._oAddADD.open(this);
+
 			} catch (e) {
 				Log.error("Exception in onAddADDDialog function");
 			}
 		},
 		onCloseADDDialog: function() {
 			try {
-				var oViewModel = this.getView().getModel("ViewModel");
-
-				this.getView().getModel("FollowOtherModel").setData(null);
-				this.getView().getModel("FollowOPSModel").setData(null);
-				this._fnTasksGet(oViewModel.getProperty("/TaskId"));
+				var oViewModel = this.getView().getModel("TaskModel");
+				oViewModel.setProperty(this.oObjectPath + "/tt1id", this.oObjectTask);
+				oViewModel.updateBindings(true);
 				if (this._oAddADD) {
 					this._oAddADD.close(this);
 					this._oAddADD.destroy();
 					delete this._oAddADD;
 				}
 			} catch (e) {
-				Log.error("Exception in CosCloseTask:onCloseADDDialog function");
-				this.handleException(e);
+				Log.error("Exception in onCloseADDDialog function");
 			}
 		},
 
@@ -809,7 +775,7 @@ sap.ui.define([
 
 				};
 				oParameter.success = function(oData) {
-					this._fnTasksGet(oModel.getProperty("/TaskId"));
+					this._fnTasksADDGet(oData.results[0].TASKID);
 					this.onCloseAddLimDialog();
 					this.onCloseADDDialog();
 					var ViewGlobalModel = this.getModel("oViewGlobalModel");
@@ -828,8 +794,9 @@ sap.ui.define([
 			try {
 				var oSelectedKey = oEvent.getSource().getSelectedKey(),
 					oModel = this.getView().getModel("ViewModel");
-				/*	oModel.setProperty("/bLiveChnage", false);*/
-				oModel.setProperty("/bAddADDOther", oSelectedKey);
+				//oModel.setProperty("/bLiveChnage", false);
+				//	oModel.setProperty("/bAddADDOther", oSelectedKey);
+				this.oObjectTask = "TT1_14";
 				if (oSelectedKey === "TT1_ADD") {
 					this.onAddADDDialog(oEvent);
 				} else {
@@ -837,8 +804,7 @@ sap.ui.define([
 				}
 
 			} catch (e) {
-				Log.error("Exception in CosCloseTask:onTypeChangeOther function");
-				this.handleException(e);
+				Log.error("Exception in onTypeChangeOther function");
 			}
 		},
 
@@ -846,15 +812,43 @@ sap.ui.define([
 			try {
 				var oSelectedKey = oEvent.getSource().getSelectedKey(),
 					oModel = this.getView().getModel("ViewModel");
-				oModel.setProperty("/bAddADDOps", oSelectedKey);
+				this.oObjectTask = "TT1_11";
+				//oModel.setProperty("/bAddADDOps", oSelectedKey);
 				if (oSelectedKey === "TT1_AD") {
 					this.onAddADDDialog(oEvent);
 				} else {
 					oEvent.getSource().setSelectedKey("TT1_11");
 				}
 			} catch (e) {
-				Log.error("Exception in CosCloseTask:onTypeChangeOPS function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
+			}
+		},
+
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called, to get data fro selected tasks.
+		// Table: TASK
+		//--------------------------------------------------------------------------------------
+		_fnTasksADDGet: function(oTempJB) {
+			try {
+				var that = this,
+					filters = [],
+					oModel,
+					sFilter, bFlag = true,
+					oModelView = this.getView().getModel("TaskModel"),
+					oPrmJobDue = {};
+				sFilter = "taskid eq " + oTempJB;
+				oPrmJobDue.filter = sFilter;
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					oModelView.getData().splice(this.oObjectPath.split("/")[1], 1);
+					oData.results[0].ftcredt = new Date();
+					oData.results[0].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();
+					oModelView.getData().push(oData.results[0]);
+					oModelView.updateBindings();
+				}.bind(this);
+				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnTasksGet function");
 			}
 		},
 
@@ -1127,7 +1121,7 @@ sap.ui.define([
 		_InitializeLimDialogModel: function() {
 			try {
 				var oModel = dataUtil.createNewJsonModel();
-				oModel.setData({
+				var aData = {
 					sAddReason: "noKey",
 					bDateSection: false,
 					bUtilisationSection: false,
@@ -1145,8 +1139,14 @@ sap.ui.define([
 					sSlectedKey: "N",
 					Date: new Date(),
 					Time: new Date().getHours() + ":" + new Date().getMinutes()
-				});
-				this.getView().setModel(oModel, "oViewLimitModel");
+				};
+				oModel.setData(aData);
+				if (this.getModel("oViewLimitModel")) {
+					this.getModel("oViewLimitModel").setData(aData);
+				} else {
+					this.getView().setModel(oModel, "oViewLimitModel");
+				}
+
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}

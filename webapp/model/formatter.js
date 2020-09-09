@@ -379,14 +379,15 @@ sap.ui.define([
 			}
 		},
 
-		taskContentVisible3: function(stTask1, stTask2, stTask3) {
-			if ((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
-					"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
-					stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
-					stTask2 === "TT2_10" && stTask3 === null) || (stTask1 ===
-					"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === null && stTask2 === null && stTask3 === null) || (stTask1 ===
-					"TT1_15" && stTask3 === null) || (stTask1 === "TT1_17" && stTask3 === null) ||
-				(stTask1 === "TT1_18" && stTask3 === null)) {
+			taskContentVisible3: function(stTask1, stTask2, stTask3, stTask4) {
+			if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
+						"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
+						stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
+						stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" &&
+						stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
+						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === null && stTask2 === null && stTask3 === null) || (stTask1 ===
+						"TT1_15" && stTask3 === null) || (stTask1 === "TT1_16" && stTask3 === null) ||
+					(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === ''||stTask4 === null)) {
 				return true;
 			} else {
 				return false;

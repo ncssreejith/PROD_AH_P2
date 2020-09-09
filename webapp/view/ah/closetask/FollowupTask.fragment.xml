@@ -1,5 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.ah.control">
-	<VBox id="vbTaskId" backgroundDesign="Transparent" class="sapUiSmallMargin" items="{path:'TaskModel>/',templateShareable: false}">
+	<VBox id="vbTaskId" backgroundDesign="Transparent" class="sapUiSmallMargin"
+		items="{path:'TaskModel>/',templateShareable: false, sorter : { path : 'taskid' }}">
 		<items>
 			<l:Splitter height="auto" class="sapUiTinyMarginTopBottom">
 				<VBox backgroundDesign="Solid">
@@ -223,10 +224,10 @@
 											</layoutData>
 										</VBox>
 										<VBox
-											visible="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}">
+											visible="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID','TaskModel>rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}">
 											<Label text="{i18n>lblTechRef}" design="Bold"></Label>
 											<Input fieldGroupIds="fgInput" width="50%" change="onChangeData"
-												required="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}"
+												required="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID','TaskModel>rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}"
 												value="{TaskModel>fttoref}"></Input>
 											<layoutData>
 												<l:GridData span="XL4 L4 M6 S6" linebreak="true"/>
@@ -312,7 +313,7 @@
 												</VBox>
 												<VBox class="sapUiSmallMarginBegin">
 													<Label/>
-													<StepInput width="200px" value="{TaskModel>utilvl}" editable="false"/>
+													<StepInput width="200px" value="{TaskModel>utilvl}" editable="false" enabled="false"/>
 												</VBox>
 											</HBox>
 											<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom"

@@ -31,7 +31,7 @@
 								<VBox class="sapUiSmallMargin">
 									<HBox>
 										<Label text="{i18n>lbSortieMonitoring}" design="Bold"/>
-										<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin"  press="handlePressToolTipMenu('SORT',$event)"/>
+										<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin"  press="handlePressToolTipMenu('SORTAM',$event)"/>
 									</HBox>
 									<TextArea id="taComment" required="true" fieldGroupIds="fgTxtArea" valueStateText="{i18n>ERROR_GENERIC}" width="100%"
 										value="{SortieMonitoringModel>Text}" class="sapUiTinyMarginBegin" growing="true" growingMaxLines="7" change="onSorteiMonitoringChange"

@@ -143,7 +143,7 @@ sap.ui.define([
 						oPayload.JOBTY = "ZM";
 						break;
 					case "MODSTI":
-						oPayload.JOBTY = "ZQ";
+						oPayload.JOBTY = "ZD";
 						break;
 				}
 

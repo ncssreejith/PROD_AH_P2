@@ -291,6 +291,9 @@ sap.ui.define([
 					}, {
 						"id": "LOADPT",
 						"TTi18N": "ttLoadingPoint"
+					}, {
+						"id": "SORTAM",
+						"TTi18N": "ttSortMonAM"
 					}];
 					oArray.push(ToolTip);
 					break;
