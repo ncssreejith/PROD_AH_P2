@@ -1026,6 +1026,9 @@ sap.ui.define([
 				oMax = 0;
 			}
 			oMax = parseInt(oMax, 0);
+			if(isNaN(oMax)){
+				return 0;
+			}
 			return oMax;
 		},
 		percentAge: function(oState, sState1) {
@@ -1116,6 +1119,9 @@ sap.ui.define([
 		FormatRoleMaxValue: function(sMax) {
 			if (!isNaN(sMax) && sMax !== null && sMax !== 0) {
 				return parseFloat(sMax);
+			}
+				if(isNaN(oMax)){
+				return 0;
 			}
 		},
 
