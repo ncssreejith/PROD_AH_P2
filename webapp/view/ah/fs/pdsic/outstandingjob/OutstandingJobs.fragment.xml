@@ -14,9 +14,9 @@
 						<Column width="5rem" hAlign="Center" class="CERTableTextColor">
 							<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						</Column>
-						<Column width="3rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+						<!--<Column width="3rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 							<Label text="{i18n>lbSymbol}" design="Bold" wrapping="true"/>
-						</Column>
+						</Column>-->
 						<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="{i18n>lbJobNo}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						</Column>
@@ -38,11 +38,11 @@
 							<cells>
 								<Text
 									text="{path:'pdsSummaryModel>credtm', formatter:'.formatter.defaultDateFormatDisplay'} {path:'pdsSummaryModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-								<HBox>
+							<!--	<HBox>
 									<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${pdsSummaryModel>symbol} === '1' ? true : false}"></Button>
 									<Button text="/" class="red redText" type="Transparent" visible="{=${pdsSummaryModel>symbol} === '2' ? true : false}"></Button>
 									<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${pdsSummaryModel>symbol} === '3' ? true : false}"></Button>
-								</HBox>
+								</HBox>-->
 								<Text text="{pdsSummaryModel>jobid}"/>
 								<Text text="{pdsSummaryModel>jobdesc}"/>
 								<Text text="{path:'pdsSummaryModel>jobty', formatter:'.formatter.defaultJobType'}"/>

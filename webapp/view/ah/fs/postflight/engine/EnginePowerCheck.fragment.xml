@@ -45,12 +45,12 @@
 						<HBox class="sapUiSmallMarginTop">
 							<VBox class="sapUiSmallMarginBeginEnd" width="33%" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?false:true}">
 								<Label text="Table TGT" design="Bold"/>
-								<StepInput width="150px" min="0" max="{oPilotUpdatesViewModel>tgtind}" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgttab}" id="tblTGTId" fieldGroupIds="fgStepInput"
+								<StepInput width="150px"  class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgttab}" id="tblTGTId" fieldGroupIds="fgStepInput"
 									required="true" change="fnTblInAndIndTgt"/>
 							</VBox>
 							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 								<Label text="Ind. TGT" design="Bold"/>
-								<StepInput width="150px" min="{oPilotUpdatesViewModel>tgttab}" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgtind}" id="indTGTId" fieldGroupIds="fgStepInput"
+								<StepInput width="150px"  class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgtind}" id="indTGTId" fieldGroupIds="fgStepInput"
 									required="true" change="fnTblInAndIndTgt"/>
 							</VBox>
 						</HBox>
