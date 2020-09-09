@@ -3,16 +3,18 @@
 		<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">
 			<VBox class="sapUiLargeMarginBeginEnd sapUiMediumMarginTopBottom" alignItems="Central" alignContent="Central">
 				<HBox>
-					<ComboBox width="13rem" placeholder="{i18n>phSelect}" selectedKey="{trialModel>/DueBy}" items="{trialModel>/JobDueSet}" change="onDueSelectChange">
-						<core:Item key="{trialModel>ddid}" text="{trialModel>description}"/>
-					</ComboBox>
+					<!--<ComboBox width="13rem" placeholder="{i18n>phSelect}" selectedKey="{trialModel>/DueBy}" items="{trialModel>/JobDueSet}" change="onDueSelectChange">-->
+					<!--	<core:Item key="{trialModel>ddid}" text="{trialModel>description}"/>-->
+					<!--</ComboBox>-->
 					<HBox class="sapUiTinyMarginBegin">
-						<StepInput width="13rem" min="0"  valueStateText="{i18n>ERROR_GENERIC}" value="{trialModel>/UtilVal}" visible="{trialModel>/isVisInput}"/>
-						<StepInput width="13rem" min="0" displayValuePrecision="1"  valueStateText="{i18n>ERROR_GENERIC}" value="{trialModel>/UtilVal}" visible="{= ${trialModel>/DueBy} === 'JDU_11'}"/>
+						<Label text="{trialModel>/ExtLbl}" class="sapUiTinyMarginTop sapUiMediumMarginEnd"></Label>
+						<StepInput required="true" fieldGroupIds="fgStepInput" width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" value="{trialModel>/UtilVal}" visible="{trialModel>/isVisInput}"/>
+						<StepInput required="true" fieldGroupIds="fgStepInput" width="13rem" min="0" displayValuePrecision="1" valueStateText="{i18n>ERROR_GENERIC}" value="{trialModel>/UtilVal}"
+							visible="{trialModel>/isVisAirFrame}"/>
+						<DatePicker id="dpValue" required="true" fieldGroupIds="fgDate"  width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{trialModel>/isVisDate}" minDate="{trialModel>/minDate}"
+							value="{path: 'trialModel>/UtilVal', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+							placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 					</HBox>
-					<DatePicker width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{= ${trialModel>/DueBy} === 'JDU_10'}"
-						value="{path: 'trialModel>/UtilVal', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-						placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 				</HBox>
 			</VBox>
 		</VBox>

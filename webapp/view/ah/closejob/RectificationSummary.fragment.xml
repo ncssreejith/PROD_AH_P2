@@ -192,7 +192,7 @@
 											</HBox>
 											<DatePicker id="dpServdtTR" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobModel>/TRAILKEY}==='JDU_10' ? true:false}"
 												value="{path: 'JobModel>/TRAILKDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-												placeholder="Select Date ..." change="handleChange" class="sapUiSmallMarginBottom sapUiTinyMarginBegin"/>
+												placeholder="Select Date ..." valueFormat="yyyy-MM-dd" change="handleChange" class="sapUiSmallMarginBottom sapUiTinyMarginBegin"/>
 										</HBox>
 									</VBox>
 								</VBox>

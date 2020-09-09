@@ -109,6 +109,13 @@ sap.ui.define([
 							} catch (e) {
 								oPayload.credt = oPayload.credt;
 							}
+							try {
+								if (oPayload.TRAILKDT) {
+									oPayload.TRAILKDT = formatter.defaultOdataDateFormat(oPayload.TRAILKDT);
+								}
+							} catch (e) {
+								oPayload.TRAILKDT = oPayload.TRAILKDT;
+							}
 						}
 						oPayload.jstat = "P";
 						oPayload.trail = "X";

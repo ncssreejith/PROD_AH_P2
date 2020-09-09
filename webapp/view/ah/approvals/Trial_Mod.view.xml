@@ -6,10 +6,10 @@
 				<Button icon="sap-icon://arrow-left" press="onNavBack" class="sapUiSmallMarginBegin"/>
 				<ObjectIdentifier title="{i18n>hdngPage}" titleActive="false" class="sapUiSmallMarginBegin"/>
 				<ToolbarSpacer/>
-				<Button width="10rem" class="sapUiSmallMarginEnd" text="Trial Mod Extension" type="Ghost" press="onTModExtension"
-					visible="{= (${path:'trialModel>/length'} > 0)}"/>
-				<Button width="10rem" class="sapUiSmallMarginEnd" text="De Mod" type="Ghost" press="onDeModClick"
-					visible="{= (${path:'trialModel>/length'} > 0)}"/>
+				<!--<Button width="10rem" class="sapUiSmallMarginEnd" text="Trial Mod Extension" type="Ghost" press="onTModExtension"-->
+				<!--	visible="{= (${path:'trialModel>/length'} > 0)}"/>-->
+				<!--<Button width="10rem" class="sapUiSmallMarginEnd" text="De Mod" type="Ghost" press="onDeModClick"-->
+				<!--	visible="{= (${path:'trialModel>/length'} > 0)}"/>-->
 			</OverflowToolbar>
 		</subHeader>
 		<content>
@@ -74,7 +74,7 @@
 												</HBox>
 												<HBox justifyContent="SpaceBetween">
 													<Label text="Extension(s)" design="Bold"></Label>
-													<Text text="{path:'trialModel>extn'}"/>
+													<Text text="{path:'trialModel>PAST_COUNT'}"/>
 													<!--{path:'trialModel>/CAP managed ADD'}-->
 													<layoutData>
 														<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
@@ -91,6 +91,10 @@
 												</HBox>
 											</l:Grid>
 										</VBox>
+										<HBox>
+											<Button width="10rem" class="sapUiTinyMarginEnd" text="Trial Mod Extension" type="Ghost" press="onTModExtension" visible="true"/>
+											<Button width="10rem" class="sapUiTinyMarginEnd" text="De Mod" type="Ghost" press="onDeModClick" visible="true"/>
+										</HBox>
 									</VBox>
 								</l:Grid>
 							</VBox>

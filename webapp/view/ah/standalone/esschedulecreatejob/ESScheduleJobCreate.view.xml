@@ -33,6 +33,12 @@
 									<SegmentedButtonItem id="idLIOSISTIMOD" text="LTO/SI/STI/MOD" key="MODSTI"/>
 								</items>
 							</SegmentedButton>
+							<RadioButtonGroup columns="4" selectedIndex="{JobCreateModel>/MODTYPE}" class="sapUiSmallMargin" visible="{= ${JobCreateModel>/CTYPE} === 'MODSTI'}">
+								<RadioButton text="LTO" selected="true"/>
+								<RadioButton text="SI"/>
+								<RadioButton text="STI"/>
+								<RadioButton text="MOD"/>
+							</RadioButtonGroup>
 						</VBox>
 						<!--	<VBox visible="{=${JobCreateModel>/CTYPE}==='MODSTI' ? true:false}">
 							<Label text="Type 2" design="Bold"/>

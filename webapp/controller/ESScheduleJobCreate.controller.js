@@ -57,6 +57,10 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
+		
+		onSelectionNatureofJobChange : function (oEvent){
+			this.getModel("JobCreateModel").setProperty("/MODTYPE",0);
+		},
 		// ***************************************************************************
 		//                 2.  Private Methods  
 		// ***************************************************************************
@@ -143,7 +147,11 @@ sap.ui.define([
 						oPayload.JOBTY = "ZM";
 						break;
 					case "MODSTI":
-						oPayload.JOBTY = "ZD";
+						if (oPayload.MODTYPE === 3) {
+							oPayload.JOBTY = "ZD";
+						} else {
+							oPayload.JOBTY = "ZT";
+						}
 						break;
 				}
 

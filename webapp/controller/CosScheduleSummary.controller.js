@@ -739,8 +739,8 @@ sap.ui.define([
 				}
 				oPrmSchJob.error = function() {};
 				oPrmSchJob.success = function(oData) {
-					this.getView().getModel("RSModel").setData({
-						"DueBy": "",
+					var oModel1 = dataUtil.createNewJsonModel();
+					oModel1.setData({"DueBy": "",
 						"ExpDate": "",
 						"Util": "",
 						"UtilVal": "",
@@ -749,6 +749,8 @@ sap.ui.define([
 						"UM": ""
 
 					});
+					this.getView().setModel(oModel1,"RSModel");
+						
 					if (oFlag === "Y") {
 						this.getRouter().navTo("Cosjobs");
 					} else {

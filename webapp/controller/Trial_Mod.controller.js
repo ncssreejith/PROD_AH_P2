@@ -28,20 +28,24 @@ sap.ui.define([
 			this.getRouter().getRoute("Trial_Mod").attachPatternMatched(this._onObjectMatched, this);
 
 		},
-		onDeModClick: function() {
-			this.fnUpdateDeMod();
+		onDeModClick: function(oEvent) {
+			try {
+				this.fnUpdateDeMod(oEvent);
+			} catch (e) {
+				Log.error("Exception in onDeModClick function");
+			}
 		},
 
 		onRaiseTrailMod: function() {
 			try {
 				var oModel = this.getModel("trialModel"),
-					payload = oModel.getProperty("/")[0];
-				payload.JDUID = oModel.getProperty("/DueBy");
-				if (oModel.getProperty("/DueBy") === "JDU_10") {
-					payload.pddval2 = oModel.getProperty("/UtilVal");
+					payload = this.oObject;
+				if (oModel.getProperty("/isVisDate")) {
+					payload.pddval2 = formatter.defaultOdataDateFormat(oModel.getProperty("/UtilVal"));
 				} else {
 					payload.pddval1 = oModel.getProperty("/UtilVal");
 				}
+				payload.PAST_COUNT = parseInt(payload.PAST_COUNT, 10) + 1;
 
 				var oParameter = {};
 				oParameter.error = function(response) {};
@@ -62,23 +66,29 @@ sap.ui.define([
 			this.closeDialog("TrialModExtension");
 		},
 
-		onTModExtension: function() {
+		onTModExtension: function(oEvent) {
 			try {
 				this.TrialModExtension = this.fnLoadFragment("TrialModExtension", null, true);
-				var oPrmMark = {},
-					oModel = this.getModel("trialModel"),
-					that = this,
-					oPayload;
-				oModel.setProperty("/isVisInput", false);
-				oPrmMark.filter = "refid eq " + this.getAircraftId() + " and ddid eq JDU";
-				oPrmMark.error = function() {};
-				oPrmMark.success = function(oData) {
-					if (oData && oData.results.length > 0) {
-						oModel.setProperty("/JobDueSet", oData.results);
-						this.TrialModExtension.open();
-					}
-				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmMark);
+				var oModel = this.getModel("trialModel");
+				this.oObject = oEvent.getSource().getBindingContext("trialModel").getObject();
+				if (this.oObject.JDUID === "JDU_11") {
+					oModel.setProperty("/isVisAirFrame", true);
+					oModel.setProperty("/isVisInput", false);
+					oModel.setProperty("/isVisDate", false);
+				} else if (this.oObject.JDUID === "JDU_10") {
+					oModel.setProperty("/isVisAirFrame", false);
+					oModel.setProperty("/isVisInput", false);
+					oModel.setProperty("/isVisDate", true);
+					var minDate = new Date(this.oObject.pddval2);
+					minDate.setDate(minDate.getDate() + 1);
+					oModel.setProperty("/minDate", minDate);
+				} else {
+					oModel.setProperty("/isVisAirFrame", false);
+					oModel.setProperty("/isVisInput", true);
+					oModel.setProperty("/isVisDate", false);
+				}
+				oModel.setProperty("/ExtLbl", this.oObject.JDUIDD);
+				this.TrialModExtension.open();
 			} catch (e) {
 				Log.error("Exception in Trial_Mod:onTModExtension function");
 				this.handleException(e);
@@ -107,20 +117,22 @@ sap.ui.define([
 			}.bind(this);
 			ajaxutil.fnRead(sPath, oParameter);
 		},
-		fnUpdateDeMod: function() {
-			var sPath = "/TRAILMONSvc";
+
+		fnUpdateDeMod: function(oEvent) {
+			var sPath = "/TRAILMONSvc"; //ApprovalNavSvc
 			var oData = [];
 			var oParameter = {};
 			oParameter.activity = 5;
-			this.getModel("trialModel").getProperty("/").forEach(function(oItem) {
-				var oPayload = {};
-				oPayload = oItem;
-				oPayload.jstat = "S";
-				oData.push(oPayload);
-			});
+			var oItem = oEvent.getSource().getBindingContext("trialModel").getObject();
+
+			var oPayload = {};
+			oPayload = oItem;
+			oPayload.jstat = "S";
+			oData.push(oPayload);
+
 			oParameter.error = function() {};
 			oParameter.success = function(oRespond) {
-				this.onNavBack();
+				this.fnLoadTrialMod();
 				// var oTrial = oRespond.results;
 				// this.getModel("trialModel").setProperty("/", oTrial);
 				// this.getModel("trialModel").refresh(true);
