@@ -266,6 +266,57 @@ sap.ui.define([
 			}
 
 		},
+		
+		onWorkCenterEditChange: function(oEvent) {
+			var oSrc = oEvent.getSource(),
+				object = oSrc.getSelectedItem().getBindingContext("WorkCenterDialogModel").getObject();
+			var bFlag = object.wrctr === this.getView().getModel("JobModel").getProperty("/prime") ? true : false;
+			this.getFragmentControl("idWorkCenterDialog", "switchId").setState(bFlag);
+		},
+
+		onEditWorkcenterSubmitPress: function(sValue) {
+			var that = this;
+			var sKey = this._oAddWorkCenter.getModel("WorkCenterDialogModel").getProperty("/SelectedWorkCenter");
+			var dataSet = this._oAddWorkCenter.getModel("WorkCenterDialogModel").getProperty("/WorkCenterSet");
+			var oModel = this.getModel("LocalModel");
+			this.getView().getModel("JobModel").setProperty("/prime", sKey);
+			var sState = this.getFragmentControl("idWorkCenterDialog", "switchId").getState();
+			if (sState) {
+				if (sValue !== "CON") {
+					that.getFragmentControl("idWorkCenterDialog", "addWCId").setVisible(false);
+					that.getFragmentControl("idWorkCenterDialog", "workCenterId").setText(dataSet[sKey].wrctrtx);
+					that.getFragmentControl("idWorkCenterDialog", "confirmWCId").setVisible(true);
+
+				} else {
+					that.getView().getModel("JobModel").setProperty("/prime", sKey);
+					this._fnUpdateJob();
+					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
+					that.onCloseAddWorkCenterDialog();
+				}
+			} else {
+				that.getView().getModel("JobModel").setProperty("/prime", null);
+				this._fnUpdateJob();
+				that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
+				that.onCloseAddWorkCenterDialog();
+			}
+
+		},
+
+		onDeleteWorkcenterSubmitPress: function() {
+			var sKey = this._oAddWorkCenter.getModel("WorkCenterDialogModel").getProperty("/SelectedWorkCenter");
+			var bFlag = this.getFragmentControl("idWorkCenterDialog", "switchId").getState();
+			if (bFlag) {
+				MessageBox.error(
+					"Prime workcenter can not be deleted.", {
+						icon: sap.m.MessageBox.Icon.Error,
+						title: "Error",
+						styleClass: "sapUiSizeCompact"
+					});
+				return;
+			} else {
+				this._fnDefectWorkCenterDelete(sKey);
+			}
+		},
 
 		onImagePress: function(oEvent) {
 			var that = this;
@@ -332,7 +383,13 @@ sap.ui.define([
 						case "Work Center":
 							break;
 						case "Add Work Center":
-							that.onAddNewWorkCenter();
+							that.onAddNewWorkCenter("ADD");
+							break;
+						case "Edit Work Center":
+							that.onAddNewWorkCenter("EDIT");
+							break;
+						case "Delete Work Center":
+							that.onAddNewWorkCenter("DELETE");
 							break;
 						case "Manage Work Center":
 							break;
@@ -376,12 +433,10 @@ sap.ui.define([
 
 		},
 
-		onAddNewWorkCenter: function() {
+			onAddNewWorkCenter: function(sMode) {
 			try {
 				var that = this,
-					oLocalModel,
-					oModel = this.getView().getModel("WorkCenterSet");
-				oLocalModel = this.getView().getModel("LocalModel");
+					oLocalModel = this.getView().getModel("LocalModel");
 				if (oLocalModel.getProperty("/sFlag") === "Y") {
 					if (!that._oAddWorkCenter) {
 						that._oAddWorkCenter = sap.ui.xmlfragment(that.createId("idWorkCenterDialog"),
@@ -389,13 +444,51 @@ sap.ui.define([
 							this);
 						that.getView().addDependent(that._oAddWorkCenter);
 					}
-					that._oAddWorkCenter.setModel(oModel, "WorkCenterSet");
+					if (!sMode) {
+						sMode = "ADD";
+					}
+					this._fnSetWorkCenterModel(sMode);
 					that._oAddWorkCenter.open(that);
 				}
 			} catch (e) {
-				Log.error("Exception in CosDefectsSummary:onAddNewWorkCenter function");
-				this.handleException(e);
+				Log.error("Exception in onAddNewWorkCenter function");
 			}
+		},
+
+		_fnSetWorkCenterModel: function(sMode) {
+			var that = this;
+			if (!that._oAddWorkCenter.getModel("WorkCenterDialogModel")) {
+				that._oAddWorkCenter.setModel(new JSONModel({}), "WorkCenterDialogModel");
+			}
+			var oModel = that._oAddWorkCenter.getModel("WorkCenterDialogModel");
+			if (sMode === "ADD") {
+				oModel.setProperty("/WorkCenterSet", this.getView().getModel("WorkCenterSet").getData());
+				oModel.setProperty("/WorkCenterTitle", this.getResourceBundle().getText(
+					"tiAddWorkCenter"));
+				oModel.setProperty("/WorkCenterMode", "ADD");
+			} else if (sMode === "EDIT") {
+				oModel.setProperty("/WorkCenterSet", this._fnGetWorkCenterModel());
+				oModel.setProperty("/WorkCenterTitle", this.getResourceBundle().getText(
+					"tiEditWorkCenter"));
+				oModel.setProperty("/WorkCenterMode", "EDIT");
+			} else if (sMode === "DELETE") {
+				oModel.setProperty("/WorkCenterSet", this._fnGetWorkCenterModel());
+				oModel.setProperty("/WorkCenterTitle", this.getResourceBundle().getText(
+					"tiDeleteWorkCenter"));
+				oModel.setProperty("/WorkCenterMode", "DELETE");
+			}
+
+		},
+
+		_fnGetWorkCenterModel: function() {
+			var oModel = JSON.parse(JSON.stringify(this.getModel("CreatedWorkCenterModel").getData()));
+			var aSet = {};
+			for (var key in oModel) {
+				if (oModel[key].wrctr !== "Summary") {
+					aSet[oModel[key].wrctr] = oModel[key];
+				}
+			}
+			return aSet;
 		},
 		onCloseAddWorkCenterDialog: function() {
 			try {
@@ -2141,7 +2234,7 @@ sap.ui.define([
 						oModel.setProperty("/SummaryFlag", true);
 						oModel.setProperty("/WorcenterFlag", false);
 						that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
-
+						that.onCloseAddWorkCenterDialog();
 					}.bind(this);
 					oPrmWorkCenter.activity = 7;
 					ajaxutil.fnDelete("/DefectWorkcenterSvc/" + oModel.getProperty("/sJobId") + "/" + sWorkCenterKey, oPrmWorkCenter, "ZRM_COS_JB",
