@@ -69,10 +69,18 @@
 															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 														</layoutData>
 													</HBox>
-													<HBox justifyContent="SpaceBetween">
+														<HBox justifyContent="SpaceBetween">
 														<Label text="Extension(s)" design="Bold"></Label>
-														<Text text="{path:'paModel>extn'}"/>
-														<!--{path:'paModel>/CAP managed ADD'}-->
+														<Text text="{path:'paModel>PAST_COUNT'}"/>
+														<layoutData>
+															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+														</layoutData>
+													</HBox>
+													<HBox justifyContent="SpaceBetween">
+														<Label wrapping="true" width="9rem" text="Period of trial" design="Bold"></Label>
+														<Text text="{paModel>pddval1} ({paModel>JDUIDD})" visible="{= ${paModel>JDUID} !== 'JDU_10'}"/>
+														<Text text="{path:'paModel>pddval2', formatter:'.formatter.defaultDateFormatDisplay'} ({paModel>JDUIDD})"
+															visible="{= ${paModel>JDUID} === 'JDU_10'}"/>
 														<layoutData>
 															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 														</layoutData>

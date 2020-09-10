@@ -71,8 +71,16 @@
 													</HBox>
 													<HBox justifyContent="SpaceBetween">
 														<Label text="Extension(s)" design="Bold"></Label>
-														<Text text="{path:'pdsSummaryModel>extn'}"/>
-														<!--{path:'pdsSummaryModel>/CAP managed ADD'}-->
+														<Text text="{path:'pdsSummaryModel>PAST_COUNT'}"/>
+														<layoutData>
+															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+														</layoutData>
+													</HBox>
+													<HBox justifyContent="SpaceBetween">
+														<Label wrapping="true" width="9rem" text="Period of trial" design="Bold"></Label>
+														<Text text="{pdsSummaryModel>pddval1} ({pdsSummaryModel>JDUIDD})" visible="{= ${pdsSummaryModel>JDUID} !== 'JDU_10'}"/>
+														<Text text="{path:'pdsSummaryModel>pddval2', formatter:'.formatter.defaultDateFormatDisplay'} ({pdsSummaryModel>JDUIDD})"
+															visible="{= ${pdsSummaryModel>JDUID} === 'JDU_10'}"/>
 														<layoutData>
 															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 														</layoutData>

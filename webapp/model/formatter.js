@@ -1120,9 +1120,7 @@ sap.ui.define([
 			if (!isNaN(sMax) && sMax !== null && sMax !== 0) {
 				return parseFloat(sMax);
 			}
-				if(isNaN(oMax)){
-				return 0;
-			}
+			
 		},
 
 		FormatMaxValueState: function(srvamt, totamt) {
