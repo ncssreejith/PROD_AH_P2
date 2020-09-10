@@ -5,8 +5,8 @@
 				<HBox>
 					<VBox backgroundDesign="Solid">
 						<VBox>
-							<tnt:InfoLabel class="sapUiMediumMarginBegin sapUiSmallMarginTop"
-								text="{path:'pdsSummaryModel>text'}" renderMode="Narrow" colorScheme="7" displayOnly="true"/>
+							<tnt:InfoLabel class="sapUiMediumMarginBegin sapUiSmallMarginTop" text="{path:'pdsSummaryModel>text'}" renderMode="Narrow" colorScheme="7"
+								displayOnly="true"/>
 						</VBox>
 						<VBox visible="{= ${pdsSummaryModel>description}===null ? false:true}" class="sapUiTinyMarginTop">
 							<Title class="sapUiSmallMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="Defect Information"/>
@@ -72,11 +72,11 @@
 										<HBox/>
 										<HBox justifyContent="SpaceBetween" visible="{=${ViewModel>flag} !== 'L' ? true : false}">
 											<Label wrapping="true" width="9rem" text="Period of trial" design="Bold"></Label>
-											<Text width="9rem" visible="{= ${pdsSummaryModel>detail/JDUID} === 'Date' ? true : false}"
-												text="{path:'pdsSummaryModel>detail/JDUVL', formatter:'.formatter.defaultDateFormatDisplay'}"/>
-											<Text width="9rem" visible="{= ${pdsSummaryModel>detail/JDUID} === 'Date' ? false : true}" text="{pdsSummaryModel>detail/JDUVL} {pdsSummaryModel>detail/JDUID}"/>
+											<Text text="{pdsSummaryModel>detail/JDUVL} ({pdsSummaryModel>detail/JDUID})" visible="{= ${pdsSummaryModel>detail/JDUID} !== 'Date'}"/>
+											<Text text="{path:'pdsSummaryModel>detail/JDUDT', formatter:'.formatter.defaultDateFormatDisplay'} ({pdsSummaryModel>detail/JDUID})"
+												visible="{= ${pdsSummaryModel>detail/JDUID} === 'Date'}"/>
 											<layoutData>
-												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+												<l:GridData linebreak="true" span="XL11 L11 M11 S11"/>
 											</layoutData>
 										</HBox>
 									</l:Grid>

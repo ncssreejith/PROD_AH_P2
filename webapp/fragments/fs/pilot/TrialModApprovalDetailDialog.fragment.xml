@@ -76,12 +76,12 @@
 										<HBox/>
 										<HBox justifyContent="SpaceBetween" visible="{=${ViewModel>/flag} !== 'L' ? true : false}">
 											<Label wrapping="true" width="9rem" text="Period of trial" design="Bold"></Label>
-											<Text width="9rem" visible="{= ${trialModel>/JDUID} === 'Date' ? true : false}"
-												text="{path:'trialModel>/JDUVL', formatter:'.formatter.defaultDateFormatDisplay'}"/>
-											<Text width="9rem" visible="{= ${trialModel>/JDUID} === 'Date' ? false : true}" text="{trialModel>/JDUVL} {trialModel>/JDUID}"/>
-											<layoutData>
-												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
-											</layoutData>
+										<Text text="{trialModel>/JDUVL} ({trialModel>/JDUID})" visible="{= ${trialModel>/JDUID} !== 'Date'}"/>
+										<Text text="{path:'trialModel>/JDUDT', formatter:'.formatter.defaultDateFormatDisplay'} ({trialModel>/JDUID})"
+											visible="{= ${trialModel>/JDUID} === 'Date'}"/>
+										<layoutData>
+											<l:GridData linebreak="true" span="XL11 L11 M11 S11"/>
+										</layoutData>
 										</HBox>
 									</l:Grid>
 								</VBox>
