@@ -60,7 +60,7 @@
 					</Column>
 				</columns>
 				<items>
-					<ColumnListItem vAlign="Middle" type="Navigation" press="onPendingSupDetailsPress">
+					<ColumnListItem vAlign="Middle" type="Navigation" press="onSelTasksGet">
 						<cells>
 							<!--		<HBox>
 								<Text text="{TaskPendingModel>tdesc}"
