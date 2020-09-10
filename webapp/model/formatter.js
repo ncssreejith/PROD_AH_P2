@@ -1261,7 +1261,14 @@ sap.ui.define([
 			var bEditable = true;
 			var oRow = this.getBindingContext("oWDNSDataModel").getObject();
 			// iColId === oRow.COL_15 &&
-			if (oRow.COL_12 === "GUN DH") {
+			if (oRow && (oRow.COL_12 === "GUN DH"||(iColId&&iColId.toUpperCase() === "N/A"))) {
+				bEditable = false;
+			}
+			return bEditable;
+		},
+		fnWDNSEditableCol: function(iColId) {
+			var bEditable = true;
+			if (iColId&&iColId.toUpperCase() === "N/A") {
 				bEditable = false;
 			}
 			return bEditable;
