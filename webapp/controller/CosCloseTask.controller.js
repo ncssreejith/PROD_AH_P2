@@ -93,14 +93,28 @@ sap.ui.define([
 				if (FieldValidations.validateFields(this)) {
 					return;
 				}
-				var oModel = this.getView().getModel("ViewModel");
-				oModel.setProperty("/bTradesMan", true);
-				oModel.setProperty("/selectedIcon", "tradesMan");
-				oModel.setProperty("/signOffBtn", true);
-				oModel.setProperty("/proccedBtn", false);
-				oModel.setProperty("/backBtn", true);
-				oModel.setProperty("/tradeTable", false);
-				oModel.setProperty("/MulitiFlag", "N");
+				var oTaskModel = this.getView().getModel("TaskModel").getData(),
+					oFlag = true;
+
+				for (var i = 0; i < oTaskModel.length; i++) {
+					if (oTaskModel[i].tt1id === 'TT1_12') {
+						if (oTaskModel[i].ftrsltgd === 2) {
+							oFlag = false;
+							oTaskModel[i].ValueState = "Error";
+						}
+					}
+				}
+				this.getView().getModel("TaskModel").updateBindings(true);
+				if (oFlag) {
+					var oModel = this.getView().getModel("ViewModel");
+					oModel.setProperty("/bTradesMan", true);
+					oModel.setProperty("/selectedIcon", "tradesMan");
+					oModel.setProperty("/signOffBtn", true);
+					oModel.setProperty("/proccedBtn", false);
+					oModel.setProperty("/backBtn", true);
+					oModel.setProperty("/tradeTable", false);
+					oModel.setProperty("/MulitiFlag", "N");
+				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onProceed function");
 				this.handleException(e);
@@ -1018,6 +1032,7 @@ sap.ui.define([
 							}
 
 						}
+						oData.results[i].ValueState = "None";
 					}
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TaskModel");

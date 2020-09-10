@@ -1035,38 +1035,36 @@ sap.ui.define([
 			}
 		},
 
-		onPendingSupDetailsPress: function(oEvent) {
+	onPendingSupDetailsPress: function(oPayLoad) {
 			try {
 				var that = this,
-					oObj = oEvent.getSource().getBindingContext("TaskPendingModel").getObject(),
-					oModel = dataUtil.createNewJsonModel(),
-					oTable = that.getView().byId("tbWcPendingSuperId");
-				if (oObj.multi !== null) {
-					this._fnMultiTradmanGet(oObj.taskid);
+					oModel;
+				oModel = dataUtil.createNewJsonModel();
+				if (oPayLoad.multi !== null) {
+					this._fnMultiTradmanGet(oPayLoad.taskid);
 				}
-				oEvent.getSource().setSelected(true);
-				oModel.setData(oObj);
-				if (!that._oOSDetails) {
-					that._oOSDetails = sap.ui.xmlfragment("OSTId",
+
+				if (!that._oSPDetails) {
+					that._oSPDetails = sap.ui.xmlfragment("OSTId",
 						"avmet.ah.fragments.SupervisorTaskDetails",
 						that);
-					that._oOSDetails.setModel(oModel, "DetailsSupModel");
-					that.getView().addDependent(that._oOSDetails);
+					oModel.setData(oPayLoad);
+					that._oSPDetails.setModel(oModel, "DetailsSupModel");
+					that.getView().addDependent(that._oSPDetails);
 				}
-				that._oOSDetails.open(that);
+				that._oSPDetails.open(that);
 			} catch (e) {
-				Log.error("Exception in CosDefectsSummary:onPendingSupDetailsPress function");
-				this.handleException(e);
+				Log.error("Exception in onPendingSupDetailsPress function");
 			}
 		},
 		onPendingSupDetailsClose: function() {
 			try {
-				if (this._oOSDetails) {
+				if (this._oSPDetails) {
 					var oTable = this.getView().byId("tbWcPendingSuperId");
 					oTable.removeSelections(true);
-					this._oOSDetails.close(this);
-					this._oOSDetails.destroy();
-					delete this._oOSDetails;
+					this._oSPDetails.close(this);
+					this._oSPDetails.destroy();
+					delete this._oSPDetails;
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onPendingSupDetailsClose function");
@@ -1402,6 +1400,9 @@ sap.ui.define([
 				that._fnSortieMonitoringGet(sJobId, sWcKey);
 				oViewModel.updateBindings(true);
 				that._fnJobDetailsGet(sJobId, sAirId);
+				that._fnPerioOfDeferCBGet(sAirId);
+				this._fnReasonforADDGet(sAirId);
+				this._fnUtilizationGet(sAirId);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_handleRouteMatched function");
 				this.handleException(e);
@@ -1454,6 +1455,97 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTaskStatusGet function");
 				this.handleException(e);
+			}
+		},
+		//-------------------------------------------------------------------------------------
+		//  General method: This will get called,to get Utilization drop down data.
+		// Table: DDREF, DDVAL
+		//--------------------------------------------------------------------------------------
+		_fnUtilizationGet: function(sAirId) {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("ViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq UTIL1_";
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "UtilizationCBModel");
+				}.bind(this);
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnUtilizationGet function");
+			}
+		},
+		//-------------------------------------------------------------------------------------
+		//  General method: This will get called,to get Readon for ADD drop down data.
+		// Table: DDREF, DDVAL
+		//--------------------------------------------------------------------------------------
+		_fnReasonforADDGet: function(sAirId) {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("ViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq CPR_";
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "ReasonforADDModel");
+				}.bind(this);
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnReasonforADDGet function");
+			}
+		},
+
+		//-------------------------------------------------------------------------------------
+		//  General method: This will get called,to get Period of Deferment drop down data.
+		// Table: DDREF, DDVAL
+		//--------------------------------------------------------------------------------------
+		_fnPerioOfDeferCBGet: function(sAirId) {
+			try {
+				var that = this,
+					oModel,
+					oModelView = this.getView().getModel("ViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "PerioOfDeferCBModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnPerioOfDeferCBGet function");
+			}
+		},
+
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called, to get data fro selected tasks.
+		// Table: TASK
+		//--------------------------------------------------------------------------------------
+		onSelTasksGet: function(oEvent) {
+			try {
+				var that = this,
+					filters = [],
+					oModel,
+					oObj = oEvent.getSource().getBindingContext("TaskPendingModel").getObject(),
+					sFilter, bFlag = true,
+					oPrmJobDue = {};
+				oEvent.getSource().setSelected(true);
+				sFilter = "taskid eq " + oObj.taskid;
+				oPrmJobDue.filter = sFilter;
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					that.onPendingSupDetailsPress(oData.results[0]);
+				}.bind(this);
+				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnTasksGet function");
 			}
 		},
 

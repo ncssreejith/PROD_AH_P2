@@ -117,7 +117,8 @@
 													<SegmentedButtonItem text="No" key="0" width="80%"/>
 												</items>
 											</SegmentedButton>-->
-											<RadioButtonGroup columns="2" selectedIndex="{TaskModel>ftrsltgd}" valueState="{= (${TaskModel>ftrsltgd} == 0 || ${TaskModel>ftrsltgd} === 1)  ? 'None':'Error'}" required="{= ${TaskModel>tt1id}==='TT1_12' ? true:false}" class="sapUiMediumMarginBottom">
+											<RadioButtonGroup columns="2" selectedIndex="{TaskModel>ftrsltgd}" valueState="{TaskModel>ValueState}"
+											 class="sapUiMediumMarginBottom">
 												<RadioButton text="Yes"/>
 												<RadioButton text="No"/>
 											</RadioButtonGroup>
@@ -187,10 +188,10 @@
 													</ComboBox>
 													<Input width="180px" maxLength="20" change="onChangeData" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin" fieldGroupIds="fgInput"
 														visible="{= ${TaskModel>engflag}!=='EG'? true:false}"
-														required="{= (${TaskModel>engflag}!=='EG' &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)')? true:false}"/>
+														required="{= (${TaskModel>engflag}!=='EG' &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)' &amp;&amp; ${TaskModel>tt1id} === 'TT1_10' &amp;&amp; ${TaskModel>tt2id} === 'TT2_12' )? true:false}"/>
 													<ComboBox width="180px" selectedKey="{TaskModel>ftsernr}" items="{path:'SerialNumModel>/',templateShareable: false}"
 														fieldGroupIds="fgCmbBox" visible="{= ${TaskModel>engflag}==='EG'? true:false}" class="sapUiSmallMarginBegin"
-														required="{= ${TaskModel>engflag}==='EG' &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)' ? true:false}">
+														required="{= (${TaskModel>engflag}==='EG' &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)' &amp;&amp; ${TaskModel>tt1id} === 'TT1_10' &amp;&amp; ${TaskModel>tt2id} === 'TT2_10') ? true:false}">
 														<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
 													</ComboBox>
 												</HBox>

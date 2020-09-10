@@ -145,12 +145,16 @@ sap.ui.define([
 						var sEditProp = {};
 						sEditProp.path = oDataModel + ">" + oItem.colid;
 						sEditProp.formatter = this.formatter.fnEditableCol;
+						
+						var sWDNSEditProp = {};
+						sWDNSEditProp.path = oDataModel + ">" + oItem.colid;
+						sWDNSEditProp.formatter = this.formatter.fnWDNSEditableCol;
 
 						sText = new sap.m.Input({
 							value: "{" + oDataModel + ">" + oItem.colid + "}",
 							maxLength: 20,
-							fieldGroupIds: ["fgSignedDecimal"],
-							editable: (oItem.colid === "COL_15") ? sEditProp : true,
+							fieldGroupIds: ["fgInput"],
+							editable: (oItem.colid === "COL_15") ? sEditProp : sWDNSEditProp,
 							// required: true,
 							// valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
 							liveChange: that.onChange
