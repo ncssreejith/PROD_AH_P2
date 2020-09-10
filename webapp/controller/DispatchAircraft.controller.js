@@ -116,6 +116,7 @@ sap.ui.define([
 				} else {
 					oModel.setProperty("/sReceiveTable", false);
 				}
+				FieldValidations.validateFields(this);
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:onSelectionChangeLoc function");
 				this.handleException(e);
@@ -278,6 +279,10 @@ sap.ui.define([
 
 				if (oModel.getProperty("/Receive") && this.fnCheckResponse()) {
 					return; //Check fail
+				}
+				if (FieldValidations.validateFields(this)){
+					sap.m.MessageToast.show("Fill in all required input first");
+					return;
 				}
 				this.getModel("atckModel").getProperty("/checklist").forEach(function(oItem) {
 					var oPayload = {};

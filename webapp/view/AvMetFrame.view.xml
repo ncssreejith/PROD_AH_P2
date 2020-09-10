@@ -23,7 +23,7 @@
 						<menu>
 							<Menu >
 								<items>
-									
+									<MenuItem text="Main custodian: {avmetModel>/dash/csqidtxt}" icon="sap-icon://flight" />
 								</items>
 							</Menu>
 						</menu>
