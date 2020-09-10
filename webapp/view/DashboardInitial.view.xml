@@ -13,7 +13,7 @@
 				<Button text="Create Job" enabled="{= ${avmetModel>/dash/TBTN3}!== null ? true:false}" type="Emphasized"
 					class="sapUiLargeMarginEnd dashButton" press="onPressCreateJob"></Button>
 			</OverflowToolbar>
-			<VBox class="sapUiSmallMargin">
+			<VBox class="sapUiSmallMargin" width="95%">
 				<HBox width="100%">
 					<HBox width="28%">
 						<GenericTile width="100%" press="onSchedulesView('OST')" frameType="TwoByOne" state="Loaded"

@@ -140,7 +140,7 @@
 					prime="{= ${CreatedWorkCenterModel>isprime} !== null ? true:false }" title="{CreatedWorkCenterModel>wrctrtx}" select="onWorkCenterSelect"
 					visible="{= ${CreatedWorkCenterModel>wrctr} !== 'Summary' }"/>
 			</HBox>
-			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter" visible="{LocalModel>/FairEditFlag}">
+			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter('ADD')" visible="{LocalModel>/FairEditFlag}">
 				<core:Icon src="sap-icon://sys-add" size="35px" color="blue" press="onIconPress"/>
 			</cc:RectificationTileAdd>
 		</HBox>
