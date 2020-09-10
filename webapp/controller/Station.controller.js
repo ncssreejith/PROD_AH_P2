@@ -307,6 +307,7 @@ sap.ui.define([
 							oData.results[i].CONECT = this.getModel("configModel").getProperty("/selStn/CONECT");
 							this.getModel("configModel").setProperty("/selStn/selADP/selWpn", oData.results[i]);
 							this.fnSetArrowColor(oData.results[i].CONECT === "C");
+							this.fnLoadSerialNumber();
 							break;
 						}
 					}
@@ -319,6 +320,34 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+			fnLoadSerialNumber:function(){
+			var sStatnId = this.getModel("configModel").getProperty("/selStn/STNSID");
+				var sStnmId = this.getModel("configModel").getProperty("/selStn/STNMID");
+				var oParameter = {};
+				// oParameter.filter = "refid eq '" + this.getAircraftId() + "' and stnsid eq '" + sStatnId + "' and adpflag eq 'X'";
+				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + sStnmId+ " and stnsid eq " + sStatnId;
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					
+					this.getModel("configModel").setProperty("/selStn/selADP/selWpn/serialNos", this.fnCreateSerialNo(oData));
+					this.getModel("configModel").refresh();
+				}.bind(this);
+				ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
+		},
+		
+		fnCreateSerialNo:function(oData){
+			var sSerilNo = [];
+			oData.results.forEach(function(srno){
+				var srNo = {};
+				srNo.srno = srno.SERNR;
+				srNo.dlt = false;
+				srNo.delimit = false;
+				sSerilNo.push(srNo);
+			}.bind(this));
+			return sSerilNo;
+		},
+		
 
 		onStationSignOff: function() {
 			try {
