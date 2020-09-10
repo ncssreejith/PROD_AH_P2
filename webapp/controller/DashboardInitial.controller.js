@@ -129,6 +129,7 @@ sap.ui.define([
 					case "AST_FFG":
 					case "AST_FFC":
 					case "AST_FFF":
+					case "AST_FFF0":
 						this.getRouter().navTo("PilotAccept", {
 							srvtid: sSrvtId,
 							stepid: "S_PA"
