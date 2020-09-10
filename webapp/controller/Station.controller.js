@@ -135,7 +135,7 @@ sap.ui.define([
 						this.onReadSNoPress(sSelWpn);
 						return;
 					}
-					return "";
+					
 				} else {
 					sSelWpn.serialNos = [{
 						srno: "",
@@ -329,8 +329,8 @@ sap.ui.define([
 				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + sStnmId+ " and stnsid eq " + sStatnId;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					
 					this.getModel("configModel").setProperty("/selStn/selADP/selWpn/serialNos", this.fnCreateSerialNo(oData));
+					this.getModel("configModel").setProperty("/selStn/selADP/selWpn/cserialNos", this.fnCreateSerialNo(oData));
 					this.getModel("configModel").refresh();
 				}.bind(this);
 				ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
@@ -338,16 +338,15 @@ sap.ui.define([
 		
 		fnCreateSerialNo:function(oData){
 			var sSerilNo = [];
-			oData.results.forEach(function(srno){
+			oData.results.forEach(function(srno,sIndex){
 				var srNo = {};
 				srNo.srno = srno.SERNR;
-				srNo.dlt = false;
+				srNo.dlt = sIndex===0?false:true;
 				srNo.delimit = false;
 				sSerilNo.push(srNo);
 			}.bind(this));
 			return sSerilNo;
 		},
-		
 
 		onStationSignOff: function() {
 			try {
