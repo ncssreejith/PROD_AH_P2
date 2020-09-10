@@ -754,7 +754,7 @@ sap.ui.define([
 		onSummaryIconTabBarSelect: function(oEvent) {
 			try {
 				var that = this,
-					sJobId, sWrctr,
+					sJobId, sWrctr, oModelLocal,
 					sSelectedtxt, sSelectedKey,
 					oModel;
 				try {
@@ -763,13 +763,14 @@ sap.ui.define([
 				} catch (e) {
 					sSelectedKey = oEvent;
 				}
-
+				oModelLocal = that.getView().getModel("JobModel");
 				oModel = that.getView().getModel("LocalModel");
 				sJobId = oModel.getProperty("/sJobId");
 				if (sSelectedKey === "Summary") {
 					oModel.setProperty("/SummaryFlag", true);
 					oModel.setProperty("/WorcenterFlag", false);
 					that._fnTaskStatusGet(sJobId);
+					that.onSelectionDefectAreaChange(oModelLocal.getProperty("/deaid"));
 				} else {
 					oModel.setProperty("/SummaryFlag", false);
 					oModel.setProperty("/WorcenterFlag", true);
@@ -1169,6 +1170,7 @@ sap.ui.define([
 						that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						this.getView().byId("itbTaskId").setSelectedKey("CM");
+						this.byId("pageSummaryId").scrollTo(0);
 					}.bind(this);
 					oPrmTask.activity = 4;
 					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "ZRM_COS_TS", this);

@@ -165,7 +165,7 @@ sap.ui.define([], function() {
 			}
 			// validation for  Redio fields
 			var oFieldRadiobtn = that.getView().getControlsByFieldGroupId("fgRedioBtn");
-			oFieldRadiobtn.forEach(function(oFieldTxt) {
+			oFieldRadiobtn.forEach(function(oFieldIds) {
 				try {
 					for (var i = 0; i < oFieldIds.length; i++) {
 						if (oFieldIds[i].getFieldGroupIds()[0] !== "fgSGBtn" && oFieldIds[i].getFieldGroupIds()[0] !== "" && oFieldIds[i].getFieldGroupIds()

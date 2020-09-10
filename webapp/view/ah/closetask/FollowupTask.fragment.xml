@@ -110,13 +110,17 @@
 										</VBox>
 										<VBox visible="{= ${TaskModel>tt1id}==='TT1_12' ? true:false}" class="sapUiSmallMarginTop">
 											<Label text="Result Good?" design="Bold"></Label>
-											<SegmentedButton selectedKey="{TaskModel>ftrsltgd}" enabled="true">
+											<!--<SegmentedButton selectedKey="{TaskModel>ftrsltgd}" enabled="true">
 												<items>
 													<SegmentedButtonItem visible="false" key="NA" width="50%"/>
 													<SegmentedButtonItem text="Yes" key="1" width="80%"/>
 													<SegmentedButtonItem text="No" key="0" width="80%"/>
 												</items>
-											</SegmentedButton>
+											</SegmentedButton>-->
+											<RadioButtonGroup columns="2" selectedIndex="{TaskModel>ftrsltgd}" valueState="{= (${TaskModel>ftrsltgd} == 0 || ${TaskModel>ftrsltgd} === 1)  ? 'None':'Error'}" required="{= ${TaskModel>tt1id}==='TT1_12' ? true:false}" class="sapUiMediumMarginBottom">
+												<RadioButton text="Yes"/>
+												<RadioButton text="No"/>
+											</RadioButtonGroup>
 											<layoutData>
 												<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 											</layoutData>
@@ -183,7 +187,7 @@
 													</ComboBox>
 													<Input width="180px" maxLength="20" change="onChangeData" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin" fieldGroupIds="fgInput"
 														visible="{= ${TaskModel>engflag}!=='EG'? true:false}"
-														required="{= (${TaskModel>engflag}!=='EG' &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)'? true:false}"/>
+														required="{= (${TaskModel>engflag}!=='EG' &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)')? true:false}"/>
 													<ComboBox width="180px" selectedKey="{TaskModel>ftsernr}" items="{path:'SerialNumModel>/',templateShareable: false}"
 														fieldGroupIds="fgCmbBox" visible="{= ${TaskModel>engflag}==='EG'? true:false}" class="sapUiSmallMarginBegin"
 														required="{= ${TaskModel>engflag}==='EG' &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)' ? true:false}">

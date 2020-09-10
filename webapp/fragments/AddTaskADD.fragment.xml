@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog title="Add Acceptable Deferred Defects" class="popoverHeaderCSS" contentWidth="40%">
+	<Dialog title="Add Acceptable Deferred Defects" class="popoverHeaderCSS" contentWidth="50%">
 		<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
 				<VBox>

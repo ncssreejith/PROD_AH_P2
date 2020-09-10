@@ -769,7 +769,7 @@ sap.ui.define([
 					oPayLoad.CAPTY = "L";
 				}
 
-				oPayLoad.CSTAT = "P";
+				oPayLoad.CSTAT = "C";
 
 				oParameter.error = function() {
 
@@ -1014,7 +1014,7 @@ sap.ui.define([
 						if (oData.results[i].tt1id === 'TT1_12' && oData.results[i].tt2id === '' && oData.results[i].tt3id === '' && oData.results[i].tt4id ===
 							'') {
 							if (oData.results[i].ftrsltgd === "" || oData.results[i].ftrsltgd === null) {
-								oData.results[i].ftrsltgd = "NA";
+								oData.results[i].ftrsltgd = 2;
 							}
 
 						}

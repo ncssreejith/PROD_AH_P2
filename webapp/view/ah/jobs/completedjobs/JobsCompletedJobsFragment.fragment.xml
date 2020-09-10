@@ -16,43 +16,43 @@
 				</OverflowToolbar>
 			</headerToolbar>
 			<columns>
-				<Column width="5rem" hAlign="Center" class="CERTableTextColor">
+				<Column width="9%" hAlign="Center" class="CERTableTextColor">
 					<HBox>
 						<Label text="Creation Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobid', 'creuzt')"/>
 					</HBox>
 				</Column>
-				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>
 						<Label text="{i18n>lbJobNo}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobid')"/>
 					</HBox>
 				</Column>
-				<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Column width="10%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>
 						<Label text="{i18n>lbJobDescription}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobdesc')"/>
 					</HBox>
 				</Column>
-				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Column width="9%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>
 						<Label text="Closure Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobid', 'recttm')"/>
 					</HBox>
 				</Column>
-				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Column width="10%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>
 						<Label text="{i18n>lbRectificationSummary}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor sapUiTinyMarginTop" press="onSort($event,'recttxt')"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'recttxt')"/>
 					</HBox>
 				</Column>
-				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Column width="5%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>
 						<Label text="{i18n>lbJobType}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobty')"/>
 					</HBox>
 				</Column>
-				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<HBox>
 						<Label text="{i18n>lbPrimeWorkCenter}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ptext')"/>
