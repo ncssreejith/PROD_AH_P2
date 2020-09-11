@@ -321,7 +321,7 @@ sap.ui.define([
 			}
 		},
 		
-			fnLoadSerialNumber:function(){
+		fnLoadSerialNumber:function(){
 			var sStatnId = this.getModel("configModel").getProperty("/selStn/STNSID");
 				var sStnmId = this.getModel("configModel").getProperty("/selStn/STNMID");
 				var oParameter = {};
@@ -329,6 +329,7 @@ sap.ui.define([
 				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + sStnmId+ " and stnsid eq " + sStatnId;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
+					this.getModel("configModel").setProperty("/selStn/selADP/selWpn/srcount", this.fnCreateSerialNo(oData).length);
 					this.getModel("configModel").setProperty("/selStn/selADP/selWpn/serialNos", this.fnCreateSerialNo(oData));
 					this.getModel("configModel").setProperty("/selStn/selADP/selWpn/cserialNos", this.fnCreateSerialNo(oData));
 					this.getModel("configModel").refresh();
