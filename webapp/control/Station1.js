@@ -1,7 +1,7 @@
 sap.ui.define([
 	"sap/ui/core/Control",
 	"sap/m/Link"
-], function (Control,Link) {
+], function(Control, Link) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name:            
@@ -11,7 +11,7 @@ sap.ui.define([
 	 *   Properties : 
 	 *   Note : 
 	 *************************************************************************** */
-	return Control.extend("avmet.ah.control.Station1", {
+	return Control.extend("avmet.f16.control.Station1", {
 		metadata: {
 			properties: {
 				title: {
@@ -27,7 +27,7 @@ sap.ui.define([
 					defaultValue: ""
 				},
 				footerRightInfo: {
-					type: "sap.m.Link",
+					type: "string",
 					defaultValue: ""
 				}
 			},
@@ -36,50 +36,57 @@ sap.ui.define([
 					type: "sap.ui.core.Control"
 				},
 				_oLink: {
-						type: "sap.m.Link",
-						multiple: false
-					}
+					type: "sap.m.Link",
+					multiple: false
+				}
 			},
 			defaultAggregation: "content",
 			events: {
 				press: {},
 				hover: {},
-			    fireSerialPress:{}
+				fireSerialPress: {}
 			}
 		},
-		onmouseover: function (evt) {
+		onmouseover: function(evt) {
 			this.fireHover({});
 		},
-		ontap: function (oEvent) {
-			this.firePress(oEvent);
+		ontap: function(oEvent) {
+			if (oEvent.srcControl.getId().search("link") === -1) {
+				this.firePress(oEvent);
+			} 
 		},
-		init: function () {
-		    var that = this;
-          	var oLink = new Link({
-					text: "testme",
-					press: function (oEvent) {
-						that.fireSPress(oEvent);
-					}
-				});
-		this.setAggregation("_oLink", oLink);		
+		init: function() {
+			var that = this;
+			this.evtType = "";
+			var oLink = new Link({
+				text: "testme",
+				press: function(oEvent) {
+					that.fireFireSerialPress(oEvent);
+				}
+			});
+			this.setAggregation("_oLink", oLink);
 		},
-        fireSPress: function (oEvent) {
-			this.fireFireSerialPress(oEvent);
-		},
-		renderer: function (oRM, oControl) {
-			
-				var oLink = oControl.getAggregation("_oLink");
-				var aChildren = oControl.getContent();
+
+		renderer: function(oRM, oControl) {
+
+			var oLink = oControl.getAggregation("_oLink");
+			var aChildren = oControl.getContent();
 			oRM.write("<div");
-					oRM.writeControlData(oControl);
-					oRM.addClass("StationOuterDiv");
-					oRM.writeClasses();
+			oRM.writeControlData(oControl);
+			oRM.addClass("StationOuterDiv");
+			oRM.writeClasses();
 			oRM.write(">");
 			// var aChildren = oControl.getContent();
 			// oRM.write("<div class='StationOuterDiv'>");
-			oRM.write("<div class='StationTopDiv'>");
+			oRM.write("<div style='height: 77px;'>");
 			oRM.write("<div class='StationLeftIcon'>");
 			oRM.renderControl(aChildren[1]);
+			oRM.write("</div>");
+			oRM.write("<div class='StationTopDiv'>");
+			oRM.write("<div class='StationIconTopDiv'>");
+			oRM.write("<div class='StationShowIcon'>");
+			oRM.renderControl(aChildren[0]);
+			oRM.write("</div>");
 			oRM.write("</div>");
 			oRM.write("<div class='StationTitleDiv'>");
 			oRM.write("<div class='StationSubTitle'>");
@@ -89,14 +96,7 @@ sap.ui.define([
 			oRM.write(oControl.getTitle());
 			oRM.write("</div>");
 			oRM.write("</div>");
-			oRM.write("<div class='StationIconContent'>");
-			oRM.write("<div class='StationShowIcon'>");
-			oRM.renderControl(aChildren[0]);
 			oRM.write("</div>");
-			oRM.write("</div>");
-			oRM.write("</div>");
-
-			oRM.write("<div class='line'>");
 			oRM.write("</div>");
 
 			oRM.write("<div class='StationBottomDiv'>");
@@ -119,5 +119,6 @@ sap.ui.define([
 
 			oRM.write("</div>");
 		}
+
 	});
 });

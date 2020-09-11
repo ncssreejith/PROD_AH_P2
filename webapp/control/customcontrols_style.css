@@ -212,13 +212,26 @@ Description : This control used to add new work center in Rectifications area in
  Used views : COSDashboard (View)
 -----------------------------------------------------------------------------------------*/
 
-.DBTile4OutDiv {
-    width: 360px !important;
-    height: 200px !important;
-    background: white;
-    float: right;
-    border-radius: 5px;
-    border: 0px;
+@media all and (orientation:portrait) {
+    .DBTile4OutDiv {
+        width: 450px !important;
+        height: 200px !important;
+        background: white;
+        float: right;
+        border-radius: 5px;
+        border: 0px;
+    }
+}
+
+@media all and (orientation:landscape) {
+    .DBTile4OutDiv {
+        width: 360px !important;
+        height: 200px !important;
+        background: white;
+        float: right;
+        border-radius: 5px;
+        border: 0px;
+    }
 }
 
 .DBTile4Left {
@@ -343,13 +356,26 @@ Description : This control used to add new work center in Rectifications area in
  Used views : COSDashboard (View)
 -----------------------------------------------------------------------------------------*/
 
-.DBTile5OutDiv {
-    width: 360px !important;
-    height: 200px !important;
-    background: white;
-    float: right;
-    border-radius: 5px;
-    border: 0px;
+@media all and (orientation:portrait) {
+    .DBTile5OutDiv {
+        width: 450px !important;
+        height: 200px !important;
+        background: white;
+        float: right;
+        border-radius: 5px;
+        border: 0px;
+    }
+}
+
+@media all and (orientation:landscape) {
+    .DBTile5OutDiv {
+        width: 360px !important;
+        height: 200px !important;
+        background: white;
+        float: right;
+        border-radius: 5px;
+        border: 0px;
+    }
 }
 
 .DBTile5Bottom {
@@ -661,7 +687,9 @@ Description : This control used to add new work center in Rectifications area in
 -----------------------------------------------------------------------------------------*/
 
 .statusTileOutDiv {
-    width: 36rem !important;
+    max-width: 40rem !important;
+    min-width : 26rem !important;
+    width : auto;
     height: 7rem !important;
     background: white;
     float: right;
@@ -777,7 +805,7 @@ Description : This control used to add new work center in Rectifications area in
 }
 
 .StatusRightDiv {
-    width: 160px !important;
+    width: 170px !important;
     height: 83px !important;
     border-radius: 5px;
     margin: 10px;
@@ -787,15 +815,6 @@ Description : This control used to add new work center in Rectifications area in
 
 .StatusButtonDiv {
     padding-top: 15px;
-}
-
-.StatusRightDiv {
-    width: 160px !important;
-    height: 83px !important;
-    border-radius: 5px;
-    margin: 10px;
-    padding: 5px;
-    float: left;
 }
 
 .StatusRightDiv2Buttons {
@@ -1623,8 +1642,9 @@ Description : This control used to add new work center in Rectifications area in
     background: #fdfdfd;
     text-align: start;
 }
+
 .OtherFooterRight {
-    width:46%;
+    width: 46%;
     padding: 0.5rem 0.5rem 0.4rem 0.5rem;
     float: right;
     font-size: 12px;
@@ -1741,7 +1761,6 @@ Description : This control used to add new work center in Rectifications area in
     font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
 }
 
-
 .StatusHeaderDiv {
     font-size: 13px !important;
     padding-top: 10px;
@@ -1759,15 +1778,6 @@ Description : This control used to add new work center in Rectifications area in
     font-size: 12px !important;
     padding-top: 2px;
     font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
-}
-
-.StatusRightDiv {
-    width: 160px !important;
-    height: 83px !important;
-    border-radius: 5px;
-    margin: 10px;
-    padding: 5px;
-    float: left;
 }
 
 .StatusButtonDiv {
@@ -1800,12 +1810,15 @@ Description : This control used to add new work center in Rectifications area in
 }
 
 .StationTopDiv {
-    width: 12rem;
+    width: 66%;
     background: #fdfdfd;
+    display: inline-block;
 }
 
 .StationOuterDiv:hover .StationShowIcon {
     display: block;
+    padding-top: 5px;
+    padding-right: 5px;
 }
 
 .StationOuterDiv:hover .StationIconContent {
@@ -1817,18 +1830,22 @@ Description : This control used to add new work center in Rectifications area in
 }
 
 .StationLeftIcon {
-    width: 3.5rem;
+    width: 25%;
     height: 3rem;
     float: left;
     padding: 0.5rem;
-    padding-left: 1rem;
     background: #fdfdfd;
+    display: inline-block;
+}
+
+.StationIconTopDiv {
+    width: 100%;
+    height: 25px;
 }
 
 .StationTitleDiv {
-    width: 4rem;
+    width: 100%;
     float: left;
-    padding-top: 1.5rem;
     background: #fdfdfd;
 }
 
@@ -1854,34 +1871,40 @@ Description : This control used to add new work center in Rectifications area in
 
 .StationShowIcon {
     display: none;
+    float: right;
+    padding-top: 5px;
+    padding-right: 5px;
 }
 
 .StationBottomDiv {
-    width: 12rem;
-    background: #fdfdfd;
+    margin-left: 5%;
+    padding-top: 5px;
+    width: 90%;
+    height: 10px;
+    margin-right: 5%;
+    border-top: 1px solid #b29c9c;
 }
 
 .StationFooterLeft {
-    width: 4rem;
-    padding: 1.3rem 0.5rem 0.5rem 1rem;
+    width: 50%;
     float: left;
     font-size: 12px;
     background: #fdfdfd;
     text-align: start;
+    display: inline-block;
 }
 
 .StationFooterRight {
-    width: 5rem;
-    padding: 1.3rem 0.5rem 1.37rem 1rem;
+    width: 50%;
     float: right;
     font-size: 12px;
     background: #fdfdfd;
     text-align: end;
+    display: inline-block;
 }
 
 .StationFooterRightForData {
     width: 5rem;
-    padding: 1.3rem 0.5rem 0.5rem 1rem;
     float: right;
     font-size: 12px;
     background: #fdfdfd;

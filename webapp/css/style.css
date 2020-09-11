@@ -179,7 +179,7 @@ Description :
 /*width: 18rem !important; remove width amit kumar*/
 
 .DashBoardGenericTileSize {
-    width: 22rem !important;
+    max-width: 22rem !important;
     height: 7rem !important;
 }
 
@@ -1729,4 +1729,28 @@ Description :
 
 .fontSizeSmall .sapMSegBBtnInner {
 	font-size: 0.725rem !important;
+}
+
+@media all and (orientation:portrait) {
+ .tileWidth {
+ 	width :50% !important;
+ }
+}
+
+@media all and (orientation:landscape) {
+ .tileWidth {
+ 	width :auto !important;
+ }
+}
+
+@media all and (orientation:portrait) {
+ .quickInfoWidth {
+ 	width :50% !important;
+ }
+}
+
+@media all and (orientation:landscape) {
+ .quickInfoWidth {
+ 	width :30% !important;
+ }
 }

@@ -13,11 +13,10 @@
 				<Button text="Create Job" enabled="{= ${avmetModel>/dash/TBTN3}!== null ? true:false}" type="Emphasized"
 					class="sapUiLargeMarginEnd dashButton" press="onPressCreateJob"></Button>
 			</OverflowToolbar>
-			<VBox class="sapUiSmallMargin" width="95%">
-				<HBox width="100%">
-					<HBox width="28%">
-						<GenericTile width="100%" press="onSchedulesView('OST')" frameType="TwoByOne" state="Loaded"
-							class="DashBoardGenericTileSize sapUiTinyMargin">
+			<ScrollContainer class="sapUiTinyMarginEnd">
+				<HBox wrap="Wrap" justifyContent="Center">
+					<HBox class="sapUiTinyMargin">
+						<GenericTile width="auto" press="onSchedulesView('OST')" frameType="TwoByOne" state="Loaded" class="DashBoardGenericTileSize">
 							<tileContent>
 								<TileContent>
 									<content>
@@ -31,8 +30,8 @@
 							</tileContent>
 						</GenericTile>
 					</HBox>
-					<HBox width="28%">
-						<GenericTile width="100%" press="onPressApprovals" frameType="TwoByOne" state="Loaded" class="DashBoardGenericTileSize sapUiTinyMargin">
+					<HBox class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd">
+						<GenericTile width="auto" press="onPressApprovals" frameType="TwoByOne" state="Loaded" class="DashBoardGenericTileSize">
 							<tileContent>
 								<TileContent>
 									<content>
@@ -46,46 +45,51 @@
 							</tileContent>
 						</GenericTile>
 					</HBox>
-					<HBox width="44%" class="sapUiSmallMarginEnd">
-						<ct:DBStatusTile class="sapUiTinyMargin" subTitle="STATUS" title="{avmetModel>/dash/astat}" header="{avmetModel>/dash/txt1}"
+					<HBox class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd">
+						<ct:DBStatusTile subTitle="STATUS" title="{avmetModel>/dash/astat}" header="{avmetModel>/dash/txt1}"
 							subHeader="{avmetModel>/dash/txt2}" info="{avmetModel>/dash/txt3}">
 							<ct:items>
 								<Button text="{avmetModel>/dash/SBTN1}" visible="{= ${avmetModel>/dash/SBTN1}!== null ? true:false}" type="Emphasized"
 									press="onButtnItem1Press"/>
-								 <!--enabled="{parts:['avmetModel>/dash/astid','avmetModel>/dash/astat'],formatter:'avmet.ah.model.formatter.statusFlightColor'}"-->
-								<Button text="{avmetModel>/dash/SBTN2}" visible="{= ${avmetModel>/dash/SBTN2}!== null? true:false}" type="{parts:['avmetModel>/dash/astid','avmetModel>/dash/astat'],formatter:'avmet.ah.model.formatter.statusFlightColor'}"
+								<!--enabled="{parts:['avmetModel>/dash/astid','avmetModel>/dash/astat'],formatter:'avmet.ah.model.formatter.statusFlightColor'}"-->
+								<Button text="{avmetModel>/dash/SBTN2}" visible="{= ${avmetModel>/dash/SBTN2}!== null? true:false}"
+									type="{parts:['avmetModel>/dash/astid','avmetModel>/dash/astat'],formatter:'avmet.ah.model.formatter.statusFlightColor'}"
 									press="onButtnItem2Press"/>
 								<HBox visible="{avmetModel>/WarningFlag}">
 									<Button icon="sap-icon://slim-arrow-left" type="Transparent" press="onLeftWarnPress" enabled="{avmetModel>/WarningLeftBtn}"></Button>
-									<Link text="{avmetModel>/WarningIndexText}" wrapping="false" width="5rem" press="onWarningMessageSelect" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop"></Link>
+									<Link text="{avmetModel>/WarningIndexText}" wrapping="false" width="5rem" press="onWarningMessageSelect"
+										class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop"></Link>
 									<Button icon="sap-icon://slim-arrow-right" type="Transparent" press="onRightWarnPress" enabled="{avmetModel>/WarningRightBtn}"></Button>
 								</HBox>
 							</ct:items>
 						</ct:DBStatusTile>
 					</HBox>
 				</HBox>
-				<HBox>
-					<VBox>
-						<HBox>
-							<ct:DashboardTile3 select="onViewClick" fontColor="black" class="sapUiTinyMargin" title="Schedules" leftNumeric="{dashboardModel>/scl/LV_COUNT}"
-                                leftHeading="Jobs Due Soon" leftSubHeading="(5 Days or 10h)" buttonText="View">
-                                <mc:RadialMicroChart id="scheduleMicroChartId" size="L"
-                                    valueColor="{path : 'dashboardModel>/scl/LV_COLOR'}" press="press" class="customChartFont"></mc:RadialMicroChart>
-                                <SegmentedButton selectedKey="{dashboardModel>/scl/Index}" selectionChange="onScheduleSegBtnChange" width="100%" class="sapUiSizeCompact">
-                                    <items>
-                                        <SegmentedButtonItem key="Hrs" text="Hrs" icon="{dashboardModel>/scl/HrsAlert}" width="30%" ariaDescribedBy="rejectButtonDescription genericButtonDescription">
-                                            <customData>
-                                                <core:CustomData writeToDom="true"/>
-                                            </customData>
-                                        </SegmentedButtonItem>
-                                        <SegmentedButtonItem text="Days" key="Days" icon="{dashboardModel>/scl/DaysAlert}" ariaDescribedBy="rejectButtonDescription genericButtonDescription"/>
-                                        <SegmentedButtonItem text="TAC" key="TAC" icon="{dashboardModel>/scl/TACAlert}"/>
-                                    </items>
-                                </SegmentedButton>
+				<HBox justifyContent="Center">
+					<VBox class="tileWidth">
+						<HBox wrap="Wrap" justifyContent="Center">
+							<ct:DashboardTile3 select="onViewClick" fontColor="black" class="sapUiTinyMargin" title="Schedules"
+								leftNumeric="{dashboardModel>/scl/LV_COUNT}" leftHeading="Jobs Due Soon" leftSubHeading="(5 Days or 10h)" buttonText="View">
+								<mc:RadialMicroChart id="scheduleMicroChartId" size="L" valueColor="{path : 'dashboardModel>/scl/LV_COLOR'}" press="press"
+									class="customChartFont"></mc:RadialMicroChart>
+								<SegmentedButton selectedKey="{dashboardModel>/scl/Index}" selectionChange="onScheduleSegBtnChange" width="100%" class="sapUiSizeCompact">
+									<items>
+										<SegmentedButtonItem key="Hrs" text="Hrs" icon="{dashboardModel>/scl/HrsAlert}" width="30%"
+											ariaDescribedBy="rejectButtonDescription genericButtonDescription">
+											<customData>
+												<core:CustomData writeToDom="true"/>
+											</customData>
+										</SegmentedButtonItem>
+										<SegmentedButtonItem text="Days" key="Days" icon="{dashboardModel>/scl/DaysAlert}"
+											ariaDescribedBy="rejectButtonDescription genericButtonDescription"/>
+										<SegmentedButtonItem text="TAC" key="TAC" icon="{dashboardModel>/scl/TACAlert}"/>
+									</items>
+								</SegmentedButton>
 								<Link text="view" press="onSchedulesView('SCH')" visible="{= !!${dashboardModel>/scl/LV_COUNT}}"/>
 							</ct:DashboardTile3>
 							<ct:DashboardTile4 class="sapUiTinyMargin" title="Aircraft Capabilities">
-								<mc:RadialMicroChart id="capMicroChartId" size="L" valueColor="{path : 'dashboardModel>/cap/LV_TADD', formatter : '.formatter.DBSchedule'}" press="press" class="customChartFont numFontColor"></mc:RadialMicroChart>
+								<mc:RadialMicroChart id="capMicroChartId" size="L" valueColor="{path : 'dashboardModel>/cap/LV_TADD', formatter : '.formatter.DBSchedule'}"
+									press="press" class="customChartFont numFontColor"></mc:RadialMicroChart>
 								<SegmentedButton selectedKey="{dashboardModel>/cap/Index}" selectionChange="onAircapSegBtnChange" width="100%" class="sapUiSizeCompact">
 									<items>
 										<SegmentedButtonItem text="ADD" key="ADD" width="25%"/>
@@ -95,12 +99,10 @@
 								<Link text="view" press="onAircraftView" visible="{= !!${dashboardModel>/cap/LV_TADD} || !!${dashboardModel>/cap/LV_TLIMI}}"/>
 							</ct:DashboardTile4>
 						</HBox>
-						<HBox>
-							<ct:DashboardTile3 id="dbTileFuel" select="onViewClick" class="sapUiTinyMargin" title="Fuel" leftNumeric="{dashboardModel>/fl/TOTAT}" leftHeading="Total Amount"
-								leftSubHeading="{dashboardModel>/fl/LEUOM}" fontColor="{dashboardModel>/fl/COLOR}">
-								<mc:RadialMicroChart
-								id="fuelMicroChartId"
-								size="L"
+						<HBox wrap="Wrap" justifyContent="Center">
+							<ct:DashboardTile3 id="dbTileFuel" select="onViewClick" class="sapUiTinyMargin" title="Fuel" leftNumeric="{dashboardModel>/fl/TOTAT}"
+								leftHeading="Total Amount" leftSubHeading="{dashboardModel>/fl/LEUOM}" fontColor="{dashboardModel>/fl/COLOR}">
+								<mc:RadialMicroChart id="fuelMicroChartId" size="L"
 									valueColor="{path : 'dashboardModel>/fl/COLOR', formatter : '.formatter.DBFuelPercentage'}" press="press" class="numFontColor"></mc:RadialMicroChart>
 								<SegmentedButton items="{dashboardModel>/fl/list}" selectionChange="onFuelSegBtnChange" width="80%" class="sapUiSizeCompact fontSizeSmall">
 									<items>
@@ -132,7 +134,7 @@
 							</ct:DashboardTile6>
 						</HBox>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop">
+					<VBox class="sapUiTinyMarginTop quickInfoWidth">
 						<core:Fragment fragmentName="avmet.ah.fragments.dashboard.QuickInfo" type="XML"/>
 						<core:Fragment fragmentName="avmet.ah.fragments.dashboard.AircraftUtil" type="XML"/>
 						<VBox class="DashBoardRefreshVBox sapUiTinyMarginTop sapUiTinyMarginBegin" width="98%">
@@ -141,7 +143,7 @@
 						</VBox>
 					</VBox>
 				</HBox>
-			</VBox>
+			</ScrollContainer>
 		</content>
 	</Page>
 </mvc:View>
