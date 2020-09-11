@@ -5,6 +5,7 @@
 				<RadioButton  text="#1 Engine Change"/>
 				<RadioButton  text="#2 Engine Change"/>
 				<RadioButton  text="APU Change"/>
+				<RadioButton  text="APU Run"/>
 				<RadioButton  text="Update ALQ144"/>
 			</RadioButtonGroup>
 		</content>

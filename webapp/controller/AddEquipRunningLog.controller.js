@@ -175,6 +175,9 @@ sap.ui.define([
 						sReasonTxt = this.getResourceBundle().getText("APUChange");
 						break;
 					case "3":
+						sReasonTxt = this.getResourceBundle().getText("APURun");
+						break;	
+					case "4":
 						sReasonTxt = this.getResourceBundle().getText("txtUpdateALQ144");
 						break;
 				}

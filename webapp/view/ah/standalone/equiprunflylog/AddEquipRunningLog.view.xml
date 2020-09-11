@@ -49,7 +49,7 @@
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="APU Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
 							<Input width="250px" value="{oAircraftAddModel>/record/COL_15}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"
-							 required="{= ${oAircraftAddModel>/type} === '2'}" editable="{= ${oAircraftAddModel>/type} === '2'}"/>
+							 required="{= ${oAircraftAddModel>/type} === '2'||${oAircraftAddModel>/type} === '3'}" editable="{= ${oAircraftAddModel>/type} === '2'||${oAircraftAddModel>/type} === '3'}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="APU Start" width="250px" level="H2" class="sapUiSmallMarginTop"/>
@@ -59,7 +59,7 @@
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="ALQ144" width="250px" level="H2" class="sapUiSmallMarginTop"/>
 							<Input width="250px" value="{oAircraftAddModel>/record/COL_17}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"
-							required="{= ${oAircraftAddModel>/type} === '3'}" editable="{= ${oAircraftAddModel>/type} === '3'}"/>
+							required="{= ${oAircraftAddModel>/type} === '4'}" editable="{= ${oAircraftAddModel>/type} === '4'}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="Reason" width="250px" level="H2" class="sapUiSmallMarginTop"/>
