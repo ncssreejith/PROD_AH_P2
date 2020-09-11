@@ -34,7 +34,7 @@
 							<cells>
 								<Text
 									text="{path:'paModel>FR_DT', formatter:'.formatter.defaultDateFormatDisplay'} {path:'paModel>FR_TM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-								<Text text="{paModel>FRDESC}"/>
+								<Text text="{paModel>frdesc}"/>
 							</cells>
 						</ColumnListItem>
 					</items>

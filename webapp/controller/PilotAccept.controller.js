@@ -413,7 +413,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/flyReq", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/GetflyreqSvc", oParameter);
+				ajaxutil.fnRead("/AH4StatusSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}

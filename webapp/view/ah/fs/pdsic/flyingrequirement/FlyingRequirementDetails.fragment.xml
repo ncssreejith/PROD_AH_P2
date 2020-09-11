@@ -34,7 +34,7 @@
 							<cells>
 								<Text
 									text="{path:'pdsSummaryModel>FR_DT', formatter:'.formatter.defaultDateFormatDisplay'} {path:'pdsSummaryModel>FR_TM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-								<Text text="{pdsSummaryModel>FRDESC}"/>
+								<Text text="{pdsSummaryModel>frdesc}"/>
 							</cells>
 						</ColumnListItem>
 					</items>
