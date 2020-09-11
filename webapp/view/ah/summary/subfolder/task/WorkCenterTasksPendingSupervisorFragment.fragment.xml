@@ -37,7 +37,7 @@
 					<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 						<HBox>
 							<Label text="{i18n>lbFollowupTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')" />
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')"/>
 						</HBox>
 					</Column>
 					<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
@@ -76,7 +76,9 @@
 								<Text text="{path:'TaskPendingModel>credtm', formatter:'.formatter.defaultDateFormatDisplay'}"/>
 								<Text text="{path:'TaskPendingModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 							</VBox>
-							<Text text="{TaskPendingModel>ftdesc}"/>
+							<HBox wrap="Wrap" class="textOverFlow">
+								<Text text="{TaskPendingModel>ftdesc}"/>
+							</HBox>
 							<VBox alignItems="Center" alignContent="Center">
 								<Text text="{path:'TaskPendingModel>ftcredt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
 								<Text text="{path:'TaskPendingModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>

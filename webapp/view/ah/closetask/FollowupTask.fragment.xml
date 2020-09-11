@@ -117,8 +117,7 @@
 													<SegmentedButtonItem text="No" key="0" width="80%"/>
 												</items>
 											</SegmentedButton>-->
-											<RadioButtonGroup columns="2" selectedIndex="{TaskModel>ftrsltgd}" valueState="{TaskModel>ValueState}"
-											 class="sapUiMediumMarginBottom">
+											<RadioButtonGroup columns="2" selectedIndex="{TaskModel>ftrsltgd}" valueState="{TaskModel>ValueState}" class="sapUiMediumMarginBottom">
 												<RadioButton text="Yes"/>
 												<RadioButton text="No"/>
 											</RadioButtonGroup>
@@ -186,12 +185,15 @@
 													<ComboBox width="150px" change="onTypeChange" selectedKey="{TaskModel>isser}" items="{path:'TT1Model>/',templateShareable: false}">
 														<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
 													</ComboBox>
-													<Input width="180px" maxLength="20" change="onChangeData" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin" fieldGroupIds="fgInput"
-														visible="{= ${TaskModel>engflag}!=='EG'? true:false}"
-														required="{= (${TaskModel>engflag}!=='EG' &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)' &amp;&amp; ${TaskModel>tt1id} === 'TT1_10' &amp;&amp; ${TaskModel>tt2id} === 'TT2_12' )? true:false}"/>
+													<Input width="180px" maxLength="20" change="onChangeDataInput" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin"
+														fieldGroupIds="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputGroupVisible'}"
+														visible="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputVisible'}"
+														required="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputVisible'}"/>
 													<ComboBox width="180px" selectedKey="{TaskModel>ftsernr}" items="{path:'SerialNumModel>/',templateShareable: false}"
-														fieldGroupIds="fgCmbBox" visible="{= ${TaskModel>engflag}==='EG'? true:false}" class="sapUiSmallMarginBegin"
-														required="{= (${TaskModel>engflag}==='EG' &amp;&amp; ${TaskModel>isser}==='Serial No. (S/N)' &amp;&amp; ${TaskModel>tt1id} === 'TT1_10' &amp;&amp; ${TaskModel>tt2id} === 'TT2_10') ? true:false}">
+														fieldGroupIds="{parts:['TaskModel>engflag','TaskModel>isser'],templateShareable: false,formatter:'.formatter.serialNoCBGroupVisible'}"
+														visible="{parts:['TaskModel>engflag','TaskModel>isser'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
+														required="{parts:['TaskModel>engflag','TaskModel>isser'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
+														class="sapUiSmallMarginBegin">
 														<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
 													</ComboBox>
 												</HBox>
@@ -207,7 +209,7 @@
 												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('DSCT',$event)" size="12px"
 													color="#031E48"/>
 											</HBox>
-											<TextArea maxLength="1000" value="{TaskModel>ftdesc}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
+											<TextArea maxLength="600" value="{TaskModel>ftdesc}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
 												required="{parts:['TaskModel>tt1id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible1'}"
 												liveChange="handleLiveChange"/>
 											<layoutData>
@@ -221,7 +223,7 @@
 												<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('FIND',$event)" size="12px"
 													color="#031E48"/>
 											</HBox>
-											<TextArea maxLength="1000" value="{TaskModel>ftfind}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
+											<TextArea maxLength="600" value="{TaskModel>ftfind}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
 												liveChange="handleLiveChange"
 												required="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible2'}"/>
 											<layoutData>
@@ -318,7 +320,7 @@
 												</VBox>
 												<VBox class="sapUiSmallMarginBegin">
 													<Label/>
-													<StepInput width="200px" value="{TaskModel>utilvl}" editable="false" enabled="false"/>
+													<Input width="200px" value="{TaskModel>utilvl}" editable="false" enabled="false"/>
 												</VBox>
 											</HBox>
 											<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom"

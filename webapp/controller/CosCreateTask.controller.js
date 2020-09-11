@@ -524,6 +524,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/sCompCompDesc", oSelectedObj.sCompCompDesc);
 				oCreateTaskModel.setProperty("/sCompDesc", oSelectedObj.sCompDesc);
 				oCreateTaskModel.setProperty("/sIndicateItem", oSelectedObj.sIndicateItem);
+				oCreateTaskModel.setProperty("/sTask", oSelectedObj.sTask);
 				oCreateTaskModel.setProperty("/sItemNo", oSelectedObj.sItemNo);
 				oCreateTaskModel.setProperty("/sOpsDesc", oSelectedObj.sOpsDesc);
 				oCreateTaskModel.setProperty("/sOtherDesc", oSelectedObj.sOtherDesc);

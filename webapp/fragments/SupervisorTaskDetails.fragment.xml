@@ -15,8 +15,13 @@
 			<VBox class="sapUiSmallMargin borderTask">
 				<Toolbar class="bgColorToolBar">
 					<Label text="Follow-up Task" design="Bold"/>
+					<ToolbarSpacer/>
+					<Label text="Task Type :" design="Bold"/>
+					<ComboBox width="330px" editable="false" items="{path:'TaskMainListModel>/',templateShareable: false}" selectedKey="{DetailsSupModel>/tt1id}">
+						<core:Item text="{TaskMainListModel>ttype}" key="{TaskMainListModel>ttid}"/>
+					</ComboBox>
 				</Toolbar>
-				<ScrollContainer height="350px" width="100%" horizontal="true" vertical="true" focusable="true">
+				<ScrollContainer height="350px" width="100%" horizontal="false" vertical="true" focusable="true">
 					<VBox backgroundDesign="Solid">
 						<l:Grid hSpacing="1" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
 							<l:content>
@@ -31,37 +36,37 @@
 									</VBox>
 									<VBox visible="{= ${DetailsSupModel>/tt1id}==='TT1_11'|| ${DetailsSupModel>/tt1id}==='TT1_AD' ? true:false}" class="sapUiTinyMarginBottom">
 										<!--OPS-->
-										<VBox visible="{= ${DetailsSupModel>/CPRID}===null ? true:false}">
+										<!--	<VBox visible="{= ${DetailsSupModel>/CPRID}===null ? true:false}">
 											<ComboBox width="330px" editable="false" change="onTypeChangeOPS" selectedKey="{DetailsSupModel>/tt1id}"
 												items="{path:'FollowOPSModel>/',templateShareable: false}">
 												<core:Item text="{FollowOPSModel>text}" key="{FollowOPSModel>key}"/>
 											</ComboBox>
-										</VBox>
+										</VBox>-->
 										<VBox visible="{= ${DetailsSupModel>/CPRID}!==null ? true:false}">
-											<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
+											<Label design="Bold" text="Transfer to Acceptable Deferred Defects Log"></Label>
 										</VBox>
 										<layoutData>
 											<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 										</layoutData>
 									</VBox>
-									<VBox
+								<!--	<VBox
 										visible="{= ${DetailsSupModel>/tt1id}==='TT1_15'|| ${DetailsSupModel>/tt1id}==='TT1_16' || ${DetailsSupModel>/tt1id}==='TT1_19'? true:false}"
 										class="sapUiTinyMarginBottom">
 										<Title text="{path:'DetailsSupModel>/tt1id',formatter:'.formatter.taskTextDisplay'}" level="H4" titleStyle="H4"></Title>
 										<layoutData>
 											<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 										</layoutData>
-									</VBox>
+									</VBox>-->
 									<VBox visible="{= ${DetailsSupModel>/tt1id}==='TT1_14' || ${DetailsSupModel>/tt1id}==='TT1_ADD' ? true:false}">
 										<!--Other-->
-										<VBox visible="{= ${DetailsSupModel>/CPRID}===null ? true:false}">
+										<!--	<VBox visible="{= ${DetailsSupModel>/CPRID}===null ? true:false}">
 											<ComboBox width="330px" editable="false" change="onTypeChangeOther" selectedKey="{DetailsSupModel>/tt1id}"
 												items="{path:'FollowOtherModel>/',templateShareable: false}">
 												<core:Item text="{FollowOtherModel>text}" key="{FollowOtherModel>key}"/>
 											</ComboBox>
-										</VBox>
+										</VBox>-->
 										<VBox visible="{= ${DetailsSupModel>/CPRID}!==null ? true:false}">
-											<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
+											<Label design="Bold" text="Transfer to Acceptable Deferred Defects Log"></Label>
 										</VBox>
 										<layoutData>
 											<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
@@ -70,7 +75,7 @@
 									<VBox visible="{= ${DetailsSupModel>/tt1id}==='TT1_12' ? true:false}" class="sapUiSmallMarginTop">
 										<Label text="Result Good?" design="Bold"></Label>
 										<RadioButtonGroup columns="2" editable="false" selectedIndex="{TaskModel>ftrsltgd}" valueState="{TaskModel>ValueState}"
-											required="{= ${TaskModel>tt1id}==='TT1_12' ? true:false}" class="sapUiMediumMarginBottom">
+											class="sapUiMediumMarginBottom">
 											<RadioButton text="Yes"/>
 											<RadioButton text="No"/>
 										</RadioButtonGroup>
@@ -107,7 +112,7 @@
 										<HBox>
 											<Label text="Describe Task" design="Bold" width="196px"/>
 										</HBox>
-										<Text text="{DetailsSupModel>/ftdesc}" wrapping="true"/>
+										<Text text="{DetailsSupModel>/ftdesc}" wrapping="true" width="547px"/>
 										<layoutData>
 											<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>
 										</layoutData>
@@ -117,7 +122,7 @@
 										<HBox>
 											<Label text="Findings" design="Bold" width="196px"/>
 										</HBox>
-										<Text text="{DetailsSupModel>/ftfind}" wrapping="true"/>
+										<Text text="{DetailsSupModel>/ftfind}" wrapping="true" width="547px"/>
 										<layoutData>
 											<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>
 										</layoutData>
@@ -131,27 +136,27 @@
 										</layoutData>
 									</HBox>
 									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= ${DetailsSupModel>/oppr}!==null ? true:false}">
-										<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${DetailsSupModel>/CPRID}!==null ? true:false}">
+										<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${DetailsSupModel>/CPRID}!==null ? true:false}">
 											<HBox>
-												<Label width="180px" design="Bold" text="Reason for ADD"/>
+												<Label width="200px" design="Bold" text="Reason for ADD" class="sapUiSmallMarginTop"/>
+												<ComboBox width="200px" editable="false" selectionChange="onReasonForADDChange"
+													items="{path:'ReasonforADDModel>/',templateShareable: false}" selectedKey="{DetailsSupModel>/CPRID}" placeholder="Select">
+													<core:Item text="{ReasonforADDModel>description}" key="{ReasonforADDModel>ddid}"/>
+												</ComboBox>
 											</HBox>
-											<ComboBox width="200px" editable="false" selectionChange="onReasonForADDChange"
-												items="{path:'ReasonforADDModel>/',templateShareable: false}" selectedKey="{DetailsSupModel>/CPRID}" placeholder="Select">
-												<core:Item text="{ReasonforADDModel>description}" key="{ReasonforADDModel>ddid}"/>
-											</ComboBox>
-											<HBox class=" sapUiSmallMarginBegin" visible="{= ${DetailsSupModel>/CPRID}==='CPR_10' ? true:false}">
+											<HBox visible="{= ${DetailsSupModel>/CPRID}==='CPR_10' ? true:false}" class="sapUiSmallMarginTop">
 												<HBox>
-													<Label width="180px" design="Bold" text="Demand No"/>
+													<Label width="200px" design="Bold" text="Demand No" class="sapUiSmallMarginTop"/>
 												</HBox>
 												<Input width="200px" editable="false" value="{DetailsSupModel>/DMDID}"/>
 											</HBox>
-											<VBox class="sapUiSmallMarginBegin" visible="{= ${DetailsSupModel>/CPRID}==='CPR_14' ? true:false}">
+											<HBox visible="{= ${DetailsSupModel>/CPRID}==='CPR_14' ? true:false}" class="sapUiSmallMarginTop">
 												<HBox>
-													<Label design="Bold" text="Other Reason"/>
+													<Label width="200px" design="Bold" text="Other Reason" class="sapUiSmallMarginTop"/>
 												</HBox>
 												<Input width="200px" editable="false" value="{DetailsSupModel>/OTHER_RSN}"/>
-											</VBox>
-										</HBox>
+											</HBox>
+										</VBox>
 										<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
 											<HBox>
 												<Label width="196px" design="Bold" text="Period of Deferment" class="sapUiSmallMarginTop"/>
@@ -194,7 +199,7 @@
 											</VBox>
 											<VBox class="sapUiSmallMarginBegin">
 												<Label/>
-												<StepInput width="200px" value="{DetailsSupModel>/utilvl}" editable="false" enabled="false"/>
+												<Input width="200px" value="{DetailsSupModel>/utilvl}" editable="false" enabled="false"/>
 											</VBox>
 										</HBox>
 										<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
@@ -217,31 +222,23 @@
 						</layoutData>
 					</VBox>
 				</ScrollContainer>
-				<HBox alignContent="SpaceBetween">
-					<!--	<l:Grid hSpacing="1" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
-						<l:content>-->
-					<VBox>
-						<Toolbar>
-							<Label width="150px" text="Tradesman: {DetailsSupModel>/SG1USR}" design="Bold" class="sapUiSmallMarginBegin"/>
-							<ToolbarSpacer/>
-							<Label design="Bold"
-								text="{path:'DetailsSupModel>/SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'DetailsSupModel>/SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-						</Toolbar>
-						<!--<layoutData>
-									<l:GridData span="XL6 L6 M6 S6" linebreak="false"/>
-								</layoutData>-->
-					</VBox>
-					<VBox>
-						<Label text="Others :" design="Bold" class="sapUiSmallMarginBegin sapUiSmallMarginTop"/>
+				<HBox>
+					<HBox class="sapUiSmallMarginTop">
+						<Label width="150px" text="Tradesman :" design="Bold" class="sapUiSmallMarginBegin"/>
+						<VBox>
+							<Text width="150px" text="{DetailsSupModel>/SG1USR}" design="Bold"/>
+							<HBox>
+								<Text design="Bold" text="{path:'DetailsSupModel>/SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text design="Bold" text="{path:'DetailsSupModel>/SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+							</HBox>
+						</VBox>
+					</HBox>
+					<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTop" wrap="Wrap">
+						<Label text="Others :" design="Bold"/>
 						<FlexBox items="{TUserModel>/}" renderType="Bare">
-							<Label text="{TUserModel>usrid}" design="Bold" class="sapUiTinyMarginBegin"/>
+							<Text text="{TUserModel>usrid} ;" design="Bold" class="sapUiTinyMarginBegin"/>
 						</FlexBox>
-						<!--	<layoutData>
-									<l:GridData span="XL6 L6 M6 S6" linebreak="false"/>
-								</layoutData>-->
-					</VBox>
-					<!--		</l:content>
-					</l:Grid>-->
+					</HBox>
 				</HBox>
 				<MessageStrip class="sapUiSmallMarginBeginEnd" type="Warning" showIcon="true" text='Pending Supervisor Sign Off'>
 					<Link text="Sign Off" press="onSignOffTask" class="sapUiLargeMarginBegin"/>

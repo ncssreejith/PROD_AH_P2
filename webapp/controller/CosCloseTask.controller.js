@@ -854,6 +854,7 @@ sap.ui.define([
 				oPrmJobDue.filter = sFilter;
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
+					oData.results[0].ftsernr = oModelView.getData()[this.oObjectPath.split("/")[1]].ftsernr;
 					oModelView.getData().splice(this.oObjectPath.split("/")[1], 1);
 					oData.results[0].ftcredt = new Date();
 					oData.results[0].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();
@@ -1107,6 +1108,17 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in handleLiveChangeFlyingRequirements function");
+			}
+		},
+
+		onChangeDataInput: function(oEvent) {
+			try {
+				var sPath = oEvent.getSource().getBindingContext("TaskModel").getPath();
+				this.getModel("TaskModel").setProperty(sPath+"/ftsernr", oEvent.getParameter("value"));
+				// this.getView().getModel("TaskModel").updateBindings(true);
+				this.getView().getModel("ViewModel").setProperty("/bLiveChnage", false);
+			} catch (e) {
+				Log.error("Exception in handleLiveChangeFlyingRequire function");
 			}
 		},
 

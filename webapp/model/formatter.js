@@ -379,7 +379,7 @@ sap.ui.define([
 			}
 		},
 
-			taskContentVisible3: function(stTask1, stTask2, stTask3, stTask4) {
+		taskContentVisible3: function(stTask1, stTask2, stTask3, stTask4) {
 			if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
 						"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
 						stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
@@ -387,7 +387,7 @@ sap.ui.define([
 						stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
 						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === null && stTask2 === null && stTask3 === null) || (stTask1 ===
 						"TT1_15" && stTask3 === null) || (stTask1 === "TT1_16" && stTask3 === null) ||
-					(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === ''||stTask4 === null)) {
+					(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === '' || stTask4 === null)) {
 				return true;
 			} else {
 				return false;
@@ -402,6 +402,44 @@ sap.ui.define([
 				return true;
 			} else {
 				return false;
+			}
+		},
+
+		serialNoInputVisible: function(engFlag, isser, tTask2) {
+			if ((engFlag === "NE" && isser === "Serial No. (S/N)") || (engFlag === "NA" && isser ===
+					"Serial No. (S/N)")) {
+				if (tTask2 !== "TT2_14" && tTask2 !== "TT2_13") {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		},
+		serialNoInputGroupVisible: function(engFlag, isser, tTask2) {
+			if ((engFlag === "NE" && isser === "Serial No. (S/N)") || (engFlag === "NA" && isser === "Serial No. (S/N)")) {
+				if (tTask2 !== "TT2_14" && tTask2 !== "TT2_13") {
+					return "fgInput";
+				} else {
+					return "";
+				}
+			} else {
+				return "";
+			}
+		},
+		serialNoCBVisible: function(engFlag, isser, tTask2) {
+			if (engFlag === "EG" && isser === "Serial No. (S/N)") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		serialNoCBGroupVisible: function(engFlag, isser) {
+			if (engFlag === "EG" && isser === "Serial No. (S/N)") {
+				return "fgCmbBox";
+			} else {
+				return "";
 			}
 		},
 		taskTextDisplay: function(stTask1) {
@@ -1026,7 +1064,7 @@ sap.ui.define([
 				oMax = 0;
 			}
 			oMax = parseInt(oMax, 0);
-			if(isNaN(oMax)){
+			if (isNaN(oMax)) {
 				return 0;
 			}
 			return oMax;
@@ -1120,7 +1158,7 @@ sap.ui.define([
 			if (!isNaN(sMax) && sMax !== null && sMax !== 0) {
 				return parseFloat(sMax);
 			}
-			
+
 		},
 
 		FormatMaxValueState: function(srvamt, totamt) {
@@ -1261,14 +1299,14 @@ sap.ui.define([
 			var bEditable = true;
 			var oRow = this.getBindingContext("oWDNSDataModel").getObject();
 			// iColId === oRow.COL_15 &&
-			if (oRow && (oRow.COL_12 === "GUN DH"||(iColId&&iColId.toUpperCase() === "N/A"))) {
+			if (oRow && (oRow.COL_12 === "GUN DH" || (iColId && iColId.toUpperCase() === "N/A"))) {
 				bEditable = false;
 			}
 			return bEditable;
 		},
 		fnWDNSEditableCol: function(iColId) {
 			var bEditable = true;
-			if (iColId&&iColId.toUpperCase() === "N/A") {
+			if (iColId && iColId.toUpperCase() === "N/A") {
 				bEditable = false;
 			}
 			return bEditable;

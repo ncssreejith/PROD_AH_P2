@@ -171,6 +171,25 @@ sap.ui.define([
 					}]
 				});
 				that.getView().setModel(oLocalModel, "LocalModel");
+				var oFollowModelOther = dataUtil.createNewJsonModel();
+				oFollowModelOther.setData([{
+					"key": "TT1_14",
+					"text": "Others"
+				}, {
+					"key": "TT1_ADD",
+					"text": "Transfer to Acceptable Deferred Defects Log"
+				}]);
+				this.getView().setModel(oFollowModelOther, "FollowOtherModel");
+
+				var oFollowModelOPS = dataUtil.createNewJsonModel();
+				oFollowModelOPS.setData([{
+					"key": "TT1_11",
+					"text": "OPS Check"
+				}, {
+					"key": "TT1_AD",
+					"text": "Transfer to Acceptable Deferred Defects Log"
+				}]);
+				this.getView().setModel(oFollowModelOPS, "FollowOPSModel");
 				var oModel = dataUtil.createJsonModel("model/aircraftInfo.json");
 				this.getView().setModel(oModel, "DDModel");
 				this.getRouter().getRoute("CosDefectsSummary").attachPatternMatched(this._handleRouteMatched, this);
@@ -266,7 +285,7 @@ sap.ui.define([
 			}
 
 		},
-		
+
 		onWorkCenterEditChange: function(oEvent) {
 			var oSrc = oEvent.getSource(),
 				object = oSrc.getSelectedItem().getBindingContext("WorkCenterDialogModel").getObject();
@@ -433,7 +452,7 @@ sap.ui.define([
 
 		},
 
-			onAddNewWorkCenter: function(sMode) {
+		onAddNewWorkCenter: function(sMode) {
 			try {
 				var that = this,
 					oLocalModel = this.getView().getModel("LocalModel");
@@ -1128,7 +1147,7 @@ sap.ui.define([
 			}
 		},
 
-	onPendingSupDetailsPress: function(oPayLoad) {
+		onPendingSupDetailsPress: function(oPayLoad) {
 			try {
 				var that = this,
 					oModel;
@@ -1222,6 +1241,7 @@ sap.ui.define([
 
 					};
 					oPrmTask.success = function(oData) {
+						that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that.onPendingSupDetailsClose();
@@ -1245,13 +1265,15 @@ sap.ui.define([
 		onSignOffTask: function() {
 			try {
 				var that = this,
-					oPrmTask = {},
+					oPrmTask = {},oObj,
 					oPayload = [],
 					oViewModel = that.getView().getModel("LocalModel"),
 					oTable = that.getView().byId("tbWcPendingSuperId");
 				if (oTable.getSelectedItems().length !== 0) {
 					for (var i = 0; i < oTable.getSelectedItems().length; i++) {
-						oPayload.push(oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject());
+						oObj=oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject();
+						oObj.tstat="X";
+						oPayload.push(oObj);
 					}
 					oPrmTask.filter = "";
 					oPrmTask.error = function(oData) {};
@@ -1496,6 +1518,7 @@ sap.ui.define([
 				that._fnPerioOfDeferCBGet(sAirId);
 				this._fnReasonforADDGet(sAirId);
 				this._fnUtilizationGet(sAirId);
+				this._fnGetMainTaskDropDown();
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_handleRouteMatched function");
 				this.handleException(e);
@@ -1569,6 +1592,32 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnUtilizationGet function");
+			}
+		},
+
+		//-------------------------------------------------------------------------------------
+		//  General method: This will get called,to get Utilization drop down data.
+		// Table: DDREF, DDVAL
+		//--------------------------------------------------------------------------------------
+		_fnGetMainTaskDropDown: function() {
+			try {
+				var oPrmDD = {},
+					oModel,
+					that = this,
+					oPayload;
+				oPrmDD.filter = "ttid eq TT1_ and airid eq " + that.getAircraftId();
+				oPrmDD.error = function() {};
+
+				oPrmDD.success = function(oData) {
+					oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "TaskMainListModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
+			} catch (e) {
+				Log.error("Exception in CosCreateTask:_fnGetMainTaskDropDown function");
+				this.handleException(e);
 			}
 		},
 		//-------------------------------------------------------------------------------------
