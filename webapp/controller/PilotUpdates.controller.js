@@ -719,7 +719,7 @@ sap.ui.define([
 		},
 		_fnMakeAllPass:function(oData,sStat){
 			oData.results.forEach(function(oItem){
-				oItem.frrid = sStat;                      
+				oItem.frrid = (oItem.frrid==="" || oItem.frrid===null )?sStat:oItem.frrid;                      
 			});
 		},
 		_fnCreateData: function() {
