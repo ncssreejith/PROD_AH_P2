@@ -1,5 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
-	<Table class="CERTable sapUiSmallMargin" width="97%" items="{pdsSummaryModel>ft}">
+	<Table class="CERTable sapUiSmallMargin" width="97%"
+	visible="{= (${pdsSummaryModel>ft/length}>0 &amp;&amp; ${pdsSummaryModel>/masterList/0/visft}==='X')}"
+	items="{pdsSummaryModel>ft}">
 		<headerToolbar>
 			<OverflowToolbar>
 				<content>

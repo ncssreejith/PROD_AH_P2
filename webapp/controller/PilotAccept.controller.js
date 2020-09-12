@@ -424,7 +424,7 @@ sap.ui.define([
 				oParameter.filter = "CTYPE eq ALL and tailid eq " + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					// oData.results = this.fnDueJob(oData.results);
+					oData.results = this.fnDueJob(oData.results);
 					var sIndex = this._fnGetIndexById("T9_JDUE");
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/count", oData.results.length);
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data", {});
@@ -438,11 +438,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnDueJob: function(oData) {
-			for (var i = 0; oData.length > i; i++) {
+			fnDueJob: function(oData) {
+			for (var i = oData.length - 1;  i >= 0; i--) {
 				if ((parseInt(oData[i].DUEIN) > 5 && oData[i].UM === "DAYS") || (parseInt(oData[i].DUEIN) > 10 && oData[i].UM !== "DAYS")) {
-					oData.splice(i, 0);
-					i--;
+					oData.splice(i, 1);
 				}
 			}
 			return oData;
@@ -631,6 +630,9 @@ sap.ui.define([
 					T9_JDUE: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T9_JDUE") + "/data/reviewd") ? 1 : 0,
 					T10_PASTD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T10_PASTD") + "/data/reviewd") ? 1 : 0,
 					T11_TMOD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T11_TMOD") + "/data/reviewd") ? 1 : 0,
+					visrt: null,
+					visft: null,
+					visct: null,
 					couts: null,
 					cpend: null,
 					CFLAG: null
@@ -679,13 +681,13 @@ sap.ui.define([
 			}
 			return result;
 		},
-		_fnCreateMarks: function(oData) {
+			_fnCreateMarks: function(oData) {
 			var oMark = [];
 			if (oData.results.length === 0) {
 				return oMark;
 			}
 			var sCount = 0;
-			oData.results.forEach(function(oItem, sIndex) {
+			oData.results.forEach(function(oItem,sIndex) {
 				oItem.NAME1 = this.formatter.fnMarkLable(sIndex);
 				if (oItem.DEAID_M !== "" && oItem.DEAID_M !== null) {
 					var sMark = {

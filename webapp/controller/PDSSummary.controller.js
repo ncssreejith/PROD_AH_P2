@@ -8,7 +8,7 @@ sap.ui.define([
 	"sap/base/Log",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log, Filter, FilterOperator) {
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log, Filter,FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.PDSSummary", {
@@ -288,7 +288,7 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "REFID eq '" + this.getAircraftId() + "' and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty(
+				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty(
 					"/srvtid");
 				oParameter.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty("/masterList", oData.results);
@@ -476,7 +476,7 @@ sap.ui.define([
 				oParameter.filter = "CTYPE eq ALL and tailid eq " + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					// oData.results = this.fnDueJob(oData.results);
+					oData.results = this.fnDueJob(oData.results);
 					var sIndex = this._fnGetIndexById("T9_JDUE");
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/count", oData.results.length);
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data", {});
@@ -490,11 +490,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnDueJob: function(oData) {
-			for (var i = 0; oData.length > i; i++) {
+			fnDueJob: function(oData) {
+			for (var i = oData.length - 1;  i >= 0; i--) {
 				if ((parseInt(oData[i].DUEIN) > 5 && oData[i].UM === "DAYS") || (parseInt(oData[i].DUEIN) > 10 && oData[i].UM !== "DAYS")) {
-					oData.splice(i, 0);
-					i--;
+					oData.splice(i, 1);
 				}
 			}
 			return oData;
@@ -810,6 +809,9 @@ sap.ui.define([
 					T9_JDUE: null,
 					T10_PASTD: null,
 					T1_SORTIE: null,
+					visrt: null,
+					visft: null,
+					visct: null,
 					couts: null,
 					cpend: null,
 					CFLAG: null

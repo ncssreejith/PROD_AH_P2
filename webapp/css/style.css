@@ -1612,6 +1612,12 @@ Description :
     /*padding-top:1rem !important;*/
 }
 
+.txtRemoveHeader .sapMGTHdrContent {
+	text-align: left !important;
+    padding-top: 1rem !important;
+    height: 0rem !important;
+}
+
 .greenbtn > span {
     color: #fff !important;
     background-color: #4cce94 !important;

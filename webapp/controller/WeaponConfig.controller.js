@@ -141,29 +141,23 @@ sap.ui.define([
 		},
 		onStationPress: function(oEvent) {
 			try {
-				var oStation = oEvent.getSource().getBindingContext("oWCModel").getObject();
-				this.getOwnerComponent().getRouter().navTo("Station", {
-					srvtid: this.getModel("oWCModel").getProperty("/srvtid"),
-					stepid: this.getModel("oWCModel").getProperty("/stepid"),
-					stns: oStation.STNSID,
-					stnmid: oStation.STNMID
-				});
-
-				/*var sID = oEvent.getParameter("srcControl").getId();
+				// var oStation = oEvent.getSource().getBindingContext("oWCModel").getObject();
+				// this.getOwnerComponent().getRouter().navTo("Station", {
+				// 	srvtid: this.getModel("oWCModel").getProperty("/srvtid"),
+				// 	stepid: this.getModel("oWCModel").getProperty("/stepid"),
+				// 	stns: oStation.STNSID,
+				// 	stnmid: oStation.STNMID
+				// });
+				var sID = oEvent.getParameter("srcControl").getId();
 				if (sID.search("station") !== -1 || sID.search("others") !== -1) {
 					var oStation = oEvent.getSource().getBindingContext("oWCModel").getObject();
-					if (oStation.EFLAG === "X") {
-						sap.m.MessageBox.information("Pending supervisor to signoff role change");
-						return;
-					} else {
 						this.getOwnerComponent().getRouter().navTo("Station", {
 							srvtid: this.getModel("oWCModel").getProperty("/srvtid"),
 							stepid: this.getModel("oWCModel").getProperty("/stepid"),
 							stns: oStation.STNSID,
 							stnmid: oStation.STNMID
 						});
-					}
-				}*/
+				}
 			} catch (e) {
 				Log.error("Exception in WeaponConfig:onStationPress function");
 				this.handleException(e);

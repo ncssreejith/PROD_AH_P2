@@ -16,7 +16,7 @@
 								<!--<l:Grid >-->
 								<FlexBox wrap="Wrap" items="{oCreatFlightSerModel>subsrv}">
 									<items>
-										<ct:IconHeaderCard title="{oCreatFlightSerModel>description} {oCreatFlightSerModel>status}" press="onFlightServiceTilePress"
+										<ct:IconHeaderCard title="{oCreatFlightSerModel>description}" press="onFlightServiceTilePress"
 											class="sapUiSmallMarginEnd" hoverOut="onCardHoverOut" hover="onCardHover">
 											<Image src="{oCreatFlightSerModel>ImgSrc}"/>
 										</ct:IconHeaderCard>

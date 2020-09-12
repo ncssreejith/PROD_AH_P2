@@ -1,6 +1,7 @@
 <mvc:View controllerName="avmet.ah.controller.Station" xmlns="sap.m" xmlns:semantic="sap.f.semantic" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:si="sap.suite.ui.commons.statusindicator" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
-	<Page title="Weapon configuration details" showFooter="true" showNavButton="true" busy="{viewModel>/busy}" busyIndicatorDelay="{viewModel>/delay}" navButtonPress="onNavBack">
+	<Page title="Weapon configuration details" showFooter="true" showNavButton="true" busy="{viewModel>/busy}"
+		busyIndicatorDelay="{viewModel>/delay}" navButtonPress="onNavBack">
 		<content>
 			<HBox justifyContent="Center">
 				<HBox class="sapUiMediumMarginTop wcVBox" width="94%" height="32rem">
@@ -31,7 +32,8 @@
 								<CustomListItem >
 									<HBox height="2.7rem" alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
 										<Text height="100%" text="{configModel>WESDESC}"/>
-										<core:Icon src="sap-icon://attachment-photo" visible="{= (${configModel>/selStn/selADP/selWpn/WESID}===${configModel>WESID} &amp;&amp; ${configModel>/selStn/selADP/selWpn/WEMID}===${configModel>WEMID})? true:false}"/>
+										<core:Icon src="sap-icon://attachment-photo"
+											visible="{= (${configModel>/selStn/selADP/selWpn/WESID}===${configModel>WESID} &amp;&amp; ${configModel>/selStn/selADP/selWpn/WEMID}===${configModel>WEMID})? true:false}"/>
 									</HBox>
 								</CustomListItem>
 							</List>
@@ -39,7 +41,7 @@
 					</HBox>
 					<FlexBox class="sapUiSmallMarginBegin wcCngVBox" visible="{= ${configModel>/selStn/STNMID}==='STNM_S'}" width="42%" justifyContent="Center">
 						<VBox justifyContent="Center" alignItems="Center">
-								<Label text="{configModel>/selStn/LTXT}" design="Bold"/>
+							<Label text="{configModel>/selStn/LTXT}" design="Bold"/>
 							<!--<VBox items="{configModel>/selStn/adapter}">-->
 							<!--	<GenericTile class="topTile txtAlginHeadeCenter" header="{configModel>ADPDESC}" subheader="S/N {configModel>SERNR}"  frameType="TwoByOne" ></GenericTile>-->
 							<!--</VBox>-->
@@ -65,12 +67,20 @@
 								</si:propertyThresholds>
 							</si:StatusIndicator>
 							<!--class="tileLayout"-->
-							<GenericTile class="downTile txtAlginHeadeCenter"
+							<!--	<GenericTile class="downTile txtAlginHeadeCenter"
 								header="{configModel>/selStn/selADP/selWpn/WESDESC} {configModel>/selStn/selADP/selWpn/ADPDESC}" frameType="TwoByOne"
 								blocked="{= ${configModel>/selStn/selADP/selWpn/POT}==='T'?true:false}"
-								press="onWeaponTileClk"></GenericTile>
-								<!--subheader="{configModel>/selStn/selADP/selWpn/WESDESC}"-->
-							
+								press="onWeaponTileClk"></GenericTile>-->
+							<GenericTile class="downTile txtRemoveHeader" press="onWeaponTileClk"
+								blocked="{= ${configModel>/selStn/selADP/selWpn/POT}==='T'?true:false}">
+								<TileContent>
+									<HBox width="100%" justifyContent="SpaceBetween">
+										<Label class="sapUiSmallMarginBegin" text="{configModel>/selStn/selADP/selWpn/WESDESC} {configModel>/selStn/selADP/selWpn/ADPDESC}"/>
+										<Label class="sapUiSmallMarginEnd" text="{configModel>/selStn/selADP/selWpn/srcount}"/>
+									</HBox>
+								</TileContent>
+							</GenericTile>
+							<!--subheader="{configModel>/selStn/selADP/selWpn/WESDESC}"-->
 						</VBox>
 					</FlexBox>
 					<FlexBox class="sapUiSmallMarginBegin wcCngVBox" visible="{= ${configModel>/selStn/STNMID}==='STNM_O'}" width="42%" justifyContent="Center">
