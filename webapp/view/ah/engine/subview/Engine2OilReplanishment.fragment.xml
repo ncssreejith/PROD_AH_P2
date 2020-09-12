@@ -38,7 +38,8 @@
 							<cells>
 								<Text text="{path:'oEngineModel>SPDT', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'oEngineModel>SPTM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 								<Text text="{oEngineModel>ENGHR}"/>
-								<Text text="{parts: [{path:'oEngineModel>SPDT'}, {path:'oEngineModel>SPTM'}], formatter:'.formatter.fnDateTimeDiff'}"/>
+								<!--<Text text="{parts: [{path:'oEngineModel>SPDT'}, {path:'oEngineModel>SPTM'}], formatter:'.formatter.fnDateTimeDiff'}"/>-->
+								<Text text="{oEngineModel>HRSINCE}"/>
 								<Text text="{oEngineModel>DDDESC}"/>
 								<Text text="{oEngineModel>SRVAMT}"/>
 							</cells>

@@ -46,7 +46,7 @@ sap.ui.define([
 				//If engine 2 installed
 				var sEng1Id = oPayload.ENGID;
 				var sEng2Id = this.getModel("oAddEng2CycLogModel").getProperty("/ENGID");
-				if(sEng2Id && sEng2Id !== sEng1Id){
+				if (sEng2Id && sEng2Id !== sEng1Id) {
 					var oTemp = this.getModel("oAddEng2CycLogModel").getProperty("/");
 					aPayload.push(oTemp);
 				}
@@ -65,9 +65,59 @@ sap.ui.define([
 		// ***************************************************************************
 		//     2. Backend Calls
 		// ***************************************************************************
-		//-------------------------------------------------------------
-		//  This will load aircraft log data
-		//-------------------------------------------------------------		
+		/** 
+		 * Get Engine Cyclic life data
+		 * @constructor 
+		 * @param sEngID
+		 * @param iEngine
+		 */
+		_getEngCyclicLife: function(sEngID, iEngine) {
+			try {
+				var
+					oParameter = {};
+				oParameter.error = function() {};
+				oParameter.filter = "FLAG eq L and TAILID eq " + this.getTailId() + " and ENGID eq " + sEngID;
+				oParameter.success = function(oData) {
+					if (oData && oData.results.length) {
+						//sort by date
+						oData.results.forEach(function(oItem) {
+							oItem.ID = this.fnDateTime(oItem.CREDTM, oItem.CREUZT); //, 
+						}.bind(this));
+						oData.results.sort(function(a, b) {
+							return a.ID - b.ID;
+						});
+						var oObject = oData.results[oData.results.length - 1];
+						delete oObject.ID;
+						oObject.LAST = this.last;
+						if (this.last !== "X") { //Add
+							oObject.minINDEX1 = oObject.INDEX1 ? parseInt(JSON.parse(JSON.stringify(oObject.INDEX1))) : 0;
+							oObject.minLCF1 = oObject.LCF1 ? parseInt(JSON.parse(JSON.stringify(oObject.LCF1))) : 0;
+							oObject.minLCF2 = oObject.LCF2 ? parseInt(JSON.parse(JSON.stringify(oObject.LCF2))) : 0;
+							oObject.minENGHR = oObject.ENGHR ? parseInt(JSON.parse(JSON.stringify(oObject.ENGHR))) : 0;
+						} else { //Reset
+							oObject.minINDEX1 = 0;
+							oObject.minLCF1 = 0;
+							oObject.minLCF2 = 0;
+							oObject.minENGHR = 0;
+							oObject.INDEX1 = 0;
+							oObject.LCF1 = 0;
+							oObject.LCF2 = 0;
+							oObject.ENGHR = 0;
+						}
+						if (iEngine === 1) {
+							var oEngineModel = this.getView().getModel("oAddEngCycLogModel");
+						} else {
+							oEngineModel = this.getView().getModel("oAddEng2CycLogModel");
+						}
+						oEngineModel.setProperty("/", oObject);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/EHSERSvc", oParameter);
+			} catch (e) {
+				Log.error("Exception in Engine:_getEngCyclicLife function");
+				this.handleException(e);
+			}
+		},
 		// ***************************************************************************
 		//     2. Private Functions
 		// ***************************************************************************
@@ -157,23 +207,41 @@ sap.ui.define([
 				// };
 				// utilData.today = new Date();
 				// utilData.today.setHours(23,59,59);
+				this.last = oEvent.getParameter("arguments").last;
 				//Engine 1
 				this.getView().setModel(new JSONModel(utilData), "oAddEngCycLogModel");
-				this.getModel("oAddEngCycLogModel").setProperty("/ENGID", oEvent.getParameter("arguments").engid);
+				var eng1Id = oEvent.getParameter("arguments").engid;
+				this.getModel("oAddEngCycLogModel").setProperty("/ENGID", eng1Id);
 				this.getModel("oAddEngCycLogModel").setProperty("/TAILID", oEvent.getParameter("arguments").tailid);
 				this.getModel("oAddEngCycLogModel").setProperty("/LAST", oEvent.getParameter("arguments").last);
 				this.getModel("oAddEngCycLogModel").refresh(true);
 				//Engine 2
 				this.getView().setModel(new JSONModel(utilData2), "oAddEng2CycLogModel");
-				this.getModel("oAddEng2CycLogModel").setProperty("/ENGID", oEvent.getParameter("arguments").eng2id);
+				var eng2Id = oEvent.getParameter("arguments").eng2id;
+				this.getModel("oAddEng2CycLogModel").setProperty("/ENGID", eng2Id);
 				this.getModel("oAddEng2CycLogModel").setProperty("/TAILID", oEvent.getParameter("arguments").tailid);
 				this.getModel("oAddEng2CycLogModel").setProperty("/LAST", oEvent.getParameter("arguments").last);
 				this.getModel("oAddEng2CycLogModel").refresh(true);
+				if (eng1Id) {
+					this._getEngCyclicLife(eng1Id, 1);
+				}
+				if (eng2Id) {
+					this._getEngCyclicLife(eng2Id, 2);
+				}
 				// this.fnLogById();
 			} catch (e) {
 				Log.error("Exception in AddEngCyclicLog:_onObjectMatched function");
 				this.handleException(e);
 			}
+		},
+		fnDateTime: function(sDate, sTime) {
+			if (!sDate) {
+				return " ";
+			}
+			if (!sTime) {
+				return sDate;
+			}
+			return sDate + " " + sTime;
 		}
 
 	});

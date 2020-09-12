@@ -335,6 +335,7 @@ sap.ui.define([
 					// }
 					var that = this;
 					if (oData && oData.results) {
+						//sort by date
 						oData.results.forEach(function(oItem) {
 							oItem.ID = that.fnDateTime(oItem.SPDT,oItem.SPTM); //, 
 						});
@@ -395,7 +396,7 @@ sap.ui.define([
 		 */
 		_getEngCyclicLife: function(sEngID, iEngine) {
 			try {
-				var that = this,
+				var
 					oEngineModel = this.getView().getModel("oEngineModel"),
 					oParameter = {};
 				oParameter.error = function() {};

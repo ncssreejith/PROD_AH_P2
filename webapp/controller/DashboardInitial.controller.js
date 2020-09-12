@@ -253,7 +253,7 @@ sap.ui.define([
 				oItem.LV_COLOR = "Good";
 				switch (sSelectedKey) {
 					case "Hrs":
-						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_THRS ? oItem.LV_THRS : 0), "", (oItem.LV_THRS ? oItem.LV_THRS : 0),
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_THRS >= 0 ? oItem.LV_THRS : 0), "", (oItem.LV_THRS >= 0 ? oItem.LV_THRS : 0),
 							oItem.LV_HRS);
 						if (oItem.LV_HRS > 0) {
 							oItem.LV_COLOR = "Critical";
@@ -261,7 +261,7 @@ sap.ui.define([
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
 						break;
 					case "Days":
-						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TDAY ? oItem.LV_TDAY : 0), "", (oItem.LV_TDAY ? oItem.LV_TDAY : 0),
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TDAY >= 0 ? oItem.LV_TDAY : 0), "", (oItem.LV_TDAY >= 0 ? oItem.LV_TDAY : 0),
 							oItem.LV_DAY);
 						if (oItem.LV_DAY > 0) {
 							oItem.LV_COLOR = "Critical";
@@ -269,7 +269,7 @@ sap.ui.define([
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TDAY));
 						break;
 					case "TAC":
-						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC ? oItem.LV_TTAC : 0), "", (oItem.LV_TTAC ? oItem.LV_TTAC : 0),
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC >= 0 ? oItem.LV_TTAC : 0), "", (oItem.LV_TTAC >= 0 ? oItem.LV_TTAC : 0),
 							oItem.LV_TAC);
 						if (oItem.LV_TAC > 0) {
 							oItem.LV_COLOR = "Critical";
@@ -636,7 +636,11 @@ sap.ui.define([
 
 						this.getModel("dashboardModel").refresh();
 						if (oData.results.length > 0) {
-							this._setRadialChartText("scheduleMicroChartId", oData.results[0].LV_THRS, "", oData.results[0].LV_THRS, oData.results[0].LV_HRS);
+							var sHours = oData.results[0].LV_THRS;
+							if (sHours < 0 || sHours === null) {
+								sHours = 0;
+							}
+							this._setRadialChartText("scheduleMicroChartId", sHours, "", sHours, oData.results[0].LV_HRS);
 							return;
 						}
 						this._setRadialChartText("scheduleMicroChartId", "", "", 0, 0);
