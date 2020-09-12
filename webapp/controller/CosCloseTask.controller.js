@@ -93,18 +93,19 @@ sap.ui.define([
 				if (FieldValidations.validateFields(this)) {
 					return;
 				}
-				var oTaskModel = this.getView().getModel("TaskModel").getData(),
+				var oTaskModel = this.getView().getModel("TaskModel"),
 					oFlag = true;
 
-				for (var i = 0; i < oTaskModel.length; i++) {
-					if (oTaskModel[i].tt1id === 'TT1_12') {
-						if (oTaskModel[i].ftrsltgd === 2) {
+				for (var i = 0; i < oTaskModel.getData().length; i++) {
+					if (oTaskModel.getData()[i].tt1id === 'TT1_12') {
+						if (oTaskModel.getData()[i].ftrsltgd === 2) {
 							oFlag = false;
-							oTaskModel[i].ValueState = "Error";
+							oTaskModel.getData()[i].ValueState = "Error";
+							oTaskModel.refresh();
 						}
 					}
 				}
-				this.getView().getModel("TaskModel").updateBindings(true);
+
 				if (oFlag) {
 					var oModel = this.getView().getModel("ViewModel");
 					oModel.setProperty("/bTradesMan", true);
@@ -257,6 +258,7 @@ sap.ui.define([
 				for (var i = 0; i < oPayload.length; i++) {
 					oPayload[i].tstat = "P";
 					oPayload[i].multi = oFLag;
+					delete oPayload[i].ValueState;
 					//oPayload[i].sernr = oPayload[i].ftsernr;
 					try {
 						oPayload[i].ftcredt = formatter.defaultOdataDateFormat(oPayload[i].ftcredt);
@@ -855,6 +857,7 @@ sap.ui.define([
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					oData.results[0].ftsernr = oModelView.getData()[this.oObjectPath.split("/")[1]].ftsernr;
+					oData.results[0].ValueState = "None";
 					oModelView.getData().splice(this.oObjectPath.split("/")[1], 1);
 					oData.results[0].ftcredt = new Date();
 					oData.results[0].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();
@@ -1114,7 +1117,7 @@ sap.ui.define([
 		onChangeDataInput: function(oEvent) {
 			try {
 				var sPath = oEvent.getSource().getBindingContext("TaskModel").getPath();
-				this.getModel("TaskModel").setProperty(sPath+"/ftsernr", oEvent.getParameter("value"));
+				this.getModel("TaskModel").setProperty(sPath + "/ftsernr", oEvent.getParameter("value"));
 				// this.getView().getModel("TaskModel").updateBindings(true);
 				this.getView().getModel("ViewModel").setProperty("/bLiveChnage", false);
 			} catch (e) {
