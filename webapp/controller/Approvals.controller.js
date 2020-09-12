@@ -425,6 +425,7 @@ sap.ui.define([
 						oModel.setData(oData.results[0]);
 						that.getView().setModel(oModel, "ApprovalDetailstModel");
 						that.getView().byId("MasterId").setVisible(true);
+						this.byId("pageApprovalId").scrollTo(0);
 					}
 				}.bind(this);
 

@@ -3,7 +3,7 @@
 	<!--<Shell id="shell">
 		<App id="app">
 			<pages>-->
-	<Page title="{i18n>lblApprovals}" showNavButton="true" navButtonPress="onNavBack">
+	<Page id="pageApprovalId" title="{i18n>lblApprovals}" showNavButton="true" navButtonPress="onNavBack">
 		<VBox backgroundDesign="Transparent" height="100%">
 			<l:Splitter height="100%">
 				<VBox height="100%" backgroundDesign="Solid">
@@ -23,8 +23,10 @@
 		<footer>
 			<Toolbar>
 				<ToolbarSpacer/>
-				<Button text="Reject"  visible="{=${ApprovalListModel>/}.length !== 0 ? true:false}" press="onApproveRequest('R',$event)" class="DetailButtonBorder" width="120px" type="Transparent"/>
-				<Button text="Approve"  visible="{=${ApprovalListModel>/}.length !== 0 ? true:false}" press="onApproveRequest('A',$event)" class="DetailButtonBorder" width="120px" type="Emphasized"/>
+				<Button text="Reject" visible="{=${ApprovalListModel>/}.length !== 0 ? true:false}" press="onApproveRequest('R',$event)"
+					class="DetailButtonBorder" width="120px" type="Transparent"/>
+				<Button text="Approve" visible="{=${ApprovalListModel>/}.length !== 0 ? true:false}" press="onApproveRequest('A',$event)"
+					class="DetailButtonBorder" width="120px" type="Emphasized"/>
 			</Toolbar>
 		</footer>
 	</Page>

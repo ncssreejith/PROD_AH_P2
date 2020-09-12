@@ -115,6 +115,8 @@ sap.ui.define([
 					oModel.setProperty("/backBtn", true);
 					oModel.setProperty("/tradeTable", false);
 					oModel.setProperty("/MulitiFlag", "N");
+				} else {
+					sap.m.MessageToast.show("Please fill all the required fields");
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onProceed function");
