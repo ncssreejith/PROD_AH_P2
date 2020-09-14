@@ -71,7 +71,6 @@ sap.ui.define([
 		//-------------------------------------------------------------		
 		fnLogById: function() {
 			try {
-				// oParameter.filter = "logid eq " + this.getModel("oAircraftAddModel").setProperty("/logid");
 				var sPath = "/AircraftLogSvc/" + this.getModel("oAircraftAddModel").getProperty("/logid") + "/" + this.getTailId() + "/TABA_102";
 				var oParameter = {};
 				oParameter.error = function() {
@@ -187,7 +186,11 @@ sap.ui.define([
 						sReasonTxt = this.getResourceBundle().getText("APURun");
 						break;
 					case "4":
-						sReasonTxt = this.getResourceBundle().getText("txtUpdateALQ144");
+						if (this.getModel("oAircraftAddModel").getProperty("/logid") === "dash") {
+							sReasonTxt = "AVMET";
+						} else {
+							sReasonTxt = this.getResourceBundle().getText("txtUpdateALQ144");
+						}
 						break;
 				}
 				this.getModel("oAircraftAddModel").setProperty("/record/COL_18", sReasonTxt);

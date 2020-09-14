@@ -200,7 +200,11 @@ sap.ui.define([
 					case "AST_US2":
 					case "AST_FAIR2":
 					case "AST_RECT2":
-						this.getRouter().navTo("AircraftUtilisation");
+							this.getRouter().navTo("AddEquipRunLog", {
+							type: "4",
+							logid: "dash"
+						});
+						// this.getRouter().navTo("AircraftUtilisation");
 				}
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onButtnItem1Press function");
