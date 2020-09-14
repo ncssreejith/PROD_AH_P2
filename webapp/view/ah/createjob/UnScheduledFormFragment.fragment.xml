@@ -5,14 +5,14 @@
 		<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('JOB',$event)" size="12px" color="#031E48"/>
 	</HBox>
 	<TextArea required="{=${oViewCreateModel>/jobty} === 'U' ? true : false}"
-		fieldGroupIds="{=${oViewCreateModel>/jobty} === 'U'? 'fgTxtArea' : ''}" width="27rem" valueStateText="{i18n>ERROR_GENERIC}"
+		fieldGroupIds="{=${oViewCreateModel>/jobty} === 'U' ? 'fgTxtArea' : ''}" width="27rem" valueStateText="{i18n>ERROR_GENERIC}"
 		value="{oViewCreateModel>/jobdesc}" maxLength="1000" growing="true" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"
 		rows="7"></TextArea>
 	<HBox>
 		<VBox>
 			<Label text="{i18n>lbFoundDuring}" design="Bold"/>
 			<ComboBox placeholder="{i18n>phSelect}" required="{=${oViewCreateModel>/jobty} === 'U' ? true : false}"
-				fieldGroupIds="{=${oViewCreateModel>/jobty} === 'U'? 'fgCmbBox' : ''}" items="{FoundDuringSet>/}" change="onFoundDuringChange('USC',$event)"
+				fieldGroupIds="{=${oViewCreateModel>/jobty} === 'U' ? 'fgCmbBox' : ''}" items="{FoundDuringSet>/}" change="onFoundDuringChange('USC',$event)"
 				selectedKey="{oViewCreateModel>/fndid}">
 				<core:Item key="{FoundDuringSet>ddid}" text="{FoundDuringSet>description}"/>
 			</ComboBox>

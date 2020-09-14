@@ -969,7 +969,7 @@ sap.ui.define([
 					Time: oDate.getHours() + ":" + oDate.getMinutes(),
 					MulitiFlag: "N",
 					proccedBtn: true,
-					backBtn: true,
+					backBtn: false,
 					signOffBtn: false,
 					bTradesMan: false,
 					selectedIcon: "followUp",

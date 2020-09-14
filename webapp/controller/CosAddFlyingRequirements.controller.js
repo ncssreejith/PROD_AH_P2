@@ -233,7 +233,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmFL.activity = 1;
-				ajaxutil.fnCreate("/FlyingRequirementSvc", oPrmFL, oPayload, "ZRM_COS_TK", this);
+				ajaxutil.fnCreate("/FlyingRequirementSvc", oPrmFL, oPayload, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onSubmitFlyingRequirements function");
 				this.handleException(e);
