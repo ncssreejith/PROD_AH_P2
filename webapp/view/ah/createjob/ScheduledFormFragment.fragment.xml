@@ -6,7 +6,7 @@
 	</HBox>
 	<TextArea width="27rem" maxLength="1000" rows="7" growing="true" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"
 		required="{=${oViewCreateModel>/jobty} === 'S' ? true : false}" value="{oViewCreateModel>/jobdesc}"
-		fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S'? 'fgTxtArea' : ''}"></TextArea>
+		fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' ? 'fgTxtArea' : ''}"></TextArea>
 	<VBox>
 		<HBox>
 			<VBox>
@@ -18,13 +18,19 @@
 						<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 					</ComboBox>
 					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin" visible="false">
-						<StepInput required="true" min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}"
-							visible="{=${oViewCreateModel>/jduid}!=='JDU_11' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10'}"/>
-						<StepInput required="true" min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}"
-							visible="{=${oViewCreateModel>/jduid} ==='JDU_11'}" displayValuePrecision="1"/>
+						<StepInput min="0"
+							fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_11' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? 'fgStepInput' : ''}"
+							valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}"
+							visible="{=${oViewCreateModel>/jduid}!=='JDU_11' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10'}"
+							required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_11' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? true : false}"/>
+						<StepInput min="0"
+							fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_11' ? 'fgStepInput' : ''}"
+							valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}" visible="{=${oViewCreateModel>/jduid} ==='JDU_11'}"
+							displayValuePrecision="1" required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_11' ? true : false}"/>
 					</HBox>
-					<DatePicker width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
-						visible="{=${oViewCreateModel>/jduid}==='JDU_10' ? true:false}"
+					<DatePicker width="13rem" required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10' ? true : false}"
+						fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10' ? 'fgDate' : ''}"
+						valueStateText="{i18n>ERROR_GENERIC}" visible="{=${oViewCreateModel>/jduid}==='JDU_10' ? true:false}"
 						value="{path: 'oViewCreateModel>/jduvl', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 						placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 				</HBox>

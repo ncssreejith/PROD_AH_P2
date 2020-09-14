@@ -70,7 +70,7 @@ sap.ui.define([
 		},
 		onClickSortieDetails: function(oEvent) {
 			try {
-				var oSortiDialog = this.openDialog("SortieDetailDialog", ".fragments.pilot.");
+				var oSortiDialog = this.openDialog("SortieDetailDialog", ".fragments.fs.pilot.");
 				var oObj = oEvent.getSource().getBindingContext("paModel").getObject();
 				var sPath = oEvent.getSource().getBindingContext("paModel").getPath();
 				oSortiDialog.bindElement({
@@ -149,7 +149,7 @@ sap.ui.define([
 
 		onLimitationItemPress: function(oEvent) {
 			try {
-				this.openDialog("ADDLimitationDialog", ".fragments.pilot.");
+				this.openDialog("ADDLimitationDialog", ".fragments.fs.pilot.");
 				var sContext = oEvent.getSource().getBindingContext("paModel");
 				this.fnLoadAddLimitationDetail(sContext);
 			} catch (e) {
@@ -158,13 +158,22 @@ sap.ui.define([
 		},
 		onADDLimitationItemPress: function(oEvent) {
 			try {
-				this.openDialog("ADDLimitationDialog", ".fragments.pilot.");
+				this.openDialog("ADDLimitationDialog", ".fragments.fs.pilot.");
 				var sContext = oEvent.getSource().getBindingContext("paModel");
 				this.fnLoadAddLimitationDetail(sContext);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
 		},
+
+		onDefectsDetailsPress: function(oEvent) {
+			var sObject = oEvent.getSource().getBindingContext("paModel").getObject();
+			this.getRouter().navTo("CosDefectsSummary", {
+				JobId: sObject.jobid,
+				Flag: "N"
+			});
+		},
+
 		onPDSReject: function() {},
 
 		// ***************************************************************************
@@ -388,7 +397,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("paModel").getProperty(
-						"/srvtid") + " and TAIL_ID eq " + this.getTailId() +" and stepid eq S_RT";
+					"/srvtid") + " and TAIL_ID eq " + this.getTailId() + " and stepid eq S_RT";
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T6_FLC");
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/rt", oData.results);
@@ -438,8 +447,8 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-			fnDueJob: function(oData) {
-			for (var i = oData.length - 1;  i >= 0; i--) {
+		fnDueJob: function(oData) {
+			for (var i = oData.length - 1; i >= 0; i--) {
 				if ((parseInt(oData[i].DUEIN) > 5 && oData[i].UM === "DAYS") || (parseInt(oData[i].DUEIN) > 10 && oData[i].UM !== "DAYS")) {
 					oData.splice(i, 1);
 				}
@@ -644,7 +653,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/PilotAcceptanceSvc", oParameter, [oSignOffPayload], "ZRM_FS_FFF", this);
+				ajaxutil.fnCreate("/PilotAcceptanceSvc", oParameter, [oSignOffPayload], "ZRM_FS_PA", this);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -681,13 +690,13 @@ sap.ui.define([
 			}
 			return result;
 		},
-			_fnCreateMarks: function(oData) {
+		_fnCreateMarks: function(oData) {
 			var oMark = [];
 			if (oData.results.length === 0) {
 				return oMark;
 			}
 			var sCount = 0;
-			oData.results.forEach(function(oItem,sIndex) {
+			oData.results.forEach(function(oItem, sIndex) {
 				oItem.NAME1 = this.formatter.fnMarkLable(sIndex);
 				if (oItem.DEAID_M !== "" && oItem.DEAID_M !== null) {
 					var sMark = {

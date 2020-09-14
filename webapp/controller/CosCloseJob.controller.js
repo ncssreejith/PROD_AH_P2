@@ -153,9 +153,9 @@ sap.ui.define([
 					sObject = "ZRM_COS_EO";
 				} else {
 					if (oModel.getProperty("/bFlag")) {
-						sObject = "ZRM_COS_JT";
-					} else {
 						sObject = "ZRM_COS_JS";
+					} else {
+						sObject = "ZRM_COS_JT";
 					}
 				}
 				oPrmTask.activity = 6;

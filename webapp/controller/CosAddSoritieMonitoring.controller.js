@@ -314,7 +314,7 @@ sap.ui.define([
 					});
 				}.bind(this);
 				oParameter.activity = 1;
-				ajaxutil.fnCreate("/SortieMonSvc", oParameter, oPayloads, "ZRM_COS_TK", this);
+				ajaxutil.fnCreate("/SortieMonSvc", oParameter, oPayloads, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:fnCreateSorti function");
 				this.handleException(e);

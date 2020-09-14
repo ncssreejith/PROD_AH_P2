@@ -6,9 +6,8 @@
 			<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('JOB',$event)" size="12px" color="#031E48"/>
 		</HBox>
 		<TextArea id="taCommentByAA" required="{=${oViewCreateModel>/jobty} === 'D' ? true : false}"
-			fieldGroupIds="{=${oViewCreateModel>/jobty} === 'D'? 'fgTxtArea' : ''}" width="27rem" valueStateText="{i18n>ERROR_GENERIC}"
-			value="{oViewCreateModel>/jobdesc}" maxLength="1000" growing="true" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"
-			rows="7"></TextArea>
+			fieldGroupIds="{=${oViewCreateModel>/jobty} === 'D' ? 'fgTxtArea' : ''}" width="27rem" value="{oViewCreateModel>/jobdesc}" maxLength="1000"
+			growing="true" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true" rows="7"></TextArea>
 	</VBox>
 	<HBox class="sapUiSmallMarginBottom">
 		<VBox>
@@ -20,14 +19,6 @@
 						<Label text="{i18n>lbOptional}" class="sapUiSmallMarginBegin"/>
 					</OverflowToolbar>
 				</headerToolbar>
-				<!--<Toolbar class="toolbarBorder">
-					<Label text="{i18n>lbPhotoofDefect}" design="Bold"/>
-					<Label text="{i18n>lbOptional}" class="sapUiSmallMarginBegin"/>
-					<ToolbarSpacer/>
-					<u:FileUploader iconOnly="true" multiple="true" buttonOnly="true" icon="sap-icon://add-photo" uploadOnChange="false" sendXHR="true"
-						useMultipart="false" fileType="JPG,JPEG,jpeg,jpg,PNG,png" sameFilenameAllowed="true" typeMissmatch="onTypeMissmatch"
-						change="onAddDefectImage" tooltip="Add Photo(s)"/>
-				</Toolbar>-->
 				<UploadCollection id="photoUpload" maximumFilenameLength="55" maximumFileSize="10" multiple="true" sameFilenameAllowed="true"
 					instantUpload="false" noDataDescription="Use the 'Add' button for adding photo" change="onAddDefectImage" fileDeleted="onFileDeleted"
 					filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"

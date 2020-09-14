@@ -525,10 +525,10 @@ sap.ui.define([
 				var dDate = new Date();
 				var oParameter = {};
 				oModel = that.getModel("appModel");
-				/*			FieldValidations.resetErrorStates(this);
-							if (FieldValidations.validateFields(this)) {
-								return;
-							}*/
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
 				oPayload = this.getView().getModel("oViewCreateModel").getData();
 				oPayload.DOCREFID = this.docRefId;
 				if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === undefined) {
@@ -591,6 +591,10 @@ sap.ui.define([
 				var that = this,
 					oPayload, oJobModel = this.getView().getModel("oViewCreateModel"),
 					oPrmTD = {};
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
 				oPayload = AvMetInitialRecord.createInitialBlankRecord("SCHJob")[0];
 
 				oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));

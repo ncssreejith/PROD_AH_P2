@@ -1840,7 +1840,7 @@ sap.ui.define([
 					that.onFlyingRequirementClose();
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutil.fnUpdate("/FlyingRequirementSvc", oParameter, [oPayload], "ZRM_COS_JS", this);
+				ajaxutil.fnUpdate("/FlyingRequirementSvc", oParameter, [oPayload], "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onFlyingRequirementUpdate function");
 				this.handleException(e);
@@ -1859,7 +1859,7 @@ sap.ui.define([
 					that._fnFlyingRequirementsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/WorkCenterKey"));
 				}.bind(this);
 				oPrmFR.activity = 7;
-				ajaxutil.fnDelete("/FlyingRequirementSvc/" + oObj.JOBID + "/" + oObj.TAILID + "/" + oObj.FR_NO, oPrmFR, "ZRM_COS_JS", this);
+				ajaxutil.fnDelete("/FlyingRequirementSvc/" + oObj.JOBID + "/" + oObj.TAILID + "/" + oObj.FR_NO, oPrmFR, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onFlyingRequirementDelete function");
 				this.handleException(e);
@@ -1918,7 +1918,7 @@ sap.ui.define([
 					that.onSortieMonitoringClose();
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutil.fnUpdate("/SortieMonSvc", oParameter, [oPayload], "ZRM_COS_JS", this);
+				ajaxutil.fnUpdate("/SortieMonSvc", oParameter, [oPayload], "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onSortieMonitoringUpdate function");
 				this.handleException(e);
@@ -1937,7 +1937,7 @@ sap.ui.define([
 					that._fnSortieMonitoringGet(oModel.getProperty("/sJobId"), oModel.getProperty("/WorkCenterKey"));
 				}.bind(this);
 				oPrmSORT.activity = 7;
-				ajaxutil.fnDelete("/SortieMonSvc/" + oObj.JOBID + "/" + oObj.TAILID + "/" + oObj.SORNO, oPrmSORT, "ZRM_COS_JS", this);
+				ajaxutil.fnDelete("/SortieMonSvc/" + oObj.JOBID + "/" + oObj.TAILID + "/" + oObj.SORNO, oPrmSORT, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onSortieMonitoringDelete function");
 				this.handleException(e);

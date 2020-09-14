@@ -9,8 +9,7 @@
 						<Button text="Reviewed" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
 					</items>
 				</FlexBox>
-				<Table class="sapUiResponsivePadding CERTable sapUiSizeCompact" growing="true" growingThreshold="6"
-					items="{paModel>pastDef}">
+				<Table class="sapUiResponsivePadding CERTable sapUiSizeCompact" growing="true" growingThreshold="6" items="{paModel>pastDef}">
 					<headerToolbar>
 						<OverflowToolbar>
 							<Title text="{i18n>tiDefects}" level="H2"/>
@@ -18,56 +17,44 @@
 						</OverflowToolbar>
 					</headerToolbar>
 					<columns>
-						<Column width="5rem" hAlign="Center" class="CERTableTextColor">
-							<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Column width="15%" hAlign="Center" class="CERTableTextColor">
+							<Label text="Creation Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						</Column>
-						<!--<Column width="3rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">-->
-						<!--	<Label text="{i18n>lbSymbol}" design="Bold" wrapping="true"/>-->
-						<!--</Column>-->
-						<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="{i18n>lbJobNo}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Column width="40%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Job Description" design="Bold" wrapping="true"/>
 						</Column>
-						<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="{i18n>lbDefect}" design="Bold" wrapping="true"/>
+						<Column width="15%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Clouser Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						</Column>
-						<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="{i18n>lbPrime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Column width="20%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Rectification Summary" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						</Column>
-						<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="{i18n>lbTrades}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-						</Column>
-						<Column width="3rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="{i18n>lbAction}" design="Bold" wrapping="true"/>
+						<Column width="10%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Prime Work Center" design="Bold" wrapping="true"/>
 						</Column>
 					</columns>
 					<items>
-						<ColumnListItem vAlign="Middle" type="Inactive" press="onDefectsDetailsPress">
+						<ColumnListItem vAlign="Middle" type="Navigation" press="onDefectsDetailsPress">
 							<cells>
 								<Text
 									text="{path:'paModel>credtm', formatter:'.formatter.defaultDateFormatDisplay'} {path:'paModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-								<!--<HBox>-->
-									<!--<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${paModel>symbol} === '1' ? true : false}"></Button>-->
-								<!--	<Button text="/" class="red redText" type="Transparent" visible="{=${paModel>symbol} === '2' ? true : false}"></Button>-->
-								<!--	<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${paModel>symbol} === '3' ? true : false}"></Button>-->
-								<!--</HBox>-->
-								<Text text="{paModel>jobid}"/>
 								<Text text="{paModel>jobdesc}"/>
+								<Text
+									text="{path:'paModel>etrdt', formatter:'.formatter.defaultDateFormatDisplay'} {path:'paModel>etrtm', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{paModel>recttxt}"/>
 								<Text text="{paModel>ptext}"/>
-								<Text text="-"/>
-								<Text text="-"/>
 							</cells>
 						</ColumnListItem>
 					</items>
 				</Table>
 			</VBox>
 		</content>
-	
-	<footer>
-		<OverflowToolbar>
-			<ToolbarSpacer/>
-			<Button text="Back" press="onNavBack"/>
-			<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
-		</OverflowToolbar>
-	</footer>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onNavBack"/>
+				<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
+			</OverflowToolbar>
+		</footer>
 	</Page>
 </core:FragmentDefinition>
