@@ -1760,3 +1760,7 @@ Description :
  	width :30% !important;
  }
 }
+
+.warningColor {
+	color: #b00 !important;
+}
