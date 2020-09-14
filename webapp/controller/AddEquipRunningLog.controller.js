@@ -6,7 +6,7 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
 	"../util/cvUtil"
-], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log,cvUtil) {
+], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log, cvUtil) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : Teck Meng
@@ -60,7 +60,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		onLiveChange: function(oEvent){
+		onLiveChange: function(oEvent) {
 			cvUtil.onLiveChange(oEvent, false);
 		},
 		// ***************************************************************************
@@ -79,7 +79,14 @@ sap.ui.define([
 				};
 				oParameter.success = function(oData) {
 					var currentTime = new Date();
-					this.getModel("oAircraftAddModel").setProperty("/record", oData.results.length > 0 ? oData.results[oData.results.length - 1] : {});
+					var oObject = oData.results.length > 0 ? oData.results[oData.results.length - 1] : {};
+					oObject.minCOL_13 = oObject.COL_13 ? +parseFloat(JSON.parse(JSON.stringify(oObject.COL_13))).toFixed(2) : 0;
+					oObject.minCOL_14 = oObject.COL_14 ? +parseFloat(JSON.parse(JSON.stringify(oObject.COL_14))).toFixed(2) : 0;
+					oObject.minCOL_15 = oObject.COL_15 ? +parseFloat(JSON.parse(JSON.stringify(oObject.COL_15))).toFixed(2) : 0;
+					oObject.minCOL_16 = oObject.COL_16 ? +parseFloat(JSON.parse(JSON.stringify(oObject.COL_16))).toFixed(2) : 0;
+					oObject.minCOL_17 = oObject.COL_17 ? +parseFloat(JSON.parse(JSON.stringify(oObject.COL_17))).toFixed(2) : 0;
+					oObject.minCOL_18 = oObject.COL_18 ? +parseFloat(JSON.parse(JSON.stringify(oObject.COL_18))).toFixed(2) : 0;
+					this.getModel("oAircraftAddModel").setProperty("/record", oObject);
 					// this.getModel("oAircraftAddModel").setProperty("/record/COL_11", currentTime);
 					// this.getModel("oAircraftAddModel").setProperty("/record/time", this.formatter.defaultDateTimeFormat(currentTime, "HH:mm"));
 					this.getModel("oAircraftAddModel").setProperty("/record/Date", currentTime);
@@ -109,7 +116,7 @@ sap.ui.define([
 				utilData.today = new Date();
 				utilData.today.setHours(23, 59, 59);
 				this.getView().setModel(new JSONModel(utilData), "oAircraftAddModel");
-				
+
 				this.getModel("oAircraftAddModel").setProperty("/type", oEvent.getParameter("arguments").type);
 				this.getModel("oAircraftAddModel").setProperty("/logid", oEvent.getParameter("arguments").logid);
 				this.fnClearValueState("AddEquipRunningLog");
@@ -127,14 +134,14 @@ sap.ui.define([
 		 */
 		fnCheckValueState: function(sFunctionGroupId) {
 			try {
-			var aGroupControls = sap.ui.getCore().byFieldGroupId(sFunctionGroupId);
-			var bError = false;
-			aGroupControls.forEach(function(oControl) {
-				if (oControl.getValueState() === "Error") {
-					bError = true;
-				}
-			});
-			return bError;
+				var aGroupControls = sap.ui.getCore().byFieldGroupId(sFunctionGroupId);
+				var bError = false;
+				aGroupControls.forEach(function(oControl) {
+					if (oControl.setValueState && oControl.getValueState() === "Error") {
+						bError = true;
+					}
+				});
+				return bError;
 			} catch (e) {
 				Log.error("Exception in fnCheckValueState function");
 				this.handleException(e);
@@ -147,12 +154,14 @@ sap.ui.define([
 		 */
 		fnClearValueState: function(sFunctionGroupId) {
 			try {
-			var aGroupControls = sap.ui.getCore().byFieldGroupId(sFunctionGroupId);
-			
-			aGroupControls.forEach(function(oControl) {
-				oControl.setValueState("None");
-			});
-			return;
+				var aGroupControls = sap.ui.getCore().byFieldGroupId(sFunctionGroupId);
+
+				aGroupControls.forEach(function(oControl) {
+					if (oControl.setValueState) {
+						oControl.setValueState("None");
+					}
+				});
+				return;
 			} catch (e) {
 				Log.error("Exception in fnClearValueState function");
 				this.handleException(e);
@@ -176,7 +185,7 @@ sap.ui.define([
 						break;
 					case "3":
 						sReasonTxt = this.getResourceBundle().getText("APURun");
-						break;	
+						break;
 					case "4":
 						sReasonTxt = this.getResourceBundle().getText("txtUpdateALQ144");
 						break;

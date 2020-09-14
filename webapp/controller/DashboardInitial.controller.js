@@ -123,7 +123,7 @@ sap.ui.define([
 					case "AST_DEA1":
 					case "AST_FS":
 						this.getRouter().navTo("UpdateFlightServicing", {
-							srvid: sSrvtId
+							srvid: sSrvtId ? sSrvtId : " "
 						});
 						break;
 					case "AST_FFG":
@@ -131,27 +131,27 @@ sap.ui.define([
 					case "AST_FFF":
 					case "AST_FFF0":
 						this.getRouter().navTo("PilotAccept", {
-							srvtid: sSrvtId,
+							srvtid: sSrvtId ? sSrvtId : " ",
 							stepid: "S_PA"
 						});
 						break;
 					case "AST_RFF":
 						this.getRouter().navTo("PilotUpdates", {
-							srvtid: sSrvtId,
+							srvtid: sSrvtId ? sSrvtId : " ",
 							stepid: "S_PF"
 						});
 						break;
 					case "AST_US":
 					case "AST_WE":
 						this.getRouter().navTo("WeaponExpenditure", {
-							srvtid: sSrvtId,
+							srvtid: sSrvtId ? sSrvtId : " ",
 							stepid: "S_WE"
 						});
 						break;
 					case "AST_S0":
 						if (aRenderSafePopup === "X") {
 							this.getRouter().navTo("WeaponExpenditure", {
-								srvtid: sSrvtId,
+								srvtid: sSrvtId ? sSrvtId : " ",
 								stepid: "S_WE"
 							});
 						} else {
@@ -161,7 +161,7 @@ sap.ui.define([
 					case "AST_US0":
 						if (aRenderSafePopup === "X") {
 							this.getRouter().navTo("WeaponExpenditure", {
-								srvtid: sSrvtId,
+								srvtid: sSrvtId ? sSrvtId : " ",
 								stepid: "S_WE"
 							});
 						} else {
@@ -172,7 +172,7 @@ sap.ui.define([
 
 						if (aRenderSafePopup === "X") {
 							this.getRouter().navTo("WeaponExpenditure", {
-								srvtid: sSrvtId,
+								srvtid: sSrvtId ? sSrvtId : " ",
 								stepid: "S_WE"
 							});
 						} else {
@@ -181,7 +181,7 @@ sap.ui.define([
 						break;
 					case "AST_DEA":
 						this.getRouter().navTo("WeaponExpenditure", {
-							srvtid: sSrvtId,
+							srvtid: sSrvtId ? sSrvtId : " ",
 							stepid: "S_WE"
 						});
 						break;
@@ -217,13 +217,13 @@ sap.ui.define([
 					case "AST_RFF":
 					case "AST_RFF0":
 						this.getRouter().navTo("PilotAccept", {
-							srvtid: sSrvtId,
+							srvtid: sSrvtId ? sSrvtId : " ",
 							stepid: "S_PA"
 						});
 						break;
 					case "AST_DEA":
 						this.getRouter().navTo("WeaponExpenditure", {
-							srvtid: sSrvtId,
+							srvtid: sSrvtId ? sSrvtId : " ",
 							stepid: "S_WE"
 						});
 						break;
@@ -447,12 +447,12 @@ sap.ui.define([
 				// var aState = oModel.getProperty("/dash/astid");
 				if (oModel.getProperty("/ChangeCertificate")) {
 					this.getOwnerComponent().getRouter().navTo("PDSSummary", {
-						srvtid: sSrvtId,
+						srvtid: sSrvtId ? sSrvtId : " ",
 						stepid: "S_CS"
 					});
 				} else if (oModel.getProperty("/ChangeWeapon")) {
 					this.getOwnerComponent().getRouter().navTo("WeaponConfig", {
-						srvtid: sSrvtId,
+						srvtid: sSrvtId ? sSrvtId : " ",
 						stepid: "S_CS"
 					});
 				} else if (oModel.getProperty("/AddFly")) {
@@ -502,7 +502,7 @@ sap.ui.define([
 						tailid: that.getTailId(),
 						refid: that.getAircraftId(),
 						stepid: "S_WE",
-						srvtid: sSrvtId
+						srvtid: sSrvtId ? sSrvtId : " "
 					}];
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
