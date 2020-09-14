@@ -15,12 +15,19 @@
 			<VBox class="sapUiTinyMarginTop sapUiSmallMargin">
 				<Label text="To be Monitoried For" design="Bold" class="sapUiSmallMarginTop"/>
 				<HBox class="sapUiTinyMarginBegin">
-					<ComboBox placeholder="{i18n>phSelect}" items="{MonitoredForSet>/}" change="onFoundDuringChange('DEF',$event)"
-						selectedKey="{SORTSet>/MON_FOR}">
+					<ComboBox placeholder="{i18n>phSelect}" required="true" fieldGroupIds="fgCmbBox" items="{MonitoredForSet>/}"
+						change="onFoundDuringChange('DEF',$event)" selectedKey="{SORTSet>/MON_FOR}">
 						<core:Item key="{MonitoredForSet>ddid}" text="{MonitoredForSet>description}"/>
 					</ComboBox>
-					<StepInput required="true" min="0" fieldGroupIds="fgStepInput" value="{SORTSet>/SORCNT}" change="onSortiesNoChange"
-						class="sapUiSmallMarginBegin"/>
+					<StepInput required="true" min="0" fieldGroupIds="fgStepInput"
+						visible="{= ${SORTSet>/MON_FOR} !=='SORTI_2' &amp;&amp; ${SORTSet>/MON_FOR} !=='SORTI_5' ? true:false}" value="{SORTSet>/SORCNT}"
+						change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
+					<StepInput required="true" min="0" displayValuePrecision="1" visible="{= ${SORTSet>/MON_FOR} === 'SORTI_2' ? true:false}"
+						fieldGroupIds="fgStepInput" value="{SORTSet>/SORCNT}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
+					<ComboBox placeholder="Select Operation Type" items="{OperationSet>/}" visible="{= ${SORTSet>/MON_FOR} === 'SORTI_5' ? true:false}"
+						selectedKey="{SORTSet>/SORCNT}" class="sapUiSmallMarginBegin">
+						<core:Item key="{OperationSet>ddid}" text="{OperationSet>description}"/>
+					</ComboBox>
 				</HBox>
 			</VBox>
 		</content>

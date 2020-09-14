@@ -67,7 +67,14 @@ sap.ui.define([
 				oPrmTD.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
 						var oModel = dataUtil.createNewJsonModel();
-						oModel.setData(oData.results);
+						var aData = [];
+						for (var i in oData.results) {
+							aData[i] = oData.results[i];
+							var temp = oData.results[i].SCRCNT.split("@");
+							aData[i].SCRCNT = temp[0];
+							aData[i].SCRTEXT = temp[1];
+						}
+						oModel.setData(aData);
 						that.getView().setModel(oModel, "SortiMaster");
 					}
 				}.bind(this);

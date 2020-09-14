@@ -68,7 +68,10 @@
 							<Text text="{SRMModel>SORDESC}"/>
 							<Text text="{SRMModel>REST_IMPOSE}"/>
 							<HBox>
-								<Text text="{SRMModel>SORCNT}"/>
+								<VBox>
+									<Text text="{SRMModel>SORCNT}" visible="{= ${SRMModel>MON_FOR} !== 'SORTI_5'}"/>
+									<Text text="{SRMModel>SORTEXT}" visible="{= ${SRMModel>MON_FOR} === 'SORTI_5'}"/>
+								</VBox>
 								<Text text="{SRMModel>MON_FORTXT}" class="sapUiTinyMarginBegin"/>
 							</HBox>
 							<VBox>

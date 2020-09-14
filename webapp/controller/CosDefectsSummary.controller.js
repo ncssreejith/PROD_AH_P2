@@ -575,6 +575,7 @@ sap.ui.define([
 						this);
 					oModel.setData(oObj);
 					that._fnMonitoredForGet();
+					that._fnOperationTypeGet();
 					that._oEditSORT.setModel(oModel, "SORTSet");
 					that.getView().addDependent(that._oEditSORT);
 					that._oEditSORT.open(that);
@@ -1265,14 +1266,15 @@ sap.ui.define([
 		onSignOffTask: function() {
 			try {
 				var that = this,
-					oPrmTask = {},oObj,
+					oPrmTask = {},
+					oObj,
 					oPayload = [],
 					oViewModel = that.getView().getModel("LocalModel"),
 					oTable = that.getView().byId("tbWcPendingSuperId");
 				if (oTable.getSelectedItems().length !== 0) {
 					for (var i = 0; i < oTable.getSelectedItems().length; i++) {
-						oObj=oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject();
-						oObj.tstat="X";
+						oObj = oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject();
+						oObj.tstat = "X";
 						oPayload.push(oObj);
 					}
 					oPrmTask.filter = "";
@@ -1872,9 +1874,23 @@ sap.ui.define([
 				oPrmFR.error = function() {};
 
 				oPrmFR.success = function(oData) {
-					var oModel = new JSONModel({});
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "SRMModel");
+					if (oData && oData.results.length > 0) {
+						var oModel = new JSONModel({});
+						var aData = [];
+						for (var i in oData.results) {
+							aData[i] = oData.results[i];
+							var temp = oData.results[i].SORCNT.split("@");
+							aData[i].SORCNT = temp[0];
+							aData[i].SORTEXT = temp[1];
+						}
+
+						oModel.setData(aData);
+						that.getView().setModel(oModel, "SRMModel");
+						that.getModel().updateBindings(true);
+					} else {
+						sap.m.MessageToast.show("No record(s) found");
+					}
+
 				}.bind(this);
 
 				ajaxutil.fnRead("/SortieMonSvc", oPrmFR);
@@ -1946,6 +1962,28 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmFND);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnMonitoredForGet function");
+				this.handleException(e);
+			}
+		},
+
+		_fnOperationTypeGet: function() {
+			try {
+				var that = this,
+					oPrmFND = {};
+				oPrmFND.filter = "ddid eq TOP_ and airid  eq " + that.getAircraftId();
+				oPrmFND.error = function() {
+
+				};
+
+				oPrmFND.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "OperationSet");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmFND);
+			} catch (e) {
+				Log.error("Exception in CosDefectsSummary:_fnOperationTypeGet function");
 				this.handleException(e);
 			}
 		},

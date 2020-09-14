@@ -59,6 +59,7 @@ sap.ui.define([
 				this.getModel("avmetModel").refresh();
 			} else {
 				this._oPopover.openBy(oButton);
+				this.onManageJobsNavBack();
 				this.getModel("avmetModel").setProperty("/ispopOpen", false);
 				this.getModel("avmetModel").refresh();
 			}

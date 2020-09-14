@@ -18,8 +18,8 @@
 					<Column hAlign="Left" width="15%" class="textColor">
 						<Label text="Restrictions Imposed" design="Bold"/>
 					</Column>
-					<Column hAlign="Center" width="8%" class="textColor">
-						<Label text="No. of Sortie" design="Bold"/>
+					<Column hAlign="Center" width="12%" class="textColor">
+						<Label text="Monitorised For" design="Bold"/>
 					</Column>
 					<Column hAlign="Center" width="4%" class="textColor"/>
 				</columns>
@@ -33,7 +33,14 @@
 							<Text text="{SortiMaster>JOBDESC}"/>
 							<Text text="{SortiMaster>SORDESC}"/>
 							<Text text="{SortiMaster>REST_IMPOSE}"/>
-							<Text text="{SortiMaster>COUNT}/{SortiMaster>SCRCNT}"/>
+							<HBox>
+								<VBox>
+								<Text text="{SortiMaster>SCRCNT}" visible="{= ${SortiMaster>MON_FOR} !== 'SORTI_5' &amp;&amp;  ${SortiMaster>MON_FOR} !== 'SORTI_1'}"/>
+								<Text text="{SortiMaster>COUNT}/{SortiMaster>SCRCNT}" visible="{= ${SortiMaster>MON_FOR} === 'SORTI_1'}"/>
+								<Text text="{SortiMaster>SCRTEXT}" visible="{= ${SortiMaster>MON_FOR} === 'SORTI_5'}"/>
+								</VBox>
+								<Text text="{SortiMaster>MON_FORTXT}" class="sapUiTinyMarginBegin"/>
+							</HBox>
 							<Button type="Transparent" icon="sap-icon://navigation-right-arrow" press="onClickSortieDetails"/>
 						</cells>
 					</ColumnListItem>

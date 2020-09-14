@@ -4,7 +4,7 @@
 		<content>
 			<VBox justifyContent="Center" class="sapUiSmallMargin">
 				<Label design="Bold" text="{i18n>lbFlyingRequirement}"></Label>
-				<TextArea value="{FLYSet>/FRDESC}"  rows="4" width="100%" growingMaxLines="7" showExceededText="true" maxLength="1000"
+				<TextArea value="{FLYSet>/FRDESC}"  rows="4" width="100%" growingMaxLines="7" showExceededText="true" maxLength="500"
 					editable="{FLYSet>/isEditableRemarks}" liveChange="handleLiveChangeFlyingRequirements"></TextArea>
 			</VBox>
 		</content>

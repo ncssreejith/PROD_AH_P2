@@ -192,6 +192,28 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+		_fnGetOperationType : function (sAirId){
+			try {
+				var that = this,
+					oPrmFND = {};
+				oPrmFND.filter = "ddid eq TOP_ and airid  eq " + sAirId;
+				oPrmFND.error = function() {
+
+				};
+
+				oPrmFND.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "OperationSet");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmFND);
+			} catch (e) {
+				Log.error("Exception in CosAddSoritieMonitoring:_fnGetOperationType function");
+				this.handleException(e);
+			}
+		},
 
 		// ***************************************************************************
 		//                 4. Private Methods   
@@ -222,6 +244,7 @@ sap.ui.define([
 				that.getView().setModel(oViewModel, "ViewModel");
 				that._fnSortieMonitoringGet(sJobId);
 				that._fnMonitoredForGet(sAirId);
+				that._fnGetOperationType(sAirId);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_onObjectMatched function");
 				this.handleException(e);

@@ -46,8 +46,8 @@
 						</GenericTile>
 					</HBox>
 					<HBox class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd">
-						<ct:DBStatusTile subTitle="STATUS" title="{avmetModel>/dash/astat}" header="{avmetModel>/dash/txt1}"
-							subHeader="{avmetModel>/dash/txt2}" info="{avmetModel>/dash/txt3}">
+						<ct:DBStatusTile subTitle="STATUS" title="{avmetModel>/dash/astat}" header="{avmetModel>/dash/txt1}" subHeader="{avmetModel>/dash/txt2}"
+							info="{avmetModel>/dash/txt3}">
 							<ct:items>
 								<Button text="{avmetModel>/dash/SBTN1}" visible="{= ${avmetModel>/dash/SBTN1}!== null ? true:false}" type="Emphasized"
 									press="onButtnItem1Press"/>
@@ -57,8 +57,8 @@
 									press="onButtnItem2Press"/>
 								<HBox visible="{avmetModel>/WarningFlag}">
 									<Button icon="sap-icon://slim-arrow-left" type="Transparent" press="onLeftWarnPress" enabled="{avmetModel>/WarningLeftBtn}"></Button>
-									<Link text="{avmetModel>/WarningIndexText}" wrapping="false" width="5rem" press="onWarningMessageSelect"
-										class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop"></Link>
+									<ObjectStatus text="{avmetModel>/WarningIndexText}" state="Error" active="true" width="5rem" press="onWarningMessageSelect"
+										class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop"/>
 									<Button icon="sap-icon://slim-arrow-right" type="Transparent" press="onRightWarnPress" enabled="{avmetModel>/WarningRightBtn}"></Button>
 								</HBox>
 							</ct:items>

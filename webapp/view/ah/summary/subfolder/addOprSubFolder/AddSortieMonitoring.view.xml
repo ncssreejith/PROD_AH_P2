@@ -47,14 +47,17 @@
 										change="onSorteiMonitoringChange" maxLength="1000" liveChange="handleLiveChangeSorteiMonitoring" showExceededText="true"/>
 								</VBox>
 								<VBox class="sapUiTinyMarginTop sapUiSmallMargin">
-									<Label text="To be Monitoried For" design="Bold" class="sapUiSmallMarginTop"/>
+									<Label text="To be Monitored For" design="Bold" class="sapUiSmallMarginTop"/>
 									<HBox class="sapUiTinyMarginBegin">
 										<ComboBox placeholder="{i18n>phSelect}" items="{MonitoredForSet>/}" change="onFoundDuringChange('DEF',$event)"
-											selectedKey="{SortieMonitoringModel>MonFor}">
+											selectedKey="{SortieMonitoringModel>MonFor}" required="true" fieldGroupIds="fgCmbBox">
 											<core:Item key="{MonitoredForSet>ddid}" text="{MonitoredForSet>description}"/>
 										</ComboBox>
-										<StepInput required="true" min="0" fieldGroupIds="fgStepInput" visible="{= ${SortieMonitoringModel>MonFor} !=='SORTI_2' ? true:false}" value="{SortieMonitoringModel>SortiesNo}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
-										<!--<StepInput required="true" min="0" displayValuePrecision="1" visible="{= ${SortieMonitoringModel>MonFor} === 'SORTI_2' ? true:false}" fieldGroupIds="fgStepInput" value="{SortieMonitoringModel>SortiesNo}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>-->
+										<StepInput required="true" min="0" fieldGroupIds="fgStepInput" visible="{= ${SortieMonitoringModel>MonFor} !=='SORTI_2' &amp;&amp; ${SortieMonitoringModel>MonFor} !=='SORTI_5' ? true:false}" value="{SortieMonitoringModel>SortiesNo}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
+										<StepInput required="true" min="0" displayValuePrecision="1" visible="{= ${SortieMonitoringModel>MonFor} === 'SORTI_2' ? true:false}" fieldGroupIds="fgStepInput" value="{SortieMonitoringModel>SortiesNo}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
+										<ComboBox placeholder="Select Operation Type" items="{OperationSet>/}"  visible="{= ${SortieMonitoringModel>MonFor} === 'SORTI_5' ? true:false}" 	selectedKey="{SortieMonitoringModel>SortiesNo}" class="sapUiSmallMarginBegin">
+											<core:Item key="{OperationSet>ddid}" text="{OperationSet>description}"/>
+										</ComboBox>
 									</HBox>
 								</VBox>
 							</CustomListItem>
