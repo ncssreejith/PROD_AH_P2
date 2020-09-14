@@ -11,7 +11,7 @@ sap.ui.define([
 	 *   Properties : 
 	 *   Note : 
 	 *************************************************************************** */
-	return Control.extend("avmet.f16.control.Station1", {
+	return Control.extend("avmet.ah.control.Station1", {
 		metadata: {
 			properties: {
 				title: {
