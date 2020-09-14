@@ -559,6 +559,15 @@ sap.ui.define([
 		},
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
+		sortieMonitoringFormat: function(sValue, sKey) {
+			if (sValue && sKey) {
+				var temp = null;
+				var i = sKey === "SORTI_5" ? 1 : 0;
+				temp = sValue.split("@");
+				return temp[i];
+			}
+		},
+
 		fnTimeFormat: function(dDate, sFormat) {
 			if (!dDate) {
 				dDate = new Date();

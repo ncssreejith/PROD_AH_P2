@@ -17,7 +17,7 @@
 							<Label text="Aircraft Monitoring" design="Bold"/>
 						</Column>
 						<Column demandPopin="true" minScreenWidth="Tablet">
-							<Label text="No. of Sorties" design="Bold"/>
+							<Label text="Monitorised For" design="Bold"/>
 						</Column>
 						<Column demandPopin="true" minScreenWidth="Tablet">
 							<Label text="Tradesman" design="Bold"/>
@@ -29,7 +29,10 @@
 								<Text
 									text="{path:'pdsSummaryModel>SORDT', formatter:'.formatter.defaultDateFormatDisplay'} {path:'pdsSummaryModel>SORTM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 								<Text text="{pdsSummaryModel>SORDESC}"/>
-								<Text text="{pdsSummaryModel>SORCNT}"/>
+								<HBox>
+									<Text text="{parts : ['pdsSummaryModel>SORCNT','pdsSummaryModel>MON_FOR'], formatter:'.formatter.sortieMonitoringFormat'}"/>
+									<Text text="{pdsSummaryModel>MON_FORTXT}" class="sapUiTinyMarginBegin"/>
+								</HBox>
 								<Text text="{pdsSummaryModel>SG1USR}"/>
 							</cells>
 						</ColumnListItem>
@@ -37,12 +40,12 @@
 				</Table>
 			</VBox>
 		</content>
-			<footer>
-		<OverflowToolbar>
-			<ToolbarSpacer/>
-			<Button text="Back" press="onNavBack"/>
-			<Button text="Sign Off" press="onPresSignOff" enabled="{pdsSummaryModel>/enableSign}" type="Emphasized"></Button>
-		</OverflowToolbar>
-	</footer>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onNavBack"/>
+				<Button text="Sign Off" press="onPresSignOff" enabled="{pdsSummaryModel>/enableSign}" type="Emphasized"></Button>
+			</OverflowToolbar>
+		</footer>
 	</Page>
 </core:FragmentDefinition>

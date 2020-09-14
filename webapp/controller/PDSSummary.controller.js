@@ -147,6 +147,13 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
+		onDefectsDetailsPress:function(oEvent){
+				var sObject = oEvent.getSource().getBindingContext("pdsSummaryModel").getObject();
+				this.getRouter().navTo("CosDefectsSummary",{
+					JobId:sObject.jobid,
+					Flag:"N"
+				});
+		},
 		onPresSignOff: function() {
 			try {
 				var sNextIndex = -1;

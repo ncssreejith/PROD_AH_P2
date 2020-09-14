@@ -21,25 +21,27 @@
 					</VBox>
 					<HBox class="sapUiSmallMargin sapUiLargeMarginBottom">
 						<VBox class="sapUiTinyMarginBeginEnd">
-							<HBox>
-								<Label text="Tools quantity" design="Bold"/>
+						<!--	<HBox>
+								
 								<core:Icon src="sap-icon://sys-help-2" color="#9AA6B5" class="sapUiTinyMarginBegin">
 									<core:layoutData>
 										<FlexItemData growFactor="1"/>
 									</core:layoutData>
 								</core:Icon>
-							</HBox>
+							</HBox>-->
+							<Label text="Tools quantity" design="Bold"/>
 							<StepInput value="{rtModel>/rtasks/TLQTY}" min="1"/>
 						</VBox>
 						<VBox class="sapUiTinyMarginBeginEnd">
-							<HBox>
-								<Label text="Publication quantity" design="Bold"/>
+						<!--	<HBox>
+								
 								<core:Icon src="sap-icon://sys-help-2" color="#9AA6B5" class="sapUiTinyMarginBegin">
 									<core:layoutData>
 										<FlexItemData growFactor="1"/>
 									</core:layoutData>
 								</core:Icon>
-							</HBox>
+							</HBox>-->
+							<Label text="Publication quantity" design="Bold"/>
 							<StepInput value="{rtModel>/rtasks/PUBQTY}" min="1"/>
 						</VBox>
 					</HBox>
