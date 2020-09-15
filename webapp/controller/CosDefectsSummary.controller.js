@@ -2320,7 +2320,7 @@ sap.ui.define([
 					oPrmWorkCenter.activity = 1;
 					ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload]);
 				} else {
-					ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload], "ZRM_COS_JB", this);
+					ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload], "dummy", this);
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnDefectWorkCenterCreate function");

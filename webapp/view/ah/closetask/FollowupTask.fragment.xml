@@ -59,6 +59,9 @@
 							<l:Grid hSpacing="1" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
 								<l:content>
 									<VBox>
+										<VBox alignItems="End">
+											<Button text="Task Enter in Error" class="sapUiTinyMarginBegin" press="onEnterToTheErrorPress"></Button>
+										</VBox>
 										<VBox class="sapUiTinyMarginBottom"
 											visible="{= ${TaskModel>tt1id}!=='TT1_11' &amp;&amp; ${TaskModel>tt1id}!=='TT1_14' &amp;&amp; ${TaskModel>tt1id}!=='TT1_15' &amp;&amp; ${TaskModel>tt1id}!=='TT1_17' &amp;&amp; ${TaskModel>tt1id}!=='TT1_18' ? true:false}">
 											<Label text=" Follow-Up Task" design="Bold"></Label>

@@ -134,7 +134,7 @@
 				enabled="{LocalModel>/FairEditFlag}"/>
 		</Toolbar>
 		<HBox>
-			<HBox id="summaryHBId" items="{CreatedWorkCenterModel>/}" width="85%" wrap="Wrap">
+			<HBox id="summaryHBId" items="{CreatedWorkCenterModel>/}" wrap="Wrap">
 				<cc:RectificationTile footerText="Incomplete Entries" count="{CreatedWorkCenterModel>count}"
 					prime="{= ${CreatedWorkCenterModel>isprime} !== null ? true:false }" title="{CreatedWorkCenterModel>wrctrtx}" select="onWorkCenterSelect"
 					visible="{= ${CreatedWorkCenterModel>wrctr} !== 'Summary' }"/>
