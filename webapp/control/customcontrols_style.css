@@ -322,7 +322,7 @@ Description : This control used to add new work center in Rectifications area in
 }
 
 .DBTile4Top {
-    width: 360px !important;
+    /*width: 360px !important*/
     height: 45px !important;
 }
 
@@ -526,14 +526,26 @@ Description : This control used to add new work center in Rectifications area in
  #6 : DashboardTile 6
  Used views : COSDashboard (View)
 -----------------------------------------------------------------------------------------*/
+@media all and (orientation:portrait) {
+    .DBTile6OutDiv {
+        width: 450px !important;
+        height: 200px !important;
+        background: white;
+        float: right;
+        border-radius: 5px;
+        border: 0px;
+    }
+}
 
-.DBTile6OutDiv {
-    width: 360px !important;
-    height: 200px !important;
-    background: white;
-    float: right;
-    border-radius: 5px;
-    border: 0px;
+@media all and (orientation:landscape) {
+    .DBTile6OutDiv {
+        width: 360px !important;
+        height: 200px !important;
+        background: white;
+        float: right;
+        border-radius: 5px;
+        border: 0px;
+    }
 }
 
 .DBTile6Bottom {
