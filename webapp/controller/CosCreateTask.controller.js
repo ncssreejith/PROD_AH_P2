@@ -157,7 +157,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/sVisualInspection", "");
 				oCreateTaskModel.setProperty("/sOtherDesc", "");
 				oCreateTaskModel.setProperty("/sTechOrderRef", "IETM");
-				oCreateTaskModel.setProperty("/sSymbol", "0");
+				//oCreateTaskModel.setProperty("/sSymbol", "0");
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_ResetTaskType function");
 				this.handleException(e);
@@ -168,7 +168,7 @@ sap.ui.define([
 			try {
 				var sSelectedKey = oEvent.getSource().getSelectedKey(),
 					oCreateTaskModel = this.getModel("oCreateTaskModel");
-				oCreateTaskModel.setProperty("/sSymbol", sSelectedKey);
+			//	oCreateTaskModel.setProperty("/sSymbol", sSelectedKey);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSegmentOtherSelected function");
 				this.handleException(e);
@@ -397,7 +397,7 @@ sap.ui.define([
 						sVisualInspection: "",
 						sOtherDesc: "",
 						sTechOrder: "",
-						sSymbol: "",
+						//sSymbol: "",
 						JobId: oModel.getProperty("/JobId"),
 						WorkCenter: oModel.getProperty("/WorkCenter"),
 						TailId: oModel.getProperty("/TailId"),
@@ -457,7 +457,7 @@ sap.ui.define([
 					oObj.sSLNo = oCreateTaskModel.getProperty("/sSLNo");
 					oObj.bCompCompDesc = oCreateTaskModel.getProperty("/bCompCompDesc");
 					oObj.sCompCompDesc = oCreateTaskModel.getProperty("/sCompCompDesc");
-					oObj.sSymbol = "1";
+					//oObj.sSymbol = "1";
 
 				} else if (sTaskType === "TT1_11") {
 					oObj.bOpsCheck = true;
@@ -465,7 +465,7 @@ sap.ui.define([
 					oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
 					oObj.sTechOrderRef = oCreateTaskModel.getProperty("/sTechOrderRef");
 					oObj.sOpsDesc = oCreateTaskModel.getProperty("/sOpsDesc");
-					oObj.sSymbol = "3";
+					//oObj.sSymbol = "3";
 				} else if (sTaskType === "TT1_12") {
 					oObj.bVisualInspection = true;
 					oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
@@ -473,11 +473,11 @@ sap.ui.define([
 					oObj.sOtherDesc = oCreateTaskModel.getProperty("/sOtherDesc");
 					oObj.bVisualInspection = oCreateTaskModel.getProperty("/bVisualInspection");
 					oObj.sVisualInspection = oCreateTaskModel.getProperty("/sVisualInspection");
-					oObj.sSymbol = "3";
+					//oObj.sSymbol = "3";
 				} else if (sTaskType === "TT1_13") {
 					oObj.sTaskText = oCreateTaskModel.getProperty("/sTaskText");
 					oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
-					oObj.sSymbol = "3";
+					//oObj.sSymbol = "3";
 				} else if (sTaskType === "TT1_14" || sTaskType === "TT1_15" || sTaskType === "TT1_16" || sTaskType === "TT1_17" || sTaskType ===
 					"TT1_18" || sTaskType === "TT1_19") {
 					oObj.bOthers = true;
@@ -485,7 +485,7 @@ sap.ui.define([
 					oObj.sTaskTypeText = oCreateTaskModel.getProperty("/sTaskTypeText");
 					oObj.sOtherDesc = oCreateTaskModel.getProperty("/sOtherDesc");
 					oObj.sTechOrderRef = oCreateTaskModel.getProperty("/sTechOrderRef");
-					oObj.sSymbol = oCreateTaskModel.getProperty("/sSymbol");
+					//oObj.sSymbol = oCreateTaskModel.getProperty("/sSymbol");
 				}
 				if (oFlag) {
 					aTasks.push(oObj);
@@ -530,7 +530,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/sOtherDesc", oSelectedObj.sOtherDesc);
 				oCreateTaskModel.setProperty("/sRemoveForAccKey", oSelectedObj.sRemoveForAccKey);
 				oCreateTaskModel.setProperty("/sSLNo", oSelectedObj.sSLNo);
-				oCreateTaskModel.setProperty("/sSymbol", oSelectedObj.sSymbol);
+				//oCreateTaskModel.setProperty("/sSymbol", oSelectedObj.sSymbol);
 				//oCreateTaskModel.setProperty("/sTaskType", oSelectedObj.sTask);
 				oCreateTaskModel.setProperty("/sTaskType", oSelectedObj.sTaskType);
 				/*	oCreateTaskModel.setProperty("/sTechOrder", oSelectedObj.sTechOrder);*/
@@ -596,7 +596,7 @@ sap.ui.define([
 					oCreateTaskModel.setProperty(sEditTaskPath + "/bOthers", true);
 					oCreateTaskModel.setProperty(sEditTaskPath + "/sOtherDesc", oCreateTaskModel.getProperty("/sOtherDesc"));
 					oCreateTaskModel.setProperty(sEditTaskPath + "/sTechOrderRef", oCreateTaskModel.getProperty("/sTechOrderRef"));
-					oCreateTaskModel.setProperty(sEditTaskPath + "/sSymbol", oCreateTaskModel.getProperty("/sSymbol"));
+					//oCreateTaskModel.setProperty(sEditTaskPath + "/sSymbol", oCreateTaskModel.getProperty("/sSymbol"));
 					switch (sTaskType) {
 						case "TT1_14":
 							oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", sTaskType);
@@ -723,7 +723,7 @@ sap.ui.define([
 							break;
 					}
 					//oTempData[0].tdesc = aTasks[i].sOpsDesc;
-					oTempData[0].symbol = aTasks[i].sSymbol;
+				/*	oTempData[0].symbol = aTasks[i].sSymbol;*/
 					oTempData[0].toref = aTasks[i].sTechOrderRef;
 					oTempData[0].fttoref = aTasks[i].sTechOrderRef;
 					oTempData[0].isser = aTasks[i].sType1;
@@ -860,7 +860,7 @@ sap.ui.define([
 					sVisualInspection: "",
 					sOtherDesc: "",
 					sTechOrder: "",
-					sSymbol: "0",
+					//sSymbol: "0",
 					bCreateTaskBtn: true,
 					bUpdateTaskBtn: false,
 					aTasks: [],

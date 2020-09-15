@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog title="Error Log" draggable="true" class="popoverHeaderCSS" type="Message" showHeader="true" contentWidth="60%"
+		verticalScrolling="false" resizable="false">
+		<content>
+			<VBox justifyContent="Center">
+				<Table class="sapUiResponsivePadding sapUiSizeCompact sapUiSmallMarginEnd CERTable tableHFont" mode="None" items="{ path: 'ErroModel>/'}"
+					showNoData="true">
+					<columns>
+						<Column width="50%" hAlign="Start" minScreenWidth="Tablet" demandPopin="true" class="textColor">
+							<HBox>
+								<Label text="{i18n>lbTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							</HBox>
+						</Column>
+						<Column width="45%" hAlign="Start" minScreenWidth="Tablet" demandPopin="true" class="textColor">
+							<HBox>
+								<Label text="Task Type" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							</HBox>
+						</Column>
+						<Column width="50%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center" class="textColor">
+							<HBox>
+								<Label text="Error Message" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							</HBox>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem vAlign="Middle">
+							<cells>
+								<HBox wrap="Wrap" class="textOverFlow">
+									<Text text="{ErroModel>taskId}" wrapping="true"/>
+								</HBox>
+								<ComboBox width="330px" editable="false" items="{path:'TaskMainListModel>/',templateShareable: false}" selectedKey="{ErroModel>tType}">
+									<core:Item text="{TaskMainListModel>ttype}" key="{TaskMainListModel>ttid}"/>
+								</ComboBox>
+								<Text text="{ErroModel>errormsg}" wrapping="true"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</content>
+		<buttons>
+			<Button id="btnClose" text="Cancel" press="onErrorDialogClose"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

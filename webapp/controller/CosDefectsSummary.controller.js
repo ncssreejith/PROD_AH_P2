@@ -1228,6 +1228,47 @@ sap.ui.define([
 			}
 		},
 
+		//------------------------------------------------------------------
+		// Function: onOpenErrorDialog
+		// Parameter: 
+		// Description: This will get called, when to Error dialog need to open.
+		//Table: 
+		//------------------------------------------------------------------
+		onOpenErrorDialog: function(oErrorArray) {
+			try {
+				var that = this,
+					oModel = dataUtil.createNewJsonModel();
+				if (!that._oErrorDia) {
+					that._oErrorDia = sap.ui.xmlfragment(that.createId("idErroDia"),
+						"avmet.ah.fragments.ErrorMessageDialog",
+						this);
+					oModel.setData(oErrorArray);
+					that._oErrorDia.setModel(oModel, "ErroModel");
+					that.getView().addDependent(that._oErrorDia);
+					that._oErrorDia.open(that);
+				}
+			} catch (e) {
+				Log.error("Exception in onEditFlyingRequirement function");
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: onErrorDialogClose
+		// Parameter: 
+		// Description: This will get called, when to Error dialog need to close.
+		//Table: 
+		//------------------------------------------------------------------
+		onErrorDialogClose: function() {
+			try {
+				if (this._oErrorDia) {
+					this._oErrorDia.close(this);
+					this._oErrorDia.destroy();
+					delete this._oErrorDia;
+				}
+			} catch (e) {
+				Log.error("Exception in onFlyingRequirementClose function");
+			}
+		},
+
 		onUndoSignOff: function(oEvent) {
 			try {
 				var that = this,
@@ -1268,28 +1309,93 @@ sap.ui.define([
 			}
 		},
 
+		/*	onSignOffTask: function() {
+				try {
+					var that = this,
+						oPrmTask = {},
+						oObj,
+						oPayload = [],
+						oViewModel = that.getView().getModel("LocalModel"),
+						oTable = that.getView().byId("tbWcPendingSuperId");
+					if (oTable.getSelectedItems().length !== 0) {
+						for (var i = 0; i < oTable.getSelectedItems().length; i++) {
+							oObj = oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject();
+							oObj.tstat = "X";
+							oPayload.push(oObj);
+						}
+						oPrmTask.filter = "";
+						oPrmTask.error = function(oData) {};
+						oPrmTask.success = function(oData) {
+							that.onPendingSupDetailsClose();
+							that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
+							that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
+							that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
+							this.getView().byId("itbTaskId").setSelectedKey("CM");
+							this.byId("pageSummaryId").scrollTo(0);
+						}.bind(this);
+						oPrmTask.activity = 4;
+						ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "ZRM_COS_TS", this);
+					} else {
+						MessageBox.error(
+							"Please select task for Sign-off.", {
+								icon: sap.m.MessageBox.Icon.Error,
+								title: "Success",
+								styleClass: "sapUiSizeCompact"
+							});
+					}
+				} catch (e) {
+					Log.error("Exception in CosDefectsSummary:onSignOffTask function");
+					this.handleException(e);
+				}
+			},*/
+
 		onSignOffTask: function() {
 			try {
 				var that = this,
+					oErroFlag = false,
+					oTempObj,
 					oPrmTask = {},
 					oObj,
 					oPayload = [],
+					oErrorArray = [],
 					oViewModel = that.getView().getModel("LocalModel"),
 					oTable = that.getView().byId("tbWcPendingSuperId");
 				if (oTable.getSelectedItems().length !== 0) {
 					for (var i = 0; i < oTable.getSelectedItems().length; i++) {
 						oObj = oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject();
+						oTempObj = this._fnGetObjectTypeAndActivity(oObj.symbol, oObj.tt1id);
 						oObj.tstat = "X";
+						oObj.objectid = oTempObj.obj;
+						oObj.activity = oTempObj.Act;
 						oPayload.push(oObj);
 					}
 					oPrmTask.filter = "";
 					oPrmTask.error = function(oData) {};
 					oPrmTask.success = function(oData) {
+
+						for (var j = 0; j < oData.results.length; j++) {
+							if (oData.results[j].errormsg !== "" && oData.results[j].errormsg !== null) {
+								oErrorArray.push({
+									"taskId": oData.results[j].tdesc,
+									"errormsg": oData.results[j].errormsg,
+									"tType": oData.results[j].tt1id
+								});
+								oErroFlag = true;
+							}
+						}
+
+						if (oErroFlag) {
+							that.onOpenErrorDialog(oErrorArray);
+							this.getView().byId("itbTaskId").setSelectedKey("SP");
+						} else {
+							this.getView().byId("itbTaskId").setSelectedKey("CM");
+						}
+
 						that.onPendingSupDetailsClose();
 						that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
-						this.getView().byId("itbTaskId").setSelectedKey("CM");
+						//this.getView().byId("itbTaskId").setSelectedKey("CM");
 						this.byId("pageSummaryId").scrollTo(0);
 					}.bind(this);
 					oPrmTask.activity = 4;
@@ -1460,6 +1566,55 @@ sap.ui.define([
 					} else {
 						return true;
 					}
+				}
+			}
+		},
+
+		_fnGetObjectTypeAndActivity: function(oSymbol, sTaskType) {
+			var oTemp;
+			if (oSymbol === "1") {
+				oTemp = {
+					"obj": "ZRM_S_REDX",
+					"Act": "4"
+				};
+				return oTemp;
+			} else {
+				switch (sTaskType) {
+					case "TT1_10":
+					case "TT1_11":
+					case "TT1_12":
+					case "TT1_13":
+					case "TT1_14":
+					case "TT1_15":
+						oTemp = {
+							"obj": "ZRM_COS_TS",
+							"Act": "4"
+						};
+						return oTemp;
+					case "TT1_16":
+						oTemp = {
+							"obj": "ZRM_COS_IP",
+							"Act": "6"
+						};
+						return oTemp;
+					case "TT1_17":
+						oTemp = {
+							"obj": "ZRM_COS_QA",
+							"Act": "6"
+						};
+						return oTemp;
+					case "TT1_18":
+						oTemp = {
+							"obj": "ZRM_COS_IN",
+							"Act": "6"
+						};
+						return oTemp;
+					case "TT1_19":
+						oTemp = {
+							"obj": "ZRM_S_REDX",
+							"Act": "4"
+						};
+						return oTemp;
 				}
 			}
 		},
