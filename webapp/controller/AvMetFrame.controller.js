@@ -261,6 +261,16 @@ sap.ui.define([
 					oDash.TBTN2 = true;
 					var oModel = this.getView().getModel("avmetModel");
 					oModel.setProperty("/UnlockAVMET", false);
+					if (this.getOwnerComponent().getModel("jobModel")) {
+						var sJob = this.getOwnerComponent().getModel("jobModel").getProperty("/jobId");
+						sap.ui.getCore().getEventBus().publish(
+							"SubView1",
+							"UpdateJob", {
+								sJobId: sJob
+							},
+							this
+						);
+					}
 					this.fnLoadSrv1Dashboard();
 					this.getModel("avmetModel").refresh();
 				}.bind(this);

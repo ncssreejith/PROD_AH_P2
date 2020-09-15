@@ -114,24 +114,23 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-		
-		onFilterChange : function (oEvent){
-			if (oEvent.getSource().getSelectedKey().length > 0){
-				oEvent.getSource().setValueState("None");   	
+
+		onFilterChange: function(oEvent) {
+			if (oEvent.getSource().getSelectedKey().length > 0) {
+				oEvent.getSource().setValueState("None");
 			}
 		},
-		
-		onSearchTable : function (oEvent,sId, oModel){
-			var sKey = this.getView().byId("cb"+sId).getSelectedKey();
+
+		onSearchTable: function(oEvent, sId, oModel) {
+			var sKey = this.getView().byId("cb" + sId).getSelectedKey();
 			if (sKey && sKey.length > 0) {
 				sKey = sKey.split("-");
-				this.onSearch(oEvent,sId, oModel,sKey[0].trim(), sKey[1].trim());
+				this.onSearch(oEvent, sId, oModel, sKey[0].trim(), sKey[1].trim());
 			} else {
-				this.getView().byId("cb"+sId).setValueState("Error");
-				this.getView().byId("cb"+sId).setValueStateText("Please select column");
+				this.getView().byId("cb" + sId).setValueState("Error");
+				this.getView().byId("cb" + sId).setValueStateText("Please select column");
 			}
-			
-			
+
 		},
 
 		onJobTabSelect: function(oEvent) {
@@ -371,6 +370,7 @@ sap.ui.define([
 				this._fnJobGetCompScheduled();
 				this._fnJobGetENGScheduled();
 				this._fnJobGetMODSTIScheduled();
+				this.fnLoadSrv1Dashboard();
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}

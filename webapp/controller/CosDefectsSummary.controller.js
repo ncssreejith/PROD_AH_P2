@@ -286,6 +286,11 @@ sap.ui.define([
 
 		},
 
+		onNavBackDefect: function(oEvent) {
+			this.getOwnerComponent().setModel(null, "jobModel");
+			this.onNavBack(oEvent, 'DashboardInitial');
+		},
+
 		onWorkCenterEditChange: function(oEvent) {
 			var oSrc = oEvent.getSource(),
 				object = oSrc.getSelectedItem().getBindingContext("WorkCenterDialogModel").getObject();
@@ -1490,6 +1495,9 @@ sap.ui.define([
 				oViewModel.setProperty("/sAirId", sAirId);
 				oViewModel.setProperty("/sSqnId", sSqnId);
 				oViewModel.setProperty("/sJobId", sJobId);
+				this.getOwnerComponent().setModel(new JSONModel({
+					"jobId": sJobId
+				}), "jobModel");
 				oViewModel.setProperty("/sFlag", sFlag);
 				oViewModel.setProperty("/sWcKey", sWcKey);
 				oViewModel.setProperty("/sGoTo", sGoTo);
@@ -1521,6 +1529,12 @@ sap.ui.define([
 				this._fnReasonforADDGet(sAirId);
 				this._fnUtilizationGet(sAirId);
 				this._fnGetMainTaskDropDown();
+				sap.ui.getCore().getEventBus().subscribe(
+					"SubView1",
+					"UpdateJob",
+					this._fnJobDetailsGet,
+					this
+				);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_handleRouteMatched function");
 				this.handleException(e);
@@ -1988,12 +2002,15 @@ sap.ui.define([
 			}
 		},
 
-		_fnJobDetailsGet: function(sJobId, sAirId) {
+		_fnJobDetailsGet: function(sJobId, sEvent, oData, that) {
 			try {
 				var that = this,
 					oViewModel = that.getView().getModel("LocalModel"),
 					oSummaryModel = this.getView().getModel("SummaryModel"),
 					oPrmJobDue = {};
+				if (sEvent === "UpdateJob") {
+					sJobId = oData.sJobId;
+				}
 				oPrmJobDue.filter = "jobid eq " + sJobId;
 				oPrmJobDue.error = function() {
 
@@ -2013,6 +2030,12 @@ sap.ui.define([
 						if (oData.results[0].fstat === 'A') {
 							oViewModel.setProperty("/FairEditFlag", false);
 							oSummaryModel.setProperty("/FAIRStatus", "Error");
+						} else if (oData.results[0].fstat === 'R') {
+							oViewModel.setProperty("/FairEditFlag", true);
+							oSummaryModel.setProperty("/FAIRStatus", "Error");
+							oSummaryModel.setProperty("/FAIRStatusText", "Release for Rectifications");
+							oSummaryModel.setProperty("/MenuVisible", true);
+							oSummaryModel.setProperty("/MenuActivateVisible", false);
 						}
 
 						if (oData.results[0].mark === '1') {
