@@ -24,6 +24,9 @@
 							<Label text="{i18n>lbEngHrs}" design="Bold" wrapping="true"/>
 						</Column>
 						<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Label text="Engine Hrs at last Oil Change" design="Bold" wrapping="true"/>
+						</Column>
+						<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="{i18n>lbEngineHrssinceOilChange}" design="Bold" wrapping="true"/>
 						</Column>
 						<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
@@ -39,6 +42,7 @@
 								<Text text="{path:'oEngineModel>SPDT', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'oEngineModel>SPTM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 								<Text text="{oEngineModel>ENGHR}"/>
 								<!--<Text text="{parts: [{path:'oEngineModel>SPDT'}, {path:'oEngineModel>SPTM'}], formatter:'.formatter.fnDateTimeDiff'}"/>-->
+								<Text text="{oEngineModel>HRAT}"/>
 								<Text text="{oEngineModel>HRSINCE}"/>
 								<Text text="{oEngineModel>DDDESC}"/>
 								<Text text="{oEngineModel>SRVAMT}"/>

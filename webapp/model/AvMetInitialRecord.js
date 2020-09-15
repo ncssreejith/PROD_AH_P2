@@ -195,6 +195,7 @@ sap.ui.define([
 						"MODID": null,
 						"JOBTY": null,
 						"DUEIN": null,
+						"ENGNO": null,
 						"UM": null,
 						"SERVDUE": null,
 						"SERVDT": null,

@@ -12,7 +12,8 @@
 								<!--<StandardListItem type="Active" -->
 								<!--selected="{= (${configModel>/selStn/STNSID}===${configModel>STNSID} &amp;&amp; ${configModel>/selStn/STNMID}===${configModel>STNMID})}"-->
 								<!--title="{configModel>LTXT}"/>-->
-								<CustomListItem >
+								<CustomListItem
+									selected="{= (${configModel>/selStn/STNSID}===${configModel>STNSID} &amp;&amp; ${configModel>/selStn/STNMID}===${configModel>STNMID})}">
 									<HBox height="2.7rem" alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
 										<Text height="100%" text="{configModel>LTXT}"/>
 										<!--<core:Icon src="sap-icon://attachment-photo" visible="{= (${configModel>/selStn/selADP/selWpn}===${configModel>selADP/selWpn/WESID} &amp;&amp; ${configModel>/selStn/selADP/selWpn/WEMID}===${configModel>selADP/selWpn/WEMID})? true:false}"/>-->
@@ -29,7 +30,9 @@
 									type="{= (${configModel>/selStn/selADP/selWpn/WESID}===${configModel>WESID} &amp;&amp; ${configModel>/selStn/selADP/selWpn/WEMID}===${configModel>WEMID})? 'Detail':'Active'}"
 									selected="{= (${configModel>/selStn/selADP/selWpn/WESID}===${configModel>WESID} &amp;&amp; ${configModel>/selStn/selADP/selWpn/WEMID}===${configModel>WEMID})}"
 									title="{configModel>WESDESC}"/>-->
-								<CustomListItem >
+								<CustomListItem
+								selected="{= (${configModel>/selStn/selADP/selWpn/WESID}===${configModel>WESID} &amp;&amp; ${configModel>/selStn/selADP/selWpn/WEMID}===${configModel>WEMID})}"
+								>
 									<HBox height="2.7rem" alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
 										<Text height="100%" text="{configModel>WESDESC}"/>
 										<core:Icon src="sap-icon://attachment-photo"
@@ -55,7 +58,7 @@
 									<si:PropertyThreshold id="ptUpArrowId" toValue="100"/>
 								</si:propertyThresholds>
 							</si:StatusIndicator>
-							<GenericTile class="middleTile txtAlginHeadeCenter" visible="{= ${configModel>/selStn/selADP/selWpn/CONTOR}==='X'}" press="onConnecterPress"
+							<GenericTile class="middleTile txtAlginHeadeCenter" visible="{= ${configModel>/selStn/CONECT}!=='N'}" press="onConnecterPress"
 								header="{parts:['configModel>/selStn/selADP/selWpn/CONECT','configModel>/selStn/selADP/selWpn/ICART'],formatter:'.formatter.wConnect'}"
 								frameType="OneByOne"></GenericTile>
 							<si:StatusIndicator value="{= ${configModel>/selStn/selADP/selWpn/CONECT}==='C'?100:0}" width="3rem" height="3rem">
@@ -76,7 +79,7 @@
 								<TileContent>
 									<HBox width="100%" justifyContent="SpaceBetween">
 										<Label class="sapUiSmallMarginBegin" text="{configModel>/selStn/selADP/selWpn/WESDESC} {configModel>/selStn/selADP/selWpn/ADPDESC}"/>
-										<Label class="sapUiSmallMarginEnd" text="{configModel>/selStn/selADP/selWpn/srcount}"/>
+										<Label class="sapUiSmallMarginEnd" text="{= ${configModel>/selStn/ISSER}==='X'?${configModel>/selStn/selADP/selWpn/srcount}:${configModel>/selStn/TOTQTY}}"/>
 									</HBox>
 								</TileContent>
 							</GenericTile>

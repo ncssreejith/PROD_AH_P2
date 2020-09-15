@@ -179,7 +179,7 @@ sap.ui.define([
 				oPrmTD.activity = 1;
 				ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in ESJobCreate function");
 			}
 		},
 		//-------------------------------------------------------------
@@ -201,13 +201,15 @@ sap.ui.define([
 				oTempData = AvMetInitialRecord.createInitialBlankRecord("SCHJob");
 				oTempData[0].CREDT = new Date();
 				oTempData[0].CRETM = new Date().getHours() + ":" + new Date().getMinutes();
+				oTempData[0].ENGNO = "1";
 				oJobModel.setData(oTempData[0]);
+				
 				this.getView().setModel(oJobModel, "JobCreateModel");
 				this._fnJobDueGet(sAir);
 				this._fnWorkCenterGet(sAir);
 
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _onObjectMatched function");
 			}
 		}
 
