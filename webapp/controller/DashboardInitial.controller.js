@@ -103,6 +103,7 @@ sap.ui.define([
 						this._oPopover.openBy(oButton);
 					}.bind(this));
 				} else {
+					this._oPopover.getModel("ToolTipModel").setProperty("/Text", oButton.getText());
 					this._oPopover.openBy(oButton);
 				}
 			} catch (e) {
