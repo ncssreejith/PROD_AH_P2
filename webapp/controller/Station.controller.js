@@ -38,8 +38,11 @@ sap.ui.define([
 					selStnPath: ""
 				};
 				this.setModel(new JSONModel(oData), "configModel");
-				this.setModel(new JSONModel({busy:true,delay:0}), "viewModel");
-				
+				this.setModel(new JSONModel({
+					busy: true,
+					delay: 0
+				}), "viewModel");
+
 			} catch (e) {
 				Log.error("Exception in Station:onInit function");
 				this.handleException(e);
@@ -60,10 +63,10 @@ sap.ui.define([
 				}
 				this.getModel("configModel").setProperty("/selStn", oContext.getObject());
 				this.getModel("configModel").refresh();
-				if (oContext.getObject().adapter) {
-					return;
-				}
-				this.fnLoadAdapter();
+				// if (oContext.getObject().adapter) {
+				// 	return;
+				// }
+				// this.fnLoadAdapter();
 			} catch (e) {
 				Log.error("Exception in Station:onSelectionChange function");
 				this.handleException(e);
@@ -135,7 +138,7 @@ sap.ui.define([
 						this.onReadSNoPress(sSelWpn);
 						return;
 					}
-					
+
 				} else {
 					sSelWpn.serialNos = [{
 						srno: "",
@@ -225,7 +228,9 @@ sap.ui.define([
 
 		_onObjectMatched: function(oEvent) {
 			try {
-				this.updateModel({busy:true}, "viewModel");
+				this.updateModel({
+					busy: true
+				}, "viewModel");
 				this.getModel("configModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
 				this.getModel("configModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
 				this.getModel("configModel").setProperty("/STNSID", oEvent.getParameter("arguments").stns);
@@ -243,7 +248,9 @@ sap.ui.define([
 				oParameter.filter = "tailid eq " + this.getTailId() + " and srvtid eq " + this.getModel("configModel").getProperty("/srvtid") +
 					" and airid eq " + this.getAircraftId();
 				oParameter.error = function() {
-					this.updateModel({busy:false}, "viewModel");
+					this.updateModel({
+						busy: false
+					}, "viewModel");
 				};
 				oParameter.success = function(oData) {
 					this.getModel("configModel").setProperty("/stns", oData.results);
@@ -251,13 +258,13 @@ sap.ui.define([
 						if (oData.results[i].STNSID === this.getModel("configModel").getProperty("/STNSID") && oData.results[i].STNMID === this.getModel(
 								"configModel").getProperty("/STNMID")) {
 							this.getModel("configModel").setProperty("/selStn", oData.results[i]);
-							break;
+							//	break;
+						}
+						if (oData.results[i].STNMID === "STNM_S") {
+							this.fnLoadAdapter(oData.results[i]);
 						}
 					}
-					
-					// 
 					this.getModel("configModel").refresh();
-					this.fnLoadAdapter();
 				}.bind(this);
 				ajaxutil.fnRead("/WeaponSvc", oParameter);
 			} catch (e) {
@@ -265,84 +272,95 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnLoadAdapter: function() {
+		fnLoadAdapter: function(sStation) {
 			try {
-				var sStatnId = this.getModel("configModel").getProperty("/selStn/STNSID");
-				var sStnmId = this.getModel("configModel").getProperty("/selStn/STNMID");
+				var sStatnId = sStation.STNSID;
+				var sStnmId = sStation.STNMID;
 				var oParameter = {};
 				// oParameter.filter = "refid eq '" + this.getAircraftId() + "' and stnsid eq '" + sStatnId + "' and adpflag eq 'X'";
 				oParameter.filter = "tailid eq " + this.getTailId() + " and stnsid eq '" + sStatnId + "' and adpflag eq 'X' and stnmid eq '" +
 					sStnmId + "'";
-				oParameter.error = function() {this.updateModel({busy:false}, "viewModel");};
-				oParameter.success = function(oData) {
-					this.getModel("configModel").setProperty("/selStn/adapter", oData.results.length > 0 ? oData.results : []);
-					this.getModel("configModel").setProperty("/selStn/selADP", oData.results.length > 0 ? oData.results[0] : "");
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
+				oParameter.success = function(sStn, oData) {
+					sStn.adapter = oData.results.length > 0 ? oData.results : [];
+					sStn.selADP = oData.results.length > 0 ? oData.results[0] : "";
 					this.getModel("configModel").refresh();
-					this.fnCheckForImpulsCart();
-					this.fnLoadMissile();
-				}.bind(this);
+					this.fnCheckForImpulsCart(sStn);
+					if (sStn.selADP !== "" && sStn.selADP.POT !== "T") {
+						this.fnLoadMissile(sStn);
+					}
+				}.bind(this, sStation);
 				ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in Station:fnLoadAdapter function");
 				this.handleException(e);
 			}
 		},
-		fnLoadMissile: function() {
+		fnLoadMissile: function(sStation) {
 			try {
-				var sAdapId = this.getModel("configModel").getProperty("/selStn/selADP/ADPID");
-				var sDDID = this.getModel("configModel").getProperty("/selStn/selADP/STNSID");
-				var sSUBID = this.getModel("configModel").getProperty("/selStn/selADP/STNMID");
+				var sAdapId = sStation.selADP.ADPID;
+				var sDDID = sStation.selADP.STNSID;
+				var sSUBID = sStation.selADP.STNMID;
 				var oParameter = {};
 				// oParameter.filter = "stnsid eq '" + sDDID + "' and stnmid eq '" + sDDID + "' and ADPID eq '" + sAdapId + "' and tailid eq '" +
 				oParameter.filter = "stnsid eq " + sDDID + " and stnmid eq " + sSUBID + " and ADPID eq " + sAdapId + " and airid eq " +
 					this.getAircraftId();
 				// oParameter.filter = "tailid eq '" + this.getTailId() + "' and adpid eq '" + sAdapId + "'";
-				oParameter.error = function() {this.updateModel({busy:false}, "viewModel");};
-				oParameter.success = function(oData) {
-					this.getModel("configModel").setProperty("/selStn/selADP/wpn", oData.results);
-					// this.getModel("configModel").setProperty("/selStn/selADP/selWpn", oData.results.length > 0 ? oData.results[0] : "");
+				oParameter.error = function() {
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+				};
+				oParameter.success = function(sStn, oData) {
+					sStn.selADP.wpn = oData.results;
 					for (var i = 0; i < oData.results.length; i++) {
-						if (oData.results[i].WEMID === this.getModel("configModel").getProperty("/selStn/WEMID") && oData.results[i].WESID === this.getModel(
-								"configModel").getProperty("/selStn/WESID")) {
-							oData.results[i].CONECT = this.getModel("configModel").getProperty("/selStn/CONECT");
-							this.getModel("configModel").setProperty("/selStn/selADP/selWpn", oData.results[i]);
+						if (oData.results[i].WEMID === sStn.WEMID && oData.results[i].WESID === sStn.WESID) {
+							oData.results[i].CONECT = sStn.CONECT;
+							sStn.selADP.selWpn = oData.results[i];
 							this.fnSetArrowColor(oData.results[i].CONECT === "C");
-							this.fnLoadSerialNumber();
+							this.fnLoadSerialNumber(sStn);
 							break;
 						}
 					}
-					this.updateModel({busy:false}, "viewModel");
+					this.updateModel({
+						busy: false
+					}, "viewModel");
 					this.getModel("configModel").refresh();
-				}.bind(this);
+				}.bind(this, sStation);
 				ajaxutil.fnRead("/WeaponConfigSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in Station:fnLoadMissile function");
 				this.handleException(e);
 			}
 		},
-		
-		fnLoadSerialNumber:function(){
-			var sStatnId = this.getModel("configModel").getProperty("/selStn/STNSID");
-				var sStnmId = this.getModel("configModel").getProperty("/selStn/STNMID");
-				var oParameter = {};
-				// oParameter.filter = "refid eq '" + this.getAircraftId() + "' and stnsid eq '" + sStatnId + "' and adpflag eq 'X'";
-				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + sStnmId+ " and stnsid eq " + sStatnId;
-				oParameter.error = function() {};
-				oParameter.success = function(oData) {
-					this.getModel("configModel").setProperty("/selStn/selADP/selWpn/srcount", this.fnCreateSerialNo(oData).length);
-					this.getModel("configModel").setProperty("/selStn/selADP/selWpn/serialNos", this.fnCreateSerialNo(oData));
-					this.getModel("configModel").setProperty("/selStn/selADP/selWpn/cserialNos", this.fnCreateSerialNo(oData));
-					this.getModel("configModel").refresh();
-				}.bind(this);
-				ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
+
+		fnLoadSerialNumber: function(sStation) {
+			var sStatnId = sStation.STNSID;
+			var sStnmId = sStation.STNMID;
+			var oParameter = {};
+			// oParameter.filter = "refid eq '" + this.getAircraftId() + "' and stnsid eq '" + sStatnId + "' and adpflag eq 'X'";
+			oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + sStnmId + " and stnsid eq " + sStatnId;
+			oParameter.error = function() {};
+			oParameter.success = function(sStn, oData) {
+				var sSrlNo = this.fnCreateSerialNo(oData);
+				sStn.selADP.selWpn.srcount = sSrlNo.length;
+				sStn.selADP.selWpn.serialNos = sSrlNo;
+				sStn.selADP.selWpn.cserialNos = sSrlNo;
+				this.getModel("configModel").refresh();
+			}.bind(this, sStation);
+			ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
 		},
-		
-		fnCreateSerialNo:function(oData){
+
+		fnCreateSerialNo: function(oData) {
 			var sSerilNo = [];
-			oData.results.forEach(function(srno,sIndex){
+			oData.results.forEach(function(srno, sIndex) {
 				var srNo = {};
 				srNo.srno = srno.SERNR;
-				srNo.dlt = sIndex===0?false:true;
+				srNo.dlt = sIndex === 0 ? false : true;
 				srNo.delimit = false;
 				sSerilNo.push(srNo);
 			}.bind(this));
@@ -507,9 +525,9 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnCheckForImpulsCart: function() {
+		fnCheckForImpulsCart: function(sStation) {
 			try {
-				var sAdapterList = this.getModel("configModel").getProperty("/selStn/adapter");
+				var sAdapterList = sStation.adapter;
 				if (!sAdapterList || sAdapterList.length === 0) {
 					return;
 				}
@@ -517,12 +535,11 @@ sap.ui.define([
 				// if (sAdapterList[0].ICART === "X") {
 				if (sAdapterList[0].POT === "T") {
 					var sWep = sAdapterList[0];
-					this.getModel("configModel").setProperty("/selStn/selADP", sAdapterList[1] === undefined ? {} : sAdapterList[1]);
-					this.getModel("configModel").setProperty("/selStn/selADP/selWpn", sWep);
-					this.getModel("configModel").setProperty("/selStn/selADP/selWpn/CONECT", this.getModel("configModel").getProperty(
-						"/selStn/CONECT"));
+					sStation.selADP = sAdapterList[1] === undefined ? {} : sAdapterList[1];
+					sStation.selADP.selWpn = sWep;
+					sStation.selADP.selWpn.CONECT = this.getModel("configModel").getProperty("/selStn/CONECT");
 					sAdapterList.splice(0, 1);
-					this.getModel("configModel").setProperty("/selStn/adapter", sAdapterList);
+					sStation.adapter = sAdapterList;
 					this.getModel("configModel").refresh();
 				}
 			} catch (e) {
@@ -564,38 +581,38 @@ sap.ui.define([
 
 		_fnCreateEmptyPayloadSignOff: function() {
 			var oPayloads = [];
-			this.getModel("configModel").getProperty("/stns").forEach(function(oItem){
+			this.getModel("configModel").getProperty("/stns").forEach(function(oItem) {
 				var oPaylod = {
-				"AIRID": this.getAircraftId(),
-				"ROLEID": null,
-				"SUBID": null,
-				"STNMID": oItem.STNMID,
-				"L_TXT": null,
-				"WEMID": null,
-				"WESID": null,
-				"ADPID": oItem.selADP !== undefined ? oItem.selADP.ADPID : "",
-				"ADPDESC": null,
-				"WEMDESC": null,
-				"WESDESC": null,
-				"STNSID": oItem.STNSID,
-				"CONTOR": null,
-				"ISSER": null,
-				"TAILID": this.getTailId(),
-				"SRVID": null,
-				"NUM1": null,
-				"SRVTID": this.getModel("configModel").setProperty("/stepid"),
-				"SERNR": null,
-				"endda": "99991231",
-				"begda": null,
-				"TOTQTY": null,
-				"CONECT": null,
-				"HCFLAG": null,
-				"STEPID": this.getModel("configModel").setProperty("/stepid"),
-				"EXPAND": null,
-				"TLSERNR": null,
-				"APPRCOUNT": 0
-			};
-			oPayloads.push(oPaylod);
+					"AIRID": this.getAircraftId(),
+					"ROLEID": null,
+					"SUBID": null,
+					"STNMID": oItem.STNMID,
+					"L_TXT": null,
+					"WEMID": null,
+					"WESID": null,
+					"ADPID": oItem.selADP !== undefined ? oItem.selADP.ADPID : "",
+					"ADPDESC": null,
+					"WEMDESC": null,
+					"WESDESC": null,
+					"STNSID": oItem.STNSID,
+					"CONTOR": null,
+					"ISSER": null,
+					"TAILID": this.getTailId(),
+					"SRVID": null,
+					"NUM1": null,
+					"SRVTID": this.getModel("configModel").setProperty("/stepid"),
+					"SERNR": null,
+					"endda": "99991231",
+					"begda": null,
+					"TOTQTY": null,
+					"CONECT": null,
+					"HCFLAG": null,
+					"STEPID": this.getModel("configModel").setProperty("/stepid"),
+					"EXPAND": null,
+					"TLSERNR": null,
+					"APPRCOUNT": 0
+				};
+				oPayloads.push(oPaylod);
 			}.bind(this));
 			return oPayloads;
 		}

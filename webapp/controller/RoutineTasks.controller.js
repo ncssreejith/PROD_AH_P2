@@ -282,7 +282,7 @@ sap.ui.define([
 				var sStep = this.getModel("rtModel").getProperty("/tasks/0/APR_NO");
 				this.getView().byId("wizard").getSteps().forEach(function(oItem, sIndex) {
 					if (parseInt(sStep) >= sIndex) {
-						oItem._deactivate();
+						// oItem._deactivate();
 						if (parseInt(sStep) === sIndex) {
 							oItem._activate();
 							oItem.getParent().setCurrentStep(oItem);

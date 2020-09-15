@@ -23,7 +23,7 @@
 							<Text text="{rtModel>DDDESC}" visible="{= ${rtModel>RTASKID}?true:false}"/>
 							<Input value="{rtModel>DDDESC}" visible="{= ${rtModel>RTASKID}?false:true}"/>
 						</VBox>
-						<SegmentedButton
+						<SegmentedButton enabled="{= ${rtModel>/tasks/0/APR_NO}===1}"
 							selectedKey="{= (${rtModel>DONE}===null || ${rtModel>DONE}==='')?'noKey':${rtModel>DONE}}" selectionChange="onRTStatusChange">
 							<items>
 								<SegmentedButtonItem text="Done" key="Y"/>
@@ -37,5 +37,5 @@
 				</ColumnListItem>
 			</items>
 		</Table>
-		<Button icon="sap-icon://sys-add" class="addTaskBtn" text="Add Routine Task" press="onAddRoutineTask" width="100%"/>
+		<Button icon="sap-icon://sys-add" visible="{= ${rtModel>/tasks/0/APR_NO}===1}" class="addTaskBtn" text="Add Routine Task" press="onAddRoutineTask" width="100%"/>
 </core:FragmentDefinition>
