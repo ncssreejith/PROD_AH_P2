@@ -109,7 +109,14 @@
 											<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('COMPDESC',$event)" class="sapUiTinyMarginBegin" size="12px"
 												color="#031E48"/>
 										</HBox>
-										<Input width="500px" placeholder="eg. Engine" value="{JobCreateModel>/CDESC}" fieldGroupIds="fgInput"/>
+										<HBox>
+											<ComboBox  visible="{=${JobCreateModel>/CTYPE}==='ENGINE' ? true:false}" class="sapUiTinyMarginEnd"
+											placeholder="{i18n>engNoSelect}" selectedKey="{JobCreateModel>/ENGNO}" required="true">
+												<core:Item key="1" text="{i18n>lbEngine1}"/>
+												<core:Item key="2" text="{i18n>lbEngine2}"/>
+											</ComboBox>
+											<Input width="500px" placeholder="eg. Engine" value="{JobCreateModel>/CDESC}" fieldGroupIds="fgInput"/>
+										</HBox>
 									</VBox>
 								</HBox>
 							</VBox>
