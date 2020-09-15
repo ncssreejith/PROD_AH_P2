@@ -449,16 +449,18 @@ sap.ui.define([
 					var iDiff = parseInt(oItem.TGTDIFF);
 					if (iDiff > iULimit) {
 						oItem.ULimitFlag = true;
-						aRedPoints.push(iDiff);
-						aDataPoints.push(iDiff);
-					} else if (iDiff < iLLimit) {
+						// aRedPoints.push(iDiff);
+						// aDataPoints.push(iDiff);
+					} 
+					if (iDiff < iLLimit) {
 						oItem.LLimitFlag = true;
-						aRedPoints.push(iDiff);
-						aDataPoints.push(iDiff);
-					} else {
-						aDataPoints.push(iDiff);
-						aRedPoints.push(NaN);
+						// aRedPoints.push(iDiff);
+						// aDataPoints.push(iDiff);
 					}
+					// else {
+						aDataPoints.push(iDiff);
+						aRedPoints.push(iDiff);
+					// }
 					aLDashPoints.push(iLLimit);
 					aUDashPoints.push(iULimit);
 					aLowerLimit.push(oItem.LLIMIT);
