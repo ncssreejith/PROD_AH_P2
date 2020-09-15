@@ -1,6 +1,7 @@
 <core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
 	xmlns:f="sap.f">
-	<VBox backgroundDesign="Solid" class="sapUiResponsiveMargin" width="100%">
+	<VBox backgroundDesign="Solid" class="sapUiResponsiveMargin" width="100%"
+	visible="{= !!${oEngineModel>/headerDetails}}">
 		<IconTabBar id="itbEngine1" expanded="{device>/isNoPhone}" headerMode="Inline" class="iconTabPadding" expandable="false">
 			<items>
 				<IconTabFilter class="iconTabPadding" text="{i18n>lbEnginePower}" id="itnEng1Power">

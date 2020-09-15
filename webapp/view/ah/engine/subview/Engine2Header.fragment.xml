@@ -4,7 +4,7 @@
 		<OverflowToolbar class="sapUiResponsiveMargin toolbarBorderColor">
 			<!--{oEngineModel>/header2Details/ENGID}-->
 			<Title text="{= ${oEngineModel>/header2Details}===undefined ? 'No engine installed':'Engine'}" level="H2" class="titleColor"/>
-			<Button icon="sap-icon://navigation-down-arrow" type="Transparent" class="sapUiSizeCompact sortBtnColor"/>
+			<Button icon="sap-icon://navigation-down-arrow" type="Transparent" enabled="false" class="sapUiSizeCompact sortBtnColor"/>
 			<ToolbarSpacer/>
 			<Button text="{i18n>btnPrint}" icon="sap-icon://print" type="Transparent" press="onPrint" class="sapUiSizeCompact sortBtnColor"
 				iconFirst="true"/>
