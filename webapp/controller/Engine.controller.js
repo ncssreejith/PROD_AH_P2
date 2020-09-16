@@ -148,10 +148,26 @@ sap.ui.define([
 		 */
 		onAddEngOilLog: function() {
 			try {
-				this.getRouter().navTo("AddEngOilLog", {
-					engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
-					tailid: this.getTailId()
-				});
+				//Check engine hours since last top up
+				// if ((this.LastEngine1Hours - this.LastRepEngine1Hours) < 10) {
+				// 	sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
+				// 		actions: [sap.m.MessageBox.Action.CANCEL, sap.m.MessageBox.Action.OK],
+				// 		emphasizedAction: sap.m.MessageBox.Action.OK,
+				// 		onClose: function(sAction) {
+				// 			if (sAction === "OK") {
+				// 				this.getRouter().navTo("AddEngOilLog", {
+				// 					engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
+				// 					tailid: this.getTailId()
+				// 				});
+				// 			}
+				// 		}.bind(this)
+				// 	});
+				// } else {
+					this.getRouter().navTo("AddEngOilLog", {
+						engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
+						tailid: this.getTailId()
+					});
+				// }
 			} catch (e) {
 				Log.error("Exception in Engine:onAddEngOilLog function");
 				this.handleException(e);
@@ -177,10 +193,27 @@ sap.ui.define([
 		 */
 		onAddEng2OilLog: function() {
 			try {
-				this.getRouter().navTo("AddEngOilLog", {
-					engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
-					tailid: this.getTailId()
-				});
+				//Check engine hours since last top up
+				// if ((this.LastEngine2Hours - this.LastRepEngine2Hours) < 10) {
+				// 	sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
+				// 		actions: [sap.m.MessageBox.Action.CANCEL, sap.m.MessageBox.Action.OK],
+				// 		emphasizedAction: sap.m.MessageBox.Action.OK,
+				// 		onClose: function(sAction) {
+				// 			if (sAction === "OK") {
+				// 				this.getRouter().navTo("AddEngOilLog", {
+				// 					engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
+				// 					tailid: this.getTailId()
+				// 				});
+				// 			}
+				// 		}.bind(this)
+				// 	});
+				// } else {
+					this.getRouter().navTo("AddEngOilLog", {
+						engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
+						tailid: this.getTailId()
+					});
+				// }
+
 			} catch (e) {
 				Log.error("Exception in Engine:onAddEngOilLog function");
 				this.handleException(e);
@@ -289,11 +322,9 @@ sap.ui.define([
 							if (iEngine === "1") {
 								oEngineModel.setProperty("/EngPowerCheck", oData.results);
 								this._setData(iEngine);
-								// oEngineModel.setProperty("/soapTableData", oData.results);
 							} else {
 								oEngineModel.setProperty("/EngPowerCheck2", oData.results);
 								this._setData(iEngine);
-								// oEngineModel.setProperty("/soapTableData2", oData.results);
 							}
 						}
 						// oEngineModel.setProperty("/EngPowerCheck", oData.results);
@@ -337,11 +368,21 @@ sap.ui.define([
 					if (oData && oData.results) {
 						//sort by date
 						oData.results.forEach(function(oItem) {
-							oItem.ID = that.fnDateTime(oItem.SPDT,oItem.SPTM); //, 
+							oItem.ID = that.fnDateTime(oItem.SPDT, oItem.SPTM); //, 
 						});
+						//sort by date
+						// oData.results.forEach(function(oItem) {
+						// 	oItem.ID = this.fnDateTime(oItem.CREDTM, oItem.CREUZT); //, 
+						// }.bind(this));
+						oData.results.sort(function(a, b) {
+							return new Date(b.ID).getTime() - new Date(a.ID).getTime();
+						});
+
 						if (iEngine === "1") {
+							this.LastRepEngine1Hours = oData.results[0].ENGHR;
 							oEngineModel.setProperty("/soapTableData", oData.results);
 						} else {
+							this.LastRepEngine2Hours = oData.results[0].ENGHR;
 							oEngineModel.setProperty("/soapTableData2", oData.results);
 						}
 					}
@@ -368,9 +409,7 @@ sap.ui.define([
 				var oEngineModel = this.getView().getModel("oEngineModel");
 				var oParameter = {};
 				oParameter.filter = "CTYPE eq ENGINE and tailid eq " + this.getTailId();
-				oParameter.error = function() {
-
-				};
+				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					for (var i = 0; i < oData.results.length; i++) {
 						var date1 = new Date(oData.results[i].JDUVL);
@@ -402,13 +441,16 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.filter = "FLAG eq L and TAILID eq " + this.getTailId() + " and ENGID eq " + sEngID;
 				oParameter.success = function(oData) {
-					if (oData && oData.results.length) {
+					if (oData && oData.results && oData.results.length) {
+						oData.results.sort(function(a, b) {
+							return b.LOGID - a.LOGID;
+						});
+
 						if (iEngine === "1") {
+							this.LastEngine1Hours = oData.results[0].TENGHR;
 							oEngineModel.setProperty("/EngCyclicLife", oData.results);
-							// if(this.getModel("oEngineModel").getProperty("/navType") === "X"){
-							// 	this.onAddEngCycLog();
-							// }
 						} else {
+							this.LastEngine2Hours = oData.results[0].TENGHR;
 							oEngineModel.setProperty("/EngCyclicLife2", oData.results);
 						}
 					}
@@ -441,7 +483,7 @@ sap.ui.define([
 				var aUDashPoints = [];
 				//Loop
 				aEngPowerCheck.forEach(function(oItem) {
-					if(oItem.CHKRN !== "1"){
+					if (oItem.CHKRN !== "1") {
 						return;
 					}
 					var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
@@ -451,15 +493,15 @@ sap.ui.define([
 						oItem.ULimitFlag = true;
 						// aRedPoints.push(iDiff);
 						// aDataPoints.push(iDiff);
-					} 
+					}
 					if (iDiff < iLLimit) {
 						oItem.LLimitFlag = true;
 						// aRedPoints.push(iDiff);
 						// aDataPoints.push(iDiff);
 					}
 					// else {
-						aDataPoints.push(iDiff);
-						aRedPoints.push(iDiff);
+					aDataPoints.push(iDiff);
+					aRedPoints.push(iDiff);
 					// }
 					aLDashPoints.push(iLLimit);
 					aUDashPoints.push(iULimit);

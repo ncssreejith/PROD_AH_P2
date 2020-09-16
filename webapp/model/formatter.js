@@ -627,6 +627,28 @@ sap.ui.define([
 			sDiff = Math.abs(sCurrentDate - new Date(sDate + " " + sTime)) / 36e5;
 			return parseFloat(sDiff).toFixed(2); // + " hrs";
 		},
+		fnDateEngineHrsDiff: function(sDate) {
+			var sBindInfo = this.getBindingInfo("footerRightInfo") ? "footerRightInfo" : "visible";
+
+			var sModel = this.getBindingInfo(sBindInfo).parts[0].model;
+			var resId = this.getBindingContext(sModel).getProperty("resid");
+			switch (resId) {
+				case "RES_105":
+					break;
+				case "RES_106":
+					break;
+				default:
+					return false;
+			}
+			var sDiff = 0;
+			if (!sDate) {
+				return false;
+			}
+
+			var sCurrentDate = new Date();
+			sDiff = Math.abs(sCurrentDate - new Date(sDate)) / 36e5;
+			return (sDiff < 10); // + " hrs";
+		},
 		FuelMCState1: function(sValue, iMax) {
 			// if(this.getId() && document.querySelector("#"+this.getId()+" > div > div > div")){
 			// 	document.querySelector("#"+this.getId()+" > div > div > div").textContent="";
