@@ -22,7 +22,7 @@
 									items="{path:'paModel>stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'},{path:'ADPID',operator:'NE',value1:''}]}">
 									<items>
 										<cc:Station1 title="{= (${paModel>WEDESC}===null || ${paModel>WEDESC}==='')? ${paModel>ADPDESC}:${paModel>WEDESC}}"
-											subTitle="{paModel>LTXT}" footerLeftInfo="{= (${paModel>TOTQTY}==='0' || ${paModel>TOTQTY}===null)?'':'Qty '+${paModel>TOTQTY}}"  footerRightInfo="{= (${paModel>ISSER}==='X' || ${paModel>SERNR}!==null)?'View S/N':''}"
+											subTitle="{paModel>LTXT}" footerLeftInfo="{= (${paModel>TOTQTY}===0 || ${paModel>TOTQTY}===null)?'':'Qty '+${paModel>TOTQTY}}"  footerRightInfo="{= (${paModel>ISSER}==='X' || ${paModel>SERNR}!==null)?'View S/N':''}"
 											class=" sapUiTinyMargin" fireSerialPress="onSerialNoPress">
 											<core:Icon src="sap-icon://write-new-document" color="#0a6cd6"/>
 											<core:Icon src="sap-icon://broken-link" visible="{= ${paModel>CONECT}!=='N'}"
