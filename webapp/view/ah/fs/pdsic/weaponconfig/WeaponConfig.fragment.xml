@@ -22,7 +22,7 @@
 									items="{path:'pdsSummaryModel>stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'},{path:'ADPID',operator:'NE',value1:''}]}">
 									<items>
 										<cc:Station1 title="{= (${pdsSummaryModel>WEDESC}===null || ${pdsSummaryModel>WEDESC}==='')? ${pdsSummaryModel>ADPDESC}:${pdsSummaryModel>WEDESC}}"
-											subTitle="{pdsSummaryModel>LTXT}" footerLeftInfo="Qty {pdsSummaryModel>TOTQTY}" footerRightInfo="{= ${pdsSummaryModel>ISSER}==='X'?'View':''}"
+											subTitle="{pdsSummaryModel>LTXT}" footerLeftInfo="Qty {pdsSummaryModel>TOTQTY}" footerRightInfo="{= (${pdsSummaryModel>ISSER}==='X' || ${pdsSummaryModel>SERNR}!==null)?'View S/N':''}"
 											class=" sapUiTinyMargin" fireSerialPress="onSerialNoPress">
 											<core:Icon src="sap-icon://write-new-document" color="#0a6cd6"/>
 											<core:Icon src="sap-icon://broken-link" visible="{= ${pdsSummaryModel>CONECT}!=='N'}"

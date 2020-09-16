@@ -251,7 +251,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(oData) {
 					this.getModel("configModel").setProperty("/stns", oData.results);
 					for (var i = 0; i < oData.results.length; i++) {
@@ -284,7 +284,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(sStn, oData) {
 					sStn.adapter = oData.results.length > 0 ? oData.results : [];
 					sStn.selADP = oData.results.length > 0 ? oData.results[0] : "";
@@ -293,6 +293,9 @@ sap.ui.define([
 					if (sStn.selADP !== "" && sStn.selADP.POT !== "T") {
 						this.fnLoadMissile(sStn);
 					}
+					this.updateModel({
+						busy: false
+					}, "viewModel");
 				}.bind(this, sStation);
 				ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
 			} catch (e) {

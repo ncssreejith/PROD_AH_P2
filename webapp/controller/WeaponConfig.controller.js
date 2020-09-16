@@ -224,7 +224,7 @@ sap.ui.define([
 			try {
 				var oStation = oEvent.getParameter("oSource").getParent().getBindingContext("oWCModel").getObject();
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID;
+				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID+" and ADPID eq "+oStation.ADPID;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oWCModel").setProperty("/srnos", oData.results);
