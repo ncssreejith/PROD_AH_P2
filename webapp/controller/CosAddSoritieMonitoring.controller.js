@@ -192,8 +192,8 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
-		_fnGetOperationType : function (sAirId){
+
+		_fnGetOperationType: function(sAirId) {
 			try {
 				var that = this,
 					oPrmFND = {};
@@ -269,7 +269,8 @@ sap.ui.define([
 					oPayload.TAILID = oModel.getProperty("/header/sTailId");
 					oPayload.SRVID = null;
 					oPayload.NUM1 = null;
-					oPayload.SORCNT = oItem.SortiesNo;
+					var iPrec = formatter.JobDueDecimalPrecision(oItem.MonFor);
+					oPayload.SORCNT = parseFloat(oItem.SortiesNo, [10]).toFixed(iPrec);
 					oPayload.SORDESC = oItem.Text;
 					oPayload.SG1USR = "Test User";
 					oPayload.SG1DTM = that.formatter.defaultOdataDateFormat(new Date(), "yyyyMMdd");

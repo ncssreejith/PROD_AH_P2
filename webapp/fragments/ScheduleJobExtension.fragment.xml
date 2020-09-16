@@ -4,14 +4,12 @@
 			<VBox class="sapUiLargeMarginBeginEnd sapUiMediumMarginTopBottom" alignItems="Central" alignContent="Central">
 				<Label text="{i18n>lbJobDue}" design="Bold"/>
 				<HBox>
-					<ComboBox width="13rem" placeholder="{i18n>phSelect}" selectedKey="{RSModel>/DueBy}" items="{JobDueSet>/}" change="onDueSelectChange">
+					<ComboBox width="13rem" class="sapUiTinyMarginEnd"  placeholder="{i18n>phSelect}" selectedKey="{RSModel>/DueBy}" editable="false" items="{JobDueSet>/}" change="onDueSelectChange">
 						<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 					</ComboBox>
-					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin" visible="{RSModel>/UtilValFlag}">
-						<StepInput width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" visible="{= ${RSModel>/DueBy} !== 'JDU_11'}"
-							value="{RSModel>/UtilVal}"/>
-						<StepInput width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" visible="{= ${RSModel>/DueBy} === 'JDU_11'}"
-							displayValuePrecision="1" value="{RSModel>/UtilVal}"/>
+					<HBox id="SchJobDueId" visible="{RSModel>/UtilValFlag}">
+						<StepInput width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" value="{RSModel>/UtilVal}"
+							displayValuePrecision="{path:'RSModel>/DueBy' , formatter:'.formatter.JobDueDecimalPrecision'}" />
 					</HBox>
 					<DatePicker width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{RSModel>/ExpDateFlag}"
 						value="{path: 'RSModel>/ExpDate', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"

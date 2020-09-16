@@ -20,10 +20,9 @@
 						<core:Item key="{MonitoredForSet>ddid}" text="{MonitoredForSet>description}"/>
 					</ComboBox>
 					<StepInput required="true" min="0" fieldGroupIds="fgStepInput"
-						visible="{= ${SORTSet>/MON_FOR} !=='SORTI_2' &amp;&amp; ${SORTSet>/MON_FOR} !=='SORTI_5' ? true:false}" value="{SORTSet>/SORCNT}"
+						visible="{= ${SORTSet>/MON_FOR} !=='SORTI_5' ? true:false}" value="{SORTSet>/SORCNT}"
+							displayValuePrecision="{ path:'SORTSet>/MON_FOR' , formatter:'.formatter.JobDueDecimalPrecision'}"
 						change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
-					<StepInput required="true" min="0" displayValuePrecision="1" visible="{= ${SORTSet>/MON_FOR} === 'SORTI_2' ? true:false}"
-						fieldGroupIds="fgStepInput" value="{SORTSet>/SORCNT}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
 					<ComboBox placeholder="Select Operation Type" items="{OperationSet>/}" visible="{= ${SORTSet>/MON_FOR} === 'SORTI_5' ? true:false}"
 						selectedKey="{SORTSet>/SORCNT}" class="sapUiSmallMarginBegin">
 						<core:Item key="{OperationSet>ddid}" text="{OperationSet>description}"/>

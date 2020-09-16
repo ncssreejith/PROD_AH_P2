@@ -44,6 +44,8 @@ sap.ui.define([
 					payload.pddval2 = formatter.defaultOdataDateFormat(oModel.getProperty("/UtilVal"));
 				} else {
 					payload.pddval1 = oModel.getProperty("/UtilVal");
+					var iPrecision = formatter.JobDueDecimalPrecision(oModel.getProperty("/JDUID"));                       
+					payload.pddval1 = parseFloat(payload.pddval1, [10]).toFixed(iPrecision);
 				}
 				payload.PAST_COUNT = parseInt(payload.PAST_COUNT, 10) + 1;
 
@@ -71,23 +73,20 @@ sap.ui.define([
 				this.TrialModExtension = this.fnLoadFragment("TrialModExtension", null, true);
 				var oModel = this.getModel("trialModel");
 				this.oObject = oEvent.getSource().getBindingContext("trialModel").getObject();
-				if (this.oObject.JDUID === "JDU_11") {
-					oModel.setProperty("/isVisAirFrame", true);
-					oModel.setProperty("/isVisInput", false);
-					oModel.setProperty("/isVisDate", false);
-				} else if (this.oObject.JDUID === "JDU_10") {
-					oModel.setProperty("/isVisAirFrame", false);
+				if (this.oObject.JDUID === "JDU_10") {
+
 					oModel.setProperty("/isVisInput", false);
 					oModel.setProperty("/isVisDate", true);
 					var minDate = new Date(this.oObject.pddval2);
 					minDate.setDate(minDate.getDate() + 1);
 					oModel.setProperty("/minDate", minDate);
 				} else {
-					oModel.setProperty("/isVisAirFrame", false);
+
 					oModel.setProperty("/isVisInput", true);
 					oModel.setProperty("/isVisDate", false);
 				}
 				oModel.setProperty("/ExtLbl", this.oObject.JDUIDD);
+				oModel.setProperty("/JDUID", this.oObject.JDUID);
 				this.TrialModExtension.open();
 			} catch (e) {
 				Log.error("Exception in Trial_Mod:onTModExtension function");

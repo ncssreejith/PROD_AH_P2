@@ -4,8 +4,9 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/ajaxutil",
 	"sap/base/Log",
-	"sap/m/MessageBox"
-], function(BaseController, dataUtil, formatter, ajaxutil, Log, MessageBox) {
+	"sap/m/MessageBox",
+	"sap/ui/model/json/JSONModel"
+], function(BaseController, dataUtil, formatter, ajaxutil, Log, MessageBox, JSONModel) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????    Rahul        
@@ -184,26 +185,29 @@ sap.ui.define([
 		},
 		onRaiseScheduleConcession: function() {
 			try {
-				var that = this,
-					oModel = dataUtil.createNewJsonModel();
+				var aData = this.getModel("SummaryModel").getData();
 
 				if (!this._oRaiseConcession) {
 					this._oRaiseConcession = sap.ui.xmlfragment(this.createId("idScheduleJobExtension"),
 						"avmet.ah.fragments.ScheduleJobExtension",
 						this);
-					oModel.setData({
-						"DueBy": "",
-						"ExpDate": "",
-						"Util": "",
-						"UtilVal": "",
-						"ExpDateFlag": false,
-						"UtilValFlag": false,
-						"UM": ""
-
-					});
 					this._fnJobDueGet();
-					this.getView().setModel(oModel, "RSModel");
 					this.getView().addDependent(this._oRaiseConcession);
+				}
+				var data = {
+					"DueBy": aData.UMKEY,
+					"ExpDate": new Date(aData.SERVDT),
+					"Util": "",
+					"UtilVal": aData.SERVDUE,
+					"ExpDateFlag": aData.UMKEY === 'JDU_10' ? true : false,
+					"UtilValFlag": aData.UMKEY !== 'JDU_10' ? true : false,
+					"UM": ""
+
+				};
+				if (this.getView().getModel("RSModel")) {
+					this.getModel("RSModel").setData(data);
+				} else {
+					this.getView().setModel(new JSONModel(data), "RSModel");
 				}
 				this._oRaiseConcession.open(this);
 			} catch (e) {
@@ -740,7 +744,8 @@ sap.ui.define([
 				oPrmSchJob.error = function() {};
 				oPrmSchJob.success = function(oData) {
 					var oModel1 = dataUtil.createNewJsonModel();
-					oModel1.setData({"DueBy": "",
+					oModel1.setData({
+						"DueBy": "",
 						"ExpDate": "",
 						"Util": "",
 						"UtilVal": "",
@@ -749,8 +754,8 @@ sap.ui.define([
 						"UM": ""
 
 					});
-					this.getView().setModel(oModel1,"RSModel");
-						
+					this.getView().setModel(oModel1, "RSModel");
+
 					if (oFlag === "Y") {
 						this.getRouter().navTo("Cosjobs");
 					} else {

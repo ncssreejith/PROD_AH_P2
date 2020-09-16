@@ -1326,6 +1326,20 @@ sap.ui.define([
 				return parseInt(sValue, 10);
 			}
 			return sValue;
+		},
+		
+		JobDueDecimalPrecision: function(sKey) {
+			if (sKey === "JDU_11" || sKey === "JDU_20" || sKey === "SORTI_2" || sKey === "UTIL1_10" || sKey === "UTIL1_18") {
+				return 1;
+			} else {
+				return 0;
+			}
+		},
+		
+		decimalForTableFormatter : function (sValue){
+			if (sValue) {
+				return sValue;
+			}	
 		}
 
 	};

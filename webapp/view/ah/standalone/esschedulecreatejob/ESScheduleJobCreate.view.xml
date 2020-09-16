@@ -33,7 +33,8 @@
 									<SegmentedButtonItem id="idLIOSISTIMOD" text="LTO/SI/STI/MOD" key="MODSTI"/>
 								</items>
 							</SegmentedButton>
-							<RadioButtonGroup columns="4" selectedIndex="{JobCreateModel>/MODTYPE}" class="sapUiSmallMargin" visible="{= ${JobCreateModel>/CTYPE} === 'MODSTI'}">
+							<RadioButtonGroup columns="4" selectedIndex="{JobCreateModel>/MODTYPE}" class="sapUiSmallMargin"
+								visible="{= ${JobCreateModel>/CTYPE} === 'MODSTI'}">
 								<RadioButton text="LTO" selected="true"/>
 								<RadioButton text="SI"/>
 								<RadioButton text="STI"/>
@@ -110,8 +111,8 @@
 												color="#031E48"/>
 										</HBox>
 										<HBox>
-											<ComboBox  visible="{=${JobCreateModel>/CTYPE}==='ENGINE' ? true:false}" class="sapUiTinyMarginEnd"
-											placeholder="{i18n>engNoSelect}" selectedKey="{JobCreateModel>/ENGNO}" required="true">
+											<ComboBox visible="{=${JobCreateModel>/CTYPE}==='ENGINE' ? true:false}" class="sapUiTinyMarginEnd" placeholder="{i18n>engNoSelect}"
+												selectedKey="{JobCreateModel>/ENGNO}" required="true">
 												<core:Item key="1" text="{i18n>lbEngine1}"/>
 												<core:Item key="2" text="{i18n>lbEngine2}"/>
 											</ComboBox>
@@ -129,9 +130,8 @@
 										</ComboBox>
 										<HBox id="SchJobDueId" class="sapUiTinyMarginBegin">
 											<StepInput min="0" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}"
-												visible="{=(${JobCreateModel>/UMKEY}!=='JDU_10' &amp;&amp; ${JobCreateModel>/UMKEY}!=='JDU_11') ? true:false}"/>
-											<StepInput min="0" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}" displayValuePrecision="1"
-												visible="{=${JobCreateModel>/UMKEY} === 'JDU_11' ? true:false}"/>
+												visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' ? true:false}"
+												displayValuePrecision="{ path:'JobCreateModel>/UMKEY' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 										</HBox>
 										<DatePicker width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
 											value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"

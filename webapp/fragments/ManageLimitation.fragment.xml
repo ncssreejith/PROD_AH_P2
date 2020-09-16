@@ -84,15 +84,15 @@
 				<VBox>
 					<Label design="Bold" text="Utilisation" width="150px"/>
 					<ComboBox width="200px" items="{UtilizationCBModel>/}" selectedKey="{CapExtendSet>/UTIL1}" change="onUilisationChange"
-						fieldGroupIds="fgCmbBox">
+						fieldGroupIds="fgCmbBox" editable="false">
 						<core:Item text="{UtilizationCBModel>description}" key="{UtilizationCBModel>ddid}"/>
 					</ComboBox>
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin" visible="{=${CapExtendSet>/UTILVL}!=='' &amp;&amp; ${CapExtendSet>/UTILVL}!==null ? true :false}">
 					<Label/>
-					<StepInput width="200px" value="{CapExtendSet>/UTILVL}" visible="{= ${CapExtendSet>/UTIL1} !== 'UTIL1_10'}"/>
-					<StepInput width="200px" value="{CapExtendSet>/UTILVL}" displayValuePrecision="1"
-						visible="{= ${CapExtendSet>/UTIL1} === 'UTIL1_10'}"/>
+					<StepInput width="200px" value="{CapExtendSet>/UTILVL}" 
+					displayValuePrecision="{ path:'CapExtendSet>/UTIL1' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
+					
 				</VBox>
 			</HBox>
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom"
