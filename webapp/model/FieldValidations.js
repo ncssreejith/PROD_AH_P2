@@ -48,7 +48,7 @@ sap.ui.define([], function() {
 			var oFieldDate = that.getView().getControlsByFieldGroupId("fgDate");
 			oFieldDate.forEach(function(oFieldDat) {
 				try {
-					if (oFieldDat.getValueState() !== "Error" && oFieldDat.getRequired() && oFieldDate.getVisible() && oFieldDate.getEditable()) {
+					if (oFieldDat.getValueState() !== "Error" && oFieldDat.getRequired() && oFieldDat.getVisible() && oFieldDat.getEditable()) {
 						if (oFieldDat.getValue() === "" || oFieldDat.getValue() === null || oFieldDat.getValue() === undefined) {
 							bErrorState = setErrortoFields(oFieldDat, that);
 						}

@@ -731,6 +731,20 @@ sap.ui.define([
 			sMsg = (!hrex ? "" : hrex.responseJSON.sortmessage);
 			sMsg = (sMsg === "") ? oData.messages[0] : sMsg;
 			sap.m.MessageBox.show(sTitle + ":" + sMsg);
+		},
+		handleBusyDialogOpen: function() {
+			if (!this._oBusyFrag) {
+				this._oBusyFrag = sap.ui.xmlfragment("BusyIndiId",
+					"avmet.ah.fragments.BusyIndicatorDialog",
+					this);
+				this._oBusyFrag.open();
+			}
+		},
+		handleBusyDialogClose: function() {
+			this._oBusyFrag.close(this);
+			this._oBusyFrag.destroy();
+			delete this._oBusyFrag;
+
 		}
 
 	});
