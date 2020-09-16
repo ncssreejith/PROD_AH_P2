@@ -226,7 +226,7 @@ sap.ui.define([
 					this.fnShowMessage("E", {}, hrex, function(oEvent) {});
 				}.bind(this);
 				oParameter.success = function(oData) {
-					// oData.results[0].APR_NO = 3;
+					// oData.results[0].APR_NO = "4";
 					var sCount = this.formatter.integerUnit((oData.results.length > 0 ? oData.results[0].APR_NO : 0));
 					this.getModel("rtModel").setProperty("/tasks", oData.results);
 					this.getModel("rtModel").setProperty("/sgEnable", sCount < 4 ? true : false);
@@ -282,7 +282,7 @@ sap.ui.define([
 				var sStep = this.getModel("rtModel").getProperty("/tasks/0/APR_NO");
 				this.getView().byId("wizard").getSteps().forEach(function(oItem, sIndex) {
 					if (parseInt(sStep) >= sIndex) {
-						// oItem._deactivate();
+						oItem._deactivate();
 						if (parseInt(sStep) === sIndex) {
 							oItem._activate();
 							oItem.getParent().setCurrentStep(oItem);
