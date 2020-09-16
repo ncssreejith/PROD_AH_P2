@@ -84,9 +84,9 @@ sap.ui.define([
 							oItem.ID = this.fnDateTime(oItem.CREDTM, oItem.CREUZT); //, 
 						}.bind(this));
 						oData.results.sort(function(a, b) {
-							return a.ID - b.ID;
+							return new Date(b.ID).getTime() - new Date(a.ID).getTime();
 						});
-						var oObject = oData.results[oData.results.length - 1];
+						var oObject = oData.results[0];
 						delete oObject.ID;
 						oObject.LAST = this.last;
 						if (this.last !== "X") { //Add
