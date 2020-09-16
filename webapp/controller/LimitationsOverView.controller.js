@@ -355,6 +355,10 @@ sap.ui.define([
 					oPayload.EXPDT = null;
 					oPayload.EXPTM = null;
 				}
+				if (oPayload.UTILVL){
+						var iPrecision = formatter.JobDueDecimalPrecision(oPayload.UTIL1);                       
+					oPayload.UTILVL = parseFloat(oPayload.UTILVL, [10]).toFixed(iPrecision);
+				}
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {

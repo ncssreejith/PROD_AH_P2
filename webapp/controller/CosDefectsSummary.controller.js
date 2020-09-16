@@ -939,7 +939,7 @@ sap.ui.define([
 					});
 				} else {
 					MessageBox.error(
-						"Please add workcenter to close job : " + oModel.getProperty("/sJobId"), {
+						"Please add prime workcenter for the job to close.", {
 							icon: sap.m.MessageBox.Icon.Error,
 							title: "Error",
 							styleClass: "sapUiSizeCompact"
@@ -1615,6 +1615,12 @@ sap.ui.define([
 							"Act": "4"
 						};
 						return oTemp;
+					default:
+						oTemp = {
+							"obj": "ZRM_COS_TS",
+							"Act": "4"
+						};
+						return oTemp;
 				}
 			}
 		},
@@ -2056,8 +2062,6 @@ sap.ui.define([
 						oModel.setData(aData);
 						that.getView().setModel(oModel, "SRMModel");
 						that.getModel().updateBindings(true);
-					} else {
-						sap.m.MessageToast.show("No record(s) found");
 					}
 
 				}.bind(this);
@@ -2079,6 +2083,10 @@ sap.ui.define([
 				oModel = that.getView().getModel("LocalModel");
 				var oParameter = {};
 				oPayload = oEvent.getSource().getModel("SORTSet").getData();
+				if (oPayload.SORCNT) {
+					var iPrec = formatter.JobDueDecimalPrecision(oPayload.MON_FOR);
+					oPayload.SORCNT = parseFloat(oPayload.SORCNT, [10]).toFixed(iPrec);
+				}
 				oParameter.error = function(response) {};
 				oParameter.success = function(oData) {
 					var oTable = this.getView().byId("tbWcSortieMonId");

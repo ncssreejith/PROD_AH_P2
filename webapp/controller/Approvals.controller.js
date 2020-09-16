@@ -709,6 +709,10 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				oPayload = this.getView().getModel("CapExtendSet").getData();
+				if (oPayload.UTILVL){
+					var iPrec = formatter.JobDueDecimalPrecision(oPayload.UTIL1);
+					oPayload.UTILVL = parseFloat(oPayload.UTILVL, [10]).toFixed(iPrec);
+				}
 				//oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
 				oPrmJobDue.error = function() {
 

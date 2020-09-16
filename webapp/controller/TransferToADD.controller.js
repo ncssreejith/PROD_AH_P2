@@ -220,24 +220,33 @@ sap.ui.define([
 				oPayLoad = this.getModel("oViewGlobalModel").getData();
 				if (oPayLoad.EXPDT !== null) {
 					try {
-					oPayLoad.ENDDA = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
-					}catch(e){
-						oPayLoad.ENDDA =oPayLoad.EXPDT;
+						oPayLoad.ENDDA = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
+					} catch (e) {
+						oPayLoad.ENDDA = oPayLoad.EXPDT;
 					}
-					try{
-					oPayLoad.EXPDT = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
-					}catch(e){
-						oPayLoad.EXPDT =oPayLoad.EXPDT;
+					try {
+						oPayLoad.EXPDT = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
+					} catch (e) {
+						oPayLoad.EXPDT = oPayLoad.EXPDT;
 					}
 				} else {
 					oPayLoad.ENDDA = formatter.defaultOdataDateFormat(new Date());
 					oPayLoad.EXPDT = null;
 				}
 				oPayLoad.BEGDA = oPayLoad.ENDDA;
-				try{
-				oPayLoad.CAPDT = formatter.defaultOdataDateFormat(oPayLoad.CAPDT);
-				}catch(e){
+				try {
+					oPayLoad.CAPDT = formatter.defaultOdataDateFormat(oPayLoad.CAPDT);
+				} catch (e) {
 					oPayLoad.CAPDT = oPayLoad.CAPDT;
+				}
+
+				try {
+					if (oPayLoad.UTILVL) {
+						var iPrec = formatter.JobDueDecimalPrecision(oPayLoad.UTIL1);
+						oPayLoad.UTILVL = parseFloat(oPayLoad.UTILVL, [10]).toFixed(iPrec);
+					}
+				} catch (e) {
+					oPayLoad.UTILVL = oPayLoad.UTILVL;
 				}
 
 				oPayLoad.SUBDTM = formatter.defaultOdataDateFormat(dDate);

@@ -478,6 +478,17 @@ sap.ui.define([
 			}
 		},
 
+		onEnterToTheErrorPress: function(oEvent) {
+			try {
+				var oModel = this.getView().getModel("TaskModel"),
+					oModelError = oEvent.getSource().getBindingContext("TaskModel").getPath();
+				oModel.setProperty(oModelError + "/ftdesc", "Entry Enter in Error. No Discrepancy Found.");
+				oModel.refresh();
+			} catch (e) {
+				Log.error("Exception in onCloseSignOffDialog function");
+			}
+		},
+
 		//-------------------------------------------------------------------------------------
 		//  Private method: This will get called,to open Limitation dialog.
 		// Table: 
@@ -1008,6 +1019,7 @@ sap.ui.define([
 					sFilter, bFlag = true,
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
+				this.handleBusyDialogOpen();
 				var Temp = oModel.getProperty("/TaskId");
 
 				for (var i = 0; i < Temp.length; i++) {
@@ -1064,6 +1076,7 @@ sap.ui.define([
 					}]);
 					this.getView().setModel(oFollowModelOPS, "FollowOPSModel");
 					this.byId("pageCloseTaskId").scrollTo(0);
+					that.handleBusyDialogClose();
 				}.bind(this);
 
 				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);

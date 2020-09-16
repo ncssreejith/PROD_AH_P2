@@ -120,7 +120,11 @@ sap.ui.define([
 						oPayload.jstat = "P";
 						oPayload.trail = "X";
 					} else {
-						oPayload.jstat = "X";
+						if (oModel.getProperty("/bFlag") === false) {
+							oPayload.jstat = "P";
+						} else {
+							oPayload.jstat = "X";
+						}
 
 					}
 				} else {

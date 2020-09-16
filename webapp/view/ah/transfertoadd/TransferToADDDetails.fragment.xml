@@ -21,7 +21,8 @@
 				<VBox class="bgColorGray sapUiSmallMargin">
 					<HBox class="sapUiSmallMargin">
 						<Label design="Bold" text="Acceptable Deferred Defects" wrapping="true" width="150px"/>
-						<Label design="Bold" text="{oViewModel>/ADDCount}" class="fontSize25 sapUiLargeMarginBegin sapUiTinyMarginTop"/> <!---->
+						<Label design="Bold" text="{oViewModel>/ADDCount}" class="fontSize25 sapUiLargeMarginBegin sapUiTinyMarginTop"/>
+						<!---->
 						<Label design="Bold" text="/8" class="fontSize25 sapUiTinyMarginTop"/>
 					</HBox>
 				</VBox>
@@ -45,24 +46,27 @@
 							<VBox>
 								<HBox>
 									<Label design="Bold" text="Reason for ADD"/>
-									<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('REASONADD',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+									<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('REASONADD',$event)" class="sapUiTinyMarginBegin" size="12px"
+										color="#031E48"/>
 								</HBox>
-								<ComboBox width="200px" selectionChange="onReasonForADDChange" items="{ReasonforADDModel>/}" selectedKey="{oViewGlobalModel>/CPRID}" required="true"
-									fieldGroupIds="fgCmbBox" placeholder="Select">
+								<ComboBox width="200px" selectionChange="onReasonForADDChange" items="{ReasonforADDModel>/}" selectedKey="{oViewGlobalModel>/CPRID}"
+									required="true" fieldGroupIds="fgCmbBox" placeholder="Select">
 									<core:Item text="{ReasonforADDModel>description}" key="{ReasonforADDModel>ddid}"/>
 								</ComboBox>
 							</VBox>
 							<VBox class=" sapUiSmallMarginBegin" visible="{oViewModel>/bDemandNo}">
 								<HBox>
 									<Label design="Bold" text="Demand No"/>
-									<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('DMANDNO',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+									<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('DMANDNO',$event)" class="sapUiTinyMarginBegin" size="12px"
+										color="#031E48"/>
 								</HBox>
 								<Input width="200px" fieldGroupIds="fgInput" value="{oViewGlobalModel>/DMDID}" required="{oViewModel>/bDemandNo}"/>
 							</VBox>
 							<VBox class="sapUiSmallMarginBegin" visible="{oViewModel>/bOtherReason}">
 								<HBox>
 									<Label design="Bold" text="Other Reason"/>
-									<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('OTHERREASON',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+									<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('OTHERREASON',$event)" class="sapUiTinyMarginBegin" size="12px"
+										color="#031E48"/>
 								</HBox>
 								<Input width="200px" fieldGroupIds="fgInput" required="{oViewModel>/bOtherReason}" value="{oViewGlobalModel>/OTHER_RSN}"/>
 							</VBox>
@@ -71,7 +75,8 @@
 							<VBox>
 								<HBox>
 									<Label design="Bold" text="Period of Deferment"/>
-									<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PERIODOFDEFER',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+									<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PERIODOFDEFER',$event)" class="sapUiTinyMarginBegin" size="12px"
+										color="#031E48"/>
 								</HBox>
 								<ComboBox width="245px" selectionChange="onPrdOfDefermentChange" items="{PerioOfDeferCBModel>/}" selectedKey="{oViewGlobalModel>/DEFPD}"
 									required="true" fieldGroupIds="fgCmbBox">
@@ -122,9 +127,9 @@
 							</VBox>
 							<VBox class="sapUiSmallMarginBegin">
 								<Label/>
-								<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" visible="{= ${oViewModel>/bAirFrameAndTAC} &amp;&amp; (${oViewGlobalModel>/UTIL1} !== 'UTIL1_10')}" required="{oViewModel>/bAirFrameAndTAC}"/>
-								<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" displayValuePrecision="1" visible="{= ${oViewModel>/bAirFrameAndTAC} &amp;&amp; (${oViewGlobalModel>/UTIL1} === 'UTIL1_10')}" required="{oViewModel>/bAirFrameAndTAC}"/>
-								
+								<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}"
+									visible="{= ${oViewModel>/bAirFrameAndTAC}}" required="{oViewModel>/bAirFrameAndTAC}"
+									displayValuePrecision="{ path:'oViewGlobalModel>/UTIL1' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 								<ComboBox width="200px" items="{Utilization2CBModel>/}" visible="{oViewModel>/bScheduleService}" selectedKey="{oViewGlobalModel>/UTIL2}"
 									fieldGroupIds="fgCmbBox" required="{oViewModel>/bScheduleService}">
 									<core:Item text="{Utilization2CBModel>description}" key="{Utilization2CBModel>ddid}"/>
@@ -134,7 +139,7 @@
 								</ComboBox>
 								<DatePicker
 									value="{path: 'oViewGlobalModel>/UTILDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-									width="200px" fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}"  visible="{oViewModel>/bDate}"/>
+									width="200px" fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}" visible="{oViewModel>/bDate}"/>
 								<!--<Input value="52345" editable="false" visible="{oViewModel>/bDate}" fieldGroupIds="fgInput" required="{oViewModel>/bPhaseService}"/>-->
 							</VBox>
 							<VBox class="sapUiSmallMarginBegin" visible="{oViewModel>/bScheduleService}">
@@ -146,7 +151,8 @@
 							<VBox>
 								<HBox visible="{oViewModel>/bLimitation}">
 									<Label design="Bold" text="Limitation"/>
-									<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATION',$event)" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>
+									<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATION',$event)" size="12px" class="sapUiTinyMarginBegin"
+										color="#031E48"/>
 								</HBox>
 								<TextArea width="400px" value="{oViewGlobalModel>/LDESC}" visible="{oViewModel>/bLimitation}" maxLength="100" showExceededText="true"
 									fieldGroupIds="fgTxtArea" required="{oViewModel>/bLimitation}" liveChange="handleLiveChangeFlyingRequirements"/>

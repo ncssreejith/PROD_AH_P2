@@ -8,9 +8,8 @@
 					<!--</ComboBox>-->
 					<HBox class="sapUiTinyMarginBegin">
 						<Label text="{trialModel>/ExtLbl}" class="sapUiTinyMarginTop sapUiMediumMarginEnd"></Label>
-						<StepInput required="true" fieldGroupIds="fgStepInput" width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" value="{trialModel>/UtilVal}" visible="{trialModel>/isVisInput}"/>
-						<StepInput required="true" fieldGroupIds="fgStepInput" width="13rem" min="0" displayValuePrecision="1" valueStateText="{i18n>ERROR_GENERIC}" value="{trialModel>/UtilVal}"
-							visible="{trialModel>/isVisAirFrame}"/>
+						<StepInput required="true" fieldGroupIds="fgStepInput" width="13rem" min="0" valueStateText="{i18n>ERROR_GENERIC}" value="{trialModel>/UtilVal}" visible="{trialModel>/isVisInput}"
+						displayValuePrecision="{ path:'trialModel>/JDUID' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 						<DatePicker id="dpValue" required="true" fieldGroupIds="fgDate"  width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{trialModel>/isVisDate}" minDate="{trialModel>/minDate}"
 							value="{path: 'trialModel>/UtilVal', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 							placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>

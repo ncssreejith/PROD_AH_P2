@@ -18,6 +18,7 @@ sap.ui.define([
 	 *   Note : 
 	 *************************************************************************** */
 	return BaseController.extend("avmet.ah.controller.ESScheduleJobCreate", {
+		formatter: formatter,
 		// ***************************************************************************
 		//                 1. UI Events  
 		// ***************************************************************************
@@ -57,9 +58,9 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-		
-		onSelectionNatureofJobChange : function (oEvent){
-			this.getModel("JobCreateModel").setProperty("/MODTYPE",0);
+
+		onSelectionNatureofJobChange: function(oEvent) {
+			this.getModel("JobCreateModel").setProperty("/MODTYPE", 0);
 		},
 		// ***************************************************************************
 		//                 2.  Private Methods  
@@ -125,11 +126,22 @@ sap.ui.define([
 					oPayload,
 					oPrmTD = {};
 				oPayload = this.getView().getModel("JobCreateModel").getData();
-               try{
-				oPayload.CREDT = formatter.defaultOdataDateFormat(oPayload.CREDT);
-               }catch(e){
-               	oPayload.CREDT = oPayload.CREDT;
-               }
+
+				try {
+					oPayload.CREDT = formatter.defaultOdataDateFormat(oPayload.CREDT);
+				} catch (e) {
+					oPayload.CREDT = oPayload.CREDT;
+				}
+
+				try {
+					if (oPayload.SERVDUE) {
+						var iPrec = formatter.JobDueDecimalPrecision(oPayload.UMKEY);
+						oPayload.SERVDUE = parseFloat(oPayload.SERVDUE, [10]).toFixed(iPrec);
+					}
+
+				} catch (e) {
+					oPayload.SERVDUE = oPayload.SERVDUE;
+				}
 				oPayload.J_FLAG = "N";
 				oPayload.FLAG = "ES";
 				oPayload.TAILID = this.getTailId();
@@ -203,7 +215,7 @@ sap.ui.define([
 				oTempData[0].CRETM = new Date().getHours() + ":" + new Date().getMinutes();
 				oTempData[0].ENGNO = "1";
 				oJobModel.setData(oTempData[0]);
-				
+
 				this.getView().setModel(oJobModel, "JobCreateModel");
 				this._fnJobDueGet(sAir);
 				this._fnWorkCenterGet(sAir);
