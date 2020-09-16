@@ -380,7 +380,7 @@ sap.ui.define([
 
 		onFuelView: function() {
 			try {
-				var sSrvtId = this.getModel("avmetModel").getProperty("/dash/SRVID");
+				var sSrvtId = this.getModel("avmetModel").getProperty("/dash/SRVTID");
 				this.getOwnerComponent().getRouter().navTo("Replenishment", {
 					srvtid: sSrvtId ? sSrvtId : "",
 					stepid: "S_RE"
