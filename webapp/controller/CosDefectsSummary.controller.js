@@ -1272,29 +1272,51 @@ sap.ui.define([
 		onUndoSignOff: function(oEvent) {
 			try {
 				var that = this,
+					oObj, oTempObj, oErroFlag = false,
 					oPrmTask = {},
 					oPayload = [],
+					oErrorArray = [],
 					oViewModel = that.getView().getModel("LocalModel"),
 					oTable = that.getView().byId("tbWcPendingSuperId");
 				if (oTable.getSelectedItems().length !== 0) {
 					for (var i = 0; i < oTable.getSelectedItems().length; i++) {
-						oPayload.push(oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject());
-						oPayload[i].tstat = "C";
-
+						oObj = oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject();
+						oTempObj = this._fnGetObjectTypeAndActivity(oObj.symbol, oObj.tt1id);
+						oObj.objectid = oTempObj.obj;
+						oObj.activity = oTempObj.Act;
+						oObj.tstat = "C";
+						oPayload.push(oObj);
 					}
-
 					oPrmTask.filter = "";
 					oPrmTask.error = function() {
 
 					};
 					oPrmTask.success = function(oData) {
+						for (var j = 0; j < oData.results.length; j++) {
+							if (oData.results[j].errormsg !== "" && oData.results[j].errormsg !== null) {
+								oErrorArray.push({
+									"taskId": oData.results[j].tdesc,
+									"errormsg": oData.results[j].errormsg,
+									"tType": oData.results[j].tt1id
+								});
+								oErroFlag = true;
+							}
+						}
+
+						if (oErroFlag) {
+							that.onOpenErrorDialog(oErrorArray);
+							this.getView().byId("itbTaskId").setSelectedKey("SP");
+						} else {
+							this.getView().byId("itbTaskId").setSelectedKey("CM");
+						}
+						that.onPendingSupDetailsClose();
 						that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
-						that.onPendingSupDetailsClose();
+						this.byId("pageSummaryId").scrollTo(0);
 					}.bind(this);
 					oPrmTask.activity = 4;
-					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "ZRM_COS_TS", this);
+					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "dummy", this);
 				} else {
 					MessageBox.error(
 						"Please select task for Sign-off.", {

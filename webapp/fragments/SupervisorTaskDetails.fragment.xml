@@ -17,7 +17,8 @@
 					<Label text="Follow-up Task" design="Bold"/>
 					<ToolbarSpacer/>
 					<Label text="Task Type :" design="Bold"/>
-					<ComboBox width="330px" editable="false" items="{path:'TaskMainListModel>/',templateShareable: false}" selectedKey="{DetailsSupModel>/tt1id}">
+					<ComboBox width="330px" editable="false" items="{path:'TaskMainListModel>/',templateShareable: false}"
+						selectedKey="{DetailsSupModel>/tt1id}">
 						<core:Item text="{TaskMainListModel>ttype}" key="{TaskMainListModel>ttid}"/>
 					</ComboBox>
 				</Toolbar>
@@ -49,7 +50,7 @@
 											<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 										</layoutData>
 									</VBox>
-								<!--	<VBox
+									<!--	<VBox
 										visible="{= ${DetailsSupModel>/tt1id}==='TT1_15'|| ${DetailsSupModel>/tt1id}==='TT1_16' || ${DetailsSupModel>/tt1id}==='TT1_19'? true:false}"
 										class="sapUiTinyMarginBottom">
 										<Title text="{path:'DetailsSupModel>/tt1id',formatter:'.formatter.taskTextDisplay'}" level="H4" titleStyle="H4"></Title>
@@ -74,7 +75,7 @@
 									</VBox>
 									<VBox visible="{= ${DetailsSupModel>/tt1id}==='TT1_12' ? true:false}" class="sapUiSmallMarginTop">
 										<Label text="Result Good?" design="Bold"></Label>
-										<RadioButtonGroup columns="2" editable="false" selectedIndex="{TaskModel>ftrsltgd}" valueState="{TaskModel>ValueState}"
+										<RadioButtonGroup columns="2" editable="false" selectedIndex="{DetailsSupModel>/ftrsltgd}" valueState="{TaskModel>ValueState}"
 											class="sapUiMediumMarginBottom">
 											<RadioButton text="Yes"/>
 											<RadioButton text="No"/>
