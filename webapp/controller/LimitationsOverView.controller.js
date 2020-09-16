@@ -92,7 +92,6 @@ sap.ui.define([
 				this._fnCAPDataGet("O", oViewModel.getProperty("/JOB"), oViewModel.getProperty("/CAPID"));
 				oViewModel.setProperty("/dialogTitle", this.getView().byId("OBId").getTitle());
 				oViewModel.setProperty("/editableFlag", false);
-				this._oManageLim.open(this);
 				oViewModel.updateBindings(true);
 				var sAirId = this.getAircraftId();
 				this._fnPerioOfDeferCBGet(sAirId);
@@ -326,6 +325,7 @@ sap.ui.define([
 						oData.results[0].EXPDT = new Date(oData.results[0].EXPDT);
 						oData.results[0].EXPTM = formatter.defaultTimeFormatDisplay(oData.results[0].EXPTM);
 						that.getView().setModel(oViewModel, "CapExtendSet");
+						this._oManageLim.open(this);
 					}
 
 				}.bind(this);
