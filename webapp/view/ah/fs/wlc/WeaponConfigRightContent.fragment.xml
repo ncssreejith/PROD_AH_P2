@@ -5,7 +5,7 @@
 			<FlexBox wrap="Wrap" items="{path:'oWCModel>/stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'}]}">
 				<items>
 					<cc:Station1 title="{= (${oWCModel>WEDESC}===null || ${oWCModel>WEDESC}==='')? ${oWCModel>ADPDESC}:${oWCModel>WEDESC}}"
-						subTitle="{oWCModel>LTXT}" footerLeftInfo="Qty {oWCModel>TOTQTY}" footerRightInfo="{= (${oWCModel>ISSER}==='X' || ${oWCModel>SERNR}!==null)?'View S/N':''}" class=" sapUiTinyMargin" press="onStationPress"
+						subTitle="{oWCModel>LTXT}" footerLeftInfo="{= (${oWCModel>TOTQTY}==='0' || ${oWCModel>TOTQTY}===null)?'Qty '${oWCModel>TOTQTY}:''}" footerRightInfo="{= (${oWCModel>ISSER}==='X' || ${oWCModel>SERNR}!==null)?'View S/N':''}" class=" sapUiTinyMargin" press="onStationPress"
 						fireSerialPress="onSerialNoPress">
 						<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" />
 						<core:Icon src="sap-icon://broken-link" visible="{= ${oWCModel>CONECT}!=='N'}" color="{path:'oWCModel>CONECT',formatter:'.formatter.wcStationColor'}" size="3rem"/>
