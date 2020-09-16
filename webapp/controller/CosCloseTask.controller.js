@@ -797,6 +797,15 @@ sap.ui.define([
 				} else {
 					oPayLoad.CAPTY = "L";
 				}
+				try {
+					if (oPayLoad.UTILVL) {
+						var iPrecision = formatter.JobDueDecimalPrecision(oPayLoad.UTIL1);
+						oPayLoad.UTILVL = parseFloat(oPayLoad.UTILVL, [10]).toFixed(iPrecision);
+					}
+
+				} catch (e) {
+					oPayLoad.UTILVL = oPayLoad.UTILVL;
+				}
 
 				oPayLoad.CSTAT = "C";
 
