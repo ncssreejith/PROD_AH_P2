@@ -13,19 +13,10 @@ sap.ui.define([
 	"use strict";
 
 	/* ***************************************************************************
-	 *     Developer : RAJAT GUPTA 
-	 *   Control name: CosApplyTemplate        
-	 *   Purpose : Apply template to add defect functionality
-	 *   Functions :
-	 *   1.UI Events
-	 *        1.1 onInit
-	 *        1.2 onSignOffPress
-	 *     2. Backend Calls
-	 *        2.1 fnLogById
-	 *     3. Private calls
-	 *        3.1 _onObjectMatched
-	 *        3.2 fnSetReason
-	 *   Note :
+	 *   This file is for ???????            
+	 *   1. Purpose for this file ????
+	 *	Note: ??????????
+	 * IMPORTANT : Must give documentation for all functions
 	 *************************************************************************** */
 	return BaseController.extend("avmet.ah.controller.CosApplyTemplate", {
 		formatter: formatter,
@@ -37,8 +28,7 @@ sap.ui.define([
 			try {
 				this.getRouter().getRoute("CosApplyTemplate").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:onInit function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 		// ***************************************************************************
@@ -51,7 +41,7 @@ sap.ui.define([
 
 		onTemplateChange: function(oEvent) {
 			try {
-				var oModel = this.getView().getModel("ViewModel"),
+				var oModel = this.getView().getModel("applTmplModel"),
 					oSelectedItem;
 				oSelectedItem = this.getView().byId("cbTempId").getSelectedItem();
 				if (oSelectedItem === undefined || oSelectedItem === null) {
@@ -62,27 +52,26 @@ sap.ui.define([
 				}
 				oModel.updateBindings(true);
 			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:onTemplateChange function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
-		
-		
 
-		handleChange : function (){
-			return formatter.validDateTimeChecker(this,"DP1","TP1","errorCreateTaskPast","errorCreateTaskFuture");
+		handleChange: function() {
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture");
 		},
 
 		onTemplateApply: function(oEvent) {
 			try {
-				this.fnLoadTask();
+				this.fnLoadTask("TM");
 			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:onTemplateApply function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 		onApplySelection: function(oEvent) {
 			try {
+				if (!this.handleChange()) {
+					return;
+				}
 				var that = this,
 					oPayloads = [],
 					sjobid = "",
@@ -129,6 +118,9 @@ sap.ui.define([
 						oTask.jobid = "";
 						oTask.wrctr = "";
 						oTask.ttid = "2";
+						//AMIT CHANGE FOR FS ONLY
+						oTask.srvtid = srvtid;
+						oTask.stepid = "S_CT";
 					}
 					// oTask.ftitemno = oItem.ddfdf;
 					// oTask.ftsernr = oItem.ddfdf;
@@ -170,6 +162,9 @@ sap.ui.define([
 						oTask.jobid = "";
 						oTask.wrctr = "";
 						oTask.ttid = "2";
+						//AMIT CHANGE FOR FS ONLY
+						oTask.srvtid = srvtid;
+						oTask.stepid = "S_CT";
 					}
 					oPayloads.push(oTask);
 				}.bind(this));
@@ -178,9 +173,11 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (this.getModel("applTmplModel").getProperty("/Flag") === "FS") {
-						that.getRouter().navTo("CTCloseTask", {
-							"srvtid": srvtid
-						});
+						/*	that.getRouter().navTo("FSCreateTask", {
+								"srvtid": srvtid,
+								"stepid": "S_CT"
+							},false);*/
+						this.onNavBack();
 					} else {
 						that.getRouter().navTo("CosDefectsSummary", {
 							"JobId": this.getModel("applTmplModel").getProperty("/header/selJobId"),
@@ -191,8 +188,7 @@ sap.ui.define([
 				oParameter.activity = 2;
 				ajaxutil.fnCreate("/TaskSvc", oParameter, oPayloads, "ZRM_COS_TP", this);
 			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:onApplySelection function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -213,8 +209,7 @@ sap.ui.define([
 					that._oAddSR.open(that);
 				}
 			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:onSerialNumPress function");
-				this.handleException(e);
+				Log.error("Exception in onSerialNumPress function");
 			}
 		},
 		onSerialNumClose: function() {
@@ -225,8 +220,7 @@ sap.ui.define([
 					delete this._oAddSR;
 				}
 			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:onSerialNumClose function");
-				this.handleException(e);
+				Log.error("Exception in onSerialNumClose function");
 			}
 		},
 
@@ -240,8 +234,7 @@ sap.ui.define([
 					that._oAddSR.getModel("SerialAddSet").setProperty("/ISMAT", "");
 				}
 			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:onTypePartChange function");
-				this.handleException(e);
+				Log.error("Exception in onTypePartChange function");
 			}
 		},
 		onTypeSRChange: function(oEvent) {
@@ -254,28 +247,42 @@ sap.ui.define([
 					that._oAddSR.getModel("SerialAddSet").setProperty("/ISSER", "");
 				}
 			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:onTypeSRChange function");
-				this.handleException(e);
+				Log.error("Exception in onTypePartChange function");
+			}
+		},
+
+		onWorkCenterChange: function(oEvent) {
+			try {
+				var that = this,
+					oModel = this.getModel("applTmplModel"),
+					oSelectedKey = oEvent.getSource().getSelectedKey(),
+					oSelectedText = oEvent.getSource().getValue();
+				this.fnLoadTask("WR", oSelectedKey);
+				oModel.setProperty("/SelectTaskTable", false);
+				oModel.setProperty("/ApplyTempTable", false);
+				this.getModel("applTmplModel").setProperty("/tmpls", []);
+				this.getModel("applTmplModel").setProperty("/WorkText", oSelectedText);
+				this.getModel("applTmplModel").setProperty("/header/selTmpl", "");
+				this.getModel("applTmplModel").refresh();
+
+			} catch (e) {
+				Log.error("Exception in onWorkCenterChange function");
 			}
 		},
 
 		onSerialNumUpdatePress: function(oEvent) {
-			try {
-				var that = this,
-					oModel = this.getView().getModel("applTmplModel");
-				oModel.updateBindings(true);
-				that.onSerialNumClose();
-			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:onSerialNumUpdatePress function");
-				this.handleException(e);
-			}
+			var that = this,
+				oModel = this.getView().getModel("applTmplModel");
+			oModel.updateBindings(true);
+			that.onSerialNumClose();
 		},
 		// ***************************************************************************
 		//                 4. Private Methods   
 		// ***************************************************************************
 		_onObjectMatched: function(oEvent) {
 			try {
-				var oApplTmplData = {};
+				var oApplTmplData = {},
+					sAirID = oEvent.getParameter("arguments").airid;
 				oApplTmplData.header = {
 					selTmpl: "",
 					selTask: "",
@@ -284,6 +291,7 @@ sap.ui.define([
 					selJobId: "",
 					selWC: "",
 					selAirId: "",
+					bWorkCenter: false,
 					selTailId: "",
 					dDate: new Date(),
 					dTime: new Date().getHours() + ":" + new Date().getMinutes()
@@ -294,12 +302,17 @@ sap.ui.define([
 				this.getView().setModel(new JSONModel(oApplTmplData), "applTmplModel");
 				this.getModel("applTmplModel").setProperty("/header/selWC", oEvent.getParameter("arguments").wc);
 				this.getModel("applTmplModel").setProperty("/header/selJobId", oEvent.getParameter("arguments").jobid);
-				this.getModel("applTmplModel").setProperty("/header/selAirId", oEvent.getParameter("arguments").airid);
+				this.getModel("applTmplModel").setProperty("/header/selAirId", sAirID);
 				this.getModel("applTmplModel").setProperty("/header/selTailId", oEvent.getParameter("arguments").tailid);
 				this.getModel("applTmplModel").setProperty("/Flag", oEvent.getParameter("arguments").Flag);
 				this.getModel("applTmplModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
+				this.getModel("applTmplModel").setProperty("/ApplyTempTable", false);
+				this.getModel("applTmplModel").setProperty("/SelectTaskTable", false);
+				this.getModel("applTmplModel").setProperty("/WorkText", false);
+
 				this.getModel("applTmplModel").refresh();
-				this.fnLoadTemplate();
+				this._fnWorkCenterGet(sAirID);
+				//this.fnLoadTemplate();
 				var that = this,
 					oDDT2Model,
 					oDDT1Model;
@@ -323,41 +336,82 @@ sap.ui.define([
 				that.getView().setModel(oDDT2Model, "TT2Model");
 
 			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:_onObjectMatched function");
-				this.handleException(e);
+				Log.error("Exception in _onObjectMatched function");
 			}
 		},
-		fnLoadTemplate: function() {
+		/*	fnLoadTemplate: function(oSelectedKey) {
+				try {
+					var oParameter = {};
+					oParameter.filter = "refid eq " + this.getAircraftId() + " and ddid eq TMP";
+					oParameter.error = function() {};
+					oParameter.success = function(oData) {
+						this.getModel("applTmplModel").setProperty("/tmpls", oData.results);
+						this.getModel("applTmplModel").setProperty("/header/selTmpl", oData.results.length > 0 ? oData.results[0].ddid : "");
+						this.getModel("applTmplModel").refresh();
+						this.fnLoadTask();
+					}.bind(this);
+					ajaxutil.fnRead("/MasterDDREFSvc", oParameter);
+				} catch (e) {
+					Log.error("Exception in xxxxx function");
+				}
+			},*/
+		//------------------------------------------------------------------
+		// Function: _fnWorkCenterGet
+		// Parameter: oEvent
+		// Description: General Method: This will get called, when to get workcenter data from backend.
+		// Table: WRCTR
+		//------------------------------------------------------------------
+		_fnWorkCenterGet: function(sAirId) {
 			try {
-				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and ddid eq TMP";
-				oParameter.error = function() {};
-				oParameter.success = function(oData) {
-					this.getModel("applTmplModel").setProperty("/tmpls", oData.results);
-					this.getModel("applTmplModel").setProperty("/header/selTmpl", oData.results.length > 0 ? oData.results[0].ddid : "");
-					this.getModel("applTmplModel").refresh();
-					this.fnLoadTask();
+				var that = this,
+					oPrmWorkCen = {};
+				oPrmWorkCen.filter = "REFID eq " + sAirId;
+				oPrmWorkCen.error = function() {};
+				oPrmWorkCen.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oParameter);
+				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
 			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:fnLoadTemplate function");
-				this.handleException(e);
+				Log.error("Exception in _fnWorkCenterGet function");
 			}
 		},
-		fnLoadTask: function() {
+
+		fnLoadTask: function(oFlag, oSelectedKey) {
 			try {
-				var oParameter = {};
-				oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "'";
+				var oParameter = {},
+					oModel = this.getModel("applTmplModel");
+				if (oFlag === "WR") {
+					oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAIILID EQ " + this.getTailId();
+				} else {
+					oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "'";
+				}
+				this.handleBusyDialogOpen();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					this.getModel("applTmplModel").setProperty("/tasks", oData.results);
-					this.getModel("applTmplModel").refresh();
+					if (oData.results.length !== 0) {
+						if (oFlag === "WR") {
+							oModel.setProperty("/header/bWorkCenter", true);
+							oModel.setProperty("/tmpls", oData.results);
+							oModel.setProperty("/header/selTmpl", oData.results.length > 0 ? oData.results[0].ddid : "");
+						} else {
+							oModel.setProperty("/tasks", oData.results);
+							oModel.setProperty("/ApplyTempTable", true);
+							oModel.setProperty("/SelectTaskTable", true);
+						}
+						this.getModel("applTmplModel").refresh();
+					} else {
+						sap.m.MessageBox.information("No Template data present for workcenter : '" + oModel.getProperty("/WorkText") + "'");
+						this.handleBusyDialogClose();
+						return;
+					}
+					this.handleBusyDialogClose();
 					// this.fnLoadTails();
 				}.bind(this);
 				ajaxutil.fnRead("/GetrTaskSvc", oParameter);
 			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:fnLoadTask function");
-				this.handleException(e);
+				Log.error("Exception in xxxxx function");
 			}
 		}
 	});
