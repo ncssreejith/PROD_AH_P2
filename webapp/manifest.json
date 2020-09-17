@@ -1136,7 +1136,7 @@
 					"parent": "TargetHome",
 					"viewType": "XML",
 					"viewName": "ah/rolechange/RoleDisplayStations",
-					"viewId": "Station",
+					"viewId": "StationDisplay",
 					"viewLevel": 2,
 					"title": "Display Role"
 				},
