@@ -516,6 +516,10 @@ sap.ui.define([
 				sValue = sValue.substring(0, iMaxLen);
 				oSource.setValue(sValue);
 			}
+			
+			if (sValue.length > 0) {
+				oSource.setValueState("None");
+			}
 		},
 		/** 
 		 * Check whether to lock AVMET

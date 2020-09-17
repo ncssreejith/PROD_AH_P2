@@ -66,14 +66,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+		
 
-		handleChange: function(oEvent) {
-			try {
-				FieldValidations.resetErrorStates(this);
-			} catch (e) {
-				Log.error("Exception in CosApplyTemplate:handleChange function");
-				this.handleException(e);
-			}
+		handleChange : function (){
+			return formatter.validDateTimeChecker(this,"DP1","TP1","errorCreateTaskPast","errorCreateTaskFuture");
 		},
 
 		onTemplateApply: function(oEvent) {
@@ -91,6 +88,10 @@ sap.ui.define([
 					sjobid = "",
 					srvtid = this.getModel("applTmplModel").getProperty("/srvtid"),
 					dDate = new Date();
+				if (this.getView().byId("tbTask").getSelectedItems().length === 0) {
+					sap.m.MessageBox.error("Please select task(s) to proceed");
+					return;
+				}
 				this.getView().byId("tbSummary").getItems().forEach(function(oItem, i) {
 					oItem = oItem.getBindingContext("applTmplModel").getObject();
 					var oTask = this.avmentUtil.createInitialBlankRecord("NewTask")[0];

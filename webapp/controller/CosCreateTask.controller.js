@@ -92,6 +92,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+		handleChange : function (){
+			return formatter.validDateTimeChecker(this,"DP1","TP1","errorCreateTaskPast","errorCreateTaskFuture");
+		},
 
 		onTaskTypeChange: function(oEvent) {
 			try {
@@ -578,6 +582,10 @@ sap.ui.define([
 		onUpdateTaskPress: function(oEvent) {
 			try {
 				var that = this;
+				FieldValidations.resetErrorStates(this);
+                if (FieldValidations.validateFields(this)) {
+                    return;
+                }
 				var oCreateTaskModel = that.getModel("oCreateTaskModel"),
 					sEditTaskPath = oCreateTaskModel.getProperty("/sEditTaskPath"),
 					sTaskType = oCreateTaskModel.getProperty("/sTaskType");
@@ -676,6 +684,9 @@ sap.ui.define([
 
 		onSubmit: function() {
 			try {
+				if (!this.handleChange()){
+					return;
+				}
 				var that = this,
 					oCreateTaskModel = that.getModel("oCreateTaskModel"),
 					aTasks = oCreateTaskModel.getProperty("/aTasks"),
@@ -684,7 +695,10 @@ sap.ui.define([
 					oTempData = AvMetInitialRecord.createInitialBlankRecord("NewTask"),
 					oPayLoad = [];
 				var dDate = new Date();
-
+				if (!aTasks || aTasks.length === 0){
+					sap.m.MessageBox.error("Please add task(s) to proceed");
+					return;
+				}
 				for (var i = 0; i < aTasks.length; i++) {
 					oTempData = AvMetInitialRecord.createInitialBlankRecord("NewTask");
 

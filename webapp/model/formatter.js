@@ -1362,6 +1362,41 @@ sap.ui.define([
 			if (sValue) {
 				return sValue;
 			}	
+		},
+		
+		validDateTimeChecker: function(that,idDate, idTime, errorMessagePast, errorMessageFuture) {
+			var maxDt = new Date(),
+				oDatePicker = that.getView().byId(idDate),
+				creDt = oDatePicker.getDateValue(),
+				oTimePick = that.getView().byId(idTime),
+				creTm = oTimePick.getValue(),
+				date = creDt.getDate(),
+				year = creDt.getFullYear(),
+				month = creDt.getMonth() + 1;
+			var dateString = '' + year + '-' + month + '-' + date;
+			var timeString = creTm + ':00';
+			var crDtTime = new Date(dateString + ' ' + timeString);
+			var minDate = new Date();
+			minDate.setDate(minDate.getDate() - 1);
+			minDate.setMinutes(minDate.getMinutes() - 1);
+			minDate.setSeconds(0);
+			if (crDtTime.getTime() <= maxDt.getTime()) {
+				if (crDtTime.getTime() >= minDate.getTime()) {
+					oDatePicker.setValueState("None");
+					oTimePick.setValueState("None");
+					return true;
+				} else {
+					oDatePicker.setValueState("Error");
+					oTimePick.setValueState("Error");
+					sap.m.MessageToast.show(that.getResourceBundle().getText(errorMessagePast));
+					return false;
+				}
+			} else {
+				oDatePicker.setValueState("Error");
+				oTimePick.setValueState("Error");
+				sap.m.MessageToast.show(that.getResourceBundle().getText(errorMessageFuture));
+				return false;
+			}
 		}
 
 	};

@@ -62,6 +62,10 @@ sap.ui.define([
 		onSelectionNatureofJobChange: function(oEvent) {
 			this.getModel("JobCreateModel").setProperty("/MODTYPE", 0);
 		},
+		
+		handleChange: function() {
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateJobPast", "errorCreateJobFuture");
+		},
 		// ***************************************************************************
 		//                 2.  Private Methods  
 		// ***************************************************************************
@@ -122,9 +126,16 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		ESJobCreate: function() {
 			try {
+				if (!this.handleChange()){
+					return;
+				}
 				var that = this,
 					oPayload,
 					oPrmTD = {};
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
 				oPayload = this.getView().getModel("JobCreateModel").getData();
 
 				try {

@@ -22,7 +22,7 @@
 			<VBox class="sapUiMediumMarginBegin">
 				<VBox>
 					<Label text="{i18n>lbWINateureofJobs}" design="Bold"/>
-					<SegmentedButton id="SB1" class="sapUiSmallMarginBottom" selectionChange="onSelectionNatureofJobChange" selectedKey="{oViewCreateModel>/jobty}">
+					<SegmentedButton id="SB1" class="sapUiSmallMarginBottom" required="true" fieldGroupIds="fgSGBtn" selectionChange="onSelectionNatureofJobChange" selectedKey="{oViewCreateModel>/jobty}">
 						<items>
 							<SegmentedButtonItem id="idND" text="{i18n>btnDefects}" key="NA" visible="false"/>
 							<SegmentedButtonItem id="idDefect" text="{i18n>btnDefects}" key="D"/>

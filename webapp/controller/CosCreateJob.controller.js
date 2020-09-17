@@ -77,6 +77,10 @@ sap.ui.define([
 		onExit: function() {
 			window.location.reload(); // Reason for this code????????????
 		},
+		
+		handleChange: function() {
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateJobPast", "errorCreateJobFuture");
+		},
 
 		//------------------------------------------------------------------
 		// Function: onNavBackJob
@@ -525,6 +529,9 @@ sap.ui.define([
 				var dDate = new Date();
 				var oParameter = {};
 				oModel = that.getModel("appModel");
+				if (!this.handleChange()){
+					return;
+				}
 				FieldValidations.resetErrorStates(this);
 				if (FieldValidations.validateFields(this)) {
 					return;

@@ -24,7 +24,7 @@
 						<VBox>
 							<Label text="{i18n>lbWINateureofJobs}" design="Bold"/>
 							<SegmentedButton id="SB1" class="sapUiSmallMarginBottom" selectionChange="onSelectionNatureofJobChange"
-								selectedKey="{JobCreateModel>/CTYPE}">
+								selectedKey="{JobCreateModel>/CTYPE}" required="true" fieldGroupIds="fgSGBtn">
 								<items>
 									<SegmentedButtonItem id="idND" text="Aircraft" key="NA" visible="false"/>
 									<SegmentedButtonItem id="idAir" text="Aircraft" key="AIRCRAFT"/>
@@ -57,7 +57,7 @@
 						<VBox visible="{=${JobCreateModel>/CTYPE}!=='NA' ? true:false}">
 							<Label text="{i18n>lbJobDescription}" design="Bold"/>
 							<TextArea width="60%" maxLength="1000" rows="7" growing="true" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"
-								value="{JobCreateModel>/JOBDESC}"></TextArea>
+								value="{JobCreateModel>/JOBDESC}" required="true" fieldGroupIds="fgTxtArea"></TextArea>
 							<VBox visible="{=${JobCreateModel>/CTYPE}!=='AIRCRAFT' ? true:false}">
 								<HBox class="sapUiSmallMarginTop">
 									<HBox>
@@ -125,15 +125,17 @@
 								<VBox>
 									<Label text="{i18n>lbJobDue}" design="Bold"/>
 									<HBox>
-										<ComboBox placeholder="{i18n>phSelect}" selectedKey="{JobCreateModel>/UMKEY}" items="{JobDueSet>/}" change="onDueSelectChange">
+										<ComboBox placeholder="{i18n>phSelect}" selectedKey="{JobCreateModel>/UMKEY}" required="true" fieldGroupIds="fgCmbBox" items="{JobDueSet>/}"
+											change="onDueSelectChange">
 											<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 										</ComboBox>
 										<HBox id="SchJobDueId" class="sapUiTinyMarginBegin">
 											<StepInput min="0" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}"
-												visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' ? true:false}"
+												visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' ? true:false}" required="true" fieldGroupIds="fgStepInput"
 												displayValuePrecision="{ path:'JobCreateModel>/UMKEY' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 										</HBox>
-										<DatePicker width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
+										<DatePicker width="13rem" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
+											visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
 											value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 											placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 									</HBox>
