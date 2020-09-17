@@ -168,7 +168,7 @@ sap.ui.define([
 			try {
 				var sSelectedKey = oEvent.getSource().getSelectedKey(),
 					oCreateTaskModel = this.getModel("oCreateTaskModel");
-			//	oCreateTaskModel.setProperty("/sSymbol", sSelectedKey);
+				//	oCreateTaskModel.setProperty("/sSymbol", sSelectedKey);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSegmentOtherSelected function");
 				this.handleException(e);
@@ -326,8 +326,14 @@ sap.ui.define([
 			}
 		},
 
-		onCancelCreateTaskPress: function() {
+		onCancelCreateTaskPress: function(oFlag) {
 			try {
+				if (oFlag === "UP") {
+					FieldValidations.resetErrorStates(this);
+					if (FieldValidations.validateFields(this)) {
+						return;
+					}
+				}
 				if (this._oDialog) {
 					this._oDialog.close(this);
 					this._oDialog.destroy();
@@ -723,7 +729,7 @@ sap.ui.define([
 							break;
 					}
 					//oTempData[0].tdesc = aTasks[i].sOpsDesc;
-				/*	oTempData[0].symbol = aTasks[i].sSymbol;*/
+					/*	oTempData[0].symbol = aTasks[i].sSymbol;*/
 					oTempData[0].toref = aTasks[i].sTechOrderRef;
 					oTempData[0].fttoref = aTasks[i].sTechOrderRef;
 					oTempData[0].isser = aTasks[i].sType1;

@@ -977,8 +977,8 @@ sap.ui.define([
 						}
 						oViewModel.setProperty("/oFlagEdit", false);
 						//
+						that.onSelectionNatureofJobChange(oData.results[0].deaid);
 						if (oData.results[0].mark !== "") {
-							that.onSelectionNatureofJobChange(oData.results[0].deaid);
 							that._fnGetMark(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].deaid);
 						}
 						if (oData.results[0].DOCREFID) {
