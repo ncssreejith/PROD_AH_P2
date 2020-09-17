@@ -159,7 +159,7 @@
 					]
 				},
 				{
-					"pattern": "AddEngOilLog/:engid:/:tailid:",
+					"pattern": "AddEngOilLog/:engid:/:tailid:/:SFLAG:",
 					"name": "AddEngOilLog",
 					"target": [
 						"AddEngOilLog"

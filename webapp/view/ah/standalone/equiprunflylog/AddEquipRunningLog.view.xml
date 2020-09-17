@@ -30,7 +30,8 @@
 					<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd bgCOLorWhite" width="70%">
 						<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTop">
 							<Label text="Airframe Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<StepInput width="250px" value="{oAircraftAddModel>/record/COL_12}" fieldGroupIds="fgNumber" editable="false"/>
+							<StepInput width="250px" value="{oAircraftAddModel>/record/COL_12}" fieldGroupIds="fgDecimal1" editable="false" displayValuePrecision="1"/>
+							<!--displayValuePrecision="1"-->
 							<!--<Input width="250px" id="" value="{oAircraftAddModel>/record/COL_12}" liveChange="onLiveChange" fieldGroupIds="fgNumber" maxLength="2" required="true"  editable="true"/>-->
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">

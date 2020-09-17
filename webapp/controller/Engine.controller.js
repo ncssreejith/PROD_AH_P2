@@ -149,25 +149,27 @@ sap.ui.define([
 		onAddEngOilLog: function() {
 			try {
 				//Check engine hours since last top up
-				// if ((this.LastEngine1Hours - this.LastRepEngine1Hours) < 10) {
-				// 	sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
-				// 		actions: [sap.m.MessageBox.Action.CANCEL, sap.m.MessageBox.Action.OK],
-				// 		emphasizedAction: sap.m.MessageBox.Action.OK,
-				// 		onClose: function(sAction) {
-				// 			if (sAction === "OK") {
-				// 				this.getRouter().navTo("AddEngOilLog", {
-				// 					engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
-				// 					tailid: this.getTailId()
-				// 				});
-				// 			}
-				// 		}.bind(this)
-				// 	});
-				// } else {
+				if (this.LastRepEngine1Hours < 10) {
+					sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
+						actions: [sap.m.MessageBox.Action.OK],
+						emphasizedAction: sap.m.MessageBox.Action.OK,
+						onClose: function(sAction) {
+							if (sAction === "OK") {
+								this.getRouter().navTo("AddEngOilLog", {
+									engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
+									tailid: this.getTailId(),
+									SFLAG: "X"
+								});
+							}
+						}.bind(this)
+					});
+				} else {
 					this.getRouter().navTo("AddEngOilLog", {
 						engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
-						tailid: this.getTailId()
+						tailid: this.getTailId(),
+						SFLAG: " "
 					});
-				// }
+				}
 			} catch (e) {
 				Log.error("Exception in Engine:onAddEngOilLog function");
 				this.handleException(e);
@@ -194,25 +196,27 @@ sap.ui.define([
 		onAddEng2OilLog: function() {
 			try {
 				//Check engine hours since last top up
-				// if ((this.LastEngine2Hours - this.LastRepEngine2Hours) < 10) {
-				// 	sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
-				// 		actions: [sap.m.MessageBox.Action.CANCEL, sap.m.MessageBox.Action.OK],
-				// 		emphasizedAction: sap.m.MessageBox.Action.OK,
-				// 		onClose: function(sAction) {
-				// 			if (sAction === "OK") {
-				// 				this.getRouter().navTo("AddEngOilLog", {
-				// 					engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
-				// 					tailid: this.getTailId()
-				// 				});
-				// 			}
-				// 		}.bind(this)
-				// 	});
-				// } else {
+				if (this.LastRepEngine2Hours < 10) {
+					sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
+						actions: [sap.m.MessageBox.Action.OK],
+						emphasizedAction: sap.m.MessageBox.Action.OK,
+						onClose: function(sAction) {
+							if (sAction === "OK") {
+								this.getRouter().navTo("AddEngOilLog", {
+									engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
+									tailid: this.getTailId(),
+									SFLAG: "X"
+								});
+							}
+						}.bind(this)
+					});
+				} else {
 					this.getRouter().navTo("AddEngOilLog", {
 						engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
-						tailid: this.getTailId()
+						tailid: this.getTailId(),
+						SFLAG: " "
 					});
-				// }
+				}
 
 			} catch (e) {
 				Log.error("Exception in Engine:onAddEngOilLog function");
@@ -379,10 +383,10 @@ sap.ui.define([
 						});
 
 						if (iEngine === "1") {
-							this.LastRepEngine1Hours = oData.results[0].ENGHR;
+							this.LastRepEngine1Hours = this.fnDateTimeDiff(oData.results[0].ID);
 							oEngineModel.setProperty("/soapTableData", oData.results);
 						} else {
-							this.LastRepEngine2Hours = oData.results[0].ENGHR;
+							this.LastRepEngine2Hours = this.fnDateTimeDiff(oData.results[0].ENGHR);
 							oEngineModel.setProperty("/soapTableData2", oData.results);
 						}
 					}
@@ -649,7 +653,15 @@ sap.ui.define([
 				}
 			}).save();
 		},
-
+		fnDateTimeDiff: function(sDate) {
+			var sDiff = 0;
+			if (!sDate) {
+				return "";
+			}
+			var sCurrentDate = new Date();
+			sDiff = Math.abs(sCurrentDate - new Date(sDate)) / 36e5;
+			return parseFloat(sDiff); // + " hrs";
+		},
 		getSelectedTab: function() {
 			try {
 				var tabTest = "";

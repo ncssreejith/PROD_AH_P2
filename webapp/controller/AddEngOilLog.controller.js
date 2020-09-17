@@ -129,7 +129,8 @@ sap.ui.define([
 
 				this.getView().setModel(new JSONModel(utilData), "oAddEngCycLogModel");
 				this.getModel("oAddEngCycLogModel").setProperty("/ENGID", oEvent.getParameter("arguments").engid);
-				this.getModel("oAddEngCycLogModel").setProperty("/TAILID", oEvent.getParameter("arguments").tailid);
+				this.getModel("oAddEngCycLogModel").setProperty("/TAILID", oEvent.getParameter("arguments").tailid); //SFLAG
+				this.getModel("oAddEngCycLogModel").setProperty("/SFLAG", oEvent.getParameter("arguments").SFLAG); //SFLAG
 				this.getModel("oAddEngCycLogModel").refresh(true);
 				this._fnReasonSOAPGet();
 				// this.fnLogById();
