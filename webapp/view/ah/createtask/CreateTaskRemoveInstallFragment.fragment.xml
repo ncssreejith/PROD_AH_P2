@@ -8,7 +8,7 @@
 						color="#031E48"/>
 				</HBox>
 				<ComboBox width="360px" change="onRemoveInstallTaskChange" items="{TaskListModel>/}" selectedKey="{oCreateTaskModel>/sTask}"
-					fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bRemoveOrInstall}">
+					fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bRemoveOrInstall}" valueStateText="{i18n>ERtttaskType}">
 					<core:Item text="{TaskListModel>ttype}" key="{TaskListModel>ttid}"/>
 				</ComboBox>
 			</VBox>
@@ -48,9 +48,18 @@
 						<Label/>
 						<Text text="Optional" class="optionalTxtMargin" visible="{oCreateTaskModel>/bOptionalLabel}"/>
 					</HBox>
-					<Input width="180px" maxLength="20" value="{oCreateTaskModel>/sType1Value}" visible="{=${oCreateTaskModel>/sEngFlag} !== 'EG' ? true:false}"></Input>
+					<!--	<Input width="180px" maxLength="20" value="{oCreateTaskModel>/sType1Value}" visible="{=${oCreateTaskModel>/sEngFlag} !== 'EG' ? true:false}"></Input>
 					<ComboBox id="cbSernr" width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1Value}" items="{SerialNumModel>/}"
 						visible="{=${oCreateTaskModel>/sEngFlag} === 'EG' ? true:false}">
+						<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
+					</ComboBox>-->
+					<Input width="180px" maxLength="20" value="{oCreateTaskModel>/sType1Value}" valueStateText="{i18n>ERttSerNoIn}"
+						required="{=${oCreateTaskModel>/sEngFlag} !== 'EG' &amp;&amp; ${oCreateTaskModel>/sType1}==='Serial No. (S/N)' ? true:false}"
+						fieldGroupIds="fgInput" visible="{=${oCreateTaskModel>/sEngFlag} !== 'EG' ? true:false}"></Input>
+					<ComboBox id="cbSernr" width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1Value}" items="{SerialNumModel>/}"
+						visible="{=${oCreateTaskModel>/sEngFlag} === 'EG' ? true:false}" valueStateText="{i18n>ERttSerNo}"
+						required="{=${oCreateTaskModel>/sEngFlag} === 'EG' &amp;&amp; ${oCreateTaskModel>/sType1}==='Serial No. (S/N)' ? true:false}"
+						fieldGroupIds="fgCmbBox">
 						<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
 					</ComboBox>
 				</VBox>
@@ -95,7 +104,7 @@
 						color="#031E48"/>
 				</HBox>
 				<Input width="360px" placeholder="eg. Engine" value="{oCreateTaskModel>/sCompDesc}" fieldGroupIds="fgInput"
-					required="{oCreateTaskModel>/bCompDesc}"/>
+					required="{oCreateTaskModel>/bCompDesc}" valueStateText="{i18n>ERttCompDesc}"/>
 			</VBox>
 		</HBox>
 		<HBox class="sapUiSmallMarginTop" visible="{oCreateTaskModel>/bAccess}">
@@ -107,14 +116,15 @@
 							color="#031E48"/>
 					</HBox>
 					<ComboBox width="170px" change="onTypeDescChange" items="{TaskDescModel>/}" selectedKey="{oCreateTaskModel>/sTypDescKey}"
-						fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bAccess}">
+						fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bAccess}" valueStateText="{i18n>ERttTaskDescription}">
 						<core:Item text="{TaskDescModel>ttype}" key="{TaskDescModel>ttid}"/>
 					</ComboBox>
 				</VBox>
 				<VBox class="sapUiTinyMarginBegin">
 					<Label/>
 					<ComboBox width="170px" change="onOpenForAccessChange" items="{TT310Model>/}" selectedKey="{oCreateTaskModel>/sOpnForAccKey}"
-						visible="{oCreateTaskModel>/bOpenForAccess}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bOpenForAccess}">
+						visible="{oCreateTaskModel>/bOpenForAccess}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bOpenForAccess}"
+						valueStateText="{i18n>ERSubttItemDesc}">
 						<core:Item text="{TT310Model>ttype}" key="{TT310Model>ttid}"/>
 					</ComboBox>
 					<ComboBox width="170px" change="onRemoveForAccessChange" items="{TT311Model>/}" selectedKey="{oCreateTaskModel>/sRemoveForAccKey}"

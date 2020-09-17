@@ -6,7 +6,7 @@
 					<Label design="Bold" text="Describe Task"/>
 					<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('DSCT',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 				</HBox>
-				<TextArea maxLength="500" value="{oCreateTaskModel>/sOtherDesc}" fieldGroupIds="fgTxtArea" required="{oCreateTaskModel>/bOthers}"
+				<TextArea maxLength="500" valueStateText="{i18n>ERttTaskDesc}" value="{oCreateTaskModel>/sOtherDesc}" fieldGroupIds="fgTxtArea" required="{oCreateTaskModel>/bOthers}"
 					showExceededText="true" width="350px" rows="5" liveChange="handleLiveChangeFlyingRequirements"/>
 			</VBox>
 			<VBox class="sapUiLargeMarginBegin">

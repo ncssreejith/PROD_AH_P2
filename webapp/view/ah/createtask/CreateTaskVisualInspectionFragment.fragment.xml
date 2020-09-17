@@ -21,7 +21,7 @@
 					color="#031E48"/>
 			</HBox>
 			<TextArea maxLength="500" value="{oCreateTaskModel>/sOtherDesc}" fieldGroupIds="fgTxtArea" required="{oCreateTaskModel>/bVisualInspection}"
-				showExceededText="true" width="350px" rows="5" liveChange="handleLiveChangeFlyingRequirements"/>
+				showExceededText="true" width="350px" rows="5" valueStateText="{i18n>ERttMtaskType}" liveChange="handleLiveChangeFlyingRequirements"/>
 		</VBox>
 	</l:VerticalLayout>
 </core:FragmentDefinition>
