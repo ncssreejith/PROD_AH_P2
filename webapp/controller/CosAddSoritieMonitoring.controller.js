@@ -269,8 +269,13 @@ sap.ui.define([
 					oPayload.TAILID = oModel.getProperty("/header/sTailId");
 					oPayload.SRVID = null;
 					oPayload.NUM1 = null;
-					var iPrec = formatter.JobDueDecimalPrecision(oItem.MonFor);
-					oPayload.SORCNT = parseFloat(oItem.SortiesNo, [10]).toFixed(iPrec);
+					if (oItem.MonFor !== "SORTI_5") {
+						var iPrec = formatter.JobDueDecimalPrecision(oItem.MonFor);
+						oPayload.SORCNT = parseFloat(oItem.SortiesNo, [10]).toFixed(iPrec);
+					} else {
+						oPayload.SORCNT = oItem.SortiesNo;
+					}
+
 					oPayload.SORDESC = oItem.Text;
 					oPayload.SG1USR = "Test User";
 					oPayload.SG1DTM = that.formatter.defaultOdataDateFormat(new Date(), "yyyyMMdd");
