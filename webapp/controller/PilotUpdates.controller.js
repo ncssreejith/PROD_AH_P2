@@ -661,8 +661,9 @@ sap.ui.define([
 		fnReadFuleTanksFromRole: function() {
 			try {
 				var sSrvtid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid");
+				var sStepid = this.getModel("oPilotUpdatesViewModel").getProperty("/stepid");
 				var oParameter = {};
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and TAILID eq " + this.getTailId();
+				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and STEPID eq " + sStepid + " and TAILID eq " + this.getTailId();
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -686,8 +687,9 @@ sap.ui.define([
 		fnReadFuleTankFromRepl: function() {
 			try {
 				var sSrvtid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid");
+				var sStepid = this.getModel("oPilotUpdatesViewModel").getProperty("/stepid");
 				var oParameter = {};
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and TAILID eq " + this.getTailId() +
+				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and STEPID eq " + sStepid + " and TAILID eq " + this.getTailId() +
 					" and REMID eq REM_F";
 				oParameter.error = function() {
 					this.updateModel({

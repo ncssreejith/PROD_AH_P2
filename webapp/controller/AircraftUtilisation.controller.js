@@ -122,16 +122,21 @@ sap.ui.define([
 				Log.error("Exception in AircraftUtilisation:fnLoadEquipClm function");
 				this.handleException(e);
 			}
-		},  
+		},
 		fnLoadEquipData: function() {
 			try {
-				
+
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
 					"/equiptabId") + " and otype eq AU";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					this.getModel("oAircraftDataUtilModel").setProperty("/equip", oData.results);
+					if (oData && oData.results) {
+						oData.results.forEach(function(oItem) {
+							oItem.COL_12 = parseFloat(oItem.COL_12).toFixed(1);
+						});
+						this.getModel("oAircraftDataUtilModel").setProperty("/equip", oData.results);
+					}
 					this.getModel("oAircraftDataUtilModel").refresh();
 				}.bind(this);
 				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
