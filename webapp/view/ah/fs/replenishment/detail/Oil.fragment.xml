@@ -22,11 +22,20 @@
 				<cells>
 					<Text text="{oRepDetailsModel>resdescription}"/>
 					<StepInput value="{oRepDetailsModel>srvamt}" textAlign="Center" step="{path : 'oRepDetailsModel>resdescription', formatter : '.formatter.formatStepOil'}"
-						displayValuePrecision="{path : 'oRepDetailsModel>resdescription', formatter : '.formatter.formatDecimalOil' }" validationMode="onLiveChnage"
+						displayValuePrecision="{path : 'oRepDetailsModel>resdescription', formatter : '.formatter.formatDecimalOil' }" validationMode="onLiveChange"
 						min="0" change="onOilChange" max="{path:'oRepDetailsModel>max',formatter:'.formatter.formatMaxValue'}"
 						description="/ {oRepDetailsModel>max}" fieldGroupIds="fgNumber"  required="true"/>
+						<HBox>
 					<Text  text="{path:'oRepDetailsModel>upddate',formatter:'avmet.ah.model.formatter.fnDateDiff'}"
 						wrapping="true" ></Text>
+						<MessageStrip
+						visible="{path:'oRepDetailsModel>upddate',formatter:'avmet.ah.model.formatter.fnDateEngineHrsDiff'}"
+						text="Last top up is less than 10hrs"
+						type="Warning"
+						showIcon="true"
+						showCloseButton="false"
+						class="sapUiMediumMarginBegin">
+					</MessageStrip></HBox>
 				</cells>
 			</ColumnListItem>
 		</items>

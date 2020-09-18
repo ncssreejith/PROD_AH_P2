@@ -176,6 +176,7 @@ sap.ui.define([
 					sap.m.MessageToast.show("Serviced amount exceeds total amount.");
 				}
 				var aPayloads = this.getModel("oRepDetailsModel").getProperty("/srv");
+				this._fnCheckLessThan10Hours(aPayloads);
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -279,6 +280,31 @@ sap.ui.define([
 				Log.error("Exception in _getRepTiles function");
 				this.handleException(e);
 			}
+		},
+		_fnCheckLessThan10Hours: function(aPayloads) {
+			aPayloads.forEach(function(oItems) {
+				if(this.fnDateEngineHrsDiff(oItems)){
+					oItems.oilflag = "X";
+				}
+			}.bind(this));
+		},
+		fnDateEngineHrsDiff: function(oItems) {
+			switch (oItems.resid) {
+				case "RES_105":
+					break;
+				case "RES_106":
+					break;
+				default:
+					return false;
+			}
+			var sDiff = 0;
+			if (!oItems.upddate || oItems.srvamt === "0") {
+				return false;
+			}
+
+			var sCurrentDate = new Date();
+			sDiff = Math.abs(sCurrentDate - new Date(oItems.upddate)) / 36e5;
+			return (sDiff < 10);
 		},
 		_getFuelExtTanks: function() {
 			try {
