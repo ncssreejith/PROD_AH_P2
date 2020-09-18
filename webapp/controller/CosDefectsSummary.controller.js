@@ -1421,7 +1421,7 @@ sap.ui.define([
 						this.byId("pageSummaryId").scrollTo(0);
 					}.bind(this);
 					oPrmTask.activity = 4;
-					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "ZRM_COS_TS", this);
+					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "dummy", this);
 				} else {
 					MessageBox.error(
 						"Please select task for Sign-off.", {
