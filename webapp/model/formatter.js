@@ -1388,15 +1388,22 @@ sap.ui.define([
 				} else {
 					oDatePicker.setValueState("Error");
 					oTimePick.setValueState("Error");
-					sap.m.MessageToast.show(that.getResourceBundle().getText(errorMessagePast));
+					sap.m.MessageBox.error(that.getResourceBundle().getText(errorMessagePast));
 					return false;
 				}
 			} else {
 				oDatePicker.setValueState("Error");
 				oTimePick.setValueState("Error");
-				sap.m.MessageToast.show(that.getResourceBundle().getText(errorMessageFuture));
+				sap.m.MessageBox.error(that.getResourceBundle().getText(errorMessageFuture));
 				return false;
 			}
+		},
+		
+		serialTemplateBtnVisibility : function (stt1, stt2){
+			if (stt1 || stt2){
+				return true;
+			}
+			return false;
 		}
 
 	};

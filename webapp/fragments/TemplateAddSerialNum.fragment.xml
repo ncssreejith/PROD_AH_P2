@@ -2,7 +2,18 @@
 	<Dialog title="Add Serial Number" contentHeight="auto" contentWidth="auto">
 		<VBox class="sapUiSmallMargin">
 			<VBox class="sapUiSmallMarginTop">
-				<HBox>
+				<VBox class="sapUiTinyMarginTop">
+					<Label text="Request Type" design="Bold"/>
+					<SegmentedButton id="SBTaskId" enabled="true" class="sapUiSmallMarginBottom" selectionChange="onSelectionTaskTypeChange"
+						selectedKey="{SerialAddSet>/ENGFLAG}" required="true" fieldGroupIds="fgSGBtn">
+						<items>
+							<SegmentedButtonItem key="NA" visible="false"/>
+							<SegmentedButtonItem text="Engine" key="EG" width="6rem"/>
+							<SegmentedButtonItem text="Non-Engine" key="NE" width="6rem"/>
+						</items>
+					</SegmentedButton>
+				</VBox>
+				<HBox class="sapUiMediumMarginTop">
 					<VBox>
 						<HBox>
 							<Label design="Bold" text="Type"/>
@@ -15,23 +26,31 @@
 					</VBox>
 					<VBox class="sapUiTinyMarginBegin">
 						<Label design="Bold"/>
-						<Input width="170px" value="{SerialAddSet>/SERNR}" fieldGroupIds="fgInput"/>
+						<Input width="170px" value="{SerialAddSet>/SERNR}" required="true" fieldGroupIds="fgInput" visible="{= ${SerialAddSet>/ENGFLAG} !== 'EG'}" />
+						<ComboBox width="170px" change="onTypeSRSelect" required="true" fieldGroupIds="fgCmbBox" selectedKey="{SerialAddSet>/SERNR}"
+							items="{SerialNumModel>/}" visible="{= ${SerialAddSet>/ENGFLAG} === 'EG'}">
+							<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
+						</ComboBox>
+						
 					</VBox>
 				</HBox>
-				<HBox class="sapUiLargeMarginTop">
+				<HBox class="sapUiMediumMarginTop">
 					<VBox>
 						<HBox>
 							<Label design="Bold" text="Type"/>
 							<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 						</HBox>
-						<ComboBox width="170px" change="onTypePartChange" fieldGroupIds="fgCmbBox" selectedKey="{SerialAddSet>/ISMAT}"
-							items="{TT2Model>/}">
+						<ComboBox width="170px" change="onTypePartChange" fieldGroupIds="fgCmbBox" selectedKey="{SerialAddSet>/ISMAT}" items="{TT2Model>/}">
 							<core:Item text="{TT2Model>key}" key="{TT2Model>text}"/>
 						</ComboBox>
 					</VBox>
 					<VBox class="sapUiTinyMarginBegin">
 						<Label design="Bold"/>
 						<Input width="170px" value="{SerialAddSet>/PARTNO}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bType}"/>
+					</VBox>
+					<VBox class="sapUiTinyMarginBegin" visible="{= ${SerialAddSet>/ENGFLAG} === 'EG'}">
+						<Label/>
+						<Button text="Get Serial No." press="getSerialNoPress"></Button>
 					</VBox>
 				</HBox>
 			</VBox>

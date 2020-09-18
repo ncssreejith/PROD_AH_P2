@@ -1,4 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.f16.controller.F16CosApplyTemplate"
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.CosApplyTemplate"
 	xmlns:l="sap.ui.layout">
 	<Page showHeader="false">
 		<Toolbar height="4rem" class="backgroundWhite">
@@ -29,8 +29,8 @@
 					</HBox>
 					<FlexBox class="hboxBorder" justifyContent="SpaceBetween" backgroundDesign="Solid">
 						<HBox justifyContent="Start">
-							<Label class="sapUiSmallMarginTop sapUiLargeMarginBegin" text="Choose Work Cneter" design="Bold"/>
-							<ComboBox placeholder="{i18n>phSelect}" class="sapUiSmallMargin" change="onWorkCenterChange" selectedKey="{oViewCreateModel>/prime}"
+							<Label class="sapUiSmallMarginTop sapUiLargeMarginBegin" text="Choose Work Center" design="Bold"/>
+							<ComboBox placeholder="{i18n>phSelect}" class="sapUiSmallMargin" change="onWorkCenterChange"
 								items="{WorkCenterSet>/}" enabled="{appModel>/PrimeStatus}">
 								<core:Item key="{WorkCenterSet>wrctr}" text="{WorkCenterSet>name}"/>
 							</ComboBox>
@@ -60,7 +60,7 @@
 								</OverflowToolbar>
 							</headerToolbar>
 							<columns>
-								<Column class="CERTableTextColor" width="7rem" hAlign="Center">
+								<Column class="CERTableTextColor" width="7rem" hAlign="left">
 									<Label text="Main Task" design="Bold"/>
 								</Column>
 								<Column minScreenWidth="Tablet" demandPopin="true" width="21em"></Column>
@@ -79,7 +79,7 @@
 										</HBox>
 										<Text text="{applTmplModel>TDESC}"/>
 										<Text text="{applTmplModel>FTDESC}" wrapping="true"/>
-										<Button text="Add Serial Number" type="Emphasized" visible="{=${applTmplModel>FRAGID} === 'POP_11' ? true : false}" press="onSerialNumPress"></Button>
+										<Button text="Add Serial Number" type="Emphasized" visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}" press="onSerialNumPress"></Button>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -98,12 +98,11 @@
 								</OverflowToolbar>
 							</headerToolbar>
 							<columns >
-								<Column class="CERTableTextColor" width="5rem" hAlign="Center">
+								<Column class="CERTableTextColor" hAlign="left" width="auto">
 									<Label text="Task" design="Bold"/>
 								</Column>
-								<Column></Column>
-								<Column minScreenWidth="Tablet" demandPopin="true">
-									<Label text="Follow-up Task)" design="Bold"/>
+								<Column minScreenWidth="Tablet" demandPopin="true" width="auto">
+									<Label text="Follow-up Task" design="Bold"/>
 								</Column>
 								<Column width="13rem"></Column>
 							</columns>
@@ -112,7 +111,7 @@
 									<cells>
 										<Text text="{applTmplModel>TDESC}"/>
 										<Text text="{applTmplModel>FTDESC}"/>
-										<Button text="Add Serial Number" type="Emphasized" visible="{=${applTmplModel>FRAGID} === 'POP_11' ? true : false}" press="onSerialNumPress"></Button>
+										<Button text="Add Serial Number" type="Emphasized" visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}" press="onSerialNumPress"></Button>
 									</cells>
 								</ColumnListItem>
 							</items>

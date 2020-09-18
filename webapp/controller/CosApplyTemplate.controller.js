@@ -81,8 +81,13 @@ sap.ui.define([
 					sap.m.MessageBox.error("Please select task(s) to proceed");
 					return;
 				}
-				this.getView().byId("tbSummary").getItems().forEach(function(oItem, i) {
-					oItem = oItem.getBindingContext("applTmplModel").getObject();
+				var oItems = this.getView().byId("tbSummary").getItems();
+				for (var i in oItems) {
+					var oItem = oItems[i].getBindingContext("applTmplModel").getObject();
+					if ((oItem.TT1ID || oItem.TT2ID) && oItem.SERNR === "") {
+						sap.m.MessageBox.error("Please add Serial No for Main Task");
+						return;
+					}
 					var oTask = this.avmentUtil.createInitialBlankRecord("NewTask")[0];
 					/*oTask.taskid = sjobid.concat("TASK_", dDate.getFullYear(), dDate.getMonth(), dDate.getDate(), dDate.getHours(), dDate.getMinutes(),
 						dDate.getSeconds(), i);*/
@@ -97,11 +102,12 @@ sap.ui.define([
 					oTask.fragid = oItem.FRAGID;
 					oTask.tdesc = oItem.TDESC;
 					oTask.symbol = oItem.SYMBOL;
+					oTask.tt1id = oItem.TT1ID;
+					oTask.tt2id = oItem.TT2ID;
+					oTask.engflag = oItem.ENGFLAG ? oItem.ENGFLAG : "NA";
+					oTask.rtty = oItem.RTTY;
 					if (oItem.SERNR !== "") {
-						oTask.tt1id = "TT1_10";
-						oTask.tt2id = "TT2_10";
 						oTask.sernr = oItem.SERNR;
-						oTask.ftsernr = oItem.SERNR;
 						oTask.isser = oItem.ISSER;
 
 					}
@@ -125,9 +131,14 @@ sap.ui.define([
 					// oTask.ftitemno = oItem.ddfdf;
 					// oTask.ftsernr = oItem.ddfdf;
 					oPayloads.push(oTask);
-				}.bind(this));
-				this.getView().byId("tbTask").getSelectedItems().forEach(function(oItem, i) {
-					oItem = oItem.getBindingContext("applTmplModel").getObject();
+				}
+				var ftTasks = this.getView().byId("tbTask").getSelectedItems();
+				for (var i in ftTasks) {
+					var oItem = ftTasks[i].getBindingContext("applTmplModel").getObject();
+					if ((oItem.TT1ID || oItem.TT2ID) && oItem.SERNR === "") {
+						sap.m.MessageBox.error("Please add Serial No for follow-up Task");
+						return;
+					}
 					var oTask = this.avmentUtil.createInitialBlankRecord("NewTask")[0];
 					/*	oTask.taskid = sjobid.concat("TASK_", dDate.getFullYear(), dDate.getMonth(), dDate.getDate(), dDate.getHours(), dDate.getMinutes(),
 							dDate.getSeconds(), i);*/
@@ -143,18 +154,17 @@ sap.ui.define([
 					oTask.tdesc = oItem.TDESC;
 					oTask.symbol = oItem.SYMBOL;
 					oTask.ftdesc = oItem.FTDESC;
+					oTask.tt1id = oItem.TT1ID;
+					oTask.tt2id = oItem.TT2ID;
+					oTask.engflag = oItem.ENGFLAG ? oItem.ENGFLAG : "NA";
+					oTask.rtty = oItem.RTTY;
 
 					if (oItem.SERNR !== "") {
-						oTask.tt1id = "TT1_10";
-						oTask.tt2id = "TT2_10";
 						oTask.sernr = oItem.SERNR;
-						oTask.ftsernr = oItem.SERNR;
 						oTask.isser = oItem.ISSER;
 
 					}
 					if (oItem.PARTNO !== "") {
-						oTask.tt1id = "TT1_10";
-						oTask.tt2id = "TT2_10";
 						oTask.partno = oItem.PARTNO;
 						oTask.ismat = oItem.ISMAT;
 					}
@@ -167,7 +177,7 @@ sap.ui.define([
 						oTask.stepid = "S_CT";
 					}
 					oPayloads.push(oTask);
-				}.bind(this));
+				}
 
 				var oParameter = {};
 				oParameter.error = function() {};
@@ -192,17 +202,53 @@ sap.ui.define([
 			}
 		},
 
+		getSerialNoPress: function() {
+			try {
+				var oPrmDD = {},
+					oModelSr,
+					oModel = this._oAddSR.getModel("SerialAddSet"),
+					that = this,
+					oPayload;
+				oPrmDD.filter = "PARTNO eq " + oModel.getProperty("/PARTNO") + " and ESTAT eq I and INSON eq " + this.getTailId();
+				oPrmDD.error = function() {};
+
+				oPrmDD.success = function(oData) {
+					if (oData.results.length !== 0) {
+						if (!this._oAddSR.getModel("SerialNumModel")) {
+							this._oAddSR.setModel(new JSONModel({}), "SerialNumModel");
+						}
+						oModelSr = this._oAddSR.getModel("SerialNumModel");
+						oModelSr.setData(oData.results);
+						oModelSr.updateBindings(true);
+					} else {
+						MessageBox.error(
+							"Part number is invalid.", {
+								icon: sap.m.MessageBox.Icon.Error,
+								title: "Error",
+								styleClass: "sapUiSizeCompact"
+							});
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/GetSerNoSvc", oPrmDD, oPayload);
+			} catch (e) {
+				Log.error("Exception in getSerialNoPress function");
+			}
+		},
+
 		onSerialNumPress: function(oEvent) {
 			try {
 				var that = this,
 					oObj = oEvent.getSource().getParent().getBindingContext("applTmplModel").getObject(),
 					oModel = dataUtil.createNewJsonModel();
+				this.serialContext = oEvent.getSource().getParent().getBindingContext("applTmplModel");
 				if (!that._oAddSR) {
 					that._oAddSR = sap.ui.xmlfragment(that.createId("idAddSRDialog"),
 						"avmet.ah.fragments.TemplateAddSerialNum",
 						this);
-					oObj.ISMAT = "Material No.";
+					oObj.ISMAT = "Part No.";
 					oObj.ISSER = "Serial No. (S/N)";
+					oObj.ENGFLAG = "NA";
 					oModel.setData(oObj);
 					that._oAddSR.setModel(oModel, "SerialAddSet");
 					that.getView().addDependent(that._oAddSR);
@@ -273,7 +319,15 @@ sap.ui.define([
 		onSerialNumUpdatePress: function(oEvent) {
 			var that = this,
 				oModel = this.getView().getModel("applTmplModel");
-			oModel.updateBindings(true);
+			FieldValidations.resetErrorStates(this);
+			if (FieldValidations.validateFields(this)) {
+				return;
+			}
+			var obj = this.serialContext.getObject();
+			var desc = obj.TDESC;
+			desc = desc.replace("&SERNR&", obj.SERNR);
+			oModel.setProperty(this.serialContext.getPath() + "/TDESC", desc);
+			//oModel.updateBindings(true);
 			that.onSerialNumClose();
 		},
 		// ***************************************************************************
@@ -383,7 +437,7 @@ sap.ui.define([
 				var oParameter = {},
 					oModel = this.getModel("applTmplModel");
 				if (oFlag === "WR") {
-					oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAIILID EQ " + this.getTailId();
+					oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAILID EQ " + this.getTailId();
 				} else {
 					oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "'";
 				}

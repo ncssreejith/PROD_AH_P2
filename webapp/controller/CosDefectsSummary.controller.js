@@ -204,6 +204,39 @@ sap.ui.define([
 		onNavBackPrevious: function() {
 			this.onNavBack();
 		},
+		
+		onItemSelectOutstanding: function(oEvent) {
+			var oSrc = oEvent.getSource();
+			var aSelectedItem = oEvent.getParameter("listItem");
+			var aItems = oSrc.getItems();
+			var obj = {};
+			var tempObj = {};
+			if (!oEvent.getParameter("selectAll") && oEvent.getParameter("selected")) {
+				obj = aSelectedItem.getBindingContext("TaskOutModel").getObject();
+				if (obj.RTTY === "M") {
+					for (var i in aItems) {
+						tempObj = aItems[i].getBindingContext("TaskOutModel").getObject();
+						if (obj.tmpid === tempObj.tmpid) {
+							oSrc.setSelectedItem(aItems[i]);
+						}
+					}
+					sap.m.MessageBox.information("Master Task selected. For this pending sub task are auto selected");
+				}
+			} else if (!oEvent.getParameter("selectAll") && !oEvent.getParameter("selected")){
+				obj = aSelectedItem.getBindingContext("TaskOutModel").getObject();
+				if (obj.RTTY === "S") {
+						for (var key in aItems) {
+						tempObj = aItems[key].getBindingContext("TaskOutModel").getObject();
+						if (obj.tmpid === tempObj.tmpid && tempObj.RTTY === "M") {
+							aItems[key].setProperty("selected", false);
+						}
+					}
+					sap.m.MessageBox.information("All sub task need to be selected to select master task");
+				}
+				
+			}
+
+		},
 
 		onOpenQuickView: function(sFlag, oEvent) {
 			try {
@@ -2536,7 +2569,7 @@ sap.ui.define([
 						this);
 				} else {
 					MessageBox.error(
-						"Please close all task's from selected workcentr : " + oModel.getProperty("/WorkCenterTitle"), {
+						"Please close all task's from selected workcenter", {
 							icon: sap.m.MessageBox.Icon.Error,
 							title: "Error",
 							styleClass: "sapUiSizeCompact"

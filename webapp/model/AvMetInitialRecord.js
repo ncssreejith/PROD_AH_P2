@@ -136,7 +136,8 @@ sap.ui.define([
 						'engflag': null,
 						"errormsg": null,
 						"objectid": null,
-						"activity": null
+						"activity": null,
+						"RTTY":null
 
 					};
 					oArray.push(oTask);
