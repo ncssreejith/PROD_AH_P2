@@ -133,7 +133,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					if (oData && oData.results) {
 						oData.results.forEach(function(oItem) {
-							oItem.COL_12 = parseInt(oItem.COL_12).toFixed(1);
+							oItem.COL_12 = parseFloat(oItem.COL_12).toFixed(1);
 						});
 						this.getModel("oAircraftDataUtilModel").setProperty("/equip", oData.results);
 					}
