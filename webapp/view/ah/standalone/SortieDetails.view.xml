@@ -22,8 +22,9 @@
 			</VBox>
 			<VBox class="sapUiSmallMargin">
 				<HBox>
-					<Label class="sapUiSmallMarginEnd" design="Bold" text="No. of Sortie"/>
-					<Text text="{SortiHeader>/SCRCNT}"/>
+					<Label class="sapUiSmallMarginEnd" design="Bold" text="Monitorised For"/>
+					<Text text="{parts : ['SortiHeader>/SCRCNT','SortiHeader>/MON_FOR'], formatter:'.formatter.sortieMonitoringFormat'}"/>
+					<Text text="{SortiHeader>/MON_FORTXT}" class="sapUiTinyMarginBegin"/>
 				</HBox>
 			</VBox>
 			<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBegin CERTable tableHFont" items="{ path: 'SortiDetails>/'}" width="95%">
