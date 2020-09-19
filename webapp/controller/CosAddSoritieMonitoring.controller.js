@@ -99,7 +99,7 @@ sap.ui.define([
 		onDeletePress: function(oEvent) {
 			try {
 				var that = this;
-				var sPath = oEvent.getParameter("listItem").getBindingContext("SortieMonitoringModel").getPath().split("/")[2];
+				var sPath = oEvent.getSource().getBindingContext("SortieMonitoringModel").getPath().split("/")[2];
 				var oModel = that.getView().getModel("SortieMonitoringModel").getProperty("/SortieMonitoring");
 				oModel.splice(sPath, 1);
 				that.getView().getModel("SortieMonitoringModel").refresh(true);

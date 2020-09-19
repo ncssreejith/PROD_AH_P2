@@ -71,7 +71,8 @@ sap.ui.define([
 						"TRAILKEY": null,
 						"TRAILKVAL": null,
 						"TRAILKDT": null,
-						"fstatflag": null
+						"fstatflag": null,
+						"ETRFLAG":null
 					};
 					oArray.push(CREATEJOB);
 					break;
@@ -158,7 +159,7 @@ sap.ui.define([
 						"RCAPID": null,
 						"LDESC": null,
 						"CAPDT": null,
-						"CAPTM": null,
+						"CAPTM": "23:59",
 						"SUBUSR": null,
 						"SUBDTM": null,
 						"SUBUZT": null,

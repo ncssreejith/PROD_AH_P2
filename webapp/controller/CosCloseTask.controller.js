@@ -398,11 +398,15 @@ sap.ui.define([
 				var oViewLimitModel = this.getModel("oViewLimitModel"),
 					oModel = this.getView().getModel("oViewGlobalModel"),
 					sSelectedKey = oEvent.getSource().getSelectedKey();
+				oModel.setProperty("/EXPDT", null);
+				oModel.setProperty("/EXPTM", null);
+				oModel.setProperty("/UTILVL", null);
+				oModel.setProperty("/UTIL1", null);
 				if (sSelectedKey === "D") {
+					oModel.setProperty("/EXPTM", "23:59");
 					oViewLimitModel.setProperty("/bDateSection", true);
 					oViewLimitModel.setProperty("/bUtilisationSection", false);
 					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
-					oModel.setProperty("/UTILVL", null);
 				} else if (sSelectedKey === "U") {
 					oViewLimitModel.setProperty("/bDateSection", false);
 					oViewLimitModel.setProperty("/bUtilisationSection", true);
@@ -412,9 +416,8 @@ sap.ui.define([
 					oViewLimitModel.setProperty("/bPhaseService", false);
 					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
 					oModel.setProperty("/bUtilisationSection", true);
-					oModel.setProperty("/EXPDT", null);
-					oModel.setProperty("/EXPTM", null);
 				} else if (sSelectedKey === "B") {
+					oModel.setProperty("/EXPTM", "23:59");
 					oViewLimitModel.setProperty("/bDateSection", true);
 					oViewLimitModel.setProperty("/bUtilisationSection", true);
 					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
@@ -422,8 +425,8 @@ sap.ui.define([
 				oModel.setProperty("/OPPR", sSelectedKey);
 				oModel.updateBindings(true);
 				oViewLimitModel.setProperty("/bLimitationSection", true);
-				oViewLimitModel.setProperty("/bLimitation", true);
-				oViewLimitModel.setProperty("/bAddLimitationBtn", false);
+				oViewLimitModel.setProperty("/bLimitation", false);
+				oViewLimitModel.setProperty("/bAddLimitationBtn", true);
 			} catch (e) {
 				Log.error("Exception in onReasonTypeChange function");
 			}
@@ -508,7 +511,7 @@ sap.ui.define([
 						"avmet.ah.fragments.AddTaskLimitation",
 						this);
 					oModel.setProperty("/EXPDT", null);
-					oModel.setProperty("/EXPTM", null);
+					oModel.setProperty("/EXPTM", "23:59");
 					this._InitializeLimDialogModel();
 					this.getView().addDependent(this._oAddLim);
 					this._fnUtilizationGet(oObject.tailid);
@@ -554,7 +557,7 @@ sap.ui.define([
 						"avmet.ah.fragments.AddTaskADD",
 						this);
 					oModel.setProperty("/EXPDT", null);
-					oModel.setProperty("/EXPTM", null);
+					oModel.setProperty("/EXPTM", "23:59");
 					this._InitializeLimDialogModel();
 					this._fnADDCountGet();
 					this.getView().addDependent(this._oAddADD);
@@ -780,6 +783,15 @@ sap.ui.define([
 				var oParameter = {};
 				var oPayLoad = {};
 				oPayLoad = this.getModel("oViewGlobalModel").getData();
+
+				if ((oPayLoad.LDESC !== null) && (oPayLoad.CPRID !== null)) {
+					oPayLoad.CAPTY = "B";
+					oPayLoad.FLAG_ADD = "B";
+				} else if ((oPayLoad.LDESC === null) && (oPayLoad.CPRID !== "" || oPayLoad.CPRID !== null)) {
+					oPayLoad.CAPTY = "A";
+				} else {
+					oPayLoad.CAPTY = "L";
+				}
 				if (oPayLoad.EXPDT !== null && oPayLoad.EXPDT !== "") {
 					try {
 						oPayLoad.EXPDT = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
@@ -788,14 +800,6 @@ sap.ui.define([
 					}
 				} else {
 					oPayLoad.EXPDT = null;
-				}
-				if ((oPayLoad.LDESC !== null) && (oPayLoad.CPRID !== null)) {
-					oPayLoad.CAPTY = "B";
-					oPayLoad.FLAG_ADD = "B";
-				} else if ((oPayLoad.LDESC === null) && (oPayLoad.CPRID !== "" || oPayLoad.CPRID !== null)) {
-					oPayLoad.CAPTY = "A";
-				} else {
-					oPayLoad.CAPTY = "L";
 				}
 				try {
 					if (oPayLoad.UTILVL) {
@@ -879,6 +883,8 @@ sap.ui.define([
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					oData.results[0].ftsernr = oModelView.getData()[this.oObjectPath.split("/")[1]].ftsernr;
+					oData.results[0].ftdesc = oModelView.getData()[this.oObjectPath.split("/")[1]].ftdesc;
+					oData.results[0].fttoref = oModelView.getData()[this.oObjectPath.split("/")[1]].fttoref;
 					oData.results[0].ValueState = "None";
 					oModelView.getData().splice(this.oObjectPath.split("/")[1], 1);
 					oData.results[0].ftcredt = new Date();

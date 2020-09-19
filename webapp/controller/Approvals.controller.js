@@ -171,6 +171,64 @@ sap.ui.define([
 				Log.error("Exception in _fnApprovalRequestGet function");
 			}
 		},
+
+		onReasonTypeChange: function(oEvent) {
+			try {
+				var oViewLimitModel = this.getModel("oViewLimitModel"),
+					oModel = this.getView().getModel("CapExtendSet"),
+					sSelectedKey = oEvent.getSource().getSelectedKey();
+				if (sSelectedKey === "D") {
+					oModel.setProperty("/EXPTM", "23:59");
+					oViewLimitModel.setProperty("/bDateSection", true);
+					oViewLimitModel.setProperty("/bUtilisationSection", false);
+					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
+				} else if (sSelectedKey === "U") {
+					oViewLimitModel.setProperty("/bDateSection", false);
+					oViewLimitModel.setProperty("/bUtilisationSection", true);
+					oViewLimitModel.setProperty("/sUtilKey", "");
+					oViewLimitModel.setProperty("/bAirFrameAndTAC", false);
+					oViewLimitModel.setProperty("/bScheduleService", false);
+					oViewLimitModel.setProperty("/bPhaseService", false);
+					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
+					oModel.setProperty("/bUtilisationSection", true);
+				} else if (sSelectedKey === "B") {
+					oModel.setProperty("/EXPTM", "23:59");
+					oViewLimitModel.setProperty("/bDateSection", true);
+					oViewLimitModel.setProperty("/bUtilisationSection", true);
+					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
+				}
+				oModel.setProperty("/OPPR", sSelectedKey);
+				oModel.updateBindings(true);
+				oViewLimitModel.setProperty("/bLimitationSection", true);
+				oViewLimitModel.setProperty("/bLimitation", false);
+				oViewLimitModel.setProperty("/bAddLimitationBtn", true);
+			} catch (e) {
+				Log.error("Exception in onReasonTypeChange function");
+			}
+		},
+
+		onAddLimitaionPress: function() {
+			try {
+				var oViewLimitModel = this.getModel("oViewLimitModel");
+				oViewLimitModel.setProperty("/bLimitation", true);
+				oViewLimitModel.setProperty("/bAddLimitationBtn", false);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:onAddLimitaionPress function");
+				this.handleException(e);
+			}
+		},
+
+		onRemoveLimitaionPress: function() {
+			try {
+				var oViewLimitModel = this.getModel("oViewLimitModel");
+				oViewLimitModel.setProperty("/bLimitation", false);
+				oViewLimitModel.setProperty("/bAddLimitationBtn", true);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:onRemoveLimitaionPress function");
+				this.handleException(e);
+			}
+		},
+
 		//-------------------------------------------------------------
 		//  
 		//-------------------------------------------------------------
@@ -265,7 +323,7 @@ sap.ui.define([
 					"AddRsn": null,
 					"subusr": "Test User1",
 					"expdt": formatter.defaultOdataDateFormat(dDate),
-					"exptm": new Date().getHours() + ":" + new Date().getMinutes(),
+					"exptm": "23:59",
 					"fndduring": null,
 					"jobdesc": null,
 					"Capty": null,
@@ -333,7 +391,7 @@ sap.ui.define([
 					"AddRsn": null,
 					"subusr": "Test User1",
 					"expdt": "2020-07-29",
-					"exptm": "22:9",
+					"exptm": "23:59",
 					"fndduring": null,
 					"jobdesc": null,
 					"Capty": null,
@@ -709,7 +767,15 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				oPayload = this.getView().getModel("CapExtendSet").getData();
-				if (oPayload.UTILVL){
+
+				if (oPayload.OPPR === "U") {
+					oPayload.EXPDT = null;
+					oPayload.EXPTM = null;
+				} else if (oPayload.OPPR === "D") {
+					oPayload.UTILVL = null;
+					oPayload.UTIL1 = null;
+				}
+				if (oPayload.UTILVL) {
 					var iPrec = formatter.JobDueDecimalPrecision(oPayload.UTIL1);
 					oPayload.UTILVL = parseFloat(oPayload.UTILVL, [10]).toFixed(iPrec);
 				}
@@ -831,6 +897,7 @@ sap.ui.define([
 				var that = this;
 				this.fnCheckCapStatus();
 				this._fnApprovalRequestGet();
+				this._InitializeLimDialogModel();
 				var oViewModel = dataUtil.createNewJsonModel();
 				oViewModel.setData({
 					Capid: "",
@@ -858,8 +925,10 @@ sap.ui.define([
 		onEditRequest: function(oEvent) {
 			try {
 				var that = this,
+					oNavModel = this.getModel("ApprovalDetailstModel"),
 					oModel = this.getView().getModel("CapExtendSet"),
 					oModelDialog = this.getView().getModel("ViewModel");
+				this._fnCAPDataGet("O", oNavModel.getProperty("/jobid"), oNavModel.getProperty("/capid"));
 
 				if (!this._oManageLim) {
 					this._oManageLim = sap.ui.xmlfragment("EditLimId",
@@ -886,6 +955,39 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in onCloseMangeLimitaionDialog function");
+			}
+		},
+		_InitializeLimDialogModel: function() {
+			try {
+				var oModel = dataUtil.createNewJsonModel();
+				var aData = {
+					sAddReason: "noKey",
+					bDateSection: false,
+					bUtilisationSection: false,
+					bLimitationSection: false,
+					bPrdOfDefermentDesc: false,
+					bDemandNo: false,
+					bOtherReason: false,
+					bPeriodofDeferment: false,
+					sUtilKey: "",
+					bAirFrameAndTAC: false,
+					bScheduleService: false,
+					bPhaseService: false,
+					bLimitation: false,
+					bAddLimitationBtn: true,
+					sSlectedKey: "N",
+					Date: new Date(),
+					Time: new Date().getHours() + ":" + new Date().getMinutes()
+				};
+				oModel.setData(aData);
+				if (this.getModel("oViewLimitModel")) {
+					this.getModel("oViewLimitModel").setData(aData);
+				} else {
+					this.getView().setModel(oModel, "oViewLimitModel");
+				}
+
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
 			}
 		}
 

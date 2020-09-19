@@ -7,10 +7,10 @@
 					<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('TASKTYPE',$event)" class="sapUiTinyMarginBegin" size="12px"
 						color="#031E48"/>
 				</HBox>
-				<ComboBox width="360px" change="onRemoveInstallTaskChange" items="{TaskListModel>/}" selectedKey="{oCreateTaskModel>/sTask}"
+				<Select width="360px" forceSelection="false" change="onRemoveInstallTaskChange" items="{TaskListModel>/}" selectedKey="{oCreateTaskModel>/sTask}"
 					fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bRemoveOrInstall}" valueStateText="{i18n>ERtttaskType}">
 					<core:Item text="{TaskListModel>ttype}" key="{TaskListModel>ttid}"/>
-				</ComboBox>
+				</Select>
 			</VBox>
 			<VBox class="sapUiLargeMarginBegin" visible="{oCreateTaskModel>/bTechOrderRef}">
 				<Label design="Bold" text="Technical Order/ Reference"/>
@@ -36,45 +36,40 @@
 						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('SERIALNO',$event)" class="sapUiTinyMarginBegin" size="12px"
 							color="#031E48"/>
 					</HBox>
-					<ComboBox id="Type1Id" width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1}" fieldGroupIds="fgCmbBox"
+					<Select id="Type1Id" forceSelection="false" width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1}" fieldGroupIds="fgCmbBox"
 						required="{oCreateTaskModel>/bType}" items="{TT1Model>/}">
 						<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
 						<!--	<core:Item text="Serial No. (S/N)" key="Serial No. (S/N)"/>
 						<core:Item text="Batch No." key="Batch No."/>-->
-					</ComboBox>
+					</Select>
 				</VBox>
 				<VBox class="sapUiTinyMarginBegin">
 					<HBox>
 						<Label/>
 						<Text text="Optional" class="optionalTxtMargin" visible="{oCreateTaskModel>/bOptionalLabel}"/>
 					</HBox>
-					<!--	<Input width="180px" maxLength="20" value="{oCreateTaskModel>/sType1Value}" visible="{=${oCreateTaskModel>/sEngFlag} !== 'EG' ? true:false}"></Input>
-					<ComboBox id="cbSernr" width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1Value}" items="{SerialNumModel>/}"
-						visible="{=${oCreateTaskModel>/sEngFlag} === 'EG' ? true:false}">
-						<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
-					</ComboBox>-->
 					<Input width="180px" maxLength="20" value="{oCreateTaskModel>/sType1Value}" valueStateText="{i18n>ERttSerNoIn}"
 						required="{=${oCreateTaskModel>/sEngFlag} !== 'EG' &amp;&amp; ${oCreateTaskModel>/sType1}==='Serial No. (S/N)' ? true:false}"
 						fieldGroupIds="fgInput" visible="{=${oCreateTaskModel>/sEngFlag} !== 'EG' ? true:false}"></Input>
-					<ComboBox id="cbSernr" width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1Value}" items="{SerialNumModel>/}"
+					<Select id="cbSernr" forceSelection="false" width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType1Value}" items="{SerialNumModel>/}"
 						visible="{=${oCreateTaskModel>/sEngFlag} === 'EG' ? true:false}" valueStateText="{i18n>ERttSerNo}"
 						required="{=${oCreateTaskModel>/sEngFlag} === 'EG' &amp;&amp; ${oCreateTaskModel>/sType1}==='Serial No. (S/N)' ? true:false}"
 						fieldGroupIds="fgCmbBox">
 						<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
-					</ComboBox>
+					</Select>
 				</VBox>
 			</HBox>
 			<HBox class="sapUiLargeMarginBegin">
 				<VBox>
 					<HBox>
 						<Label design="Bold" text="Type"/>
-						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('PARTNO',$event)" size="12px"
+						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PARTNO',$event)" class="sapUiTinyMarginBegin" size="12px"
 							color="#031E48"/>
 					</HBox>
-					<ComboBox width="170px" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType2}" fieldGroupIds="fgCmbBox"
+					<Select width="170px" forceSelection="false" change="onTypeChange" selectedKey="{oCreateTaskModel>/sType2}" fieldGroupIds="fgCmbBox"
 						required="{oCreateTaskModel>/bType}" items="{TT2Model>/}">
 						<core:Item text="{TT2Model>key}" key="{TT2Model>text}"/>
-					</ComboBox>
+					</Select>
 				</VBox>
 				<VBox class="sapUiTinyMarginBegin">
 					<HBox>
@@ -115,22 +110,22 @@
 						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('TASKDESC',$event)" class="sapUiTinyMarginBegin" size="12px"
 							color="#031E48"/>
 					</HBox>
-					<ComboBox width="170px" change="onTypeDescChange" items="{TaskDescModel>/}" selectedKey="{oCreateTaskModel>/sTypDescKey}"
+					<Select width="170px" forceSelection="false" change="onTypeDescChange" items="{TaskDescModel>/}" selectedKey="{oCreateTaskModel>/sTypDescKey}"
 						fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bAccess}" valueStateText="{i18n>ERttTaskDescription}">
 						<core:Item text="{TaskDescModel>ttype}" key="{TaskDescModel>ttid}"/>
-					</ComboBox>
+					</Select>
 				</VBox>
 				<VBox class="sapUiTinyMarginBegin">
 					<Label/>
-					<ComboBox width="170px" change="onOpenForAccessChange" items="{TT310Model>/}" selectedKey="{oCreateTaskModel>/sOpnForAccKey}"
+					<Select width="170px" forceSelection="false" change="onOpenForAccessChange" items="{TT310Model>/}" selectedKey="{oCreateTaskModel>/sOpnForAccKey}"
 						visible="{oCreateTaskModel>/bOpenForAccess}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bOpenForAccess}"
 						valueStateText="{i18n>ERSubttItemDesc}">
 						<core:Item text="{TT310Model>ttype}" key="{TT310Model>ttid}"/>
-					</ComboBox>
-					<ComboBox width="170px" change="onRemoveForAccessChange" items="{TT311Model>/}" selectedKey="{oCreateTaskModel>/sRemoveForAccKey}"
+					</Select>
+					<Select width="170px" forceSelection="false" change="onRemoveForAccessChange" items="{TT311Model>/}" selectedKey="{oCreateTaskModel>/sRemoveForAccKey}"
 						visible="{oCreateTaskModel>/bRemoveForAccess}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bRemoveForAccess}">
 						<core:Item text="{TT311Model>ttype}" key="{TT311Model>ttid}"/>
-					</ComboBox>
+					</Select>
 				</VBox>
 				<VBox class="sapUiTinyMarginBegin" visible="{oCreateTaskModel>/bIndicateItem}">
 					<Label/>
@@ -146,7 +141,8 @@
 					<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('ITEMNO',$event)" class="sapUiTinyMarginBegin" size="12px"
 						color="#031E48"/>
 				</HBox>
-				<Input width="170px" value="{oCreateTaskModel>/sItemNo}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bItemNo}"/>
+				<Input width="170px" value="{oCreateTaskModel>/sItemNo}" valueStateText="{i18n>ERttItemNo}" fieldGroupIds="fgInput"
+					required="{oCreateTaskModel>/bItemNo}"/>
 			</VBox>
 		</HBox>
 		<HBox class="sapUiSmallMarginTop">

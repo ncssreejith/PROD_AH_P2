@@ -54,11 +54,11 @@
 									text="{path:'FRModel>FR_DT', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'FRModel>FR_TM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 							</VBox>
 							<Text text="{FRModel>FRDESC}"/>
-							<!--	<VBox>
-								<Text text="{FRModel>SGUSR}"/>-->
-							<Text
-								text="{path:'FRModel>SGDTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'FRModel>SGUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-							<!--	</VBox>-->
+							<VBox>
+								<Text text="{FRModel>SGUSR}"/>
+							<!--	<Text
+									text="{path:'FRModel>SGDTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'FRModel>SGUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>-->
+							</VBox>
 							<Button icon="sap-icon://overflow" press="handlePressWorkCenterFragmentOpenMenu('FLR',$event)" type="Transparent"/>
 						</cells>
 					</ColumnListItem>

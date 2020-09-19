@@ -25,9 +25,13 @@
 							<l:SplitterLayoutData size="300px" resizable="false"/>
 						</layoutData>
 					</VBox>
-					<VBox class="sapUiMediumMarginBegin">
-						<List mode="Delete" items="{SortieMonitoringModel>/SortieMonitoring}" delete="onDeletePress">
+					<VBox class="sapUiMediumMarginBegin" noDataText="No Sortie monitoring added">
+						<List items="{SortieMonitoringModel>/SortieMonitoring}">
 							<CustomListItem class="sapUiSmallMargin">
+								<Toolbar>
+									<ToolbarSpacer/>
+									<Button text="Delete" press="onDeletePress" type="Reject"/>
+								</Toolbar>
 								<VBox class="sapUiSmallMargin">
 									<HBox>
 										<Label text="{i18n>lbSortieMonitoring}" design="Bold"/>

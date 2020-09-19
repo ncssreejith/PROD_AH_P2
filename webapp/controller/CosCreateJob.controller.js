@@ -77,7 +77,7 @@ sap.ui.define([
 		onExit: function() {
 			window.location.reload(); // Reason for this code????????????
 		},
-		
+
 		handleChange: function() {
 			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateJobPast", "errorCreateJobFuture");
 		},
@@ -529,7 +529,7 @@ sap.ui.define([
 				var dDate = new Date();
 				var oParameter = {};
 				oModel = that.getModel("appModel");
-				if (!this.handleChange()){
+				if (!this.handleChange()) {
 					return;
 				}
 				FieldValidations.resetErrorStates(this);
@@ -916,7 +916,8 @@ sap.ui.define([
 						"isprime": "",
 						"wrctrtx": "",
 						"count": null,
-						"PrimeCount": null
+						"PrimeCount": null,
+						"LASTWC": null
 					},
 
 					oPrmWorkCenter.error = function() {};
@@ -943,7 +944,8 @@ sap.ui.define([
 						"isprime": "",
 						"wrctrtx": "",
 						"count": null,
-						"PrimeCount": null
+						"PrimeCount": null,
+						"LASTWC": null
 					},
 
 					oPrmWorkCenter.error = function() {};

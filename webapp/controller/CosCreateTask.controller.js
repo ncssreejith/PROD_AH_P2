@@ -209,7 +209,8 @@ sap.ui.define([
 					oCreateTaskModel.setProperty("/sType2", "Part No.");
 					oCreateTaskModel.setProperty("/bOptionalLabel", true);
 				}
-				oCreateTaskModel.setProperty("/sTaskText", oEvent.getParameters("").value);
+				/*oCreateTaskModel.setProperty("/sTaskText", oEvent.getParameters("").value);*/
+				oCreateTaskModel.setProperty("/sTaskText", oEvent.getSource().getSelectedItem().getText());
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onRemoveInstallTaskChange function");
 				this.handleException(e);
@@ -604,7 +605,7 @@ sap.ui.define([
 					oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", "TT1_11");
 				} else if (sTaskType === "TT1_12") {
 					oCreateTaskModel.setProperty(sEditTaskPath + "/bVisualInspection", true);
-					oCreateTaskModel.setProperty(sEditTaskPath + "/sVisualInspection", oCreateTaskModel.getProperty("/sVisualInspection"));
+					oCreateTaskModel.setProperty(sEditTaskPath + "/sOtherDesc", oCreateTaskModel.getProperty("/sOtherDesc"));
 					oCreateTaskModel.setProperty(sEditTaskPath + "/sTaskType", "TT1_12");
 				} else if (sTaskType === "TT1_14" || sTaskType === "TT1_15" || sTaskType === "TT1_16" || sTaskType === "TT1_17" || sTaskType ===
 					"TT1_18" || sTaskType === "TT1_19") {

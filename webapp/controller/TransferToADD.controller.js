@@ -105,15 +105,16 @@ sap.ui.define([
 				var oViewModel = this.getModel("oViewModel"),
 					oModel = this.getView().getModel("oViewGlobalModel"),
 					sSelectedKey = oEvent.getSource().getSelectedKey();
+				oModel.setProperty("/UTIL1", null);
+				oModel.setProperty("/UTILVL", null);
+				oModel.setProperty("/EXPDT", null);
+				oModel.setProperty("/EXPTM", null);
 				if (sSelectedKey === "D") {
-					oModel.setProperty("/UTIL1", null);
-					oModel.setProperty("/UTILVL", null);
+					oModel.setProperty("/EXPTM", "23:59");
 					oViewModel.setProperty("/bDateSection", true);
 					oViewModel.setProperty("/bUtilisationSection", false);
 					oViewModel.setProperty("/sSlectedKey", sSelectedKey);
 				} else if (sSelectedKey === "U") {
-					oModel.setProperty("/EXPDT", null);
-					oModel.setProperty("/EXPTM", null);
 					oViewModel.setProperty("/bDateSection", false);
 					oViewModel.setProperty("/bUtilisationSection", true);
 					oViewModel.setProperty("/sUtilKey", "");
@@ -122,6 +123,7 @@ sap.ui.define([
 					oViewModel.setProperty("/bPhaseService", false);
 					oViewModel.setProperty("/sSlectedKey", sSelectedKey);
 				} else if (sSelectedKey === "B") {
+					oModel.setProperty("/EXPTM", "23:59");
 					oViewModel.setProperty("/bDateSection", true);
 					oViewModel.setProperty("/bUtilisationSection", true);
 					oViewModel.setProperty("/sSlectedKey", sSelectedKey);
@@ -485,11 +487,11 @@ sap.ui.define([
 		// ***************************************************************************
 		_onObjectMatched: function(oEvent) {
 			try {
-
+				var oADDTransferModel = dataUtil.getDataSet("ADDTransferModel");
 				var sJobId = oEvent.getParameters("").arguments.JobId;
 				var sTailId = this.getTailId();
 				var sAirId = this.getAircraftId();
-				var sJobDesc = oEvent.getParameters("").arguments.JobDesc;
+				var sJobDesc = oADDTransferModel[0].JobDesc;
 				var sFndId = oEvent.getParameters("").arguments.FndId;
 				var sFndBy = oEvent.getParameters("").arguments.FndBy;
 				var oTempData = AvMetInitialRecord.createInitialBlankRecord("ADDLimit");

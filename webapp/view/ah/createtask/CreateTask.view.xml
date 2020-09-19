@@ -177,8 +177,8 @@
 										<HBox>
 											<Label design="Bold" text="Check on Area"/>
 										</HBox>
-										<TextArea maxLength="500" value="{oCreateTaskModel>/sOtherDesc}" editable="false" fieldGroupIds="fgTxtArea"
-											required="{oCreateTaskModel>/bOthers}" showExceededText="true" width="350px" rows="5"/>
+										<TextArea maxLength="500" value="{oCreateTaskModel>sOtherDesc}" editable="false" fieldGroupIds="fgTxtArea" showExceededText="true"
+											width="350px" rows="5"/>
 									</VBox>
 								</VBox>
 								<VBox visible="{oCreateTaskModel>bOthers}" class="sapUiSmallMarginBegin sapUiTinyMarginTopBottom">

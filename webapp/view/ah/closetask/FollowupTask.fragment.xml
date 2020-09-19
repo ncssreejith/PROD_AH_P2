@@ -156,7 +156,7 @@
 										</HBox>
 										<HBox class="sapUiTinyMarginTopBottom"
 											visible="{parts:['TaskModel>tt1id','TaskModel>tt2id'],templateShareable: false,formatter:'.formatter.taskContentVisible'}">
-											<VBox class="sapUiTinyMarginBegin">
+											<VBox>
 												<HBox>
 													<Label design="Bold" text="Type"/>
 													<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PARTNO',$event)" class="sapUiTinyMarginBegin" size="12px"
@@ -165,7 +165,8 @@
 													<Text text="For Engine Only" class="optionalTxtMargin" visible="{= ${TaskModel>engflag}==='EG'? true:false}"/>
 												</HBox>
 												<HBox>
-													<ComboBox width="150px" change="onTypeChange" selectedKey="{TaskModel>ismat}" items="{path:'TT2Model>/',templateShareable: false}">
+													<ComboBox width="150px" editable="false" change="onTypeChange" selectedKey="{TaskModel>ismat}"
+														items="{path:'TT2Model>/',templateShareable: false}">
 														<core:Item text="{TT2Model>key}" key="{TT2Model>text}"/>
 													</ComboBox>
 													<Input width="180px" value="{TaskModel>partno}" class="sapUiSmallMarginBegin" change="onChangeData"/>
@@ -185,7 +186,8 @@
 														color="#031E48"/>
 												</HBox>
 												<HBox>
-													<ComboBox width="150px" change="onTypeChange" selectedKey="{TaskModel>isser}" items="{path:'TT1Model>/',templateShareable: false}">
+													<ComboBox width="150px" editable="false" change="onTypeChange" selectedKey="{TaskModel>isser}"
+														items="{path:'TT1Model>/',templateShareable: false}">
 														<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
 													</ComboBox>
 													<Input width="180px" maxLength="20" change="onChangeDataInput" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin"

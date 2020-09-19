@@ -67,7 +67,7 @@
 												<Label design="Bold" text="{i18n>lbFoundBy}" width="150px"/>
 												<Text text="{JobModel>/fndby}" width="200px"/>
 											</HBox>
-											<HBox class="sapUiTinyMarginTop" visible="{=${JobModel>/fndid}!==null &amp;&amp; ${JobModel>/jobty}==='D' ? true :false}">
+											<HBox class="sapUiTinyMarginTop" visible="{=${JobModel>/fndid}!==null &amp;&amp; ${JobModel>/jobty}!=='S' ? true :false}">
 												<Label design="Bold" text="{i18n>lbFoundduring}" width="150px"/>
 												<Text text="{path:'JobModel>/fndid', formatter:'.formatter.fndIdFormatter'}" width="200px"/>
 											</HBox>
@@ -79,12 +79,12 @@
 											<HBox class="sapUiTinyMarginTop">
 												<Label design="Bold" text="{i18n>lbETR}" width="140px"/>
 												<HBox>
-													<DatePicker width="8rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
+													<DatePicker width="8rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}" minDate="{LocalModel>/etrMinDate}"
 														value="{path: 'JobModel>/etrdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-														change="handleChange" enabled="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}"
+														change="handleChangeEtr" enabled="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}"
 														editable="{LocalModel>/FairEditFlag}"/>
 													<TimePicker id="TP1" required="true" fieldGroupIds="fgTime" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/etrtm}" width="5.4rem"
-														valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange"
+														valueFormat="HH:mm" displayFormat="HH:mm" change="handleChangeEtr"
 														enabled="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}" editable="{LocalModel>/FairEditFlag}"/>
 													<Button type="Transparent" icon="sap-icon://save" press="_fnUpdateJob"/>
 												</HBox>

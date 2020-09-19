@@ -407,7 +407,9 @@ sap.ui.define([
 
 		serialNoInputVisible: function(engFlag, isser, tTask2) {
 			if ((engFlag === "NE" && isser === "Serial No. (S/N)") || (engFlag === "NA" && isser ===
-					"Serial No. (S/N)")) {
+					"Serial No. (S/N)") || (engFlag === "NA" && isser ===
+					"Batch No.") || (engFlag === "NE" && isser ===
+					"Batch No.")) {
 				if (tTask2 !== "TT2_14" && tTask2 !== "TT2_13") {
 					return true;
 				} else {
@@ -418,7 +420,10 @@ sap.ui.define([
 			}
 		},
 		serialNoInputGroupVisible: function(engFlag, isser, tTask2) {
-			if ((engFlag === "NE" && isser === "Serial No. (S/N)") || (engFlag === "NA" && isser === "Serial No. (S/N)")) {
+			if ((engFlag === "NE" && isser === "Serial No. (S/N)") || (engFlag === "NA" && isser === "Serial No. (S/N)") || (engFlag === "NA" &&
+					isser ===
+					"Batch No.") || (engFlag === "NE" && isser ===
+					"Batch No.")) {
 				if (tTask2 !== "TT2_14" && tTask2 !== "TT2_13") {
 					return "fgInput";
 				} else {
@@ -1349,7 +1354,7 @@ sap.ui.define([
 			}
 			return sValue;
 		},
-		
+
 		JobDueDecimalPrecision: function(sKey) {
 			if (sKey === "JDU_11" || sKey === "JDU_20" || sKey === "SORTI_2" || sKey === "UTIL1_10" || sKey === "UTIL1_18") {
 				return 1;
@@ -1357,14 +1362,14 @@ sap.ui.define([
 				return 0;
 			}
 		},
-		
-		decimalForTableFormatter : function (sValue){
+
+		decimalForTableFormatter: function(sValue) {
 			if (sValue) {
 				return sValue;
-			}	
+			}
 		},
-		
-		validDateTimeChecker: function(that,idDate, idTime, errorMessagePast, errorMessageFuture) {
+
+		validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture) {
 			var maxDt = new Date(),
 				oDatePicker = that.getView().byId(idDate),
 				creDt = oDatePicker.getDateValue(),
@@ -1398,9 +1403,9 @@ sap.ui.define([
 				return false;
 			}
 		},
-		
-		serialTemplateBtnVisibility : function (stt1, stt2){
-			if (stt1 || stt2){
+
+		serialTemplateBtnVisibility: function(stt1, stt2) {
+			if (stt1 || stt2) {
 				return true;
 			}
 			return false;

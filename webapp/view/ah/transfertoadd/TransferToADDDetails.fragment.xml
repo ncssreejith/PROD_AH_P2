@@ -38,7 +38,7 @@
 						</VBox>
 						<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
 							<Label design="Bold" text="Time" width="150px"/>
-							<TimePicker width="200px" value="{oViewGlobalModel>/CAPTM}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true"/>
+							<TimePicker editable="false" width="200px" value="{oViewGlobalModel>/CAPTM}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true"/>
 						</VBox>
 					</VBox>
 					<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">

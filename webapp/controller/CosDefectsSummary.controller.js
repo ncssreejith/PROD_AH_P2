@@ -144,6 +144,7 @@ sap.ui.define([
 					sWcKey: "",
 					sGoTo: "",
 					JobStatus: false,
+					etrMinDate: null,
 					DefectImageSrc: [],
 					CreateTaskMenu: [{
 						"Text": "New Task",
@@ -204,7 +205,7 @@ sap.ui.define([
 		onNavBackPrevious: function() {
 			this.onNavBack();
 		},
-		
+
 		onItemSelectOutstanding: function(oEvent) {
 			var oSrc = oEvent.getSource();
 			var aSelectedItem = oEvent.getParameter("listItem");
@@ -222,10 +223,10 @@ sap.ui.define([
 					}
 					sap.m.MessageBox.information("Master Task selected. For this pending sub task are auto selected");
 				}
-			} else if (!oEvent.getParameter("selectAll") && !oEvent.getParameter("selected")){
+			} else if (!oEvent.getParameter("selectAll") && !oEvent.getParameter("selected")) {
 				obj = aSelectedItem.getBindingContext("TaskOutModel").getObject();
 				if (obj.RTTY === "S") {
-						for (var key in aItems) {
+					for (var key in aItems) {
 						tempObj = aItems[key].getBindingContext("TaskOutModel").getObject();
 						if (obj.tmpid === tempObj.tmpid && tempObj.RTTY === "M") {
 							aItems[key].setProperty("selected", false);
@@ -233,7 +234,7 @@ sap.ui.define([
 					}
 					sap.m.MessageBox.information("All sub task need to be selected to select master task");
 				}
-				
+
 			}
 
 		},
@@ -317,6 +318,15 @@ sap.ui.define([
 				this.getView().byId("cb" + sId).setValueStateText("Please select column");
 			}
 
+		},
+
+		handleChangeEtr: function(oEvent) {
+			try {
+				this.getView().getModel("JobModel").setProperty("/ETRFLAG", "X");
+				this.getView().getModel("JobModel").refresh();
+			} catch (e) {
+				Log.error("Exception in onEditSortieMonitoring function");
+			}
 		},
 
 		onNavBackDefect: function(oEvent) {
@@ -428,11 +438,18 @@ sap.ui.define([
 							}
 							break;
 						case "Transfer Job to ADD/ Limitation":
+							var oModelTemp = this.getView().getModel("JobModel");
+							var oADDTransferModel = [];
+							oADDTransferModel.push({
+								"JobDesc": oModelTemp.getProperty("/jobdesc"),
+								"JobId": oLocalModel.getProperty("/sJobId")
+							});
+							dataUtil.setDataSet("ADDTransferModel", oADDTransferModel);
+
 							that.getRouter().navTo("RouteTransferToADD", {
 								"JobId": oLocalModel.getProperty("/sJobId"),
 								"FndBy": that.getView().getModel("JobModel").getProperty("/fndby"),
-								"FndId": that.getView().getModel("JobModel").getProperty("/fndid"),
-								"JobDesc": that.getView().getModel("JobModel").getProperty("/jobdesc")
+								"FndId": that.getView().getModel("JobModel").getProperty("/fndid")
 							});
 							break;
 						case "View History Log":
@@ -2116,7 +2133,7 @@ sap.ui.define([
 
 						oModel.setData(aData);
 						that.getView().setModel(oModel, "SRMModel");
-						that.getModel().updateBindings(true);
+						/*that.getModel().updateBindings(true);*/
 					}
 
 				}.bind(this);
@@ -2244,6 +2261,7 @@ sap.ui.define([
 						if (oData.results[0].etrdt !== null || oData.results[0].etrdt !== undefined) {
 							oData.results[0].etrdt = new Date(oData.results[0].etrdt);
 							oData.results[0].etrtm = formatter.defaultTimeFormatDisplay(oData.results[0].etrtm);
+							oViewModel.setProperty("/etrMinDate", new Date(oData.results[0].credt));
 						}
 						if (oData.results[0].fstat === 'A') {
 							oViewModel.setProperty("/FairEditFlag", false);
@@ -2492,7 +2510,8 @@ sap.ui.define([
 						wrctr: "Summary",
 						isprime: "",
 						wrctrtx: "Summary",
-						"PrimeCount": "0"
+						"PrimeCount": "0",
+						"LASTWC": null
 					});
 					oModel.setData(oData.results);
 					that.setModel(oModel, "CreatedWorkCenterModel");
@@ -2522,7 +2541,8 @@ sap.ui.define([
 						"isprime": "",
 						"wrctrtx": "",
 						"count": null,
-						"PrimeCount": null
+						"PrimeCount": null,
+						"LASTWC": null
 					},
 
 					oPrmWorkCenter.error = function() {};

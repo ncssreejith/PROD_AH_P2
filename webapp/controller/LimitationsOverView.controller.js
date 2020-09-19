@@ -380,7 +380,7 @@ sap.ui.define([
 		onStartRect: function(sValue) {
 			try {
 
-				var that = this,
+				var that = this,oTempFlag,
 					sjobid = "",
 					oModel, oModels,
 					oPayload;
@@ -389,6 +389,11 @@ sap.ui.define([
 				var oParameter = {};
 				oModel = this.getView().getModel("ViewModel");
 				oModels = this.getView().getModel("CapSet");
+					if (oModels.getProperty("/TASKID") !== "" && oModels.getProperty("/TASKID") !== null) {
+					oTempFlag = "T";
+				} else {
+					oTempFlag = "J";
+				}
 				if (oModels) {
 					oPayload = {
 						"TAILID": oModels.getProperty("/TAILID"),
@@ -403,7 +408,7 @@ sap.ui.define([
 						"RECTUSR": "Test User",
 						"RECTDTM": formatter.defaultOdataDateFormat(dDate),
 						"RECTUZT": dDate.getHours() + ":" + dDate.getMinutes(),
-						"FLAG": "J"
+						"FLAG": oTempFlag
 					};
 				}
 
