@@ -57,7 +57,9 @@ sap.ui.define([
 		},
 
 		handleChange: function() {
-			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture");
+			var prevDt = this.getModel("applTmplModel").getProperty("/jobDate");
+			var prevTime = this.getModel("applTmplModel").getProperty("/jobTime");
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
 		},
 
 		onTemplateApply: function(oEvent) {
@@ -319,6 +321,11 @@ sap.ui.define([
 		onSerialNumUpdatePress: function(oEvent) {
 			var that = this,
 				oModel = this.getView().getModel("applTmplModel");
+			var sKey = this._oAddSR.getModel("SerialAddSet").getProperty("/ENGFLAG");
+			if (!(sKey === "EG" || sKey === "NE")) {
+				sap.m.MessageBox.error("Please select engine type");
+				return;
+			}
 			FieldValidations.resetErrorStates(this);
 			if (FieldValidations.validateFields(this)) {
 				return;
@@ -353,6 +360,9 @@ sap.ui.define([
 				};
 				oApplTmplData.tmpls = [];
 				oApplTmplData.tasks = [];
+				oApplTmplData.workCenterKey = "";
+				oApplTmplData.jobDate = oEvent.getParameters().arguments.jbDate;
+				oApplTmplData.jobTime = oEvent.getParameters().arguments.jbTime;
 				this.getView().setModel(new JSONModel(oApplTmplData), "applTmplModel");
 				this.getModel("applTmplModel").setProperty("/header/selWC", oEvent.getParameter("arguments").wc);
 				this.getModel("applTmplModel").setProperty("/header/selJobId", oEvent.getParameter("arguments").jobid);

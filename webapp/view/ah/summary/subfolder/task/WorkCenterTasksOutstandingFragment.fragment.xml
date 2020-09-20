@@ -11,7 +11,7 @@
 		</VBox>
 		<VBox backgroundDesign="Solid" visible="{=${TaskOutModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
 			<Table id="tbWcOutstandingId" selectionChange="onItemSelectOutstanding" class="sapUiResponsivePadding sapUiSizeCompact sapUiSmallMarginEnd CERTable tableHFont" mode="MultiSelect"
-				items="{ path: 'TaskOutModel>/', sorter: [{ path: 'jobid', descending: true }]}" noDataText="{i18n>txtNoTexttStanding}" showNoData="true">
+				items="{ path: 'TaskOutModel>/', sorter: [{ path: 'rtaskid', descending: false }]}" noDataText="{i18n>txtNoTexttStanding}" showNoData="true">
 				<headerToolbar>
 					<OverflowToolbar>
 						<ToolbarSpacer/>

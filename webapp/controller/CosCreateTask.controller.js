@@ -94,7 +94,9 @@ sap.ui.define([
 		},
 
 		handleChange: function() {
-			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture");
+			var prevDt = this.getModel("ViewModel").getProperty("/jobDate");
+			var prevTime = this.getModel("ViewModel").getProperty("/jobTime");
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt ,prevTime);
 		},
 
 		onTaskTypeChange: function(oEvent) {
@@ -830,7 +832,9 @@ sap.ui.define([
 					ssrvid: ssrvid,
 					sDate: oDate,
 					Time: oDate.getHours() + ":" + oDate.getMinutes(),
-					flag: sFlag
+					flag: sFlag,
+					jobDate: oEvent.getParameters().arguments.jbDate,
+					jobTime: oEvent.getParameters().arguments.jbTime
 				});
 				that.getView().setModel(oViewModel, "ViewModel");
 				oModel = dataUtil.createNewJsonModel();

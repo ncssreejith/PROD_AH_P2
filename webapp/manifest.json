@@ -146,7 +146,7 @@
 				},
 				{
 					"name": "CosApplyTemplate",
-					"pattern": "CosApplyTemplate/:airid:/:tailid:/:jobid:/:wc:",
+					"pattern": "CosApplyTemplate/:airid:/:tailid:/:jobid:/:wc:/:jbDate:/:jbTime:",
 					"target": [
 						"CosApplyTemplate"
 					]
@@ -244,7 +244,7 @@
 				},
 				{
 					"name": "RouteCreateTask",
-					"pattern": "RouteCreateTask/:JobId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:Flag:/:srvid:",
+					"pattern": "RouteCreateTask/:JobId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:Flag:/:srvid:/:jbDate:/:jbTime:",
 					"target": [
 						"TargetCreateTask"
 					]

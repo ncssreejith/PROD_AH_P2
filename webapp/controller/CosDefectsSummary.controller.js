@@ -885,7 +885,9 @@ sap.ui.define([
 							"airid": oModel.getProperty("/sAirId"),
 							"tailid": oModel.getProperty("/sTailId"),
 							"jobid": oModel.getProperty("/sJobId"),
-							"wc": oModel.getProperty("/WorkCenterKey")
+							"wc": oModel.getProperty("/WorkCenterKey"),
+							"jbDate": that.getView().getModel("JobModel").getProperty("/credt"),
+							"jbTime": that.getView().getModel("JobModel").getProperty("/cretm")
 						});
 						break;
 					case "Edit":
@@ -1060,7 +1062,9 @@ sap.ui.define([
 					"WorkCenter": oModel.getProperty("/WorkCenterTitle"),
 					"WorkKey": oModel.getProperty("/WorkCenterKey"),
 					"Flag": "NA",
-					"srvid": "NA"
+					"srvid": "NA",
+					"jbDate": that.getView().getModel("JobModel").getProperty("/credt"),
+					"jbTime": that.getView().getModel("JobModel").getProperty("/cretm")
 				});
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onAddCreateTask function");

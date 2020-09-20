@@ -9,7 +9,7 @@
 		</VBox>
 		<VBox backgroundDesign="Solid" visible="{=${TaskPendingModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
 			<Table id="tbWcPendingSuperId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect"
-				items="{ path: 'TaskPendingModel>/', sorter: [{ path: 'jobid', descending: true }]}" noDataText="{i18n>txtNoTextSuprPend}" showNoData="true">
+				items="{ path: 'TaskPendingModel>/', sorter: [{ path: 'rtaskid', descending: false }]}" noDataText="{i18n>txtNoTextSuprPend}" showNoData="true">
 				<headerToolbar>
 					<OverflowToolbar>
 						<ToolbarSpacer/>

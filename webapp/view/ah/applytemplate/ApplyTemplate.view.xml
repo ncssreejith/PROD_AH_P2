@@ -30,7 +30,7 @@
 					<FlexBox class="hboxBorder" justifyContent="SpaceBetween" backgroundDesign="Solid">
 						<HBox justifyContent="Start">
 							<Label class="sapUiSmallMarginTop sapUiLargeMarginBegin" text="Choose Work Center" design="Bold"/>
-							<ComboBox placeholder="{i18n>phSelect}" class="sapUiSmallMargin" change="onWorkCenterChange"
+							<ComboBox placeholder="{i18n>phSelect}" class="sapUiSmallMargin" change="onWorkCenterChange" selectedKey="{applTmplModel>/workCenterKey}"
 								items="{WorkCenterSet>/}" enabled="{appModel>/PrimeStatus}">
 								<core:Item key="{WorkCenterSet>wrctr}" text="{WorkCenterSet>name}"/>
 							</ComboBox>

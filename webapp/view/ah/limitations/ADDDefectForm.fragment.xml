@@ -43,7 +43,7 @@
 									<Label text="days left"></Label>
 								</VBox>
 								<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${ADDLimSet>AFHR} !== null ? true : false}">
-									<Label text="{ADDLimSet>AFHR}" design="Bold"></Label>
+									<Label text="{path:'ADDLimSet>AFHR', type:'sap.ui.model.type.Float'}" design="Bold"></Label>
 									<Label text="{ADDLimSet>UTIL1}" visible="{=${ADDLimSet>UTIL1_10} !== null ? true : false}"></Label>
 									<Label text="{ADDLimSet>UTIL1} left" visible="{=${ADDLimSet>UTIL1_10} === null ? true : false}"></Label>
 								</VBox>

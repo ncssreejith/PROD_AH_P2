@@ -1356,7 +1356,8 @@ sap.ui.define([
 		},
 
 		JobDueDecimalPrecision: function(sKey) {
-			if (sKey === "JDU_11" || sKey === "JDU_20" || sKey === "SORTI_2" || sKey === "UTIL1_10" || sKey === "UTIL1_18") {
+			if (sKey === "JDU_11" || sKey === "JDU_18" || sKey === "JDU_19" || sKey === "JDU_20" || sKey === "SORTI_2" || sKey === "UTIL1_10" ||
+				sKey === "UTIL1_16" || sKey === "UTIL1_17" || sKey === "UTIL1_18") {
 				return 1;
 			} else {
 				return 0;
@@ -1369,7 +1370,7 @@ sap.ui.define([
 			}
 		},
 
-		validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture) {
+		validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime) {
 			var maxDt = new Date(),
 				oDatePicker = that.getView().byId(idDate),
 				creDt = oDatePicker.getDateValue(),
@@ -1381,10 +1382,19 @@ sap.ui.define([
 			var dateString = '' + year + '-' + month + '-' + date;
 			var timeString = creTm + ':00';
 			var crDtTime = new Date(dateString + ' ' + timeString);
-			var minDate = new Date();
-			minDate.setDate(minDate.getDate() - 1);
-			minDate.setMinutes(minDate.getMinutes() - 1);
-			minDate.setSeconds(0);
+		var minDate = "";
+			if (prevDate) {
+				var dateParts = prevDate.split("-");
+				minDate =  new Date(+dateParts[0] , dateParts[1] - 1, +dateParts[2]);
+				var timeParts = prevTime.split(":");
+				minDate.setHours(timeParts[0]);
+				minDate.setMinutes(timeParts[1]);
+			} else {
+				minDate = new Date();
+				minDate.setDate(minDate.getDate() - 1);
+				minDate.setMinutes(minDate.getMinutes() - 1);
+				minDate.setSeconds(0);
+			}
 			if (crDtTime.getTime() <= maxDt.getTime()) {
 				if (crDtTime.getTime() >= minDate.getTime()) {
 					oDatePicker.setValueState("None");
