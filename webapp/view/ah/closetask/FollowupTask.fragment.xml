@@ -239,7 +239,7 @@
 											visible="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID','TaskModel>rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}">
 											<Label text="{i18n>lblTechRef}" design="Bold"></Label>
 											<Input fieldGroupIds="fgInput" width="50%" change="onChangeData"
-												required="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID','TaskModel>rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}"
+												required="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID','TaskModel>rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisibleTB'}"
 												value="{TaskModel>fttoref}"></Input>
 											<layoutData>
 												<l:GridData span="XL4 L4 M6 S6" linebreak="true"/>

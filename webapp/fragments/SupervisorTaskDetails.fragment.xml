@@ -129,7 +129,7 @@
 										</layoutData>
 									</HBox>
 									<HBox class="sapUiSmallMarginEnd sapUiSmallMarginTop"
-										visible="{parts:['DetailsSupModel>/tt1id','DetailsSupModel>/tt2id','DetailsSupModel>/CPRID','DetailsSupModel>/rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}">
+										visible="{parts:['DetailsSupModel>/tt1id','DetailsSupModel>/tt2id','DetailsSupModel>/CPRID','DetailsSupModel>/rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisibleTB'}">
 										<Label width="196px" text="{i18n>lblTechRef}" design="Bold" class="sapUiSmallMarginTop"></Label>
 										<Input editable="false" value="{DetailsSupModel>/fttoref}" width="200px"></Input>
 										<layoutData>

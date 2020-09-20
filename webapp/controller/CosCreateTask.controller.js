@@ -96,7 +96,7 @@ sap.ui.define([
 		handleChange: function() {
 			var prevDt = this.getModel("ViewModel").getProperty("/jobDate");
 			var prevTime = this.getModel("ViewModel").getProperty("/jobTime");
-			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt ,prevTime);
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
 		},
 
 		onTaskTypeChange: function(oEvent) {
@@ -752,7 +752,11 @@ sap.ui.define([
 					oTempData[0].fttoref = aTasks[i].sTechOrderRef;
 					oTempData[0].isser = aTasks[i].sType1;
 					/*oTempData[0].servl = aTasks[i].sType1Value;*/
-					oTempData[0].sernr = aTasks[i].sType1Value;
+					if (aTasks[i].sSLNo !== "") {
+						oTempData[0].sernr = aTasks[i].sSLNo;
+					} else {
+						oTempData[0].sernr = aTasks[i].sType1Value;
+					}
 					oTempData[0].engflag = aTasks[i].sEngFlag;
 					/*oTempData[0].ftsernr = aTasks[i].sType1Value;*/
 					oTempData[0].ismat = aTasks[i].sType2;
