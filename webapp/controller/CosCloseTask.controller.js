@@ -245,6 +245,10 @@ sap.ui.define([
 		//8.on click of Sign Off button
 		onSignOff: function(oEvent) {
 			try {
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
 				var oModel = this.getView().getModel("TaskModel"),
 					oFLag = "0",
 					sObject,
