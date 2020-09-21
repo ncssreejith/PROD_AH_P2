@@ -474,6 +474,17 @@ sap.ui.define([
 			}
 
 		},
+		
+		onStepChange : function (oEvent){
+			var oSrc = oEvent.getSource(),
+			sVal = oSrc.getValue(),
+			sMinVal = oSrc.getMin();
+			if (sMinVal > sVal) {
+				oSrc.setValue(sMinVal);
+			} else {
+				oSrc.setValueState("None");
+			}
+		},
 		/**
 		 * Event handler for refresh event. Keeps filter, sort
 		 * and group settings and refreshes the list binding.

@@ -123,6 +123,33 @@ sap.ui.define([
 				Log.error("Exception in onApprovalUpdateFinished function");
 			}
 		},
+
+		onUilisationChange: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					sKey = oSrc.getSelectedKey(),
+					sDue = oEvent.getSource().getSelectedItem().getText(),
+					oAppModel = this.getView().getModel("CapExtendSet");
+				if (sKey.length > 0) {
+					oSrc.setValueState("None");
+					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+						oAppModel.setProperty("/UTILMINVL", minVal);
+						var sVal = oAppModel.getProperty("/UTILVL") ? oAppModel.getProperty("/UTILVL") : 0;
+						sVal = parseFloat(sVal, [10]);
+						var iPrec = formatter.JobDueDecimalPrecision(sKey);
+						oAppModel.setProperty("/UTILVL", parseFloat(minVal, [10]).toFixed(iPrec));
+
+					}
+
+				}
+
+				oAppModel.setProperty("/UM", sDue);
+				oAppModel.updateBindings(true);
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
+		},
 		//-------------------------------------------------------------
 		//  
 		//-------------------------------------------------------------
@@ -169,6 +196,27 @@ sap.ui.define([
 				ajaxutil.fnRead("/ApprovalSvc", oPrmAppr);
 			} catch (e) {
 				Log.error("Exception in _fnApprovalRequestGet function");
+			}
+		},
+
+		_fnGetUtilisationDefaultValue: function(sAir) {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisationDefaultValue function");
 			}
 		},
 
@@ -749,6 +797,9 @@ sap.ui.define([
 							oData.results[0].EXPTM = formatter.defaultTimeFormatDisplay(oData.results[0].EXPTM);
 							oData.results[0].SUBUZT = new Date().getHours() + ":" + new Date().getMinutes();
 						}
+						if (oData.results[0].UTIL1) {
+							oViewModel.getData().UTILMINVL = parseFloat(this.oObject[oData.results[0].UTIL1].VALUE);
+						}
 						that.getView().setModel(oViewModel, "CapExtendSet");
 					}
 
@@ -918,6 +969,7 @@ sap.ui.define([
 				this._fnReasonforADDGet(sAirId);
 				this._fnPerioOfDeferCBGet(sAirId);
 				this._fnUtilizationGet(sAirId);
+				this._fnGetUtilisationDefaultValue(sAirId);
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
 			}

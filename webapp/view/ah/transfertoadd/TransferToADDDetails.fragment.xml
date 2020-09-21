@@ -38,7 +38,8 @@
 						</VBox>
 						<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
 							<Label design="Bold" text="Time" width="150px"/>
-							<TimePicker editable="false" width="200px" value="{oViewGlobalModel>/CAPTM}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true"/>
+							<TimePicker editable="false" width="200px" value="{oViewGlobalModel>/CAPTM}" valueFormat="HH:mm" displayFormat="HH:mm"
+								fieldGroupIds="fgTime" required="true"/>
 						</VBox>
 					</VBox>
 					<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">
@@ -127,8 +128,9 @@
 							</VBox>
 							<VBox class="sapUiSmallMarginBegin">
 								<Label/>
-								<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}"
-									visible="{= ${oViewModel>/bAirFrameAndTAC}}" required="{oViewModel>/bAirFrameAndTAC}"
+								<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" change="onStepChange" min="{oViewGlobalModel>/UTILMINLVL}"
+									visible="{= ${oViewModel>/bAirFrameAndTAC} &amp;&amp; ${oViewGlobalModel>/UTIL1} !== null ? true : false}"
+									required="{oViewModel>/bAirFrameAndTAC}"
 									displayValuePrecision="{ path:'oViewGlobalModel>/UTIL1' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 								<ComboBox width="200px" items="{Utilization2CBModel>/}" visible="{oViewModel>/bScheduleService}" selectedKey="{oViewGlobalModel>/UTIL2}"
 									fieldGroupIds="fgCmbBox" required="{oViewModel>/bScheduleService}">

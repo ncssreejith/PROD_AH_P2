@@ -58,7 +58,7 @@
 								<VBox>
 									<!--visible="{= (${JobModel>/jobty}==='D' || ${JobModel>/notity}!==null ) ? true:false}"-->
 									<Label text="Rectification Summary"></Label>
-									<TextArea cols="60" width="24rem" value="{JobModel>/recttxt}" rows="3" maxLength="1000" showExceededText="true"
+									<TextArea cols="60" width="45rem" value="{JobModel>/recttxt}" rows="3" maxLength="1000" showExceededText="true"
 										liveChange="handleLiveChangeFlyingRequirements"></TextArea>
 									<layoutData>
 										<l:GridData span="XL7 L7 M10 S12" linebreak="true"/>
@@ -184,8 +184,8 @@
 												<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 											</ComboBox>
 											<HBox id="ipServdueTR" class="sapUiTinyMarginBegin">
-												<StepInput min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/TRAILKVAL}"
-													visible="{= ${JobModel>/TRAILKEY}!=='JDU_10' ? true:false}"
+												<StepInput min="{JobModel>/TRAILKMinVAL}" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/TRAILKVAL}"
+													visible="{= ${JobModel>/TRAILKEY}!=='JDU_10' &amp;&amp; ${JobModel>/TRAILKEY} !== null  ? true:false}" change="onStepChange"
 													displayValuePrecision="{path:'JobModel>/TRAILKEY' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 											</HBox>
 											<DatePicker id="dpServdtTR" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobModel>/TRAILKEY}==='JDU_10' ? true:false}"

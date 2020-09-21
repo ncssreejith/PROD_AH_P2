@@ -162,6 +162,19 @@ sap.ui.define([
 					oViewModel.setProperty("/bScheduleService", false);
 					oViewModel.setProperty("/bPhaseService", true);
 				}
+				
+				if (sSelectedKey.length > 0) {
+					if (this.oObject && this.oObject[sSelectedKey] && this.oObject[sSelectedKey].VALUE) {
+						var minVal = parseFloat(this.oObject[sSelectedKey].VALUE, [10]);
+						oModel.setProperty("/UTILMINLVL", minVal);
+						var sVal = oModel.getProperty("/UTILVL") ? oModel.getProperty("/UTILVL") : 0;
+						sVal = parseFloat(sVal, [10]);
+						var iPrec = formatter.JobDueDecimalPrecision(sSelectedKey);
+						oModel.setProperty("/UTILVL", parseFloat(minVal, [10]).toFixed(iPrec));
+					}
+
+				}
+
 				oModel.setProperty("/UTIL1", sSelectedKey);
 				oViewModel.updateBindings(true);
 				oModel.updateBindings(true);
@@ -336,6 +349,27 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilizationGet function");
 				this.handleException(e);
+			}
+		},
+		
+		_fnGetUtilisationDefaultValue: function(sAir) {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisationDefaultValue function");
 			}
 		},
 
@@ -539,6 +573,7 @@ sap.ui.define([
 
 				this._fnReasonforADDGet();
 				this._fnUtilizationGet();
+				this._fnGetUtilisationDefaultValue(sAirId);
 				this._fnPerioOfDeferCBGet();
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_onObjectMatched function");

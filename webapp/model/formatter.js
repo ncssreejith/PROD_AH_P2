@@ -1428,6 +1428,42 @@ sap.ui.define([
 				return false;
 			}
 		},
+		
+		validDateTimeCloseTaskChecker : function (that, currDate, currTime, errorMessagePast, errorMessageFuture, prevDate, prevTime){
+				var maxDt = new Date(),
+				creDt = new Date(currDate),
+				creTm = currTime,
+				date = creDt.getDate(),
+				year = creDt.getFullYear(),
+				month = creDt.getMonth() + 1;
+			var dateString = '' + year + '-' + month + '-' + date;
+			var timeString = creTm + ':00';
+			var crDtTime = new Date(dateString + ' ' + timeString);
+
+			var minDate = "";
+			if (prevDate) {
+				var dateParts = prevDate.split("-");
+				minDate =  new Date(+dateParts[0] , dateParts[1] - 1, +dateParts[2]);
+				var timeParts = prevTime.split(":");
+				minDate.setHours(timeParts[0]);
+				minDate.setMinutes(timeParts[1]);
+			} else {
+				minDate = new Date();
+				minDate.setDate(minDate.getDate() - 1);
+				minDate.setMinutes(minDate.getMinutes() - 1);
+				minDate.setSeconds(0);
+			}
+
+			if (crDtTime.getTime() <= maxDt.getTime()) {
+				if (crDtTime.getTime() >= minDate.getTime()) {
+					return "C";
+				} else {
+					return "L";
+				}
+			} else {
+				return "G";
+			}
+		},
 
 		serialTemplateBtnVisibility: function(stt1, stt2) {
 			if (stt1 || stt2) {

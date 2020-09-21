@@ -130,11 +130,11 @@
 											<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 										</ComboBox>
 										<HBox id="SchJobDueId" class="sapUiTinyMarginBegin">
-											<StepInput min="0" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}"
-												visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' ? true:false}" required="true" fieldGroupIds="fgStepInput"
+											<StepInput min="{JobCreateModel>/DefValue}" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}" change="onStepChange" width="15rem"
+												visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' &amp;&amp; ${JobCreateModel>/UMKEY} !== null ? true:false}" required="true" fieldGroupIds="fgStepInput"
 												displayValuePrecision="{ path:'JobCreateModel>/UMKEY' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 										</HBox>
-										<DatePicker width="13rem" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
+										<DatePicker width="15rem" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
 											visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
 											value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 											placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>

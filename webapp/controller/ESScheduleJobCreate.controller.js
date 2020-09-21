@@ -86,6 +86,26 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		_fnGetUtilisation: function(sAir) {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq JDU";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisation function");
+			}
+		},
 		_fnWorkCenterGet: function(sAir) {
 			try {
 				var that = this,
@@ -113,8 +133,22 @@ sap.ui.define([
 		 */
 		onDueSelectChange: function(oEvent) {
 			try {
-				var sDue = oEvent.getSource().getSelectedItem().getText();
-				var oAppModel = this.getView().getModel("JobCreateModel");
+				var oSrc = oEvent.getSource(),
+					sKey = oSrc.getSelectedKey(),
+					sDue = oEvent.getSource().getSelectedItem().getText(),
+					oAppModel = this.getView().getModel("JobCreateModel");
+				if (sKey.length > 0) {
+					oSrc.setValueState("None");
+					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+						oAppModel.setProperty("/DefValue", minVal);
+						var sVal = oAppModel.getProperty("/SERVDUE") ? oAppModel.getProperty("/SERVDUE") : 0;
+						sVal = parseFloat(sVal, [10]);
+						var iPrec = formatter.JobDueDecimalPrecision(sKey);
+						oAppModel.setProperty("/SERVDUE", parseFloat(minVal, [10]).toFixed(iPrec));
+					}
+				}
+
 				oAppModel.setProperty("/UM", sDue);
 				oAppModel.updateBindings(true);
 			} catch (e) {
@@ -229,6 +263,7 @@ sap.ui.define([
 
 				this.getView().setModel(oJobModel, "JobCreateModel");
 				this._fnJobDueGet(sAir);
+				this._fnGetUtilisation(sAir);
 				this._fnWorkCenterGet(sAir);
 
 			} catch (e) {

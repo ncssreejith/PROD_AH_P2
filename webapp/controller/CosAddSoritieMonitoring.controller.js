@@ -116,12 +116,33 @@ sap.ui.define([
 			// that.getView().getModel("SortieMonitoringModel").updateBindings(true);
 		},
 
+		onFoundDuringChange: function(oEvent) {
+			var oModel = this.getView().getModel("SortieMonitoringModel");
+			var sPath = oEvent.getSource().getBindingContext("SortieMonitoringModel").getPath();
+			var sKey = oEvent.getSource().getSelectedKey();
+			if (sKey.length > 0) {
+				if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+					var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+					oModel.setProperty(sPath+"/MinVal", minVal);
+					var sVal = oModel.getProperty(sPath+"/SortiesNo") ? oModel.getProperty(sPath+"/SortiesNo") : 0;
+					sVal = parseFloat(sVal, [10]);
+					var iPrec = formatter.JobDueDecimalPrecision(sKey);
+					oModel.setProperty(sPath+"/SortiesNo", parseFloat(minVal, [10]).toFixed(iPrec));
+				} else {
+					oModel.setProperty(sPath+"/MinVal", 0);
+					oModel.setProperty(sPath+"/SortiesNo", 0);
+				}
+			}
+		},
+
 		onSortiesNoChange: function(oEvent) {
 			try {
 				var that = this;
 				var oObject = oEvent.getSource().getBindingContext("SortieMonitoringModel").getObject();
 				oObject.SortiesNo = oEvent.getParameter("value");
-				that.getView().getModel("SortieMonitoringModel").updateBindings(true);
+				var oModel = that.getView().getModel("SortieMonitoringModel");
+				oModel.updateBindings(true);
+
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:onSortiesNoChange function");
 				this.handleException(e);
@@ -193,6 +214,27 @@ sap.ui.define([
 			}
 		},
 
+		_fnGetUtilisation: function(sAir) {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq SORTI";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisation function");
+			}
+		},
+
 		_fnGetOperationType: function(sAirId) {
 			try {
 				var that = this,
@@ -244,6 +286,7 @@ sap.ui.define([
 				that.getView().setModel(oViewModel, "ViewModel");
 				that._fnSortieMonitoringGet(sJobId);
 				that._fnMonitoredForGet(sAirId);
+				that._fnGetUtilisation(sAirId);
 				that._fnGetOperationType(sAirId);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_onObjectMatched function");

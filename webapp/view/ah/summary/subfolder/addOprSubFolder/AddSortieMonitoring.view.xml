@@ -53,11 +53,11 @@
 								<VBox class="sapUiTinyMarginTop sapUiSmallMargin">
 									<Label text="To be Monitored For" design="Bold" class="sapUiSmallMarginTop"/>
 									<HBox class="sapUiTinyMarginBegin">
-										<ComboBox placeholder="{i18n>phSelect}" items="{MonitoredForSet>/}" change="onFoundDuringChange('DEF',$event)"
+										<ComboBox placeholder="{i18n>phSelect}" items="{MonitoredForSet>/}" change="onFoundDuringChange"
 											selectedKey="{SortieMonitoringModel>MonFor}" required="true" fieldGroupIds="fgCmbBox">
 											<core:Item key="{MonitoredForSet>ddid}" text="{MonitoredForSet>description}"/>
 										</ComboBox>
-										<StepInput required="true" min="0" fieldGroupIds="fgStepInput" visible="{= ${SortieMonitoringModel>MonFor} !=='SORTI_5' ? true:false}"
+										<StepInput required="true" min="{SortieMonitoringModel>MinVal}" fieldGroupIds="fgStepInput" visible="{= ${SortieMonitoringModel>MonFor} !=='SORTI_5' &amp;&amp; ${SortieMonitoringModel>MonFor} !==null ? true:false}"
 											displayValuePrecision="{ path:'SortieMonitoringModel>MonFor' , formatter:'.formatter.JobDueDecimalPrecision'}"
 											value="{SortieMonitoringModel>SortiesNo}" change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>
 										<ComboBox placeholder="Select Operation Type" items="{OperationSet>/}"

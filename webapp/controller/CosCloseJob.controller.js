@@ -116,6 +116,14 @@ sap.ui.define([
 							} catch (e) {
 								oPayload.TRAILKDT = oPayload.TRAILKDT;
 							}
+							try {
+								if (oPayload.TRAILKVAL) {
+									var prec = formatter.JobDueDecimalPrecision(oPayload.TRAILKEY);
+									oPayload.TRAILKVAL = parseFloat(oPayload.TRAILKVAL, [10]).toFixed(prec);
+								}
+							} catch (e) {
+								oPayload.TRAILKVAL = oPayload.TRAILKVAL;
+							}
 						}
 						oPayload.jstat = "P";
 						oPayload.trail = "X";
@@ -184,6 +192,7 @@ sap.ui.define([
 					if (oData.results[0] !== undefined && oData.results[0].notity !== null) {
 						that._fnWorkCenterGet();
 						that._fnJobDueGet(sJobId);
+						that._fnGetUtilisation();
 					}
 					that._fnCreatedWorkCenterGet(sJobId);
 					if (oViewModel.getProperty("/sFlag") === "Y") {
@@ -247,6 +256,27 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnWorkCenterGet function");
 				this.handleException(e);
+			}
+		},
+
+		_fnGetUtilisation: function() {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq JDU";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisationDefaultValue function");
 			}
 		},
 		//------------------------------------------------------------------------------------------
@@ -527,9 +557,21 @@ sap.ui.define([
 		onDueSelectChange: function(oEvent) {
 			try {
 				var sDue = oEvent.getSource().getSelectedItem().getText();
-				var oAppModel = this.getView().getModel("JobCreateModel");
+				var sKey = oEvent.getSource().getSelectedKey();
+				var oAppModel = this.getView().getModel("JobModel");
 				oAppModel.setProperty("/UM", sDue);
-				oAppModel.updateBindings(true);
+				oAppModel.setProperty("/UMKEY", sKey);
+				if (sKey.length > 0) {
+					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+						oAppModel.setProperty("/TRAILKMinVAL", minVal);
+						var sVal = oAppModel.getProperty("/TRAILKVAL") ? oAppModel.getProperty("/TRAILKVAL") : 0;
+						sVal = parseFloat(sVal, [10]);
+						var iPrec = formatter.JobDueDecimalPrecision(sKey);
+						oAppModel.setProperty("/TRAILKVAL", parseFloat(minVal, [10]).toFixed(iPrec));
+
+					}
+				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onDueSelectChange function");
 				this.handleException(e);

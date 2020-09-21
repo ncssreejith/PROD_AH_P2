@@ -83,8 +83,8 @@
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin" >
 					<Label/><!--visible="{=${CapExtendSet>/UTILVL}!=='' &amp;&amp; ${CapExtendSet>/UTILVL}!==null ? true :false}"-->
-					<StepInput width="200px" value="{CapExtendSet>/UTILVL}" editable="{ViewModel>/editableFlag}"
-						displayValuePrecision="{ path:'CapExtendSet>/UTIL1' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
+					<StepInput width="200px" value="{CapExtendSet>/UTILVL}" editable="{ViewModel>/editableFlag}"  min="{CapExtendSet>/UTILMINVL}"
+						displayValuePrecision="{ path:'CapExtendSet>/UTIL1' , formatter:'.formatter.JobDueDecimalPrecision'}" change="onStepChange" />
 				</VBox>
 			</HBox>
 			<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">

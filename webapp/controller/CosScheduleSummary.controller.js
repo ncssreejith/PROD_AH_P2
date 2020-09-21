@@ -185,7 +185,6 @@ sap.ui.define([
 		},
 		onRaiseScheduleConcession: function() {
 			try {
-				var aData = this.getModel("SummaryModel").getData();
 
 				if (!this._oRaiseConcession) {
 					this._oRaiseConcession = sap.ui.xmlfragment(this.createId("idScheduleJobExtension"),
@@ -194,26 +193,53 @@ sap.ui.define([
 					this._fnJobDueGet();
 					this.getView().addDependent(this._oRaiseConcession);
 				}
-				var data = {
-					"DueBy": aData.UMKEY,
-					"ExpDate": new Date(aData.SERVDT),
-					"Util": "",
-					"UtilVal": aData.SERVDUE,
-					"ExpDateFlag": aData.UMKEY === 'JDU_10' ? true : false,
-					"UtilValFlag": aData.UMKEY !== 'JDU_10' ? true : false,
-					"UM": ""
-
-				};
-				if (this.getView().getModel("RSModel")) {
-					this.getModel("RSModel").setData(data);
-				} else {
-					this.getView().setModel(new JSONModel(data), "RSModel");
-				}
-				this._oRaiseConcession.open(this);
+				this._fnGetUtilisation();
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcession function");
 			}
 		},
+		
+		_fnGetUtilisation: function(sAir) {
+			try {
+				var that = this,
+					aData = this.getModel("SummaryModel").getData(),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + that.getAircraftId() + " and JDUID eq JDU";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+						var data = {
+							"DueBy": aData.UMKEY,
+							"ExpDate": new Date(aData.SERVDT),
+							"Util": "",
+							"UtilVal": aData.SERVDUE,
+							"ExpDateFlag": aData.UMKEY === 'JDU_10' ? true : false,
+							"UtilValFlag": aData.UMKEY !== 'JDU_10' ? true : false,
+							"UM": "",
+							"minVal": parseFloat(this.oObject[aData.UMKEY].VALUE)
+
+						};
+						if (this.getView().getModel("RSModel")) {
+							this.getModel("RSModel").setData(data);
+						} else {
+							this.getView().setModel(new JSONModel(data), "RSModel");
+						}
+
+						this._oRaiseConcession.open(this);
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisation function");
+			}
+		},
+
 
 		onUilisationChange: function(oEvent) {
 			try {

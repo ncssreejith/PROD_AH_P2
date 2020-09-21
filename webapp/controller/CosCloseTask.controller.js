@@ -45,6 +45,24 @@ sap.ui.define([
 			var oViewModel = this.getView().getModel("ViewModel");
 			this._fnTasksGet(oViewModel.getProperty("/TaskId"));
 		},
+
+		handleChange: function(oEvent) {
+			var oSrc = oEvent.getSource(),
+				sId = oSrc.getId(),
+				sPath = oSrc.getBindingContext("TaskModel").getPath();
+			var dpId = "";
+			var tpId = "";
+			if (sId.search("DP1") !== -1) {
+				dpId = sId;
+				tpId = sId.replace("DP1", "TP1");
+			} else {
+				tpId = sId;
+				dpId = sId.replace("TP1", "DP1");
+			}
+			var prevDt = this.getModel("TaskModel").getProperty(sPath + "/credtm");
+			var prevTime = this.getModel("TaskModel").getProperty(sPath + "/creuzt");
+			return formatter.validDateTimeChecker(this, dpId, tpId, "errorCloseTaskPast", "errorCloseTaskFuture", prevDt, prevTime);
+		},
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
@@ -95,7 +113,28 @@ sap.ui.define([
 				}
 				var oTaskModel = this.getView().getModel("TaskModel"),
 					oFlag = true;
-
+				var aFlag = [];
+				for (var i in oTaskModel.getData()) {
+					var obj = JSON.parse(JSON.stringify(oTaskModel.getData()[i]));
+					var bFlag = formatter.validDateTimeCloseTaskChecker(this, obj.ftcredt, obj.ftcretm, "errorCloseTaskPast", "errorCloseTaskFuture",
+						obj.credtm,
+						obj.creuzt);
+					if (bFlag === "L") {
+						oTaskModel.setProperty("/" + i + "/ftcretmState", "Error");
+						oTaskModel.setProperty("/" + i + "/ftcredtStateText", "Date/Time should be greater than Task creation Date/Time");
+					} else if (bFlag === "G") {
+						oTaskModel.setProperty("/" + i + "/ftcretmState", "Error");
+						oTaskModel.setProperty("/" + i + "/ftcredtStateText", "Date/Time should be less than current Date/Time");
+					} else {
+						oTaskModel.setProperty("/" + i + "/ftcretmState", "None");
+					}
+					aFlag.push(bFlag);
+				}
+				if (aFlag.indexOf("L") !== -1 || aFlag.indexOf("G") !== -1) {
+					oTaskModel.updateBindings(true);
+					sap.m.MessageBox.error("Please fill correct date and time");
+					return;
+				}
 				for (var i = 0; i < oTaskModel.getData().length; i++) {
 					if (oTaskModel.getData()[i].tt1id === 'TT1_12') {
 						if (oTaskModel.getData()[i].ftrsltgd === 2) {
@@ -265,6 +304,8 @@ sap.ui.define([
 					oPayload[i].tstat = "P";
 					oPayload[i].multi = oFLag;
 					delete oPayload[i].ValueState;
+					delete oPayload[i].ftcredtStateText;
+					delete oPayload[i].ftcretmState;
 					//oPayload[i].sernr = oPayload[i].ftsernr;
 					try {
 						oPayload[i].ftcredt = formatter.defaultOdataDateFormat(oPayload[i].ftcredt);
@@ -598,6 +639,7 @@ sap.ui.define([
 				var oTime = oEvent.getSource().getValue(),
 					oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
 				oObject.ftcretm = oTime;
+				this.handleChange(oEvent);
 			} catch (e) {
 				Log.error("Exception in onIconSelected function");
 			}
