@@ -187,7 +187,7 @@ sap.ui.define([
 						break;
 					case "4":
 						if (this.getModel("oAircraftAddModel").getProperty("/logid") === "dash") {
-							sReasonTxt = "AVMET";
+							sReasonTxt = "";
 						} else {
 							sReasonTxt = this.getResourceBundle().getText("txtUpdateALQ144");
 						}

@@ -4,8 +4,9 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../util/ajaxutil",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log) {
+	"sap/base/Log",
+	"../model/FieldValidations"
+], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log, FieldValidations) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.ReplenishmentDetails", {
@@ -172,6 +173,10 @@ sap.ui.define([
 		onPressSignOffConfirm: function(oEvent) {
 			try {
 				// this.cvutil.validateForm(this.getView());
+				// if (FieldValidations.validateFields(this)){
+				// 	sap.m.MessageToast.show("Fill in all required input first");
+				// 	return;
+				// }
 				if (!this.getModel("oRepDetailsModel").getProperty("/isValid")) {
 					sap.m.MessageToast.show("Serviced amount exceeds total amount.");
 				}

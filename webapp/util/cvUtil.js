@@ -32,11 +32,11 @@ sap.ui.define([], function() {
 
 	function _fnValidateNumber(value, minValue, maxValue, sLabel) {
 		// Check for numeric only 
-		if (!value.match("^[0-9]+$")) {
+		if (!value.toString().match("^[0-9]+$")) {
 			return sLabel + " number must be numeric only";
 		}
 		// Check for length
-		if (!value.match("^[0-9]{" + minValue + "," + maxValue + "}$")) {
+		if (!value.toString().match("^[0-9]{" + minValue + "," + maxValue + "}$")) {
 			if (minValue === maxValue && value.length < maxValue) {
 				return sLabel + " number must be " + maxValue + " digit.";
 			}
@@ -47,11 +47,11 @@ sap.ui.define([], function() {
 
 	function _fnValidateSigned(value, minValue, maxValue, sLabel) {
 		// Check for numeric only  // ^-?[0-9]\d*(\.\d+)?$
-		if (!value.match("^[-+]?[0-9]+$")) {
+		if (!value.toString().match("^[-+]?[0-9]+$")) {
 			return sLabel + " number must be numeric only";
 		}
 		// Check for length
-		if (!value.match("^[-+]?[0-9]{" + minValue + "," + maxValue + "}$")) {
+		if (!value.toString().match("^[-+]?[0-9]{" + minValue + "," + maxValue + "}$")) {
 			if (minValue === maxValue && value.length < maxValue) {
 				return sLabel + " number must be " + maxValue + " digit.";
 			}
@@ -62,7 +62,7 @@ sap.ui.define([], function() {
 
 	function _fnValidateDecimal(value, minValue, maxValue, sLabel, sScale) {
 		var sRegex = new RegExp("^\\d{1," + (maxValue - sScale) + "}(\\.\\d{1," + sScale + "})?$");
-		if (!value.match(sRegex)) {
+		if (!value.toString().match(sRegex)) {
 			return sLabel + " should be " + ("0".repeat(maxValue - sScale) + "." + "0".repeat(sScale) + " format.");
 		}
 
@@ -76,7 +76,7 @@ sap.ui.define([], function() {
 		// ^-?[0-9]\d*(\.\d+)?$
 
 		var sRegex = new RegExp("^[-+]?\\d{1," + (maxValue - sScale) + "}(\\.\\d{1," + sScale + "})?$");
-		if (!value.match(sRegex)) {
+		if (!value.toString().match(sRegex)) {
 			return sLabel + " should be " + ("0".repeat(maxValue - sScale) + "." + "0".repeat(sScale) + " format.");
 		}
 
@@ -147,8 +147,18 @@ sap.ui.define([], function() {
 	}
 
 	function _fnNumberValidation(oControl) {
-		var value = oControl.getValue(),
-			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
+		var value = oControl.getValue();
+
+		// sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = 20,
 			minValue = 0;
 		var sMsg = _fnValidateNumber(value, minValue, maxValue, sLabel);
@@ -156,9 +166,19 @@ sap.ui.define([], function() {
 	}
 
 	function _fnSignedNumberValidation(oControl) {
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
 		var value = oControl.getValue(),
-			sScale = 1,
-			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+			sScale = 1;
+
+		// sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5,
 			minValue = 0; // - Math.pow(10, maxValue);
 		var sMsg = _fnValidateSigned(value, minValue, maxValue, sLabel);
@@ -166,8 +186,17 @@ sap.ui.define([], function() {
 	}
 
 	function _fnStringValidation(oControl) {
-		var value = oControl.getValue(),
-			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
+		var value = oControl.getValue();
+		// sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = 40,
 			minValue = 0;
 		var sMsg = _fnValidateString(value, minValue, maxValue, sLabel);
@@ -175,8 +204,17 @@ sap.ui.define([], function() {
 	}
 
 	function _fnNumberStringValidation(oControl) {
-		var value = oControl.getValue(),
-			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
+		var value = oControl.getValue();
+		// sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = 40,
 			minValue = 0;
 		var sMsg = _fnValidateNumberString(value, minValue, maxValue, sLabel);
@@ -184,8 +222,17 @@ sap.ui.define([], function() {
 	}
 
 	function _fnMobileNumberValidation(oControl, reset) {
-		var value = oControl.getValue(),
-			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
+		var value = oControl.getValue();
+		// sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = 10,
 			minValue = 0;
 		var sMsg = _fnValidateNumber(value, minValue, maxValue, sLabel);
@@ -193,9 +240,18 @@ sap.ui.define([], function() {
 	}
 
 	function _fnDecimalValidation(oControl, reset) {
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
 		var value = oControl.getValue(),
-			sScale = 3,
-			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+			sScale = 3;
+		// sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5,
 			minValue = 0;
 		var sMsg = _fnValidateDecimal(value, minValue, maxValue, sLabel, sScale);
@@ -203,9 +259,18 @@ sap.ui.define([], function() {
 	}
 
 	function _fnDecimal1Validation(oControl, reset) {
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
 		var value = oControl.getValue(),
-			sScale = 1,
-			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+			sScale = 1;
+		// sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5,
 			minValue = 0;
 		var sMsg = _fnValidateDecimal(value, minValue, maxValue, sLabel, sScale);
@@ -213,9 +278,18 @@ sap.ui.define([], function() {
 	}
 
 	function _fnDecimal2Validation(oControl, reset) {
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
 		var value = oControl.getValue(),
-			sScale = 2,
-			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+			sScale = 2;
+		// sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5,
 			minValue = 0;
 		var sMsg = _fnValidateDecimal(value, minValue, maxValue, sLabel, sScale);
@@ -223,9 +297,18 @@ sap.ui.define([], function() {
 	}
 
 	function _fnSignedDecimalValidation(oControl, reset) {
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
 		var value = oControl.getValue(),
-			sScale = 3,
-			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+			sScale = 3;
+		// sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5,
 			minValue = 0 - Math.pow(10, (oControl.getMaxLength() > (sScale + 1) ? oControl.getMaxLength() : 5));
 		var sMsg = _fnValidateSignedDecimal(value, minValue, maxValue, sLabel, sScale);
@@ -233,8 +316,17 @@ sap.ui.define([], function() {
 	}
 
 	function _fnDescriptionValidation(oControl, reset) {
-		var value = oControl.getValue(),
-			sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
+		var value = oControl.getValue();
+		// sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = oControl.getMaxLength() > 0 ? oControl.getMaxLength() : sMaxDec,
 			minValue = 0;
 		if (value.length > maxValue) {
@@ -245,9 +337,18 @@ sap.ui.define([], function() {
 	}
 
 	function _fnEmailValidation(oControl) {
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
 		var sMsg = "",
 			value = oControl.getValue();
-		var sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		// var sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		var maxValue = oControl.getMaxLength() > 0 ? oControl.getMaxLength() : sMaxDec,
 			minValue = 0;
 		sMsg = _fnValidateEmail(value, minValue, maxValue, sLabel);
@@ -255,6 +356,7 @@ sap.ui.define([], function() {
 	}
 
 	function _fnDateValidation(oControl, reset) {
+
 		var maxValue = oControl.getMaxDate() ? oControl.getMaxDate() : maxDate;
 		var minValue = oControl.getMinDate() ? oControl.getMinDate() : minDate;
 		var value = oControl.getValue(),
@@ -326,8 +428,17 @@ sap.ui.define([], function() {
 		}*/
 
 	function _fnValidateComboBox(oControl) {
+		var sLabel = "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
+		}
 		var sMsg = "";
-		var sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		// var sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
 		if (oControl.getKeys().indexOf(oControl.getSelectedKey()) < 0) {
 			sMsg = "Please select valid " + sLabel;
 		}
@@ -393,20 +504,23 @@ sap.ui.define([], function() {
 		var isRequired = oControl.getRequired();
 		var value = oControl.getValue();
 
-		var sLen = oControl.getLabels().length;
 		var sLabel = "";
-		if (sLen > 1) {
-			sLabel = oControl.getLabels()[1].getText();
-		} else {
-			sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+		if (oControl.getLabels) {
+			var sLen = oControl.getLabels().length;
+			if (sLen > 1) {
+				sLabel = oControl.getLabels()[1].getText();
+			} else {
+				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
+			}
 		}
+
 		var sMsg = "";
 		//Not required and empty field
-		if (!isRequired && value === "") {
+		if (!isRequired && (value === "" || value === 0)) {
 			_fnUpdateValueState(oControl, sMsg);
 			return false;
 		}
-		if (isRequired && value === "") {
+		if (isRequired && (value === "" || value === 0)) {
 			sMsg = sLabel + " can't be empty";
 		}
 		return _fnUpdateValueState(oControl, sMsg);
@@ -530,6 +644,46 @@ sap.ui.define([], function() {
 			isError = false;
 			validForm(oParentControl);
 			return !isError;
+		},
+		/** 
+		 * Check for function group error state
+		 * @param sFunctionGroupId
+		 * @returns
+		 */
+		fnCheckValueState: function(sFunctionGroupId) {
+			try {
+				var aGroupControls = sap.ui.getCore().byFieldGroupId(sFunctionGroupId);
+				var bError = false;
+				aGroupControls.forEach(function(oControl) {
+					if (oControl.getValueState && oControl.getValueState() === "Error") {
+						bError = true;
+					}
+				});
+				return bError;
+			} catch (e) {
+
+				this.handleException(e);
+			}
+		},
+		/** 
+		 * Clear for function group error state
+		 * @param sFunctionGroupId
+		 * @returns
+		 */
+		fnClearValueState: function(sFunctionGroupId) {
+			try {
+				var aGroupControls = sap.ui.getCore().byFieldGroupId(sFunctionGroupId);
+
+				aGroupControls.forEach(function(oControl) {
+					if (oControl.setValueState) {
+						oControl.setValueState("None");
+					}
+				});
+				return;
+			} catch (e) {
+
+				this.handleException(e);
+			}
 		},
 		createFilter: function(filters) {
 			var aFilter = [];

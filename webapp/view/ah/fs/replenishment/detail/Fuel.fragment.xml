@@ -40,10 +40,10 @@
 					<Text text="{oRepDetailsModel>resdescription}"/>
 					<StepInput width="100%" textAlign="Center" value="{oRepDetailsModel>orgamt}" labelFor="adsfasdf" change="onFuleChange" validationMode="LiveChange" min="0"
 					max="{= ${oRepDetailsModel>max}-${oRepDetailsModel>srvamt}}"
-					fieldGroupIds="fgNumber"  required="true"/>
+					fieldGroupIds="fgNumber,fgStepInput"  required="true"/>
 					<StepInput width="100%" textAlign="Center" value="{oRepDetailsModel>srvamt}" change="onFuleChange" validationMode="LiveChange" min="0"
 					max="{= ${oRepDetailsModel>max}-${oRepDetailsModel>orgamt}}"
-					fieldGroupIds="fgNumber"  required="true"/>
+					fieldGroupIds="fgNumber,fgStepInput"  required="true"/>
 					<StepInput editable="false" textAlign="Center" value="{oRepDetailsModel>totamt}" description=" / {oRepDetailsModel>max}"  min="0"
 						max="{path: 'oRepDetailsModel>max', formatter : '.formatter.FormatMaxValue'}" required="true" />
 				</cells>
