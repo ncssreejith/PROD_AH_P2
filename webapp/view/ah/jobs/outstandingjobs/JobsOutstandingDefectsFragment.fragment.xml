@@ -6,12 +6,14 @@
 				<OverflowToolbar>
 					<Title text="{i18n>tiDefects}" level="H2"/>
 					<ToolbarSpacer/>
-					<ComboBox width="10rem" id="cbDefectID" placeholder="Select column filter" change="onFilterChange"
+					<ComboBox width="10rem" id="cbDefectID" placeholder="Select column filter" change="onFilterChange" selectedKey="{DDModel>/OutDefectKey}"
 						items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'DefectJobOut' }]}">
 						<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
 					</ComboBox>
+					<DateRangeSelection placeholder="dd/MM/yyyy - dd/MM/yyyy" displayFormat="dd/MM/yyyy" width="15rem"
+						change="onSearchTable($event,'DefectID','JobModelD')" visible="{= ${DDModel>/OutDefectKey} === 'credtm-BT'}"/>
 					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" value="{LocalJobsModel>/DefectID}"
-						search="onSearchTable($event,'DefectID','JobModelD')"/>
+						search="onSearchTable($event,'DefectID','JobModelD')" visible="{= ${DDModel>/OutDefectKey} !== 'credtm-BT'}"/>
 				</OverflowToolbar>
 			</headerToolbar>
 			<columns>

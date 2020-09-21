@@ -6,12 +6,14 @@
 				<OverflowToolbar>
 					<Title text="{i18n>tiAllOutstandingJobs}" level="H2"/>
 					<ToolbarSpacer/>
-					<ComboBox width="10rem" id="cbAllJobId" placeholder="Select column filter" change="onFilterChange"
+					<ComboBox width="10rem" id="cbAllJobId" placeholder="Select column filter" change="onFilterChange" selectedKey="{DDModel>/OutAllKey}"
 						items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'AllJobOut' }]}">
 						<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
 					</ComboBox>
+					<DateRangeSelection placeholder="dd/MM/yyyy - dd/MM/yyyy" displayFormat="dd/MM/yyyy" width="15rem"
+						change="onSearchTable($event,'AllJobId','JobModelAll')" visible="{= ${DDModel>/OutAllKey} === 'credtm-BT'}"/>
 					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" value="{LocalJobsModel>/AllJobId}"
-						search="onSearchTable($event,'AllJobId','JobModelAll')"/>
+						search="onSearchTable($event,'AllJobId','JobModelAll')" visible="{= ${DDModel>/OutAllKey} !== 'credtm-BT'}"/>
 				</OverflowToolbar>
 			</headerToolbar>
 			<columns>
@@ -53,7 +55,7 @@
 				<ColumnListItem vAlign="Middle" type="Navigation" press="onDefectsAllPress">
 					<cells>
 						<VBox>
-							<Text text="{path:'JobModelAll>credtm', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+							<Text text="{path:'JobModelAll>credtm', formatter:'.formatter.TableDateFormatDisplay'}"/>
 							<Text text="{path:'JobModelAll>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
 						</VBox>
 						<Text text="{JobModelAll>jobid}"/>

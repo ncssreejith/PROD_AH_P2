@@ -10,11 +10,15 @@
 					<!--<Button text="Create Schedule Job" type="Default" class="btnColor sapUiSizeCompact sortBtnColor"
 						press="onCreateScheduleJob"/>-->
 					<ComboBox width="10rem" id="cbAllScheduledJobId" change="onFilterChange" placeholder="Select column filter"
+						selectedKey="{DDModel>/SchedAll}"
 						items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'OutPhase' }]}">
 						<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
 					</ComboBox>
+					<RangeSlider showAdvancedTooltip="true" inputsAsTooltips="true" min="0" max="100" width="15rem"
+						visible="{= ${DDModel>/SchedAll} === 'DUEIN-BT'}" class="sapUiTinyMarginBottom"
+						change="onSearchTable($event,'AllScheduledJobId','SchJobModelAll')"/>
 					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" value="{LocalJobsModel>/AllScheduledJobId}"
-						search="onSearchTable($event,'AllScheduledJobId','SchJobModelAll')"/>
+						search="onSearchTable($event,'AllScheduledJobId','SchJobModelAll')" visible="{= ${DDModel>/SchedAll} !== 'DUEIN-BT'}"/>
 					<!--<Button icon="sap-icon://add-filter" text="{i18n>btnFilterSchedule}" type="Default" class="btnColor sapUiSizeCompact sortBtnColor"-->
 					<!--	press="onAddDemandSpaes"/>-->
 				</OverflowToolbar>
