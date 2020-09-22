@@ -137,6 +137,7 @@ sap.ui.define([
 						});
 						break;
 					case "AST_RFF":
+					case "AST_RFF0":	
 						this.getRouter().navTo("PilotUpdates", {
 							srvtid: sSrvtId ? sSrvtId : " ",
 							stepid: "S_PF"
