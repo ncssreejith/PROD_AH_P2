@@ -149,7 +149,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("oViewGlobalModel"),
 					sSelectedKey = oEvent.getSource().getSelectedKey();
 				if (sSelectedKey === "UTIL1_18" || sSelectedKey === "UTIL1_19" || sSelectedKey === "UTIL1_16" || sSelectedKey === "UTIL1_17" ||
-					sSelectedKey === "UTIL1_10" || sSelectedKey === "UTIL1_20") {
+					sSelectedKey === "UTIL1_10") {
 					oViewModel.setProperty("/bAirFrameAndTAC", true);
 					oViewModel.setProperty("/bScheduleService", false);
 					oViewModel.setProperty("/bPhaseService", false);
@@ -157,12 +157,12 @@ sap.ui.define([
 					oViewModel.setProperty("/bAirFrameAndTAC", false);
 					oViewModel.setProperty("/bDate", true);
 					oViewModel.setProperty("/bPhaseService", false);
-				} else if (sSelectedKey === "Next Phase Servicing") {
+				} else if (sSelectedKey === "UTIL1_20") {
 					oViewModel.setProperty("/bAirFrameAndTAC", false);
 					oViewModel.setProperty("/bScheduleService", false);
 					oViewModel.setProperty("/bPhaseService", true);
 				}
-				
+
 				if (sSelectedKey.length > 0) {
 					if (this.oObject && this.oObject[sSelectedKey] && this.oObject[sSelectedKey].VALUE) {
 						var minVal = parseFloat(this.oObject[sSelectedKey].VALUE, [10]);
@@ -351,7 +351,6 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
 		_fnGetUtilisationDefaultValue: function(sAir) {
 			try {
 				var oPrmJobDue = {};
@@ -569,10 +568,23 @@ sap.ui.define([
 					"ADDRemark": ""
 				});
 				this.getView().setModel(oModel, "oViewModel");
+				var oModelSS = dataUtil.createNewJsonModel();
+				oModelSS.setData({
+					"key": "150",
+					"Text": "150 hrly servicing"
+				}, {
+					"key": "200",
+					"Text": "200 hrly servicing"
+				}, {
+					"key": "250",
+					"Text": "250 hrly servicing"
+				});
+				this.getView().setModel(oModelSS, "ScheSerModel");
 				this._fnADDCountGet();
 
 				this._fnReasonforADDGet();
 				this._fnUtilizationGet();
+				this._fnUtilization2Get();
 				this._fnGetUtilisationDefaultValue(sAirId);
 				this._fnPerioOfDeferCBGet();
 			} catch (e) {

@@ -132,13 +132,10 @@
 									visible="{= ${oViewModel>/bAirFrameAndTAC} &amp;&amp; ${oViewGlobalModel>/UTIL1} !== null ? true : false}"
 									required="{oViewModel>/bAirFrameAndTAC}"
 									displayValuePrecision="{ path:'oViewGlobalModel>/UTIL1' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
-								<ComboBox width="200px" items="{Utilization2CBModel>/}" visible="{oViewModel>/bScheduleService}" selectedKey="{oViewGlobalModel>/UTIL2}"
-									fieldGroupIds="fgCmbBox" required="{oViewModel>/bScheduleService}">
+								<Select width="200px" forceSelection="false" items="{Utilization2CBModel>/}" fieldGroupIds="fgCmbBox"
+									selectedKey="{oViewGlobalModel>/UTIL2}" required="{oViewModel>/bPhaseService}" visible="{oViewModel>/bPhaseService}">
 									<core:Item text="{Utilization2CBModel>description}" key="{Utilization2CBModel>ddid}"/>
-									<!--<core:Item text="150 hrly servicing" key="150 hrly servicing"/>
-									<core:Item text="200 hrly servicing" key="200 hrly servicing"/>
-									<core:Item text="250 hrly servicing" key="250 hrly servicingg"/>-->
-								</ComboBox>
+								</Select>
 								<DatePicker
 									value="{path: 'oViewGlobalModel>/UTILDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 									width="200px" fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}" visible="{oViewModel>/bDate}"/>
