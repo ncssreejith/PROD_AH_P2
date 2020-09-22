@@ -2269,6 +2269,7 @@ sap.ui.define([
 						}
 						if (oData.results[0].fstat === 'A') {
 							oViewModel.setProperty("/FairEditFlag", false);
+							oSummaryModel.setProperty("/FAIRStatusText", "ACTIVATED");
 							oSummaryModel.setProperty("/FAIRStatus", "Error");
 						} else if (oData.results[0].fstat === 'R') {
 							oViewModel.setProperty("/FairEditFlag", true);
@@ -2293,7 +2294,9 @@ sap.ui.define([
 						oModel.setData(oData.results[0]);
 						that.getView().setModel(oModel, "JobModel");
 					}
-					that._fnTailStatusGet(that.getTailId());
+					//that._fnTailStatusGet(that.getTailId());
+					oViewModel.refresh(true);
+					oSummaryModel.refresh(true);
 					that.fnLoadSrv1Dashboard();
 					that._fnTaskStatusGet(sJobId);
 				}.bind(this);
