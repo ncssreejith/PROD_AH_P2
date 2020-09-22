@@ -6,7 +6,7 @@
 				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
 					<items>
 						<Text class="PDSFragTitle" text="{i18n>flctask}"/>
-					<Button text="Reviewed" type="Emphasized" enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
+					<Button text="{path:'pdsSummaryModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized" enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
 					</items>
 				</FlexBox>
 				<core:Fragment fragmentName="avmet.ah.view.ah.fs.pdsic.flctask.replenishment.Replenishment" type="XML"/>

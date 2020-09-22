@@ -7,7 +7,7 @@
 				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
 					<items>
 						<Text class="PDSFragTitle" text="Weapon Configuration"/>
-					<Button text="Reviewed" type="Emphasized" enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
+					<Button text="{path:'pdsSummaryModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized" enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
 					</items>
 				</FlexBox>
 				<HBox>
@@ -19,10 +19,10 @@
 							<Title text="Stations"/>
 							<l:Grid>
 								<FlexBox wrap="Wrap"
-									items="{path:'pdsSummaryModel>stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'},{path:'ADPID',operator:'NE',value1:''}]}">
+									items="{path:'pdsSummaryModel>stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'}]}">
 									<items>
 										<cc:Station1 title="{= (${pdsSummaryModel>WEDESC}===null || ${pdsSummaryModel>WEDESC}==='')? ${pdsSummaryModel>ADPDESC}:${pdsSummaryModel>WEDESC}}"
-											subTitle="{pdsSummaryModel>LTXT}" footerLeftInfo="{= (${pdsSummaryModel>TOTQTY}===0 || ${pdsSummaryModel>TOTQTY}===null)?'':'Qty '+${pdsSummaryModel>TOTQTY}}"  footerRightInfo="{= (${pdsSummaryModel>ISSER}==='X' || ${pdsSummaryModel>SERNR}!==null)?'View S/N':''}"
+											subTitle="{pdsSummaryModel>LTXT}" footerLeftInfo="{parts:['pdsSummaryModel>TOTQTY','pdsSummaryModel>SERNR'],formatter:'.formatter.wcQuanty'}"  footerRightInfo="{= (${pdsSummaryModel>ISSER}==='X' || ${pdsSummaryModel>SERNR}!==null)?'View S/N':''}"
 											class=" sapUiTinyMargin" fireSerialPress="onSerialNoPress">
 											<core:Icon src="sap-icon://write-new-document" color="#0a6cd6"/>
 											<core:Icon src="sap-icon://broken-link" visible="{= ${pdsSummaryModel>CONECT}!=='N'}"

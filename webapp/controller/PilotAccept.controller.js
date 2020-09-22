@@ -20,6 +20,21 @@ sap.ui.define([
 					"enableSign": true,
 					"addViewSel": "DEA_T",
 					"masterList": [],
+					"srvable": "AST_US",
+					"yn": [{
+						"text": "Yes",
+						"key": "Y"
+					}, {
+						"text": "No",
+						"key": "N"
+					}],
+					"srvStates": [{
+						"text": "Serviceable (S)",
+						"key": "AST_S"
+					}, {
+						"text": "Unserviceable (US)",
+						"key": "AST_US"
+					}],
 					"confirm": {
 						"signOffOption": [],
 						"selSignOff": {},
@@ -27,6 +42,22 @@ sap.ui.define([
 						"chk2": false,
 						"sgEnable": false
 					},
+					"defects": [{
+						"tailid": "",
+						"jobid": null,
+						"fr_no": null,
+						"sgusr": null,
+						"astid": "AST_US",
+						"fair": "N",
+						"srvtid": "",
+						"stepid": "",
+						"jobdesc": null,
+						"fstat": null,
+						"jobty": "",
+						"jstat": "",
+						"symbol": "",
+						"purpose": ""
+					}],
 					"defectArea": [{
 						"key": "DEA_T",
 						"text": "Top",
@@ -61,12 +92,12 @@ sap.ui.define([
 			}
 		},
 		onJobDueUpdateFinished: function(oEvent) {
-			if (oEvent.getSource().getBindingContext("paModel")) {
-				var oCount = oEvent.getSource().getItems().length;
-				var sPath = oEvent.getSource().getBindingContext("paModel").getPath();
-				this.getModel("paModel").setProperty(sPath.replace("data", "") + "count", oCount);
-				this.getModel("paModel").refresh();
-			}
+			// if (oEvent.getSource().getBindingContext("paModel")) {
+			// 	var oCount = oEvent.getSource().getItems().length;
+			// 	var sPath = oEvent.getSource().getBindingContext("paModel").getPath();
+			// 	this.getModel("paModel").setProperty(sPath.replace("data", "") + "count", oCount);
+			// 	this.getModel("paModel").refresh();
+			// }
 		},
 		onClickSortieDetails: function(oEvent) {
 			try {
@@ -127,7 +158,52 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-		onPresSignOff: function() {
+		onAddDefectPress: function(oEvent) {
+			try {
+				var oItems = {
+					"tailid": this.getTailId(),
+					"jobid": null,
+					"fr_no": null,
+					"sgusr": null,
+					"astid": null,
+					"fair": "N",
+					"srvtid": this.getModel("paModel").getProperty("/srvtid"),
+					"stepid": this.getModel("paModel").getProperty("/stepid"),
+					"jobdesc": null,
+					"fstat": null,
+					"jobty": "",
+					"jstat": "",
+					"symbol": "",
+					"purpose": ""
+				};
+				this.getModel("paModel").getProperty("/defects").push(oItems);
+				this.getModel("paModel").refresh();
+			} catch (e) {
+				Log.error("Exception in PilotAccept:onAddDefectPress function");
+				this.handleException(e);
+			}
+		},
+		onDeleteDefectPress: function(oEvent) {
+			try {
+				var oIndex = oEvent.getSource().getBindingContext("paModel").getPath().split("/")[2];
+				this.getModel("paModel").getProperty("/defects").splice(oIndex, 1);
+				this.getModel("paModel").refresh(true);
+			} catch (e) {
+				Log.error("Exception in PilotAccept:onDeleteDefectPress function");
+				this.handleException(e);
+			}
+		},
+
+		onRejectPress: function(oEvent) {
+			this.openDialog("PARejectDefectDialog", ".fragments.fs.pilot.");
+		},
+		onPARejctDefectDialogClose: function() {
+			this.closeDialog("PARejectDefectDialog");
+		},
+		onPARejctDefectDialogReject: function(oEvent) {
+			this.onPressSignOffConfirm(oEvent, "R");
+		},
+		onPresSignOff: function(oEvent) {
 			try {
 				var sNextIndex = -1;
 				var oList = this.getModel("paModel").getProperty("/masterList");
@@ -141,7 +217,7 @@ sap.ui.define([
 					this._fnNavToDetail("/masterList/" + sNextIndex);
 					return;
 				}
-				this.onPressSignOffConfirm();
+				this.onPressSignOffConfirm(oEvent);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -224,7 +300,8 @@ sap.ui.define([
 			try {
 				var oStation = oEvent.getParameter("oSource").getParent().getBindingContext("paModel").getObject();
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID+" and ADPID eq "+oStation.ADPID;
+				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID +
+					" and ADPID eq " + oStation.ADPID;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("paModel").setProperty("/srnos", oData.results);
@@ -605,7 +682,7 @@ sap.ui.define([
 			}
 		},
 
-		onPressSignOffConfirm: function(oEvent) {
+		onPressSignOffConfirm: function(oEvent, sign) {
 			try {
 
 				var oSignOffPayload = {
@@ -626,7 +703,7 @@ sap.ui.define([
 					stepid: this.getModel("paModel").getProperty("/stepid"),
 					tileid: null,
 					sgusr: "test",
-					sign: "X",
+					sign: sign === undefined ? "X" : sign,
 					T1_SORTIE: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T1_SORTIE") + "/data/reviewd") ? 1 : 0,
 					T1_MCARD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T1_MCARD") + "/data/reviewd") ? 1 : 0,
 					T2_PAPR: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T2_PAPR") + "/data/reviewd") ? 1 : 0,
@@ -649,13 +726,38 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					this.closeDialog("FitForFlightSignOff");
+					if (sign === "R") {
+						this.fnCreateDefect();
+						return;
+					}
 					this.onNavBack();
 				}.bind(this);
 				oParameter.activity = 4;
 				ajaxutil.fnCreate("/PilotAcceptanceSvc", oParameter, [oSignOffPayload], "ZRM_FS_PA", this);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
+			}
+		},
+		fnCreateDefect: function() {
+			try {
+				var oPayloads = this.getModel("paModel").getProperty("/defects");
+				if (oPayloads.length === 0) {
+					return;
+				}
+				oPayloads.forEach(function(oItem) {
+					oItem.astid = this.getModel("paModel").getProperty("/srvable");
+					oItem.fair = oItem.astid === "AST_S" ? "N" : oItem.fair;
+				}.bind(this));
+				var oParameter = {};
+				oParameter.error = function() {};
+				oParameter.success = function() {
+					this.closeDialog("PARejectDefectDialog");
+					this.onNavBack();
+				}.bind(this);
+				ajaxutil.fnCreate("/PilotDefectF16Svc", oParameter, oPayloads);
+			} catch (e) {
+				Log.error("Exception in PilotUpdate:fnCreateDefect function");
+				this.handleException(e);
 			}
 		},
 		_fnGetIndexById: function(sId) {

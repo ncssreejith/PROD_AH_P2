@@ -101,7 +101,7 @@ sap.ui.define([
 			try {
 				var oModel = this.getView().getModel("oPilotUpdatesViewModel");
 				this.getOwnerComponent().setModel(oModel, "oPilotUpdatesViewModel");
-				this.getRouter().navTo("Limitations");
+				this.getRouter().navTo("Limitations",true);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -115,9 +115,13 @@ sap.ui.define([
 					"fr_no": null,
 					"sgusr": null,
 					"astid": null,
+					"jobty":"",
+					"jstat":"",
+					"symbol":"",
+					"purpose":"",
 					"fair": "N",
 					"srvtid": this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid"),
-					"stepid": this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid"),
+					"stepid": this.getModel("oPilotUpdatesViewModel").getProperty("/stepid"),
 					"jobdesc": null,
 					"fstat": null
 				};
@@ -774,6 +778,10 @@ sap.ui.define([
 					"fr_no": null,
 					"sgusr": null,
 					"astid": null,
+					"jobty":"",
+					"jstat":"",
+					"symbol":"",
+					"purpose":"",
 					"fair": "N",
 					"srvtid": oPayload.srvtid,
 					"stepid": oPayload.stepid,

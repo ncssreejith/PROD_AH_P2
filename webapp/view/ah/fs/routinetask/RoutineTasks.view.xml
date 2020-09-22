@@ -4,7 +4,7 @@
 		enableScrolling="true" busy="{viewModel>/busy}" busyIndicatorDelay="{viewModel>/delay}" navButtonPress="onNavBack">
 		<!--<Text text="Routine Tasks ({path : 'oReplModel>/srvtid', formatter : '.formatter.srvLbl'})" />-->
 		<headerContent>
-			<Button text="Completed Tasks" type="Transparent" class="btnClass" press="onCompleteTaskPress"/>
+			<Button text="Completed Tasks " type="Transparent" enabled="{= ${rtModel>/tasks/0/APR_NO}!==0}" class="btnClass" press="onCompleteTaskPress"/>
 		</headerContent>
 		<content>
 			<Wizard id="wizard" showNextButton="false" class="wizardTilteHide sapUiResponsivePadding--header sapUiResponsivePadding--content"

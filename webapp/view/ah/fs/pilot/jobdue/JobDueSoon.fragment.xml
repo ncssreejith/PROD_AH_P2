@@ -6,19 +6,21 @@
 				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
 					<items>
 						<Text class="PDSFragTitle" text="Jobs Due Soon"/>
-						<Button text="Reviewed" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
+						<Button text="{= !${paModel>reviewd}?'To be reviewed':'Reviewed'}" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
 					</items>
 				</FlexBox>
-				<!--getBindingContext("paModel")-->
+				<!--, -->
+				<!--	filters: [{-->
+				<!--	filters:[-->
+				<!--		{filters:[{path: 'DUEIN',operator: 'LE',value1: '5'},{path: 'UM',operator: 'EQ',value1: 'DAYS'}],and:true},-->
+				<!--		{filters:[{path: 'DUEIN',operator: 'LE',value1: '10'},{path: 'UM',operator: 'NE',value1: 'DAYS'}],and:true}-->
+				<!--	],and:false-->
+				<!--	}],-->
+				<!--getBindingContext("paModel") sorter:{path:'DUEIN'}-->
 				<!--,filters:[{path:'DUEIN',operator:'LE',value1:'5'},{path:'UM',operator:'EQ',value1:'DAYS'}]-->
+				
 				<Table class="sapUiResponsivePadding CERTable sapUiSizeCompact"
-					items="{path:'paModel>dueJobs', 
-					filters: [{
-					filters:[
-						{filters:[{path: 'DUEIN',operator: 'LE',value1: '5'},{path: 'UM',operator: 'EQ',value1: 'DAYS'}],and:true},
-						{filters:[{path: 'DUEIN',operator: 'LE',value1: '10'},{path: 'UM',operator: 'NE',value1: 'DAYS'}],and:true}
-					],and:false
-					}], sorter:{path:'DUEIN'}}"
+					items="{path:'paModel>dueJobs',sorter:{path:'DUEIN'}}"
 					updateFinished="onJobDueUpdateFinished">
 					<columns>
 						<Column width="10%" hAlign="Center" class="CERTableTextColor">
@@ -61,7 +63,7 @@
 		<footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button text="Back" press="onNavBack"/>
+				<Button text="Back" press="onNavBack"/> 				<Button text="Reject" type="Reject" press="onRejectPress"/>
 				<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
 			</OverflowToolbar>
 		</footer>

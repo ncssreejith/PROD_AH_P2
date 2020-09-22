@@ -7,7 +7,7 @@
 				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
 					<items>
 						<Text class="PDSFragTitle" text="Weapon Configuration"/>
-					<Button text="Reviewed" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
+					<Button text="{path:'paModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
 					</items>
 				</FlexBox>
 				<HBox>
@@ -19,10 +19,10 @@
 							<Title text="Stations"/>
 							<l:Grid>
 								<FlexBox wrap="Wrap"
-									items="{path:'paModel>stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'},{path:'ADPID',operator:'NE',value1:''}]}">
+									items="{path:'paModel>stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'}]}">
 									<items>
 										<cc:Station1 title="{= (${paModel>WEDESC}===null || ${paModel>WEDESC}==='')? ${paModel>ADPDESC}:${paModel>WEDESC}}"
-											subTitle="{paModel>LTXT}" footerLeftInfo="{= (${paModel>TOTQTY}===0 || ${paModel>TOTQTY}===null)?'':'Qty '+${paModel>TOTQTY}}"  footerRightInfo="{= (${paModel>ISSER}==='X' || ${paModel>SERNR}!==null)?'View S/N':''}"
+											subTitle="{paModel>LTXT}" footerLeftInfo="{parts:['paModel>TOTQTY','paModel>SERNR'],formatter:'.formatter.wcQuanty'}"  footerRightInfo="{= (${paModel>ISSER}==='X' || ${paModel>SERNR}!==null)?'View S/N':''}"
 											class=" sapUiTinyMargin" fireSerialPress="onSerialNoPress">
 											<core:Icon src="sap-icon://write-new-document" color="#0a6cd6"/>
 											<core:Icon src="sap-icon://broken-link" visible="{= ${paModel>CONECT}!=='N'}"
@@ -50,6 +50,7 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<Button text="Back" press="onNavBack"/>
+				<Button text="Reject" type="Reject" press="onRejectPress"/>
 				<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
 			</OverflowToolbar>
 		</footer>

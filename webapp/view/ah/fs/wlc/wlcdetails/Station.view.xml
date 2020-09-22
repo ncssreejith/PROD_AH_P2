@@ -48,8 +48,11 @@
 							<!--<VBox items="{configModel>/selStn/adapter}">-->
 							<!--	<GenericTile class="topTile txtAlginHeadeCenter" header="{configModel>ADPDESC}" subheader="S/N {configModel>SERNR}"  frameType="TwoByOne" ></GenericTile>-->
 							<!--</VBox>-->
-							<GenericTile class="topTile txtAlginHeadeCenter" header="{configModel>/selStn/adapter/1/ADPDESC}" frameType="TwoByOne"></GenericTile>
-							<GenericTile class="topTile txtAlginHeadeCenter sapUiSmallMarginTop" header="{configModel>/selStn/adapter/0/ADPDESC}" frameType="TwoByOne"></GenericTile>
+								<GenericTile class="topTile txtAlginHeadeCenter" header="{configModel>/selStn/adapter/1/ADPDESC}&#xA;{configModel>/selStn/adapter/1/SERNR}" frameType="TwoByOne"></GenericTile>
+							<GenericTile class="topTile txtAlginHeadeCenter sapUiSmallMarginTop" header="{configModel>/selStn/adapter/0/ADPDESC}&#xA;{configModel>/selStn/adapter/0/SERNR}" frameType="TwoByOne"></GenericTile>
+						
+							<!--<GenericTile class="topTile txtAlginHeadeCenter" header="{configModel>/selStn/adapter/1/ADPDESC}" frameType="TwoByOne"></GenericTile>-->
+							<!--<GenericTile class="topTile txtAlginHeadeCenter sapUiSmallMarginTop" header="{configModel>/selStn/adapter/0/ADPDESC}" frameType="TwoByOne"></GenericTile>-->
 							<si:StatusIndicator width="3rem" height="3rem" value="{= ${configModel>/selStn/selADP/selWpn/CONECT}==='C'?100:0}">
 								<si:ShapeGroup>
 									<si:LibraryShape shapeId="arrow_up"/>
