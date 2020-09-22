@@ -579,6 +579,25 @@ sap.ui.define([
 		},
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
+		
+			wcQuanty: function(TOTQTY,SERNR) {
+			if(TOTQTY){
+				return "Qty "+TOTQTY; 
+			}
+			if(SERNR){
+				return "Qty "+1; 
+			}
+			return "Qty "+0; 
+		},
+		jdsDueInFormat: function(duein, uom) {
+			if (!duein || !uom) {
+				return 0;
+			}
+			if (uom === "AFH" || uom==="EOT") {
+				return parseFloat(duein);
+			}
+			return parseInt(duein);
+		},
 		sortieMonitoringFormat: function(sValue, sKey) {
 			if (sValue && sKey) {
 				var temp = null;
