@@ -493,6 +493,13 @@
 					]
 				},
 				{
+					"pattern": "ReleaseForRectification",
+					"name": "ReleaseForRectification",
+					"target": [
+						"ReleaseForRectification"
+					]
+				},
+				{
 					"pattern": "CreateFlightService",
 					"name": "CreateFlightService",
 					"target": [
@@ -950,7 +957,7 @@
 					"transition": "slide",
 					"clearControlAggregation": false,
 					"viewId": "updateflightservicing",
-					"viewName": "UpdateFlightServicing"
+					"viewName": "ah/fs/UpdateFlightServicing"
 				},
 				"CTCloseTask": {
 					"controlId": "nvMainContainerId",
@@ -1083,12 +1090,22 @@
 					"viewLevel": 2,
 					"title": "{i18n>dashboard}"
 				},
+				"ReleaseForRectification": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ah/ReleaseForRectification",
+					"viewId": "ReleaseForRectification",
+					"viewLevel": 2,
+					"title": "{i18n>muReleaseforRectification}"
+				},
 				"CreateFlightService": {
 					"controlId": "nvMainContainerId",
 					"controlAggregation": "pages",
 					"parent": "TargetHome",
 					"viewType": "XML",
-					"viewName": "CreateFlightServicing",
+					"viewName": "ah/fs/CreateFlightServicing",
 					"viewId": "CreateFlightServicing",
 					"viewLevel": 2,
 					"title": "{i18n>creatingFlightServicing}"

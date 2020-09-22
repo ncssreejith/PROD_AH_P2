@@ -1,9 +1,9 @@
 <mvc:View controllerName="avmet.ah.controller.UpdateFlightServicing" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
 	xmlns:core="sap.ui.core" displayBlock="true" xmlns="sap.m" xmlns:ct="avmet.ah.control">
-	<Page id="page" title="Update Flight Servicing ({oUpdateFlightModel>/sPageTitle})" showNavButton="true" enableScrolling="true"
+	<Page title="Update Flight Servicing ({oUpdateFlightModel>/sPageTitle})" showNavButton="true" enableScrolling="true"
 		navButtonPress="onNavBack">
 		<content>
-			<l:VerticalLayout class="sapUiMediumMargin backgroundBlue" width="95%">
+			<l:VerticalLayout class="sapUiSmallMargin backgroundBlue">
 				<l:content>
 					<Toolbar>
 						<Title text="Select Tasks"></Title>
