@@ -534,6 +534,7 @@ sap.ui.define([
 		onLogoffPress: function(oEvent) {
 			try {
 				dataUtil.setDataSet("oUserSession", null);
+				dataUtil.setDataSet(this.getOwnerComponent().appModel, null);
 				sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
 			} catch (e) {
 				Log.error("Exception in onLogoffPress function");
