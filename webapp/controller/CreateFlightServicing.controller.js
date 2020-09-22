@@ -37,21 +37,21 @@ sap.ui.define([
 				var sSubId = oEvent.getSource().getBindingContext("oCreatFlightSerModel").getObject().subid;
 				this.getRouter().navTo("UpdateFlightServicing", {
 					srvid: sSubId
-				});
+				},false);
 			} catch (e) {
 				Log.error("Exception in onFlightServiceTilePress function");
 				this.handleException(e);
 			}
 		},
 
-		onNavBack: function() {
-			try {
-				this.getOwnerComponent().getRouter().navTo("DashboardInitial");
-			} catch (e) {
-				Log.error("Exception in onNavBack function");
-				this.handleException(e);
-			}
-		},
+		// onNavBack: function() {
+		// 	try {
+		// 		this.getOwnerComponent().getRouter().navTo("DashboardInitial");
+		// 	} catch (e) {
+		// 		Log.error("Exception in onNavBack function");
+		// 		this.handleException(e);
+		// 	}
+		// },
 
 		onCardHover: function(oEvent) {
 			try {

@@ -41,7 +41,7 @@ sap.ui.define([
 		//1. On click of Create Flight Servicing Button, navigates to that view.
 		onCreateFlightService: function() {
 			try {
-				this.getRouter().navTo("CreateFlightService");
+				this.getRouter().navTo("CreateFlightService", {}, false);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onCreateFlightService function");
 				this.handleException(e);

@@ -266,6 +266,7 @@ sap.ui.define([
 		 */
 		fnLoadSrv1Dashboard: function() {
 			try {
+				this.fnSaveHistory();
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
 				oParameter.error = function() {};
@@ -284,16 +285,38 @@ sap.ui.define([
 						this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
 						this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
 						this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
+						this.fnRestoreHistory();
 						this.getModel("menuModel").refresh();
 						this.getModel("avmetModel").refresh();
 					}
 				}.bind(this);
 				avmet.ah.util.ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
 			} catch (e) {
+				this.fnRestoreHistory();
 				Log.error("Exception in fnLoadSrv1Dashboard function");
 			}
 		},
-
+		/** 
+		 *  Save and clear history
+		 */
+		fnSaveHistory: function() {
+			this.aHistory = JSON.parse(JSON.stringify(sap.ui.core.routing.History.getInstance().aHistory));
+			sap.ui.core.routing.History.getInstance().aHistory = [];
+		},
+		/** 
+		 * Restore history and clear CreateFlightService if FS in progress
+		 */
+		fnRestoreHistory: function() {
+			if (this.aHistory) {
+				var oDash = this.getModel("avmetModel").getProperty("/dash");
+				this.aHistory.forEach(function(oHistory, i) {
+					if (oHistory.startsWith("CreateFlightService") && oDash.TBTN2 !== "X") {
+						this.aHistory.splice(i, 1);
+					}
+				});
+				sap.ui.core.routing.History.getInstance().aHistory = this.aHistory;
+			}
+		},
 		fnSetMenuVisible: function(oFlag, fnCallBack) {
 			var aMenu = this.getModel("menuModel").getData();
 			var oFound = {};
