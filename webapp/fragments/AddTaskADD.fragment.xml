@@ -87,8 +87,9 @@
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin">
 					<Label/>
-					<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" 
-					displayValuePrecision="{ path:'oViewGlobalModel>/UTIL1' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
+					<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" visible="{= ${oViewGlobalModel>/UTIL1} !== null ? true : false}"
+						min="{oViewGlobalModel>/UTILMinVL}" change="onStepChange"
+						displayValuePrecision="{ path:'oViewGlobalModel>/UTIL1' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 				</VBox>
 			</HBox>
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">

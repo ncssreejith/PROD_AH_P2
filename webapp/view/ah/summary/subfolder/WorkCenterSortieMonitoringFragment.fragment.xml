@@ -29,7 +29,7 @@
 					<Column width="7rem" hAlign="Center" class="CERTableTextColor">
 						<HBox>
 							<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SORDT')"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'timeVal')"/>
 						</HBox>
 					</Column>
 					<Column width="10rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
@@ -46,7 +46,7 @@
 					</Column>
 					<Column width="8rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 						<HBox>
-							<Label text="To be Monitorised For" design="Bold" wrapping="true"/>
+							<Label text="To be Monitored For" design="Bold" wrapping="true"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'MON_FORTXT')"/>
 						</HBox>
 					</Column>
@@ -76,8 +76,8 @@
 							</HBox>
 							<VBox>
 								<Text text="{SRMModel>SG1USR}"/>
-								<Text
-									text="{path:'SRMModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'SRMModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<!--<Text-->
+								<!--	text="{path:'SRMModel>SG1DTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'SRMModel>SG1UZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>-->
 							</VBox>
 							<Button icon="sap-icon://overflow" press="handlePressWorkCenterFragmentOpenMenu('SMT',$event)" type="Transparent"/>
 						</cells>

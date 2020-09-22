@@ -381,10 +381,21 @@ sap.ui.define([
 		onDueSelectChange: function(oEvent) {
 			try {
 				var sDue = oEvent.getSource().getSelectedKey();
-				var oAppModel = this.getView().getModel("appModel");
 				var oModel = this.getView().getModel("oViewCreateModel");
 				this.getView().byId("SchJobDueId").setVisible(true);
 				oModel.setProperty("/jduid", sDue);
+				if (sDue.length > 0) {
+					if (this.oObject && this.oObject[sDue] && this.oObject[sDue].VALUE) {
+						var minVal = parseFloat(this.oObject[sDue].VALUE, [10]);
+						oModel.setProperty("/minValue", minVal);
+						var sVal = oModel.getProperty("/jduvl") ? oModel.getProperty("/jduvl") : 0;
+						sVal = parseFloat(sVal, [10]);
+						var iPrec = formatter.JobDueDecimalPrecision(sDue);
+						oModel.setProperty("/jduvl", parseFloat(minVal, [10]).toFixed(iPrec));
+
+					}
+
+				}
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onDueSelectChange function");
@@ -615,7 +626,7 @@ sap.ui.define([
 				oPayload.JOBDESC = oJobModel.getProperty("/jobdesc");
 				oPayload.JOBTY = "ZA";
 				if (oJobModel.getProperty("/jduid") === 'JDU_10') {
-					oPayload.SERVDT = oJobModel.getProperty("/jduvl");
+					oPayload.SERVDT = oJobModel.getProperty("/jdudt");
 				} else {
 					oPayload.SERVDUE = oJobModel.getProperty("/jduvl");
 				}
@@ -845,6 +856,26 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDueGet function");
 				this.handleException(e);
+			}
+		},
+		_fnGetUtilisation: function(sAir) {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq JDU";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisation function");
 			}
 		},
 		_fnFoundDuringGet: function(sAirId) {
@@ -1229,6 +1260,7 @@ sap.ui.define([
 					this.getModel("oViewCreateModel").setProperty("/modid", sModId);
 				}
 				this._fnJobDueGet();
+				this._fnGetUtilisation(sAirId);
 				this._fnWorkCenterGet(sAirId);
 				this._fnFoundDuringGet(sAirId);
 			} catch (e) {

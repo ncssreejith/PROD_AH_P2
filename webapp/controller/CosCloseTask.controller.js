@@ -497,6 +497,18 @@ sap.ui.define([
 					oViewLimitModel.setProperty("/bScheduleService", false);
 					oViewLimitModel.setProperty("/bPhaseService", true);
 				}
+				if (sSelectedKey.length > 0) {
+					if (this.oObject && this.oObject[sSelectedKey] && this.oObject[sSelectedKey].VALUE) {
+						var minVal = parseFloat(this.oObject[sSelectedKey].VALUE, [10]);
+						oModel.setProperty("/UTILMinVL", minVal);
+						var sVal = oModel.getProperty("/UTILVL") ? oModel.getProperty("/UTILVL") : 0;
+						sVal = parseFloat(sVal, [10]);
+						var iPrec = formatter.JobDueDecimalPrecision(sSelectedKey);
+						oModel.setProperty("/UTILVL", parseFloat(minVal, [10]).toFixed(iPrec));
+
+					}
+
+				}
 				oModel.setProperty("/UTIL1", sSelectedKey);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onUilisationChange function");
@@ -725,6 +737,27 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnUtilizationGet function");
 				this.handleException(e);
+			}
+		},
+		
+		_fnGetUtilisationDefaultVal: function(sAir) {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisationDefaultVal function");
 			}
 		},
 
@@ -1065,6 +1098,7 @@ sap.ui.define([
 				this._fnTasksGet(oTempJB);
 				this._fnReasonforADDGet();
 				this._fnUtilizationGet();
+				this._fnGetUtilisationDefaultVal(sAirId);
 				this._fnPerioOfDeferCBGet();
 				//that._fnInitialLoad();
 			} catch (e) {

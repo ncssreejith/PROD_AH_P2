@@ -385,9 +385,15 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "JobModelAll");
+					if (oData && oData.results.length > 0) {
+						var oModel = dataUtil.createNewJsonModel();
+						var aData = oData.results;
+						for (var i in aData) {
+							aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
+						}
+						oModel.setData(aData);
+						that.getView().setModel(oModel, "JobModelAll");
+					}
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -406,9 +412,15 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "JobModelD");
+					if (oData && oData.results.length > 0) {
+						var oModel = dataUtil.createNewJsonModel();
+						var aData = oData.results;
+						for (var i in aData) {
+							aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
+						}
+						oModel.setData(aData);
+						that.getView().setModel(oModel, "JobModelD");
+					}
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -426,9 +438,15 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "JobModelS");
+					if (oData && oData.results.length > 0) {
+						var oModel = dataUtil.createNewJsonModel();
+						var aData = oData.results;
+						for (var i in aData) {
+							aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
+						}
+						oModel.setData(aData);
+						that.getView().setModel(oModel, "JobModelS");
+					}
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -446,9 +464,15 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "JobModelU");
+					if (oData && oData.results.length > 0) {
+						var oModel = dataUtil.createNewJsonModel();
+						var aData = oData.results;
+						for (var i in aData) {
+							aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
+						}
+						oModel.setData(aData);
+						that.getView().setModel(oModel, "JobModelU");
+					}
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -466,9 +490,16 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "JobModelC");
+					if (oData && oData.results.length > 0) {
+						var oModel = dataUtil.createNewJsonModel();
+						var aData = oData.results;
+						for (var i in aData) {
+							aData[i].createTimeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
+							aData[i].closeTimeVal = formatter.getTimeValueForDate(aData[i], "rectdt", "recttm");
+						}
+						oModel.setData(aData);
+						that.getView().setModel(oModel, "JobModelC");
+					}
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -487,7 +518,7 @@ sap.ui.define([
 
 				oPrmJobDue.success = function(oData) {
 					for (var i in oData.results) {
-						var iPrec = formatter.JobDueDecimalPrecision(oData.results[i].UMKEY);                         
+						var iPrec = formatter.JobDueDecimalPrecision(oData.results[i].UMKEY);
 						var iVal = parseFloat(oData.results[i].DUEIN).toFixed(iPrec);
 						oData.results[i].DUEIN = iVal;
 						iVal = parseFloat(oData.results[i].SERVDUE).toFixed(iPrec);
@@ -515,7 +546,7 @@ sap.ui.define([
 
 				oPrmJobDue.success = function(oData) {
 					for (var i in oData.results) {
-						var iPrec = formatter.JobDueDecimalPrecision(oData.results[i].UMKEY);                         
+						var iPrec = formatter.JobDueDecimalPrecision(oData.results[i].UMKEY);
 						var iVal = parseFloat(oData.results[i].DUEIN).toFixed(iPrec);
 						oData.results[i].DUEIN = iVal;
 						iVal = parseFloat(oData.results[i].SERVDUE).toFixed(iPrec);
@@ -542,7 +573,7 @@ sap.ui.define([
 
 				oPrmJobDue.success = function(oData) {
 					for (var i in oData.results) {
-						var iPrec = formatter.JobDueDecimalPrecision(oData.results[i].UMKEY);                         
+						var iPrec = formatter.JobDueDecimalPrecision(oData.results[i].UMKEY);
 						var iVal = parseFloat(oData.results[i].DUEIN).toFixed(iPrec);
 						oData.results[i].DUEIN = iVal;
 						iVal = parseFloat(oData.results[i].SERVDUE).toFixed(iPrec);
@@ -569,7 +600,7 @@ sap.ui.define([
 
 				oPrmJobDue.success = function(oData) {
 					for (var i in oData.results) {
-						var iPrec = formatter.JobDueDecimalPrecision(oData.results[i].UMKEY);                         
+						var iPrec = formatter.JobDueDecimalPrecision(oData.results[i].UMKEY);
 						var iVal = parseFloat(oData.results[i].DUEIN).toFixed(iPrec);
 						oData.results[i].DUEIN = iVal;
 						iVal = parseFloat(oData.results[i].SERVDUE).toFixed(iPrec);
@@ -596,7 +627,7 @@ sap.ui.define([
 
 				oPrmJobDue.success = function(oData) {
 					for (var i in oData.results) {
-						var iPrec = formatter.JobDueDecimalPrecision(oData.results[i].UMKEY);                         
+						var iPrec = formatter.JobDueDecimalPrecision(oData.results[i].UMKEY);
 						var iVal = parseFloat(oData.results[i].DUEIN).toFixed(iPrec);
 						oData.results[i].DUEIN = iVal;
 						iVal = parseFloat(oData.results[i].SERVDUE).toFixed(iPrec);

@@ -31,7 +31,7 @@
 					<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 						<HBox>
 							<Label text="Creation Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor sapUiTinyMarginTop" press="onSort($event,'credtm')"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor sapUiTinyMarginTop" press="onSort($event,'createTimeVal')"/>
 						</HBox>
 					</Column>
 					<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
@@ -43,7 +43,7 @@
 					<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 						<HBox>
 							<Label text="Closure Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor sapUiTinyMarginTop" press="onSort($event,'ftcredt')"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor sapUiTinyMarginTop" press="onSort($event,'closeTimeVal')"/>
 						</HBox>
 					</Column>
 					<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">

@@ -18,20 +18,17 @@
 						<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 					</ComboBox>
 					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin" visible="false">
-						<StepInput min="0"
-							fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_11' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? 'fgStepInput' : ''}"
+						<StepInput min="{oViewCreateModel>/minValue}"  change="onStepChange"
+							fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? 'fgStepInput' : ''}"
 							valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}"
-							visible="{=${oViewCreateModel>/jduid}!=='JDU_11' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10'}"
-							required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_11' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? true : false}"/>
-						<StepInput min="0"
-							fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_11' ? 'fgStepInput' : ''}"
-							valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}" visible="{=${oViewCreateModel>/jduid} ==='JDU_11'}"
-							displayValuePrecision="1" required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_11' ? true : false}"/>
+							visible="{=${oViewCreateModel>/jduid}!=='' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10'}"
+							required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? true : false}"
+							displayValuePrecision="{ path:'oViewCreateModel>/jduid' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 					</HBox>
 					<DatePicker width="13rem" required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10' ? true : false}"
 						fieldGroupIds="{=(${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10') ? 'fgDate' : ''}"
 						valueStateText="{i18n>ERROR_GENERIC}" visible="{=${oViewCreateModel>/jduid}==='JDU_10' ? true:false}"
-						value="{path: 'oViewCreateModel>/jduvl', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+						value="{path: 'oViewCreateModel>/jdudt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 						placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 				</HBox>
 			</VBox>

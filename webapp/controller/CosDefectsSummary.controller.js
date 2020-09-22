@@ -1989,8 +1989,12 @@ sap.ui.define([
 
 				oPrmTask.success = function(oData) {
 					var oModel = new JSONModel({});
-					oModel.setData(oData.results);
-					oLocalModel.setProperty("/OutstandingCount", oData.results.length);
+					var aData = oData.results;
+					for (var i in aData) {
+						aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
+					}
+					oModel.setData(aData);
+					oLocalModel.setProperty("/OutstandingCount", aData.length);
 					that.getView().setModel(oModel, "TaskOutModel");
 					this._fnTaskCount();
 				}.bind(this);
@@ -2013,8 +2017,13 @@ sap.ui.define([
 
 				oPrmTask.success = function(oData) {
 					var oModel = new JSONModel({});
-					oModel.setData(oData.results);
-					oLocalModel.setProperty("/PendingSupCount", oData.results.length);
+					var aData = oData.results;
+					for (var i in aData) {
+						aData[i].createTimeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
+						aData[i].closeTimeVal = formatter.getTimeValueForDate(aData[i], "ftcredt", "ftcretm");
+					}
+					oModel.setData(aData);
+					oLocalModel.setProperty("/PendingSupCount", aData.length);
 					that.getView().setModel(oModel, "TaskPendingModel");
 					this._fnTaskCount();
 				}.bind(this);
@@ -2037,8 +2046,13 @@ sap.ui.define([
 
 				oPrmTask.success = function(oData) {
 					var oModel = new JSONModel({});
-					oModel.setData(oData.results);
-					oLocalModel.setProperty("/CompleteCount", oData.results.length);
+					var aData = oData.results;
+					for (var i in aData) {
+						aData[i].createTimeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
+						aData[i].closeTimeVal = formatter.getTimeValueForDate(aData[i], "ftcredt", "ftcretm");
+					}
+					oModel.setData(aData);
+					oLocalModel.setProperty("/CompleteCount", aData.length);
 					that.getView().setModel(oModel, "TaskCompleteModel");
 				}.bind(this);
 
@@ -2060,7 +2074,11 @@ sap.ui.define([
 
 				oPrmFR.success = function(oData) {
 					var oModel = new JSONModel({});
-					oModel.setData(oData.results);
+					var aData = oData.results;
+					for (var i in aData) {
+						aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "FR_DT", "FR_TM");
+					}
+					oModel.setData(aData);
 					that.getView().setModel(oModel, "FRModel");
 					this._fnTaskCount();
 				}.bind(this);
@@ -2133,6 +2151,7 @@ sap.ui.define([
 							var temp = oData.results[i].SORCNT.split("@");
 							aData[i].SORCNT = temp[0];
 							aData[i].SORTEXT = temp[1];
+							aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "SORDT", "SORTM");
 						}
 
 						oModel.setData(aData);

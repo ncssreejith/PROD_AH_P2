@@ -65,7 +65,8 @@
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin">
 					<Label/>
-					<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" min="0"
+					<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}" visible="{= ${oViewGlobalModel>/UTIL1} !== null ? true : false}"
+						min="{oViewGlobalModel>/UTILMinVL}" change="onStepChange"
 						displayValuePrecision="{ path:'oViewGlobalModel>/UTIL1' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 				</VBox>
 			</HBox>

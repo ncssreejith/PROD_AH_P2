@@ -1470,7 +1470,24 @@ sap.ui.define([
 				return true;
 			}
 			return false;
+		},
+		
+		getTimeValueForDate: function(aData, datePath, timePath) {
+			if (aData && datePath && timePath && aData[datePath] && aData[timePath]) {
+				var obj = JSON.parse(JSON.stringify(aData));
+				var date = obj[datePath],
+					time = obj[timePath],
+					dateParts = date.split("-"),
+					timeParts = time.split(":");
+				var newDate = new Date(+dateParts[0], dateParts[1] - 1, +dateParts[2]);
+				newDate.setHours(timeParts[0]);
+				newDate.setMinutes(timeParts[1]);
+				newDate.setSeconds(timeParts[2].split(".")[0], [timeParts[2].split(".")[1]]);
+				return newDate.getTime();
+			}
+
 		}
+
 
 	};
 
