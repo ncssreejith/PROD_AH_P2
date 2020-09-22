@@ -2,12 +2,12 @@ sap.ui.define([
 	"../util/signoffUtil",
 	"sap/base/Log",
 	"../model/dataUtil"
-], function(signoffUtil, Log,dataUtil) {
+], function(signoffUtil, Log, dataUtil) {
 	"use strict";
 	return {
 		// http://localhost:58983/AVMET/avmetDB/AircraftModelSvc
+		//fnBasePath: "/DBSRV17/avmet",
 		fnBasePath: "/DBSRV17/avmetdb",
-		//fnBasePath: "",
 		fnCreate: function(sPath, oParameters, oPayLoad, oObjectId, ref) {
 			try {
 				if (oObjectId) {
@@ -32,10 +32,12 @@ sap.ui.define([
 				var oData = {};
 				oParameters = this.fnCheckForParameters(oParameters);
 				if (user) {
-					oData.beforeSend = this.fnEncryptDetails.bind(this,user);
+					oData.beforeSend = this.fnEncryptDetails.bind(this, user);
 				}
 				oData.type = "POST";
-				//oData.headers= {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="};
+				oData.headers = {
+					"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
+				};
 				oData.url = this.fnBasePath + "" + sPath;
 				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
@@ -66,26 +68,28 @@ sap.ui.define([
 					srvPayload.oParameters = oParameters;
 					srvPayload.oPayLoad = oPayLoad;
 					signoffUtil.onSignOffClk(oObjectId, oParameters.activity, ref, function(srPayload, user) {
-						this.fnUpdateDate(srPayload.sPath, srPayload.oParameters, srPayload.oPayLoad, user);
+						this.fnUpdateData(srPayload.sPath, srPayload.oParameters, srPayload.oPayLoad, user);
 					}.bind(this, srvPayload));
 					return;
 				}
-				this.fnUpdateDate(sPath, oParameters, oPayLoad);
+				this.fnUpdateData(sPath, oParameters, oPayLoad);
 			} catch (e) {
 				Log.error("Exception in fnUpdate function");
 			}
 		},
 
-		fnUpdateDate: function(sPath, oParameters, oPayLoad, user) {
+		fnUpdateData: function(sPath, oParameters, oPayLoad, user) {
 			try {
 				var oData = {};
 				oParameters = this.fnCheckForParameters(oParameters);
 				if (user) {
-					oData.beforeSend = this.fnEncryptDetails.bind(this,user);
+					oData.beforeSend = this.fnEncryptDetails.bind(this, user);
 				}
 
 				oData.type = "PUT";
-				//oData.headers= {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="};
+				oData.headers = {
+					"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
+				};
 				oData.url = this.fnBasePath + "" + sPath;
 				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
@@ -104,21 +108,53 @@ sap.ui.define([
 				};
 				$.ajax(oData);
 			} catch (e) {
-				Log.error("Exception in fnUpdateDate function");
+				Log.error("Exception in fnUpdateData function");
 			}
 		},
 
-		fnDelete: function(sPath, oParameters) {
+		fnDelete: function(sPath, oParameters, oObjectId, ref){
 			try {
+				if (oObjectId) {
+					var srvPayload = {};
+					srvPayload.sPath = sPath;
+					srvPayload.oParameters = oParameters;
+					signoffUtil.onSignOffClk(oObjectId, oParameters.activity, ref, function(srPayload, user) {
+						this.fnDeleteData(srPayload.sPath, srPayload.oParameters, user);
+					}.bind(this, srvPayload));
+					return;
+				}
+				this.fnDeleteData(sPath, oParameters);
+			} catch (e) {
+				Log.error("Exception in fnDelete function");
+			}
+		},
+
+		fnDeleteData: function(sPath, oParameters,user) {
+			try {
+				var oData = {};
 				oParameters = this.fnCheckForParameters(oParameters);
-				$.ajax({
-					type: 'DELETE',
-				//	headers: {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="},
-					url: this.fnBasePath + "" + sPath,
-					/*	dataType: "json",*/
-					error: oParameters.error.bind(this),
-					success: oParameters.success.bind(this)
-				});
+				if (user) {
+					oData.beforeSend = this.fnEncryptDetails.bind(this, user);
+				}
+				oData.type = "DELETE";
+				oData.headers = {
+					"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
+				};
+				oData.url = this.fnBasePath + "" + sPath;
+				oData.contentType = "application/json";
+				oData.error = function(hrex) {
+					if (signoffUtil) {
+						signoffUtil.onSignOffError(JSON.parse(hrex.responseText).sortmessage);
+					}
+					oParameters.error(hrex);
+				};
+				oData.success = function(oData) {
+					if (signoffUtil) {
+						signoffUtil.closeSignOff();
+					}
+					oParameters.success(oData);
+				};
+				$.ajax(oData);
 			} catch (e) {
 				Log.error("Exception in fnDelete function");
 			}
@@ -129,7 +165,9 @@ sap.ui.define([
 				oParameters = this.fnCheckForParameters(oParameters);
 				$.ajax({
 					type: 'GET',
-					//headers: {	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="},
+					headers: {
+						"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
+					},
 					url: this.fnBasePath + "" + sPath + "" + oParameters.queryParam,
 					error: oParameters.error.bind(this),
 					success: oParameters.success.bind(this)
@@ -172,7 +210,7 @@ sap.ui.define([
 			}
 		},
 
-		fnEncryptDetails: function(user,xhr) {
+		fnEncryptDetails: function(user, xhr) {
 			try {
 				xhr.setRequestHeader("uname", user.username);
 				xhr.setRequestHeader("pin", user.password);
@@ -268,6 +306,11 @@ sap.ui.define([
 				return roleObjModel;
 			} catch (e) {
 				Log.error("Exception in fnGetRoleObject function");
+			}
+		},
+		fnCloseSignOffDialog: function() {
+			if (signoffUtil) {
+				signoffUtil.closeSignOff();
 			}
 		}
 	};

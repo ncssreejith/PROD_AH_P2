@@ -6,7 +6,7 @@
 				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
 					<items>
 						<Text class="PDSFragTitle" text="Past 1 Month Defects"/>
-						<Button text="Reviewed" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
+						<Button text="{path:'paModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
 					</items>
 				</FlexBox>
 				<Table class="sapUiResponsivePadding CERTable sapUiSizeCompact" growing="true" growingThreshold="6" items="{paModel>pastDef}">
@@ -52,7 +52,7 @@
 		<footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button text="Back" press="onNavBack"/>
+				<Button text="Back" press="onNavBack"/> 				<Button text="Reject" type="Reject" press="onRejectPress"/>
 				<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
 			</OverflowToolbar>
 		</footer>

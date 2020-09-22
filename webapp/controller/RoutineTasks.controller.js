@@ -113,13 +113,13 @@ sap.ui.define([
 
 		onTimeChange: function(oEvent) {
 			var currentDate = new Date();
-			var selDate =this.getView().byId("dpToolChkId").getDateValue();
+			var selDate = this.getView().byId("dpToolChkId").getDateValue();
 			var sValue = oEvent.getSource().getDateValue();
 			sValue.setSeconds(selDate.getSeconds());
 			sValue.setDate(selDate.getDate());
 			sValue.setMonth(selDate.getMonth());
 			sValue.setFullYear(selDate.getFullYear());
-			if (sValue>currentDate) {
+			if (sValue > currentDate) {
 				var oData = {
 					messages: ["You can not select future time."]
 				};
@@ -132,9 +132,9 @@ sap.ui.define([
 
 				if (this.formatter.integerUnit(this.getModel("rtModel").getProperty("/tasks/0/APR_NO")) === 0) {
 					var isNotVaild = true;
-					this.getModel("rtModel").getProperty("/tasks").forEach(function(oItem){
-						if(oItem.DONE === "" || oItem.DONE === null){
-							isNotVaild= false;
+					this.getModel("rtModel").getProperty("/tasks").forEach(function(oItem) {
+						if (oItem.DONE === "" || oItem.DONE === null) {
+							isNotVaild = false;
 						}
 					});
 					if (!isNotVaild) {
@@ -176,7 +176,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					if(oData.results.length>0 && this.formatter.integerUnit(oData.results[0].APR_NO)>=3){
+					if (oData.results.length > 0 && this.formatter.integerUnit(oData.results[0].APR_NO) >= 3) {
 						this.onNavBack();
 					}
 					this._getRTTasks();
@@ -230,7 +230,7 @@ sap.ui.define([
 					var sCount = this.formatter.integerUnit((oData.results.length > 0 ? oData.results[0].APR_NO : 0));
 					this.getModel("rtModel").setProperty("/tasks", oData.results);
 					this.getModel("rtModel").setProperty("/sgEnable", sCount < 4 ? true : false);
-					this.getModel("rtModel").setProperty("/tasks/0/APR_NO", sCount > 3 ? 3:sCount);
+					this.getModel("rtModel").setProperty("/tasks/0/APR_NO", sCount > 3 ? 3 : sCount);
 					this.getModel("rtModel").refresh();
 
 					this.updateModel({
@@ -282,7 +282,9 @@ sap.ui.define([
 				var sStep = this.getModel("rtModel").getProperty("/tasks/0/APR_NO");
 				this.getView().byId("wizard").getSteps().forEach(function(oItem, sIndex) {
 					if (parseInt(sStep) >= sIndex) {
-						oItem._deactivate();
+						if (sIndex !== 0) {
+							oItem._deactivate();
+						}
 						if (parseInt(sStep) === sIndex) {
 							oItem._activate();
 							oItem.getParent().setCurrentStep(oItem);

@@ -5,7 +5,12 @@
 			<List mode="SingleSelectMaster" noDataText="No Data"
 				items="{path : 'paModel>/masterList',sorter:{path:'reftyp',descending:true,group:true}}"  selectionChange="onListItemPress">
 				<ObjectListItem icon="{paModel>Icon}" title="{paModel>ddesc}" selected="{= ${paModel>ddid}===${paModel>/selItem}}" type="{paModel>Type}"
-					number="{paModel>count}"></ObjectListItem>
+					number="{paModel>count}">
+					
+						<firstStatus>
+						<ObjectStatus text="{path: 'paModel>data/reviewd', formatter:'.formatter.reviewedStatusTxt'}"  state="{path: 'paModel>data/reviewd', formatter:'.formatter.reviewedStatus'}"/>
+					</firstStatus>
+				</ObjectListItem>
 			</List>
 		</content>
 		<footer>

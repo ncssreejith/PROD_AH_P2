@@ -393,21 +393,21 @@ sap.ui.define([
 				return false;
 			}
 		},
-		
-			taskContentVisibleTB: function(stTask1, stTask2, stTask3, stTask4) {
+
+		taskContentVisibleTB: function(stTask1, stTask2, stTask3, stTask4) {
 			if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
 						"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
 						stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
 						stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" &&
 						stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
-						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === null && stTask2 === null && stTask3 === null)  || (stTask1 === "TT1_16" && stTask3 === null) ||
+						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === null && stTask2 === null && stTask3 === null) || (stTask1 ===
+						"TT1_16" && stTask3 === null) ||
 					(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === '' || stTask4 === null)) {
 				return true;
 			} else {
 				return false;
 			}
 		},
-
 
 		taskContentVisible4: function(stTask1, stTask2, stTask3) {
 			if ((stTask1 === "TT1_10" && stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_14" && stTask3 === null) || (stTask1 ===
@@ -579,6 +579,40 @@ sap.ui.define([
 		},
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
+
+		reviewedStatus: function(sStatus) {
+			var sTxt = "None";
+			if (sStatus) {
+				sTxt = "Success";
+			}
+			return sTxt;
+		},
+		reviewedStatusTxt: function(sStatus) {
+			var sTxt = "To be reviewed";
+			if (sStatus) {
+				sTxt = "Reviewed";
+			}
+			return sTxt;
+		},
+
+		wcQuanty: function(TOTQTY, SERNR) {
+			if (TOTQTY) {
+				return "Qty " + TOTQTY;
+			}
+			if (SERNR) {
+				return "Qty " + 1;
+			}
+			return "Qty " + 0;
+		},
+		jdsDueInFormat: function(duein, uom) {
+			if (!duein || !uom) {
+				return 0;
+			}
+			if (uom === "AFH" || uom === "EOT") {
+				return parseFloat(duein);
+			}
+			return parseInt(duein);
+		},
 		sortieMonitoringFormat: function(sValue, sKey) {
 			if (sValue && sKey) {
 				var temp = null;
@@ -1397,10 +1431,10 @@ sap.ui.define([
 			var dateString = '' + year + '-' + month + '-' + date;
 			var timeString = creTm + ':00';
 			var crDtTime = new Date(dateString + ' ' + timeString);
-		var minDate = "";
+			var minDate = "";
 			if (prevDate) {
 				var dateParts = prevDate.split("-");
-				minDate =  new Date(+dateParts[0] , dateParts[1] - 1, +dateParts[2]);
+				minDate = new Date(+dateParts[0], dateParts[1] - 1, +dateParts[2]);
 				var timeParts = prevTime.split(":");
 				minDate.setHours(timeParts[0]);
 				minDate.setMinutes(timeParts[1]);
@@ -1428,9 +1462,9 @@ sap.ui.define([
 				return false;
 			}
 		},
-		
-		validDateTimeCloseTaskChecker : function (that, currDate, currTime, errorMessagePast, errorMessageFuture, prevDate, prevTime){
-				var maxDt = new Date(),
+
+		validDateTimeCloseTaskChecker: function(that, currDate, currTime, errorMessagePast, errorMessageFuture, prevDate, prevTime) {
+			var maxDt = new Date(),
 				creDt = new Date(currDate),
 				creTm = currTime,
 				date = creDt.getDate(),
@@ -1443,7 +1477,7 @@ sap.ui.define([
 			var minDate = "";
 			if (prevDate) {
 				var dateParts = prevDate.split("-");
-				minDate =  new Date(+dateParts[0] , dateParts[1] - 1, +dateParts[2]);
+				minDate = new Date(+dateParts[0], dateParts[1] - 1, +dateParts[2]);
 				var timeParts = prevTime.split(":");
 				minDate.setHours(timeParts[0]);
 				minDate.setMinutes(timeParts[1]);
@@ -1471,7 +1505,7 @@ sap.ui.define([
 			}
 			return false;
 		},
-		
+
 		getTimeValueForDate: function(aData, datePath, timePath) {
 			if (aData && datePath && timePath && aData[datePath] && aData[timePath]) {
 				var obj = JSON.parse(JSON.stringify(aData));
@@ -1487,7 +1521,6 @@ sap.ui.define([
 			}
 
 		}
-
 
 	};
 

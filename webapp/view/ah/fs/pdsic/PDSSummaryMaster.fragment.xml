@@ -3,9 +3,13 @@
 	<Page showHeader="true" showFooter="true" title="Certificate of serviceability" showNavButton="true" navButtonPress="onNavBack">
 		<content>
 			<List mode="SingleSelectMaster" noDataText="No Data"
-				items="{path : 'pdsSummaryModel>/masterList' , sorter : { path : 'sequence', descending: false}}"  selectionChange="onListItemPress">
-				<ObjectListItem icon="{pdsSummaryModel>Icon}" title="{pdsSummaryModel>ddesc}" selected="{= ${pdsSummaryModel>ddid}===${pdsSummaryModel>/selItem}}" type="{pdsSummaryModel>Type}"
-					number="{pdsSummaryModel>count}"></ObjectListItem>
+				items="{path : 'pdsSummaryModel>/masterList' , sorter : { path : 'sequence', descending: false}}" selectionChange="onListItemPress">
+				<ObjectListItem icon="{pdsSummaryModel>Icon}" title="{pdsSummaryModel>ddesc}"
+					selected="{= ${pdsSummaryModel>ddid}===${pdsSummaryModel>/selItem}}" type="{pdsSummaryModel>Type}" number="{pdsSummaryModel>count}">
+					<firstStatus>
+						<ObjectStatus text="{path: 'pdsSummaryModel>data/reviewd', formatter:'.formatter.reviewedStatusTxt'}"  state="{path: 'pdsSummaryModel>data/reviewd', formatter:'.formatter.reviewedStatus'}"/>
+					</firstStatus>
+				</ObjectListItem>
 			</List>
 		</content>
 		<footer>

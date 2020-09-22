@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Pilot Reject" contentWidth="70%">
+		<content>
+			<!--<List items="{paModel>/defects}" >-->
+			<!--	<CustomListItem class="sapUiSmallMarginTopBottom">-->
+			<!--		<HBox class="sapUiSmallMarginTop" width="100%">-->
+			<!--			<VBox class="sapUiSmallMarginBeginEnd">-->
+			<!--				<Label text="Defect write up" design="Bold"/>-->
+			<!--				<TextArea value="{paModel>jobdesc}" cols="100" rows="3" showExceededText="true" maxLength="100"/>-->
+			<!--			</VBox>-->
+			<!--			<VBox class="sapUiSmallMarginBeginEnd" width="50%">-->
+			<!--				<Label text="Is this a FAIR entry?" design="Bold"/>-->
+			<!--				<SegmentedButton selectedKey="{paModel>fair}" items="{path:'paModel>/yn',templateShareable:false}" >-->
+			<!--					<items>-->
+			<!--						<SegmentedButtonItem text="{paModel>text}" key="{paModel>key}" width="70%"/>-->
+			<!--					</items>-->
+			<!--				</SegmentedButton>-->
+			<!--			</VBox>-->
+			<!--		</HBox>-->
+			<!--	</CustomListItem>-->
+			<!--</List>-->
+			<OverflowToolbar class="sapUiMediumMarginBottomTop">
+				<SegmentedButton selectedKey="{paModel>/srvable}" items="{path:'paModel>/srvStates',templateShareable:false}">
+					<items>
+						<SegmentedButtonItem text="{paModel>text}" key="{paModel>key}"/>
+					</items>
+				</SegmentedButton>
+				<ToolbarSpacer/>
+				<Button text="Add" type="Emphasized" icon="sap-icon://add" visible="{= ${paModel>/srvable}==='AST_US'}" press="onAddDefectPress"/>
+			</OverflowToolbar>
+			<Table items="{paModel>/defects}" visible="{= ${paModel>/srvable}==='AST_US'}">
+				<columns>
+					<Column width="10%"><Text text="S/N"/></Column>
+					<Column width="50%"><Text text="Defect write up"/></Column>
+					<Column width="20%" demandPopin="true"><Text text="Is this a FAIR entry?"/></Column>
+					<Column width="10%" demandPopin="true"></Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{= ${paModel>/defects}.indexOf(${paModel>})+1}"/>
+							<TextArea class="sapUiSmallMarginTop" value="{paModel>jobdesc}" cols="100" rows="3" showExceededText="true" maxLength="1000"/>
+							<SegmentedButton selectedKey="{paModel>fair}" items="{path:'paModel>/yn',templateShareable:false}">
+								<items>
+									<SegmentedButtonItem text="{paModel>text}" key="{paModel>key}" width="70%"/>
+								</items>
+							</SegmentedButton>
+							<Button icon="sap-icon://delete" press="onDeleteDefectPress" visible="{= (${paModel>/defects}.indexOf(${paModel>})+1)!==1}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<beginButton>
+			<Button text="Close" type="Transparent" press="onPARejctDefectDialogClose"/>
+		</beginButton>
+		<endButton>
+			<Button text="Sign off" type="Emphasized" press="onPARejctDefectDialogReject"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
