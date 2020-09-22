@@ -2,7 +2,7 @@
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout">
 	<App>
 		<pages>
-			<Page title="WDNS Coefficients Record" navButtonPress="onNavBack" showNavButton="true">
+			<Page title="Harmonization Constant" navButtonPress="onNavBack" showNavButton="true">
 				<content>
 					<Toolbar>
 						<ToolbarSpacer/>

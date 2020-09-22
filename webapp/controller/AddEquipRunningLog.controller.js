@@ -192,6 +192,9 @@ sap.ui.define([
 							sReasonTxt = this.getResourceBundle().getText("txtUpdateALQ144");
 						}
 						break;
+					case "5":
+							sReasonTxt = "Others";
+						break;	
 				}
 				this.getModel("oAircraftAddModel").setProperty("/record/COL_18", sReasonTxt);
 				this.getModel("oAircraftAddModel").refresh();

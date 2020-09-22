@@ -1,6 +1,6 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.UpdateWDNSView"
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="WDNS Coefficients Records" navButtonPress="onNavBack" showNavButton="true">
+	<Page title="Harmonization Constant" navButtonPress="onNavBack" showNavButton="true">
 		<content>
 			<VBox class="sapUiSmallMargin">
 				<HBox>
