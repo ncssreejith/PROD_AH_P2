@@ -131,6 +131,8 @@ sap.ui.define([
 					sDue = oEvent.getSource().getSelectedItem().getText(),
 					oAppModel = this.getView().getModel("CapExtendSet");
 				if (sKey.length > 0) {
+					if(sKey!=="UTIL1_20")
+					{
 					oSrc.setValueState("None");
 					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
 						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
@@ -140,6 +142,9 @@ sap.ui.define([
 						var iPrec = formatter.JobDueDecimalPrecision(sKey);
 						oAppModel.setProperty("/UTILVL", parseFloat(minVal, [10]).toFixed(iPrec));
 
+					}
+					}else{
+						
 					}
 
 				}
@@ -325,6 +330,10 @@ sap.ui.define([
 				Log.error("Exception in onApproveRequest function");
 			}
 		},
+
+		/*	defaultUtil2FormatText: function(oEvent) {
+				var oModel = this.getView().getModel("");
+			},*/
 		//-------------------------------------------------------------
 		//  
 		//-------------------------------------------------------------
@@ -472,6 +481,34 @@ sap.ui.define([
 			}
 		},
 
+		//-------------------------------------------------------------
+		// 
+		//-------------------------------------------------------------
+		_fnUtilization2Get: function() {
+			try {
+
+				var that = this,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "airid eq " + this.getAircraftId() + " and ddid eq UTIL2_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData !== undefined && oData.results.length > 0) {
+						var oModel = dataUtil.createNewJsonModel();
+						oModel.setData(oData.results);
+						that.getView().setModel(oModel, "Utilization2CBModel");
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
+				this.handleException(e);
+			}
+		},
+
 		/* Function: onUpdateJob
 		 * Parameter: oEvent
 		 * Description: To Create new Job.
@@ -526,6 +563,7 @@ sap.ui.define([
 
 				oPrmAppr.success = function(oData) {
 					if (oData.results.length !== 0) {
+						this._fnUtilization2Get();
 						var oModel = dataUtil.createNewJsonModel();
 						that._fnCAPDataGet("O", oData.results[0].jobid, oData.results[0].capid);
 						oModel.setData(oData.results[0]);
@@ -797,7 +835,7 @@ sap.ui.define([
 							oData.results[0].EXPTM = formatter.defaultTimeFormatDisplay(oData.results[0].EXPTM);
 							oData.results[0].SUBUZT = new Date().getHours() + ":" + new Date().getMinutes();
 						}
-						if (oData.results[0].UTIL1) {
+						if (oData.results[0].UTIL1 !== "UTIL1_20") {
 							oViewModel.getData().UTILMINVL = parseFloat(this.oObject[oData.results[0].UTIL1].VALUE);
 						}
 						that.getView().setModel(oViewModel, "CapExtendSet");
@@ -969,6 +1007,7 @@ sap.ui.define([
 				this._fnReasonforADDGet(sAirId);
 				this._fnPerioOfDeferCBGet(sAirId);
 				this._fnUtilizationGet(sAirId);
+				this._fnUtilization2Get();
 				this._fnGetUtilisationDefaultValue(sAirId);
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");

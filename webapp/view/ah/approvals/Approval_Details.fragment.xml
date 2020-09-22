@@ -113,6 +113,8 @@
 											<Text text="{ApprovalDetailstModel>/UTILVL}" visible="{=${ApprovalDetailstModel>/UTILVL} !== null ? true : false}"/>
 											<Text text="{path:'ApprovalDetailstModel>/UTILDT', formatter:'.formatter.defaultDateFormatDisplay'}"
 												visible="{=${ApprovalDetailstModel>/UTILDT} !== null ? true : false}"/>
+<!--													<Text text="{path:'ApprovalDetailstModel>/UTIL2', formatter:'.defaultUtil2FormatText'}"
+												visible="{=${ApprovalDetailstModel>/UTIL2} !== null ? true : false}"/>-->
 										</HBox>
 										<layoutData>
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
