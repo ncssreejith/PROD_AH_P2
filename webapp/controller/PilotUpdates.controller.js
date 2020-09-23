@@ -769,9 +769,10 @@ sap.ui.define([
 					"endda": null,
 					"begda": null,
 					"egstt": currentTime.getHours() + ":" + currentTime.getMinutes(),
-					"egspt": currentTime.getHours() + ":" + currentTime.getMinutes(),
+					
 					"woffw": currentTime.getHours() + ":" + currentTime.getMinutes(),
-					"wonw": currentTime.getHours() + ":" + currentTime.getMinutes()
+					"wonw": currentTime.getHours() + ":" + currentTime.getMinutes(),
+					"egspt": currentTime.getHours() + ":" + currentTime.getMinutes()
 				}];
 				oPayload.defects = [{
 					"tailid": this.getTailId(),

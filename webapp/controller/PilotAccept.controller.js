@@ -15,68 +15,7 @@ sap.ui.define([
 		onInit: function() {
 			try {
 				this.getRouter().getRoute("PilotAccept").attachPatternMatched(this._onObjectMatched, this);
-				this.setModel(new JSONModel({
-					"selItem": "",
-					"enableSign": true,
-					"addViewSel": "DEA_T",
-					"masterList": [],
-					"srvable": "AST_US",
-					"yn": [{
-						"text": "Yes",
-						"key": "Y"
-					}, {
-						"text": "No",
-						"key": "N"
-					}],
-					"srvStates": [{
-						"text": "Serviceable (S)",
-						"key": "AST_S"
-					}, {
-						"text": "Unserviceable (US)",
-						"key": "AST_US"
-					}],
-					"confirm": {
-						"signOffOption": [],
-						"selSignOff": {},
-						"chk1": false,
-						"chk2": false,
-						"sgEnable": false
-					},
-					"defects": [{
-						"tailid": "",
-						"jobid": null,
-						"fr_no": null,
-						"sgusr": null,
-						"astid": "AST_US",
-						"fair": "N",
-						"srvtid": "",
-						"stepid": "",
-						"jobdesc": null,
-						"fstat": null,
-						"jobty": "",
-						"jstat": "",
-						"symbol": "",
-						"purpose": "",
-					"srvid":""
-					}],
-					"defectArea": [{
-						"key": "DEA_T",
-						"text": "Top",
-						"img": "AH-Top.png"
-					}, {
-						"key": "DEA_F",
-						"text": "Front",
-						"img": "AH-Front.png"
-					}, {
-						"key": "DEA_l",
-						"text": "Left",
-						"img": "AH-Left.png"
-					}, {
-						"key": "DEA_R",
-						"text": "Right",
-						"img": "AH-Right.png"
-					}]
-				}), "paModel");
+				this.setModel(new JSONModel({}), "paModel");
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -176,7 +115,7 @@ sap.ui.define([
 					"jstat": "",
 					"symbol": "",
 					"purpose": "",
-					"srvid":""
+					"srvid": ""
 				};
 				this.getModel("paModel").getProperty("/defects").push(oItems);
 				this.getModel("paModel").refresh();
@@ -267,13 +206,15 @@ sap.ui.define([
 		// ***************************************************************************
 		_onObjectMatched: function(oEvent) {
 			try {
+
 				this.getModel("paModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
-				this.getModel("paModel").setProperty("/enableSign", true);
 				this.getModel("paModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
-				this.getModel("paModel").setProperty("/masterList", []);
-				this.getModel("paModel").setProperty("/confirm/signOffOption", []);
-				this.getModel("paModel").setProperty("/confirm/chk1", false);
-				this.getModel("paModel").setProperty("/confirm/chk2", false);
+				// this.getModel("paModel").setProperty("/enableSign", true);
+				// this.getModel("paModel").setProperty("/masterList", []);
+				// this.getModel("paModel").setProperty("/confirm/signOffOption", []);
+				// this.getModel("paModel").setProperty("/confirm/chk1", false);
+				// this.getModel("paModel").setProperty("/confirm/chk2", false);
+				this.getModel("paModel").setData(this.fnCreateData());
 				this.getModel("paModel").refresh();
 				this._getPDSLists();
 			} catch (e) {
@@ -839,6 +780,74 @@ sap.ui.define([
 					ctx.fill();
 				}
 			});
+		},
+
+		fnCreateData: function() {
+			var oPayload = {
+				"srvtid": this.getModel("paModel").getProperty("/srvtid"),
+				"stepid": this.getModel("paModel").getProperty("/stepid"),
+				"selItem": "",
+				"enableSign": true,
+				"addViewSel": "DEA_T",
+				"masterList": [],
+				"srvable": "AST_US",
+				"yn": [{
+					"text": "Yes",
+					"key": "Y"
+				}, {
+					"text": "No",
+					"key": "N"
+				}],
+				"srvStates": [{
+					"text": "Serviceable (S)",
+					"key": "AST_S"
+				}, {
+					"text": "Unserviceable (US)",
+					"key": "AST_US"
+				}],
+				"confirm": {
+					"signOffOption": [],
+					"selSignOff": {},
+					"chk1": false,
+					"chk2": false,
+					"sgEnable": false
+				},
+				"defects": [{
+					"tailid": this.getTailId(),
+					"jobid": null,
+					"fr_no": null,
+					"sgusr": null,
+					"astid": "AST_US",
+					"fair": "N",
+					"srvtid": this.getModel("paModel").getProperty("/srvtid"),
+					"stepid": this.getModel("paModel").getProperty("/stepid"),
+					"jobdesc": null,
+					"fstat": null,
+					"jobty": "",
+					"jstat": "",
+					"symbol": "",
+					"purpose": "",
+					"srvid": ""
+				}],
+				"defectArea": [{
+					"key": "DEA_T",
+					"text": "Top",
+					"img": "AH-Top.png"
+				}, {
+					"key": "DEA_F",
+					"text": "Front",
+					"img": "AH-Front.png"
+				}, {
+					"key": "DEA_l",
+					"text": "Left",
+					"img": "AH-Left.png"
+				}, {
+					"key": "DEA_R",
+					"text": "Right",
+					"img": "AH-Right.png"
+				}]
+			};
+			return oPayload;
 		}
 
 	});

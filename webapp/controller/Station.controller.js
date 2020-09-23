@@ -395,7 +395,7 @@ sap.ui.define([
 					oPayload.ADPDESC = null;
 					oPayload.ISSER = null;
 					oPayload.SRVID = "";
-					oPayload.TOTQTY = parseInt(oItem.TOTQTY, 0);
+					oPayload.TOTQTY = isNaN(parseInt(oItem.TOTQTY, 0)) ? 0 : parseInt(oItem.TOTQTY, 0);
 					if (oItem.selADP && oItem.selADP.selWpn) {
 						oPayload.WEMDESC = oItem.selADP.selWpn.WEMDESC !== undefined ? oItem.selADP.selWpn.WEMDESC : "";
 						oPayload.WESDESC = oItem.selADP.selWpn.WESDESC !== undefined ? oItem.selADP.selWpn.WESDESC : "";
@@ -425,7 +425,7 @@ sap.ui.define([
 						// oPayload.TOTQTY = 0; //oItem.selADP.selWpn.qnt === undefined ? 0 : oItem.selADP.selWpn.qnt;
 					}
 
-					if (oPayload.STNMID === "STNM_O" && oPayload.TOTQTY > 0) {
+					if (oPayload.STNMID === "STNM_O" && (oPayload.TOTQTY >= 0 || oPayload.TOTQTY === "")) {
 						oPayloads.push(oPayload);
 					}
 					// oPayloads.push(oPayload);
