@@ -438,19 +438,28 @@ sap.ui.define([
 							}
 							break;
 						case "Transfer Job to ADD/ Limitation":
-							var oModelTemp = this.getView().getModel("JobModel");
-							var oADDTransferModel = [];
-							oADDTransferModel.push({
-								"JobDesc": oModelTemp.getProperty("/jobdesc"),
-								"JobId": oLocalModel.getProperty("/sJobId")
-							});
-							dataUtil.setDataSet("ADDTransferModel", oADDTransferModel);
+							if (oLocalModel.getProperty("/JobStatus")) {
+								var oModelTemp = this.getView().getModel("JobModel");
+								var oADDTransferModel = [];
+								oADDTransferModel.push({
+									"JobDesc": oModelTemp.getProperty("/jobdesc"),
+									"JobId": oLocalModel.getProperty("/sJobId")
+								});
+								dataUtil.setDataSet("ADDTransferModel", oADDTransferModel);
 
-							that.getRouter().navTo("RouteTransferToADD", {
-								"JobId": oLocalModel.getProperty("/sJobId"),
-								"FndBy": that.getView().getModel("JobModel").getProperty("/fndby"),
-								"FndId": that.getView().getModel("JobModel").getProperty("/fndid")
-							});
+								that.getRouter().navTo("RouteTransferToADD", {
+									"JobId": oLocalModel.getProperty("/sJobId"),
+									"FndBy": that.getView().getModel("JobModel").getProperty("/fndby"),
+									"FndId": that.getView().getModel("JobModel").getProperty("/fndid")
+								});
+							} else {
+								MessageBox.error(
+									"There are open task's under this job,so transfer to ADD/Limitation not allowed.", {
+										icon: sap.m.MessageBox.Icon.Error,
+										title: "Error",
+										styleClass: "sapUiSizeCompact"
+									});
+							}
 							break;
 						case "View History Log":
 							break;
@@ -2615,7 +2624,7 @@ sap.ui.define([
 						this);
 				} else {
 					MessageBox.error(
-						"Please close all task's from selected workcenter", {
+						"There is record created under this work center, no deletion is allowed", {
 							icon: sap.m.MessageBox.Icon.Error,
 							title: "Error",
 							styleClass: "sapUiSizeCompact"
