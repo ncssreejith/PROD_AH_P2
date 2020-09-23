@@ -128,6 +128,7 @@ sap.ui.define([
 					SortieMonitoringFlag: false,
 					SummaryFlag: true,
 					WorcenterFlag: false,
+					RectSummaryFlag: false,
 					WorkCenterTitle: "Summary",
 					WorkCenterKey: "Summary",
 					TaskCount: 0,
@@ -146,6 +147,7 @@ sap.ui.define([
 					JobStatus: false,
 					etrMinDate: null,
 					DefectImageSrc: [],
+					selectedTask:[],
 					CreateTaskMenu: [{
 						"Text": "New Task",
 						"Visible": true
@@ -948,11 +950,19 @@ sap.ui.define([
 				if (sSelectedKey === "Summary") {
 					oModel.setProperty("/SummaryFlag", true);
 					oModel.setProperty("/WorcenterFlag", false);
+					oModel.setProperty("/RectSummaryFlag", false);
 					that._fnTaskStatusGet(sJobId);
 					that.onSelectionDefectAreaChange(oModelLocal.getProperty("/deaid"));
+				} else if (sSelectedKey === "RectSum") {
+					oModel.setProperty("/SummaryFlag", false);
+					oModel.setProperty("/WorcenterFlag", false);
+					oModel.setProperty("/RectSummaryFlag", true);
+					oModel.setProperty("/WorkCenterTitle", sSelectedtxt);
+					oModel.setProperty("/WorkCenterKey", sSelectedKey);
 				} else {
 					oModel.setProperty("/SummaryFlag", false);
 					oModel.setProperty("/WorcenterFlag", true);
+					oModel.setProperty("/RectSummaryFlag", false);
 					oModel.setProperty("/WorkCenterTitle", sSelectedtxt);
 					oModel.setProperty("/WorkCenterKey", sSelectedKey);
 					that._fnTasksOutStandingGet(sJobId, sSelectedKey);
@@ -963,6 +973,7 @@ sap.ui.define([
 					that.getView().byId("itbTaskId").setSelectedKey("OS");
 					this._fnTaskCount();
 				}
+				this.byId("pageSummaryId").scrollTo(0);
 				that._fnCreatedWorkCenterGet(sJobId);
 				oModel.updateBindings(true);
 			} catch (e) {
@@ -1745,6 +1756,9 @@ sap.ui.define([
 					"jobId": sJobId
 				}), "jobModel");
 				oViewModel.setProperty("/sFlag", sFlag);
+				if(sFlag==="N"){
+					this.onRectificationSelectTask(sJobId);
+				}
 				oViewModel.setProperty("/sWcKey", sWcKey);
 				oViewModel.setProperty("/sGoTo", sGoTo);
 				oViewModel.setProperty("/FairEditFlag", true);
@@ -1764,12 +1778,12 @@ sap.ui.define([
 					oViewModel.setProperty("/SummaryFlag", true);
 					oViewModel.setProperty("/WorcenterFlag", false);
 				}
+				oViewModel.updateBindings(true);
 				that._fnTasksOutStandingGet(sJobId, sWcKey);
 				that._fnTasksPendingSupGet(sJobId, sWcKey);
 				that._fnTasksCompleteGet(sJobId, sWcKey);
 				that._fnFlyingRequirementsGet(sJobId, sWcKey);
 				that._fnSortieMonitoringGet(sJobId, sWcKey);
-				oViewModel.updateBindings(true);
 				that._fnJobDetailsGet(sJobId, sAirId);
 				that._fnPerioOfDeferCBGet(sAirId);
 				this._fnReasonforADDGet(sAirId);
@@ -2529,25 +2543,35 @@ sap.ui.define([
 		_fnCreatedWorkCenterGet: function(sJobId) {
 			try {
 				var that = this,
-					oModel,
+					oModelLocal,
 					oPayload,
 					oPrmWorkCenter = {};
-				oModel = that.getView().getModel("LocalModel");
-
+				oModelLocal = this.getView().getModel("LocalModel");
 				oPrmWorkCenter.filter = "jobid eq " + sJobId;
-
 				oPrmWorkCenter.error = function() {};
 				oPrmWorkCenter.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oData.results.push({
 						jobid: sJobId,
-						tailid: oModel.getProperty("/sTailId"),
+						tailid: oModelLocal.getProperty("/sTailId"),
 						wrctr: "Summary",
 						isprime: "",
 						wrctrtx: "Summary",
 						"PrimeCount": "0",
 						"LASTWC": null
 					});
+
+					if (oModelLocal.getProperty("/sFlag") === "N") {
+						oData.results.push({
+							jobid: sJobId,
+							tailid: oModelLocal.getProperty("/sTailId"),
+							wrctr: "RectSum",
+							isprime: "",
+							wrctrtx: "Rectification Summary",
+							"PrimeCount": oData.results.length,
+							"LASTWC": null
+						});
+					}
 					oModel.setData(oData.results);
 					that.setModel(oModel, "CreatedWorkCenterModel");
 
@@ -2601,6 +2625,25 @@ sap.ui.define([
 			}
 		},
 
+		//-------------------------------------------------------------
+		//  This will get called, when to get work center for selected Job.
+		//-------------------------------------------------------------
+		onRectificationSelectTask: function(sJobId) {
+			try {
+				var that = this,
+			  	oPrmTask = {};
+				oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
+
+				oPrmTask.error = function() {};
+				oPrmTask.success = function(oData) {
+					this.getView().getModel("LocalModel").setProperty("/selectedTask", oData.results);
+				}.bind(this);
+				ajaxutil.fnRead("/TaskSvc", oPrmTask);
+			} catch (e) {
+				Log.error("Exception in onWorkCenterSelect function");
+			}
+		},
+
 		_fnDefectWorkCenterDelete: function(sWorkCenterKey) {
 			try {
 
@@ -2616,6 +2659,7 @@ sap.ui.define([
 					oPrmWorkCenter.success = function(oData) {
 						oModel.setProperty("/SummaryFlag", true);
 						oModel.setProperty("/WorcenterFlag", false);
+						oModel.setProperty("/RectSummaryFlag", false);
 						that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 						that.onCloseAddWorkCenterDialog();
 					}.bind(this);

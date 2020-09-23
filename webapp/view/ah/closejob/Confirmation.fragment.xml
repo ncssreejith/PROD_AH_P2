@@ -23,9 +23,9 @@
 					</HBox>
 					<Title class="sapUiTinyMargin" text="{i18n>hdngKeyTask}" level="H1" visible="{=${ViewModel>/sFlag}==='N'? true:false}"/>
 					<VBox class="sapUiTinyMargin" visible="{=${ViewModel>/sFlag}==='N'? true:false}">
-						<Table class="sparesTable" selectionChange="onTaskSelectionChange" items="{ViewModel>/selectedTask}">
+						<Table class="sparesTable" selectionChange="onTaskSelectionChange" items="{ path : 'ViewModel>/selectedTask', sorter : { path : 'wrctr' } }">
 							<columns >
-								<Column class="sparesTableTextColor">
+								<Column width="10%" class="sparesTableTextColor" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 									<Label class="whiteText" text="Work Center"/>
 								</Column>
 								<Column class="sparesTableTextColor">
@@ -38,7 +38,8 @@
 							<items >
 								<ColumnListItem unread="true" type="{ViewModel>type}">
 									<cells >
-										<Text text="{ViewModel>wrctr}"/>
+										<!--<Text text="{ViewModel>wrctr}"/>-->
+										<Text text="{parts:[{path:'ViewModel>wrctr'},{path:'CreatedWorkCenterModel>/'}], formatter:'.formatter.taskWorkCenterText'}"/>
 										<Text text="{ViewModel>tdesc}"/>
 										<Text text="{ViewModel>ftdesc}"/>
 									</cells>

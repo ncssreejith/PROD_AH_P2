@@ -72,7 +72,7 @@ sap.ui.define([
 						"TRAILKVAL": null,
 						"TRAILKDT": null,
 						"fstatflag": null,
-						"ETRFLAG":null
+						"ETRFLAG": null
 					};
 					oArray.push(CREATEJOB);
 					break;
@@ -138,7 +138,9 @@ sap.ui.define([
 						"errormsg": null,
 						"objectid": null,
 						"activity": null,
-						"RTTY":null
+						"RTTY": null,
+						"ENTINERR": null,
+						"RECTSTAR": null
 
 					};
 					oArray.push(oTask);

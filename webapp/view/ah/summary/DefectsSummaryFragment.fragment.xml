@@ -136,11 +136,13 @@
 		</Toolbar>
 		<HBox>
 			<HBox id="summaryHBId" items="{CreatedWorkCenterModel>/}" wrap="Wrap">
-				<cc:RectificationTile footerText="Incomplete Entries" count="{CreatedWorkCenterModel>count}"
-					prime="{= ${CreatedWorkCenterModel>isprime} !== null ? true:false }" title="{CreatedWorkCenterModel>wrctrtx}" select="onWorkCenterSelect"
-					visible="{= ${CreatedWorkCenterModel>wrctr} !== 'Summary' }"/>
+				<cc:RectificationTile footerText="{= ${CreatedWorkCenterModel>wrctr} !== 'RectSum' ? 'Incomplete Entries':''}"
+					count="{CreatedWorkCenterModel>count}"
+					prime="{= ${CreatedWorkCenterModel>isprime} !== null &amp;&amp; ${CreatedWorkCenterModel>wrctr} !== 'RectSum' ? true:false }"
+					title="{CreatedWorkCenterModel>wrctrtx}" select="onWorkCenterSelect" visible="{= ${CreatedWorkCenterModel>wrctr} !== 'Summary' }"/>
 			</HBox>
-			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter('ADD')" visible="{LocalModel>/FairEditFlag}">
+			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter('ADD')" enabled="true"
+				visible="{= ${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag} !== 'N' ? true:false }">
 				<core:Icon src="sap-icon://sys-add" size="35px" color="blue" press="onIconPress"/>
 			</cc:RectificationTileAdd>
 		</HBox>

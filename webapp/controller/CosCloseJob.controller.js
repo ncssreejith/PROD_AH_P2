@@ -60,16 +60,21 @@ sap.ui.define([
 		onWorkCenterSelect: function(oEvent) {
 			try {
 				var that = this,
-					oModel,
-					sWrctr = oEvent.getSource().getSelectedKey(),
-					sWrctrText = oEvent.getSource().getSelectedItem().getText(),
+					oTempFlag = true,
+					sWrctr, sWrctrText, oModel,
 					sJobId = this.getModel("ViewModel").getProperty("/sJobId"),
 					oModelView = this.getView().getModel("ViewModel"),
 					oTable = that.getView().byId("tbWorkCenterCJ"),
 					oPrmTask = {};
+
+				try {
+					sWrctr = oEvent.getSource().getSelectedKey();
+				} catch (e) {
+					sWrctr = oEvent;
+				}
 				oTable.removeSelections(true);
 				oPrmTask.filter = "jobid eq " + sJobId + " and TSTAT eq ALL and WRCTR eq " + sWrctr;
-				oModelView.setProperty("/WCText", sWrctrText);
+
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					oModel = that.getView().getModel("TaskModel");
@@ -78,15 +83,87 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead("/TaskSvc", oPrmTask);
 			} catch (e) {
-				Log.error("Exception in CosCloseJob:onWorkCenterSelect function");
-				this.handleException(e);
+				Log.error("Exception in onWorkCenterSelect function");
+			}
+		},
+
+		//-------------------------------------------------------------
+		//  This will get called, when to get work center for selected Job.
+		//-------------------------------------------------------------
+		onRectificationSelectTask: function(oEvent) {
+			try {
+				var that = this,
+					oTempFlag = true,
+					sWrctr, sWrctrText, oTemp = [],
+					oModel,
+					sJobId = this.getModel("ViewModel").getProperty("/sJobId"),
+					oModelView = this.getView().getModel("ViewModel"),
+					oSelectedTask,
+					oPrmTask = {};
+				oSelectedTask = oModelView.getProperty("/selectedTask");
+
+				oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
+
+				oPrmTask.error = function() {};
+				oPrmTask.success = function(oData) {
+					this.getView().getModel("ViewModel").setProperty("/selectedTask", oData.results);
+					this.getView().getModel("ViewModel").setProperty("/oldSelectedTask", oData.results);
+				}.bind(this);
+				ajaxutil.fnRead("/TaskSvc", oPrmTask);
+			} catch (e) {
+				Log.error("Exception in onWorkCenterSelect function");
 			}
 		},
 
 		//-------------------------------------------------------------
 		//  This will get called, when signing off the Job for closer.
 		//-------------------------------------------------------------
-		onSignOff: function() {
+
+		onUpdateTask: function(oEvent) {
+			try {
+				var oModel = this.getView().getModel("ViewModel"),
+					oFLag = "0",
+					oTaskFlag = true,
+					sObject, oOldSelTask = [],
+					oTempTask = [],
+					oPrmTask = {},
+					that = this,
+					oPayload = [];
+				oPayload = oModel.getProperty("/selectedTask");
+				oOldSelTask = oModel.getProperty("/oldSelectedTask");
+				for (var i = 0; i < oPayload.length; i++) {
+					oPayload[i].RECTSTAR = "X";
+				}
+				for (var j = 0; j < oOldSelTask.length; j++) {
+					for (var k = 0; k < oPayload.length; k++) {
+						if (oOldSelTask[j].taskid === oPayload[k].taskid) {
+							oTaskFlag = false;
+							break;
+						} else {
+							oTaskFlag = true;
+						}
+					}
+					if (oTaskFlag) {
+						oOldSelTask[j].RECTSTAR = null;
+						oTempTask.push(oOldSelTask[j]);
+					}
+				}
+				oPayload = oPayload.concat(oTempTask);
+				oPrmTask.filter = "";
+				oPrmTask.error = function() {};
+				oPrmTask.success = function(oData) {
+
+				}.bind(this);
+				ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload);
+			} catch (e) {
+				Log.error("Exception in onSignOff function");
+			}
+		},
+
+		//-------------------------------------------------------------
+		//  This will get called, when signing off the Job for closer.
+		//-------------------------------------------------------------
+		onSignOff: function(sSignFlag) {
 			try {
 				var that = this,
 					sObject,
@@ -96,9 +173,10 @@ sap.ui.define([
 					oSegmentedButton = this.byId('ScheReqId'),
 					oSelectedItemId = oSegmentedButton.getSelectedKey();
 				oPayload = that.getView().getModel("JobModel").getData();
+
 				if (oModel.getProperty("/sFlag") === "N") {
 					if (oPayload.notity !== null && oPayload.trail !== "0") {
-						if (oModel.getProperty("/bFlag") === false) {
+						if (sSignFlag === "TR") {
 							try {
 								oPayload.rectdt = formatter.defaultOdataDateFormat(oPayload.rectdt);
 							} catch (e) {
@@ -128,7 +206,7 @@ sap.ui.define([
 						oPayload.jstat = "P";
 						oPayload.trail = "X";
 					} else {
-						if (oModel.getProperty("/bFlag") === false) {
+						if (sSignFlag === "TR") {
 							oPayload.jstat = "P";
 						} else {
 							oPayload.jstat = "X";
@@ -136,14 +214,18 @@ sap.ui.define([
 
 					}
 				} else {
-					oPayload.jstat = "X";
+					if (sSignFlag === "TR") {
+						oPayload.jstat = "P";
+					} else {
+						oPayload.jstat = "X";
+					}
 				}
 				oPrmTask.filter = "";
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					oModel.setProperty("/signOffBtn", false);
 					oModel.setProperty("/signOffBtn1", true);
-					if (oModel.getProperty("/bFlag")) {
+					if (sSignFlag === "SP") {
 						if (oSelectedItemId === "1") {
 							that.ESJobCreate();
 						} else {
@@ -156,6 +238,7 @@ sap.ui.define([
 								title: "Success",
 								styleClass: "sapUiSizeCompact"
 							});
+						this.onUpdateTask();
 						oModel.setProperty("/bFlag", true);
 						oModel.setProperty("/selectedIcon", "SignOff");
 						this.byId("pageCloseId").scrollTo(0);
@@ -164,17 +247,16 @@ sap.ui.define([
 				if (oModel.getProperty("/sFlag") === "Y") {
 					sObject = "ZRM_COS_EO";
 				} else {
-					if (oModel.getProperty("/bFlag")) {
-						sObject = "ZRM_COS_JS";
-					} else {
+					if (sSignFlag === "TR") {
 						sObject = "ZRM_COS_JT";
+					} else {
+						sObject = "ZRM_COS_JS";
 					}
 				}
 				oPrmTask.activity = 6;
 				ajaxutil.fnUpdate("/DefectJobSvc", oPrmTask, [oPayload], sObject, this);
 			} catch (e) {
-				Log.error("Exception in CosCloseJob:onSignOff function");
-				this.handleException(e);
+				Log.error("Exception in onSignOff function");
 			}
 		},
 		//-------------------------------------------------------------
@@ -202,19 +284,32 @@ sap.ui.define([
 					oData.results[0].recttm = new Date().getHours() + ":" + new Date().getMinutes();
 					oData.results[0].dupli = "0";
 					oData.results[0].recur = "0";
+					oViewModel.setProperty("/PrimeWC", oData.results[0].prime);
 					oData.results[0].credt = new Date(oData.results[0].credt);
 					/*	if (oData.results[0].notity !== null) {*/
 					oData.results[0].trail = "0";
 					oData.results[0].fchar = "0";
 					oData.results[0].schreq = "0";
+					if (oData.results[0].jstat === "P") {
+						that.onRectificationSelectTask();
+						oViewModel.setProperty("/signOffBtn", false);
+						oViewModel.setProperty("/signOffBtn1", true);
+						oViewModel.setProperty("/proccedBtn", false);
+						oViewModel.setProperty("/backBtn", true);
+						oViewModel.setProperty("/bFlag", true);
+						oViewModel.setProperty("/selectedIcon", "SignOff");
+
+					}
+					oViewModel.refresh(true);
 					/*	}*/
+					that.onWorkCenterSelect(oData.results[0].prime);
 					oModel.setData(oData.results[0]);
 					that.getView().setModel(oModel, "JobModel");
+
 				}.bind(this);
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
 			} catch (e) {
-				Log.error("Exception in CosCloseJob:_fnJobDetailsGet function");
-				this.handleException(e);
+				Log.error("Exception in _fnJobDetailsGet function");
 			}
 		},
 		//----------------------------------------------------------------------------
@@ -374,39 +469,71 @@ sap.ui.define([
 		onSelectTaskList: function(oEvent) {
 			try {
 				var oModel = this.getView().getModel("ViewModel"),
+					oJobModel = this.getView().getModel("JobModel"),
 					oFlag = true,
-					oObj, newArray = [];
-				newArray = this.getView().getModel("ViewModel").getData().selectedTask;
+					sWorkCenterText = this.getView().byId("cbWorkCenterId").getSelectedItem().getText(),
+					oObj,
+					newArray = JSON.parse(JSON.stringify(this.getView().getModel("ViewModel").getData().selectedTask));
+				/*if (oJobModel.getProperty("/jstat") === "P") {
+					oJobModel.setProperty("/jstat", "");
+					oModel.getProperty("/bFlag", false);
+					oModel.refresh(true);
+				}*/
 				if (oEvent.getSource().getSelectedItems().length === 1) {
-					var oData = oEvent.getSource().getSelectedItem();
-					oObj = oData.getBindingContext("TaskModel").getObject();
-					oObj.wrctr = oModel.getProperty("/WCText");
-					newArray.push(oObj);
-					oModel.setProperty("/selectedTask", newArray);
-					oModel.updateBindings(true);
+					if (oEvent.getSource().getSelectedItem().getProperty("selected")) {
+						var oData = oEvent.getSource().getSelectedItem();
+						oObj = oData.getBindingContext("TaskModel").getObject();
+						newArray.push(oObj);
+						oModel.setProperty("/selectedTask", newArray);
+						oModel.updateBindings(true);
+					} else {
+						var oUnSelectedTaskId = oEvent.getSource().getSelectedItem().getBindingContext("TaskModel").getObject().taskid;
+						for (var i in newArray) {
+							if (newArray[i].taskid === oUnSelectedTaskId) {
+								newArray = newArray.splice(i, 1);
+							}
+						}
+						oModel.setProperty("/selectedTask", newArray);
+						oModel.refresh(true);
+
+					}
 				} else {
-					//newArray = [];
-					if (oEvent.getSource().getSelectedItems().length >= 1) {
-						var oData = oEvent.getSource().getSelectedItems();
-						for (var i = 0; i < oData.length; i++) {
-							oObj = oData[i].getBindingContext("TaskModel").getObject();
-							for (var j = 0; j < newArray.length; j++) {
-								if (newArray[j].taskid === oObj.taskid) {
-									oFlag = false;
-									break;
-								} else {
-									oFlag = true;
+					if (oEvent.getParameter("/") || oEvent.getParameter("selected")) {
+						if (oEvent.getSource().getSelectedItems().length >= 1) {
+							var oData = oEvent.getSource().getSelectedItems();
+							for (var i = 0; i < oData.length; i++) {
+								oObj = oData[i].getBindingContext("TaskModel").getObject();
+								for (var j = 0; j < newArray.length; j++) {
+									if (newArray[j].taskid === oObj.taskid) {
+										oFlag = false;
+										break;
+									} else {
+										oFlag = true;
+									}
+								}
+								if (oFlag) {
+
+									newArray.push(oObj);
+								}
+
+							}
+						}
+						oModel.setProperty("/selectedTask", newArray);
+						oModel.updateBindings(true);
+					} else {
+						var oUnSelectedTask = oEvent.getSource().getItems();
+						for (var j = 0; j < oUnSelectedTask.length; j++) {
+							for (var i = 0; i < newArray.length; i++) {
+								if (!oUnSelectedTask[j].getSelected()) {
+									if (newArray[i].taskid === oUnSelectedTask[j].getBindingContext("TaskModel").getObject().taskid) {
+										newArray.splice(i, 1);
+									}
 								}
 							}
-							if (oFlag) {
-								newArray.push(oObj);
-								oObj.wrctr = oModel.getProperty("/WCText");
-							}
-
 						}
+						oModel.setProperty("/selectedTask", newArray);
+						oModel.refresh(true);
 					}
-					oModel.setProperty("/selectedTask", newArray);
-					oModel.updateBindings(true);
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onSelectTaskList function");
@@ -503,12 +630,26 @@ sap.ui.define([
 				bFlag = this._fnValidateTime();
 				bFlagCurrentTime = this._fnValidateCreationDateTime();
 				if (bFlag && bFlagCurrentTime) {
-					oModel.setProperty("/selectedIcon", "Confirmation");
-					oModel.setProperty("/signOffBtn", true);
-					oModel.setProperty("/proccedBtn", false);
-					oModel.setProperty("/backBtn", true);
-					this.selectedTab = "Confirmation";
-					oModel.setProperty("/selectedIcon", this.selectedTab);
+					if (oJobModel.getProperty("/jstat") === "P") {
+						oModel.setProperty("/selectedIcon", "SignOff");
+						oModel.setProperty("/signOffBtn", false);
+						oModel.setProperty("/signOffBtn1", true);
+						oModel.setProperty("/proccedBtn", false);
+						oModel.setProperty("/backBtn", true);
+						this.selectedTab = "SignOff";
+						oModel.setProperty("/selectedIcon", this.selectedTab);
+						oModel.refresh(true);
+						this.byId("pageCloseId").scrollTo(0);
+					} else {
+						oModel.setProperty("/selectedIcon", "Confirmation");
+						oModel.setProperty("/signOffBtn", true);
+						oModel.setProperty("/proccedBtn", false);
+						oModel.setProperty("/backBtn", true);
+						this.selectedTab = "Confirmation";
+						oModel.setProperty("/selectedIcon", this.selectedTab);
+						oModel.refresh(true);
+						this.byId("pageCloseId").scrollTo(0);
+					}
 				} else {
 					if (!bFlag) {
 						oTemp = oResource.getText("errorCloserMessageCurrent");
@@ -516,7 +657,6 @@ sap.ui.define([
 					if (!bFlagCurrentTime) {
 						oTemp = oResource.getText("errorCloserMessage") + " " + formatter.defaultTimeFormatDisplay(oJobModel.getProperty("/cretm"));
 					}
-
 					MessageBox.error(
 						oTemp, {
 							icon: sap.m.MessageBox.Icon.Error,
@@ -535,19 +675,22 @@ sap.ui.define([
 		//4.on click of back
 		onBack: function() {
 			try {
-				var oModel = this.getView().getModel("ViewModel");
+				var oModel = this.getView().getModel("ViewModel"),
+					oJobModel;
 				this.selectedTab = "Summary";
-				this.getView().getModel("TaskModel").setData(null);
-				this.getView().getModel("ViewModel").setProperty("/selectedTask", []);
-				this.getView().byId("cbWorkCenterId").setSelectedKey("");
+				oJobModel = this.getView().getModel("JobModel");
+				this.onWorkCenterSelect(oJobModel.getProperty("/prime"));
+				//this.getView().getModel("TaskModel").setData(null);
+				//this.getView().getModel("ViewModel").setProperty("/selectedTask", []);
+				this.getView().byId("cbWorkCenterId").setSelectedKey(oJobModel.getProperty("/prime"));
+				oModel.setProperty("/PrimeWC", oJobModel.getProperty("/prime"));
 				oModel.setProperty("/selectedIcon", "Summary");
 				oModel.setProperty("/signOffBtn", false);
 				oModel.setProperty("/signOffBtn1", false);
 				oModel.setProperty("/proccedBtn", true);
 				oModel.setProperty("/backBtn", false);
 			} catch (e) {
-				Log.error("Exception in CosCloseJob:onBack function");
-				this.handleException(e);
+				Log.error("Exception in onBack function");
 			}
 		},
 
@@ -575,6 +718,25 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onDueSelectChange function");
 				this.handleException(e);
+			}
+		},
+
+		onUpdateFinishedTB: function() {
+			try {
+				var oTable = this.getView().byId("tbWorkCenterCJ"),
+					oSelecteItem,
+					oTempItems = this.getView().getModel("ViewModel").getProperty("/selectedTask");
+				oSelecteItem = oTable.getItems();
+				for (var i = 0; i < oTable.getItems().length; i++) {
+					for (var j = 0; j < oTempItems.length; j++) {
+						if (oTable.getItems()[i].getBindingContext("TaskModel").getObject().taskid === oTempItems[j].taskid) {
+							oTable.getItems()[i].setSelected(true);
+						}
+					}
+				}
+
+			} catch (e) {
+				Log.error("Exception in onBack function");
 			}
 		},
 
@@ -615,7 +777,9 @@ sap.ui.define([
 					"bFlag": false,
 					"selectedIcon": "Summary",
 					"TaskStatus": "",
-					"selectedTask": []
+					"selectedTask": [],
+					"oldSelectedTask": [],
+					"PrimeWC": ""
 				});
 				this.getView().setModel(oAppModel, "ViewModel");
 				oJobModel = dataUtil.createNewJsonModel();

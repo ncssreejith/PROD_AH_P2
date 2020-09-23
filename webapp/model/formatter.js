@@ -419,6 +419,17 @@ sap.ui.define([
 				return false;
 			}
 		},
+		taskWorkCenterText: function(stTask1, stTask2) {
+			var stTask1, stTask2;
+			if (stTask2) {
+				for (var i in stTask2) {
+					if (stTask2[i].wrctr === stTask1) {
+						return stTask2[i].wrctrtx;
+					}
+				}
+				return stTask2;
+			}
+		},
 
 		serialNoInputVisible: function(engFlag, isser, tTask2) {
 			if ((engFlag === "NE" && isser === "Serial No. (S/N)") || (engFlag === "NA" && isser ===

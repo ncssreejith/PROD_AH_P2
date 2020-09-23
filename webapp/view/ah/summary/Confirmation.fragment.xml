@@ -1,0 +1,70 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.ah.control">
+	<VBox backgroundDesign="Solid" class="sapUiLargeMargin">
+		<l:Grid hSpacing="1" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
+			<l:content>
+				<Toolbar>
+					<Title text="Rectification Summary" level="H3" titleStyle="H3"/>
+				</Toolbar>
+				<VBox >
+					<HBox>
+						<VBox class="sapUiTinyMargin">
+							<Label class="sapUiTinyMargin" design="Bold" text="{i18n>lbldt}"/>
+							<HBox>
+								<Text class="sapUiTinyMargin" text="{path : 'JobModel>/rectdt', formatter : '.formatter.defaultDatetoDateFormatDisplay'}"/>
+								<Text class="sapUiTinyMargin" text="{path : 'JobModel>/recttm', formatter : '.formatter.defaultTimeFormatDisplay'}"/></HBox>
+						</VBox>
+						<VBox class="sapUiTinyMargin">
+							<Label class="sapUiTinyMargin" design="Bold" text="{i18n>lblSummary}"/>
+							<Text class="sapUiTinyMargin" text="{JobModel>/recttxt}"/>
+						</VBox>
+						<layoutData>
+							<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+						</layoutData>
+					</HBox>
+					<Title class="sapUiTinyMargin" text="{i18n>hdngKeyTask}" level="H1" visible="{=${LocalModel>/sFlag}==='N'? true:false}"/>
+					<VBox class="sapUiTinyMargin" visible="{=${LocalModel>/sFlag}==='N'? true:false}">
+						<Table class="sapUiSizeCompact sapUiResponsivePadding CERTable" selectionChange="onTaskSelectionChange"
+							items="{ path : 'LocalModel>/selectedTask', sorter : { path : 'wrctr' } }">
+							<columns >
+								<Column width="13%" class="sparesTableTextColor" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+									<HBox>
+										<Label text="Work Center" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+										<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'wrctr')"/>
+									</HBox>
+									<!--<Label class="whiteText" text="Work Center"/>-->
+								</Column>
+								<Column class="sparesTableTextColor" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+									<!--	<Label class="whiteText" text="Task"/>-->
+									<HBox>
+										<Label text="Task" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+										<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'tdesc')"/>
+									</HBox>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+									<!--<Label class="whiteText" text="Follow-up Task"/>-->
+									<HBox>
+										<Label text="Follow-up Task" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+										<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')"/>
+									</HBox>
+								</Column>
+							</columns>
+							<items >
+								<ColumnListItem unread="true" type="{LocalModel>type}">
+									<cells >
+										<!--<Text text="{LocalModel>wrctr}"/>-->
+										<Text text="{parts:[{path:'LocalModel>wrctr'},{path:'CreatedWorkCenterModel>/'}], formatter:'.formatter.taskWorkCenterText'}"/>
+										<Text text="{LocalModel>tdesc}"/>
+										<Text text="{LocalModel>ftdesc}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</VBox>
+					<layoutData>
+						<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+					</layoutData>
+				</VBox>
+			</l:content>
+		</l:Grid>
+	</VBox>
+</core:FragmentDefinition>

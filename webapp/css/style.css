@@ -655,13 +655,16 @@ Description :
 			  CreateJob,
 			  AddWorkenterDialog (Fragment),
 -----------------------------------------------------------------------------------------*/
+
+
 /*  AvataoIconSize  */
 
-.avatarIconJob{
+.avatarIconJob {
     height: 1rem !important;
     width: 1rem !important;
     font-size: 0.7rem !important;
 }
+
 
 /* Button with text only font size*/
 
@@ -1536,6 +1539,8 @@ Description :
 
 .bgColorToolBar {
     background-color: #e3e6e5 !important;
+    height: 4rem !important;
+    border-bottom: none !important;
 }
 
 .borderTask {
@@ -1613,7 +1618,7 @@ Description :
 }
 
 .txtRemoveHeader .sapMGTHdrContent {
-	text-align: left !important;
+    text-align: left !important;
     padding-top: 1rem !important;
     height: 0rem !important;
 }
@@ -1623,11 +1628,13 @@ Description :
     background-color: #4cce94 !important;
     border-radius: 1rem;
 }
+
 .redbtn > span {
     color: #fff !important;
     background-color: #F44c4c !important;
     border-radius: 1rem;
 }
+
 .greybtn > span {
     color: #f5f6fa !important;
     background-color: #95969a !important;
@@ -1691,11 +1698,13 @@ Description :
 /*====================Teck Meng=================*/
 
 .sapSuiteRMCFont {
-	font-size: 0.8rem    !important
+    font-size: 0.8rem !important
 }
+
 .customChartFont .sapSuiteRMCInsideLabel.sapSuiteRMCFont {
-	font-size: 2rem  !important
+    font-size: 2rem !important
 }
+
 
 /*========================================================AMIT KUMAR==========================================*/
 
@@ -1717,50 +1726,51 @@ Description :
     background: white !important;
 }
 
+
 /*Rajat */
 
 .photoSelection {
-	border: 1px solid black !important;
+    border: 1px solid black !important;
 }
 
 .dbTile3ExtraBtns .DBTile3RightSegBtn {
-	    padding-left: 0px !important;
-	    overflow : auto;
-	    height : auto !important;
+    padding-left: 0px !important;
+    overflow: auto;
+    height: auto !important;
 }
 
 .textOverFlow .sapMFlexItemAlignAuto.sapMFlexBoxBGTransparent.sapMFlexItem {
-	overflow :auto !important;
+    overflow: auto !important;
 }
 
 .fontSizeSmall .sapMSegBBtnInner {
-	font-size: 0.725rem !important;
+    font-size: 0.725rem !important;
 }
 
 @media all and (orientation:portrait) {
- .tileWidth {
- 	width :50% !important;
- }
+    .tileWidth {
+        width: 50% !important;
+    }
 }
 
 @media all and (orientation:landscape) {
- .tileWidth {
- 	width :auto !important;
- }
+    .tileWidth {
+        width: auto !important;
+    }
 }
 
 @media all and (orientation:portrait) {
- .quickInfoWidth {
- 	width :50% !important;
- }
+    .quickInfoWidth {
+        width: 50% !important;
+    }
 }
 
 @media all and (orientation:landscape) {
- .quickInfoWidth {
- 	width :30% !important;
- }
+    .quickInfoWidth {
+        width: 30% !important;
+    }
 }
 
 .warningColor {
-	color: #b00 !important;
+    color: #b00 !important;
 }

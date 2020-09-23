@@ -35,6 +35,9 @@
 				<VBox visible="{LocalModel>/WorcenterFlag}">
 					<core:Fragment fragmentName="avmet.ah.view.ah.summary.WorkCenterFragment" type="XML"/>
 				</VBox>
+				<VBox visible="{LocalModel>/RectSummaryFlag}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.Confirmation" type="XML"/>
+				</VBox>
 			</VBox>
 		</content>
 	</Page>

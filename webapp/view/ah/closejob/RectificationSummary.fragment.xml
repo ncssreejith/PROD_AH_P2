@@ -58,10 +58,10 @@
 								<VBox>
 									<!--visible="{= (${JobModel>/jobty}==='D' || ${JobModel>/notity}!==null ) ? true:false}"-->
 									<Label text="Rectification Summary"></Label>
-									<TextArea cols="60" width="24rem" value="{JobModel>/recttxt}" rows="3" maxLength="1000" showExceededText="true"
-										liveChange="handleLiveChangeFlyingRequirements"></TextArea>
+									<TextArea cols="60" width="100%" value="{JobModel>/recttxt}" rows="3" maxLength="1000" showExceededText="true"
+										liveChange="handleLiveChangeFlyingRequirements" required="true" fieldGroupIds="fgTxtArea"></TextArea>
 									<layoutData>
-										<l:GridData span="XL7 L7 M10 S12" linebreak="true"/>
+										<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 									</layoutData>
 								</VBox>
 								<HBox visible="{= ${JobModel>/jobty}==='D' ? true:false}">
@@ -200,12 +200,12 @@
 							<l:Grid hSpacing="2" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
 								<Label text="{i18n>lblSelectKey}" design="Bold"></Label>
 								<Table id="tbWorkCenterCJ" mode="MultiSelect" class="sparesTable sapUiSizeCompact" selectionChange="onSelectTaskList" items="{TaskModel>/}"
-									rememberSelections="true">
+									rememberSelections="true" updateFinished="onUpdateFinishedTB">
 									<headerToolbar>
 										<OverflowToolbar class="sapUiTinyMarginBottom">
 											<content>
 												<Label text="{i18n>lblWorkCenter}"/>
-												<ComboBox id="cbWorkCenterId" items="{CreatedWorkCenterModel>/}" selectionChange="onWorkCenterSelect">
+												<ComboBox id="cbWorkCenterId" selectedKey="{ViewModel>/PrimeWC}" items="{CreatedWorkCenterModel>/}" selectionChange="onWorkCenterSelect">
 													<core:Item key="{CreatedWorkCenterModel>wrctr}" text="{CreatedWorkCenterModel>wrctrtx}"/>
 												</ComboBox>
 												<ToolbarSpacer/>

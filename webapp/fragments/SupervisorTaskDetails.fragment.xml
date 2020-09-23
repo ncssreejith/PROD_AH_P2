@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
 	<Dialog showHeader="false" contentWidth="60%" horizontalScrolling="false" verticalScrolling="false">
 		<OverflowToolbar class="bgColorToolBar">
-			<Label text="{DetailsSupModel>/tdesc}" design="Bold" class="sapUiSmallMarginBegin" wrapping="true" width="80%"/>
+			<Label text="{DetailsSupModel>/tdesc}" design="Bold" class="sapUiSmallMarginBegin sapUiTinyMarginTop" wrapping="true" width="80%"/>
 			<ToolbarSpacer/>
 			<Button press="onPendingSupDetailsClose" icon="sap-icon://decline" type="Transparent" focus="true"></Button>
 		</OverflowToolbar>
@@ -27,10 +27,10 @@
 						<l:Grid hSpacing="1" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
 							<l:content>
 								<VBox>
-									<VBox class="sapUiTinyMarginBottom"
+									<VBox class="sapUiTinyMarginBottom" wrap="Wrap"
 										visible="{= ${DetailsSupModel>/tt1id}!=='TT1_11' &amp;&amp; ${DetailsSupModel>/tt1id}!=='TT1_14' &amp;&amp; ${DetailsSupModel>/tt1id}!=='TT1_15' &amp;&amp; ${DetailsSupModel>/tt1id}!=='TT1_16' &amp;&amp; ${DetailsSupModel>/tt1id}!=='TT1_19' ? true:false}">
 										<!--	<Input fieldGroupIds="fgInput" value="{DetailsSupModel>/ftdesc}"></Input>-->
-										<Label text="{DetailsSupModel>/ftdesc}" design="Bold"/>
+										<Label text="{DetailsSupModel>/ftdesc}" design="Bold" wrapping="true"/>
 										<layoutData>
 											<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 										</layoutData>
