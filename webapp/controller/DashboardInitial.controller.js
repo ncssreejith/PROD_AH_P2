@@ -500,7 +500,6 @@ sap.ui.define([
 				this._oDeclareSafe.close();
 				this._oDeclareSafe.destroy();
 				delete this._oDeclareSafe;
-				delete this._oDeclareSafe;
 				var that = this;
 				var sSrvtId = this.getModel("avmetModel").getProperty("/dash/SRVTID");
 				var oParameter = {},
