@@ -51,7 +51,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate("/PilotDefectF16Svc", oParameter, [oPayload], "ZRM_AC_U", this);
+				ajaxutil.fnUpdate("/PilotDefectF16Svc", oParameter, oPayload, "ZRM_AC_U", this);
 				this._fnDecodeFair(oPayload);
 			} catch (e) {
 				Log.error("Exception in ReleaseForRectification:onSignOffPress function");
