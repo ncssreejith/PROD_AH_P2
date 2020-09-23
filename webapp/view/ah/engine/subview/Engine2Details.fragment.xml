@@ -21,7 +21,7 @@
 				</IconTabFilter>
 				<IconTabFilter text="{i18n>lblSchedules}" id="itnEng2Schedule">
 					<HBox id="hbEng2Schedule">
-						<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.engineSchedulesfragment" type="XML"/>
+						<core:Fragment fragmentName="avmet.ah.view.ah.engine.subview.Engine2Schedulesfragment" type="XML"/>
 					</HBox>
 				</IconTabFilter>
 			</items>

@@ -3,7 +3,7 @@
 	<VBox backgroundDesign="Solid" width="100%" alignItems="Center">
 		<FlexBox class="sapUiSmallMarginTopBottom">
 			<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="6"
-				growingScrollToLoad="false" items="{engineModel>/EngineSchedule}" noDataText="No Upcoming Schedules" showNoData="true">
+				growingScrollToLoad="false" items="{path: 'oEngineModel>/EngineSchedule', filters : [{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}" noDataText="No Upcoming Schedules" showNoData="true">
 				<headerToolbar>
 					<OverflowToolbar>
 						<content>
@@ -28,9 +28,9 @@
 				<items>
 					<ColumnListItem type="Active">
 						<cells>
-							<Text text="{engineModel>JDUVL}"/>
-							<Text text="{engineModel>DUEIN}"/>
-							<Text text="{engineModel>JOBDESC}"/>
+							<Text text="{oEngineModel>SERVDUE}"/>
+							<Text text="{oEngineModel>DUEIN}"/>
+							<Text text="{oEngineModel>JOBDESC}"/>
 							<Button icon="sap-icon://open-command-field" type="Transparent" press="onDefectsDetailsPress"></Button>
 						</cells>
 					</ColumnListItem>

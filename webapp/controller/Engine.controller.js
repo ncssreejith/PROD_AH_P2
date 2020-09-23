@@ -32,7 +32,7 @@ sap.ui.define([
 
 		onScheduleLinkPress: function() {
 			try {
-				this.getRouter().navTo("AHCosjobs", {
+				this.getRouter().navTo("Cosjobs", {
 					State: "SCH"
 				});
 			} catch (e) {
@@ -41,9 +41,13 @@ sap.ui.define([
 			}
 		},
 
-		onDefectsDetailsPress: function() {
+		onDefectsDetailsPress: function(oEvent) {
+			var oSource = oEvent.getSource();
+			var sESJOBID = oSource.getBindingContext("oEngineModel").getObject().ESJOBID;
 			try {
-				this.getRouter().navTo("RouteDefectSummaryADD");
+				this.getRouter().navTo("CosScheduleSummary",{
+					ESJOBID: sESJOBID
+				});
 			} catch (e) {
 				Log.error("Exception in Engine:onDefectsDetailsPress function");
 				this.handleException(e);
@@ -415,16 +419,16 @@ sap.ui.define([
 				oParameter.filter = "CTYPE eq ENGINE and tailid eq " + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					for (var i = 0; i < oData.results.length; i++) {
-						var date1 = new Date(oData.results[i].JDUVL);
-						var date2 = new Date();
-						var DiffDate = date1.getTime() - date2.getTime();
-						var DiffIndays = DiffDate / (1000 * 3600 * 24);
-						oData.results[i].DUEIN = Math.round(DiffIndays);
-					}
+					// for (var i = 0; i < oData.results.length; i++) {
+					// 	var date1 = new Date(oData.results[i].JDUVL);
+					// 	var date2 = new Date();
+					// 	var DiffDate = date1.getTime() - date2.getTime();
+					// 	var DiffIndays = DiffDate / (1000 * 3600 * 24);
+					// 	oData.results[i].DUEIN = Math.round(DiffIndays);
+					// }
 					oEngineModel.setProperty("/EngineSchedule", oData.results);
 				}.bind(this);
-				ajaxutil.fnRead("/EngSoapSvc", oParameter);
+				ajaxutil.fnRead("/GetSerLogSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngScheule function");
 				this.handleException(e);

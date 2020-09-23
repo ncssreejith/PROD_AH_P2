@@ -77,7 +77,7 @@ sap.ui.define([
 		_fnReasonSOAPGet: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "ddid eq 125_";
+				oParameter.filter = "ddid eq 125_ and REFID eq " + this.getAircraftId();
 				oParameter.error = function() {
 
 				};
@@ -88,7 +88,7 @@ sap.ui.define([
 						oModel.refresh();
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDVALSvc", oParameter);
+				ajaxutil.fnRead("/MasterDDREFSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in _fnReasonSOAPGet function");
 			}

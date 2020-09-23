@@ -25,23 +25,23 @@
 							</OverflowToolbar>
 						</headerToolbar>
 						<columns>
-							<Column hAlign="Center" class="CERTableTextColor">
-								<Label text="Date/Time" design="Bold" wrapping="true" class="whiteText"/>
+							<Column hAlign="Center" minScreenWidth="Tablet" class="CERTableTextColor" width="10%">
+								<Label text="Date /Time" design="Bold" wrapping="true" class="whiteText"/>
 							</Column>
 							<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
-								<Label text="Ambient Temp (C)" design="Bold" wrapping="true" class="whiteText"/>
+								<Label text="Ambient Temp (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="10%">
 								<Label text="Ambient Baro Pressure(FT)" design="Bold" wrapping="true" class="whiteText"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-								<Label text="Table TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+								<Label text="Table TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-								<Label text="IND TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+								<Label text="IND TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-								<Label text="Diff TGT" design="Bold" wrapping="true" class="whiteText"/>
+								<Label text="Diff TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 								<Label text="NG (%)" design="Bold" wrapping="true" class="whiteText"/>
@@ -62,7 +62,7 @@
 								<Label text="Lower Limit" design="Bold" wrapping="true" class="whiteText"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-								<Label text="Within 5 C Limit Limit" design="Bold" wrapping="true" class="whiteText"/>
+								<Label text="Within 5 C Lower Limit" design="Bold" wrapping="true" class="whiteText"/>
 							</Column>
 						</columns>
 						<items>
@@ -125,19 +125,19 @@
 							<Label text="Date/Time" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
-							<Label text="Ambient Temp (C)" design="Bold" wrapping="true" class="whiteText"/>
+							<Label text="Ambient Temp (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="Ambient Baro Pressure(FT)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="Table TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+							<Label text="Table TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="IND TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+							<Label text="IND TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="Diff TGT" design="Bold" wrapping="true" class="whiteText"/>
+							<Label text="Diff TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="NG (%)" design="Bold" wrapping="true" class="whiteText"/>
@@ -191,16 +191,16 @@
 							<Label text="Date/Time" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
-							<Label text="Ambient Temp (C)" design="Bold" wrapping="true" class="whiteText"/>
+							<Label text="Ambient Temp (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="Ambient Baro Pressure(FT)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="Table TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+							<Label text="Table TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="IND TGT (C)" design="Bold" wrapping="true" class="whiteText"/>
+							<Label text="IND TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="NG (%)" design="Bold" wrapping="true" class="whiteText"/>
