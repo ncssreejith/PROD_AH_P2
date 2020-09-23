@@ -41,22 +41,20 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		onSignOffPress: function() {
 			try {
-				if (this.fnCheckValueState("AddEquipRunningLog")) {
-					sap.m.MessageToast.show("Fill in all required input first");
-					return;
-				}
+
 				var oPayload = this.getModel("oRectModel").getProperty("/");
-				oPayload.fair = oPayload.fair ? "Y" : "N";
-				// delete oPayload.time;
+				
+				this._fnEncodeFair(oPayload);
 				var oParameter = {};
 				oParameter.activity = 4;
 				oParameter.error = function() {};
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate("/AircraftLogSvc", oParameter, [oPayload], "ZRM_AC_U", this);
+				ajaxutil.fnCreate("/PilotDefectF16Svc", oParameter, [oPayload], "ZRM_AC_U", this);
+				this._fnDecodeFair(oPayload);
 			} catch (e) {
-				Log.error("Exception in AddEquipRunningLog:onSignOffPress function");
+				Log.error("Exception in ReleaseForRectification:onSignOffPress function");
 				this.handleException(e);
 			}
 		},
@@ -75,20 +73,24 @@ sap.ui.define([
 				// + this.getModel("oRectModel").getProperty("/logid") + "/" + this.getTailId() + "/TABA_102";
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and SRVTID eq " + this.getModel("avmetModel").getProperty(
-						"/dash/SRVTID");
+					"/dash/SRVTID");
 				oParameter.error = function() {
 
 				};
 				oParameter.success = function(oData) {
 					// var currentTime = new Date();
 					var oObject = oData.results.length > 0 ? oData.results : [];
+					this._fnDecodeFair(oObject);
+					// oObject.forEach(function(oItem) {
+					// 	oItem.bFair = (oItem.fair === "Y");
+					// });
 					this.getModel("oRectModel").setProperty("/", oObject);
 					// this.getModel("oRectModel").setProperty("/record/Date", currentTime);
 					this.getModel("oRectModel").refresh(true);
 				}.bind(this);
 				ajaxutil.fnRead(sPath, oParameter);
 			} catch (e) {
-				Log.error("Exception in AddEquipRunningLog:fnLogById function");
+				Log.error("Exception in ReleaseForRectification:fnLogById function");
 				this.handleException(e);
 			}
 		},
@@ -100,27 +102,39 @@ sap.ui.define([
 		//-------------------------------------------------------------		
 		_onObjectMatched: function(oEvent) {
 			try {
-				var utilData = {};
-				utilData.type = 0;
-				utilData.logid = 0;
-				utilData.record = {
-					Date: new Date()
-				};
-				utilData.today = new Date();
-				utilData.today.setHours(23, 59, 59);
+				var utilData = [];
+				// utilData.bFair
+
 				this.getView().setModel(new JSONModel(utilData), "oRectModel");
 
-				// this.getModel("oRectModel").setProperty("/type", oEvent.getParameter("arguments").type);
-				// this.getModel("oRectModel").setProperty("/logid", oEvent.getParameter("arguments").logid);
-				// this.fnClearValueState("AddEquipRunningLog");
 				this.getModel("oRectModel").refresh(true);
 				this.fnGetRect();
 			} catch (e) {
-				Log.error("Exception in AddEquipRunningLog:_onObjectMatched function");
+				Log.error("Exception in ReleaseForRectification:_onObjectMatched function");
+				this.handleException(e);
+			}
+		},
+		_fnDecodeFair: function(aPayload) {
+			try {
+				aPayload.forEach(function(oItem) {
+					oItem.bFair = (oItem.fair === "Y");
+				});
+			} catch (e) {
+				Log.error("Exception in ReleaseForRectification:_fnDecodeFair function");
+				this.handleException(e);
+			}
+		},
+		_fnEncodeFair: function(aPayload) {
+			try {
+				aPayload.forEach(function(oItem) {
+					oItem.fair = oItem.bFair ? "Y" : "N";
+					delete oItem.bFair;
+				});
+			} catch (e) {
+				Log.error("Exception in ReleaseForRectification:_fnDecodeFair function");
 				this.handleException(e);
 			}
 		}
-		
 
 	});
 });
