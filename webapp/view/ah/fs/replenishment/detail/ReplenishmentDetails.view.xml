@@ -3,16 +3,16 @@
 	<Page title="Replenishment ({path : 'oRepDetailsModel>/srvtid', formatter : '.formatter.srvLbl'})" showNavButton="true"
 		enableScrolling="false" busy="{viewModel>/busy}" busyIndicatorDelay="{viewModel>/delay}" navButtonPress="onNavBack">
 		<content>
-			<HBox class="sapUiSmallMargin hBoxColor">
+			<HBox class="sapUiSmallMargin hBoxColor" height="97%">
 				<VBox class="sapUiSmallMargin sapUiLargeMarginTop vBoxTopMargin">
 					<SelectList items="{oRepDetailsModel>/aSelectItems}" selectedKey="{oRepDetailsModel>/selTab}" selectionChange="onListSelect"
 						class="listLenClass listItemClass">
 						<core:Item key="{oRepDetailsModel>Key}" text="{oRepDetailsModel>Text}" class="listItemClass"/>
 					</SelectList>
 				</VBox>
-				<VBox>
-					<ScrollContainer id="scrollContainerId" height="{oRepDetailsModel>/ScrollContainerHeight}" class="sapUiSmallBottom" vertical="true"
-						focusable="true">
+				<VBox height="100%">
+					<ScrollContainer id="scrollContainerId"  class="sapUiSmallBottom" vertical="true"
+						focusable="true" height="100%">
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.replenishment.detail.Fuel" type="XML"/>
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.replenishment.detail.Oil" type="XML"/>
 					</ScrollContainer>

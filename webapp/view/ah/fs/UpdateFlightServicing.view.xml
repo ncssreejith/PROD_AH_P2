@@ -3,10 +3,10 @@
 	<Page title="Update Flight Servicing ({oUpdateFlightModel>/sPageTitle})" showNavButton="true" enableScrolling="true"
 		navButtonPress="onNavBack">
 		<content>
-			<l:VerticalLayout class="sapUiSmallMargin backgroundBlue">
-				<l:content>
+			<VBox class="sapUiSmallMargin backgroundBlue" >
+				
 					<Toolbar>
-						<Title text="Select Tasks"></Title>
+						<Title class="sapUiMediumMarginBegin" text="Select Tasks"></Title>
 					</Toolbar>
 					<VBox items="{path : 'oUpdateFlightModel>/aTasks' , sorter : { path : 'sequence', descending: false}}">
 						<l:Grid >
@@ -28,13 +28,7 @@
 							</FlexBox>
 						</l:Grid>
 					</VBox>
-					<!--<core:Fragment fragmentName="avmet.ah.fragments.flc.FLC" type="XML"/>-->
-					<!--<Toolbar height="1px"/>-->
-					<!--<core:Fragment fragmentName="avmet.ah.fragments.wlc.WLC" type="XML"/>-->
-					<!--<Toolbar height="1px"/>-->
-					<!--<core:Fragment fragmentName="avmet.ah.fragments.pdsic.PDSIC" type="XML"/>-->
-				</l:content>
-			</l:VerticalLayout>
+				</VBox>
 		</content>
 	</Page>
 </mvc:View>

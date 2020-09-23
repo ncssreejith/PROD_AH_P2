@@ -56,7 +56,8 @@ sap.ui.define([
 						"jobty": "",
 						"jstat": "",
 						"symbol": "",
-						"purpose": ""
+						"purpose": "",
+					"srvid":""
 					}],
 					"defectArea": [{
 						"key": "DEA_T",
@@ -174,7 +175,8 @@ sap.ui.define([
 					"jobty": "",
 					"jstat": "",
 					"symbol": "",
-					"purpose": ""
+					"purpose": "",
+					"srvid":""
 				};
 				this.getModel("paModel").getProperty("/defects").push(oItems);
 				this.getModel("paModel").refresh();

@@ -123,7 +123,8 @@ sap.ui.define([
 					"srvtid": this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid"),
 					"stepid": this.getModel("oPilotUpdatesViewModel").getProperty("/stepid"),
 					"jobdesc": null,
-					"fstat": null
+					"fstat": null,
+					"srvid":""
 				};
 				this.getModel("oPilotUpdatesViewModel").getProperty("/defects").push(oItems);
 				this.getModel("oPilotUpdatesViewModel").refresh();
@@ -786,7 +787,8 @@ sap.ui.define([
 					"srvtid": oPayload.srvtid,
 					"stepid": oPayload.stepid,
 					"jobdesc": null,
-					"fstat": null
+					"fstat": null,
+					"srvid":""
 				}];
 				oPayload.engines = [{
 					"srvid": null,
