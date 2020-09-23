@@ -19,12 +19,13 @@
 			</VBox>
 			<VBox visible="true" class="flightinfoBlock2">
 				<HBox visible="{avmetModel>/UnlockRec}">
-					<Label text="Release for rectification"/>
-					<Switch state="{avmetModel>/UnlockRec}" customTextOn="Unlock" customTextOff="Lock" change="onFSUnlock">
-						<layoutData>
-							<FlexItemData growFactor="1"/>
-						</layoutData>
-					</Switch>
+					<Button text="{i18n>muReleaseforRectification}" press="onReleaseForRectification" type="Emphasized"/>
+					<!--<Label text="{i18n>muReleaseforRectification}"/>-->
+					<!--<Switch state="{avmetModel>/UnlockRec}" customTextOn="Unlock" customTextOff="Lock" change="onFSUnlock">-->
+					<!--	<layoutData>-->
+					<!--		<FlexItemData growFactor="1"/>-->
+					<!--	</layoutData>-->
+					<!--</Switch>-->
 				</HBox>
 				<HBox visible="{avmetModel>/UnlockAVMET}">
 					<Label text="Unlock AVMET"/>

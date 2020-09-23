@@ -130,7 +130,6 @@ sap.ui.define([
 			} catch (e) {
 				this.handleException(e);
 			}
-
 		},
 
 		onAircraftTransferMenu: function() {
@@ -150,6 +149,14 @@ sap.ui.define([
 			} catch (e) {
 				this.handleException(e);
 				Log.error("Exception in onFSUnlock function");
+			}
+		},
+		onReleaseForRectification: function() {
+			try {
+				this.getRouter().navTo("ReleaseForRectification");
+			} catch (e) {
+				this.handleException(e);
+				Log.error("Exception in onReleaseForRectification function");
 			}
 		},
 
