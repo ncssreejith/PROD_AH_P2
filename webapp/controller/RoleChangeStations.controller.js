@@ -17,29 +17,29 @@ sap.ui.define([
 		/* =========================================================================================================== */
 		onInit: function() {
 			try {
-				var oModel = new JSONModel({
-					"Stations": [],
-					"Adaptors": [],
-					"Tanks": [],
-					"ImagePath": "",
-					"ArrowImagePath": "css/img/DoubleArrow2.JPG",
-					"InstallImagePath": "css/img/Install.JPG",
-					"TileOneHeader": "",
-					"TileTwoHeader": "",
-					"TileThreeHeader": "",
-					"StationName": "",
-					"bDropSection": true,
-					"bGunSection": false,
-					"bHotColdSection": false,
-					"bNoDrop": false,
-					"bStation5": false,
-					"iMaxValueEntered": "",
-					"iSLNo": "",
-					"bPushTank": true,
-					"bICART": false,
-					"tabSelected": "Tradesman"
-				});
-				this.getView().setModel(oModel, "oRoleChangeModel");
+				// var oModel = new JSONModel({
+				// 	"Stations": [],
+				// 	"Adaptors": [],
+				// 	"Tanks": [],
+				// 	"ImagePath": "",
+				// 	"ArrowImagePath": "css/img/DoubleArrow2.JPG",
+				// 	"InstallImagePath": "css/img/Install.JPG",
+				// 	"TileOneHeader": "",
+				// 	"TileTwoHeader": "",
+				// 	"TileThreeHeader": "",
+				// 	"StationName": "",
+				// 	"bDropSection": true,
+				// 	"bGunSection": false,
+				// 	"bHotColdSection": false,
+				// 	"bNoDrop": false,
+				// 	"bStation5": false,
+				// 	"iMaxValueEntered": "",
+				// 	"iSLNo": "",
+				// 	"bPushTank": true,
+				// 	"bICART": false,
+				// 	"tabSelected": "Tradesman"
+				// });
+				// this.getView().setModel(oModel, "oRoleChangeModel");
 				//this.setModel(models.createMainModel(), "RoleChange");
 				this.getRouter().getRoute("RoleChangeStations").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
@@ -788,6 +788,7 @@ sap.ui.define([
 					aStations = oModel.getProperty("/Stations"),
 					oParameter = {},
 					aPayload = [];
+				console.log(aStations);
 				if (aStations.length) {
 					for (var i in aStations) {
 						if (aStations[i].Drop0 && aStations[i].Drop0 !== "") {
@@ -868,13 +869,14 @@ sap.ui.define([
 					aStationData[i].tailid = this.getTailId();
 					aStationData[i].STNMID = null;
 				}
+				console.log(aStationData);
 				var plStations = this._fnGetStationPayload(aStationData, 2);
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					sap.m.MessageToast.show("Signoff Successful");
 					that._navToDashboard();
-					// that.getView().byId("supervisorTabId").setEnabled(false);
-					// that.getView().byId("tradesmanTabId").setEnabled(true);
+					that.getView().byId("supervisorTabId").setEnabled(false);
+					that.getView().byId("tradesmanTabId").setEnabled(true);
 					// window.setTimeout(function() {
 					// 	that.getView().byId("supervisorTabId").focus();
 					// }, 100);
@@ -1429,8 +1431,31 @@ sap.ui.define([
 
 		_onObjectMatched: function(oEvent) {
 			try {
-				var oModel = this.getView().getModel("oRoleChangeModel"),
-					oData = dataUtil.getDataSet(this.getOwnerComponent().appModel),
+				var oModel = new JSONModel({
+					"Stations": [],
+					"Adaptors": [],
+					"Tanks": [],
+					"ImagePath": "",
+					"ArrowImagePath": "css/img/DoubleArrow2.JPG",
+					"InstallImagePath": "css/img/Install.JPG",
+					"TileOneHeader": "",
+					"TileTwoHeader": "",
+					"TileThreeHeader": "",
+					"StationName": "",
+					"bDropSection": true,
+					"bGunSection": false,
+					"bHotColdSection": false,
+					"bNoDrop": false,
+					"bStation5": false,
+					"iMaxValueEntered": "",
+					"iSLNo": "",
+					"bPushTank": true,
+					"bICART": false,
+					"tabSelected": "Tradesman"
+				});
+				this.getView().setModel(oModel, "oRoleChangeModel");
+				// var oModel = this.getView().getModel("oRoleChangeModel"),
+				var	oData = dataUtil.getDataSet(this.getOwnerComponent().appModel),
 					aStations = oData.login.rolechangedetails;
 				oModel.setProperty("/bDropSection", true);
 				oModel.setProperty("/bGunSection", false);
