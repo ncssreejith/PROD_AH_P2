@@ -186,6 +186,7 @@ sap.ui.define([
 					}
 				}.bind(this, oSelWpn));
 				this.getModel("configModel").setProperty("/selStn/selADP/selWpn", oSelWpn);
+				this.getModel("configModel").setProperty("/selStn/TOTQTY", oSelWpn.srcount);
 				this.getModel("configModel").refresh();
 			} catch (e) {
 				Log.error("Exception in Station:onSaveMunition function");
