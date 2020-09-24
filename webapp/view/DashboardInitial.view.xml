@@ -82,7 +82,7 @@
 										</SegmentedButtonItem>
 										<SegmentedButtonItem text="Days" key="Days" icon="{dashboardModel>/scl/DaysAlert}"
 											ariaDescribedBy="rejectButtonDescription genericButtonDescription"/>
-										<SegmentedButtonItem text="TAC" key="TAC" icon="{dashboardModel>/scl/TACAlert}"/>
+										<SegmentedButtonItem text="Eng" key="TAC" icon="{dashboardModel>/scl/TACAlert}"/>
 									</items>
 								</SegmentedButton>
 								<Link text="view" press="onSchedulesView('SCH')" visible="{= !!${dashboardModel>/scl/LV_COUNT}}"/>
