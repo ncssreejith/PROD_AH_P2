@@ -16,8 +16,8 @@
 								</items>
 							</SegmentedButton>
 						</VBox>
-						<VBox width="60%">
-							<Label text="{i18n>typeOfOperation}" design="Bold" visible="{= ${oPilotUpdatesViewModel>/flyrecord/fstat}==='F'?true:false}"/>
+						<VBox width="60%"  visible="{= ${oPilotUpdatesViewModel>/flyRecord/fstat}==='F'?true:false}">
+							<Label text="{i18n>typeOfOperation}" design="Bold"/>
 							<Select selectedKey="{oPilotUpdatesViewModel>/flyRecord/oprty}" items="{oPilotUpdatesViewModel>/toper}" width="40%">
 								<core:Item text="{oPilotUpdatesViewModel>description}" key="{oPilotUpdatesViewModel>ddid}"/>
 							</Select>

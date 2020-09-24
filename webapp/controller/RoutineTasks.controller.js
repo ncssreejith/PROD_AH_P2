@@ -226,7 +226,7 @@ sap.ui.define([
 					this.fnShowMessage("E", {}, hrex, function(oEvent) {});
 				}.bind(this);
 				oParameter.success = function(oData) {
-					// oData.results[0].APR_NO = "4";
+					// oData.results[0].APR_NO = '0';
 					var sCount = this.formatter.integerUnit((oData.results.length > 0 ? oData.results[0].APR_NO : 0));
 					this.getModel("rtModel").setProperty("/tasks", oData.results);
 					this.getModel("rtModel").setProperty("/sgEnable", sCount < 4 ? true : false);

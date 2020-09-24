@@ -20,8 +20,8 @@
 					<cells>
 						<Text text="{path:'rtModel>DDDESC',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
 						<VBox>
-							<Text text="{rtModel>DDDESC}" visible="{= ${rtModel>RTASKID}?true:false}"/>
-							<Input value="{rtModel>DDDESC}" visible="{= ${rtModel>RTASKID}?false:true}"/>
+							<Text text="{rtModel>DDDESC}" visible="{= (${rtModel>RTASKID} || ${rtModel>/tasks/0/APR_NO}>0)?true:false}"/>
+							<Input value="{rtModel>DDDESC}" visible="{= (${rtModel>RTASKID} || ${rtModel>/tasks/0/APR_NO}>0)?false:true}"/>
 						</VBox>
 						<!--enabled="{= ${rtModel>APR_NO}==='0'}"-->
 						<SegmentedButton
@@ -34,10 +34,10 @@
 							</items>
 						</SegmentedButton>
 						<Text text="{rtModel>TRADE_USER}"/>
-						<Button icon="sap-icon://sys-cancel" type="Reject" visible="{= ${rtModel>RTASKID}?false:true}" press="onDeleteTaskPress"/>
+						<Button icon="sap-icon://sys-cancel" type="Reject" visible="{= (${rtModel>RTASKID} || ${rtModel>/tasks/0/APR_NO}>0)?false:true}" press="onDeleteTaskPress"/>
 					</cells>
 				</ColumnListItem>
 			</items>
 		</Table>
-		<Button icon="sap-icon://sys-add" visible="{= ${rtModel>/tasks/0/APR_NO}==='0'}" class="addTaskBtn" text="Add Routine Task" press="onAddRoutineTask" width="100%"/>
+		<Button icon="sap-icon://sys-add" visible="{= ${rtModel>/tasks/0/APR_NO}===0}" class="addTaskBtn" text="Add Routine Task" press="onAddRoutineTask" width="100%"/>
 </core:FragmentDefinition>
