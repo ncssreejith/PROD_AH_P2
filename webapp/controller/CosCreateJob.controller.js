@@ -650,7 +650,7 @@ sap.ui.define([
 					sjobid = "",
 					oModel;
 				var dDate = new Date();
-				oModel = that.getView().getModel("LocalModel");
+				oModel = that.getView().getModel("appModel");
 				var oParameter = {};
 				var oldWrkctr = oPayload.LASTWC;
 				delete oPayload.LASTWC;
@@ -667,7 +667,7 @@ sap.ui.define([
 					if (oData.results[0].photo !== "") {
 						that._fnPhotoUploadCreate(oData.results[0].jobid, oData.results[0].tailid);
 					}
-					if (oData.results[0].prime !== "") {
+					if (oData.results[0].prime !== "" && oModel.getProperty("/PrimeStatus")) {
 						that._fnDefectWorkCenterUpdate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime, oldWrkctr);
 					}
 					that.getView().byId("defectId").setVisible(false);
@@ -971,7 +971,7 @@ sap.ui.define([
 						"jobid": sJobId,
 						"tailid": sTailId,
 						"wrctr": sWorkCenter,
-						"isprime": "",
+						"isprime": "X",
 						"wrctrtx": sOldWorkCenter ? sOldWorkCenter : "",
 						"count": null,
 						"PrimeCount": null

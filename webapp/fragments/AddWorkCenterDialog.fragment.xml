@@ -9,20 +9,25 @@
 				<VBox class="sapUiLargeMarginBeginEnd sapUiSmallMarginTopBottom">
 					<Label text="{i18n>lbSelectWOrCenter}" wrapping="true" design="Bold" class="sapUiTinyMarginBegin"></Label>
 					<ComboBox id="ComboWCId" width="15rem" placeholder="{i18n>phSelect}" items="{WorkCenterDialogModel>/WorkCenterSet}"
-						visible="{= ${WorkCenterDialogModel>/WorkCenterMode} === 'ADD'}" class="sapUiTinyMargin">
+						visible="{= ${WorkCenterDialogModel>/WorkCenterMode} === 'ADD' || ${WorkCenterDialogModel>/WorkCenterMode} === 'SWITCH'}"
+						class="sapUiTinyMargin">
 						<core:Item key="{WorkCenterDialogModel>wrctr}" text="{WorkCenterDialogModel>name}"/>
 					</ComboBox>
-					<ComboBox id="cbWorkCenterEdit" selectionChange="onWorkCenterEditChange" width="15rem" placeholder="{i18n>phSelect}" selectedKey="{WorkCenterDialogModel>/SelectedWorkCenter}"
-						items="{WorkCenterDialogModel>/WorkCenterSet}" visible="{= ${WorkCenterDialogModel>/WorkCenterMode} !== 'ADD'}" class="sapUiTinyMargin">
+					<ComboBox id="cbWorkCenterEdit" selectionChange="onWorkCenterEditChange" width="15rem" placeholder="{i18n>phSelect}"
+						selectedKey="{WorkCenterDialogModel>/SelectedWorkCenter}" items="{WorkCenterDialogModel>/WorkCenterSet}"
+						visible="{= ${WorkCenterDialogModel>/WorkCenterMode} !== 'ADD' &amp;&amp; ${WorkCenterDialogModel>/WorkCenterMode} !== 'SWITCH'}"
+						class="sapUiTinyMargin">
 						<core:Item key="{WorkCenterDialogModel>wrctr}" text="{WorkCenterDialogModel>wrctrtx}"/>
 					</ComboBox>
-					<Label text="{i18n>lbSetAsPrime}" wrapping="true" design="Bold" class="sapUiTinyMarginTop sapUiTinyMarginBegin"></Label>
-					<Switch id="switchId" state="false" customTextOn=" " customTextOff=" " class="sapUiTinyMarginBegin"
-						enabled="{= ${WorkCenterDialogModel>/WorkCenterMode} !== 'DELETE'}">
-						<layoutData>
-							<FlexItemData growFactor="1"/>
-						</layoutData>
-					</Switch>
+					<VBox visible="{= ${WorkCenterDialogModel>/WorkCenterMode} !== 'DELETE' &amp;&amp; ${WorkCenterDialogModel>/WorkCenterMode} !== 'SWITCH'}">
+						<Label text="{i18n>lbSetAsPrime}" wrapping="true" design="Bold" class="sapUiTinyMarginTop sapUiTinyMarginBegin"></Label>
+						<Switch id="switchId" state="false" customTextOn=" " customTextOff=" " class="sapUiTinyMarginBegin">
+							<layoutData>
+								<!--enabled="{= ${WorkCenterDialogModel>/WorkCenterMode} !== 'DELETE'}"-->
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</Switch>
+					</VBox>
 				</VBox>
 				<Toolbar class="sapUiSmallMarginBottom toolbarBorder">
 					<ToolbarSpacer/>
@@ -33,6 +38,8 @@
 						press="onEditWorkcenterSubmitPress('EDIT')"></Button>
 					<Button width="6rem" text="{i18n>btnDelete}" visible="{= ${WorkCenterDialogModel>/WorkCenterMode} === 'DELETE'}" class="btnColor"
 						press="onDeleteWorkcenterSubmitPress"></Button>
+					<Button width="6rem" text="{i18n>btnSwitch}" visible="{= ${WorkCenterDialogModel>/WorkCenterMode} === 'SWITCH'}" class="btnColor"
+						press="onSwitchWorkCenter"></Button>
 					<ToolbarSpacer/>
 				</Toolbar>
 			</VBox>
@@ -49,8 +56,10 @@
 				<Toolbar class="sapUiSmallMarginBottom toolbarBorder">
 					<ToolbarSpacer/>
 					<Button width="6rem" text="{i18n>btnCancel}" press="onCloseConfirmDialog" type="Default" class="btnClass"></Button>
-					<Button width="6rem" text="{i18n>btnConfirm}" visible="{= ${WorkCenterDialogModel>/WorkCenterMode} === 'ADD'}" class="btnColor" press="onAddWorkcenterSubmitPress('CON')"></Button>
-					<Button width="6rem" text="{i18n>btnConfirm}" visible="{= ${WorkCenterDialogModel>/WorkCenterMode} === 'EDIT'}" class="btnColor" press="onEditWorkcenterSubmitPress('CON')"></Button>
+					<Button width="6rem" text="{i18n>btnConfirm}" visible="{= ${WorkCenterDialogModel>/WorkCenterMode} === 'ADD'}" class="btnColor"
+						press="onAddWorkcenterSubmitPress('CON')"></Button>
+					<Button width="6rem" text="{i18n>btnConfirm}" visible="{= ${WorkCenterDialogModel>/WorkCenterMode} === 'EDIT'}" class="btnColor"
+						press="onEditWorkcenterSubmitPress('CON')"></Button>
 					<ToolbarSpacer/>
 				</Toolbar>
 			</VBox>

@@ -194,6 +194,7 @@ sap.ui.define([
 							"NUM": j + 1,
 							"ENDDA": null,
 							"BEGDA": null,
+							"JOBID":null,
 							"USRID": oTradeMan[j].Name
 						});
 

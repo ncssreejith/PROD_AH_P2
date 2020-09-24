@@ -147,7 +147,7 @@ sap.ui.define([
 					JobStatus: false,
 					etrMinDate: null,
 					DefectImageSrc: [],
-					selectedTask:[],
+					selectedTask: [],
 					CreateTaskMenu: [{
 						"Text": "New Task",
 						"Visible": true
@@ -371,6 +371,20 @@ sap.ui.define([
 
 		},
 
+		onSwitchWorkCenter: function() {
+			var oModel = this.getModel("LocalModel"),
+				oJobModel = this.getView().getModel("JobModel"),
+				sSelectedItem,
+				sPrime = "";
+
+			var oComboBoxInstance = this.getFragmentControl("idWorkCenterDialog", "ComboWCId");
+			sSelectedItem = oComboBoxInstance.getSelectedItem();
+			if (oModel.getProperty("/WorkCenterKey") === oJobModel.getProperty("/prime")) {
+				sPrime = "X";
+			}
+			this._fnDefectWorkCenterUpdate(oModel.getProperty("/sJobId"), sSelectedItem.getKey(), sPrime);
+		},
+
 		onDeleteWorkcenterSubmitPress: function() {
 			var sKey = this._oAddWorkCenter.getModel("WorkCenterDialogModel").getProperty("/SelectedWorkCenter");
 			var bFlag = this.getFragmentControl("idWorkCenterDialog", "switchId").getState();
@@ -561,6 +575,11 @@ sap.ui.define([
 				oModel.setProperty("/WorkCenterTitle", this.getResourceBundle().getText(
 					"tiDeleteWorkCenter"));
 				oModel.setProperty("/WorkCenterMode", "DELETE");
+			} else if (sMode === "SWITCH") {
+				oModel.setProperty("/WorkCenterSet", this._fnGetWorkCenterSwicthModel());
+				oModel.setProperty("/WorkCenterTitle", this.getResourceBundle().getText(
+					"tiSwitchWorkCenter"));
+				oModel.setProperty("/WorkCenterMode", "SWITCH");
 			}
 
 		},
@@ -569,7 +588,19 @@ sap.ui.define([
 			var oModel = JSON.parse(JSON.stringify(this.getModel("CreatedWorkCenterModel").getData()));
 			var aSet = {};
 			for (var key in oModel) {
-				if (oModel[key].wrctr !== "Summary") {
+				if (oModel[key].wrctr !== "Summary" && oModel[key].wrctr !== "RectSum") {
+					aSet[oModel[key].wrctr] = oModel[key];
+				}
+			}
+			return aSet;
+		},
+
+		_fnGetWorkCenterSwicthModel: function() {
+			var oLocalModel = this.getView().getModel("LocalModel");
+			var oModel = JSON.parse(JSON.stringify(this.getModel("WorkCenterSet").getData()));
+			var aSet = {};
+			for (var key in oModel) {
+				if (oModel[key].wrctr !== oLocalModel.getProperty("/WorkCenterKey")) {
 					aSet[oModel[key].wrctr] = oModel[key];
 				}
 			}
@@ -875,6 +906,7 @@ sap.ui.define([
 						that._fnUpdateJob();
 						break;
 					case "Switch Work Center":
+						that.onAddNewWorkCenter("SWITCH");
 						break;
 					case "Delete Work Center":
 						if (oJobModel.getProperty("/prime") !== sKey) {
@@ -1249,6 +1281,49 @@ sap.ui.define([
 				Log.error("Exception in onPendingSupDetailsPress function");
 			}
 		},
+
+		onCompleteDetailsPress: function(oPayLoad) {
+			try {
+				var that = this,
+					oModel;
+				oModel = dataUtil.createNewJsonModel();
+				if (oPayLoad.multi !== null) {
+					this._fnMultiTradmanGet(oPayLoad.taskid);
+				}
+
+				if (!that._oComDetails) {
+					that._oComDetails = sap.ui.xmlfragment("OSTId",
+						"avmet.ah.fragments.CompletedTaskDetails",
+						that);
+					oModel.setData(oPayLoad);
+					that._oComDetails.setModel(oModel, "DetailsComModel");
+					that.getView().addDependent(that._oComDetails);
+				}
+				that._oComDetails.open(that);
+			} catch (e) {
+				Log.error("Exception in onCompleteDetailsPress function");
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: onPendingSupDetailsClose
+		// Parameter: 
+		// Description: Generic Method: This will get called, to clsoe the dialog .
+		//Table: 
+		//------------------------------------------------------------------
+		onCompleteDetailsClose: function() {
+			try {
+				if (this._oComDetails) {
+					var oTable = this.getView().byId("tbWcCompletedId");
+					oTable.removeSelections(true);
+					this._oComDetails.close(this);
+					this._oComDetails.destroy();
+					delete this._oComDetails;
+				}
+			} catch (e) {
+				Log.error("Exception in onCompleteDetailsClose function");
+			}
+		},
 		onPendingSupDetailsClose: function() {
 			try {
 				if (this._oSPDetails) {
@@ -1345,6 +1420,29 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in onFlyingRequirementClose function");
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnMultiTradmanJobGet
+		// Parameter: sJObId
+		// Description: This will get called, when to get involved trademans data.
+		//Table: TUSER
+		//------------------------------------------------------------------
+		_fnMultiTradmanJobGet: function(sJobId) {
+			try {
+				var that = this,
+					oPrmTD = {};
+				oPrmTD.filter = "JOBID eq " + sJobId;
+				oPrmTD.error = function() {};
+				oPrmTD.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "TUserJobModel");
+				}.bind(this);
+				ajaxutil.fnRead("/CreTuserSvc", oPrmTD);
+			} catch (e) {
+				Log.error("Exception in _fnMultiTradmanJobGet function");
 			}
 		},
 
@@ -1761,8 +1859,9 @@ sap.ui.define([
 					"jobId": sJobId
 				}), "jobModel");
 				oViewModel.setProperty("/sFlag", sFlag);
-				if(sFlag==="N"){
+				if (sFlag === "N") {
 					this.onRectificationSelectTask(sJobId);
+					this._fnMultiTradmanJobGet(sJobId);
 				}
 				oViewModel.setProperty("/sWcKey", sWcKey);
 				oViewModel.setProperty("/sGoTo", sGoTo);
@@ -1972,6 +2071,31 @@ sap.ui.define([
 			}
 		},
 
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called, to get data fro selected tasks.
+		// Table: TASK
+		//--------------------------------------------------------------------------------------
+		onSelTasksGetComplete: function(oEvent) {
+			try {
+				var that = this,
+					filters = [],
+					oModel,
+					oObj = oEvent.getSource().getBindingContext("TaskCompleteModel").getObject(),
+					sFilter, bFlag = true,
+					oPrmJobDue = {};
+				oEvent.getSource().setSelected(true);
+				sFilter = "taskid eq " + oObj.taskid;
+				oPrmJobDue.filter = sFilter;
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					that.onCompleteDetailsPress(oData.results[0]);
+				}.bind(this);
+				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnTasksGet function");
+			}
+		},
+
 		//------------------------------------------------------------------
 		// Function: _fnTaskStatusGet
 		// Parameter: sJobId
@@ -2171,21 +2295,21 @@ sap.ui.define([
 				oPrmFR.error = function() {};
 
 				oPrmFR.success = function(oData) {
-				/*	if (oData && oData.results.length > 0) {*/
-						var oModel = new JSONModel({});
-						var aData = [];
-						for (var i in oData.results) {
-							aData[i] = oData.results[i];
-							var temp = oData.results[i].SORCNT.split("@");
-							aData[i].SORCNT = temp[0];
-							aData[i].SORTEXT = temp[1];
-							aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "SORDT", "SORTM");
-						}
+					/*	if (oData && oData.results.length > 0) {*/
+					var oModel = new JSONModel({});
+					var aData = [];
+					for (var i in oData.results) {
+						aData[i] = oData.results[i];
+						var temp = oData.results[i].SORCNT.split("@");
+						aData[i].SORCNT = temp[0];
+						aData[i].SORTEXT = temp[1];
+						aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "SORDT", "SORTM");
+					}
 
-						oModel.setData(aData);
-						that.getView().setModel(oModel, "SRMModel");
-						/*that.getModel().updateBindings(true);*/
-				/*	}*/
+					oModel.setData(aData);
+					that.getView().setModel(oModel, "SRMModel");
+					/*that.getModel().updateBindings(true);*/
+					/*	}*/
 
 				}.bind(this);
 
@@ -2636,7 +2760,7 @@ sap.ui.define([
 		onRectificationSelectTask: function(sJobId) {
 			try {
 				var that = this,
-			  	oPrmTask = {};
+					oPrmTask = {};
 				oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
 
 				oPrmTask.error = function() {};
@@ -2682,6 +2806,41 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in _fnDefectWorkCenterDelete function");
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnDefectWorkCenterUpdate
+		// Parameter: oEvent
+		// Description: Private Method: This will get called, when to update workcenter data from backend.
+		// Table: WRCTR
+		//------------------------------------------------------------------
+		_fnDefectWorkCenterUpdate: function(sJobId, sKey, isPrime) {
+			try {
+				var that = this,
+					oPayload, oModel = that.getView().getModel("LocalModel"),
+					oPrmWorkCenter = {};
+				oPayload = {
+					"jobid": sJobId,
+					"tailid": that.getTailId(),
+					"wrctr": sKey,
+					"isprime": isPrime,
+					"wrctrtx": oModel.getProperty("/WorkCenterKey"),
+					"count": null,
+					"PrimeCount": null,
+					"LASTWC": null
+				};
+				oPrmWorkCenter.error = function() {};
+				oPrmWorkCenter.success = function(oData) {
+					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
+					oModel.setProperty("/WorkCenterTitle", oData.results[0].wrctrtx);
+					oModel.setProperty("/WorkCenterKey", oData.results[0].wrctr);
+					that.onCloseAddWorkCenterDialog();
+				}.bind(this);
+				oPrmWorkCenter.activity = 2;
+				ajaxutil.fnUpdate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload], "ZRM_COS_JB", this);
+			} catch (e) {
+				Log.error("Exception in _fnDefectWorkCenterUpdate function");
 			}
 		},
 
@@ -2927,8 +3086,8 @@ sap.ui.define([
 				Log.error("Exception in removeCoordinates function");
 			}
 		},
-		
-		_fnCheckMasterTask : function (oTask){
+
+		_fnCheckMasterTask: function(oTask) {
 			oTask = oTask.getBindingContext("TaskOutModel").getObject();
 			if (oTask.RTTY === "M") {
 				var aContext = this.getView().byId("tbWcOutstandingId").getBinding("items").getContexts();

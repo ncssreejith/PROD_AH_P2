@@ -67,7 +67,7 @@
 												<Label design="Bold" text="{i18n>lbFoundBy}" width="150px"/>
 												<Text text="{JobModel>/fndby}" width="200px"/>
 											</HBox>
-											<HBox class="sapUiTinyMarginTop" visible="{=${JobModel>/fndid}!==null &amp;&amp; ${JobModel>/jobty}!=='S' ? true :false}">
+											<HBox class="sapUiTinyMarginTop" visible="{= ${JobModel>/jobty}!=='S' ? true :false}">
 												<Label design="Bold" text="{i18n>lbFoundduring}" width="150px"/>
 												<Text text="{path:'JobModel>/fndid', formatter:'.formatter.fndIdFormatter'}" width="200px"/>
 											</HBox>

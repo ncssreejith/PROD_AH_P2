@@ -429,7 +429,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWorkCen = {};
-				oPrmWorkCen.filter = "REFID eq " + sAirId;
+				oPrmWorkCen.filter = "REFID eq " + this.getAircraftId();
 				oPrmWorkCen.error = function() {};
 				oPrmWorkCen.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();

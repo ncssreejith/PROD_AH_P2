@@ -740,6 +740,29 @@ sap.ui.define([
 			}
 		},
 
+		//------------------------------------------------------------------
+		// Function: _fnMultiTradmanJobGet
+		// Parameter: sJObId
+		// Description: This will get called, when to get involved trademans data.
+		//Table: TUSER
+		//------------------------------------------------------------------
+		_fnMultiTradmanJobGet: function(sJobId) {
+			try {
+				var that = this,
+					oPrmTD = {};
+				oPrmTD.filter = "JOBID eq " + sJobId;
+				oPrmTD.error = function() {};
+				oPrmTD.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "TUserJobModel");
+				}.bind(this);
+				ajaxutil.fnRead("/CreTuserSvc", oPrmTD);
+			} catch (e) {
+				Log.error("Exception in _fnMultiTradmanJobGet function");
+			}
+		},
+
 		// ***************************************************************************
 		//                 4. Private Methods   
 		// ***************************************************************************
@@ -790,6 +813,7 @@ sap.ui.define([
 				this.selectedTab = "Summary";
 				that._fnJobDetailsGet(sJobId);
 				that._fnTaskStatusGet(sJobId);
+				that._fnMultiTradmanJobGet(sJobId);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_onObjectMatched function");
 				this.handleException(e);
