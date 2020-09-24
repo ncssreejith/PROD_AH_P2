@@ -206,6 +206,7 @@ sap.ui.define([
 						break;
 				}
 				this.getView().byId("idIconTabBar").setSelectedKey(sNextKey);
+				this.getView().byId("idIconTabBar").getItems()[0].focus();
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:onFlyingNext function");
 				this.handleException(e);
@@ -230,6 +231,7 @@ sap.ui.define([
 						return;
 				}
 				this.getView().byId("idIconTabBar").setSelectedKey(sNextKey);
+				this.getView().byId("idIconTabBar").getItems()[0].focus();
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:onBackPress function");
 				this.handleException(e);
@@ -248,7 +250,16 @@ sap.ui.define([
 		},
 		onSignOffPress: function(oEvent) {
 			this.fnCreateFlyRecords();
-
+		},
+		
+		onRemoveDefectPress: function(oEvent) {
+			try {
+				var oIndex = oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getPath().split("/")[2];
+				this.getModel("oPilotUpdatesViewModel").getProperty("/defects").splice(oIndex, 1);
+				this.getModel("oPilotUpdatesViewModel").refresh(true);
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
 		},
 
 		onSendOthers: function() {
@@ -769,7 +780,6 @@ sap.ui.define([
 					"endda": null,
 					"begda": null,
 					"egstt": currentTime.getHours() + ":" + currentTime.getMinutes(),
-					
 					"woffw": currentTime.getHours() + ":" + currentTime.getMinutes(),
 					"wonw": currentTime.getHours() + ":" + currentTime.getMinutes(),
 					"egspt": currentTime.getHours() + ":" + currentTime.getMinutes()

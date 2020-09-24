@@ -17,7 +17,7 @@
 							</SegmentedButton>
 						</VBox>
 						<VBox width="60%">
-							<Label text="{i18n>typeOfOperation}" design="Bold"/>
+							<Label text="{i18n>typeOfOperation}" design="Bold" visible="{= ${oPilotUpdatesViewModel>/flyrecord/fstat}==='F'?true:false}"/>
 							<Select selectedKey="{oPilotUpdatesViewModel>/flyRecord/oprty}" items="{oPilotUpdatesViewModel>/toper}" width="40%">
 								<core:Item text="{oPilotUpdatesViewModel>description}" key="{oPilotUpdatesViewModel>ddid}"/>
 							</Select>
@@ -54,7 +54,7 @@
 						<VBox width="40%">
 							<Label text="APU running duration" design="Bold"/>
 							<StepInput width="20rem" min="0.0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/flyRecord/apudur}" id="apuRunningId"
-								fieldGroupIds="fgStepInput" step="0.1" displayValuePrecision="2" required="true"/>
+								fieldGroupIds="fgStepInput" step="0.1" displayValuePrecision="1" required="true"/>
 						</VBox>
 						<VBox width="40%">
 							<Label text="No. of APU start" design="Bold"/>

@@ -1,8 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control" xmlns:f="sap.f"
 	xmlns:card="sap.f.cards">
-	<l:VerticalLayout class="sapUiSmallMargin backgroundBlue">
-		<l:content>
-			<VBox class="sapUiSmallMargin">
+
+			<VBox class="sapUiSmallMargin backgroundBlue">
 				<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.statustest.AircraftMonitoring" type="XML"/>
 				<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.statustest.FlyRequirment" type="XML"/>
 				
@@ -30,12 +29,12 @@
 						</VBox>
 						<List items="{oPilotUpdatesViewModel>/defects}" id="defectWriteUpId" visible="{= ${oPilotUpdatesViewModel>/srvable}==='AST_US'?true:false}">
 							<CustomListItem class="sapUiSmallMarginTopBottom">
-								<HBox class="sapUiSmallMarginTop" width="50%">
-									<VBox class="sapUiSmallMarginBeginEnd">
+								<HBox class="sapUiSmallMarginTop" width="100%">
+									<VBox class="sapUiSmallMarginBeginEnd" width="60%">
 										<Label text="Defect write up" design="Bold"/>
-										<TextArea value="{oPilotUpdatesViewModel>jobdesc}" cols="120" rows="3" showExceededText="true" maxLength="100"/>
+										<TextArea value="{oPilotUpdatesViewModel>jobdesc}" cols="1000" rows="6" showExceededText="true" maxLength="1000"/>
 									</VBox>
-									<VBox class="sapUiSmallMarginBeginEnd" width="50%">
+									<VBox class="sapUiSmallMarginBeginEnd" width="20%">
 										<Label text="Is this a FAIR entry?" design="Bold"/>
 										<SegmentedButton selectedKey="{oPilotUpdatesViewModel>fair}" items="{postflightModel>/yn}" selectionChange="onFairChange">
 											<items>
@@ -43,6 +42,7 @@
 											</items>
 										</SegmentedButton>
 									</VBox>
+									<Button class="sapUiSmallMarginTop" icon="sap-icon://delete" type="Transparent" visible="{= (${oPilotUpdatesViewModel>/defects}.indexOf(${oPilotUpdatesViewModel>})+1)!==1}" press="onRemoveDefectPress" />
 								</HBox>
 							</CustomListItem>
 						</List>
@@ -52,6 +52,5 @@
 					</VBox>
 				</HBox>
 			</VBox>
-		</l:content>
-	</l:VerticalLayout>
+	
 </core:FragmentDefinition>

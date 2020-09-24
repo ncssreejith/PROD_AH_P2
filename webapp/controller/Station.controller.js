@@ -372,6 +372,14 @@ sap.ui.define([
 
 		onStationSignOff: function() {
 			try {
+				var sMsg = this.fnValidOther();
+				if(sMsg !== ""){
+					var oData = {messages:[sMsg]};
+					this.fnShowMessage("E", oData,null, function(){
+						
+					});
+					return ;
+				}
 				var oSerialNumberPayload = [];
 				var oPayloads = [];
 				this.getModel("configModel").getProperty("/stns").forEach(function(oItem) {
@@ -425,7 +433,7 @@ sap.ui.define([
 						// oPayload.TOTQTY = 0; //oItem.selADP.selWpn.qnt === undefined ? 0 : oItem.selADP.selWpn.qnt;
 					}
 
-					if (oPayload.STNMID === "STNM_O" && (oPayload.TOTQTY >= 0 || oPayload.TOTQTY === "")) {
+					if (oPayload.STNMID === "STNM_O" && oPayload.TOTQTY >= 0) {
 						oPayloads.push(oPayload);
 					}
 					// oPayloads.push(oPayload);
@@ -538,6 +546,7 @@ sap.ui.define([
 				// if (sAdapterList[0].ICART === "X") {
 				if (sAdapterList[0].POT === "T") {
 					var sWep = sAdapterList[0];
+					sWep.CONTOR = sWep.ICART==="X"?"C":"N";
 					sStation.selADP = sAdapterList[1] === undefined ? {} : sAdapterList[1];
 					sStation.selADP.selWpn = sWep;
 					sStation.selADP.selWpn.CONECT = this.getModel("configModel").getProperty("/selStn/CONECT");
@@ -581,43 +590,57 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+			fnValidOther:function(){
+			var sMsg = "";
+			this.getModel("configModel").getProperty("/stns").forEach(function(oItem) {
+				if(oItem.STNMID === "STNM_O"){
+					var sQty = parseInt(oItem.TOTQTY);
+					if(isNaN(sQty) || sQty > oItem.MAX){
+						sMsg = "Invalid value for "+oItem.LTXT;	
+					}
+				}
+			});
+			return sMsg;
+		},
+		
 
 		_fnCreateEmptyPayloadSignOff: function() {
-			var oPayloads = [];
-			this.getModel("configModel").getProperty("/stns").forEach(function(oItem) {
+			// var oPayloads = [];
+			// this.getModel("configModel").getProperty("/stns").forEach(function(oItem) {
 				var oPaylod = {
 					"AIRID": this.getAircraftId(),
 					"ROLEID": null,
 					"SUBID": null,
-					"STNMID": oItem.STNMID,
+					"STNMID": null,
 					"L_TXT": null,
 					"WEMID": null,
 					"WESID": null,
-					"ADPID": oItem.selADP !== undefined ? oItem.selADP.ADPID : "",
+					"ADPID": null,
 					"ADPDESC": null,
 					"WEMDESC": null,
 					"WESDESC": null,
-					"STNSID": oItem.STNSID,
+					"STNSID": null,
 					"CONTOR": null,
 					"ISSER": null,
 					"TAILID": this.getTailId(),
 					"SRVID": null,
 					"NUM1": null,
-					"SRVTID": this.getModel("configModel").setProperty("/stepid"),
+					"SRVTID": this.getModel("configModel").getProperty("/srvtid"),
 					"SERNR": null,
 					"endda": "99991231",
 					"begda": null,
 					"TOTQTY": null,
 					"CONECT": null,
 					"HCFLAG": null,
-					"STEPID": this.getModel("configModel").setProperty("/stepid"),
+					"STEPID": this.getModel("configModel").getProperty("/stepid"),
 					"EXPAND": null,
 					"TLSERNR": null,
-					"APPRCOUNT": 0
+					"APPRCOUNT": null
 				};
-				oPayloads.push(oPaylod);
-			}.bind(this));
-			return oPayloads;
+		//		oPayloads.push(oPaylod);
+		//	}.bind(this));
+			return oPaylod;
 		}
 	});
 

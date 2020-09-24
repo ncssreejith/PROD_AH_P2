@@ -39,7 +39,7 @@
 					<ColumnListItem>
 						<cells>
 							<Text text="{= ${paModel>/defects}.indexOf(${paModel>})+1}"/>
-							<TextArea class="sapUiSmallMarginTop" value="{paModel>jobdesc}" cols="100" rows="3" showExceededText="true" maxLength="1000"/>
+							<TextArea class="sapUiSmallMarginTop" value="{paModel>jobdesc}" cols="1000" rows="6" showExceededText="true" maxLength="1000"/>
 							<SegmentedButton selectedKey="{paModel>fair}" items="{path:'paModel>/yn',templateShareable:false}">
 								<items>
 									<SegmentedButtonItem text="{paModel>text}" key="{paModel>key}" width="70%"/>

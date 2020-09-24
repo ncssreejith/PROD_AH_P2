@@ -4,21 +4,21 @@
 		<content>
 			<IconTabBar expanded="true" id="idIconTabBar" selectedKey="{oPilotUpdatesViewModel>/selTab}" select="handleIconTabBarSelect" >
 				<items>
-					<IconTabFilter icon="sap-icon://appear-offline" design="Horizontal" text="Flying records" key="FlyingRecords">
+					<IconTabFilter   text="Flying records" key="FlyingRecords">
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.flyingrecord.FlyingRecords" type="XML"/>
 					</IconTabFilter>
-					<IconTabSeparator icon="sap-icon://arrow-right"/>
-					<IconTabFilter enabled="true" id="statustestTab" icon="sap-icon://appear-offline" design="Horizontal" text="Status and tests"
+					<!--<IconTabSeparator icon="sap-icon://arrow-right"/>-->
+					<IconTabFilter enabled="true" id="statustestTab"  text="Status and tests"
 						key="StatusTest">
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.statustest.StatusTests" type="XML"/>
 					</IconTabFilter>
-					<IconTabSeparator icon="sap-icon://arrow-right"/>
-					<IconTabFilter enabled="true" id="enginePowerCheckId" icon="sap-icon://appear-offline" design="Horizontal" text="Engine power check"
+					<!--<IconTabSeparator icon="sap-icon://arrow-right"/>-->
+					<IconTabFilter enabled="true" id="enginePowerCheckId"  text="Engine power check"
 						key="EnginePowerCheck">
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.engine.EnginePowerCheck" type="XML"/>
 					</IconTabFilter>
-					<IconTabSeparator icon="sap-icon://arrow-right"/>
-					<IconTabFilter enabled="true" id="manoeuvringId" icon="sap-icon://appear-offline" design="Horizontal" text="Manoeuvring flights records"
+					<!--<IconTabSeparator icon="sap-icon://arrow-right"/>-->
+					<IconTabFilter enabled="true" id="manoeuvringId"  text="Manoeuvring flights records"
 						key="Manoeuvring">
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.manoeuvring.Manoeuvring" type="XML"/>
 					</IconTabFilter>

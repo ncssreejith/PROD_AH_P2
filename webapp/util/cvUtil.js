@@ -13,7 +13,7 @@ sap.ui.define([], function() {
 		sMaxDec = 255,
 		fieldGroups = ["fgInput", "fgString", "fgNString", "fgNumber", "fgSignedNumber", "fgDecimal", "fgDecimal1", "fgDecimal2",
 			"fgSignedDecimal",
-			"fgEmail", "fgDesc", "fgFDate", "fgPDate", "fgDR", "fgCombo"
+			"fgEmail", "fgDesc", "fgFDate", "fgPDate", "fgDR", "fgCombo","fgStep"
 		];
 
 	//Live change validation 
@@ -24,7 +24,7 @@ sap.ui.define([], function() {
 	}
 
 	function _fnUpdateValueState(oControl, sMsg) {
-		isError = (isError ? true : sMsg === "") ? false : true;
+		isError = (isError ? true : sMsg !== "") ? true :false ;
 		oControl.setValueState(sMsg ? "Error" : "None");
 		oControl.setValueStateText(sMsg ? sMsg : "");
 		return sMsg === "" ? true : false;
@@ -59,6 +59,8 @@ sap.ui.define([], function() {
 		}
 		return "";
 	}
+	
+	
 
 	function _fnValidateDecimal(value, minValue, maxValue, sLabel, sScale) {
 		var sRegex = new RegExp("^\\d{1," + (maxValue - sScale) + "}(\\.\\d{1," + sScale + "})?$");
@@ -145,6 +147,15 @@ sap.ui.define([], function() {
 		}
 		return "";
 	}
+	
+	function _fnStepValidate(value, minValue, maxValue, sLabel) {
+		if (minValue > value || value > maxValue) {
+			return sLabel + " should be between " + minValue + "-" + maxValue + " ";
+		}
+		return "";
+
+	}
+	
 
 	function _fnNumberValidation(oControl) {
 		var sLabel = "";
@@ -404,6 +415,18 @@ sap.ui.define([], function() {
 		return _fnUpdateValueState(oControl, sMsg);
 	}
 
+	function _fnValidateStep(oControl,reset){
+				var maxValue = oControl.getMax() ? oControl.getMax() : 0;
+		var minValue = oControl.getMin() ? oControl.getMin() : 0;
+		var value = oControl.getValue(),
+			sLabel = "";//oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
+		var sMsg = _fnStepValidate(value, minValue, maxValue, sLabel);
+		if (sMsg === "") {
+			oControl.setValue(value);
+		}
+		return _fnUpdateValueState(oControl, sMsg);
+	}
+	
 	function getParentNode(oControl) {
 		if (oControl.getControlsByFieldGroupId()) {
 			return oControl.getParent().getParent().getParent();
@@ -444,6 +467,8 @@ sap.ui.define([], function() {
 		}
 		return _fnUpdateValueState(oControl, sMsg);
 	}
+	
+
 
 	function _fnDateComparetor(sDate1, sDate2, sLabel1, sLabel2, isEndDate, isFuture) {
 		var sMsg = "";
@@ -582,6 +607,10 @@ sap.ui.define([], function() {
 			case "fgCombo":
 				_fnValidateComboBox(oControl, reset);
 				break;
+			case "fgStep":
+				_fnValidateStep(oControl, reset);
+				break;
+				
 			default:
 				// _fnDateRangeValidation(oControl, reset);
 				break;
@@ -643,7 +672,7 @@ sap.ui.define([], function() {
 		validateForm: function(oParentControl) {
 			isError = false;
 			validForm(oParentControl);
-			return !isError;
+			return isError;
 		},
 		/** 
 		 * Check for function group error state

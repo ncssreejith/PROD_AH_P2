@@ -17,7 +17,7 @@
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd bgColorWhite" width="70%">
 					<VBox class="sapUiSmallMargin">
-						<Text text="I certify that I have accounted for all items. Tools check cleared." class="sapUiTinyMargin"/>
+						<Text text="I certify that I have accounted for all items and aircraft is fit for flight." class="sapUiTinyMargin"/>
 					</VBox>
 					<HBox class="sapUiSmallMargin sapUiLargeMarginBottom">
 						<VBox class="sapUiTinyMarginBeginEnd">

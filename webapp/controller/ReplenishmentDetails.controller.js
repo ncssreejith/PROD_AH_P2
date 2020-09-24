@@ -172,13 +172,8 @@ sap.ui.define([
 
 		onPressSignOffConfirm: function(oEvent) {
 			try {
-				// this.cvutil.validateForm(this.getView());
-				// if (FieldValidations.validateFields(this)){
-				// 	sap.m.MessageToast.show("Fill in all required input first");
-				// 	return;
-				// }
-				if (!this.getModel("oRepDetailsModel").getProperty("/isValid")) {
-					sap.m.MessageToast.show("Serviced amount exceeds total amount.");
+				if (this.cvutil.validateForm(this.getView())) {
+					return;
 				}
 				var aPayloads = this.getModel("oRepDetailsModel").getProperty("/srv");
 				this._fnCheckLessThan10Hours(aPayloads);
@@ -288,7 +283,7 @@ sap.ui.define([
 		},
 		_fnCheckLessThan10Hours: function(aPayloads) {
 			aPayloads.forEach(function(oItems) {
-				if(this.fnDateEngineHrsDiff(oItems)){
+				if (this.fnDateEngineHrsDiff(oItems)) {
 					oItems.oilflag = "X";
 				}
 			}.bind(this));

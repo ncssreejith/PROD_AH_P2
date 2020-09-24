@@ -21,10 +21,10 @@
 			<ColumnListItem class="tableTextColor">
 				<cells>
 					<Text text="{oRepDetailsModel>resdescription}"/>
-					<StepInput value="{oRepDetailsModel>srvamt}" textAlign="Center" step="{path : 'oRepDetailsModel>resdescription', formatter : '.formatter.formatStepOil'}"
+					<StepInput  value="{oRepDetailsModel>srvamt}" textAlign="Center" step="{path : 'oRepDetailsModel>resdescription', formatter : '.formatter.formatStepOil'}"
 						displayValuePrecision="{path : 'oRepDetailsModel>resdescription', formatter : '.formatter.formatDecimalOil' }" validationMode="onLiveChange"
 						min="0" change="onOilChange" max="{path:'oRepDetailsModel>max',formatter:'.formatter.formatMaxValue'}"
-						description="/ {oRepDetailsModel>max}" fieldGroupIds="fgNumber,fgStepInput"  required="true"/>
+						description="/ {oRepDetailsModel>max}" fieldGroupIds="fgStep" />
 						<HBox>
 					<Text  text="{path:'oRepDetailsModel>upddate',formatter:'avmet.ah.model.formatter.fnDateDiff'}"
 						wrapping="true" ></Text>
