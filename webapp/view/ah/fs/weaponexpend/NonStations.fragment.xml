@@ -24,7 +24,7 @@
 				<cells>
 					<Text text="{oWeaponExpModel>position}"/>
 					<StepInput value="{oWeaponExpModel>QtyRemained}" min="0" max="{path: 'oWeaponExpModel>totqty', formatter : '.formatter.formatMaxValue'}"
-						description=" / {oWeaponExpModel>totqty}" change="onQtyChange"/>
+						description=" / {oWeaponExpModel>totqty}" fieldGroupIds="fgStep" change="onQtyStnChange" validationMode="LiveChange"/>
 					<Input value="{oWeaponExpModel>expqty}" editable="false"/>
 				</cells>
 			</ColumnListItem>

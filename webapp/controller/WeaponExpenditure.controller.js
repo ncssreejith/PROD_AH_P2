@@ -52,6 +52,7 @@ sap.ui.define([
 
 		onQtyChange: function(oEvent) {
 			try {
+				this.cvutil.onLiveChange(oEvent);
 				var oWeaponExpModel = this.getView().getModel("oWeaponExpModel"),
 					iQtyRem = oEvent.getSource().getValue(),
 					sPath = oEvent.getSource().getBindingContext("oWeaponExpModel").sPath,
@@ -66,6 +67,7 @@ sap.ui.define([
 
 		onQtyStnChange: function(oEvent) {
 			try {
+					this.cvutil.onLiveChange(oEvent);
 				var oWeaponExpModel = this.getView().getModel("oWeaponExpModel"),
 					iQtyRem = oEvent.getSource().getValue(),
 					sPath = oEvent.getSource().getBindingContext("oWeaponExpModel").sPath,
@@ -80,6 +82,9 @@ sap.ui.define([
 
 		onSignOffPress: function() {
 			try {
+				if(this.cvutil.validateForm(this.getView())){
+					return;
+				}
 				this.openDialog("AircraftSignOff", ".fragments.fs.weaponexpend.");
 			} catch (e) {
 				Log.error("Exception in onSignOffPress function");
