@@ -7,7 +7,39 @@
 			<Button text="Completed Tasks " type="Transparent" enabled="{= ${rtModel>/tasks/0/APR_NO}!==0}" class="btnClass" press="onCompleteTaskPress"/>
 		</headerContent>
 		<content>
-			<Wizard id="wizard" showNextButton="false" class="wizardTilteHide sapUiResponsivePadding--header sapUiResponsivePadding--content"
+			<IconTabBar expanded="true" id="idIconTabBar" selectedKey="{oPilotUpdatesViewModel>/selTab}" select="handleIconTabBarSelect" >
+				<items>
+					<IconTabFilter enabled="{= ${rtModel>/tasks/0/APR_NO} >= 0}" text="Tradesman Sign Off" key="rt1">
+						<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.RTTradesmanSignOff" type="XML"/>
+					</IconTabFilter>
+					<IconTabFilter enabled="{= ${rtModel>/tasks/0/APR_NO} >= 1}" text="Team Lead Sign Off"
+						key="rt2">
+						<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.TeamLeadSignOff" type="XML"/>
+					</IconTabFilter>
+					<IconTabFilter enabled="{= ${rtModel>/tasks/0/APR_NO} >= 2}"  text="TFOA Check"
+						key="rt3">
+						<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.TOAFCheck" type="XML"/>
+					</IconTabFilter>
+					<IconTabFilter enabled="{= ${rtModel>/tasks/0/APR_NO} >= 3}"  text="Tools Check"
+						key="rt4">
+						<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.ToolsCheck" type="XML"/>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onNavBack" type="Transparent"/>
+				<Button text="Sign Off" type="Emphasized" press="onSignOffClick" enabled="{rtModel>/sgEnable}"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>
+
+
+
+	<!--	<Wizard id="wizard" showNextButton="false"
 				complete="wizardCompletedHandler">
 				<WizardStep  nextStep="TeamLeadSign" validated="true" title="Tradesman Sign Off" activate="test1">
 					<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.RTTradesmanSignOff" type="XML"/>
@@ -21,14 +53,4 @@
 				<WizardStep validated="true" title="Tools Check" activate="test4">
 					<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.ToolsCheck" type="XML"/>
 				</WizardStep>
-			</Wizard>
-		</content>
-		<footer>
-			<OverflowToolbar>
-				<ToolbarSpacer/>
-				<Button text="Back" press="onNavBack" type="Transparent"/>
-				<Button text="Sign Off" type="Emphasized" press="onSignOffClick" enabled="{rtModel>/sgEnable}"/>
-			</OverflowToolbar>
-		</footer>
-	</Page>
-</mvc:View>
+			</Wizard>-->

@@ -1,13 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<HBox class="TOAFVBox sapUiLargeMargin">
-		<VBox class="sapUiSmallMargin" width="90%">
-			<Label text="TFOA Check" class="sapUiLargeMarginBegin sapUiTinyMargin Font22" design="Bold"/>
-			<FlexBox alignItems="Start" justifyContent="SpaceBetween">
-				<items>
-					<Text text="I certify that TFOA has been carried out." class="sapUiLargeMarginBegin sapUiSmallMarginTop"/>
-					<!--<Button text="Sign Off" type="Emphasized" press="onSignOff"/>-->
-				</items>
-			</FlexBox>
+	<HBox class="TOAFVBox sapUiTinyMarginTop">
+		<VBox class="sapUiSmallMargin sapUiLargeMarginBegin" width="100%">
+			<Label text="TFOA Check" class="sapUiSmallMaginBegin sapUiTinyMargin Font22" design="Bold"/>
+			<Text text="I certify that TFOA has been carried out." class="sapUiTinyMarginTop"/>
 		</VBox>
 	</HBox>
 </core:FragmentDefinition>
