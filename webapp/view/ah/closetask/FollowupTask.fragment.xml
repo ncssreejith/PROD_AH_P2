@@ -325,7 +325,11 @@
 												</VBox>
 												<VBox class="sapUiSmallMarginBegin">
 													<Label/>
-													<Input width="200px" value="{TaskModel>utilvl}" editable="false" enabled="false"/>
+													<Input width="200px" value="{TaskModel>utilvl}" visible="{=${TaskModel>util1} !=='UTIL1_20' ? true:false}" editable="false"/>
+													<Select width="200px" forceSelection="false" visible="{=${TaskModel>util1} ==='UTIL1_20' ? true:false}"
+														items="{Utilization2CBModel>/}" selectedKey="{TaskModel>utilvl}" editable="false">
+														<core:Item text="{Utilization2CBModel>description}" key="{Utilization2CBModel>ddid}"/>
+													</Select>
 												</VBox>
 											</HBox>
 											<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom"

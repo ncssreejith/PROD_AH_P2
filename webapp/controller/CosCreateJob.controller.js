@@ -447,17 +447,14 @@ sap.ui.define([
 		 * Parameter: oEvent
 		 * Description: To select Work center.
 		 */
-		/*	onWorkCenterChange: function(sValue, oEvent) {
-				try {
-					var sSelectText = oEvent.getSource().getSelectedKey(),
-						oModel = this.getView().getModel("oViewCreateModel");
-					oModel.setProperty("/prime", sSelectText);
-					this.getView().getModel("oViewCreateModel").updateBindings(true);
-				} catch (e) {
-					Log.error("Exception in CosCreateJob:onWorkCenterChange function");
-					this.handleException(e);
-				}
-			},*/
+		// onWorkCenterChange: function(sValue, oEvent) {
+		// 	try {
+		// 		var sSelectText = oEvent.getSource().getSelectedKey();
+		// 	} catch (e) {
+		// 		Log.error("Exception in CosCreateJob:onWorkCenterChange function");
+		// 		this.handleException(e);
+		// 	}
+		// },
 
 		/* Function: onAddMinusPress
 		 * Parameter: sValue, oEvent
@@ -655,10 +652,13 @@ sap.ui.define([
 				var dDate = new Date();
 				oModel = that.getView().getModel("LocalModel");
 				var oParameter = {};
+				var oldWrkctr = oPayload.LASTWC;
+				delete oPayload.LASTWC;
 				oPayload.endda = formatter.defaultOdataDateFormat(oPayload.credt);
 				oPayload.begda = formatter.defaultOdataDateFormat(oPayload.credt);
 				oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
 				oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
+			
 				oParameter.error = function(response) {};
 				oParameter.success = function(oData) {
 					if (oData.results[0].mark !== "") {
@@ -668,7 +668,7 @@ sap.ui.define([
 						that._fnPhotoUploadCreate(oData.results[0].jobid, oData.results[0].tailid);
 					}
 					if (oData.results[0].prime !== "") {
-						that._fnDefectWorkCenterUpdate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime);
+						that._fnDefectWorkCenterUpdate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime, oldWrkctr);
 					}
 					that.getView().byId("defectId").setVisible(false);
 					that.getView().byId("scheduledId").setVisible(false);
@@ -947,8 +947,7 @@ sap.ui.define([
 						"isprime": "",
 						"wrctrtx": "",
 						"count": null,
-						"PrimeCount": null,
-						"LASTWC": null
+						"PrimeCount": null
 					},
 
 					oPrmWorkCenter.error = function() {};
@@ -963,7 +962,7 @@ sap.ui.define([
 			}
 		},
 
-		_fnDefectWorkCenterUpdate: function(sJobId, sTailId, sWorkCenter) {
+		_fnDefectWorkCenterUpdate: function(sJobId, sTailId, sWorkCenter, sOldWorkCenter) {
 			try {
 				var that = this,
 					oPayload,
@@ -973,10 +972,9 @@ sap.ui.define([
 						"tailid": sTailId,
 						"wrctr": sWorkCenter,
 						"isprime": "",
-						"wrctrtx": "",
+						"wrctrtx": sOldWorkCenter ? sOldWorkCenter : "",
 						"count": null,
-						"PrimeCount": null,
-						"LASTWC": null
+						"PrimeCount": null
 					},
 
 					oPrmWorkCenter.error = function() {};
@@ -1030,7 +1028,7 @@ sap.ui.define([
 						if (oData.results[0].prime !== "" || oData.results[0].prime !== null) {
 							that._fnTaskStatusGet(sJobId, oData.results[0].prime);
 						}
-
+						oData.results[0].LASTWC = oData.results[0].prime;
 						oModel.setData(oData.results[0]);
 						oModel.updateBindings(true);
 

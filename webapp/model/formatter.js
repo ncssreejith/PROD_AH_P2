@@ -1531,6 +1531,17 @@ sap.ui.define([
 				return newDate.getTime();
 			}
 
+		},
+		
+		formatUtilValApproval : function (sVal,sKey){
+			if (sVal && sKey){
+				var sParts = sVal.split("@");
+				if (sKey === "UTIL1_20") {
+					return sParts[1];
+				} else {
+					return sParts[0];
+				}
+			} return sVal;
 		}
 
 	};

@@ -110,7 +110,7 @@
 									<HBox visible="{=${ApprovalDetailstModel>/UTILVL} !== null ? true : false}">
 										<Label width="9rem" wrapping="true" text="{ApprovalDetailstModel>/UTIL1Text}" design="Bold"></Label>
 										<HBox>
-											<Text text="{ApprovalDetailstModel>/UTILVL}" visible="{=${ApprovalDetailstModel>/UTILVL} !== null ? true : false}"/>
+											<Text text="{parts:[{path:'ApprovalDetailstModel>/UTILVL'},{path:'ApprovalDetailstModel>/UTIL1'}], formatter:'.formatter.formatUtilValApproval'}" visible="{=${ApprovalDetailstModel>/UTILVL} !== null ? true : false}"/>
 											<Text text="{path:'ApprovalDetailstModel>/UTILDT', formatter:'.formatter.defaultDateFormatDisplay'}"
 												visible="{=${ApprovalDetailstModel>/UTILDT} !== null ? true : false}"/>
 <!--													<Text text="{path:'ApprovalDetailstModel>/UTIL2', formatter:'.defaultUtil2FormatText'}"

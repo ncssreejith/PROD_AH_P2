@@ -739,7 +739,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		_fnGetUtilisationDefaultVal: function(sAir) {
 			try {
 				var oPrmJobDue = {};
@@ -853,10 +853,10 @@ sap.ui.define([
 
 		onCreateLimitationPress: function() {
 			try {
-				/*	FieldValidations.resetErrorStates(this);
-						if (FieldValidations.validateFields(this)) {
-							return;
-						}*/
+				// FieldValidations.resetErrorStates(this);
+				// if (FieldValidations.validateFields(this)) {
+				// 	return;
+				// }
 				var dDate = new Date(),
 					oModel = this.getView().getModel("ViewModel");
 				var oParameter = {};
@@ -1098,6 +1098,7 @@ sap.ui.define([
 				this._fnTasksGet(oTempJB);
 				this._fnReasonforADDGet();
 				this._fnUtilizationGet();
+				this._fnUtilization2Get();
 				this._fnGetUtilisationDefaultVal(sAirId);
 				this._fnPerioOfDeferCBGet();
 				//that._fnInitialLoad();
@@ -1146,6 +1147,9 @@ sap.ui.define([
 
 						}
 						oData.results[i].ValueState = "None";
+						// if (oData.results[i].util1 === "UTIL1_20") {
+						// 	oData.results[i].util2 = oData.results[i].utilvl;
+						// }
 					}
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TaskModel");

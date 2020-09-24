@@ -1275,6 +1275,11 @@ sap.ui.define([
 						oTaskId.push(oTable.getSelectedItems()[i].getBindingContext("TaskOutModel").getObject("taskid"));
 					}
 					if (oTable.getSelectedItems().length === 1) {
+						var bMasterTaskFlag = this._fnCheckMasterTask(oTable.getSelectedItems()[0]);
+						if (!bMasterTaskFlag) {
+							sap.m.MessageBox.error("Please close all sub task for this master task before closing");
+							return;
+						}
 						bFlag = "N";
 					} else {
 						bFlag = "Y";
@@ -2921,6 +2926,20 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in removeCoordinates function");
 			}
+		},
+		
+		_fnCheckMasterTask : function (oTask){
+			oTask = oTask.getBindingContext("TaskOutModel").getObject();
+			if (oTask.RTTY === "M") {
+				var aContext = this.getView().byId("tbWcOutstandingId").getBinding("items").getContexts();
+				for (var i in aContext) {
+					var obj = aContext[i].getObject();
+					if (oTask.tmpid === obj.tmpid && obj.RTTY === "S") {
+						return false;
+					}
+				}
+			}
+			return true;
 		}
 
 	});

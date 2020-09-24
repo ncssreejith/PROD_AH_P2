@@ -24,7 +24,7 @@
 				</Toolbar>
 				<MessageStrip class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" type="Warning" showIcon="true"
 					text='This task is still outstanding'>
-					<Link text="Close Task" press="onCloseTask" class="sapUiLargeMarginBegin"/>
+					<Link text="Close Task" press="onCloseTask('popUp')" class="sapUiLargeMarginBegin"/>
 				</MessageStrip>
 			</VBox>
 		</VBox>

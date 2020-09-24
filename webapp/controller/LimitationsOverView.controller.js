@@ -97,6 +97,8 @@ sap.ui.define([
 				this._fnPerioOfDeferCBGet(sAirId);
 				this._fnReasonforADDGet(sAirId);
 				this._fnUtilizationGet(sAirId);
+				this._fnGetUtilisationDefaultVal(sAirId);
+				this._fnUtilization2Get();
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onOpenMangeLimitaionDialog function");
 				this.handleException(e);
@@ -355,8 +357,8 @@ sap.ui.define([
 					oPayload.EXPDT = null;
 					oPayload.EXPTM = null;
 				}
-				if (oPayload.UTILVL){
-						var iPrecision = formatter.JobDueDecimalPrecision(oPayload.UTIL1);                       
+				if (oPayload.UTILVL) {
+					var iPrecision = formatter.JobDueDecimalPrecision(oPayload.UTIL1);
 					oPayload.UTILVL = parseFloat(oPayload.UTILVL, [10]).toFixed(iPrecision);
 				}
 				oPrmJobDue.error = function() {};
@@ -380,7 +382,8 @@ sap.ui.define([
 		onStartRect: function(sValue) {
 			try {
 
-				var that = this,oTempFlag,
+				var that = this,
+					oTempFlag,
 					sjobid = "",
 					oModel, oModels,
 					oPayload;
@@ -389,7 +392,7 @@ sap.ui.define([
 				var oParameter = {};
 				oModel = this.getView().getModel("ViewModel");
 				oModels = this.getView().getModel("CapSet");
-					if (oModels.getProperty("/TASKID") !== "" && oModels.getProperty("/TASKID") !== null) {
+				if (oModels.getProperty("/TASKID") !== "" && oModels.getProperty("/TASKID") !== null) {
 					oTempFlag = "T";
 				} else {
 					oTempFlag = "J";
@@ -613,6 +616,59 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnUtilizationGet function");
 				this.handleException(e);
+			}
+		},
+
+		_fnUtilization2Get: function() {
+			try {
+
+				var that = this,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "airid eq " + this.getAircraftId() + " and ddid eq UTIL2_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData !== undefined && oData.results.length > 0) {
+						var oModel = dataUtil.createNewJsonModel();
+						oModel.setData(oData.results);
+						that.getView().setModel(oModel, "Utilization2CBModel");
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
+				this.handleException(e);
+			}
+		},
+
+		_fnGetUtilisationDefaultVal: function(sAir) {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+						var oModel = this.getView().getModel("CapExtendSet");
+
+						if (this.oObject && this.oObject[oModel.getProperty("/UTIL1")]) {
+							var minVal = parseFloat(this.oObject[oModel.getProperty("/UTIL1")].VALUE, [10]);
+							oModel.setProperty("/UTILMinVL", minVal);
+						}
+
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisationDefaultVal function");
 			}
 		}
 
