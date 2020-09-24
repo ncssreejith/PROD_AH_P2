@@ -26,12 +26,12 @@
 					<Column width="2rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
 				</columns>
 				<items>
-					<ColumnListItem type="Active">
+					<ColumnListItem type="Navigation" press="onDefectsDetailsPress">
 						<cells>
 							<Text text="{oEngineModel>SERVDUE}"/>
 							<Text text="{oEngineModel>DUEIN}"/>
 							<Text text="{oEngineModel>JOBDESC}"/>
-							<Button icon="sap-icon://open-command-field" type="Transparent" press="onDefectsDetailsPress"></Button>
+							<!--<Button icon="sap-icon://open-command-field" type="Transparent" press="onDefectsDetailsPress"></Button>-->
 						</cells>
 					</ColumnListItem>
 				</items>

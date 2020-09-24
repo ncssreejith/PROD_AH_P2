@@ -106,7 +106,7 @@ sap.ui.define([
 			try {
 				var utilData = {
 					"SOAPID": null,
-					"OLREA": null, //"SOAP_4",
+					"OLREA": "125_R", //"SOAP_4",
 					"ENGHR": null,
 					"HRSINCE": null,
 					"ENDDA": null,

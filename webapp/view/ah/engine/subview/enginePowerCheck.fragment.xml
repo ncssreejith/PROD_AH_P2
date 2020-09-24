@@ -130,7 +130,8 @@
 				</HBox>
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 					growingScrollToLoad="false"
-					items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}"
+					items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]
+					,sorter: [{ path: 'SRVID', descending: true}]}"
 					noDataText="No {i18n>txtRestablish} Records" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>

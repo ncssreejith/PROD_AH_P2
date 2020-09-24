@@ -310,7 +310,7 @@ sap.ui.define([
 			if (this.aHistory) {
 				var oDash = this.getModel("avmetModel").getProperty("/dash");
 				this.aHistory.forEach(function(oHistory, i) {
-					if (oHistory.startsWith("CreateFlightService") && oDash.TBTN2 !== "X") {
+					if (oHistory && oHistory.startsWith && oHistory.startsWith("CreateFlightService") && oDash.TBTN2 !== "X") {
 						this.aHistory.splice(i, 1);
 					}
 				});
