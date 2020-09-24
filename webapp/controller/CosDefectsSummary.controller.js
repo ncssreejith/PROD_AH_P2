@@ -2166,7 +2166,7 @@ sap.ui.define([
 				oPrmFR.error = function() {};
 
 				oPrmFR.success = function(oData) {
-					if (oData && oData.results.length > 0) {
+				/*	if (oData && oData.results.length > 0) {*/
 						var oModel = new JSONModel({});
 						var aData = [];
 						for (var i in oData.results) {
@@ -2180,7 +2180,7 @@ sap.ui.define([
 						oModel.setData(aData);
 						that.getView().setModel(oModel, "SRMModel");
 						/*that.getModel().updateBindings(true);*/
-					}
+				/*	}*/
 
 				}.bind(this);
 

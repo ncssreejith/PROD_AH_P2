@@ -13,7 +13,7 @@
 			<Button text="{i18n>btnAddFlyingRequirements}" type="Default" press="onAddFlyingRequirements" enabled="{LocalModel>/FairEditFlag}"
 				visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 		</Toolbar>
-		<VBox backgroundDesign="Solid" alignContent="Center" visible="{=${FRModel>/}.length === 0 ? true:false}" alignItems="Center"
+		<VBox backgroundDesign="Solid" alignContent="Center" visible="{= ${FRModel>/}.length === 0 ? true :false}" alignItems="Center"
 			class="vboxAlign">
 			<items>
 				<Title text="{i18n>txtNoTextFLR}" level="H1" titleStyle="H3"/>
