@@ -7,7 +7,7 @@
 			<Button text="Completed Tasks " type="Transparent" enabled="{= ${rtModel>/tasks/0/APR_NO}!==0}" class="btnClass" press="onCompleteTaskPress"/>
 		</headerContent>
 		<content>
-			<IconTabBar expanded="true" id="idIconTabBar" selectedKey="{oPilotUpdatesViewModel>/selTab}" select="handleIconTabBarSelect" >
+			<IconTabBar expanded="true" id="idIconTabBar" selectedKey="{rtModel>/selTab}" select="handleIconTabBarSelect" >
 				<items>
 					<IconTabFilter enabled="{= ${rtModel>/tasks/0/APR_NO} >= 0}" text="Tradesman Sign Off" key="rt1">
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.RTTradesmanSignOff" type="XML"/>

@@ -230,7 +230,7 @@ sap.ui.define([
 					var sCount = this.formatter.integerUnit((oData.results.length > 0 ? oData.results[0].APR_NO : 0));
 					this.getModel("rtModel").setProperty("/tasks", oData.results);
 					this.getModel("rtModel").setProperty("/sgEnable", sCount < 4 ? true : false);
-					this.getModel("rtModel").setProperty("/tasks/0/APR_NO", sCount > 3 ? 3 : sCount);
+					// this.getModel("rtModel").setProperty("/tasks/0/APR_NO", sCount > 3 ? 3 : sCount);
 					this.getModel("rtModel").refresh();
 
 					this.updateModel({
@@ -268,7 +268,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-					// this._fnActivate();
+					this._fnActivate();
 				}.bind(this);
 				ajaxutil.fnRead("/RT3Svc", oParameter);
 			} catch (e) {
@@ -280,18 +280,20 @@ sap.ui.define([
 		_fnActivate: function() {
 			try {
 				var sStep = this.getModel("rtModel").getProperty("/tasks/0/APR_NO");
-				this.getView().byId("wizard").getSteps().forEach(function(oItem, sIndex) {
-					if (parseInt(sStep) >= sIndex) {
-						if (sIndex !== 0) {
-							oItem._deactivate();
-						}
-						if (parseInt(sStep) === sIndex) {
-							oItem._activate();
-							oItem.getParent().setCurrentStep(oItem);
-							oItem.getParent().goToStep(oItem, true);
-						}
-					}
-				});
+				var sKey = "rt1";
+				switch(sStep){
+					case 1:
+						sKey = "rt2";
+						break;
+					case 2:
+						sKey = "rt3";
+						break;
+					case 3:
+						sKey = "rt4";
+						break;
+				}
+				this.getModel("rtModel").setProperty("/selTab", sKey);
+				this.getView().byId("idIconTabBar").setSelectedKey(sKey);
 			} catch (e) {
 				Log.error("Exception in _fnActivate function");
 				this.handleException(e);

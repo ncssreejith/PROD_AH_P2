@@ -174,6 +174,7 @@ sap.ui.define([
 					}.bind(this));
 				}.bind(this);
 				ajaxutil.fnRead("/MainTaskSvc", oParameter);
+				this.fnLoadSrv1Dashboard();
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
 				this.handleException(e);
