@@ -117,12 +117,12 @@
 				</VBox>
 				<VBox class="sapUiTinyMarginBegin">
 					<Label/>
-					<Select width="170px" forceSelection="false" change="onOpenForAccessChange" items="{TT310Model>/}" selectedKey="{oCreateTaskModel>/sOpnForAccKey}"
+					<Select width="190px" forceSelection="false" change="onOpenForAccessChange" items="{TT310Model>/}" selectedKey="{oCreateTaskModel>/sOpnForAccKey}"
 						visible="{oCreateTaskModel>/bOpenForAccess}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bOpenForAccess}"
 						valueStateText="{i18n>ERSubttItemDesc}">
 						<core:Item text="{TT310Model>ttype}" key="{TT310Model>ttid}"/>
 					</Select>
-					<Select width="170px" forceSelection="false" change="onRemoveForAccessChange" items="{TT311Model>/}" selectedKey="{oCreateTaskModel>/sRemoveForAccKey}"
+					<Select width="190px" forceSelection="false" change="onRemoveForAccessChange" items="{TT311Model>/}" selectedKey="{oCreateTaskModel>/sRemoveForAccKey}"
 						visible="{oCreateTaskModel>/bRemoveForAccess}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bRemoveForAccess}">
 						<core:Item text="{TT311Model>ttype}" key="{TT311Model>ttid}"/>
 					</Select>

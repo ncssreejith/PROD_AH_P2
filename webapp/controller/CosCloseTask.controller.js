@@ -194,7 +194,7 @@ sap.ui.define([
 							"NUM": j + 1,
 							"ENDDA": null,
 							"BEGDA": null,
-							"JOBID":null,
+							"JOBID": null,
 							"USRID": oTradeMan[j].Name
 						});
 
@@ -1266,6 +1266,7 @@ sap.ui.define([
 		_InitializeLimDialogModel: function() {
 			try {
 				var oModel = dataUtil.createNewJsonModel();
+				var DatePrev = new Date();
 				var aData = {
 					sAddReason: "noKey",
 					bDateSection: false,
@@ -1282,6 +1283,7 @@ sap.ui.define([
 					bLimitation: false,
 					bAddLimitationBtn: false,
 					sSlectedKey: "N",
+					DatePrev: DatePrev,
 					Date: new Date(),
 					Time: new Date().getHours() + ":" + new Date().getMinutes()
 				};

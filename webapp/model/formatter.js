@@ -385,8 +385,7 @@ sap.ui.define([
 						stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
 						stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" &&
 						stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
-						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === null && stTask2 === null && stTask3 === null) || (stTask1 ===
-						"TT1_15" && stTask3 === null) || (stTask1 === "TT1_16" && stTask3 === null) ||
+						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === "TT1_16" && stTask3 === null) ||
 					(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === '' || stTask4 === null)) {
 				return true;
 			} else {
@@ -436,6 +435,19 @@ sap.ui.define([
 					"Serial No. (S/N)") || (engFlag === "NA" && isser ===
 					"Batch No.") || (engFlag === "NE" && isser ===
 					"Batch No.")) {
+				if (tTask2 !== "TT2_14" && tTask2 !== "TT2_13") {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		},
+
+		serialNoInputRequired: function(engFlag, isser, tTask2) {
+			if ((engFlag === "NE" && isser === "Serial No. (S/N)") || (engFlag === "NA" && isser ===
+					"Serial No. (S/N)")) {
 				if (tTask2 !== "TT2_14" && tTask2 !== "TT2_13") {
 					return true;
 				} else {
@@ -1532,16 +1544,17 @@ sap.ui.define([
 			}
 
 		},
-		
-		formatUtilValApproval : function (sVal,sKey){
-			if (sVal && sKey){
+
+		formatUtilValApproval: function(sVal, sKey) {
+			if (sVal && sKey) {
 				var sParts = sVal.split("@");
 				if (sKey === "UTIL1_20") {
 					return sParts[1];
 				} else {
 					return sParts[0];
 				}
-			} return sVal;
+			}
+			return sVal;
 		}
 
 	};

@@ -2,8 +2,8 @@
 	xmlns:f="sap.f" xmlns:cs="avmet.ah.control" xmlns:tnt="sap.tnt">
 	<VBox class="sapUiResponsivePadding sapUiResponsiveMargin">
 		<l:Splitter>
-			<VBox>
-				<VBox justifyContent="Center" class="sapUiSmallMarginBegin">
+			<VBox alignItems="Center">
+				<VBox class="sapUiSmallMarginBegin">
 					<core:HTML id="topId" visible="true"
 						content='&lt;canvas id=&quot;myCanvasTopLim&quot; click="getPointPosition($event)" width=&quot;380&quot; height=&quot;170&quot; style=&quot;border:1px solid #000000&quot;&gt;&lt;/canvas&gt;'></core:HTML>
 					<core:HTML id="FrontId" visible="true"
@@ -50,7 +50,7 @@
 							</HBox>
 							<HBox class="sapUiSmallMargin">
 								<VBox>
-									<Label text="{ADDLimSet>JOBDESC}" design="Bold"/>
+									<Text text="{ADDLimSet>JOBDESC}" wrapping="true"/>
 									<VBox visible="{= ${ADDLimSet>CAPTY} === 'A'|| ${ADDLimSet>CAPTY} === 'B'}">
 										<tnt:InfoLabel text="Limitation" renderMode="Narrow" visible="{= ${ADDLimSet>LDESC} !== null}" colorScheme="7" class="sapUiTinyMarginTop"
 											displayOnly="true"/>

@@ -318,6 +318,18 @@ sap.ui.define([
 			}
 		},
 
+		onWorkCenterTempChange: function(oEvent) {
+			try {
+				var that = this,
+					oModel = this.getModel("applTmplModel");
+				oModel.setProperty("/SelectTaskTable", false);
+				oModel.setProperty("/ApplyTempTable", false);
+				this.getModel("applTmplModel").refresh();
+			} catch (e) {
+				Log.error("Exception in onWorkCenterTempChange function");
+			}
+		},
+
 		onSerialNumUpdatePress: function(oEvent) {
 			var that = this,
 				oModel = this.getView().getModel("applTmplModel");

@@ -200,8 +200,8 @@
 								</VBox>
 							</CustomListItem>
 						</List>
-						<VBox class="bgColorWhite sapUiSmallMargin sapUiLargeMarginBegin">
-							<Button icon="sap-icon://sys-add" text="Add Task" width="785px" class="sapUiTinyMargin addTaskBtn" press="onAddTaskPress"/>
+						<VBox class="bgColorWhite sapUiSmallMargin sapUiLargeMarginBegin" width="auto" alignItems="Center">
+							<Button icon="sap-icon://sys-add" text="Add Task" width="783px" class="sapUiTinyMargin addTaskBtn" press="onAddTaskPress"/>
 						</VBox>
 					</VBox>
 				</HBox>

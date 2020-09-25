@@ -289,7 +289,7 @@ sap.ui.define([
 					flag: oEvent.getParameters().arguments.flag,
 					tableFlag: false,
 					dialogTitle: "",
-					DatePrev: new Date(),
+					DatePrev: null,
 					btnText: "Extend"
 
 				});
@@ -316,6 +316,7 @@ sap.ui.define([
 			try {
 
 				var that = this,
+					oViewGBModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				var oViewModel = dataUtil.createNewJsonModel();
 				oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
@@ -323,9 +324,10 @@ sap.ui.define([
 
 				oPrmJobDue.success = function(oData) {
 					if (oData && oData.results.length > 0) {
-						oViewModel.setData(oData.results[0]);
 						oData.results[0].EXPDT = new Date(oData.results[0].EXPDT);
 						oData.results[0].EXPTM = formatter.defaultTimeFormatDisplay(oData.results[0].EXPTM);
+						oViewGBModel.setProperty("/DatePrev", oData.results[0].EXPDT);
+						oViewModel.setData(oData.results[0]);
 						that.getView().setModel(oViewModel, "CapExtendSet");
 						this._oManageLim.open(this);
 					}

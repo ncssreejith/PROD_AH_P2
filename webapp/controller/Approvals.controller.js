@@ -131,20 +131,19 @@ sap.ui.define([
 					sDue = oEvent.getSource().getSelectedItem().getText(),
 					oAppModel = this.getView().getModel("CapExtendSet");
 				if (sKey.length > 0) {
-					if(sKey!=="UTIL1_20")
-					{
-					oSrc.setValueState("None");
-					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
-						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
-						oAppModel.setProperty("/UTILMINVL", minVal);
-						var sVal = oAppModel.getProperty("/UTILVL") ? oAppModel.getProperty("/UTILVL") : 0;
-						sVal = parseFloat(sVal, [10]);
-						var iPrec = formatter.JobDueDecimalPrecision(sKey);
-						oAppModel.setProperty("/UTILVL", parseFloat(minVal, [10]).toFixed(iPrec));
+					if (sKey !== "UTIL1_20") {
+						oSrc.setValueState("None");
+						if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+							var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+							oAppModel.setProperty("/UTILMINVL", minVal);
+							var sVal = oAppModel.getProperty("/UTILVL") ? oAppModel.getProperty("/UTILVL") : 0;
+							sVal = parseFloat(sVal, [10]);
+							var iPrec = formatter.JobDueDecimalPrecision(sKey);
+							oAppModel.setProperty("/UTILVL", parseFloat(minVal, [10]).toFixed(iPrec));
 
-					}
-					}else{
-						
+						}
+					} else {
+
 					}
 
 				}
@@ -230,6 +229,10 @@ sap.ui.define([
 				var oViewLimitModel = this.getModel("oViewLimitModel"),
 					oModel = this.getView().getModel("CapExtendSet"),
 					sSelectedKey = oEvent.getSource().getSelectedKey();
+				oModel.setProperty("/EXPDT", null);
+				oModel.setProperty("/EXPTM", null);
+				oModel.setProperty("/UTILVL", null);
+				oModel.setProperty("/UTIL1", null);
 				if (sSelectedKey === "D") {
 					oModel.setProperty("/EXPTM", "23:59");
 					oViewLimitModel.setProperty("/bDateSection", true);
@@ -1051,6 +1054,7 @@ sap.ui.define([
 		_InitializeLimDialogModel: function() {
 			try {
 				var oModel = dataUtil.createNewJsonModel();
+				var DatePrev = new Date();
 				var aData = {
 					sAddReason: "noKey",
 					bDateSection: false,
@@ -1067,6 +1071,7 @@ sap.ui.define([
 					bLimitation: false,
 					bAddLimitationBtn: true,
 					sSlectedKey: "N",
+					DatePrev: DatePrev,
 					Date: new Date(),
 					Time: new Date().getHours() + ":" + new Date().getMinutes()
 				};

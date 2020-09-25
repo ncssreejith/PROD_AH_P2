@@ -38,8 +38,9 @@
 						</HBox>
 						<HBox justifyContent="End" visible="{applTmplModel>/header/bWorkCenter}">
 							<Label class="sapUiSmallMarginTop sapUiLargeMarginBegin" text="Choose template" design="Bold"/>
-							<ComboBox width="25rem" visible="{applTmplModel>/bWorkCenter}" required="true" fieldGroupIds="fgCmbBox" class="sapUiSmallMargin"
-								items="{path:'applTmplModel>/tmpls'}" selectedKey="{applTmplModel>/header/selTmpl}" valueStateText="{i18n>ERROR_GENERIC}">
+							<ComboBox width="25rem" visible="{applTmplModel>/bWorkCenter}" change="onWorkCenterTempChange" required="true" fieldGroupIds="fgCmbBox"
+								class="sapUiSmallMargin" items="{path:'applTmplModel>/tmpls'}" selectedKey="{applTmplModel>/header/selTmpl}"
+								valueStateText="{i18n>ERROR_GENERIC}">
 								<core:Item key="{applTmplModel>ddid}" text="{applTmplModel>description}"/>
 							</ComboBox>
 							<Button text="Apply" width="7rem" press="onTemplateApply" type="Transparent" class="btnClass sapUiTinyMarginTop sapUiTinyMarginEnd"/>
@@ -79,7 +80,9 @@
 										</HBox>
 										<Text text="{applTmplModel>TDESC}"/>
 										<Text text="{applTmplModel>FTDESC}" wrapping="true"/>
-										<Button text="Add Serial Number" type="Emphasized" visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}" press="onSerialNumPress"></Button>
+										<Button text="Add Serial Number" type="Emphasized"
+											visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}"
+											press="onSerialNumPress"></Button>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -111,7 +114,9 @@
 									<cells>
 										<Text text="{applTmplModel>TDESC}"/>
 										<Text text="{applTmplModel>FTDESC}"/>
-										<Button text="Add Serial Number" type="Emphasized" visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}" press="onSerialNumPress"></Button>
+										<Button text="Add Serial Number" type="Emphasized"
+											visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}"
+											press="onSerialNumPress"></Button>
 									</cells>
 								</ColumnListItem>
 							</items>

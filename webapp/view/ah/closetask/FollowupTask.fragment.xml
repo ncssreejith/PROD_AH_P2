@@ -59,9 +59,9 @@
 							<l:Grid hSpacing="1" class="sapUiSmallMarginTop" defaultSpan="XL12 L12 M12 S12">
 								<l:content>
 									<VBox>
-										<VBox alignItems="End">
+										<!--<VBox alignItems="End">
 											<Button text="Task Enter in Error" class="sapUiTinyMarginBegin" press="onEnterToTheErrorPress"></Button>
-										</VBox>
+										</VBox>-->
 										<VBox class="sapUiTinyMarginBottom"
 											visible="{= ${TaskModel>tt1id}!=='TT1_11' &amp;&amp; ${TaskModel>tt1id}!=='TT1_14' &amp;&amp; ${TaskModel>tt1id}!=='TT1_15' &amp;&amp; ${TaskModel>tt1id}!=='TT1_17' &amp;&amp; ${TaskModel>tt1id}!=='TT1_18' ? true:false}">
 											<Label text=" Follow-Up Task" design="Bold"></Label>
@@ -193,7 +193,7 @@
 													<Input width="180px" maxLength="20" change="onChangeDataInput" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin"
 														fieldGroupIds="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputGroupVisible'}"
 														visible="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputVisible'}"
-														required="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputVisible'}"/>
+														required="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputRequired'}"/>
 													<ComboBox width="180px" selectedKey="{TaskModel>ftsernr}" items="{path:'SerialNumModel>/',templateShareable: false}"
 														fieldGroupIds="{parts:['TaskModel>engflag','TaskModel>isser'],templateShareable: false,formatter:'.formatter.serialNoCBGroupVisible'}"
 														visible="{parts:['TaskModel>engflag','TaskModel>isser'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"

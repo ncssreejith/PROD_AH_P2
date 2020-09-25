@@ -27,7 +27,7 @@
 							</HBox>
 							<HBox class="sapUiSmallMargin">
 								<VBox>
-									<Label text="{LimitationsSet>LDESC}" design="Bold"/>
+									<Text text="{LimitationsSet>LDESC}" wrapping="true"/>
 									<HBox visible="{= ${LimitationsSet>CAPTY} === 'A' || ${LimitationsSet>CAPTY} === 'B'}">
 										<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${LimitationsSet>JOBDESC} !== null}" renderMode="Narrow" colorScheme="7"
 											class="sapUiTinyMarginTop" displayOnly="true"/>
