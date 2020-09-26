@@ -31,7 +31,7 @@
 									<HBox visible="{= ${LimitationsSet>CAPTY} === 'A' || ${LimitationsSet>CAPTY} === 'B'}">
 										<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${LimitationsSet>JOBDESC} !== null}" renderMode="Narrow" colorScheme="7"
 											class="sapUiTinyMarginTop" displayOnly="true"/>
-										<Label text="{LimitationsSet>JOBDESC}" visible="{= ${LimitationsSet>JOBDESC} !== null}" class="sapUiTinyMargin"/>
+										<Text wrapping="false" text="{LimitationsSet>JOBDESC}" width="33rem" visible="{= ${LimitationsSet>JOBDESC} !== null}" class="sapUiTinyMargin"/>
 									</HBox>
 									<!--<HBox visible="{= ${LimitationsSet>CAPTY} === 'B'}">
 										<tnt:InfoLabel text="Acceptable Deferred Defects with Limitations" renderMode="Narrow" colorScheme="7" class="sapUiTinyMarginTop" displayOnly="true"/>

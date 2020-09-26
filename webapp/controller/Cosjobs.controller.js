@@ -360,16 +360,16 @@ sap.ui.define([
 				this.getView().setModel(oLocalJobsModel, "LocalJobsModel");
 				var oModel = dataUtil.createJsonModel("model/aircraftInfo.json");
 				this.getView().setModel(oModel, "DDModel");
-				this._fnJobDetailsGetAll();
-				this._fnJobDetailsGetDefect();
-				this._fnJobDetailsGetScheduled();
-				this._fnJobDetailsGetUnScheduled();
-				this._fnJobDetailsGetUnCompleted();
 				this._fnJobGetScheduled();
 				this._fnJobGetAircraftScheduled();
 				this._fnJobGetCompScheduled();
 				this._fnJobGetENGScheduled();
 				this._fnJobGetMODSTIScheduled();
+				this._fnJobDetailsGetAll();
+				this._fnJobDetailsGetDefect();
+				this._fnJobDetailsGetScheduled();
+				this._fnJobDetailsGetUnScheduled();
+				this._fnJobDetailsGetUnCompleted();
 				this.fnLoadSrv1Dashboard();
 			} catch (e) {
 				Log.error("Exception in xxxxx function");

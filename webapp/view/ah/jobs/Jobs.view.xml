@@ -7,10 +7,10 @@
 				<Title level="H3" text="{i18n>tiJobs}" class="sapUiTinyMarginBegin"/>
 				<ToolbarSpacer/>
 				<Button text="{i18n>btnCreateJob}" class="btnColor sapUiMediumMarginEnd" press="onCreateScheduleJobPress"
-					visible="{= ${LocalJobsModel>/sSelectedKey}==='SCH' ? true:false}"
+					visible="{= ${LocalJobsModel>/SelectedKey}==='SCH' ? true:false}"
 					enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"></Button>
 				<Button text="{i18n>btnCreateJob}" class="btnColor sapUiMediumMarginEnd" press="onCreateJobPress"
-					visible="{= ${LocalJobsModel>/sSelectedKey}!=='SCH' ? true:false}"
+					visible="{= ${LocalJobsModel>/SelectedKey}!=='SCH' ? true:false}"
 					enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"></Button>
 			</OverflowToolbar>
 		</subHeader>

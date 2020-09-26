@@ -2,15 +2,16 @@
 	xmlns:core="sap.ui.core">
 	<Page showNavButton="true" title="{i18n>titleAircraftCap}" navButtonPress="onNavBack">
 		<content>
-			<IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding iconTabBarText">
+			<IconTabBar id="idIconTabBarNoIcons" selectedKey="{oViewModel>/SelectedKey}" expanded="{device>/isNoPhone}"
+				class="sapUiResponsiveContentPadding iconTabBarText">
 				<items>
-					<IconTabFilter text="{i18n>lblADD}">
+					<IconTabFilter text="{i18n>lblADD}" key="ADD">
 						<core:Fragment fragmentName="avmet.ah.view.ah.limitations.ADDDefectForm" type="XML"/>
 					</IconTabFilter>
-					<IconTabFilter text="{i18n>lblLimitations}">
+					<IconTabFilter text="{i18n>lblLimitations}" key="LIM">
 						<core:Fragment fragmentName="avmet.ah.view.ah.limitations.ADDLimitationForm" type="XML"/>
 					</IconTabFilter>
-					<IconTabFilter text="{i18n>lblCmpltLimit}">
+					<IconTabFilter text="{i18n>lblCmpltLimit}" key="COM">
 						<core:Fragment fragmentName="avmet.ah.view.ah.limitations.ADDCompleteLimitationForm" type="XML"/>
 					</IconTabFilter>
 				</items>

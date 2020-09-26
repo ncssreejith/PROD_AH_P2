@@ -1071,7 +1071,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		onAddTMDE: function() {
+		/*onAddTMDE: function() {
 			try {
 				var that = this,
 					oModel = this.getView().getModel("LocalModel");
@@ -1084,9 +1084,9 @@ sap.ui.define([
 				Log.error("Exception in CosDefectsSummary:onAddTMDE function");
 				this.handleException(e);
 			}
-		},
+		},*/
 
-		onAddDemandSpares: function() {
+/*		onAddDemandSpares: function() {
 			try {
 				var that = this,
 					oModel = this.getView().getModel("LocalModel");
@@ -1101,7 +1101,7 @@ sap.ui.define([
 				Log.error("Exception in CosDefectsSummary:onAddDemandSpares function");
 				this.handleException(e);
 			}
-		},
+		},*/
 
 		onAddCreateTask: function() {
 			try {

@@ -17,12 +17,12 @@
 			</OverflowToolbar>
 		</subHeader>
 		<content>
-			<VBox class="sapUiResponsivePadding sapUiResponsiveMargin">
+			<VBox class="sapUiResponsiveMargin" width="100%">
 				<l:Splitter>
 					<VBox backgroundDesign="Solid">
 						<core:Fragment fragmentName="avmet.ah.view.ah.limitations.DefectInformation" type="XML"/>
 						<layoutData>
-							<l:SplitterLayoutData size="35%" resizable="false"/>
+							<l:SplitterLayoutData size="30%" resizable="false"/>
 						</layoutData>
 					</VBox>
 					<VBox backgroundDesign="Solid" class="sapUiSmalMarginBegin">

@@ -305,7 +305,8 @@ sap.ui.define([
 				oModel.setData({
 					sADDCount: "",
 					sLimitCount: "",
-					totalCount: 0
+					totalCount: 0,
+					SelectedKey:"ADD"
 
 				});
 				this.getView().setModel(oModel, "oViewModel");
