@@ -14,7 +14,8 @@
 				<HBox>
 					<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"
 						growing="true" growingThreshold="5" growingScrollToLoad="false"
-						items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}"
+						items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}]
+						, filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}"
 						noDataText="{i18n>noDataHitTable}" showNoData="true">
 						<headerToolbar>
 							<OverflowToolbar>
@@ -199,7 +200,8 @@
 				</Table>
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 					growingScrollToLoad="false"
-					items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '2' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}"
+					items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}]
+					, filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '2' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}"
 					noDataText="No ETF Records" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>

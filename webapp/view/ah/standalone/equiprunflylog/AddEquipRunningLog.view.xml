@@ -10,7 +10,7 @@
 							<!--value="{path: 'oAircraftAddModel>/record/COL_11',formatter:'.formatter.defaultDateTimeFormat'}"-->
 							<!--maxDate="{oAircraftAddModel>/today}"-->
 							<DateTimePicker
-								displayFormat="dd/MM/yy HH:mm"
+								displayFormat="dd/MM/yyyy HH:mm"
 								
 								dateValue="{oAircraftAddModel>/record/Date}"
 								maxDate="{oAircraftAddModel>/today}"
@@ -40,15 +40,15 @@
 							<!--required="{= ${oAircraftAddModel>/type} === '0'}" editable="{= ${oAircraftAddModel>/type} === '0'}"-->
 							<!--/>-->
 							<!-- -->
-							<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_13}" value="{oAircraftAddModel>/record/COL_13}" displayValuePrecision="2"
-							required="{= ${oAircraftAddModel>/type} === '0' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '0' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal2,AddEquipRunningLog"/>
+							<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_13}" value="{oAircraftAddModel>/record/COL_13}" displayValuePrecision="1"
+							required="{= ${oAircraftAddModel>/type} === '0' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '0' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal1,AddEquipRunningLog"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="#2 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
 							<!--<Input width="250px" value="{oAircraftAddModel>/record/COL_14}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"-->
 							<!-- required="{= ${oAircraftAddModel>/type} === '1'}" editable="{= ${oAircraftAddModel>/type} === '1'}"/>-->
-							<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_14}" value="{oAircraftAddModel>/record/COL_14}" displayValuePrecision="2"
-							required="{= ${oAircraftAddModel>/type} === '1' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '1' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal2,AddEquipRunningLog"/>
+							<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_14}" value="{oAircraftAddModel>/record/COL_14}" displayValuePrecision="1"
+							required="{= ${oAircraftAddModel>/type} === '1' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '1' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal1,AddEquipRunningLog"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="APU Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>

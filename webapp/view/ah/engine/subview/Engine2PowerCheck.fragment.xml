@@ -14,7 +14,8 @@
 				</VBox>
 				<HBox>
 					<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
-						growingScrollToLoad="false" items="{ path: 'oEngineModel>/EngPowerCheck2', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="{i18n>noDataHitTable}" showNoData="true">
+						growingScrollToLoad="false" items="{ path: 'oEngineModel>/EngPowerCheck2',sorter: [{ path: 'SRVID', descending: true}]
+						,filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="{i18n>noDataHitTable}" showNoData="true">
 						<headerToolbar>
 							<OverflowToolbar>
 								<content>
@@ -112,7 +113,8 @@
 					</Table>
 				</HBox>
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
-					growingScrollToLoad="false" items="{ path: 'oEngineModel>/EngPowerCheck2', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="No {i18n>txtRestablish} Records" showNoData="true">
+					growingScrollToLoad="false" items="{ path: 'oEngineModel>/EngPowerCheck2',sorter: [{ path: 'SRVID', descending: true}]
+					, filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="No {i18n>txtRestablish} Records" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>
 							<content>
@@ -178,7 +180,8 @@
 					</layoutData>
 				</Table>
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
-					growingScrollToLoad="false" items="{ path: 'oEngineModel>/EngPowerCheck2', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '2' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="No ETF Records" showNoData="true">
+					growingScrollToLoad="false" items="{ path: 'oEngineModel>/EngPowerCheck2',sorter: [{ path: 'SRVID', descending: true}]
+					, filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '2' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="No ETF Records" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>
 							<content>

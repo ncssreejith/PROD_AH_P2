@@ -19,19 +19,19 @@
 			<ColumnListItem class="tableTextColor">
 				<cells>
 					<Text text="Airframe hours"/>
-					<Text text="{avmetModel>/airutil/COL_12}"/>
+					<Text text="{path:'avmetModel>/airutil/COL_12',formatter:'.formatter.decimal1Unit' }"/>
 				</cells>
 			</ColumnListItem>
 				<ColumnListItem class="tableTextColor">
 				<cells>
 					<Text text="#1 Eng Hrs"/>
-					<Text text="{avmetModel>/airutil/COL_13}"/>
+					<Text text="{path:'avmetModel>/airutil/COL_13',formatter:'.formatter.decimal1Unit' }"/>
 				</cells>
 			</ColumnListItem>
 				<ColumnListItem class="tableTextColor">
 				<cells>
 					<Text text="#2 Eng Hrs"/>
-					<Text text="{avmetModel>/airutil/COL_14}"/>
+					<Text text="{path:'avmetModel>/airutil/COL_14',formatter:'.formatter.decimal1Unit' }"/>
 				</cells>
 			</ColumnListItem>
 			<!--	<ColumnListItem class="tableTextColor">-->

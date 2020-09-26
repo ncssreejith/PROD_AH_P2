@@ -633,11 +633,42 @@ sap.ui.define([
 
 			//oCanvase.style.width = ""
 			tabName = engText + " - " + engDetailText;
-			var html = "<html><body><div  style='width:95%;'>";
-			html += "<div style='padding-left:3rem; padding-top:1rem;'>" + engText + "</div>";
-			html = id1 !== undefined ? "<div style='width:95%;'>" + this.generateHtml(this, html, id1) + "</div>" : html;
-			html += "</div><div style='padding-left: 3rem;'>" + engDetailText + "</div>";
-			html += "<div style='padding:1rem;'>";
+			var html = "<html><body>";
+			// <div  style='width:95%;'>";
+			// html += "<div style='padding-left:3rem; padding-top:1rem;'>" + engText + "</div>";
+			// html = id1 !== undefined ? "<div style='width:95%;'>" + this.generateHtml(this, html, id1) + "</div>" : html;
+			// html += "</div><div style='padding-left: 3rem;'>" + engDetailText + "</div>";
+			// html += "<div style='padding:1rem;'>";
+			html = id2 !== undefined ? this.generateHtml(this, html, id2) : html;
+			// </div>
+			html += "</body></html>";
+// 			{
+//   pagebreak: { mode: 'avoid-all', before: '#page2el' }
+// }
+			html2pdf().from(html).set({
+				margin: 0,
+				filename: tabName + '.pdf',
+				html2canvas: {
+					scale: 2
+				},
+				pagebreak: { mode: 'avoid-all' },
+				jsPDF: {
+					orientation: 'landscape',
+					unit: 'in',
+					/*format: 'a0',*/
+					compressPDF: true
+				},
+				mode: {
+					avoidAll: 'avoid-all'
+				}
+			}).save();
+		},
+		onPrint2: function(id1, id2, id3) {
+			var tabName = this.getSelectedTab();
+			var html = "<html><body><div  style='width:95%;>";
+			html = id1 !== undefined ? this.generateHtml(this, html, id1) : html;
+			html += "</div><div style='padding: 0 3rem;'>" + tabName + "</div>";
+			html += "<div style='padding:30px;'>";
 			html = id2 !== undefined ? this.generateHtml(this, html, id2) : html;
 			html += "</div></body></html>";
 			html2pdf().from(html).set({
@@ -651,9 +682,6 @@ sap.ui.define([
 					unit: 'in',
 					/*format: 'a0',*/
 					compressPDF: true
-				},
-				mode: {
-					avoidAll: 'avoid-all'
 				}
 			}).save();
 		},

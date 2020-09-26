@@ -10,9 +10,9 @@
 							</content>
 						</OverflowToolbar>
 					</headerToolbar>
-					<StandardListItem class="flightinfolistItem" title="Airframe hours" info="{avmetModel>/airutil/COL_12}"/>
-					<StandardListItem class="flightinfolistItem" title="#1 Eng Hrs" info="{avmetModel>/airutil/COL_13}"/>
-					<StandardListItem class="flightinfolistItem" title="#2 Eng Hrs" info="{avmetModel>/airutil/COL_14}"/>
+					<StandardListItem class="flightinfolistItem" title="Airframe hours" info="{path:'avmetModel>/airutil/COL_12',formatter:'.formatter.decimal1Unit' }"/>
+					<StandardListItem class="flightinfolistItem" title="#1 Eng Hrs" info="{path:'avmetModel>/airutil/COL_13',formatter:'.formatter.decimal1Unit' }"/>
+					<StandardListItem class="flightinfolistItem" title="#2 Eng Hrs" info="{path:'avmetModel>/airutil/COL_14',formatter:'.formatter.decimal1Unit' }"/>
 					<!--<StandardListItem class="flightinfolistItem" title="Total landings" info="{avmetModel>/airutil/col_15}"/>-->
 					<StandardListItem class="flightinfolistItem" title="Last synced" info="{path: 'avmetModel>/airutil/COL_11',formatter:'.formatter.defaultDateTimeFormat'}"/>
 				</List>

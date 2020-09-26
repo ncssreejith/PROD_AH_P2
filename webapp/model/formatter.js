@@ -18,7 +18,7 @@ sap.ui.define([
 				dDate = new Date();
 			}
 			var fnDateFormatter = DateFormat.getDateInstance({
-				pattern: sFormat !== undefined ? sFormat : "dd/MM/yy HH:mm"
+				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy HH:mm"
 			});
 			if (dDate instanceof Date) {
 				var sDate = fnDateFormatter.format(dDate);
@@ -307,6 +307,12 @@ sap.ui.define([
 				return "";
 			}
 			return parseFloat(sValue).toFixed(2);
+		},
+		decimal1Unit: function(sValue) {
+			if (!sValue) {
+				return "";
+			}
+			return parseFloat(sValue).toFixed(1);
 		},
 		integerUnit: function(sValue) {
 			if (!sValue) {
