@@ -402,7 +402,21 @@ sap.ui.define([
 		},
 		onRoleDisplay: function() {
 			try {
-				this.getOwnerComponent().getRouter().navTo("RoleDisplayStations");
+				var iADPC1 = this.getModel("dashboardModel").getProperty("/role/ADPC1");
+				var iADPC2 = this.getModel("dashboardModel").getProperty("/role/ADPC2");
+				var iADPC3 = this.getModel("dashboardModel").getProperty("/role/ADPC3");
+				var iADPC4 = this.getModel("dashboardModel").getProperty("/role/ADPC4");
+				
+				if (iADPC1 > 0 || iADPC2 > 0 || iADPC3 > 0 || iADPC4 > 0) {
+					var sSrvtId = this.getModel("avmetModel").getProperty("/dash/SRVTID");
+					this.getOwnerComponent().getRouter().navTo("WeaponConfig", {
+						srvtid: sSrvtId ? sSrvtId : " ",
+						stepid: "S_WC" //S_WC
+					});
+				} else {
+					this.getOwnerComponent().getRouter().navTo("RoleDisplayStations");
+				}
+				// this.getOwnerComponent().getRouter().navTo("RoleDisplayStations");
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onRoleDisplay function");
 				this.handleException(e);

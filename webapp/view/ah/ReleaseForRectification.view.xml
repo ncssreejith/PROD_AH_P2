@@ -21,7 +21,7 @@
 						<cells>
 							<Text text="{path:'oRectModel>SNo',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
 							<Text text="{oRectModel>jobdesc}"/>
-							<Text text="{oRectModel>jobdesc}"/>
+							<Text text="{oRectModel>sgusr}"/>
 							<!--<Text text="{oRectModel>jstat}"/>-->
 							<!--<Text text="{oRectModel>symbol}"/>-->
 							<!--<Text text="{oRectModel>purpose}"/>-->
