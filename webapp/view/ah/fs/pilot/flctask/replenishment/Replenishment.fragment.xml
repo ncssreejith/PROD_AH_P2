@@ -9,8 +9,8 @@
 					unit="{paModel>units}" press="onReplBtnClk" maxCount="{paModel>max}" status="{paModel>defuel}"
 					servicedCount="{path:'paModel>srvamt',formatter:'.formatter.formatMaxValue'}">
 					<mc:RadialMicroChart tooltip=" "
-						percentage="{parts : ['paModel>srvamt','paModel>max'], formatter : '.formatter.FuelMC'}" size="M"
-						valueColor="{parts : ['paModel>srvamt','paModel>max'], formatter : '.formatter.FuelMCState'}" press="press"
+						percentage="{parts : ['paModel>totamt','paModel>max'], formatter : '.formatter.FuelMC'}" size="M"
+						valueColor="{parts : ['paModel>totamt','paModel>max'], formatter : '.formatter.FuelMCState'}" press="press"
 						class="percentageHidden"></mc:RadialMicroChart>
 					<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onEditIconPress"/>
 					<core:Icon src="sap-icon://up" useIconTooltip="false" color="green" size="10px" press="onEditIconPress"/>

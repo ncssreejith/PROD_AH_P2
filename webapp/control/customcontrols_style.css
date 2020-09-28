@@ -132,14 +132,25 @@ Description : This control used to add new work center in Rectifications area in
     margin: 15px 10px 15px 10px;
     border-right: 0px;
 }
-
+.DBTile7LeftTitleDiv {
+    width: 150px !important;
+    height: 125px !important;
+    background: white;
+    float: left;
+    border-right: 0px;
+}
 .DBTile3LeftInfo {
     width: 150px !important;
     height: 125px !important;
     float: left;
     padding-top: 20px;
 }
-
+.DBTile7LeftInfo {
+    width: 110px !important;
+    height: 100px !important;
+    float: left;
+    padding-right: 20px;
+}
 .DBTile3LeftInfoNum {
     width: 150px !important;
     float: left;
@@ -160,7 +171,16 @@ Description : This control used to add new work center in Rectifications area in
     font-size: 15px;
     font-weight: bold;
 }
-
+.DBTile7LeftInfoHeading {
+    width: 190px !important;
+    float: left;
+    text-align: center;
+    padding-top: 15px;
+    font-family: 'Roboto-Regular', 'Roboto', sans-serif;
+    font-style: normal;
+    font-size: 15px;
+    font-weight: bold;
+}
 .DBTile3LeftInfoSubHeading {
     width: 150px !important;
     float: left;
@@ -170,7 +190,15 @@ Description : This control used to add new work center in Rectifications area in
     font-weight: 400;
     font-style: normal;
 }
-
+.DBTile7LeftInfoSubHeading {
+    width: 190px !important;
+    float: left;
+    text-align: center;
+    font-size: 12px;
+    font-family: 'Roboto-Regular', 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
 .DBTile3Right {
     width: 280px !important;
     height: 155px !important;

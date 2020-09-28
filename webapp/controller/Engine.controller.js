@@ -636,7 +636,7 @@ sap.ui.define([
 			var html = "<html><body>";
 			// <div  style='width:95%;'>";
 			// html += "<div style='padding-left:3rem; padding-top:1rem;'>" + engText + "</div>";
-			// html = id1 !== undefined ? "<div style='width:95%;'>" + this.generateHtml(this, html, id1) + "</div>" : html;
+			html = id1 !== undefined ? "<div style='width:95%;'>" + this.generateHtml(this, html, id1) + "</div>" : html;
 			// html += "</div><div style='padding-left: 3rem;'>" + engDetailText + "</div>";
 			// html += "<div style='padding:1rem;'>";
 			html = id2 !== undefined ? this.generateHtml(this, html, id2) : html;

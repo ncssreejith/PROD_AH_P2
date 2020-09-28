@@ -1432,6 +1432,17 @@ sap.ui.define([
 			}
 			return bEditable;
 		},
+		fnWDNSVisibleRow: function(iColId) {
+			var bVisible = false;
+			var oRow = this.getBindingContext("oWDNSDataModel").getObject();
+			if (oRow && (oRow.COL_12 === "GUN DH" && oRow.bPilot)) {
+				bVisible = true;
+			}
+			if (oRow && (oRow.COL_12 !== "GUN DH" && !oRow.bPilot)) {
+				bVisible = true;
+			}
+			return bVisible;
+		},
 
 		intFormat: function(sValue) {
 			if (sValue) {

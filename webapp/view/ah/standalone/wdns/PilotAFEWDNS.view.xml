@@ -1,0 +1,26 @@
+<mvc:View controllerName="avmet.ah.controller.PilotAFEWDNS" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:ct="avmet.ah.control" xmlns:l="sap.ui.layout">
+	<Page title="Harmonization Constant" showFooter="true" showNavButton="true" enableScrolling="true"
+		navButtonPress="onNavBack">
+		<content>
+			<l:VerticalLayout class="sapUiMediumMargin whiteBGColor" width="100%">
+				<l:content>
+					<VBox class="sapUiSmallMargin whiteBGColor">
+						<VBox class="sapUiSmallMargin sapUiLargeMarginBegin sapUiLargeMarginTop">
+							<Title text="Pilot" level="H1"/>
+							<ct:IconHeaderCard title="Gun DH" press="onPressGUNDH">
+								<Image src="css/img/Flight.jpg" class="sapUiTinyMargin"/>
+							</ct:IconHeaderCard>
+						</VBox>
+						<VBox class="sapUiSmallMargin sapUiLargeMarginBegin sapUiLargeMarginTop">
+							<Title text="AFE" level="H1"/>
+							<ct:IconHeaderCard title="Harmonization" press="onPressAFERecords">
+								<Image src="css/img/FollowupTask.jpg" class="sapUiTinyMargin"/>
+							</ct:IconHeaderCard>
+						</VBox>
+					</VBox>
+				</l:content>
+			</l:VerticalLayout>
+		</content>
+	</Page>
+</mvc:View>

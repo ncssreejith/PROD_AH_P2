@@ -100,17 +100,19 @@
 							</ct:DashboardTile4>
 						</HBox>
 						<HBox wrap="Wrap" justifyContent="Center">
-							<ct:DashboardTile3 id="dbTileFuel" select="onViewClick" class="sapUiTinyMargin" title="Fuel" leftNumeric="{dashboardModel>/fl/TOTAT}"
+							<ct:DashboardTile7 id="dbTileFuel" select="onViewClick" class="sapUiTinyMargin" title="Fuel" leftNumeric="{dashboardModel>/fl/TOTAT}"
 								leftHeading="Total Amount" leftSubHeading="{dashboardModel>/fl/LEUOM}" fontColor="{dashboardModel>/fl/COLOR}">
+								<mc:RadialMicroChart id="fuelTotalMicroChartId" size="L" alignContent="Center"
+									valueColor="{path : 'dashboardModel>/fl/COLOR', formatter : '.formatter.DBFuelPercentage'}" class="customChartFont numFontColor"></mc:RadialMicroChart>
 								<mc:RadialMicroChart id="fuelMicroChartId" size="L"
-									valueColor="{path : 'dashboardModel>/fl/COLOR', formatter : '.formatter.DBFuelPercentage'}" press="press" class="numFontColor"></mc:RadialMicroChart>
+									valueColor="{path : 'dashboardModel>/fl/COLOR', formatter : '.formatter.DBFuelPercentage'}" class="numFontColor"></mc:RadialMicroChart>
 								<SegmentedButton items="{dashboardModel>/fl/list}" selectionChange="onFuelSegBtnChange" width="80%" class="sapUiSizeCompact fontSizeSmall">
 									<items>
 										<SegmentedButtonItem text="{dashboardModel>REDESC}" key="{dashboardModel>key}" width="67px"/>
 									</items>
 								</SegmentedButton>
 								<Link text="view" press="onFuelView" visible="{= !!${avmetModel>/dash/SRVID}}"/>
-							</ct:DashboardTile3>
+							</ct:DashboardTile7>
 							<ct:DashboardTile6 class="sapUiTinyMargin" title="Aircraft Role" totalCount="{dashboardModel>/role/TOTAL}"
 								chart1Visible="{= !!${dashboardModel>/role/ADPDESC1}}" chart2Visible="{= !!${dashboardModel>/role/ADPDESC2}}"
 								chart3Visible="{= !!${dashboardModel>/role/ADPDESC3}}" chart4Visible="{= !!${dashboardModel>/role/ADPDESC4}}"

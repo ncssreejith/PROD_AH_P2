@@ -96,6 +96,7 @@ sap.ui.define([
 
 				this.getModel("oWDNSModel").setProperty("/tabid", oEvent.getParameter("arguments").tabid);
 				this.getModel("oWDNSModel").setProperty("/logid", oEvent.getParameter("arguments").logid);
+				// this.getModel("oWDNSModel").setProperty("/pilot", oEvent.getParameter("arguments").pilot);
 				this.getModel("oWDNSModel").refresh();
 
 				this.fnLoadHarmoClm();
@@ -121,7 +122,8 @@ sap.ui.define([
 		 */
 		onUpdateRecord: function() {
 			try {
-				this.getRouter().navTo("UpdateWDNSView");
+				this.getRouter().navTo("PilotAFEWDNS");
+				
 			} catch (e) {
 				Log.error("Exception in WDNSCoefficients:onUpdateRecord function");
 				this.handleException(e);

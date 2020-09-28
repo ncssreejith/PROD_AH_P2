@@ -12,7 +12,7 @@
 						<cs:FuelTile title="{oReplModel>resdescription}" showNote="{oReplModel>ShowNote}"
 							count="{path:'oReplModel>totamt',formatter:'.formatter.formatMaxValue'}" unit="{oReplModel>units}" press="onReplBtnClk"
 							maxCount="{oReplModel>max}" status="{oReplModel>defuel}" servicedCount="{path:'oReplModel>srvamt',formatter:'.formatter.formatMaxValue'}">
-							<mc:RadialMicroChart tooltip=" " percentage="{parts : ['oReplModel>srvamt','oReplModel>max'], formatter : '.formatter.FuelMC'}" size="M"
+							<mc:RadialMicroChart tooltip=" " percentage="{parts : ['oReplModel>totamt','oReplModel>max'], formatter : '.formatter.FuelMC'}" size="M"
 								valueColor="{parts : ['oReplModel>totamt','oReplModel>max'], formatter : 'avmet.ah.model.formatter.FuelMCState'}" press="press"
 								class="percentageHidden"></mc:RadialMicroChart>
 							<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onEditIconPress"/>

@@ -11,7 +11,7 @@
 						onLegendItemHover="onLegendItemHover" onClick="onClick" onHover="onHover" tooltipEnabled="true" onAnimationProgress="onAnimationProgress"
 						onAnimationComplete="onAnimationComplete" showLines="true" spanGaps="true"></lab:LineChartJS>
 				</VBox>
-				<HBox>
+				<!--<HBox>-->
 					<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"
 						growing="true" growingThreshold="5" growingScrollToLoad="false"
 						items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}]
@@ -128,7 +128,7 @@
 					<!--<core:HTML content="&lt;canvas id=&quot;myChart1&quot; width=&quot;500px&quot; &gt;&lt;/canvas&gt;"></core:HTML>-->
 					<!--</HBox>-->
 					<!--</VBox>-->
-				</HBox>
+				<!--</HBox>-->
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 					growingScrollToLoad="false"
 					items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]

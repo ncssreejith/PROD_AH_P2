@@ -3,9 +3,10 @@ sap.ui.define([
 	"../model/dataUtil",
 	"../util/ajaxutil",
 	"../model/formatter",
+	"../model/FieldValidations",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log"
-], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log) {
+], function(BaseController, dataUtil, ajaxutil, formatter, FieldValidations, JSONModel, Log) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : Teck Meng
@@ -54,6 +55,13 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		onSignOffPress: function() {
 			try {
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
+				// if (!this.handleChange()) {
+				// 	return;
+				// }
 				var oPayload = this.getModel("oAddEngCycLogModel").getProperty("/");
 				delete oPayload.ReasonCodes;
 				oPayload.SPDT = formatter.defaultOdataDateFormat(new Date());
@@ -124,13 +132,14 @@ sap.ui.define([
 					"JOBDESC": null,
 					"JDUID": null,
 					"JDUVL": null,
-					SRVAMT: 0
+					SRVAMT: 1
 				};
 
 				this.getView().setModel(new JSONModel(utilData), "oAddEngCycLogModel");
 				this.getModel("oAddEngCycLogModel").setProperty("/ENGID", oEvent.getParameter("arguments").engid);
 				this.getModel("oAddEngCycLogModel").setProperty("/TAILID", oEvent.getParameter("arguments").tailid); //SFLAG
 				this.getModel("oAddEngCycLogModel").setProperty("/SFLAG", oEvent.getParameter("arguments").SFLAG); //SFLAG
+				FieldValidations.resetErrorStates(this);
 				this.getModel("oAddEngCycLogModel").refresh(true);
 				this._fnReasonSOAPGet();
 				// this.fnLogById();
@@ -138,6 +147,20 @@ sap.ui.define([
 				Log.error("Exception in AddEngOilLog:_onObjectMatched function");
 				this.handleException(e);
 			}
+		},
+		/** 
+		 * Validate changes
+		 * @returns
+		 */
+		handleChange: function() {
+			var dCopyMinDate = this.getView().getModel("ViewModel").getProperty("/minDate");
+			var dMinDate = new Date((dCopyMinDate.getTime() + 60000));
+			var sFormat;
+			var fnDateFormatter = sap.ui.core.format.DateFormat.getDateInstance({
+				pattern: sFormat !== undefined ? sFormat : "HH:mm"
+			});
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorMinMessage", "errorMaxMessage",
+				formatter.defaultOdataDateFormat(dMinDate), fnDateFormatter.format(dMinDate));
 		}
 
 	});

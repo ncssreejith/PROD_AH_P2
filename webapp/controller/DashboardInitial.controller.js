@@ -760,10 +760,12 @@ sap.ui.define([
 
 				this.getView().byId("dbTileFuel").addStyleClass("dbTile3ExtraBtns");
 				if (oFL) {
+					this._setRadialChartText("fuelTotalMicroChartId", oFL.TOTAT, "", oFL.TOTAT, oFL.TOTAT);
 					this._setRadialChartTextDisplay("fuelMicroChartId", oFL.LTOTAMT, oFL.LEMAX, oFL.LTOTAMT, oFL.LEMAX);
 					return;
 				}
-
+				
+				this._setRadialChartText("fuelTotalMicroChartId", "", "", 0, 0);
 				this._setRadialChartTextDisplay("fuelMicroChartId", "", "", 0, 0);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnProcessFuel function");

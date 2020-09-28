@@ -48,7 +48,7 @@ sap.ui.define([
 			}
 		},
 
-		_onObjectMatched: function() {
+		_onObjectMatched: function(oEvent) {
 			try {
 				var utilData = {};
 				utilData.isChange = false;
@@ -60,6 +60,10 @@ sap.ui.define([
 				var oData = {};
 				oData.harmo = [];
 				this.getView().setModel(new JSONModel(oData), "oWDNSDataModel");
+
+				// this.getModel("oWDNSModel").setProperty("/tabid", oEvent.getParameter("arguments").tabid);
+				// this.getModel("oWDNSModel").setProperty("/pilot", oEvent.getParameter("arguments").pilot);
+
 				this.fnLoadHarmClm();
 				this.fnLoadHarmData();
 			} catch (e) {
@@ -88,6 +92,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty("/harmotabId") +
 					" and otype eq C";
+					
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.deleteColumn(oData);
@@ -103,13 +108,17 @@ sap.ui.define([
 		},
 		fnLoadHarmData: function() {
 			try {
+				// var sPilot = this.getModel("oWDNSModel").getProperty("/pilot");
+				// var bPilot = (sPilot === "GUNDH");
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
 					"/harmotabId") + " and otype eq D";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					// if(oData.results) {
-					// 	oData.results.forEach(function(oItem))
+					// 	oData.results.forEach(function(oItem){
+					// 		oItem.bPilot = bPilot;
+					// 	});
 					// }
 					this.getModel("oWDNSDataModel").setProperty("/harmo", oData.results);
 					this.getModel("oWDNSDataModel").refresh();
@@ -135,9 +144,21 @@ sap.ui.define([
 			try {
 				var oCells = [];
 				var that = this;
+				// var sPilot = this.getModel("oWDNSModel").getProperty("/pilot");
+				// var bPilot = (sPilot === "GUNDH");
+				
+						// {parts : ['oReplModel>srvamt','oReplModel>max'], formatter : 'avmet.ah.model.formatter.FuelMCState'}" press="press"
+
 				this.getModel(oModel).getProperty("/" + sClmPath).forEach(function(oItem) {
+					// var sWDNSVisibleProp = {};
+					// 	sWDNSVisibleProp.parts = [oDataModel + ">" + oItem.colid];
+					// 	sWDNSVisibleProp.formatter = this.formatter.fnWDNSVisibleRow;
+					
+					// oItem.bPilot = bPilot;
+						
 					var sText = new sap.m.Text({
 						text: "{" + oDataModel + ">" + oItem.colid + "}"
+						// visible: sWDNSVisibleProp
 					});
 
 					if (oItem.edtb === "X") {
@@ -145,7 +166,7 @@ sap.ui.define([
 						var sEditProp = {};
 						sEditProp.path = oDataModel + ">" + oItem.colid;
 						sEditProp.formatter = this.formatter.fnEditableCol;
-						
+
 						var sWDNSEditProp = {};
 						sWDNSEditProp.path = oDataModel + ">" + oItem.colid;
 						sWDNSEditProp.formatter = this.formatter.fnWDNSEditableCol;
@@ -155,6 +176,7 @@ sap.ui.define([
 							maxLength: 20,
 							fieldGroupIds: ["fgInput"],
 							editable: (oItem.colid === "COL_15") ? sEditProp : sWDNSEditProp,
+							// visible: sWDNSVisibleProp,
 							// required: true,
 							// valueState: "{= !!${" + oDataModel + ">" + oItem.colid + "} ? 'None' : 'Error' }",
 							liveChange: that.onChange
@@ -219,11 +241,15 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.activity = 2;
 				var sClmPath = "harmo";
+				// var sPilot = this.getModel("oWDNSModel").getProperty("/pilot");
+				// var bPilot = sPilot === "GUNDH";
 				if (this.getView().getModel(oModel).getProperty("/isChange")) {
 					this.getModel(oDataModel).getProperty("/" + sClmPath).forEach(function(oItem) {
-						var oPayload = {};
-						oPayload = oItem;
-						oData.push(oPayload);
+						// if ((bPilot && oItem.COL_12 === "GUN DH") || !bPilot && oItem.COL_12 !== "GUN DH") {
+							var oPayload = {};
+							oPayload = oItem;
+							oData.push(oPayload);
+						// }
 					});
 				}
 				oParameter.error = function() {};
