@@ -3,10 +3,11 @@ sap.ui.define([
 	"./BaseController",
 	"../util/ajaxutil",
 	"../model/formatter",
+	"../model/FieldValidations",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageBox",
 	"sap/base/Log"
-], function(models, BaseController, ajaxutil, formatter, JSONModel, MessageBox, Log) {
+], function(models, BaseController, ajaxutil, formatter, FieldValidations, JSONModel, MessageBox, Log) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : AMIT KUMAR	
@@ -62,6 +63,7 @@ sap.ui.define([
 					}
 				}
 				this.getModel("configModel").setProperty("/selStn", oContext.getObject());
+				FieldValidations.validateFields(this);
 				this.getModel("configModel").refresh();
 				// if (oContext.getObject().adapter) {
 				// 	return;
@@ -374,12 +376,14 @@ sap.ui.define([
 		onStationSignOff: function() {
 			try {
 				var sMsg = this.fnValidOther();
-				if(sMsg !== ""){
-					var oData = {messages:[sMsg]};
-					this.fnShowMessage("E", oData,null, function(){
-						
+				if (sMsg !== "") {
+					var oData = {
+						messages: [sMsg]
+					};
+					this.fnShowMessage("E", oData, null, function() {
+
 					});
-					return ;
+					return;
 				}
 				var oSerialNumberPayload = [];
 				var oPayloads = [];
@@ -521,17 +525,29 @@ sap.ui.define([
 		},
 		onOtherCountChange: function(oEvent) {
 			try {
-				var sLastValue = oEvent.getSource().getLastValue();
-				var oValue = oEvent.getSource().getValue();
-				var oMax = oEvent.getSource().getMaxLength();
-				var sMsgText = "";
-				if (isNaN(oValue)) {
-					sMsgText = "Quantity must be numeric";
-				} else if (oValue > oMax) {
-					sMsgText = "Quantity must be smaller than " + oMax;
+				if (FieldValidations.validateFields(this)) {
+					var oValue = oEvent.getSource().getValue();
+					var oMax = oEvent.getSource().getMax();
+					var sMsgText = "";
+					if (isNaN(oValue)) {
+						sMsgText = "Quantity must be numeric";
+					} else if (oValue > oMax) {
+						sMsgText = "Quantity must be smaller than " + oMax;
+					}
+					oEvent.getSource().setValueState(sMsgText === "" ? "None" : "Error");
+					oEvent.getSource().setValueStateText(sMsgText);
 				}
-				oEvent.getSource().setValueState(sMsgText === "" ? "None" : "Error");
-				oEvent.getSource().setValueStateText(sMsgText);
+				// var sLastValue = oEvent.getSource().getLastValue();
+				// var oValue = oEvent.getSource().getValue();
+				// var oMax = oEvent.getSource().getMaxLength();
+				// var sMsgText = "";
+				// if (isNaN(oValue)) {
+				// 	sMsgText = "Quantity must be numeric";
+				// } else if (oValue > oMax) {
+				// 	sMsgText = "Quantity must be smaller than " + oMax;
+				// }
+				// oEvent.getSource().setValueState(sMsgText === "" ? "None" : "Error");
+				// oEvent.getSource().setValueStateText(sMsgText);
 			} catch (e) {
 				Log.error("Exception in Station:onOtherCountChange function");
 				this.handleException(e);
@@ -547,7 +563,7 @@ sap.ui.define([
 				// if (sAdapterList[0].ICART === "X") {
 				if (sAdapterList[0].POT === "T") {
 					var sWep = sAdapterList[0];
-					sWep.CONTOR = sWep.ICART==="X"?"C":"N";
+					sWep.CONTOR = sWep.ICART === "X" ? "C" : "N";
 					sStation.selADP = sAdapterList[1] === undefined ? {} : sAdapterList[1];
 					sStation.selADP.selWpn = sWep;
 					sStation.selADP.selWpn.CONECT = this.getModel("configModel").getProperty("/selStn/CONECT");
@@ -591,56 +607,55 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
-			fnValidOther:function(){
+
+		fnValidOther: function() {
 			var sMsg = "";
 			this.getModel("configModel").getProperty("/stns").forEach(function(oItem) {
-				if(oItem.STNMID === "STNM_O"){
+				if (oItem.STNMID === "STNM_O") {
 					var sQty = parseInt(oItem.TOTQTY);
-					if(isNaN(sQty) || sQty > oItem.MAX){
-						sMsg = "Invalid value for "+oItem.LTXT;	
+					if (isNaN(sQty) || sQty > oItem.MAX) {
+						sMsg = "Invalid value for " + oItem.LTXT;
 					}
 				}
 			});
 			return sMsg;
 		},
-		
 
 		_fnCreateEmptyPayloadSignOff: function() {
 			// var oPayloads = [];
 			// this.getModel("configModel").getProperty("/stns").forEach(function(oItem) {
-				var oPaylod = {
-					"AIRID": this.getAircraftId(),
-					"ROLEID": null,
-					"SUBID": null,
-					"STNMID": null,
-					"L_TXT": null,
-					"WEMID": null,
-					"WESID": null,
-					"ADPID": null,
-					"ADPDESC": null,
-					"WEMDESC": null,
-					"WESDESC": null,
-					"STNSID": null,
-					"CONTOR": null,
-					"ISSER": null,
-					"TAILID": this.getTailId(),
-					"SRVID": null,
-					"NUM1": null,
-					"SRVTID": this.getModel("configModel").getProperty("/srvtid"),
-					"SERNR": null,
-					"endda": "99991231",
-					"begda": null,
-					"TOTQTY": null,
-					"CONECT": null,
-					"HCFLAG": null,
-					"STEPID": this.getModel("configModel").getProperty("/stepid"),
-					"EXPAND": null,
-					"TLSERNR": null,
-					"APPRCOUNT": null
-				};
-		//		oPayloads.push(oPaylod);
-		//	}.bind(this));
+			var oPaylod = {
+				"AIRID": this.getAircraftId(),
+				"ROLEID": null,
+				"SUBID": null,
+				"STNMID": null,
+				"L_TXT": null,
+				"WEMID": null,
+				"WESID": null,
+				"ADPID": null,
+				"ADPDESC": null,
+				"WEMDESC": null,
+				"WESDESC": null,
+				"STNSID": null,
+				"CONTOR": null,
+				"ISSER": null,
+				"TAILID": this.getTailId(),
+				"SRVID": null,
+				"NUM1": null,
+				"SRVTID": this.getModel("configModel").getProperty("/srvtid"),
+				"SERNR": null,
+				"endda": "99991231",
+				"begda": null,
+				"TOTQTY": null,
+				"CONECT": null,
+				"HCFLAG": null,
+				"STEPID": this.getModel("configModel").getProperty("/stepid"),
+				"EXPAND": null,
+				"TLSERNR": null,
+				"APPRCOUNT": null
+			};
+			//		oPayloads.push(oPaylod);
+			//	}.bind(this));
 			return oPaylod;
 		}
 	});

@@ -93,8 +93,10 @@
 						<VBox justifyContent="Center" alignItems="Center">
 							<VBox>
 								<HBox justifyContent="Center" alignContent="Center" alignItems="Center">
-									<Input value="{configModel>/selStn/TOTQTY}" maxLength="{configModel>/selStn/MAX}" liveChange="onOtherCountChange"
-										change="onOtherCountChange"/>
+									<StepInput value="{configModel>/selStn/TOTQTY}" min="0" max="{configModel>/selStn/MAX}" liveChange="onOtherCountChange"
+										change="onOtherCountChange" fieldGroupIds="fgStepInput" validationMode="LiveChange" required="false"/>
+									<!--<Input value="{configModel>/selStn/TOTQTY}" maxLength="{configModel>/selStn/MAX}" liveChange="onOtherCountChange"-->
+									<!--	change="onOtherCountChange" fieldGroupIds="fgInput"/>-->
 									<Label class="sapUiSmallMarginBegin" text="(Counter set {configModel>/selStn/MAX})"/>
 								</HBox>
 								<!--<RadioButtonGroup columns="1" selectedIndex="{= (${configModel>/selStn/HCFLAG}==='H')?0:1}"-->

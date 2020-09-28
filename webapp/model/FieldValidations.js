@@ -94,6 +94,12 @@ sap.ui.define([], function() {
 						if (oFieldSt.getValue() === "" || oFieldSt.getValue() === 0 || oFieldSt.getValue() === null || oFieldSt.getValue() === undefined) {
 							bErrorState = setErrortoFields(oFieldSt, that);
 						}
+						
+					} else if (oFieldSt.getValueState() !== "Error" && (oFieldSt.getMax() !== "" && oFieldSt.getMax() !== null && oFieldSt.getMax() !== undefined)  && oFieldSt.getValue() > oFieldSt.getMax()) {
+							bErrorState = setErrortoFields(oFieldSt, that);
+					}
+					else if (oFieldSt.getValueState() !== "Error" && (oFieldSt.getMin() !== "" && oFieldSt.getMin() !== null && oFieldSt.getMin() !== undefined) && oFieldSt.getValue() < oFieldSt.getMin()) {
+							bErrorState = setErrortoFields(oFieldSt, that);
 					} else if (oFieldSt.getValueState() === "Error") {
 						FocusonFields(oFieldSt);
 						bErrorState = true;
