@@ -9,8 +9,8 @@
 		<HBox backgroundDesign="Solid" class="airCraftSelVBox">
 			<VBox class="aircraftModelVBox" visible="false">
 				<Title text="Select Aircraft Model"></Title>
-				<SegmentedButton width="100%" selectedKey="{oAirSelectViewModel>/sel/modid}" selectionChange="onAircraftModelSelect" items="{oAirSelectViewModel>/models}"
-					class="sapUiSmallMarginTopBottom tailDiv">
+				<SegmentedButton width="100%" selectedKey="{oAirSelectViewModel>/sel/modid}" selectionChange="onAircraftModelSelect"
+					items="{oAirSelectViewModel>/models}" class="sapUiSmallMarginTopBottom tailDiv">
 					<items>
 						<SegmentedButtonItem key="{oAirSelectViewModel>modid}" text="{oAirSelectViewModel>mod}"></SegmentedButtonItem>
 					</items>
@@ -18,9 +18,10 @@
 			</VBox>
 			<VBox class="tailNoVBox sapUiMediumMarginBegin">
 				<Title text="Select AH Tail Number"></Title>
-				<SegmentedButton items="{oAirSelectViewModel>/tails}" selectedKey="{oAirSelectViewModel>/sel/tailid}" selectionChange="onAircraftTailSelect" class="tailDiv sapUiSmallMarginTopBottom">
+				<SegmentedButton items="{oAirSelectViewModel>/tails}" selectedKey="{oAirSelectViewModel>/sel/tailid}" selectionChange="onAircraftTailSelect"
+					class="tailDiv sapUiSmallMarginTopBottom">
 					<items>
-						<SegmentedButtonItem key="{oAirSelectViewModel>tailid}" text="{oAirSelectViewModel>tailno}"/>
+						<SegmentedButtonItem key="{oAirSelectViewModel>tailid}" text="{oAirSelectViewModel>tailno}" visible="{= ${oAirSelectViewModel>tailno} !== 'NA'}"/>
 					</items>
 				</SegmentedButton>
 			</VBox>

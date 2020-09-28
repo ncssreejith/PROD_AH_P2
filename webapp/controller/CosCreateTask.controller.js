@@ -779,6 +779,7 @@ sap.ui.define([
 						oTempData[0].cdesc = aTasks[i].sOpsDesc;
 						oTempData[0].ftcdesc = aTasks[i].sOpsDesc;
 						oTempData[0].tdesc = aTasks[i].sOpsDesc;
+						oTempData[0].ftdesc = aTasks[i].sOpsDesc;
 					} else if (aTasks[i].sOtherDesc !== "") {
 						oTempData[0].cdesc = aTasks[i].sOtherDesc;
 						oTempData[0].ftcdesc = aTasks[i].sOtherDesc;

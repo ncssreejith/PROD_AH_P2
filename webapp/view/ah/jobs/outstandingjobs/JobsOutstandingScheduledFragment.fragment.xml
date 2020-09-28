@@ -60,7 +60,7 @@
 						<Text text="{JobModelS>jobdesc}"/>
 						<Text text="{JobModelS>ptext}"/>
 						<Text text="-"/>
-						<Text text="-"/>
+						<ObjectStatus state="Error" text="{path:'JobModelS>fstat', formatter : '.formatter.jobAction'}"/>
 					</cells>
 				</ColumnListItem>
 			</items>

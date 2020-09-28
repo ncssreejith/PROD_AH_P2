@@ -22,7 +22,7 @@
 			</items>
 		</VBox>
 		<VBox visible="{=${SRMModel>/}.length !== 0 ? true :false}" alignContent="Center" alignItems="Center">
-			<Table id="tbWcSortieMonId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" growing="true"
+			<Table id="tbWcSortieMonId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="None" growing="true"
 				growingThreshold="4" growingScrollToLoad="false" items="{SRMModel>/}" noDataText="{i18n>txtNoTextSM}" showNoData="true"
 				updateFinished="onWoorkCenTblUpdateFinished('SM',$event)">
 				<columns>

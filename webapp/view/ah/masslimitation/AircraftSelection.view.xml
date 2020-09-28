@@ -19,7 +19,7 @@
 		<footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button type="Emphasized" text="Select" visible="{= (${oAirSelectViewModel>/selTab}==='EG' &amp;&amp; ${oAirSelectViewModel>/srcBy}==='serial')?false:true }" press="onPressAircraftSelect"/>
+				<Button type="Emphasized" text="Select" visible="{= (${oAirSelectViewModel>/selTab}==='EG' &amp;&amp; ${oAirSelectViewModel>/srcBy} ==='serial' ) ||  ${oAirSelectViewModel>/selTab}==='AIR' ? false:true}" press="onPressAircraftSelect"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>

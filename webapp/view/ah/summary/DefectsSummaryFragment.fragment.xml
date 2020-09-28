@@ -99,7 +99,7 @@
 											</HBox>
 											<HBox class="sapUiTinyMarginTop">
 												<Label design="Bold" text="Related Job " width="150px"/>
-												<Text text="{JobModel>/rjobid}" width="200px"/>
+												<Link text="{JobModel>/rjobid}" press="onRelatedJobPress" width="200px"/>
 											</HBox>
 										</VBox>
 										<VBox

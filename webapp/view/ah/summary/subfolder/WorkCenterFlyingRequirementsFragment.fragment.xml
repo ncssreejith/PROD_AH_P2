@@ -22,7 +22,7 @@
 			</items>
 		</VBox>
 		<VBox visible="{=${FRModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
-			<Table id="tbWcFlyingReqId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" growing="true"
+			<Table id="tbWcFlyingReqId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="None" growing="true"
 				growingThreshold="4" growingScrollToLoad="false" items="{FRModel>/}" noDataText="{i18n>txtNoTextFLR}" showNoData="true"
 				updateFinished="onWoorkCenTblUpdateFinished('FR',$event)">
 				<columns>

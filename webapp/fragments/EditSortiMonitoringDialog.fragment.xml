@@ -16,10 +16,10 @@
 				<Label text="To be Monitoried For" design="Bold" class="sapUiSmallMarginTop"/>
 				<HBox class="sapUiTinyMarginBegin">
 					<ComboBox placeholder="{i18n>phSelect}" required="true" fieldGroupIds="fgCmbBox" items="{MonitoredForSet>/}"
-						change="onFoundDuringChange('DEF',$event)" selectedKey="{SORTSet>/MON_FOR}">
+						change="onFoundDuringChange" selectedKey="{SORTSet>/MON_FOR}">
 						<core:Item key="{MonitoredForSet>ddid}" text="{MonitoredForSet>description}"/>
 					</ComboBox>
-					<StepInput required="true" min="0" fieldGroupIds="fgStepInput"
+					<StepInput required="true" min="{SORTSet>/SORMinCNT}" fieldGroupIds="fgStepInput"
 						visible="{= ${SORTSet>/MON_FOR} !=='SORTI_5' ? true:false}" value="{SORTSet>/SORCNT}"
 							displayValuePrecision="{ path:'SORTSet>/MON_FOR' , formatter:'.formatter.JobDueDecimalPrecision'}"
 						change="onSortiesNoChange" class="sapUiSmallMarginBegin"/>

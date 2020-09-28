@@ -377,11 +377,18 @@ sap.ui.define([
 			}
 		},
 
-		taskContentVisible2: function(stTask1, stTask2, stTask3) {
-			if ((stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null)) {
-				return true;
+		// taskContentVisible2: function(stTask1, stTask2, stTask3) {
+		// 	if ((stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null)) {
+		// 		return true;
+		// 	} else {
+		// 		return false;
+		// 	}
+		// },
+		taskContentTitle: function(stTask1, stTask2, stTask3) {
+			if (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null) {
+				return "Follow-Up Task/Findings";
 			} else {
-				return false;
+				return "Follow-Up Task";
 			}
 		},
 
@@ -1434,8 +1441,8 @@ sap.ui.define([
 		},
 
 		JobDueDecimalPrecision: function(sKey) {
-			if (sKey === "JDU_11" || sKey === "JDU_18" || sKey === "JDU_19" || sKey === "JDU_20" || sKey === "SORTI_2" || sKey === "UTIL1_10" ||
-				sKey === "UTIL1_16" || sKey === "UTIL1_17" || sKey === "UTIL1_18") {
+			if (sKey === "JDU_11" || sKey === "JDU_18" || sKey === "JDU_19" || sKey === "JDU_20" || sKey === "SORTI_2" || sKey === "SORTI_3" ||
+				sKey === "SORTI_6" || sKey === "UTIL1_10" || sKey === "UTIL1_16" || sKey === "UTIL1_17" || sKey === "UTIL1_18") {
 				return 1;
 			} else {
 				return 0;
@@ -1561,6 +1568,21 @@ sap.ui.define([
 				}
 			}
 			return sVal;
+		},
+
+		jobAction: function(sStatus) {
+			if (sStatus) {
+				var sText = "-";
+				switch (sStatus) {
+					case "R":
+						sText = "Released for Rectification";
+						break;
+					case "A":
+						sText = "FAIR";
+						break;
+				}
+				return sText;
+			}
 		}
 
 	};

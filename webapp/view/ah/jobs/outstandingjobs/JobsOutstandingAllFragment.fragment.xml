@@ -47,7 +47,7 @@
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ptext')"/>
 					</HBox>
 				</Column>
-				<Column width="3rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Label text="{i18n>lbAction}" design="Bold" wrapping="true"/>
 				</Column>
 			</columns>
@@ -62,7 +62,7 @@
 						<Text text="{JobModelAll>jobdesc}"/>
 						<Text text="{path:'JobModelAll>jobty', formatter:'.formatter.defaultJobType'}"/>
 						<Text text="{JobModelAll>ptext}"/>
-						<Text text="-"/>
+						<ObjectStatus state="Error" text="{path:'JobModelAll>fstat', formatter : '.formatter.jobAction'}"/>
 					</cells>
 				</ColumnListItem>
 			</items>

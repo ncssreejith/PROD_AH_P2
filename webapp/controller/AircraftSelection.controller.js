@@ -68,6 +68,7 @@ sap.ui.define([
 			var oObject = oEvent.getParameter("item").getBindingContext("oAirSelectViewModel").getObject();
 			this.getModel("oAirSelectViewModel").setProperty("/sel/tailno", oObject.tailno);
 			this.getModel("oAirSelectViewModel").refresh();
+			this.onPressAircraftSelect();
 		},
 
 		onAircraftSqnSelect: function(oEvent) {
@@ -153,9 +154,19 @@ sap.ui.define([
 
 			};
 			oParameter.success = function(oData) {
-				this.getModel("oAirSelectViewModel").setProperty("/tails", oData.results);
-				this.getModel("oAirSelectViewModel").setProperty("/sel/tailid", oData.results.length > 0 ? oData.results[0].tailid : "");
-				this.getModel("oAirSelectViewModel").setProperty("/sel/tailno", oData.results.length > 0 ? oData.results[0].tailno : "");
+				var emptyVal = {
+					LOCID: null,
+					airid: "NA",
+					modid: "NA",
+					tailid: "NA",
+					tailno: "NA"
+				};
+				var aResult = [];
+				aResult.push(emptyVal);
+				aResult = aResult.concat(oData.results);
+				this.getModel("oAirSelectViewModel").setProperty("/tails", aResult);
+				this.getModel("oAirSelectViewModel").setProperty("/sel/tailid", "NA");
+				//this.getModel("oAirSelectViewModel").setProperty("/sel/tailno", oData.results.length > 0 ? oData.results[0].tailno : "");
 				this.getModel("oAirSelectViewModel").refresh();
 				this.fnLoadEnginDistinct();
 			}.bind(this);

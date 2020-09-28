@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
 	xmlns:f="sap.f">
 	<ScrollContainer horizontal="false" vertical="true" width="100%" focusable="false" class="sapUiTinyMarginTop">
-		<Table id="AllScheduledJobId" class="sapUiResponsivePadding CERTable sapUiSizeCompact" items="{SchJobModelAll>/}" growing="true"
+		<Table id="AllScheduledJobId" class="sapUiResponsivePadding CERTable sapUiSizeCompact" items="{path:'SchJobModelAll>/', sorter: [{ path: 'DUEIN', descending: false }]}" growing="true"
 			growingTriggerText="{i18n>lbLoadMore}">
 			<headerToolbar>
 				<OverflowToolbar>
