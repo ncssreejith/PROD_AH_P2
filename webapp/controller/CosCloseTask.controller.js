@@ -557,8 +557,8 @@ sap.ui.define([
 		onAddLimitaionDialog: function(oEvent) {
 			try {
 				var that = this,
-					oEventTemp = oEvent,
-					oViewModel = this.getView().getModel("ViewModel"),
+					oTempCDESC,
+					oViewModel = this.getView().getModel("oViewLimitModel"),
 					oModel = this.getView().getModel("oViewGlobalModel"),
 					oObject;
 				oObject = oEvent.getSource().getBindingContext("TaskModel").getObject();
@@ -570,7 +570,16 @@ sap.ui.define([
 						this);
 					oModel.setProperty("/EXPDT", null);
 					oModel.setProperty("/EXPTM", "23:59");
-					this._InitializeLimDialogModel();
+					oTempCDESC = this._fnCheckTaskType(oObject.tt1id, oObject.tt2id, oObject.tt3id, oObject.tt4id);
+					if (oTempCDESC) {
+						oViewModel.setProperty("/CDESC", oObject.cdesc);
+						oViewModel.setProperty("/bCDESC", true);
+					} else {
+						oViewModel.setProperty("/CDESC", "");
+						oViewModel.setProperty("/bCDESC", false);
+					}
+					oViewModel.refresh();
+					/*	this._InitializeLimDialogModel();*/
 					this.getView().addDependent(this._oAddLim);
 					this._fnUtilizationGet(oObject.tailid);
 				}
@@ -1109,6 +1118,15 @@ sap.ui.define([
 			}
 		},
 
+		_fnCheckTaskType: function(tt1id, tt2id, tt3id, tt4id) {
+			if ((tt1id === "TT1_10" && tt2id === "TT2_10") || (tt1id === "TT1_10" && tt2id === "TT2_13")) {
+				return true;
+			} else {
+				return false;
+			}
+
+		},
+
 		_fnTasksGet: function(oTempJB) {
 			try {
 				var that = this,
@@ -1284,6 +1302,8 @@ sap.ui.define([
 					bAddLimitationBtn: false,
 					sSlectedKey: "N",
 					DatePrev: DatePrev,
+					CDESC: "",
+					bCDESC: false,
 					Date: new Date(),
 					Time: new Date().getHours() + ":" + new Date().getMinutes()
 				};

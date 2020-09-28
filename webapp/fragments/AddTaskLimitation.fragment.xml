@@ -16,6 +16,12 @@
 						press="onRemoveLimitaionPress" visible="{oViewLimitModel>/bLimitation}"/>-->
 				</VBox>
 			</HBox>
+			<HBox visible="{oViewLimitModel>/bCDESC}" class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+				<HBox>
+					<Label design="Bold" text="Component Description :"/>
+					<Text text="{oViewLimitModel>/CDESC}" class="sapUiTinyMarginBegin" wrapping="true" width="300px"></Text>
+				</HBox>
+			</HBox>
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
 				<VBox>
 					<HBox>

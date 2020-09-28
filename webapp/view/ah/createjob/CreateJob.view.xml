@@ -2,7 +2,7 @@
 	xmlns:core="sap.ui.core">
 	<Page id="page" showNavButton="false" showHeader="false" enableScrolling="true">
 		<Toolbar id="tbId" height="4rem" class="backgroundWhite">
-			<Button icon="sap-icon://arrow-left" type="Transparent" press="onNavBackJob" class="iconColorWhite sapUiMediumMarginBegin"></Button>
+			<Button icon="sap-icon://arrow-left" type="Transparent" press="onNavBack($event, 'DashboardInitial')" class="iconColorWhite sapUiMediumMarginBegin"></Button>
 			<VBox>
 				<Title text="{i18n>createJobTitle}" class="titleTextBoldToolbar sapUiTinyMarginTop"></Title>
 				<Text text=""/>

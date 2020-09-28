@@ -231,7 +231,9 @@ sap.ui.define([
 					}*/
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
-					this.getRouter().navTo("Cosjobs");
+					this.getRouter().navTo("Cosjobs", {
+					State: "SCH"
+				});
 				}.bind(this);
 				oPrmTD.activity = 1;
 				ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_COS_JB", this);

@@ -131,30 +131,32 @@ sap.ui.define([
 					oPayload = [];
 				oPayload = oModel.getProperty("/selectedTask");
 				oOldSelTask = oModel.getProperty("/oldSelectedTask");
-				for (var i = 0; i < oPayload.length; i++) {
-					oPayload[i].RECTSTAR = "X";
-				}
-				for (var j = 0; j < oOldSelTask.length; j++) {
-					for (var k = 0; k < oPayload.length; k++) {
-						if (oOldSelTask[j].taskid === oPayload[k].taskid) {
-							oTaskFlag = false;
-							break;
-						} else {
-							oTaskFlag = true;
+				if (oPayload.length !== 0) {
+					for (var i = 0; i < oPayload.length; i++) {
+						oPayload[i].RECTSTAR = "X";
+					}
+					for (var j = 0; j < oOldSelTask.length; j++) {
+						for (var k = 0; k < oPayload.length; k++) {
+							if (oOldSelTask[j].taskid === oPayload[k].taskid) {
+								oTaskFlag = false;
+								break;
+							} else {
+								oTaskFlag = true;
+							}
+						}
+						if (oTaskFlag) {
+							oOldSelTask[j].RECTSTAR = null;
+							oTempTask.push(oOldSelTask[j]);
 						}
 					}
-					if (oTaskFlag) {
-						oOldSelTask[j].RECTSTAR = null;
-						oTempTask.push(oOldSelTask[j]);
-					}
-				}
-				oPayload = oPayload.concat(oTempTask);
-				oPrmTask.filter = "";
-				oPrmTask.error = function() {};
-				oPrmTask.success = function(oData) {
+					oPayload = oPayload.concat(oTempTask);
+					oPrmTask.filter = "";
+					oPrmTask.error = function() {};
+					oPrmTask.success = function(oData) {
 
-				}.bind(this);
-				ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload);
+					}.bind(this);
+					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload);
+				}
 			} catch (e) {
 				Log.error("Exception in onSignOff function");
 			}
@@ -229,7 +231,9 @@ sap.ui.define([
 						if (oSelectedItemId === "1") {
 							that.ESJobCreate();
 						} else {
-							this.getRouter().navTo("Cosjobs");
+							that.getRouter().navTo("Cosjobs", {
+								State: "COM"
+							});
 						}
 					} else {
 						MessageBox.show(

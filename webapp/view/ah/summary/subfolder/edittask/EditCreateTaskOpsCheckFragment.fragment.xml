@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar">
+	<l:VerticalLayout width="100%">
+		<HBox>
+			<Label design="Bold" text="Describe Task"/>
+			<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('DSCT',$event)" size="12px" color="#031E48"/>
+		</HBox>
+		<TextArea maxLength="500" valueStateText="{i18n>ERttTaskDesc}" liveChange="handleLiveChangeFlyingRequirements" value="{oCreateTaskModel>/sOpsDesc}" showExceededText="true" width="350px" rows="5" fieldGroupIds="fgTxtArea" required="{oCreateTaskModel>/bOpsCheck}"/>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

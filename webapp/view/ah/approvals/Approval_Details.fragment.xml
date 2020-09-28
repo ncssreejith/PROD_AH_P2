@@ -110,12 +110,21 @@
 									<HBox visible="{=${ApprovalDetailstModel>/UTILVL} !== null ? true : false}">
 										<Label width="9rem" wrapping="true" text="{ApprovalDetailstModel>/UTIL1Text}" design="Bold"></Label>
 										<HBox>
-											<Text text="{parts:[{path:'ApprovalDetailstModel>/UTILVL'},{path:'ApprovalDetailstModel>/UTIL1'}], formatter:'.formatter.formatUtilValApproval'}" visible="{=${ApprovalDetailstModel>/UTILVL} !== null ? true : false}"/>
+											<Text
+												text="{parts:[{path:'ApprovalDetailstModel>/UTILVL'},{path:'ApprovalDetailstModel>/UTIL1'}], formatter:'.formatter.formatUtilValApproval'}"
+												visible="{=${ApprovalDetailstModel>/UTILVL} !== null ? true : false}"/>
 											<Text text="{path:'ApprovalDetailstModel>/UTILDT', formatter:'.formatter.defaultDateFormatDisplay'}"
 												visible="{=${ApprovalDetailstModel>/UTILDT} !== null ? true : false}"/>
-<!--													<Text text="{path:'ApprovalDetailstModel>/UTIL2', formatter:'.defaultUtil2FormatText'}"
+											<!--													<Text text="{path:'ApprovalDetailstModel>/UTIL2', formatter:'.defaultUtil2FormatText'}"
 												visible="{=${ApprovalDetailstModel>/UTIL2} !== null ? true : false}"/>-->
 										</HBox>
+										<layoutData>
+											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+										</layoutData>
+									</HBox>
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/CDESC} !== null ? true : false}">
+										<Label width="9rem" text="Component Description" design="Bold" wrapping="true"></Label>
+										<Text width="9rem" text="{ApprovalDetailstModel>/CDESC}" wrapping="true"/>
 										<layoutData>
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>

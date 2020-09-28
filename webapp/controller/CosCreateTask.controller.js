@@ -746,6 +746,10 @@ sap.ui.define([
 							oTempData[0].tdesc = null;
 							break;
 					}
+					if (aTasks[i].sTaskType === "TT1_10" && aTasks[i].sTask === "TT2_12") {
+						oTempData[0].ftsernr = aTasks[i].sType1Value;
+					}
+
 					//oTempData[0].tdesc = aTasks[i].sOpsDesc;
 					/*	oTempData[0].symbol = aTasks[i].sSymbol;*/
 					oTempData[0].toref = aTasks[i].sTechOrderRef;

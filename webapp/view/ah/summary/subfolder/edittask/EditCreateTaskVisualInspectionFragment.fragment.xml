@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar">
+	<l:VerticalLayout width="100%">
+		<!--<HBox>
+			<Label design="Bold" text="Check for"/>
+			<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+		</HBox>
+		<VBox>
+			<Input width="349px" value="{oCreateTaskModel>/sCheckfor}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bVisualInspection}"/>
+		</VBox>
+		<HBox class="sapUiSmallMarginTop">
+			<Label design="Bold" text="Indicate Area"/>
+			<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+		</HBox>
+		<VBox>
+			<Input width="349px" value="{oCreateTaskModel>/sIndicateArea}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bVisualInspection}"/>
+		</VBox>-->
+		<VBox>
+			<HBox>
+				<Label design="Bold" text="Check on Area"/>
+				<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('CHEKON',$event)" class="sapUiTinyMarginBegin" size="12px"
+					color="#031E48"/>
+			</HBox>
+			<TextArea maxLength="500" value="{oCreateTaskModel>/sOtherDesc}" fieldGroupIds="fgTxtArea" required="{oCreateTaskModel>/bVisualInspection}"
+				showExceededText="true" width="350px" rows="5" valueStateText="{i18n>ERttMtaskType}" liveChange="handleLiveChangeFlyingRequirements"/>
+		</VBox>
+	</l:VerticalLayout>
+</core:FragmentDefinition>
