@@ -259,7 +259,7 @@ sap.ui.define([
 				oItem.LV_COLOR = "Good";
 				switch (sSelectedKey) {
 					case "Hrs":
-						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_THRS >= 0 ? oItem.LV_THRS : 0), "", (oItem.LV_THRS >= 0 ? oItem.LV_THRS : 0),
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_THRS >= 0 ? parseFloat(oItem.LV_THRS) : 0), "", (oItem.LV_THRS >= 0 ? parseFloat(oItem.LV_THRS) : 0),
 							oItem.LV_HRS);
 						if (oItem.LV_HRS > 0) {
 							oItem.LV_COLOR = "Critical";
@@ -267,7 +267,7 @@ sap.ui.define([
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
 						break;
 					case "Days":
-						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TDAY >= 0 ? oItem.LV_TDAY : 0), "", (oItem.LV_TDAY >= 0 ? oItem.LV_TDAY : 0),
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TDAY >= 0 ? parseFloat(oItem.LV_TDAY) : 0), "", (oItem.LV_TDAY >= 0 ? parseFloat(oItem.LV_TDAY) : 0),
 							oItem.LV_DAY);
 						if (oItem.LV_DAY > 0) {
 							oItem.LV_COLOR = "Critical";
@@ -275,7 +275,7 @@ sap.ui.define([
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TDAY));
 						break;
 					case "TAC":
-						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC >= 0 ? oItem.LV_TTAC : 0), "", (oItem.LV_TTAC >= 0 ? oItem.LV_TTAC : 0),
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC >= 0 ? parseFloat(oItem.LV_TTAC) : 0), "", (oItem.LV_TTAC >= 0 ? parseFloat(oItem.LV_TTAC) : 0),
 							oItem.LV_TAC);
 						if (oItem.LV_TAC > 0) {
 							oItem.LV_COLOR = "Critical";
@@ -283,7 +283,7 @@ sap.ui.define([
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TTAC));
 						break;
 					default:
-						this._setRadialChartText("scheduleMicroChartId", oItem.LV_THRS, "", oItem.LV_THRS, oItem.LV_HRS);
+						this._setRadialChartText("scheduleMicroChartId", parseFloat(oItem.LV_THRS), "", parseFloat(oItem.LV_THRS), oItem.LV_HRS);
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
 						break;
 				}
@@ -655,7 +655,7 @@ sap.ui.define([
 
 						this.getModel("dashboardModel").refresh();
 						if (oData.results.length > 0) {
-							var sHours = oData.results[0].LV_THRS;
+							var sHours = parseFloat(oData.results[0].LV_THRS);
 							if (sHours < 0 || sHours === null) {
 								sHours = 0;
 							}
