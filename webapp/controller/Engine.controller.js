@@ -373,7 +373,7 @@ sap.ui.define([
 					// 	}
 					// }
 					var that = this;
-					if (oData && oData.results) {
+					if (oData && oData.results && oData.results.length && oData.results.length > 0) {
 						//sort by date
 						oData.results.forEach(function(oItem) {
 							oItem.ID = that.fnDateTime(oItem.SPDT, oItem.SPTM); //, 
@@ -386,7 +386,7 @@ sap.ui.define([
 							return new Date(b.ID).getTime() - new Date(a.ID).getTime();
 						});
 
-						if (iEngine === "1") {
+						if (iEngine === "1" || iEngine === null) {
 							this.LastRepEngine1Hours = this.fnDateTimeDiff(oData.results[0].ID);
 							oEngineModel.setProperty("/soapTableData", oData.results);
 						} else {

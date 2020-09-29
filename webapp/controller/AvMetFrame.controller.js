@@ -234,7 +234,7 @@ sap.ui.define([
 				oPayload.LFLAG = "X";
 				oPayload.SRVTID = this.getModel("avmetModel").getProperty("/dash/SRVTID");
 				var oParameter = {};
-				oParameter.activity = 4;
+				oParameter.activity = 2;
 				oParameter.error = function() {};
 				oParameter.success = function() {
 					var oDash = this.getModel("avmetModel").getProperty("/dash"); //astid
@@ -246,7 +246,9 @@ sap.ui.define([
 				}.bind(this);
 				var oModel = this.getView().getModel("avmetModel");
 				oModel.setProperty("/UnlockAVMET", true);
-				ajaxutil.fnCreate("/TailLockSvc", oParameter, [oPayload], "ZRM_AC_U", this);
+				var sASTID = this.getModel("avmetModel").getProperty("/dash/astid");
+				var sAuthObj = (sASTID === "AST_FFF") ? "ZRM_FFF_UL" : "ZRM_RFF_UL";
+				ajaxutil.fnCreate("/TailLockSvc", oParameter, [oPayload], sAuthObj, this);
 			} catch (e) {
 				Log.error("Exception in onSignOffPress function");
 			}
@@ -284,7 +286,7 @@ sap.ui.define([
 				var oModel = this.getView().getModel("avmetModel");
 				oModel.setProperty("/UnlockAVMET", true);
 				var sASTID = this.getModel("avmetModel").getProperty("/dash/astid");
-				var sAuthObj = sASTID === "AST_FFF" ? "ZRM_FS_FFF04" : "ZRM_FS_PA04";
+				var sAuthObj = (sASTID === "AST_FFF") ? "ZRM_FS_FFF" : "ZRM_FAIR_R";
 				ajaxutil.fnCreate("/TailLockSvc", oParameter, [oPayload], sAuthObj, this);
 			} catch (e) {
 				Log.error("Exception in onSignOffPress function");
