@@ -362,7 +362,7 @@ sap.ui.define([
 		},
 
 		taskContentVisible: function(stTask1, stTask2) { /*(stTask1 === "TT1_14") || (stTask1 === "TT1_10" && stTask2 === "TT2_13") ||*/
-			if ((stTask1 === "TT1_10" && stTask2 === "TT2_10") || (stTask1 === "TT1_10" && stTask2 === "TT2_12")) {
+			if ((stTask1 === "TT1_10" && stTask2 === "TT2_10") || (stTask1 === "TT1_10" && stTask2 === "TT2_15") || (stTask1 === "TT1_10" && stTask2 === "TT2_12")) {
 				return true;
 			} else {
 				return false;
@@ -407,7 +407,7 @@ sap.ui.define([
 		},
 
 		taskContentVisibleTB: function(stTask1, stTask2, stTask3, stTask4) {
-			if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
+			if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
 						"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
 						stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
 						stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" &&
@@ -1547,7 +1547,14 @@ sap.ui.define([
 		},
 
 		serialTemplateBtnVisibility: function(stt1, stt2) {
-			if (stt1 || stt2) {
+			if (stt1 && stt2 === "TT2_10") {
+				return true;
+			}
+			return false;
+		},
+		
+		batchTemplateBtnVisibility: function(stt1, stt2) {
+			if (stt1 && stt2 === "TT2_15") {
 				return true;
 			}
 			return false;
@@ -1585,9 +1592,9 @@ sap.ui.define([
 			if (sStatus) {
 				var sText = "-";
 				switch (sStatus) {
-					case "R":
-						sText = "Released for Rectification";
-						break;
+					// case "R":
+					// 	sText = "Released for Rectification";
+					// 	break;
 					case "A":
 						sText = "FAIR";
 						break;

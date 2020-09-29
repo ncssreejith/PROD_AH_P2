@@ -665,6 +665,30 @@ sap.ui.define([
 				default:
 					return "Y";
 			}
+		},
+		
+		fGrouper: function (oGroup) {
+			var sVal = this.getCount(oGroup,oGroup.sPath);
+			return {
+				key: sVal
+			};
+		},
+		
+		getCount : function (oGroup, sPath){
+			if (oGroup.getObject(sPath).UMKEY === "JDU_10") {
+				return "group1";
+			} else {
+				return "group2";
+			}
+			
+		},
+
+		getGroupHeader: function (oGroup) {
+
+			return new sap.m.GroupHeaderListItem({
+				title: oGroup.key,
+				upperCase: false
+			});
 		}
 
 	});

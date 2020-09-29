@@ -138,7 +138,7 @@ sap.ui.define([
 				for (var i in ftTasks) {
 					var oItem = ftTasks[i].getBindingContext("applTmplModel").getObject();
 					if ((oItem.TT1ID || oItem.TT2ID) && oItem.SERNR === "") {
-						sap.m.MessageBox.error("Please add Serial No for follow-up Task");
+						sap.m.MessageBox.error("Please add Serial No for Sub Task");
 						return;
 					}
 					var oTask = this.avmentUtil.createInitialBlankRecord("NewTask")[0];
@@ -238,7 +238,7 @@ sap.ui.define([
 			}
 		},
 
-		onSerialNumPress: function(oEvent) {
+		onSerialNumPress: function(oEvent, sKey) {
 			try {
 				var that = this,
 					oObj = oEvent.getSource().getParent().getBindingContext("applTmplModel").getObject(),
@@ -249,7 +249,7 @@ sap.ui.define([
 						"avmet.ah.fragments.TemplateAddSerialNum",
 						this);
 					oObj.ISMAT = "Part No.";
-					oObj.ISSER = "Serial No. (S/N)";
+					oObj.ISSER = sKey === "SERIAL" ? "Serial No. (S/N)" : "Batch No.";
 					oObj.ENGFLAG = "NA";
 					oModel.setData(oObj);
 					that._oAddSR.setModel(oModel, "SerialAddSet");
@@ -335,7 +335,7 @@ sap.ui.define([
 				oModel = this.getView().getModel("applTmplModel");
 			var sKey = this._oAddSR.getModel("SerialAddSet").getProperty("/ENGFLAG");
 			if (!(sKey === "EG" || sKey === "NE")) {
-				sap.m.MessageBox.error("Please select engine type");
+				sap.m.MessageBox.error("Please select request type");
 				return;
 			}
 			FieldValidations.resetErrorStates(this);
@@ -470,7 +470,6 @@ sap.ui.define([
 						if (oFlag === "WR") {
 							oModel.setProperty("/header/bWorkCenter", true);
 							oModel.setProperty("/tmpls", oData.results);
-							oModel.setProperty("/header/selTmpl", oData.results.length > 0 ? oData.results[0].ddid : "");
 						} else {
 							oModel.setProperty("/tasks", oData.results);
 							oModel.setProperty("/ApplyTempTable", true);

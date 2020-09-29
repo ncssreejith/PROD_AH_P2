@@ -196,7 +196,7 @@ sap.ui.define([
 		 * Parameter: sValue
 		 * Description: To select Nature of Job segments.
 		 */
-		onSelectionNatureofJobChange: function(sValue) {
+		onSelectionNatureofJobChange: function(oEvent, sValue) {
 			try {
 
 				var oSegmentedButton, oSelectedItemId, that = this,
@@ -205,6 +205,11 @@ sap.ui.define([
 				oSegmentedButton = this.byId('SB1');
 				oSelectedItemId = oSegmentedButton.getSelectedKey();
 				oModel.setProperty("/jobty", oSelectedItemId);
+				if (oEvent) {
+					this._fnSetInitialModel();
+					oModel.setProperty("/jobty", oSelectedItemId);
+					this.removeCoordinates();
+				}
 				switch (oSelectedItemId) {
 					case "D":
 						that.getView().byId("defectId").setVisible(true);
@@ -658,7 +663,7 @@ sap.ui.define([
 				oPayload.begda = formatter.defaultOdataDateFormat(oPayload.credt);
 				oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
 				oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
-			
+
 				oParameter.error = function(response) {};
 				oParameter.success = function(oData) {
 					if (oData.results[0].mark !== "") {
@@ -1015,7 +1020,7 @@ sap.ui.define([
 						}
 						oViewModel.setProperty("/oFlagEdit", false);
 						//
-						that.onSelectionNatureofJobChange(oData.results[0].deaid);
+						that.onSelectionNatureofJobChange(null, oData.results[0].deaid);
 						if (oData.results[0].mark !== "") {
 							that._fnGetMark(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].deaid);
 						}
@@ -1240,22 +1245,10 @@ sap.ui.define([
 					if (sRJobIdFlag !== "Y") {
 						this._fnJobDetailsGet(sRJobId, sAirId);
 					} else {
-						oTempData = AvMetInitialRecord.createInitialBlankRecord("CREATEJOB");
-						this.getModel("oViewCreateModel").setData(oTempData[0]);
-						this.getModel("oViewCreateModel").setProperty("/cretm", new Date().getHours() + ":" + new Date().getMinutes());
-						this.getModel("oViewCreateModel").setProperty("/credt", new Date());
-						this.getModel("oViewCreateModel").setProperty("/airid", sAirId);
-						this.getModel("oViewCreateModel").setProperty("/tailid", sTailId);
-						this.getModel("oViewCreateModel").setProperty("/modid", sModId);
+						this._fnSetInitialModel();
 					}
 				} else {
-					oTempData = AvMetInitialRecord.createInitialBlankRecord("CREATEJOB");
-					this.getModel("oViewCreateModel").setData(oTempData[0]);
-					this.getModel("oViewCreateModel").setProperty("/cretm", new Date().getHours() + ":" + new Date().getMinutes());
-					this.getModel("oViewCreateModel").setProperty("/credt", new Date());
-					this.getModel("oViewCreateModel").setProperty("/airid", sAirId);
-					this.getModel("oViewCreateModel").setProperty("/tailid", sTailId);
-					this.getModel("oViewCreateModel").setProperty("/modid", sModId);
+					this._fnSetInitialModel();
 				}
 				this._fnJobDueGet();
 				this._fnGetUtilisation(sAirId);
@@ -1265,6 +1258,16 @@ sap.ui.define([
 				Log.error("Exception in CosCreateJob:_handleRouteMatched function");
 				this.handleException(e);
 			}
+		},
+
+		_fnSetInitialModel: function() {
+			var oTempData = AvMetInitialRecord.createInitialBlankRecord("CREATEJOB");
+			this.getModel("oViewCreateModel").setData(oTempData[0]);
+			this.getModel("oViewCreateModel").setProperty("/cretm", new Date().getHours() + ":" + new Date().getMinutes());
+			this.getModel("oViewCreateModel").setProperty("/credt", new Date());
+			this.getModel("oViewCreateModel").setProperty("/airid", this.getAircraftId());
+			this.getModel("oViewCreateModel").setProperty("/tailid", this.getTailId());
+			this.getModel("oViewCreateModel").setProperty("/modid", this.getModelId());
 		}
 
 	});

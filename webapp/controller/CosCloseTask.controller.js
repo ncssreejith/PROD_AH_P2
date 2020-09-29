@@ -63,6 +63,25 @@ sap.ui.define([
 			var prevTime = this.getModel("TaskModel").getProperty(sPath + "/creuzt");
 			return formatter.validDateTimeChecker(this, dpId, tpId, "errorCloseTaskPast", "errorCloseTaskFuture", prevDt, prevTime);
 		},
+		
+		onSuggestTechOrder: function(oEvent) {
+			var sText = oEvent.getSource().getValue();
+			try {
+				var that = this,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + that.getTailId() + " and TOREF eq " + sText;
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "TechRefSugg");
+				}.bind(this);
+				ajaxutil.fnRead("/GetTaskRefSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
+				this.handleException(e);
+			}
+		},
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	

@@ -61,6 +61,132 @@ sap.ui.define([
 				"Flag": "N"
 			});
 		},
+		
+		handlePressWorkCenterFragmentOpenMenu: function(oEvent) {
+			try {
+				var that = this,
+					oButton, eDock, oModel, oDialogModel;
+				oModel = that.getView().getModel("LocalModel");
+
+				oDialogModel = dataUtil.createNewJsonModel();
+				if (!that._oWCMenuFrag) {
+					that._oWCMenuFrag = sap.ui.xmlfragment("WorkMenuId",
+						"avmet.ah.fragments.WorkCenterFragmentMenu",
+						that);
+					that.getView().addDependent(that._oWCMenuFrag);
+				}
+
+				this.menuContext = oEvent.getSource().getBindingContext("FRAllModel");
+				oEvent.getSource().getParent().setSelected(true);
+				oDialogModel.setData([{
+					"Text": "Edit",
+					"Visible": true
+				}, {
+					"Text": "Delete Request",
+					"Visible": true
+				}]);
+
+				that._oWCMenuFrag.setModel(oDialogModel, "DialogModel");
+				eDock = sap.ui.core.Popup.Dock;
+				oButton = oEvent.getSource();
+				that._oWCMenuFrag.open(this._bKeyboard, oButton, eDock.BeginTop, eDock.BeginBottom, oButton);
+
+			} catch (e) {
+				Log.error("Exception in handlePressWorkCenterFragmentOpenMenu function");
+			}
+		},
+
+		handleWorkCenterMenuItemPress: function(oEvent) {
+			try {
+				var that = this,
+					oObj, oModel = that.getView().getModel("LocalModel"),
+					oSelectedItem;
+				oSelectedItem = oEvent.getParameter("item").getText();
+				switch (oSelectedItem) {
+					case "Edit":
+						oObj = JSON.parse(JSON.stringify(this.menuContext.getObject()));
+						that.onEditFlyingRequirement(oObj);
+						break;
+					case "Delete Request":
+						oObj = JSON.parse(JSON.stringify(this.menuContext.getObject()));
+						that.onFlyingRequirementDelete(oObj);
+
+						break;
+				}
+				oModel.updateBindings(true);
+				that.onCloseWorkCenterMenu();
+			} catch (e) {
+				Log.error("Exception in handleWorkCenterMenuItemPress function");
+			}
+		},
+		
+		
+		onFlyingRequirementDelete: function(oObj) {
+			try {
+				var that = this,
+					oPrmFR = {},
+					oModel = this.getView().getModel("LocalModel");
+				oPrmFR.error = function() {};
+				oPrmFR.success = function(oData) {
+					that._fnFlyingRequirementsMasterGet();
+				}.bind(this);
+				oPrmFR.activity = 4;
+				ajaxutil.fnDelete("/FlyingRequirementSvc/" + oObj.JOBID + "/" + oObj.TAILID + "/" + oObj.FR_NO, oPrmFR, "dummy", this);
+			} catch (e) {
+				Log.error("Exception in onFlyingRequirementDelete function");
+			}
+		},
+		
+		onFlyingRequirementUpdate: function(oEvent) {
+			try {
+				var that = this,
+					oModel,
+					oPayload;
+				oModel = that.getView().getModel("LocalModel");
+				var oParameter = {};
+				oPayload = oEvent.getSource().getModel("FLYSet").getData();
+				oParameter.error = function(response) {};
+				oParameter.success = function(oData) {
+					that._fnFlyingRequirementsMasterGet();
+
+					that.onFlyingRequirementClose();
+				}.bind(this);
+				oParameter.activity = 4;
+				ajaxutil.fnUpdate("/FlyingRequirementSvc", oParameter, [oPayload], "dummy", this);
+			} catch (e) {
+				Log.error("Exception in onFlyingRequirementUpdate function");
+			}
+		},
+		
+		onEditFlyingRequirement: function(oObj) {
+			try {
+				var that = this,
+					oModel = dataUtil.createNewJsonModel();
+				if (!that._oEditFL) {
+					that._oEditFL = sap.ui.xmlfragment(that.createId("idEditFLDialog"),
+						"avmet.ah.fragments.EditFlyingRequirementDialog",
+						this);
+					oModel.setData(oObj);
+					that._oEditFL.setModel(oModel, "FLYSet");
+					that.getView().addDependent(that._oEditFL);
+					that._oEditFL.open(that);
+				}
+			} catch (e) {
+				Log.error("Exception in onEditFlyingRequirement function");
+			}
+		},
+		
+		onFlyingRequirementClose: function() {
+			try {
+				if (this._oEditFL) {
+					this._oEditFL.close(this);
+					this._oEditFL.destroy();
+					delete this._oEditFL;
+				}
+			} catch (e) {
+				Log.error("Exception in onFlyingRequirementClose function");
+			}
+		},
 
 		// ***************************************************************************
 		//                 4. Private Methods   

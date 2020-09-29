@@ -93,6 +93,25 @@ sap.ui.define([
 			}
 		},
 
+		onSuggestTechOrder: function(oEvent) {
+			var sText = oEvent.getSource().getValue();
+			try {
+				var that = this,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + that.getTailId() + " and TOREF eq " + sText;
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "TechRefSugg");
+				}.bind(this);
+				ajaxutil.fnRead("/GetTaskRefSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
+				this.handleException(e);
+			}
+		},
+
 		handleChange: function() {
 			var prevDt = this.getModel("ViewModel").getProperty("/jobDate");
 			var prevTime = this.getModel("ViewModel").getProperty("/jobTime");
@@ -712,7 +731,9 @@ sap.ui.define([
 					oTempData[0].tailid = aTasks[i].TailId;
 					oTempData[0].wrctr = aTasks[i].WorkKey;
 					oTempData[0].tt1id = aTasks[i].sTaskType;
-					oTempData[0].tt2id = aTasks[i].sTask;
+					if (aTasks[i].sTask === "TT2_10") {
+						oTempData[0].tt2id = aTasks[i].sType1 === "Serial No. (S/N)" ? "TT2_10" : "TT2_15";
+					}
 					if (aTasks[i].sTypDesc !== "" || aTasks[i].sTypDesc !== undefined) {
 						oTempData[0].tt3id = aTasks[i].sTypDesc;
 					} else {

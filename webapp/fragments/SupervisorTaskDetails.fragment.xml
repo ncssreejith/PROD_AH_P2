@@ -118,18 +118,17 @@
 											<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>
 										</layoutData>
 									</HBox>
-									<HBox class="sapUiSmallMarginEnd sapUiSmallMarginTop"
-										visible="{parts:['DetailsSupModel>/tt1id','DetailsSupModel>/tt2id','DetailsSupModel>/CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible2'}">
-										<HBox>
-											<Label text="Findings" design="Bold" width="196px"/>
-										</HBox>
-										<Text text="{DetailsSupModel>/ftfind}" wrapping="true" width="100%"/>
-										<layoutData>
-											<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>
-										</layoutData>
-									</HBox>
-									<HBox class="sapUiSmallMarginEnd sapUiSmallMarginTop"
-										visible="{parts:['DetailsSupModel>/tt1id','DetailsSupModel>/tt2id','DetailsSupModel>/CPRID','DetailsSupModel>/rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisibleTB'}">
+									<!--<HBox class="sapUiSmallMarginEnd sapUiSmallMarginTop"-->
+									<!--	visible="{parts:['DetailsSupModel>/tt1id','DetailsSupModel>/tt2id','DetailsSupModel>/CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible2'}">-->
+									<!--	<HBox>-->
+									<!--		<Label text="Findings" design="Bold" width="196px"/>-->
+									<!--	</HBox>-->
+									<!--	<Text text="{DetailsSupModel>/ftfind}" wrapping="true" width="100%"/>-->
+									<!--	<layoutData>-->
+									<!--		<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>-->
+									<!--	</layoutData>-->
+									<!--</HBox>-->
+									<HBox class="sapUiSmallMarginEnd sapUiSmallMarginTop">
 										<Label width="196px" text="{i18n>lblTechRef}" design="Bold" class="sapUiSmallMarginTop"></Label>
 										<Input editable="false" value="{DetailsSupModel>/fttoref}" width="200px"></Input>
 										<layoutData>

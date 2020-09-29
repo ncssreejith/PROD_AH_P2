@@ -46,7 +46,7 @@
 										<Text
 											text="{path:'FRAllModel>SGDTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'FRAllModel>SGUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 									</VBox>
-									<!--	<Button icon="sap-icon://overflow" press="handlePressWorkCenterFragmentOpenMenu('FLR',$event)" type="Transparent"/>-->
+										<Button icon="sap-icon://overflow" press="handlePressWorkCenterFragmentOpenMenu" type="Transparent"/>
 								</cells>
 							</ColumnListItem>
 						</items>

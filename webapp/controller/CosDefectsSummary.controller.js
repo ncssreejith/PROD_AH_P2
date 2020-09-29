@@ -322,6 +322,14 @@ sap.ui.define([
 
 		},
 
+		onRelatedJobPress: function(oEvent) {
+			var sJobId = oEvent.getSource().getText();
+			this.getRouter().navTo("CosDefectsSummary", {
+				"JobId": sJobId,
+				"Flag": "Y"
+			});
+		},
+
 		handleChangeEtr: function(oEvent) {
 			try {
 				this.getView().getModel("JobModel").setProperty("/ETRFLAG", "X");
@@ -672,6 +680,7 @@ sap.ui.define([
 						this);
 					oModel.setData(oObj);
 					that._fnMonitoredForGet();
+					that._fnGetUtilisation(oObj);
 					that._fnOperationTypeGet();
 					that._oEditSORT.setModel(oModel, "SORTSet");
 					that.getView().addDependent(that._oEditSORT);
@@ -841,11 +850,14 @@ sap.ui.define([
 							break;
 						case "TDM":
 						case "SMT":
+							this.menuContext = oEvent.getSource().getBindingContext("SRMModel");
 							oEvent.getSource().getParent().setSelected(true);
 							oModel.setProperty("/TableFlag", sText);
 							oDialogModel.setData(oModel.getData().SpareMenu);
+							break;
 						case "SPR":
 						case "FLR":
+							this.menuContext = oEvent.getSource().getBindingContext("FRModel");
 							oModel.setProperty("/TableFlag", sText);
 							oEvent.getSource().getParent().setSelected(true);
 							oDialogModel.setData(oModel.getData().SpareMenu);
@@ -935,23 +947,19 @@ sap.ui.define([
 						break;
 					case "Edit":
 						if (oModel.getProperty("/TableFlag") === "SMT") {
-							oTable = that.getView().byId("tbWcSortieMonId").getSelectedItem();
-							oObj = oTable.getBindingContext("SRMModel").getObject();
+							oObj = JSON.parse(JSON.stringify(this.menuContext.getObject()));
 							that.onEditSortieMonitoring(oObj);
 						} else {
-							oTable = that.getView().byId("tbWcFlyingReqId").getSelectedItem();
-							oObj = oTable.getBindingContext("FRModel").getObject();
+							oObj = JSON.parse(JSON.stringify(this.menuContext.getObject()));
 							that.onEditFlyingRequirement(oObj);
 						}
 						break;
 					case "Delete Request":
 						if (oModel.getProperty("/TableFlag") === "SMT") {
-							oTable = that.getView().byId("tbWcSortieMonId").getSelectedItem();
-							oObj = oTable.getBindingContext("SRMModel").getObject();
+							oObj = JSON.parse(JSON.stringify(this.menuContext.getObject()));
 							that.onSortieMonitoringDelete(oObj);
 						} else {
-							oTable = that.getView().byId("tbWcFlyingReqId").getSelectedItem();
-							oObj = oTable.getBindingContext("FRModel").getObject();
+							oObj = JSON.parse(JSON.stringify(this.menuContext.getObject()));
 							that.onFlyingRequirementDelete(oObj);
 						}
 						break;
@@ -961,6 +969,27 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:handleWorkCenterMenuItemPress function");
 				this.handleException(e);
+			}
+		},
+
+		onFoundDuringChange: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					sKey = oSrc.getSelectedKey(),
+					oModel = this._oEditSORT.getModel("SORTSet");
+				if (sKey.length > 0) {
+					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+						var sVal = oModel.getProperty("/SORCNT") ? oModel.getProperty("/SORCNT") : 0;
+						sVal = parseFloat(sVal, [10]);
+						var iPrec = formatter.JobDueDecimalPrecision(sKey);
+						oModel.setProperty("/SORCNT", parseFloat(minVal, [10]).toFixed(iPrec));
+					} else {
+						oModel.setProperty("/SORCNT", 0);
+					}
+				}
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
 			}
 		},
 
@@ -1037,10 +1066,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("LocalModel"),
 					oJobModel = this.getView().getModel("JobModel");
 				if (oJobModel.getProperty("/prime") !== "") {
-					that.getRouter().navTo("CosCloseJob", {
-						"JobId": oModel.getProperty("/sJobId"),
-						"Flag": oFlag
-					});
+					this._fnToolCheck(oModel.getProperty("/sJobId"), oFlag);
 				} else {
 					MessageBox.error(
 						"Please add prime workcenter for the job to close.", {
@@ -1086,22 +1112,22 @@ sap.ui.define([
 			}
 		},*/
 
-/*		onAddDemandSpares: function() {
-			try {
-				var that = this,
-					oModel = this.getView().getModel("LocalModel");
-				if (oModel.getProperty("/sFlag") === "Y") {
-					that.getRouter().navTo("CosAddDemandSpares", {
-						"jobId": this.getView().byId("txtJobID").getText(),
-						"WorkCenter": oModel.getProperty("/WorkCenterTitle"),
-						"WorkKey": oModel.getProperty("/WorkCenterKey")
-					});
-				}
-			} catch (e) {
-				Log.error("Exception in CosDefectsSummary:onAddDemandSpares function");
-				this.handleException(e);
-			}
-		},*/
+		/*		onAddDemandSpares: function() {
+					try {
+						var that = this,
+							oModel = this.getView().getModel("LocalModel");
+						if (oModel.getProperty("/sFlag") === "Y") {
+							that.getRouter().navTo("CosAddDemandSpares", {
+								"jobId": this.getView().byId("txtJobID").getText(),
+								"WorkCenter": oModel.getProperty("/WorkCenterTitle"),
+								"WorkKey": oModel.getProperty("/WorkCenterKey")
+							});
+						}
+					} catch (e) {
+						Log.error("Exception in CosDefectsSummary:onAddDemandSpares function");
+						this.handleException(e);
+					}
+				},*/
 
 		onAddCreateTask: function() {
 			try {
@@ -1279,6 +1305,33 @@ sap.ui.define([
 				that._oSPDetails.open(that);
 			} catch (e) {
 				Log.error("Exception in onPendingSupDetailsPress function");
+			}
+		},
+
+		_fnGetUtilisation: function(obj) {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq SORTI";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+						if (this._oEditSORT) {
+							if (this.oObject && this.oObject[obj.MON_FOR] && this.oObject[obj.MON_FOR].VALUE) {
+								var minVal = parseFloat(this.oObject[obj.MON_FOR].VALUE, [10]);
+								this._oEditSORT.getModel("SORTSet").setProperty("/SORMinCNT", minVal);
+							}
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisation function");
 			}
 		},
 
@@ -2260,7 +2313,7 @@ sap.ui.define([
 
 					that.onFlyingRequirementClose();
 				}.bind(this);
-				oParameter.activity = 2;
+				oParameter.activity = 4;
 				ajaxutil.fnUpdate("/FlyingRequirementSvc", oParameter, [oPayload], "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onFlyingRequirementUpdate function");
@@ -2279,7 +2332,7 @@ sap.ui.define([
 					oTable.removeSelections(true);
 					that._fnFlyingRequirementsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/WorkCenterKey"));
 				}.bind(this);
-				oPrmFR.activity = 7;
+				oPrmFR.activity = 4;
 				ajaxutil.fnDelete("/FlyingRequirementSvc/" + oObj.JOBID + "/" + oObj.TAILID + "/" + oObj.FR_NO, oPrmFR, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onFlyingRequirementDelete function");
@@ -2330,7 +2383,7 @@ sap.ui.define([
 				oModel = that.getView().getModel("LocalModel");
 				var oParameter = {};
 				oPayload = oEvent.getSource().getModel("SORTSet").getData();
-				if (oPayload.SORCNT) {
+				if (oPayload.SORCNT && oPayload.MON_FOR !== "SORTI_5") {
 					var iPrec = formatter.JobDueDecimalPrecision(oPayload.MON_FOR);
 					oPayload.SORCNT = parseFloat(oPayload.SORCNT, [10]).toFixed(iPrec);
 				}
@@ -3099,6 +3152,45 @@ sap.ui.define([
 				}
 			}
 			return true;
+		},
+
+		_fnToolCheck: function(sJobId, oFlag) {
+			try {
+				var that = this,
+					oPrmTask = {};
+				oPrmTask.filter = "JOB_ID eq " + sJobId;
+
+				oPrmTask.error = function() {};
+				oPrmTask.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this._onfnToolCheckSuccess(oData.results, oFlag);
+					} else {
+						this.getRouter().navTo("CosCloseJob", {
+							"JobId": sJobId,
+							"Flag": oFlag
+						});
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/ToolCheckValSvc", oPrmTask);
+			} catch (e) {
+				Log.error("Exception in _fnToolCheck function");
+			}
+		},
+
+		_onfnToolCheckSuccess: function(aData, oFlag) {
+			if (aData.length === 1 && aData[0].FLAG === "OKAY") {
+				this.getRouter().navTo("CosCloseJob", {
+					"JobId": aData[0].JOBID,
+					"Flag": oFlag
+				});
+			} else {
+				var sText = "Tool Check task not found for below Work Center(s):\n";
+				for (var i in aData) {
+					sText = sText.concat("\n" + aData[i].WORKCENTERDESC);
+				}
+				sap.m.MessageBox.error(sText);
+				return false;
+			}
 		}
 
 	});

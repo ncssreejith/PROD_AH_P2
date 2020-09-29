@@ -80,9 +80,14 @@
 										</HBox>
 										<Text text="{applTmplModel>TDESC}"/>
 										<Text text="{applTmplModel>FTDESC}" wrapping="true"/>
-										<Button text="Add Serial Number" type="Emphasized"
-											visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}"
-											press="onSerialNumPress"></Button>
+										<VBox>
+											<Button text="Add Serial Number" type="Emphasized"
+												visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}"
+												press="onSerialNumPress($event,'SERIAL')"></Button>
+											<Button text="Add Batch Number" type="Emphasized"
+												visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.batchTemplateBtnVisibility'}"
+												press="onSerialNumPress($event,'BATCH')"></Button>
+										</VBox>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -114,9 +119,14 @@
 									<cells>
 										<Text text="{applTmplModel>TDESC}"/>
 										<Text text="{applTmplModel>FTDESC}"/>
-										<Button text="Add Serial Number" type="Emphasized"
-											visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}"
-											press="onSerialNumPress"></Button>
+										<VBox>
+											<Button text="Add Serial Number" type="Emphasized"
+												visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}"
+												press="onSerialNumPress($event,'SERIAL')"></Button>
+											<Button text="Add Batch Number" type="Emphasized"
+												visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.batchTemplateBtnVisibility'}"
+												press="onSerialNumPress($event,'BATCH')"></Button>
+										</VBox>
 									</cells>
 								</ColumnListItem>
 							</items>

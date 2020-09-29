@@ -19,7 +19,7 @@
 							<Label design="Bold" text="Type"/>
 							<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 						</HBox>
-						<ComboBox id="Type1Id" width="170px" change="onTypeSRChange" fieldGroupIds="fgCmbBox" selectedKey="{SerialAddSet>/ISSER}"
+						<ComboBox id="Type1Id" width="170px" editable="false" change="onTypeSRChange" fieldGroupIds="fgCmbBox" selectedKey="{SerialAddSet>/ISSER}"
 							items="{TT1Model>/}">
 							<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
 						</ComboBox>
@@ -45,7 +45,10 @@
 						</ComboBox>
 					</VBox>
 					<VBox class="sapUiTinyMarginBegin">
-						<Label design="Bold"/>
+						<HBox>
+							<Label design="Bold"/>
+							<Text text="Optional" class="optionalTxtMargin"/>
+						</HBox>
 						<Input width="170px" value="{SerialAddSet>/PARTNO}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bType}"/>
 					</VBox>
 					<VBox class="sapUiTinyMarginBegin" visible="{= ${SerialAddSet>/ENGFLAG} === 'EG'}">

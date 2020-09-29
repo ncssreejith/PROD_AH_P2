@@ -64,7 +64,9 @@
 										</VBox>-->
 										<VBox class="sapUiTinyMarginBottom"
 											visible="{= ${TaskModel>tt1id}!=='TT1_11' &amp;&amp; ${TaskModel>tt1id}!=='TT1_14' &amp;&amp; ${TaskModel>tt1id}!=='TT1_15' &amp;&amp; ${TaskModel>tt1id}!=='TT1_17' &amp;&amp; ${TaskModel>tt1id}!=='TT1_18' ? true:false}">
-											<Label text="{parts:['TaskModel>tt1id','TaskModel>tt2id', 'TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentTitle'}" design="Bold"></Label>
+											<Label
+												text="{parts:['TaskModel>tt1id','TaskModel>tt2id', 'TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentTitle'}"
+												design="Bold"></Label>
 											<!--<Input fieldGroupIds="fgInput" value="{TaskModel>ftdesc}"></Input>-->
 											<TextArea width="100%" rows="5" value="{TaskModel>ftdesc}" maxLength="1000" showExceededText="true" liveChange="handleLiveChange"/>
 											<layoutData>
@@ -184,6 +186,7 @@
 													<Label design="Bold" text="Type"/>
 													<core:Icon press="handlePressToolTipMenu('SERIALNO',$event)" src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px"
 														color="#031E48"/>
+													<Label text="S/N will be populated after sign off" class="sapUiTinyMarginBegin"></Label>
 												</HBox>
 												<HBox>
 													<ComboBox width="150px" editable="false" change="onTypeChange" selectedKey="{TaskModel>isser}"
@@ -235,9 +238,19 @@
 										<!--		<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>-->
 										<!--	</layoutData>-->
 										<!--</VBox>-->
-										<VBox>
-											<Label text="{i18n>lblTechRef}" design="Bold"></Label>
-											<Input width="50%" change="onChangeData" value="{TaskModel>fttoref}"></Input>
+										<VBox
+											visible="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID','TaskModel>rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}">
+											<HBox>
+												<Label text="{i18n>lblTechRef}" design="Bold"></Label>
+												<Text text="Optional" class="optionalTxtMargin" visible="{= ${TaskModel>tt1id}==='TT1_11'? true:false}"/>
+											</HBox>
+											<Input fieldGroupIds="fgInput" width="50%" change="onChangeData"
+												required="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID','TaskModel>rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisibleTB'}"
+												value="{TaskModel>fttoref}" showSuggestion="true" suggest=".onSuggestTechOrder" suggestionItems="{TechRefSugg>/}">
+												<suggestionItems>
+													<core:Item text="{TechRefSugg>TOREF}"/>
+												</suggestionItems>
+											</Input>
 											<layoutData>
 												<l:GridData span="XL4 L4 M6 S6" linebreak="true"/>
 											</layoutData>
