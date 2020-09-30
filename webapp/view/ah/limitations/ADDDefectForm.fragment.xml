@@ -42,10 +42,11 @@
 									<Label text="{ADDLimSet>AFDAY}" design="Bold"></Label>
 									<Label text="days left"></Label>
 								</VBox>
-								<VBox alignContent="Center" wrap="wrap" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${ADDLimSet>AFHR} !== null ? true : false}">
+								<VBox alignContent="Center" wrap="wrap" alignItems="Center" class="sapUiSmallMarginBegin"
+									visible="{=${ADDLimSet>AFHR} !== null ? true : false}">
 									<Label text="{path:'ADDLimSet>AFHR', type:'sap.ui.model.type.Float'}" design="Bold"></Label>
 									<Label text="{ADDLimSet>UTIL1}"></Label>
-									<Label text="{ADDLimSet>UTIL1} left" wrapping="true" visible="{=${ADDLimSet>UTIL1} === 'Air Frame Hours' ? true : false}"></Label>
+									<Label text="left" wrapping="true" visible="{=${ADDLimSet>UTIL1} === 'Air Frame Hours' ? true : false}"></Label>
 								</VBox>
 							</HBox>
 							<HBox class="sapUiSmallMargin">
@@ -54,7 +55,7 @@
 									<VBox visible="{= ${ADDLimSet>CAPTY} === 'A'|| ${ADDLimSet>CAPTY} === 'B'}">
 										<tnt:InfoLabel text="Limitation" renderMode="Narrow" visible="{= ${ADDLimSet>LDESC} !== null}" colorScheme="7" class="sapUiTinyMarginTop"
 											displayOnly="true"/>
-										<Label text="{ADDLimSet>LDESC}" class="sapUiTinyMargin" wrapping="true" width="20rem" visible="{= ${ADDLimSet>LDESC} !== null}"/>
+										<Text text="{ADDLimSet>LDESC}" class="sapUiTinyMargin" wrapping="true" width="20rem" visible="{= ${ADDLimSet>LDESC} !== null}"/>
 									</VBox>
 								</VBox>
 							</HBox>

@@ -95,14 +95,14 @@
 				</VBox>
 			</HBox>
 			<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
-				<VBox visible="{=(${CapExtendSet>/LDESC}!=='' &amp;&amp; ${CapExtendSet>/LDESC}!==null) || ${oViewLimitModel>/bLimitation} ? true :false}">
+				<VBox visible="{= ${oViewLimitModel>/bLimitation} ? true :false}">
 					<HBox visible="{oViewLimitModel>/bLimitation}">
 						<Label design="Bold" text="Limitation"/>
 						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATION',$event)" size="12px" class="sapUiTinyMarginBegin"
 							color="#031E48"/>
 					</HBox>
 					<TextArea width="400px" value="{CapExtendSet>/LDESC}" maxLength="100" showExceededText="true" fieldGroupIds="fgTxtArea"
-						editable="{ViewModel>/editableFlag}" liveChange="handleLiveChangeFlyingRequirements" visible="{oViewLimitModel>/bLimitation}"/>
+						editable="{ViewModel>/editableFlag}" liveChange="handleLiveChangeFlyingRequirements"/>
 					<!--					<Button icon="sap-icon://sys-add" text="Add Limitation" width="400px" class="sapUiTinyMarginTop addLimitationBtn addTemBtn"
 						press="onAddLimitaionPress" visible="{oViewLimitModel>/bAddLimitationBtn}" iconFirst="true"/>-->
 				</VBox>

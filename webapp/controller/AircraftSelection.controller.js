@@ -5,8 +5,9 @@ sap.ui.define([
 	"../model/formatter",
 	"../model/FieldValidations",
 	"../util/ajaxutil",
-	"sap/ui/model/json/JSONModel"
-], function(BaseController, dataUtil, Fragment, formatter, FieldValidations, ajaxutil, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/base/Log"
+], function(BaseController, dataUtil, Fragment, formatter, FieldValidations, ajaxutil, JSONModel, Log) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -89,12 +90,16 @@ sap.ui.define([
 			var oSelType = this.getModel("oAirSelectViewModel").getProperty("/srcBy");
 			var sInput = this.getModel("oAirSelectViewModel").getProperty("/selInput");
 			if (oSelType === "serial") {
-				this.getRouter().navTo("CosEngine", {
-					engtype: sInput,
-					selFlag: (oSelType === "serial") ? "1" : "0"
-				});
+				this.fnLoadEnginBySernr(sInput);
 				return;
 			}
+			// if (oSelType === "serial") {
+			// 	this.getRouter().navTo("CosEngine", {
+			// 		engtype: sInput,
+			// 		selFlag: (oSelType === "serial") ? "1" : "0"
+			// 	});
+			// 	return;
+			// }
 			this.fnLoadEngin();
 		},
 
@@ -229,11 +234,34 @@ sap.ui.define([
 			};
 			oParameter.success = function(oData) {
 				this.getModel("oAirSelectViewModel").setProperty("/engine", oData.results);
-				this.getModel("oAirSelectViewModel").setProperty("/sel/engid", oData.results.length > 0 ? oData.results[0].modid : "");
+				this.getModel("oAirSelectViewModel").setProperty("/sel/engid", oData.results.length > 0 ? oData.results[0].ENGID : "");
 				this.getModel("oAirSelectViewModel").refresh();
 				// this.fnLoadTails();
 			}.bind(this);
 			ajaxutil.fnRead("/EngineSvc", oParameter);
+		},
+		/** 
+		 * Search by sernr
+		 */
+		fnLoadEnginBySernr: function(sSernr) {
+			try {
+				// var selTailid = this.getModel("oAirSelectViewModel").getProperty("/sel/tailid");
+				var oParameter = {};
+				oParameter.filter = "SERIAL eq " + sSernr;
+				oParameter.error = function() {
+
+				};
+				oParameter.success = function(oData) {
+					this.getModel("oAirSelectViewModel").setProperty("/engine", oData.results);
+					this.getModel("oAirSelectViewModel").setProperty("/sel/engid", oData.results.length > 0 ? oData.results[0].ENGID : "");
+					this.getModel("oAirSelectViewModel").refresh();
+					// this.fnLoadTails();
+				}.bind(this);
+				this.getModel("oAirSelectViewModel").setProperty("/engine", []);
+				ajaxutil.fnRead("/GetRSerNoSvc", oParameter);
+			} catch (e) {
+				Log.error("Exception in fnLoadEnginBySernr function");
+			}
 		},
 		fnLoadEnginDistinct: function() {
 			var selTailid = this.getModel("oAirSelectViewModel").getProperty("/sel/tailid");

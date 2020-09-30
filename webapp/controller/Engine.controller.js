@@ -250,6 +250,8 @@ sap.ui.define([
 					displayPowerLineChart: false
 				});
 				this.getView().setModel(oEngineModel, "oEngineModel");
+				
+				
 
 				this.getModel("oEngineModel").setProperty("/ENGID", oEvent.getParameter("arguments").ENGID);
 				this.getModel("oEngineModel").setProperty("/navType", oEvent.getParameter("arguments").navType);
@@ -287,17 +289,6 @@ sap.ui.define([
 
 						}.bind(this));
 
-						//oEngineModel.setProperty("/headerDetails", oData.results[0]);
-						//if (oData.results && oData.results.length > 1) { // Get Engine 2 data
-						//	oEngineModel.setProperty("/header2Details", oData.results[1]);
-						//	this._getEngPowerCheck(oData.results[1].ENGID, 2);
-						//	this._getEngCyclicLife(oData.results[1].ENGID, 2);
-						//	this._getEngineOilRepl(oData.results[1].ENGID, 2);
-						//}
-						//this._getEngPowerCheck(oData.results[0].ENGID, 1);
-						//this._getEngineOilRepl(oData.results[0].ENGID, 1);
-						//this._getEngCyclicLife(oData.results[0].ENGID, 1);
-						//this._getEngScheule();
 					}
 				}.bind(this);
 				ajaxutil.fnRead("/EngineDisSvc", oParameter);
@@ -693,6 +684,9 @@ sap.ui.define([
 			var sCurrentDate = new Date();
 			sDiff = Math.abs(sCurrentDate - new Date(sDate)) / 36e5;
 			return parseFloat(sDiff); // + " hrs";
+		},
+		fnCheckTailAvail: function() {
+			return ( this.getTailId() !== "NA" );
 		},
 		getSelectedTab: function() {
 			try {

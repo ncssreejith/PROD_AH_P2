@@ -1,37 +1,43 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog title="Create Task" contentHeight="80%" contentWidth="80%">
+	<Dialog title="Update Task" contentHeight="80%" contentWidth="80%">
 		<VBox>
 			<VBox height="100%" class="bgColorWhite sapUiSmallMargin">
-				<VBox class="sapUiSmallMargin">
+				<VBox class="sapUiSmallMargin" visible="{=${ManageTaskModel>/tmpid} === null ? true : false}">
 					<HBox>
 						<Label design="Bold" text="Task Type"/>
 						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('TASKTYPE',$event)" size="12px"
 							color="#031E48"/>
 					</HBox>
-					<Select width="350px" change="onTaskTypeChange" items="{TaskMainListModel>/}" forceSelection="false"
-						selectedKey="{oCreateTaskModel>/sTaskType}">
+					<Select width="250px" change="onTaskTypeChange" required="true" fieldGroupIds="fgCmbBox" items="{TaskMainListModel>/}"
+						forceSelection="false" selectedKey="{ManageTaskModel>/tt1id}">
 						<core:Item text="{TaskMainListModel>ttype}" key="{TaskMainListModel>ttid}"/>
 					</Select>
 				</VBox>
-				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oCreateTaskModel>/bRemoveOrInstall}">
-					<core:Fragment fragmentName="avmet.ah.view.ah.createtask.CreateTaskRemoveInstallFragment" type="XML"/>
+				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom"
+					visible="{=(${ManageTaskModel>/tt1id} === 'TT1_10' &amp;&amp; ${ManageTaskModel>/tmpid} === null ) ? true : false}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.edittask.EditCreateTaskRemoveInstallFragment" type="XML"/>
 				</VBox>
-				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oCreateTaskModel>/bOpsCheck}">
-					<core:Fragment fragmentName="avmet.ah.view.ah.createtask.CreateTaskOpsCheckFragment" type="XML"/>
+				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{=${ManageTaskModel>/tt1id} === 'TT1_11' ? true : false}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.edittask.EditCreateTaskOpsCheckFragment" type="XML"/>
 				</VBox>
-				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oCreateTaskModel>/bVisualInspection}">
-					<core:Fragment fragmentName="avmet.ah.view.ah.createtask.CreateTaskVisualInspectionFragment" type="XML"/>
+				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{=${ManageTaskModel>/tt1id} === 'TT1_12' ? true : false}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.edittask.EditCreateTaskVisualInspectionFragment" type="XML"/>
 				</VBox>
-				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oCreateTaskModel>/bOthers}">
-					<core:Fragment fragmentName="avmet.ah.view.ah.createtask.CreateTaskOthersFragment" type="XML"/>
+				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom"
+					visible="{=(${ManageTaskModel>/tt1id} !== 'TT1_12' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_11' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_10' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_13' &amp;&amp; ${ManageTaskModel>/tmpid} === null &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_99') ? true : false}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.edittask.EditCreateTaskOthersFragment" type="XML"/>
+				</VBox>
+			<!--	<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{=${ManageTaskModel>/tt1id} === 'TT1_13' ? true : false}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.edittask.EditCreateTaskToolCheckFragment" type="XML"/>
+				</VBox>-->
+				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{=${ManageTaskModel>/tmpid} !== null ? true : false}">
+					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.edittask.EditTempTaskragment" type="XML"/>
 				</VBox>
 			</VBox>
 		</VBox>
 		<buttons>
-			<Button text="Cancel" press="onCancelCreateTaskPress('CR')" type="Reject" visible="{oCreateTaskModel>/bCreateTaskBtn}"/>
-			<Button text="Cancel" press="onCancelCreateTaskPress('UP')" type="Reject" visible="{oCreateTaskModel>/bUpdateTaskBtn}"/>
-			<Button text="Create Task" press="onCreateTaskPress" visible="{oCreateTaskModel>/bCreateTaskBtn}" type="Emphasized"/>
-			<Button text="Update Task" press="onUpdateTaskPress" visible="{oCreateTaskModel>/bUpdateTaskBtn}" type="Emphasized"/>
+			<Button text="Cancel" press="onMangeTaskPressClose" type="Reject"/>
+			<Button text="Update Task" press="onUpdateTaskPress" type="Emphasized"/>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

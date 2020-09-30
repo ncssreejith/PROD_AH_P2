@@ -1,11 +1,12 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
 	<Dialog showHeader="false" contentWidth="60%">
 		<OverflowToolbar class="bgColorToolBar">
-		<!--	<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '1' ? true : false}"></Button>
+			<!--	<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '1' ? true : false}"></Button>
 			<Button text="/" class="red redText" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '2' ? true : false}"></Button>
 			<Button icon="sap-icon://less" class="red" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '3' ? true : false}"></Button>-->
-			<!--<Label text="{DetailsOutModel>/cdesc}" state="None" design="Bold" class="sapUiSmallMarginBegin" wrapping="true" width="80%"
-				visible="{=${DetailsOutModel>/cdesc} !== null ? true : false}"/>-->
+			<Image src="css/img/SymbolCross.PNG" visible="{=${DetailsOutModel>/symbol} === '1' ? true : false}" width="6%"/>
+			<Image src="css/img/SymbolSlash.PNG" visible="{=${DetailsOutModel>/symbol} === '2' ? true : false}" width="6%"/>
+			<Image src="css/img/SymbolMinus.PNG" visible="{=${DetailsOutModel>/symbol} === '3' ? true : false}" width="8%"/>
 			<Label text="{DetailsOutModel>/tdesc}" state="None" design="Bold" class="sapUiSmallMarginBegin" wrapping="true" width="80%"/>
 			<ToolbarSpacer/>
 			<Button press="onAllOutStandingDetailsClose" icon="sap-icon://decline" type="Transparent" class="sapUiTinyMarginEnd"></Button>
@@ -18,18 +19,18 @@
 					text="{path:'DetailsOutModel>/credtm', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'DetailsOutModel>/creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 			</Toolbar>
 			<VBox class="sapUiSmallMargin borderTask">
-				<Toolbar class="bgColorToolBar">
-					<Label text="Follow-up Task" design="Bold"/>
-					<Text text="{DetailsOutModel>/ftdesc}"/>
-				</Toolbar>
+				<VBox class="sapUiSmallMargin bgColorToolBar">
+					<Label text="Follow-up Task" design="Bold" class="sapUiSmallMargin"/>
+					<Text text="{DetailsOutModel>/ftdesc}" class="sapUiSmallMargin"/>
+				</VBox>
 				<MessageStrip class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" type="Warning" showIcon="true"
 					text='This task is still outstanding'>
-					<Link text="Close Task" press="onCloseTask('popUp')" class="sapUiLargeMarginBegin"/>
+					<Link text="Close Task" press="onCloseTask" class="sapUiLargeMarginBegin"/>
 				</MessageStrip>
 			</VBox>
 		</VBox>
 		<endButton>
-			<Button press="onAllOutStandingDetailsClose" text="Manage Task" type="Emphasized"></Button>
+			<Button press="onMangeTaskPress" text="Manage Task" type="Emphasized"></Button>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

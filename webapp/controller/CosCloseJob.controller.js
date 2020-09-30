@@ -252,9 +252,17 @@ sap.ui.define([
 					sObject = "ZRM_COS_EO";
 				} else {
 					if (sSignFlag === "TR") {
-						sObject = "ZRM_COS_JT";
+						if (oPayload.fstat === "A" || oPayload.fstat === "R") {
+							sObject = "ZRM_S_FAIR";
+						} else {
+							sObject = "ZRM_COS_JT";
+						}
 					} else {
-						sObject = "ZRM_COS_JS";
+						if (oPayload.fstat === "A" || oPayload.fstat === "R") {
+							sObject = "ZRM_S_FAIR";
+						} else {
+							sObject = "ZRM_COS_JS";
+						}
 					}
 				}
 				oPrmTask.activity = 6;

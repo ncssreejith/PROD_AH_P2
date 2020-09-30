@@ -68,7 +68,7 @@
 												text="{parts:['TaskModel>tt1id','TaskModel>tt2id', 'TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentTitle'}"
 												design="Bold"></Label>
 											<!--<Input fieldGroupIds="fgInput" value="{TaskModel>ftdesc}"></Input>-->
-											<TextArea width="100%" rows="5" value="{TaskModel>ftdesc}" maxLength="1000" showExceededText="true" liveChange="handleLiveChange"/>
+											<TextArea width="100%" rows="5" value="{TaskModel>ftdesc}" maxLength="1000" showExceededText="true" liveChange="handleLiveChangeFlyingRequirements"/>
 											<layoutData>
 												<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 											</layoutData>
@@ -219,7 +219,7 @@
 											</HBox>
 											<TextArea maxLength="600" value="{TaskModel>ftdesc}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
 												required="{parts:['TaskModel>tt1id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible1'}"
-												liveChange="handleLiveChange"/>
+												liveChange="handleLiveChangeFlyingRequirements"/>
 											<layoutData>
 												<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>
 											</layoutData>
@@ -232,7 +232,7 @@
 										<!--			color="#031E48"/>-->
 										<!--	</HBox>-->
 										<!--	<TextArea maxLength="600" value="{TaskModel>ftfind}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"-->
-										<!--		liveChange="handleLiveChange"-->
+										<!--		liveChange="handleLiveChangeFlyingRequirements"-->
 										<!--		required="{parts:['TaskModel>tt1id','TaskModel>tt2id','TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible2'}"/>-->
 										<!--	<layoutData>-->
 										<!--		<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>-->
@@ -351,7 +351,7 @@
 															color="#031E48"/>-->
 													</HBox>
 													<TextArea width="400px" showExceededText="true" maxLength="100" rows="5" value="{TaskModel>ldesc}" editable="false"
-														liveChange="handleLiveChange"/>
+														liveChange="handleLiveChangeFlyingRequirements"/>
 												</VBox>
 											</HBox>
 										</VBox>

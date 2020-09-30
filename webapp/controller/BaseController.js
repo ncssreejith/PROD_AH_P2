@@ -531,14 +531,42 @@ sap.ui.define([
 			// 	oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
 			// }
 		},
+		
 		onLogoffPress: function(oEvent) {
 			try {
-				dataUtil.setDataSet("oUserSession", null);
-				dataUtil.setDataSet(this.getOwnerComponent().appModel, null);
-				sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
+				var that = this;
+				MessageBox.confirm("Want to Log off?", {
+					actions: [MessageBox.Action.YES, MessageBox.Action.CANCEL],
+					emphasizedAction: MessageBox.Action.YES,
+					onClose: function(sAction) {
+						if (sAction === "YES") {
+							that._fnInvalidateSession();
+						}
+					}
+				});
+
 			} catch (e) {
 				Log.error("Exception in onLogoffPress function");
 			}
+		},
+
+		_fnInvalidateSession: function() {
+
+			try {
+				var that = this,
+					oPrmWB = {};
+				oPrmWB.filter = "";
+				oPrmWB.error = function() {};
+				oPrmWB.success = function(oData) {
+					var data = dataUtil.setDataSet("oUserSession", null);
+					sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
+				}.bind(this);
+
+				ajaxutil.fnDeleteData("/GetRemoveUsrdtlSvc", oPrmWB, {});
+			} catch (e) {
+				Log.error("Exception in _fnAirOverViewItemGet function");
+			}
+
 		},
 
 		//showing the message text and validation of maxlength

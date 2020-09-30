@@ -7,7 +7,7 @@ sap.ui.define([
 	return {
 		// http://localhost:58983/AVMET/avmetDB/AircraftModelSvc
 		//fnBasePath: "/DBSRV17/avmet",
-		fnBasePath: "/DBSRV17/avmetdb",
+		fnBasePath: "",
 		fnCreate: function(sPath, oParameters, oPayLoad, oObjectId, ref) {
 			try {
 				if (oObjectId) {
@@ -212,6 +212,7 @@ sap.ui.define([
 
 		fnEncryptDetails: function(user, xhr) {
 			try {
+				xhr.setRequestHeader("PLANTUSER", dataUtil.getDataSet("oUserSession").PLANTUSER);
 				xhr.setRequestHeader("uname", user.username);
 				xhr.setRequestHeader("pin", user.password);
 				xhr.setRequestHeader("objid", user.objid);

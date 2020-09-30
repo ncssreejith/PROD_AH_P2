@@ -363,7 +363,8 @@ sap.ui.define([
 		},
 
 		taskContentVisible: function(stTask1, stTask2) { /*(stTask1 === "TT1_14") || (stTask1 === "TT1_10" && stTask2 === "TT2_13") ||*/
-			if ((stTask1 === "TT1_10" && stTask2 === "TT2_10") || (stTask1 === "TT1_10" && stTask2 === "TT2_15") || (stTask1 === "TT1_10" && stTask2 === "TT2_12")) {
+			if ((stTask1 === "TT1_10" && stTask2 === "TT2_10") || (stTask1 === "TT1_10" && stTask2 === "TT2_15") || (stTask1 === "TT1_10" &&
+					stTask2 === "TT2_12")) {
 				return true;
 			} else {
 				return false;
@@ -378,13 +379,13 @@ sap.ui.define([
 			}
 		},
 
-		// taskContentVisible2: function(stTask1, stTask2, stTask3) {
-		// 	if ((stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null)) {
-		// 		return true;
-		// 	} else {
-		// 		return false;
-		// 	}
-		// },
+		taskContentVisible2: function(stTask1, stTask2, stTask3) {
+			if ((stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
 		taskContentTitle: function(stTask1, stTask2, stTask3) {
 			if (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null) {
 				return "Follow-Up Task/Findings";
@@ -433,11 +434,22 @@ sap.ui.define([
 			}
 		},
 		taskWorkCenterText: function(stTask1, stTask2) {
-			var stTask1, stTask2;
+			/*var stTask1, stTask2;*/
 			if (stTask2) {
 				for (var i in stTask2) {
 					if (stTask2[i].wrctr === stTask1) {
 						return stTask2[i].wrctrtx;
+					}
+				}
+				return stTask2;
+			}
+		},
+		taskNameText: function(stTask1, stTask2) {
+
+			if (stTask2) {
+				for (var i in stTask2) {
+					if (stTask2[i].ttid === stTask1) {
+						return stTask2[i].ttype;
 					}
 				}
 				return stTask2;
@@ -467,6 +479,16 @@ sap.ui.define([
 				} else {
 					return false;
 				}
+			} else {
+				return false;
+			}
+		},
+
+		setItemVisible: function(stTask2, stTask1) {
+			if ((stTask2 === "TT2_11" && stTask1 === "TT4_11") || (stTask2 === "TT2_11" && stTask1 === "TT4_14") || (stTask2 === "TT2_11" &&
+					stTask1 === "TT4_15") || (stTask2 === "TT2_11" && stTask1 === "TT4_16") || (
+					stTask2 === "TT2_11" && stTask1 === "TT4_10")) {
+				return true;
 			} else {
 				return false;
 			}
@@ -1553,7 +1575,7 @@ sap.ui.define([
 			}
 			return false;
 		},
-		
+
 		batchTemplateBtnVisibility: function(stt1, stt2) {
 			if (stt1 && stt2 === "TT2_15") {
 				return true;

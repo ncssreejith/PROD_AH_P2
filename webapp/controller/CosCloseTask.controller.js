@@ -63,7 +63,7 @@ sap.ui.define([
 			var prevTime = this.getModel("TaskModel").getProperty(sPath + "/creuzt");
 			return formatter.validDateTimeChecker(this, dpId, tpId, "errorCloseTaskPast", "errorCloseTaskFuture", prevDt, prevTime);
 		},
-		
+
 		onSuggestTechOrder: function(oEvent) {
 			var sText = oEvent.getSource().getValue();
 			try {
@@ -658,8 +658,12 @@ sap.ui.define([
 		},
 		onCloseADDDialog: function() {
 			try {
-				var oViewModel = this.getView().getModel("TaskModel");
+				var oViewModel = this.getView().getModel("TaskModel"),
+					oModel = this.getView().getModel("oViewLimitModel");
 				oViewModel.setProperty(this.oObjectPath + "/tt1id", this.oObjectTask);
+				oModel.setProperty("/bDateSection", false);
+				oModel.setProperty("/bUtilisationSection", false);
+				oModel.refresh();
 				oViewModel.updateBindings(true);
 				if (this._oAddADD) {
 					this._oAddADD.close(this);
