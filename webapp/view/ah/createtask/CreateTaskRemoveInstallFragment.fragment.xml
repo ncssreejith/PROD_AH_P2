@@ -120,7 +120,7 @@
 						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('TASKDESC',$event)" class="sapUiTinyMarginBegin" size="12px"
 							color="#031E48"/>
 					</HBox>
-					<Select width="170px" forceSelection="false" change="onTypeDescChange" items="{TaskDescModel>/}"
+					<Select width="190px" forceSelection="false" change="onTypeDescChange" items="{TaskDescModel>/}"
 						selectedKey="{oCreateTaskModel>/sTypDescKey}" fieldGroupIds="fgCmbBox" required="{oCreateTaskModel>/bAccess}"
 						valueStateText="{i18n>ERttTaskDescription}">
 						<core:Item text="{TaskDescModel>ttype}" key="{TaskDescModel>ttid}"/>

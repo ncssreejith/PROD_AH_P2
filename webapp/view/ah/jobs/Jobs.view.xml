@@ -10,7 +10,7 @@
 					visible="{= ${LocalJobsModel>/SelectedKey}==='SCH' ? true:false}"
 					enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"></Button>
 				<Button text="{i18n>btnCreateJob}" class="btnColor sapUiMediumMarginEnd" press="onCreateJobPress"
-					visible="{= ${LocalJobsModel>/SelectedKey} ==='OST' ? true:false}"
+					visible="{= ${LocalJobsModel>/SelectedKey} !=='SCH' ? true:false}"
 					enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"></Button>
 			</OverflowToolbar>
 		</subHeader>

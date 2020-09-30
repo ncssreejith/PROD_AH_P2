@@ -1,0 +1,87 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar">
+	<l:VerticalLayout width="100%">
+		<VBox>
+			<HBox>
+				<Label design="Bold" text="Template Description"/>
+				<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('TOOlCH',$event)" class="sapUiTinyMarginBegin" size="12px"
+					color="#031E48"/>
+			</HBox>
+			<TextArea maxLength="500" value="{ManageTaskModel>/tdesc}" fieldGroupIds="fgTxtArea" required="{ManageTaskModel>/bVisualInspection}"
+				showExceededText="true" width="100%" rows="5" valueStateText="{i18n>ERttMtaskType}" liveChange="handleLiveChangeFlyingRequirements"/>
+		</VBox>
+		<VBox visible="{=${ManageTaskModel>/tt1id} === 'TT1_10' ? true : false}">
+			<Label text="Request Type" design="Bold"/>
+			<SegmentedButton id="SBTaskIdTemp" class="sapUiSmallMarginBottom" selectionChange="onSelectionTaskTypeChange"
+				selectedKey="{ManageTaskModel>/engflag}">
+				<items>
+					<SegmentedButtonItem key="NA" visible="false"/>
+					<SegmentedButtonItem text="Engine" key="EG" width="7rem"/>
+					<SegmentedButtonItem text="Non-Engine" key="NE" width="7rem"/>
+				</items>
+			</SegmentedButton>
+		</VBox>
+		<VBox class="sapUiSmallMarginTop" visible="{=${ManageTaskModel>/tt1id} === 'TT1_10' ? true : false}">
+			<HBox>
+				<VBox>
+					<HBox>
+						<Label design="Bold" text="Type"/>
+						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('SERIALNO',$event)" class="sapUiTinyMarginBegin" size="12px"
+							color="#031E48"/>
+					</HBox>
+					<Select id="Type1IdTemp" forceSelection="false" width="170px" change="onTypeChangeSerial" selectedKey="Serial No. (S/N)"
+						fieldGroupIds="fgCmbBox" required="{ManageTaskModel>/bType}" items="{TT1Model>/}">
+						<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
+						<!--	<core:Item text="Serial No. (S/N)" key="Serial No. (S/N)"/>
+						<core:Item text="Batch No." key="Batch No."/>-->
+					</Select>
+				</VBox>
+				<VBox class="sapUiTinyMarginBegin">
+					<HBox>
+						<Label/>
+						<Text text="Optional" class="optionalTxtMargin"/>
+					</HBox>
+					<Input width="180px" maxLength="20" value="{ManageTaskModel>/sernr}" valueStateText="{i18n>ERttSerNoIn}"
+						required="{=${ManageTaskModel>/engflag} !== 'EG' &amp;&amp; ${ManageTaskModel>/sType1}==='Serial No. (S/N)' ? true:false}"
+						fieldGroupIds="fgInput" visible="{=${ManageTaskModel>/engflag} !== 'EG' ? true:false}"></Input>
+					<Select id="cbSernrTemp" forceSelection="false" width="170px" change="onTypeChange" selectedKey="{ManageTaskModel>/sernr}"
+						items="{SerialNumModel>/}" visible="{=${ManageTaskModel>/engflag} === 'EG' ? true:false}" valueStateText="{i18n>ERttSerNo}"
+						required="{=${ManageTaskModel>/engflag} === 'EG' &amp;&amp; ${ManageTaskModel>/sType1}==='Serial No. (S/N)' ? true:false}"
+						fieldGroupIds="fgCmbBox">
+						<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
+					</Select>
+				</VBox>
+			</HBox>
+			<HBox class="sapUiSmallMarginTop">
+				<VBox>
+					<HBox>
+						<Label design="Bold" text="Type"/>
+						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PARTNO',$event)" class="sapUiTinyMarginBegin" size="12px"
+							color="#031E48"/>
+					</HBox>
+					<Select width="170px" forceSelection="false" change="onTypeChangePart" selectedKey="Part No." fieldGroupIds="fgCmbBox"
+						required="{ManageTaskModel>/bType}" items="{TT2Model>/}">
+						<core:Item text="{TT2Model>key}" key="{TT2Model>text}"/>
+					</Select>
+				</VBox>
+				<VBox class="sapUiTinyMarginBegin">
+					<HBox>
+						<Label/>
+						<Text text="Optional" class="optionalTxtMargin"/>
+					</HBox>
+					<HBox>
+						<Input width="180px" value="{ManageTaskModel>/partno}"/>
+					</HBox>
+				</VBox>
+				<VBox class="sapUiTinyMarginBegin" visible="{=${ManageTaskModel>/engflag} === 'EG' ? true:false}">
+					<HBox>
+						<Label/>
+						<Text text="For Engine Only"/>
+					</HBox>
+					<HBox>
+						<Button text="Get Serial No." class="sapUiTinyMarginBegin" press="getSerialNoPress"></Button>
+					</HBox>
+				</VBox>
+			</HBox>
+		</VBox>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

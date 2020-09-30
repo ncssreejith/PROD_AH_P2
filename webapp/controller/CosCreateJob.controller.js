@@ -208,7 +208,7 @@ sap.ui.define([
 				if (oEvent) {
 					this._fnSetInitialModel();
 					oModel.setProperty("/jobty", oSelectedItemId);
-					this.removeCoordinates();
+					this.onRefersh();
 				}
 				switch (oSelectedItemId) {
 					case "D":
@@ -621,6 +621,7 @@ sap.ui.define([
 				oPayload.CRETM = oJobModel.getProperty("/cretm");
 				oPayload.J_FLAG = "N";
 				oPayload.FLAG = "ES";
+				oPayload.SYMBOL = "0";
 				oPayload.CTYPE = "AIRCRAFT";
 				oPayload.TAILID = this.getTailId();
 				oPayload.AIRID = this.getAircraftId();
@@ -999,6 +1000,7 @@ sap.ui.define([
 				var that = this,
 					oViewModel = this.getView().getModel("appModel"),
 					oPrmJobDue = {};
+				oViewModel.setProperty("/isEnabledNatureJob", false);
 				oPrmJobDue.filter = "jobid eq " + sJobId;
 				oPrmJobDue.error = function() {
 

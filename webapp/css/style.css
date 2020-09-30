@@ -2,8 +2,6 @@
     font-size: 10px;
 }
 
-
-
 .sapMInputBaseIconContainer .sapMInputBaseIcon {
     color: #0854a0;
     font-size: 10px;
@@ -700,6 +698,7 @@ Description :
 .redText .sapMBtnInner {
     font-style: normal !important;
     font-size: x-large !important;
+    font-weight: bold !important;
     height: 2rem;
 }
 
