@@ -16,7 +16,12 @@
 					<Label design="Bold" text="Technical Order/ Reference"/>
 					<Text text="Optional" class="sapUiSmallMarginBegin"/>
 				</HBox>
-				<Input width="250px" value="{ManageTaskModel>/toref}" fieldGroupIds="fgInput" required="{ManageTaskModel>/bOthers}"/>
+				<Input width="250px" value="{ManageTaskModel>/toref}" fieldGroupIds="fgInput" required="{ManageTaskModel>/bOthers}" showSuggestion="true"
+					suggest=".onSuggestTechOrder" suggestionItems="{TechRefSugg>/}">
+					<suggestionItems>
+						<core:Item text="{TechRefSugg>TOREF}"/>
+					</suggestionItems>
+				</Input>
 			</VBox>
 		</HBox>
 		<VBox class="sapUiSmallMarginTopBottom"

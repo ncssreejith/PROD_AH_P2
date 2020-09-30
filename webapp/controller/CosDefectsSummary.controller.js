@@ -1315,7 +1315,7 @@ sap.ui.define([
 			oModel.setData(oMod);
 			if (!that._oMGDetails) {
 				that._oMGDetails = sap.ui.xmlfragment("OSTId",
-					"avmet.f16.view.f16.summary.subfolder.edittask.EditCreateTask",
+					"avmet.ah.view.ah.summary.subfolder.edittask.EditCreateTask",
 					that);
 				//that._oMGDetails.setModel(oModel, "ManageTaskModel");
 				that._oMGDetails.setModel(oModel, "ManageTaskModel");
@@ -1391,7 +1391,7 @@ sap.ui.define([
 				oMod = JSON.parse(JSON.stringify(oObj));
 				if (!that._oSupDetails) {
 					that._oSupDetails = sap.ui.xmlfragment("OSTId",
-						"avmet.f16.fragments.SupervisorTaskDetails",
+						"avmet.ah.fragments.SupervisorTaskDetails",
 						that);
 					if (oMod.expdt !== null) {
 						oMod.expdt = new Date(oMod.expdt);
@@ -1453,7 +1453,7 @@ sap.ui.define([
 				this.onPendingSupDetailsClose();
 				if (!that._oSPDetails) {
 					that._oSPDetails = sap.ui.xmlfragment("OSTId",
-						"avmet.f16.fragments.SupervisorEditTaskDetails",
+						"avmet.ah.fragments.SupervisorEditTaskDetails",
 						that);
 					if (oMod.expdt !== null) {
 						oMod.expdt = new Date(oMod.expdt);
@@ -1569,6 +1569,29 @@ sap.ui.define([
 				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
+			}
+		},
+
+		_fnUtilization2Get: function() {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("ViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "airid eq " + this.getAircraftId() + " and ddid eq UTIL2_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "Utilization2CBModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnUtilization2Get function");
+				this.handleException(e);
 			}
 		},
 
@@ -1711,7 +1734,7 @@ sap.ui.define([
 			}
 		},
 
-	_fnResetTaskModelData: function() {
+		_fnResetTaskModelData: function() {
 			var oModel = this._oMGDetails.getModel("ManageTaskModel");
 			oModel.setProperty("/toref", "");
 			oModel.setProperty("/engflag", "NA");
@@ -2398,6 +2421,7 @@ sap.ui.define([
 				that._fnPerioOfDeferCBGet(sAirId);
 				this._fnReasonforADDGet(sAirId);
 				this._fnUtilizationGet(sAirId);
+				this._fnUtilization2Get();
 				this._fnGetMainTaskDropDown();
 				this._fnGetTaskDropDown();
 				that._fnGetTaskTT310DropDown();
@@ -2812,7 +2836,7 @@ sap.ui.define([
 		// Description: This will get called, when to undo signoff from supervisor information details dialog.
 		//Table: TASK
 		//------------------------------------------------------------------
-	onUpdateTaskPress: function(oEvent) {
+		onUpdateTaskPress: function(oEvent) {
 			try {
 				var that = this,
 					sObject,
@@ -3955,6 +3979,24 @@ sap.ui.define([
 				}
 				sap.m.MessageBox.error(sText);
 				return false;
+			}
+		},
+		onSuggestTechOrder: function(oEvent) {
+			var sText = oEvent.getSource().getValue();
+			try {
+				var that = this,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + that.getTailId() + " and TOREF eq " + sText;
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "TechRefSugg");
+				}.bind(this);
+				ajaxutil.fnRead("/GetTaskRefSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
+				this.handleException(e);
 			}
 		}
 

@@ -41,7 +41,7 @@
 							<VBox>
 								<VBox class="sapUiTinyMarginBottom"
 									visible="{= ${DetailsSupEditModel>/tt1id}!=='TT1_11' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_14' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_15' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_16' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_19' ? true:false}">
-									<TextArea width="100%" rows="5" value="{DetailsSupEditModel>/ftdesc}" maxLength="1000" showExceededText="true" liveChange="handleLiveChange"/>
+									<TextArea width="100%" rows="5" value="{DetailsSupEditModel>/ftdesc}" maxLength="1000" showExceededText="true" liveChange="handleLiveChangeFlyingRequirements"/>
 									<layoutData>
 										<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 									</layoutData>
@@ -136,7 +136,7 @@
 									<!--<Text text="{DetailsSupEditModel>/ftdesc}" wrapping="true" width="100%"/>-->
 									<TextArea maxLength="600" value="{DetailsSupEditModel>/ftdesc}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
 										required="{parts:['DetailsSupEditModel>/tt1id','DetailsSupEditModel>/CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible1'}"
-										liveChange="handleLiveChange"/>
+										liveChange="handleLiveChangeFlyingRequirements"/>
 									<layoutData>
 										<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 									</layoutData>
@@ -147,7 +147,7 @@
 										<Label text="Findings" design="Bold" width="196px"/>
 									</HBox>
 									<TextArea maxLength="600" value="{DetailsSupEditModel>/ftfind}" showExceededText="true" width="100%" rows="5" fieldGroupIds="fgTxtArea"
-										liveChange="handleLiveChange"
+										liveChange="handleLiveChangeFlyingRequirements"
 										required="{parts:['DetailsSupEditModel>/tt1id','DetailsSupEditModel>/tt2id','DetailsSupEditModel>/CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible2'}"/>
 									<layoutData>
 										<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>
@@ -156,7 +156,12 @@
 								<VBox class="sapUiSmallMarginEnd sapUiTinyMarginTop"
 									visible="{parts:['DetailsSupEditModel>/tt1id','DetailsSupEditModel>/tt2id','DetailsSupEditModel>/CPRID','DetailsSupEditModel>/rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisibleTB'}">
 									<Label width="196px" text="{i18n>lblTechRef}" design="Bold" class="sapUiSmallMarginTop"></Label>
-									<Input value="{DetailsSupEditModel>/fttoref}" width="200px"></Input>
+									<Input value="{DetailsSupEditModel>/fttoref}" width="200px" showSuggestion="true" suggest=".onSuggestTechOrder"
+										suggestionItems="{TechRefSugg>/}">
+										<suggestionItems>
+											<core:Item text="{TechRefSugg>TOREF}"/>
+										</suggestionItems>
+									</Input>
 									<layoutData>
 										<l:GridData span="XL6 L6 M6 S6" linebreak="true"/>
 									</layoutData>
@@ -226,9 +231,14 @@
 										</VBox>
 										<VBox class="sapUiSmallMarginBegin">
 											<Label/>
-											<StepInput width="228px" value="{DetailsSupEditModel>/utilvl}" visible="{= ${oViewLimitModel>/UTILMinVL} !== 0 ? true : false}"
+											<StepInput width="228px" value="{DetailsSupEditModel>/utilvl}" visible="{= ${DetailsSupEditModel>/util1} !== null &amp;&amp; ${DetailsSupEditModel>/util1} !== 'UTIL1_20' ? true : false}"
 												required="{oViewLimitModel>/bAirFrameAndTAC}" min="{oViewLimitModel>/UTILMinVL}" change="onStepChange"
 												displayValuePrecision="{ path:'DetailsSupEditModel>/util1' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
+											<Select width="200px" forceSelection="false" visible="{=${DetailsSupEditModel>/util1}==='UTIL1_20' ? true:false}"
+												items="{Utilization2CBModel>/}" fieldGroupIds="{=${DetailsSupEditModel>/util1}==='UTIL1_20' ? 'fgCmbBox':''}"
+												selectedKey="{oViewLimitModel>/UTIL2}" required="{=${DetailsSupEditModel>/util1}==='UTIL1_20' ? true:false}">
+												<core:Item text="{Utilization2CBModel>description}" key="{Utilization2CBModel>ddid}"/>
+											</Select>
 										</VBox>
 									</HBox>
 									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
@@ -238,7 +248,7 @@
 											<!--	<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>-->
 										</HBox>
 										<!--<Text text="{DetailsSupEditModel>/ldesc}" wrapping="true"/>-->
-										<TextArea width="443px" showExceededText="true" maxLength="100" rows="5" value="{DetailsSupEditModel>/ldesc}" liveChange="handleLiveChange"/>
+										<TextArea width="443px" showExceededText="true" maxLength="100" rows="5" value="{DetailsSupEditModel>/ldesc}" liveChange="handleLiveChangeFlyingRequirements"/>
 									</VBox>
 								</VBox>
 								<layoutData>

@@ -15,7 +15,11 @@
 			</VBox>
 			<VBox class="sapUiLargeMarginBegin" visible="{=${ManageTaskModel>/tt2id} !== '' ? true : false}">
 				<Label design="Bold" text="Technical Order/ Reference"/>
-				<Input width="250px" value="{ManageTaskModel>/toref}"/>
+				<Input width="250px" value="{ManageTaskModel>/toref}" showSuggestion="true" suggest=".onSuggestTechOrder" suggestionItems="{TechRefSugg>/}">
+					<suggestionItems>
+						<core:Item text="{TechRefSugg>TOREF}"/>
+					</suggestionItems>
+				</Input>
 			</VBox>
 			<VBox class="sapUiMediumMarginBegin" visible="{=${ManageTaskModel>/tt2id} === 'TT2_10' ? true : false}">
 				<Label text="Request Type" design="Bold"/>
@@ -106,7 +110,8 @@
 						color="#031E48"/>
 				</HBox>
 				<Input width="360px" placeholder="eg. Engine" value="{ManageTaskModel>/cdesc}" fieldGroupIds="fgInput"
-					required="{=${ManageTaskModel>/tt2id} !== 'TT2_11' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_13' ? true:false}" valueStateText="{i18n>ERttCompDesc}"/>
+					required="{=${ManageTaskModel>/tt2id} !== 'TT2_11' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_13' ? true:false}"
+					valueStateText="{i18n>ERttCompDesc}"/>
 			</VBox>
 		</HBox>
 		<HBox class="sapUiSmallMarginTop" visible="{=${ManageTaskModel>/tt2id} === 'TT2_11' ? true:false}">

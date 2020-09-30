@@ -40,7 +40,7 @@
 									<VBox class="sapUiTinyMarginBottom"
 										visible="{= ${DetailsSupModel>/tt1id}!=='TT1_11' &amp;&amp; ${DetailsSupModel>/tt1id}!=='TT1_14' &amp;&amp; ${DetailsSupModel>/tt1id}!=='TT1_15' &amp;&amp; ${DetailsSupModel>/tt1id}!=='TT1_16' &amp;&amp; ${DetailsSupModel>/tt1id}!=='TT1_19' ? true:false}">
 										<TextArea width="100%" rows="5" editable="false" value="{DetailsSupModel>/ftdesc}" maxLength="1000" showExceededText="true"
-											liveChange="handleLiveChange"/>
+											liveChange="handleLiveChangeFlyingRequirements"/>
 										<layoutData>
 											<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 										</layoutData>
@@ -135,7 +135,7 @@
 										<TextArea editable="false" maxLength="600" value="{DetailsSupModel>/ftdesc}" showExceededText="true" width="100%" rows="5"
 											fieldGroupIds="fgTxtArea"
 											required="{parts:['DetailsSupModel>/tt1id','DetailsSupModel>/CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible1'}"
-											liveChange="handleLiveChange"/>
+											liveChange="handleLiveChangeFlyingRequirements"/>
 										<layoutData>
 											<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 										</layoutData>
@@ -146,7 +146,7 @@
 											<Label text="Findings" design="Bold" width="196px"/>
 										</HBox>
 										<TextArea editable="false" maxLength="600" value="{DetailsSupModel>/ftfind}" showExceededText="true" width="100%" rows="5"
-											fieldGroupIds="fgTxtArea" liveChange="handleLiveChange"
+											fieldGroupIds="fgTxtArea" liveChange="handleLiveChangeFlyingRequirements"
 											required="{parts:['DetailsSupModel>/tt1id','DetailsSupModel>/tt2id','DetailsSupModel>/CPRID'],templateShareable: false,formatter:'.formatter.taskContentVisible2'}"/>
 										<layoutData>
 											<l:GridData span="XL4 L4 M6 S12" linebreak="true"/>
@@ -236,7 +236,7 @@
 												<Label design="Bold" text="Limitation" width="196px"/>
 											</HBox>
 											<TextArea editable="false" width="400px" showExceededText="true" maxLength="100" rows="5" value="{DetailsSupModel>/ldesc}"
-												liveChange="handleLiveChange"/>
+												liveChange="handleLiveChangeFlyingRequirements"/>
 										</VBox>
 									</VBox>
 									<HBox>
