@@ -107,7 +107,7 @@
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>
 									</HBox>
-									<HBox visible="{=${ApprovalDetailstModel>/UTILVL} !== null ? true : false}">
+									<HBox visible="{=${ApprovalDetailstModel>/UTIL1} !== null ? true : false}">
 										<Label width="9rem" wrapping="true" text="{ApprovalDetailstModel>/UTIL1Text}" design="Bold"></Label>
 										<HBox>
 											<Text
