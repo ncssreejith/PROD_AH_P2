@@ -1,0 +1,53 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:si="sap.suite.ui.commons.statusindicator">
+	<FlexBox class="sapUiSmallMarginBegin wcCngVBox" visible="{= ${rcModel>/selStn/DDID}==='STNM_S'}" width="42%" justifyContent="Center">
+		<VBox class="sapUiSmallMargin" justifyContent="Center" alignItems="Center">
+			<Label text="{rcModel>/selStn/L_TXT}" design="Bold"/>
+			<GenericTile class="rcTile txtAlginHeadeCenter"
+				header="{rcModel>/selStn/selADP/0/ADPDESC}&#xA;{rcModel>/selStn/selADP/0/SERNR}" frameType="TwoByOne" press="onRemoveTile1Press"></GenericTile>
+			<si:StatusIndicator width="3rem" height="3rem" value="{= ${rcModel>/selStn/selADP/selWpn/CONECT}==='C' ? 100:0}">
+				<si:ShapeGroup>
+					<si:LibraryShape shapeId="arrow_up"/>
+				</si:ShapeGroup>
+				<si:propertyThresholds>
+					<si:PropertyThreshold  toValue="100"/>
+				</si:propertyThresholds>
+			</si:StatusIndicator>
+				<GenericTile class="middleTile txtAlginHeadeCenter" visible="{= ${rcModel>/selStn/selADP/1/ICART}==='X'}" press="onConnecterPress"
+				header="{parts:['rcModel>/selStn/selADP/1/CONECT','rcModel>/selStn/selADP/1/ICART'],formatter:'.formatter.rConnect'}"></GenericTile>
+				<si:StatusIndicator value="{= ${rcModel>/selStn/selADP/selWpn/CONECT}==='C' ? 100:0}" width="3rem" height="3rem">
+				<si:ShapeGroup>
+					<si:LibraryShape shapeId="arrow_down"/>
+				</si:ShapeGroup>
+				<si:propertyThresholds>
+					<si:PropertyThreshold toValue="100"/>
+				</si:propertyThresholds>
+			</si:StatusIndicator>
+			<GenericTile class="rcTile txtAlginHeadeCenter"  press = "onRemoveTile2Press"
+				header="{rcModel>/selStn/selADP/1/ADPDESC}&#xA;{rcModel>/selStn/selADP/1/SERNR}" frameType="TwoByOne"></GenericTile>
+			<si:StatusIndicator width="3rem" height="3rem" value="{= ${rcModel>/selStn/selADP/selWpn/CONECT}==='C' ? 100:0}">
+				<si:ShapeGroup>
+					<si:LibraryShape shapeId="arrow_up"/>
+				</si:ShapeGroup>
+				<si:propertyThresholds>
+					<si:PropertyThreshold  toValue="100"/>
+				</si:propertyThresholds>
+			</si:StatusIndicator>
+			<GenericTile class="middleTile txtAlginHeadeCenter" visible="{= ${rcModel>/selStn/selADP/2/ICART}==='X'}" press="onConnecterPress"
+				header="{parts:['rcModel>/selStn/selADP/selWpn/CONECT','rcModel>/selStn/selADP/selWpn/ICART'],formatter:'.formatter.wConnect'}"></GenericTile>
+			<si:StatusIndicator value="{= ${rcModel>/selStn/selADP/selWpn/CONECT}==='C' ? 100:0}" width="3rem" height="3rem">
+				<si:ShapeGroup>
+					<si:LibraryShape shapeId="arrow_down"/>
+				</si:ShapeGroup>
+				<si:propertyThresholds>
+					<si:PropertyThreshold toValue="100"/>
+				</si:propertyThresholds>
+			</si:StatusIndicator>
+			<GenericTile class="rcTile txtAlginHeadeCenter" press = "onRemoveTile3Press"
+				header="{rcModel>/selStn/selADP/2/ADPDESC}&#xA;{rcModel>/selStn/selADP/2/SERNR}" frameType="TwoByOne"></GenericTile>
+		</VBox>
+	</FlexBox>
+	<VBox class="sapUiSmallMarginBegin" width="20%">
+		<Image src="{parts:['rcModel>/selStn/SUBID','rcModel>/selStn/DDID'],formatter:'.formatter.srvWeaponAHImage'}" height="28rem"
+			width="17rem"/>
+	</VBox>
+</core:FragmentDefinition>

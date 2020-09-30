@@ -1,0 +1,32 @@
+<mvc:View controllerName="avmet.ah.controller.RoleChange" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout">
+	<Page title="Role Change" showFooter="true" showNavButton="true" navButtonPress="onNavBack">
+		<content>
+			<VBox justifyContent="Center">
+				<IconTabBar id="idIconTabBar" selectedKey="{rcModel>/selTab}">
+					<items>
+						<IconTabFilter text="Tradesman" key="rc1">
+							<HBox class="wcVBox sapUiTinyMargin">
+								<core:Fragment fragmentName="avmet.ah.view.ah.fs.rolechange.RCStationAdapter" type="XML"/>
+								<core:Fragment fragmentName="avmet.ah.view.ah.fs.rolechange.RCGraph" type="XML"/>
+							</HBox>
+						</IconTabFilter>
+						<IconTabFilter text="SupervisorSignOff" key="rc2">
+							<HBox class="wcVBox sapUiTinyMargin">
+								<core:Fragment fragmentName="avmet.ah.view.ah.fs.rolechange.RCStationAdapter" type="XML"/>
+								<core:Fragment fragmentName="avmet.ah.view.ah.fs.rolechange.RCGraph" type="XML"/>
+							</HBox>
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Back" press="onNavBack"/>
+				<Button text="Sign off" type="Emphasized"  press="onStationSignOff"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

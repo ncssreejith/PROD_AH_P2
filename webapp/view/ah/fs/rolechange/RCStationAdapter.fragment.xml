@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.f16.control">
+	<HBox width="16%">
+		<ScrollContainer height="28rem" width="100%" vertical="true" focusable="true">
+			<List width="12rem" growing="true" growingScrollToLoad="true" growingThreshold="15" items="{ path:'rcModel>/stns'}"
+				mode="SingleSelectMaster" selectionChange="onStnChange" updateFinished=".onUpdateFinished">
+				<CustomListItem
+					selected="{= (${rcModel>/selStn/SUBID}===${rcModel>SUBID} &amp;&amp; ${rcModel>/selStn/DDID}===${rcModel>DDID})}">
+					<HBox height="2.7rem" alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+						<Text height="100%" text="{rcModel>L_TXT}"/>
+					</HBox>
+				</CustomListItem>
+			</List>
+		</ScrollContainer>
+	</HBox>
+	<HBox class="sapUiSmallMarginBegin" width="16%">
+		<ScrollContainer height="28rem" width="100%" vertical="true" focusable="true">
+			<List width="12rem" mode="SingleSelectMaster" selectionChange="onAdapterClk"
+				items="{ path: 'rcModel>/selStn/adapters', sorter: { path: 'POTDESC', descending: false, group: true }, groupHeaderFactory: '.getGroupHeader' }">
+				<CustomListItem
+					selected="{= (${rcModel>/selStn/selADP/selWpn/WESID}===${rcModel>WESID} &amp;&amp; ${rcModel>/selStn/selADP/selWpn/WEMID}===${rcModel>WEMID})}">
+					<HBox height="2.7rem" alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+						<Text height="100%" text="{rcModel>ADPDESC}"/>
+						<core:Icon src="sap-icon://attachment-photo"
+							visible="{= (${rcModel>/selStn/selADP/selWpn/WESID}===${rcModel>WESID} &amp;&amp; ${rcModel>/selStn/selADP/selWpn/WEMID}===${rcModel>WEMID})? true:false}"/>
+					</HBox>
+				</CustomListItem>
+			</List>
+		</ScrollContainer>
+	</HBox>
+</core:FragmentDefinition>
