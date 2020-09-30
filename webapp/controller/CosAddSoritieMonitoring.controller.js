@@ -239,7 +239,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmFND = {};
-				oPrmFND.filter = "ddid eq TOP_ and airid  eq " + sAirId;
+				oPrmFND.filter = "ddid eq TOP_ and refid eq " + sAirId;
 				oPrmFND.error = function() {
 
 				};
