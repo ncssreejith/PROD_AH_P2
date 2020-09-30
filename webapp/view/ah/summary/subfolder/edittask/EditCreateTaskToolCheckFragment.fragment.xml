@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar">
+	<l:VerticalLayout width="100%">
+		<VBox>
+			<HBox>
+				<Label design="Bold" text="Task Description"/>
+				<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('TOOlCH',$event)" class="sapUiTinyMarginBegin" size="12px"
+					color="#031E48"/>
+			</HBox>
+			<TextArea maxLength="500" value="{ManageTaskModel>/tdesc}" fieldGroupIds="fgTxtArea" required="{ManageTaskModel>/bVisualInspection}"
+				showExceededText="true" width="100%" rows="5" valueStateText="{i18n>ERttMtaskType}" liveChange="handleLiveChangeFlyingRequirements"/>
+		</VBox>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

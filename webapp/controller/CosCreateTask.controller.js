@@ -404,7 +404,7 @@ sap.ui.define([
 						sTypDesc: "",
 						sType1: "",
 						sType1Value: "",
-						sEngFlag: "",
+						sEngFlag: "NA",
 						bEngFlag: false,
 						sType2: "",
 						sType2Value: "",

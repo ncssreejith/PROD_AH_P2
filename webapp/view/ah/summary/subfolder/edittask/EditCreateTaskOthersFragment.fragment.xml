@@ -4,9 +4,11 @@
 			<VBox>
 				<HBox>
 					<Label design="Bold" text="Describe Task"/>
-					<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('DSCT',$event)" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
+					<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('DSCT',$event)" class="sapUiTinyMarginBegin" size="12px"
+						color="#031E48"/>
 				</HBox>
-				<TextArea maxLength="500" valueStateText="{i18n>ERttTaskDesc}" value="{oCreateTaskModel>/sOtherDesc}" fieldGroupIds="fgTxtArea" required="{oCreateTaskModel>/bOthers}"
+				<TextArea maxLength="500" valueStateText="{i18n>ERttTaskDesc}" value="{ManageTaskModel>/cdesc}" fieldGroupIds="fgTxtArea"
+					required="{=(${ManageTaskModel>/tt1id} === 'TT1_14' || ${ManageTaskModel>/tt1id} === 'TT1_15' || ${ManageTaskModel>/tt1id} === 'TT1_16' || ${ManageTaskModel>/tt1id} === 'TT1_19') ? true : false}"
 					showExceededText="true" width="350px" rows="5" liveChange="handleLiveChangeFlyingRequirements"/>
 			</VBox>
 			<VBox class="sapUiLargeMarginBegin">
@@ -14,8 +16,24 @@
 					<Label design="Bold" text="Technical Order/ Reference"/>
 					<Text text="Optional" class="sapUiSmallMarginBegin"/>
 				</HBox>
-				<Input width="250px" value="{oCreateTaskModel>/sTechOrderRef}" fieldGroupIds="fgInput" required="{oCreateTaskModel>/bOthers}"/>
+				<Input width="250px" value="{ManageTaskModel>/toref}" fieldGroupIds="fgInput" required="{ManageTaskModel>/bOthers}"/>
 			</VBox>
 		</HBox>
+		<VBox class="sapUiSmallMarginTopBottom"
+			visible="{= (${ManageTaskModel>/tt1id} !== 'TT1_16' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_19' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_15') ? true:false}">
+			<HBox>
+				<Label design="Bold" text="Symbol"/>
+				<Text text="Optional" class="symbolOptional"/>
+			</HBox>
+			<SegmentedButton class="sapUiSmallMarginBottom btnIconColorRB btnIconColorTextRT" select="onSegmentOtherSelected"
+				selectedKey="{ManageTaskModel>/symbol}">
+				<items>
+					<SegmentedButtonItem visible="false" icon="sap-icon://decline" width="8rem" key="0"/>
+					<SegmentedButtonItem icon="sap-icon://decline" width="8rem" key="1"/>
+					<SegmentedButtonItem text="/" width="8rem" key="2"/>
+					<SegmentedButtonItem icon="sap-icon://less" width="8rem" key="3"/>
+				</items>
+			</SegmentedButton>
+		</VBox>
 	</l:VerticalLayout>
 </core:FragmentDefinition>

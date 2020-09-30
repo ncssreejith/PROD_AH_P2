@@ -5,8 +5,9 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-	"sap/m/MessageBox"
-], function(BaseController, dataUtil, formatter, ajaxutil, JSONModel, Log, MessageBox) {
+	"sap/m/MessageBox",
+	"../model/FieldValidations"
+], function(BaseController, dataUtil, formatter, ajaxutil, JSONModel, Log, MessageBox, FieldValidations) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAHUL THORAT  
@@ -146,6 +147,7 @@ sap.ui.define([
 					sGoTo: "",
 					JobStatus: false,
 					etrMinDate: null,
+					bSuperDiaFlag: false,
 					DefectImageSrc: [],
 					selectedTask: [],
 					CreateTaskMenu: [{
@@ -174,6 +176,25 @@ sap.ui.define([
 					}]
 				});
 				that.getView().setModel(oLocalModel, "LocalModel");
+				var oDDT1Model = dataUtil.createNewJsonModel(),
+					oDDT2Model = dataUtil.createNewJsonModel();
+				oDDT1Model.setData([{
+					"key": "Serial No. (S/N)",
+					"text": "Serial No. (S/N)"
+				}, {
+					"key": "Batch No.",
+					"text": "Batch No."
+				}]);
+				this.getView().setModel(oDDT1Model, "TT1Model");
+
+				oDDT2Model.setData([{
+					"key": "Material No.",
+					"text": "Material No."
+				}, {
+					"key": "Part No.",
+					"text": "Part No."
+				}]);
+				this.getView().setModel(oDDT2Model, "TT2Model");
 				var oFollowModelOther = dataUtil.createNewJsonModel();
 				oFollowModelOther.setData([{
 					"key": "TT1_14",
@@ -193,8 +214,11 @@ sap.ui.define([
 					"text": "Transfer to Acceptable Deferred Defects Log"
 				}]);
 				this.getView().setModel(oFollowModelOPS, "FollowOPSModel");
+				var oModelSr = dataUtil.createNewJsonModel();
+				this.getView().setModel(oModelSr, "SerialNumModel");
 				var oModel = dataUtil.createJsonModel("model/aircraftInfo.json");
 				this.getView().setModel(oModel, "DDModel");
+				this._fnGetUtilisationDefaultVal();
 				this.getRouter().getRoute("CosDefectsSummary").attachPatternMatched(this._handleRouteMatched, this);
 				var sAirId = that.getAircraftId();
 				that._fnWorkCenterGet(sAirId);
@@ -307,6 +331,33 @@ sap.ui.define([
 		onFilterChange: function(oEvent) {
 			if (oEvent.getSource().getSelectedKey().length > 0) {
 				oEvent.getSource().setValueState("None");
+			}
+		},
+
+		onTypeChangePart: function(oEvent) {
+			var oKey = oEvent.getSource().getSelectedKey();
+			this._oMGDetails.getModel("ManageTaskModel").setProperty("/ismat", oKey);
+			this._oMGDetails.getModel("ManageTaskModel").setProperty("/partno", "");
+			this._oMGDetails.getModel("ManageTaskModel").refresh();
+		},
+		onTypeChangeSerial: function(oEvent) {
+			var oKey = oEvent.getSource().getSelectedKey();
+			this._oMGDetails.getModel("ManageTaskModel").setProperty("/sernr", "");
+			this._oMGDetails.getModel("ManageTaskModel").setProperty("/isser", oKey);
+			this._oMGDetails.getModel("ManageTaskModel").refresh();
+		},
+
+		onSelectionTaskTypeChange: function(oEvent) {
+			try {
+				var sSelectedKey = oEvent.getSource().getSelectedKey(),
+					oCreateTaskModel = this._oMGDetails.getModel("ManageTaskModel");
+				oCreateTaskModel.setProperty("/engflag", sSelectedKey);
+				/*	oCreateTaskModel.setProperty("/sernr", "");
+					oCreateTaskModel.setProperty("/partno", "");*/
+
+			} catch (e) {
+				Log.error("Exception in CosCreateTask:onRemoveInstallTaskChange function");
+				this.handleException(e);
 			}
 		},
 
@@ -434,12 +485,9 @@ sap.ui.define([
 			try {
 
 				var that = this;
-				var oSummaryModel = this.getView().getModel("SummaryModel"),
-					oModel = this.getView().getModel("JobModel"),
+				var oModel = this.getView().getModel("JobModel"),
 					oLocalModel = this.getView().getModel("LocalModel");
 				if (oLocalModel.getProperty("/sFlag") === "Y") {
-					var dData = formatter.defaultOdataDateFormat(new Date());
-					var tTime = new Date().getHours() + ":" + new Date().getMinutes();
 					switch (oEvent.getParameter("item").getText()) {
 						case "Edit Job":
 							break;
@@ -1250,6 +1298,52 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		//------------------------------------------------------------------
+		// Function: onAllOutStandingDetailsPress
+		// Parameter: 
+		// Description: Generic Method: This will get called, when task from outstanding tab has been pressed to open the dialog with information.
+		//Table: 
+		//------------------------------------------------------------------
+		onMangeTaskPress: function(oEvent) {
+			/*try {*/
+			var that = this,
+				oObj = this._oOSDetails.getModel("DetailsOutModel").getData(),
+				oModel = dataUtil.createNewJsonModel();
+			this.onAllOutStandingDetailsClose();
+			var oMod = JSON.parse(JSON.stringify(oObj));
+			oModel.setData(oMod);
+			if (!that._oMGDetails) {
+				that._oMGDetails = sap.ui.xmlfragment("OSTId",
+					"avmet.f16.view.f16.summary.subfolder.edittask.EditCreateTask",
+					that);
+				//that._oMGDetails.setModel(oModel, "ManageTaskModel");
+				that._oMGDetails.setModel(oModel, "ManageTaskModel");
+				that.getView().addDependent(that._oMGDetails);
+			}
+			that._oMGDetails.open(that);
+			/*} catch (e) {
+				Log.error("Exception in onAllOutStandingDetailsPress function");
+			}*/
+		},
+		//------------------------------------------------------------------
+		// Function: onAllOutStandingDetailsClose
+		// Parameter: 
+		// Description: Generic Method: This will get called, to clsoe the dialog .
+		//Table: 
+		//------------------------------------------------------------------
+		onMangeTaskPressClose: function() {
+			try {
+				if (this._oMGDetails) {
+					this._oMGDetails.close(this);
+					this._oMGDetails.destroy();
+					delete this._oMGDetails;
+				}
+			} catch (e) {
+				Log.error("Exception in onAllOutStandingDetailsClose function");
+			}
+		},
+
 		//showing the message text and validation of maxlength
 		handleLiveChangeFlyingRequirements: function(oEvent) {
 			try {
@@ -1285,26 +1379,169 @@ sap.ui.define([
 			}
 		},
 
-		onPendingSupDetailsPress: function(oPayLoad) {
+		onPendingSupDetailsPress: function(oObj) {
 			try {
 				var that = this,
-					oModel;
-				oModel = dataUtil.createNewJsonModel();
-				if (oPayLoad.multi !== null) {
-					this._fnMultiTradmanGet(oPayLoad.taskid);
+					oLimitModel = this.getView().getModel("oViewLimitModel"),
+					oMod,
+					oModel = dataUtil.createNewJsonModel();
+				if (oObj.multi !== null) {
+					this._fnMultiTradmanGet(oObj.taskid);
 				}
+				oMod = JSON.parse(JSON.stringify(oObj));
+				if (!that._oSupDetails) {
+					that._oSupDetails = sap.ui.xmlfragment("OSTId",
+						"avmet.f16.fragments.SupervisorTaskDetails",
+						that);
+					if (oMod.expdt !== null) {
+						oMod.expdt = new Date(oMod.expdt);
+						oMod.exptm = formatter.defaultTimeFormatDisplay(oMod.exptm);
+					}
+					if (oMod.exptm !== null) {
+						oMod.exptm = formatter.defaultTimeFormatDisplay(oMod.exptm);
+					}
+					switch (oMod.oppr) {
+						case "B":
+							oLimitModel.setProperty("/bDateSection", true);
+							oLimitModel.setProperty("/bUtilisationSection", true);
+							break;
+						case "D":
+							oLimitModel.setProperty("/bDateSection", true);
+							oLimitModel.setProperty("/bUtilisationSection", false);
+							break;
+						case "U":
+							oLimitModel.setProperty("/bDateSection", false);
+							oLimitModel.setProperty("/bUtilisationSection", true);
+							break;
+					}
 
+					if (oMod.util1 !== null) {
+						if (this.oObject && this.oObject[oMod.util1] && this.oObject[oMod.util1].VALUE) {
+							var minVal = parseFloat(this.oObject[oMod.util1].VALUE, [10]);
+							oLimitModel.setProperty("/UTILMinVL", minVal);
+							var sVal = oModel.getProperty("/utilvl") ? oModel.getProperty("/utilvl") : 0;
+							sVal = parseFloat(sVal, [10]);
+							var iPrec = formatter.JobDueDecimalPrecision(oMod.util1);
+							oModel.setProperty("/utilvl", parseFloat(minVal, [10]).toFixed(iPrec));
+
+						}
+
+					}
+					oModel.setData(oMod);
+					that._oSupDetails.setModel(oModel, "DetailsSupModel");
+					that.getView().addDependent(that._oSupDetails);
+				}
+				that._oSupDetails.open(that);
+			} catch (e) {
+				Log.error("Exception in onPendingSupDetailsPress function");
+			}
+		},
+
+		onPendingSupEditDetailsPress: function() {
+			try {
+				var that = this,
+					oMod,
+					oLimitModel = this.getView().getModel("oViewLimitModel"),
+					oObj = this._oSupDetails.getModel("DetailsSupModel").getData(),
+					oModel;
+				this._oSupDetails.getModel("DetailsSupModel").getData();
+				oMod = JSON.parse(JSON.stringify(oObj));
+				oModel = dataUtil.createNewJsonModel();
+				/*	if (oMod.multi !== null) {
+						this._fnMultiTradmanGet(oMod.taskid);
+					}*/
+				this.onPendingSupDetailsClose();
 				if (!that._oSPDetails) {
 					that._oSPDetails = sap.ui.xmlfragment("OSTId",
-						"avmet.ah.fragments.SupervisorTaskDetails",
+						"avmet.f16.fragments.SupervisorEditTaskDetails",
 						that);
-					oModel.setData(oPayLoad);
-					that._oSPDetails.setModel(oModel, "DetailsSupModel");
+					if (oMod.expdt !== null) {
+						oMod.expdt = new Date(oMod.expdt);
+						oMod.exptm = formatter.defaultTimeFormatDisplay(oMod.exptm);
+					}
+					if (oMod.exptm !== null) {
+						oMod.exptm = formatter.defaultTimeFormatDisplay(oMod.exptm);
+					}
+					switch (oMod.oppr) {
+						case "B":
+							oLimitModel.setProperty("/bDateSection", true);
+							oLimitModel.setProperty("/bUtilisationSection", true);
+							break;
+						case "D":
+							oLimitModel.setProperty("/bDateSection", true);
+							oLimitModel.setProperty("/bUtilisationSection", false);
+							break;
+						case "U":
+							oLimitModel.setProperty("/bDateSection", false);
+							oLimitModel.setProperty("/bUtilisationSection", true);
+							break;
+					}
+
+					if (oMod.util1 !== null) {
+						if (this.oObject && this.oObject[oMod.util1] && this.oObject[oMod.util1].VALUE) {
+							var minVal = parseFloat(this.oObject[oMod.util1].VALUE, [10]);
+							oLimitModel.setProperty("/UTILMinVL", minVal);
+							var sVal = oModel.getProperty("/utilvl") ? oModel.getProperty("/utilvl") : 0;
+							sVal = parseFloat(sVal, [10]);
+							var iPrec = formatter.JobDueDecimalPrecision(oMod.util1);
+							oModel.setProperty("/utilvl", parseFloat(minVal, [10]).toFixed(iPrec));
+
+						}
+
+					}
+
+					//oPayLoad.EXPTM=new Date(oPayLoad.EXPTM);
+					oModel.setData(oMod);
+					that._oSPDetails.setModel(oModel, "DetailsSupEditModel");
 					that.getView().addDependent(that._oSPDetails);
 				}
 				that._oSPDetails.open(that);
 			} catch (e) {
 				Log.error("Exception in onPendingSupDetailsPress function");
+			}
+		},
+
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called,on change of reason type for ADD change.
+		// Table: 
+		//--------------------------------------------------------------------------------------
+		onReasonTypeChange: function(oEvent) {
+			try {
+				var oViewLimitModel = this.getModel("oViewLimitModel"),
+					oModel = this._oSPDetails.getModel("DetailsSupEditModel"),
+					sSelectedKey = oEvent.getSource().getSelectedKey();
+				oModel.setProperty("/expdt", null);
+				oModel.setProperty("/exptm", null);
+				oModel.setProperty("/utilvl", null);
+				oModel.setProperty("/util1", null);
+				oViewLimitModel.setProperty("/UTILMinVL", 0);
+				if (sSelectedKey === "D") {
+					oModel.setProperty("/exptm", "23:59");
+					oViewLimitModel.setProperty("/bDateSection", true);
+					oViewLimitModel.setProperty("/bUtilisationSection", false);
+					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
+				} else if (sSelectedKey === "U") {
+					oViewLimitModel.setProperty("/bDateSection", false);
+					oViewLimitModel.setProperty("/bUtilisationSection", true);
+					oViewLimitModel.setProperty("/sUtilKey", "");
+					oViewLimitModel.setProperty("/bAirFrameAndTAC", false);
+					oViewLimitModel.setProperty("/bScheduleService", false);
+					oViewLimitModel.setProperty("/bPhaseService", false);
+					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
+					oModel.setProperty("/bUtilisationSection", true);
+				} else if (sSelectedKey === "B") {
+					oModel.setProperty("/exptm", "23:59");
+					oViewLimitModel.setProperty("/bDateSection", true);
+					oViewLimitModel.setProperty("/bUtilisationSection", true);
+					oViewLimitModel.setProperty("/sSlectedKey", sSelectedKey);
+				}
+				oModel.setProperty("/oppr", sSelectedKey);
+				oModel.updateBindings(true);
+				oViewLimitModel.setProperty("/bLimitationSection", true);
+				oViewLimitModel.setProperty("/bLimitation", false);
+				oViewLimitModel.setProperty("/bAddLimitationBtn", true);
+			} catch (e) {
+				Log.error("Exception in onReasonTypeChange function");
 			}
 		},
 
@@ -1359,7 +1596,7 @@ sap.ui.define([
 		},
 
 		//------------------------------------------------------------------
-		// Function: onPendingSupDetailsClose
+		// Function: onCompleteDetailsClose
 		// Parameter: 
 		// Description: Generic Method: This will get called, to clsoe the dialog .
 		//Table: 
@@ -1377,20 +1614,169 @@ sap.ui.define([
 				Log.error("Exception in onCompleteDetailsClose function");
 			}
 		},
-		onPendingSupDetailsClose: function() {
+		//------------------------------------------------------------------
+		// Function: onPendingSupEditDetailsClose
+		// Parameter: 
+		// Description: Generic Method: This will get called, to clsoe the dialog .
+		//Table: 
+		//------------------------------------------------------------------
+		onPendingSupEditDetailsClose: function() {
 			try {
 				if (this._oSPDetails) {
-					var oTable = this.getView().byId("tbWcPendingSuperId");
+					var oTable = this.getView().byId("tbWcPendingSuperId"),
+						oModel = this.getView().getModel("LocalModel");
+					oModel.setProperty("/bSuperDiaFlag", false);
 					oTable.removeSelections(true);
 					this._oSPDetails.close(this);
 					this._oSPDetails.destroy();
 					delete this._oSPDetails;
 				}
 			} catch (e) {
-				Log.error("Exception in CosDefectsSummary:onPendingSupDetailsClose function");
-				this.handleException(e);
+				Log.error("Exception in onPendingSupEditDetailsClose function");
 			}
 		},
+
+		//------------------------------------------------------------------
+		// Function: onPendingSupDetailsClose
+		// Parameter: 
+		// Description: Generic Method: This will get called, to clsoe the dialog .
+		//Table: 
+		//------------------------------------------------------------------
+		onPendingSupDetailsClose: function() {
+			try {
+				if (this._oSupDetails) {
+					var oTable = this.getView().byId("tbWcPendingSuperId"),
+						oModel = this.getView().getModel("LocalModel");
+					oModel.setProperty("/bSuperDiaFlag", false);
+					oTable.removeSelections(true);
+					this._oSupDetails.close(this);
+					this._oSupDetails.destroy();
+					delete this._oSupDetails;
+				}
+			} catch (e) {
+				Log.error("Exception in onPendingSupDetailsClose function");
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: onTypeDescChange
+		// Parameter: 
+		// Description: This will get called, when type of decription selected from Create Task fragment.
+		//Table: 
+		//------------------------------------------------------------------
+		onTypeDescChange: function(oEvent) {
+			try {
+				var sSelectedKey = oEvent.getSource().getSelectedKey();
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/tt4id", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/cdesc", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/sernr", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/itemno", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/otherss", "");
+				this._oMGDetails.getModel("ManageTaskModel").refresh();
+				if (sSelectedKey === "TT3_10") {
+					this._fnGetTaskTT310DropDown();
+				} else if (sSelectedKey === "TT3_11") {
+					this._fnGetTaskTT311DropDown();
+				}
+			} catch (e) {
+				Log.error("Exception in onTypeDescChange function");
+			}
+		},
+
+		onOpenForAccessChange: function(oEvent) {
+			try {
+				var sSelectedKey = oEvent.getSource().getSelectedKey();
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/cdesc", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/sernr", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/itemno", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/otherss", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/sCompDesc", "");
+				this._oMGDetails.getModel("ManageTaskModel").refresh();
+			} catch (e) {
+				Log.error("Exception in onOpenForAccessChange function");
+			}
+		},
+
+		onRemoveForAccessChange: function(oEvent) {
+			try {
+				var sSelectedKey = oEvent.getSource().getSelectedKey();
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/cdesc", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/sernr", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/itemno", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/otherss", "");
+				this._oMGDetails.getModel("ManageTaskModel").setProperty("/sCompDesc", "");
+				this._oMGDetails.getModel("ManageTaskModel").refresh();
+			} catch (e) {
+				Log.error("Exception in onRemoveForAccessChange function");
+			}
+		},
+
+	_fnResetTaskModelData: function() {
+			var oModel = this._oMGDetails.getModel("ManageTaskModel");
+			oModel.setProperty("/toref", "");
+			oModel.setProperty("/engflag", "NA");
+			oModel.setProperty("/sernr", "");
+			oModel.setProperty("/partno", "");
+			oModel.setProperty("/cdesc", "");
+			oModel.setProperty("/tt4id", "");
+			oModel.setProperty("/tt3id", "");
+			oModel.setProperty("/ismat", "Part No.");
+			oModel.setProperty("/isser", "Serial No. (S/N)");
+			oModel.setProperty("/fragid", "");
+			oModel.setProperty("/ftcdesc", "");
+			oModel.setProperty("/ftchkfor", "");
+			oModel.setProperty("/ftcredt", null);
+			oModel.setProperty("/ftcretm", null);
+			oModel.setProperty("/ftdesc", "");
+			oModel.setProperty("/ftfind", "");
+			oModel.setProperty("/ftitemno", "");
+			oModel.setProperty("/ftothers", "");
+			oModel.setProperty("/ftrsltgd", "");
+			oModel.setProperty("/ftsernr", "");
+			oModel.setProperty("/ftt1id", "");
+			oModel.setProperty("/fttoref", "");
+			oModel.setProperty("/rtstat", "X");
+			oModel.setProperty("/sernr", "");
+			oModel.setProperty("/itemno", "");
+			oModel.setProperty("/otherss", "");
+			oModel.setProperty("/tdesc", "");
+			oModel.setProperty("/symbol", "0");
+			oModel.refresh();
+		},
+
+		onRemoveInstallTaskChange: function(oEvent) {
+			try {
+				var sSelectedKey = oEvent.getSource().getSelectedKey();
+				this._fnResetTaskModelData();
+			} catch (e) {
+				Log.error("Exception in onRemoveForAccessChange function");
+			}
+		},
+
+		onTaskTypeChange: function(oEvent) {
+			try {
+				var sSelectedKey = oEvent.getSource().getSelectedKey();
+				var oModel = this._oMGDetails.getModel("ManageTaskModel");
+				if (sSelectedKey === "TT1_99") {
+					oModel.setProperty("/ENTINERR", "X");
+					oModel.setProperty("/tt1id", sSelectedKey);
+				} else {
+					oModel.setProperty("/tt2id", "");
+					this._fnResetTaskModelData();
+				}
+				oModel.setProperty("/tt1id", sSelectedKey);
+
+			} catch (e) {
+				Log.error("Exception in onTaskTypeChange function");
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: onCloseTask
+		// Parameter: 
+		// Description: Navigation Method: This will get called, when click on Close Task button.
+		//Table: 
+		//------------------------------------------------------------------
 
 		onCloseTask: function() {
 			try {
@@ -1560,46 +1946,111 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		//------------------------------------------------------------------
+		// Function: _fnGetTaskDropDown
+		// Parameter: 
+		// Description: This will get called, when to get sub task TT2 type for dropdown from backend.
+		//Table: TTYPE
+		//------------------------------------------------------------------
+		_fnGetTaskDropDown: function() {
+			try {
+				var oPrmDD = {},
+					oModel,
+					that = this,
+					oPayload;
+				oPrmDD.filter = "ttid eq TT2_ and airid eq " + that.getAircraftId();
+				oPrmDD.error = function() {};
 
-		/*	onSignOffTask: function() {
-				try {
-					var that = this,
-						oPrmTask = {},
-						oObj,
-						oPayload = [],
-						oViewModel = that.getView().getModel("LocalModel"),
-						oTable = that.getView().byId("tbWcPendingSuperId");
-					if (oTable.getSelectedItems().length !== 0) {
-						for (var i = 0; i < oTable.getSelectedItems().length; i++) {
-							oObj = oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject();
-							oObj.tstat = "X";
-							oPayload.push(oObj);
-						}
-						oPrmTask.filter = "";
-						oPrmTask.error = function(oData) {};
-						oPrmTask.success = function(oData) {
-							that.onPendingSupDetailsClose();
-							that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
-							that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
-							that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
-							this.getView().byId("itbTaskId").setSelectedKey("CM");
-							this.byId("pageSummaryId").scrollTo(0);
-						}.bind(this);
-						oPrmTask.activity = 4;
-						ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "ZRM_COS_TS", this);
-					} else {
-						MessageBox.error(
-							"Please select task for Sign-off.", {
-								icon: sap.m.MessageBox.Icon.Error,
-								title: "Success",
-								styleClass: "sapUiSizeCompact"
-							});
-					}
-				} catch (e) {
-					Log.error("Exception in CosDefectsSummary:onSignOffTask function");
-					this.handleException(e);
-				}
-			},*/
+				oPrmDD.success = function(oData) {
+					oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					this.getView().setModel(oModel, "TaskListModel");
+					this._fnGetTaskDescDropDown();
+				}.bind(this);
+
+				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
+			} catch (e) {
+				Log.error("Exception in _fnGetTaskDropDown function");
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnGetTaskDescDropDown
+		// Parameter: 
+		// Description: This will get called, when to get sub task TT3 type for dropdown from backend.
+		//Table: TTYPE
+		//------------------------------------------------------------------
+		_fnGetTaskDescDropDown: function() {
+			try {
+				var oPrmDD = {},
+					oModel,
+					that = this,
+					oPayload;
+				oPrmDD.filter = "ttid eq TT3_ and airid eq " + that.getAircraftId();
+				oPrmDD.error = function() {};
+				oPrmDD.success = function(oData) {
+					oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "TaskDescModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
+			} catch (e) {
+				Log.error("Exception in _fnGetTaskDescDropDown function");
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnGetTaskTT310DropDown
+		// Parameter: 
+		// Description: This will get called, when to get sub task TT3_10 type for dropdown from backend.
+		//Table: TTYPE and TT34
+		//------------------------------------------------------------------
+		_fnGetTaskTT310DropDown: function() {
+			try {
+				var oPrmDD = {},
+					oModel,
+					that = this,
+					oPayload;
+				oPrmDD.filter = "ttid eq TT3_10 and tflag eq X and airid eq " + that.getAircraftId();
+				oPrmDD.error = function() {};
+
+				oPrmDD.success = function(oData) {
+					oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "TT310Model");
+				}.bind(this);
+
+				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
+			} catch (e) {
+				Log.error("Exception in _fnGetTaskTT310DropDown function");
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnGetTaskTT311DropDown
+		// Parameter: 
+		// Description: This will get called, when to get sub task TT3_11 type for dropdown from backend.
+		//Table: TTYPE and TT34
+		//------------------------------------------------------------------
+		_fnGetTaskTT311DropDown: function() {
+			try {
+				var oPrmDD = {},
+					oModel,
+					that = this,
+					oPayload;
+				oPrmDD.filter = "ttid eq TT3_11 and tflag eq X and airid eq " + that.getAircraftId();
+				oPrmDD.error = function() {};
+
+				oPrmDD.success = function(oData) {
+					oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "TT311Model");
+				}.bind(this);
+
+				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
+		},
 
 		onSignOffTask: function() {
 			try {
@@ -1899,12 +2350,14 @@ sap.ui.define([
 				sAirId = that.getAircraftId();
 				sSqnId = that.getSqunId();
 				sModId = that.getModelId();
+				this._InitializeLimDialogModel();
 				var oCanvas = document.getElementById("myCanvasTop");
 				if (oCanvas !== null) {
 					var ctx = oCanvas.getContext('2d');
 					ctx.clearRect(0, 0, oCanvas.width, oCanvas.height);
 				}
 				oViewModel.setProperty("/sTailId", sTailId);
+				oViewModel.setProperty("/bSuperDiaFlag", false);
 				oViewModel.setProperty("/sAirId", sAirId);
 				oViewModel.setProperty("/sSqnId", sSqnId);
 				oViewModel.setProperty("/sJobId", sJobId);
@@ -1946,6 +2399,9 @@ sap.ui.define([
 				this._fnReasonforADDGet(sAirId);
 				this._fnUtilizationGet(sAirId);
 				this._fnGetMainTaskDropDown();
+				this._fnGetTaskDropDown();
+				that._fnGetTaskTT310DropDown();
+				that._fnGetTaskTT311DropDown();
 				sap.ui.getCore().getEventBus().subscribe(
 					"SubView1",
 					"UpdateJob",
@@ -2006,6 +2462,65 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called, to get Serial number for part number.
+		// Table: ENGINE
+		//--------------------------------------------------------------------------------------
+		getSerialNoPress: function(oEvent) {
+			try {
+				var oPrmDD = {},
+					oModel,
+					oModelObj = oEvent.getSource().getModel("DetailsSupModel").getProperty("/partno"),
+					that = this,
+					oPayload;
+				oPrmDD.filter = "ESTAT eq R and PARTNO eq " + oModelObj + " and INSON eq " + this.getTailId();
+				oPrmDD.error = function() {};
+
+				oPrmDD.success = function(oData) {
+					if (oData.results.length !== 0) {
+						oModel = dataUtil.createNewJsonModel();
+						oModel.setData(oData.results);
+						this.getView().setModel(oModel, "SerialNumModel");
+
+					} else {
+						MessageBox.error(
+							"Part number is invalid.", {
+								icon: sap.m.MessageBox.Icon.Error,
+								title: "Error",
+								styleClass: "sapUiSizeCompact"
+							});
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/GetSerNoSvc", oPrmDD, oPayload);
+			} catch (e) {
+				Log.error("Exception in getSerialNoPress function");
+			}
+		},
+
+		_fnGetUtilisationDefaultVal: function() {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("appModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq UTIL";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisationDefaultVal function");
+			}
+		},
 		//-------------------------------------------------------------------------------------
 		//  General method: This will get called,to get Utilization drop down data.
 		// Table: DDREF, DDVAL
@@ -2038,7 +2553,7 @@ sap.ui.define([
 					oModel,
 					that = this,
 					oPayload;
-				oPrmDD.filter = "ttid eq TT1_ and airid eq " + that.getAircraftId();
+				oPrmDD.filter = "ttid eq TT1_ and tflag eq Y and airid eq " + that.getAircraftId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -2182,6 +2697,86 @@ sap.ui.define([
 			}
 		},
 
+		//-------------------------------------------------------------------------------------
+		//  This will get called, when click of Sign Off button.
+		// Table: TASK
+		//--------------------------------------------------------------------------------------
+		//8.on click of Sign Off button
+		onEditTaskSignOff: function(oEvent) {
+			try {
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
+				var that = this,
+					oTempObj,
+					oModel = this._oSPDetails.getModel("DetailsSupEditModel"),
+					sObject,
+					oViewModel = that.getView().getModel("LocalModel"),
+					oPrmTask = {},
+					oPayload = [];
+				oPayload = oModel.getData();
+				oPayload.tstat = "X";
+				if (oPayload.expdt !== null && oPayload.expdt !== "") {
+					try {
+						oPayload.expdt = formatter.defaultOdataDateFormat(oPayload.expdt);
+					} catch (e) {
+						oPayload.expdt = oPayload.expdt;
+					}
+				} else {
+					oPayload.expdt = null;
+				}
+
+				try {
+					if (oPayload.utilvl) {
+						var iPrecision = formatter.JobDueDecimalPrecision(oPayload.util1);
+						oPayload.utilvl = parseFloat(oPayload.utilvl, [10]).toFixed(iPrecision);
+					}
+
+				} catch (e) {
+					oPayload.utilvl = oPayload.utilvl;
+				}
+				oTempObj = this._fnGetObjectTypeAndActivity(oPayload.symbol, oPayload.tt1id);
+				/*				delete oPayload[i].ValueState;
+								delete oPayload[i].ftcredtStateText;
+								delete oPayload[i].ftcretmState;*/
+				/*	try {
+						oPayload[i].ftcredt = formatter.defaultOdataDateFormat(oPayload[i].ftcredt);
+					} catch (e) {
+						oPayload[i].ftcredt = oPayload[i].ftcredt;
+					}
+					if (oPayload[i].CPRID !== null) {
+						oPayload[i].ftdesc = "Transfer to Acceptable Deferred Defects Log";
+					}*/
+
+				oPrmTask.filter = "";
+				oPrmTask.error = function() {};
+				oPrmTask.success = function(oData) {
+					this.onPendingSupEditDetailsClose();
+					that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
+					that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
+					that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
+					this.getView().byId("itbTaskId").setSelectedKey("CM");
+				}.bind(this);
+
+				sObject = oTempObj.obj;
+				oPrmTask.activity = oTempObj.Act;
+
+				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, [oPayload], sObject, this);
+			} catch (e) {
+				Log.error("Exception in onSignOff function");
+			}
+		},
+
+		/*onEditTaskDetails: function(oEvent) {
+			try {
+				this.getView().getModel("LocalModel").setProperty("/bSuperDiaFlag", true);
+				this.getView().getModel("LocalModel").refresh();
+			} catch (e) {
+				Log.error("Exception in onEditTaskDetails function");
+			}
+		},*/
+
 		_fnTasksOutStandingGet: function(sJobId, sWrctr) {
 			try {
 				var that = this,
@@ -2208,6 +2803,94 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTasksOutStandingGet function");
 				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: onUpdateTaskPress
+		// Parameter: oEvent
+		// Description: This will get called, when to undo signoff from supervisor information details dialog.
+		//Table: TASK
+		//------------------------------------------------------------------
+	onUpdateTaskPress: function(oEvent) {
+			try {
+				var that = this,
+					sObject,
+					oFlag = true,
+					oTempSym,
+					oObj, oTempObj, oErroFlag = false,
+					oPrmTask = {},
+					oPayload,
+					oErrorArray = [],
+					oViewModel = that.getView().getModel("LocalModel");
+
+				oPayload = this._oMGDetails.getModel("ManageTaskModel").getData();
+
+				if (oPayload.tt1id === "TT1_10" && oPayload.tt2id === "TT2_10") {
+					if (oPayload.engflag !== "NA" && oPayload.engflag !== "") {
+						oFlag = true;
+					} else {
+						MessageBox.error(
+							"Please select request type 'Engine' or 'Non-Engine'", {
+								icon: sap.m.MessageBox.Icon.Error,
+								title: "Error",
+								styleClass: "sapUiSizeCompact"
+							});
+						oFlag = false;
+					}
+				}
+
+				if (oPayload.tt1id === "TT1_14") {
+					if (oPayload.symbol !== "0") {
+						oFlag = true;
+					} else {
+						MessageBox.error(
+							"Please select Symbol for task.", {
+								icon: sap.m.MessageBox.Icon.Error,
+								title: "Error",
+								styleClass: "sapUiSizeCompact"
+							});
+						oFlag = false;
+					}
+				}
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
+				if (oFlag) {
+					oTempSym = that._fnSetSymbol(oPayload.tt1id, oPayload.symbol);
+					oPayload.symbol = oTempSym;
+					if (oPayload.cdesc !== "" && oPayload.cdesc !== null && oPayload.tt1id !== "TT1_99") {
+						oPayload.tdesc = oPayload.cdesc;
+					}
+					oTempObj = this._fnGetObjectTypeAndActivity(oPayload.symbol, oPayload.tt1id);
+					oPrmTask.filter = "";
+					oPrmTask.error = function() {};
+					oPrmTask.success = function(oData) {
+						for (var j = 0; j < oData.results.length; j++) {
+							if (oData.results[j].errormsg !== "" && oData.results[j].errormsg !== null) {
+								oErrorArray.push({
+									"taskId": oData.results[j].tdesc,
+									"errormsg": oData.results[j].errormsg,
+									"tType": oData.results[j].tt1id
+								});
+								oErroFlag = true;
+							}
+						}
+
+						this.getView().byId("itbTaskId").setSelectedKey("OS");
+						that.onMangeTaskPressClose();
+						that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
+						that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
+						that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
+						this.byId("pageSummaryId").scrollTo(0);
+					}.bind(this);
+					sObject = oTempObj.obj;
+					oPrmTask.activity = oTempObj.Act;
+					ajaxutil.fnUpdate("/Task1Svc", oPrmTask, [oPayload], sObject, this);
+				}
+			} catch (e) {
+				Log.error("Exception in onUpdateTaskPress function");
 			}
 		},
 		_fnTasksPendingSupGet: function(sJobId, sWrctr) {
@@ -3174,6 +3857,88 @@ sap.ui.define([
 				ajaxutil.fnRead("/ToolCheckValSvc", oPrmTask);
 			} catch (e) {
 				Log.error("Exception in _fnToolCheck function");
+			}
+		},
+		_InitializeLimDialogModel: function() {
+			try {
+				var oModel = dataUtil.createNewJsonModel();
+				var DatePrev = new Date();
+				var aData = {
+					sAddReason: "noKey",
+					bDateSection: false,
+					bUtilisationSection: false,
+					bLimitationSection: false,
+					bPrdOfDefermentDesc: false,
+					bDemandNo: false,
+					bOtherReason: false,
+					bPeriodofDeferment: false,
+					sUtilKey: "",
+					bAirFrameAndTAC: false,
+					bScheduleService: false,
+					bPhaseService: false,
+					bLimitation: false,
+					bAddLimitationBtn: false,
+					UTILMinVL: 0,
+					sSlectedKey: "N",
+					DatePrev: DatePrev,
+					Date: new Date(),
+					Time: new Date().getHours() + ":" + new Date().getMinutes()
+				};
+				oModel.setData(aData);
+				if (this.getModel("oViewLimitModel")) {
+					this.getModel("oViewLimitModel").setData(aData);
+				} else {
+					this.getView().setModel(oModel, "oViewLimitModel");
+				}
+
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
+		},
+
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called,on change of Utilization drop down for ADD change.
+		// Table: 
+		//--------------------------------------------------------------------------------------
+		onUilisationChange: function(oEvent) {
+			try {
+				var oViewLimitModel = this.getModel("oViewLimitModel"),
+					oLocalModelModel = this.getModel("LocalModel"),
+					oModel = this._oSPDetails.getModel("DetailsSupModel"),
+					sSelectedKey = oEvent.getSource().getSelectedKey();
+				/*oLocalModelModel.setProperty("/bSuperDiaFlag", false);*/
+				oLocalModelModel.refresh();
+				if (sSelectedKey === "UTIL1_10" || sSelectedKey === "UTIL1_11" || sSelectedKey === "UTIL1_12" || sSelectedKey === "UTIL1_13" ||
+					sSelectedKey ===
+					"UTIL1_14" || sSelectedKey === "UTIL1_15" || sSelectedKey === "UTIL1_21") {
+					oViewLimitModel.setProperty("/bAirFrameAndTAC", true);
+					oViewLimitModel.setProperty("/bScheduleService", false);
+					oViewLimitModel.setProperty("/bPhaseService", false);
+				} else if (sSelectedKey === "Next Scheduling Servicing") {
+					oViewLimitModel.setProperty("/bAirFrameAndTAC", false);
+					oViewLimitModel.setProperty("/bScheduleService", true);
+					oViewLimitModel.setProperty("/bPhaseService", false);
+				} else if (sSelectedKey === "Next Phase Servicing") {
+					oViewLimitModel.setProperty("/bAirFrameAndTAC", false);
+					oViewLimitModel.setProperty("/bScheduleService", false);
+					oViewLimitModel.setProperty("/bPhaseService", true);
+				}
+
+				if (sSelectedKey.length > 0) {
+					if (this.oObject && this.oObject[sSelectedKey] && this.oObject[sSelectedKey].VALUE) {
+						var minVal = parseFloat(this.oObject[sSelectedKey].VALUE, [10]);
+						oViewLimitModel.setProperty("/UTILMinVL", minVal);
+						var sVal = oModel.getProperty("/utilvl") ? oModel.getProperty("/utilvl") : 0;
+						sVal = parseFloat(sVal, [10]);
+						var iPrec = formatter.JobDueDecimalPrecision(sSelectedKey);
+						oModel.setProperty("/utilvl", parseFloat(minVal, [10]).toFixed(iPrec));
+
+					}
+
+				}
+				oModel.setProperty("/util1", sSelectedKey);
+			} catch (e) {
+				Log.error("Exception in onUilisationChange function");
 			}
 		},
 

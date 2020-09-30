@@ -621,6 +621,7 @@ sap.ui.define([
 				oPayload.CRETM = oJobModel.getProperty("/cretm");
 				oPayload.J_FLAG = "N";
 				oPayload.FLAG = "ES";
+				oPayload.SYMBOL = "0";
 				oPayload.CTYPE = "AIRCRAFT";
 				oPayload.TAILID = this.getTailId();
 				oPayload.AIRID = this.getAircraftId();
