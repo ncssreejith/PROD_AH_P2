@@ -24,11 +24,12 @@
 							<core:Item text="{oAirSelectViewModel>SERIAL}" additionalText="{oAirSelectViewModel>ENGID}"/>
 						</suggestionItems>
 					</Input>
-					<Button text="{= ${oAirSelectViewModel>/srcBy}==='type'?'Search':'Select'}" type="Emphasized" press="onEngineSearch"/>
+					<Button text="{= ${oAirSelectViewModel>/srcBy}==='type'?'Search':'Search'}" type="Emphasized" press="onEngineSearch"/>
 				</items>
 			</FlexBox>
 		</VBox>
-		<VBox visible="{= ${oAirSelectViewModel>/srcBy}==='type'?true:false}">
+		 <!--visible="{= ${oAirSelectViewModel>/srcBy}==='type'?true:false}"-->
+		<VBox>
 			<Text text="Count: {=${oAirSelectViewModel>/engine}.length}" class="sapUiSmallMarginTopBottom"/>
 			<Table  class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="None" growing="true"
 				growingThreshold="4" growingScrollToLoad="false" items="{oAirSelectViewModel>/engine}" noDataText="{i18n>txtNoTexttStanding}" showNoData="true"
