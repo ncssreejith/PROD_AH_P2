@@ -185,7 +185,7 @@
 											</VBox>
 											<VBox class="sapUiSmallMarginBegin">
 												<Label/>
-												<Input width="200px" value="{DetailsComModel>/utilvl}" editable="false" enabled="false"/>
+												<Input width="200px" value="{DetailsComModel>/utilvl}" editable="false"/>
 											</VBox>
 										</HBox>
 										<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom"

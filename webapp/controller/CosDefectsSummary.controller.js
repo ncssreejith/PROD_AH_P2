@@ -287,7 +287,8 @@ sap.ui.define([
 						if (oJobModel.getProperty("/jobty") === 'S') {
 							oSummaryModel.setProperty("/MenuVisibleEdit", false);
 						} else {
-							oSummaryModel.setProperty("/MenuVisibleEdit", true);
+							var bFlag = this._fnJobEditCheck();
+							oSummaryModel.setProperty("/MenuVisibleEdit", bFlag);
 						}
 						oSummaryModel.setProperty("/MenuScheduleVisible", false);
 						oSummaryModel.setProperty("/MenuActivateVisible", false);
@@ -1415,7 +1416,7 @@ sap.ui.define([
 							break;
 					}
 
-					if (oMod.util1 !== null) {
+					if (oMod.util1 !== null && oMod.util1 !== "UTIL1_20") {
 						if (this.oObject && this.oObject[oMod.util1] && this.oObject[oMod.util1].VALUE) {
 							var minVal = parseFloat(this.oObject[oMod.util1].VALUE, [10]);
 							oLimitModel.setProperty("/UTILMinVL", minVal);
@@ -1834,7 +1835,7 @@ sap.ui.define([
 					MessageBox.error(
 						"Please select task to close.", {
 							icon: sap.m.MessageBox.Icon.Error,
-							title: "Success",
+							title: "Error",
 							styleClass: "sapUiSizeCompact"
 						});
 				}
@@ -3358,6 +3359,7 @@ sap.ui.define([
 		_fnUpdateFAIRJob: function(oFlag) {
 			try {
 				var that = this,
+					oObjectId,
 					oSummaryModel,
 					sjobid = "",
 					oLocalModel,
@@ -3422,8 +3424,15 @@ sap.ui.define([
 
 					that._fnJobDetailsGet(oLocalModel.getProperty("/sJobId"), oLocalModel.getProperty("/sTailId"));
 				}.bind(this);
-				oParameter.activity = 1;
-				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_FAIR_D", this);
+				if (oFlag === "R") {
+					oObjectId = "ZRM_FAIR_R";
+					oParameter.activity = "04";
+				} else {
+					oObjectId = "ZRM_FAIR_D";
+					oParameter.activity = "01";
+				}
+
+				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], oObjectId, this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateFAIRJob function");
 			}
@@ -3928,7 +3937,7 @@ sap.ui.define([
 			try {
 				var oViewLimitModel = this.getModel("oViewLimitModel"),
 					oLocalModelModel = this.getModel("LocalModel"),
-					oModel = this._oSPDetails.getModel("DetailsSupModel"),
+					oModel = this._oSPDetails.getModel("DetailsSupEditModel"),
 					sSelectedKey = oEvent.getSource().getSelectedKey();
 				/*oLocalModelModel.setProperty("/bSuperDiaFlag", false);*/
 				oLocalModelModel.refresh();
@@ -3996,6 +4005,30 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetTaskRefSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
+				this.handleException(e);
+			}
+		},
+		_fnJobEditCheck: function() {
+			try {
+				var oModel = this.getModel("JobModel").getData();
+				var maxDt = new Date(),
+					creDt = new Date(oModel.credtm),
+					creTm = oModel.cretm;
+
+				var timeParts = creTm.split(":");
+				creDt.setHours(timeParts[0]);
+				creDt.setMinutes(timeParts[1]);
+				creDt.setSeconds(0);
+
+				var diff = maxDt.getTime() - creDt.getTime();
+				if (diff > 86400000) {
+					return false;
+				} else {
+					return true;
+				}
+
+			} catch (e) {
+				Log.error("Exception in fnJobEditCheck function");
 				this.handleException(e);
 			}
 		}
