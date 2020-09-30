@@ -585,7 +585,7 @@
 					]
 				},
 				{
-					"pattern": "RoleChangeStations",
+					"pattern": "RoleChangeStations/:mode:",
 					"name": "RoleChangeStations",
 					"target": [
 						"RoleChangeStations"
@@ -1212,7 +1212,7 @@
 					"controlAggregation": "pages",
 					"parent": "TargetHome",
 					"viewType": "XML",
-					"viewName": "ah/rolechange/RoleChangeStations",
+					"viewName": "ah/fs/rolechange/RoleChange",
 					"viewId": "Station",
 					"viewLevel": 2,
 					"title": "Role Change"

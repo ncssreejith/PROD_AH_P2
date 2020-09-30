@@ -1596,7 +1596,12 @@ Description :
     width: 18rem !important;
     height: 5rem !important;
 }
-
+.rcTile {
+    text-align: center !important;
+    background: white !important;
+    width: 18rem !important;
+    height: 5rem !important;
+}
 .middleTile {
     text-align: center !important;
     width: 10rem !important;
