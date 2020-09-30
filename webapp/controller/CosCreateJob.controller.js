@@ -208,7 +208,7 @@ sap.ui.define([
 				if (oEvent) {
 					this._fnSetInitialModel();
 					oModel.setProperty("/jobty", oSelectedItemId);
-					this.removeCoordinates();
+					this.onRefersh();
 				}
 				switch (oSelectedItemId) {
 					case "D":
@@ -1000,6 +1000,7 @@ sap.ui.define([
 				var that = this,
 					oViewModel = this.getView().getModel("appModel"),
 					oPrmJobDue = {};
+				oViewModel.setProperty("/isEnabledNatureJob", false);
 				oPrmJobDue.filter = "jobid eq " + sJobId;
 				oPrmJobDue.error = function() {
 
