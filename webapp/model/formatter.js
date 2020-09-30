@@ -24,7 +24,8 @@ sap.ui.define([
 				var sDate = fnDateFormatter.format(dDate);
 				return sDate;
 			} else {
-				return dDate;
+				sDate = fnDateFormatter.format(new Date(dDate));
+				return sDate;
 			}
 		},
 

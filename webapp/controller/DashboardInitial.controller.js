@@ -414,7 +414,9 @@ sap.ui.define([
 						stepid: "S_WC" //S_WC
 					});
 				} else {
-					this.getOwnerComponent().getRouter().navTo("RoleDisplayStations");
+					this.getOwnerComponent().getRouter().navTo("RoleChangeStations",{
+						mode: 0
+					});
 				}
 				// this.getOwnerComponent().getRouter().navTo("RoleDisplayStations");
 			} catch (e) {

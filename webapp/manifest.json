@@ -410,48 +410,62 @@
 				},
 				{
 					"name": "UpdateFlightServicing",
-					"pattern": "UpdateFlightServicing/{srvid}",
+					"pattern": "UpdateFlightServicing/{srvid}/:srv_id:",
 					"target": [
 						"TargetUpdateFlightServicing"
 					]
 				},
 				{
-					"pattern": "CTCloseTask/{srvtid}",
+					"name": "PastFlightServicing",
+					"pattern": "PastFlightServicing/{srvid}",
+					"target": [
+						"PastFlightServicing"
+					]
+				},
+				{
+					"name": "ViewPastFlightServicing",
+					"pattern": "ViewPastFlightServicing",
+					"target": [
+						"ViewPastFlightServicing"
+					]
+				},
+				{
+					"pattern": "CTCloseTask/{srvtid}/:srvid:",
 					"name": "CTCloseTask",
 					"target": [
 						"CTCloseTask"
 					]
 				},
 				{
-					"pattern": "Replenishment/{srvtid}/{stepid}",
+					"pattern": "Replenishment/{srvtid}/{stepid}/:srvid:",
 					"name": "Replenishment",
 					"target": [
 						"Replenishment"
 					]
 				},
 				{
-					"pattern": "ReplenishmentDetails/{srvtid}/{stepid}/{Replenish}",
+					"pattern": "ReplenishmentDetails/{srvtid}/{stepid}/{Replenish}/:srvid:",
 					"name": "ReplenishmentDetails",
 					"target": [
 						"ReplenishmentDetails"
 					]
 				},
 				{
-					"pattern": "RoutineTasks/{srvtid}/{stepid}",
+					"pattern": "RoutineTasks/{srvtid}/{stepid}/:srvid:",
 					"name": "RoutineTasks",
 					"target": [
 						"RoutineTasks"
 					]
 				},
 				{
-					"pattern": "FollowUpTasks/{srvtid}/{stepid}",
+					"pattern": "FollowUpTasks/{srvtid}/{stepid}/:srvid:",
 					"name": "FollowUpTasks",
 					"target": [
 						"Follow-UpTasks"
 					]
 				},
 				{
-					"pattern": "PDSSummary/{srvtid}/{stepid}",
+					"pattern": "PDSSummary/{srvtid}/{stepid}/:srvid:",
 					"name": "PDSSummary",
 					"target": [
 						"PDSSummary"
@@ -514,7 +528,7 @@
 					]
 				},
 				{
-					"pattern": "WeaponConfig/{srvtid}/{stepid}",
+					"pattern": "WeaponConfig/{srvtid}/{stepid}/:srvid:",
 					"name": "WeaponConfig",
 					"target": [
 						"WeaponConfig"
@@ -974,6 +988,26 @@
 					"clearControlAggregation": false,
 					"viewId": "updateflightservicing",
 					"viewName": "ah/fs/UpdateFlightServicing"
+				},
+				"PastFlightServicing": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "PastFlightServicing",
+					"viewName": "ah/fs/PastFlightServicing"
+				},
+				"ViewPastFlightServicing": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "ViewPastFlightServicing",
+					"viewName": "ah/fs/ViewPastFlightServicing"
 				},
 				"CTCloseTask": {
 					"controlId": "nvMainContainerId",
