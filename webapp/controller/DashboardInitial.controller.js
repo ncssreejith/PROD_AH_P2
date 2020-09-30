@@ -705,19 +705,31 @@ sap.ui.define([
 		 */
 		fnLoadFLDashboard: function() {
 			try {
+				// var oParameter = {};
+				// oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				// oParameter.error = function() {
+				// 	this.fnProcessFuel({
+				// 		results: []
+				// 	});
+				// }.bind(this);
+				// oParameter.success = function(oData) {
+				// 	this.fnProcessFuel(oData);
+				// 	// this.fnProcessFuel({results: []});
+				// }.bind(this);
+				// ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
-				// + " and modid eq " + this.getModel("avmetModel").getProperty("/airSel/modid");
+				oParameter.filter = "tailid eq " + this.getTailId();
 				oParameter.error = function() {
-					this.fnProcessFuel({
+					this.fnProcessArrayFuel({
 						results: []
 					});
 				}.bind(this);
 				oParameter.success = function(oData) {
-					this.fnProcessFuel(oData);
+					this.fnProcessArrayFuel(oData);
 					// this.fnProcessFuel({results: []});
 				}.bind(this);
-				ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
+				ajaxutil.fnRead("/DashboardfuelSvc", oParameter);
+				
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadFLDashboard function");
 				this.handleException(e);
@@ -747,6 +759,56 @@ sap.ui.define([
 						oTemp.LTOTAMT = parseInt(oFuel.LETOTAMT.split("@")[i]);
 						oTemp.LEMAX = parseInt(oFuel.LEMAX.split("@")[i]);
 						oTemp.LEUOM = oFuel.LEUOM.split("@")[i];
+						aFL.push(oTemp);
+					});
+					var oFL = aFL[0] ? JSON.parse(JSON.stringify(aFL[0])) : {};
+					oFL.TOTAT = 0;
+					oFL.list = aFL;
+
+					oFL.list.forEach(function(oItem) {
+						oFL.TOTAT += oItem.LTOTAMT;
+					});
+				}
+				this.getModel("dashboardModel").setProperty("/fl", oFL);
+				this.getModel("dashboardModel").refresh();
+
+				this.getView().byId("dbTileFuel").addStyleClass("dbTile3ExtraBtns");
+				if (oFL) {
+					this._setRadialChartText("fuelTotalMicroChartId", oFL.TOTAT, "", oFL.TOTAT, oFL.TOTAT);
+					this._setRadialChartTextDisplay("fuelMicroChartId", oFL.LTOTAMT, oFL.LEMAX, oFL.LTOTAMT, oFL.LEMAX);
+					return;
+				}
+				
+				this._setRadialChartText("fuelTotalMicroChartId", "", "", 0, 0);
+				this._setRadialChartTextDisplay("fuelMicroChartId", "", "", 0, 0);
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:fnProcessFuel function");
+				this.handleException(e);
+			}
+		},
+		/** 
+		 * Process fuel oData and update Fuel dashboard
+		 * @param oData
+		 * @returns
+		 */
+		fnProcessArrayFuel: function(oData) {
+			try {
+				var oFuel = oData.results.length > 0 ? oData.results[0] : {
+					// REDESC: "Center@External@",
+					// LESRVAMT: "5000@6000@",
+					// LETOTAMT: "7000@8000@",
+					// LEUOM: "Pound@Pound@Pound@"
+				};
+				if (oFuel.LETOTAMT && oFuel.LEMAX) {
+					
+					var aFL = [];
+					oData.results.forEach(function(oItem, i) {
+						var oTemp = {};
+						oTemp.REDESC = oItem.RESDESC;
+						oTemp.key = i;
+						oTemp.LTOTAMT = parseInt(oItem.LETOTAMT);
+						oTemp.LEMAX = parseInt(oItem.LEMAX);
+						oTemp.LEUOM = oItem.LEUOM;
 						aFL.push(oTemp);
 					});
 					var oFL = aFL[0] ? JSON.parse(JSON.stringify(aFL[0])) : {};
