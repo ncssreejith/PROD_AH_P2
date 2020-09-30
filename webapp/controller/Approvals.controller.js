@@ -142,10 +142,7 @@ sap.ui.define([
 							oAppModel.setProperty("/UTILVL", parseFloat(minVal, [10]).toFixed(iPrec));
 
 						}
-					} else {
-
-					}
-
+					} 
 				}
 
 				oAppModel.setProperty("/UM", sDue);
@@ -255,9 +252,6 @@ sap.ui.define([
 				}
 				oModel.setProperty("/OPPR", sSelectedKey);
 				oModel.updateBindings(true);
-				oViewLimitModel.setProperty("/bLimitationSection", true);
-				oViewLimitModel.setProperty("/bLimitation", false);
-				oViewLimitModel.setProperty("/bAddLimitationBtn", true);
 			} catch (e) {
 				Log.error("Exception in onReasonTypeChange function");
 			}
@@ -279,6 +273,7 @@ sap.ui.define([
 				var oViewLimitModel = this.getModel("oViewLimitModel");
 				oViewLimitModel.setProperty("/bLimitation", false);
 				oViewLimitModel.setProperty("/bAddLimitationBtn", true);
+				this.getModel("CapExtendSet").setProperty("/LDESC", null);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onRemoveLimitaionPress function");
 				this.handleException(e);
@@ -841,6 +836,9 @@ sap.ui.define([
 						if (oData.results[0].UTIL1 !== "UTIL1_20") {
 							oViewModel.getData().UTILMINVL = parseFloat(this.oObject[oData.results[0].UTIL1].VALUE);
 						}
+						var bFlag = (oData.results[0].LDESC && oData.results[0].LDESC.length > 0)  ? true : false;
+						this.getModel("oViewLimitModel").setProperty("/bLimitation", bFlag);
+						this.getModel("oViewLimitModel").setProperty("/bAddLimitationBtn", !bFlag);
 						that.getView().setModel(oViewModel, "CapExtendSet");
 					}
 
