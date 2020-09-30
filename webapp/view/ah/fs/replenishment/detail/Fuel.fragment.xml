@@ -38,12 +38,13 @@
 			<ColumnListItem class="tableTextColor">
 				<cells>
 					<Text text="{oRepDetailsModel>resdescription}"/>
-					<StepInput width="100%" textAlign="Center" value="{oRepDetailsModel>orgamt}" labelFor="adsfasdf" change="onFuleChange" validationMode="LiveChange" min="0"
+					<StepInput width="100%" textAlign="Center" enabled="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE'}" value="{oRepDetailsModel>orgamt}" labelFor="adsfasdf" change="onFuleChange" validationMode="LiveChange" min="0"
 					max="{= ${oRepDetailsModel>max}-${oRepDetailsModel>srvamt}}"
 					fieldGroupIds="fgStep"  />
 					<StepInput width="100%" textAlign="Center" value="{oRepDetailsModel>srvamt}" change="onFuleChange" validationMode="LiveChange" min="0"
-					max="{= ${oRepDetailsModel>max}-${oRepDetailsModel>orgamt}}"
+					max="{parts:['oRepDetailsModel>/srvtid','oRepDetailsModel>max','oRepDetailsModel>orgamt'],formatter:'.formatter.fnFuelMaxAmt'}"
 					fieldGroupIds="fgStep"  />
+					<!--max="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE'?(${oRepDetailsModel>max}-${oRepDetailsModel>orgamt}):${oRepDetailsModel>orgamt}}"-->
 					<StepInput editable="false" textAlign="Center" fieldGroupIds="fgStep" value="{oRepDetailsModel>totamt}" description=" / {oRepDetailsModel>max}"  min="0"
 						max="{path: 'oRepDetailsModel>max', formatter : '.formatter.FormatMaxValue'}"  />
 				</cells>

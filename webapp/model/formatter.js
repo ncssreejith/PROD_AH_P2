@@ -639,6 +639,12 @@ sap.ui.define([
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
 
+		fnFuelMaxAmt:function(srvtId,maxAmt,orgAmt){
+			if(srvtId === "SRVT_DE"){
+				return parseInt(orgAmt);
+			}
+			return parseInt(maxAmt-orgAmt);
+		},
 		reviewedStatus: function(sStatus) {
 			var sTxt = "None";
 			if (sStatus) {
@@ -1128,7 +1134,7 @@ sap.ui.define([
 			return sImageSrc;
 		},
 
-		srvLbl: function(srvId) {
+			srvLbl: function(srvId) {
 			var sSrvTitle = "";
 			switch (srvId) {
 				case "SRVT_AF":
@@ -1153,7 +1159,7 @@ sap.ui.define([
 					sSrvTitle = "PR";
 					break;
 				case "SRVT_PRO":
-					sSrvTitle = "PRO";
+					sSrvTitle = "PR/BPO";
 					break;
 				case "SRVT_PTR":
 					sSrvTitle = "PTR";
@@ -1188,6 +1194,16 @@ sap.ui.define([
 				case "SRVT_PMSF":
 					sSrvTitle = "PMSF";
 					break;
+				case "SRVT_HICT":
+					sSrvTitle = "HOT ICT";
+					break;
+				case "SRVT_OSC":
+					sSrvTitle = "Outstation checks";
+					break;
+						case "SRVT_PTRT":
+					sSrvTitle = "PTR-Taxi";
+					break;
+					
 
 			}
 			return sSrvTitle;
