@@ -733,7 +733,9 @@ sap.ui.define([
 					oTempData[0].tt1id = aTasks[i].sTaskType;
 					if (aTasks[i].sTask === "TT2_10") {
 						oTempData[0].tt2id = aTasks[i].sType1 === "Serial No. (S/N)" ? "TT2_10" : "TT2_15";
-					}
+					}else{
+                        oTempData[0].tt2id = aTasks[i].sTask;
+                    }
 					if (aTasks[i].sTypDesc !== "" || aTasks[i].sTypDesc !== undefined) {
 						oTempData[0].tt3id = aTasks[i].sTypDesc;
 					} else {
