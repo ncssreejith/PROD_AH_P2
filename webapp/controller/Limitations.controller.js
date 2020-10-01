@@ -288,6 +288,11 @@ sap.ui.define([
 				oBindingADD.filter(filterObj);
 				oViewModel.setProperty("/sLimitCount", oListADD.getItems().length);
 			},*/
+		onRefresh: function() {
+			this._fnADDGet();
+			this._fnLimitationsGet();
+			this._fnLimitationsCompleteGet();
+		},
 
 		// ***************************************************************************
 		//                 4. Private Methods   
