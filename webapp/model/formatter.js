@@ -371,9 +371,13 @@ sap.ui.define([
 			}
 		},
 		taskContentVisible1: function(stTask1, stTask2) {
-			if ((stTask1 === "TT1_14" && stTask2 === null) || (stTask1 === "TT1_11" && stTask2 === null) || (stTask1 === "TT1_15" && stTask2 ===
-					null) || (stTask1 === "TT1_18" && stTask2 === null) || (stTask1 === "TT1_17" && stTask2 === null)) {
-				return true;
+			if (stTask1 !== "TT1_99") {
+				if ((stTask1 === "TT1_14" && stTask2 === null) || (stTask1 === "TT1_11" && stTask2 === null) || (stTask1 === "TT1_15" && stTask2 ===
+						null) || (stTask1 === "TT1_18" && stTask2 === null) || (stTask1 === "TT1_17" && stTask2 === null)) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
@@ -409,20 +413,23 @@ sap.ui.define([
 		},
 
 		taskContentVisibleTB: function(stTask1, stTask2, stTask3, stTask4) {
-			if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
-						"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
-						stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
-						stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" &&
-						stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
-						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === null && stTask2 === null && stTask3 === null) || (stTask1 ===
-						"TT1_16" && stTask3 === null) ||
-					(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === '' || stTask4 === null)) {
-				return true;
+			if (stTask1 !== "TT1_99") {
+				if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
+							"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
+							stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
+							stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" &&
+							stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
+							"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === null && stTask2 === null && stTask3 === null) || (stTask1 ===
+							"TT1_16" && stTask3 === null) ||
+						(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === '' || stTask4 === null)) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
 		},
-
 		taskContentVisible4: function(stTask1, stTask2, stTask3) {
 			if ((stTask1 === "TT1_10" && stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_14" && stTask3 === null) || (stTask1 ===
 					"TT1_10" && stTask2 ===
@@ -471,10 +478,10 @@ sap.ui.define([
 			}
 		},
 
-		serialNoInputRequired: function(engFlag, isser, tTask2) {
-			if ((engFlag === "NE" && isser === "Serial No. (S/N)") || (engFlag === "NA" && isser ===
-					"Serial No. (S/N)")) {
-				if (tTask2 !== "TT2_14" && tTask2 !== "TT2_13") {
+		serialNoInputRequired: function(engFlag, isser, tTask2, tTask1) {
+			if ((engFlag === "NE" && isser === "Serial No. (S/N)" && tTask1 !== "TT1_99") || (engFlag === "NA" && isser ===
+					"Serial No. (S/N)" && tTask1 !== "TT1_99")) {
+				if (tTask2 !== "TT2_14" && tTask2 !== "TT2_13" && tTask1 !== "TT1_99") {
 					return true;
 				} else {
 					return false;
@@ -507,8 +514,8 @@ sap.ui.define([
 				return "";
 			}
 		},
-		serialNoCBVisible: function(engFlag, isser, tTask2) {
-			if (engFlag === "EG" && isser === "Serial No. (S/N)") {
+		serialNoCBVisible: function(engFlag, isser, tTask1) {
+			if (engFlag === "EG" && isser === "Serial No. (S/N)" && tTask1 !== "TT1_99") {
 				return true;
 			} else {
 				return false;
@@ -639,11 +646,11 @@ sap.ui.define([
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
 
-		fnFuelMaxAmt:function(srvtId,maxAmt,orgAmt){
-			if(srvtId === "SRVT_DE"){
+		fnFuelMaxAmt: function(srvtId, maxAmt, orgAmt) {
+			if (srvtId === "SRVT_DE") {
 				return parseInt(orgAmt);
 			}
-			return parseInt(maxAmt-orgAmt);
+			return parseInt(maxAmt - orgAmt);
 		},
 		reviewedStatus: function(sStatus) {
 			var sTxt = "None";
@@ -1134,7 +1141,7 @@ sap.ui.define([
 			return sImageSrc;
 		},
 
-			srvLbl: function(srvId) {
+		srvLbl: function(srvId) {
 			var sSrvTitle = "";
 			switch (srvId) {
 				case "SRVT_AF":
@@ -1200,10 +1207,9 @@ sap.ui.define([
 				case "SRVT_OSC":
 					sSrvTitle = "Outstation checks";
 					break;
-						case "SRVT_PTRT":
+				case "SRVT_PTRT":
 					sSrvTitle = "PTR-Taxi";
 					break;
-					
 
 			}
 			return sSrvTitle;

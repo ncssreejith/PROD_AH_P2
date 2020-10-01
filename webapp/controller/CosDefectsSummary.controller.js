@@ -2883,8 +2883,8 @@ sap.ui.define([
 					return;
 				}
 				if (oFlag) {
-					oTempSym = that._fnSetSymbol(oPayload.tt1id, oPayload.symbol);
-					oPayload.symbol = oTempSym;
+					//oTempSym = that._fnSetSymbol(oPayload.tt1id, oPayload.symbol);
+					oPayload.symbol = "0";
 					if (oPayload.cdesc !== "" && oPayload.cdesc !== null && oPayload.tt1id !== "TT1_99") {
 						oPayload.tdesc = oPayload.cdesc;
 					}

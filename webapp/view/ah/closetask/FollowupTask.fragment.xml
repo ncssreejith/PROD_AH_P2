@@ -196,11 +196,11 @@
 													<Input width="180px" maxLength="20" change="onChangeDataInput" value="{TaskModel>ftsernr}" class="sapUiSmallMarginBegin"
 														fieldGroupIds="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputGroupVisible'}"
 														visible="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputVisible'}"
-														required="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputRequired'}"/>
+														required="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt2id','TaskModel>tt1id'],templateShareable: false,formatter:'.formatter.serialNoInputRequired'}"/>
 													<ComboBox width="180px" selectedKey="{TaskModel>ftsernr}" items="{path:'SerialNumModel>/',templateShareable: false}"
 														fieldGroupIds="{parts:['TaskModel>engflag','TaskModel>isser'],templateShareable: false,formatter:'.formatter.serialNoCBGroupVisible'}"
-														visible="{parts:['TaskModel>engflag','TaskModel>isser'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
-														required="{parts:['TaskModel>engflag','TaskModel>isser'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
+														visible="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt1id'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
+														required="{parts:['TaskModel>engflag','TaskModel>isser','TaskModel>tt1id'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
 														class="sapUiSmallMarginBegin">
 														<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
 													</ComboBox>
