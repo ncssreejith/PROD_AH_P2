@@ -110,15 +110,15 @@ sap.ui.define([
 					oTask.rtty = oItem.RTTY;
 					if (oItem.SERNR !== "") {
 						oTask.sernr = oItem.SERNR;
-						oTask.isser = oItem.ISSER;
-
 					}
+					oTask.isser = oItem.ISSER;
 					if (oItem.PARTNO !== "") {
 						oTask.tt1id = "TT1_10";
 						oTask.tt2id = "TT2_10";
 						oTask.partno = oItem.PARTNO;
-						oTask.ismat = oItem.ISMAT;
+
 					}
+					oTask.ismat = oItem.ISMAT;
 					// oTask.itemno = "";
 					// oTask.sernr = oItem.ddfdf;
 					oTask.ftdesc = oItem.FTDESC;
@@ -245,7 +245,7 @@ sap.ui.define([
 					oModel = dataUtil.createNewJsonModel();
 				this.serialContext = oEvent.getSource().getParent().getBindingContext("applTmplModel");
 				if (!that._oAddSR) {
-					that._oAddSR = sap.ui.xmlfragment(that.createId("idAddSRDialog"),
+					that._oAddSR = sap.ui.xmlfragment(that.createId("idAddTemplateSerialNumDialog"),
 						"avmet.ah.fragments.TemplateAddSerialNum",
 						this);
 					oObj.ISMAT = "Part No.";

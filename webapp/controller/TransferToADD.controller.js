@@ -229,10 +229,18 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		onSubmitTransferJobAdd: function() {
 			try {
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
 				var dDate = new Date();
 				var oParameter = {};
 				var oPayLoad = {};
 				oPayLoad = this.getModel("oViewGlobalModel").getData();
+				if (oPayLoad.OPPR === "N") {
+					sap.m.MessageBox.error("Please select 'But not later than'");
+					return;
+				}
 				if (oPayLoad.EXPDT !== null) {
 					try {
 						oPayLoad.ENDDA = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
