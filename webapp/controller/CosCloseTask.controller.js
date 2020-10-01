@@ -884,12 +884,18 @@ sap.ui.define([
 			}
 		},
 
-		onCreateLimitationPress: function() {
+		onCreateLimitationPress: function(sFragId) {
 			try {
-				// FieldValidations.resetErrorStates(this);
-				// if (FieldValidations.validateFields(this)) {
-				// 	return;
-				// }
+				var sFragTempId;
+				if (sFragId === "ADD") {
+					sFragTempId = this._oAddADD;
+				} else {
+					sFragTempId = this._oAddLim;
+				}
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this, sFragTempId, true)) {
+					return;
+				}
 				var dDate = new Date(),
 					oModel = this.getView().getModel("ViewModel");
 				var oParameter = {};

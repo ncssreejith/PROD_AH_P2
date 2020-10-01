@@ -41,11 +41,16 @@ sap.ui.define([], function() {
 		// 1. Method for validating the fields in view using field group id's
 
 		// Added check(s) if the control is editable and visible then only control will be validated
-		validateFields: function(that) {
+		validateFields: function(that, frag, isFrag) {
 			var bErrorState = false;
 			this.resetErrorStates(that);
 			// validation for date fields
-			var oFieldDate = that.getView().getControlsByFieldGroupId("fgDate");
+			var oFieldDate = null;
+			if (isFrag) {
+				oFieldDate = frag.getControlsByFieldGroupId("fgDate");
+			} else {
+				oFieldDate = that.getView().getControlsByFieldGroupId("fgDate");
+			}
 			oFieldDate.forEach(function(oFieldDat) {
 				try {
 					if (oFieldDat.getValueState() !== "Error" && oFieldDat.getRequired() && oFieldDat.getVisible() && oFieldDat.getEditable()) {
@@ -59,7 +64,12 @@ sap.ui.define([], function() {
 				} catch (e) {}
 			});
 			// validation for Time fields
-			var oFieldTime = that.getView().getControlsByFieldGroupId("fgTime");
+			var oFieldTime = null;
+			if (isFrag) {
+				oFieldTime = frag.getControlsByFieldGroupId("fgTime");
+			} else {
+				oFieldTime = that.getView().getControlsByFieldGroupId("fgTime");
+			}
 			oFieldTime.forEach(function(oFieldTim) {
 				try {
 					if (oFieldTim.getValueState() !== "Error" && oFieldTim.getRequired() && oFieldTime.getVisible() && oFieldTime.getEditable()) {
@@ -73,7 +83,13 @@ sap.ui.define([], function() {
 				} catch (e) {}
 			});
 			//validation for input field
-			var oFieldInput = that.getView().getControlsByFieldGroupId("fgInput");
+			var oFieldInput = null;
+			if (isFrag) {
+				oFieldInput = frag.getControlsByFieldGroupId("fgInput");
+			} else {
+				oFieldInput = that.getView().getControlsByFieldGroupId("fgInput");
+			}
+
 			oFieldInput.forEach(function(oFieldIn) {
 				try {
 					if (oFieldIn.getValueState() !== "Error" && oFieldIn.getRequired() && oFieldIn.getVisible() && oFieldIn.getEditable()) {
@@ -87,19 +103,25 @@ sap.ui.define([], function() {
 				} catch (e) {}
 			});
 			//validation for stepInput
-			var oFieldStInput = that.getView().getControlsByFieldGroupId("fgStepInput");
+			var oFieldStInput = null;
+			if (isFrag) {
+				oFieldStInput = frag.getControlsByFieldGroupId("fgStepInput");
+			} else {
+				oFieldStInput = that.getView().getControlsByFieldGroupId("fgStepInput");
+			}
 			oFieldStInput.forEach(function(oFieldSt) {
 				try {
 					if (oFieldSt.getValueState() !== "Error" && oFieldSt.getRequired() && oFieldSt.getVisible() && oFieldSt.getEditable()) {
 						if (oFieldSt.getValue() === "" || oFieldSt.getValue() === 0 || oFieldSt.getValue() === null || oFieldSt.getValue() === undefined) {
 							bErrorState = setErrortoFields(oFieldSt, that);
 						}
-						
-					} else if (oFieldSt.getValueState() !== "Error" && (oFieldSt.getMax() !== "" && oFieldSt.getMax() !== null && oFieldSt.getMax() !== undefined)  && oFieldSt.getValue() > oFieldSt.getMax()) {
-							bErrorState = setErrortoFields(oFieldSt, that);
-					}
-					else if (oFieldSt.getValueState() !== "Error" && (oFieldSt.getMin() !== "" && oFieldSt.getMin() !== null && oFieldSt.getMin() !== undefined) && oFieldSt.getValue() < oFieldSt.getMin()) {
-							bErrorState = setErrortoFields(oFieldSt, that);
+
+					} else if (oFieldSt.getValueState() !== "Error" && (oFieldSt.getMax() !== "" && oFieldSt.getMax() !== null && oFieldSt.getMax() !==
+							undefined) && oFieldSt.getValue() > oFieldSt.getMax()) {
+						bErrorState = setErrortoFields(oFieldSt, that);
+					} else if (oFieldSt.getValueState() !== "Error" && (oFieldSt.getMin() !== "" && oFieldSt.getMin() !== null && oFieldSt.getMin() !==
+							undefined) && oFieldSt.getValue() < oFieldSt.getMin()) {
+						bErrorState = setErrortoFields(oFieldSt, that);
 					} else if (oFieldSt.getValueState() === "Error") {
 						FocusonFields(oFieldSt);
 						bErrorState = true;
@@ -107,26 +129,32 @@ sap.ui.define([], function() {
 				} catch (e) {}
 			});
 			// validation for Segmented button fields
-			var oFieldSgBtn = that.getView().getControlsByFieldGroupId("fgSGBtn");
+			var oFieldSgBtn = null;
+			if (isFrag) {
+				oFieldSgBtn = frag.getControlsByFieldGroupId("fgSGBtn");
+			} else {
+				oFieldSgBtn = that.getView().getControlsByFieldGroupId("fgSGBtn");
+			}
 			oFieldSgBtn.forEach(function(oFieldSgBt) {
 				try {
 					if (oFieldSgBt.getVisible() && oFieldSgBt.getEnabled()) {
 						if (oFieldSgBt.getSelectedKey() === "" || oFieldSgBt.getSelectedKey() === null || oFieldSgBt.getSelectedKey() ===
 							undefined ||
-							oFieldSgBt.getSelectedKey() === "noKey" ||
-							oFieldSgBt.getSelectedKey() === "NA") {
+							oFieldSgBt.getSelectedKey() === "noKey") {
 							bErrorState = setErrortoFields(oFieldSgBt, that);
 							sap.m.MessageToast.show("Please fill all the required fields");
-						} else if (oFieldSgBt.getValueState() === "Error") {
-							FocusonFields(oFieldSgBt);
-							bErrorState = true;
 						}
 					}
 
 				} catch (e) {}
 			});
 			// validation for combobox fields
-			var oFieldCMBox = that.getView().getControlsByFieldGroupId("fgCmbBox");
+			var oFieldCMBox = null;
+			if (isFrag) {
+				oFieldCMBox = frag.getControlsByFieldGroupId("fgCmbBox");
+			} else {
+				oFieldCMBox = that.getView().getControlsByFieldGroupId("fgCmbBox");
+			}
 			oFieldCMBox.forEach(function(oFieldCB) {
 				try {
 					if (oFieldCB.getValueState() !== "Error" && oFieldCB.getRequired() && oFieldCB.getVisible() && oFieldCB.getEditable()) {
@@ -142,7 +170,12 @@ sap.ui.define([], function() {
 				} catch (e) {}
 			});
 			// validation for Text area fields
-			var oFieldTxtAr = that.getView().getControlsByFieldGroupId("fgTxtArea");
+			var oFieldTxtAr = null;
+			if (isFrag) {
+				oFieldTxtAr = frag.getControlsByFieldGroupId("fgTxtArea");
+			} else {
+				oFieldTxtAr = that.getView().getControlsByFieldGroupId("fgTxtArea");
+			}
 			oFieldTxtAr.forEach(function(oFieldTxt) {
 				try {
 					if (oFieldTxt.getValueState() !== "Error" && oFieldTxt.getRequired() && oFieldTxt.getVisible() && oFieldTxt.getEditable()) {
@@ -157,7 +190,7 @@ sap.ui.define([], function() {
 			});
 			// Validating entire field group id's
 			if (bErrorState) {
-				var oFieldIds = that.getView().getControlsByFieldGroupId("fgSGBtn");
+				var oFieldIds = that.getView().getControlsByFieldGroupId();
 				for (var i = 0; i < oFieldIds.length; i++) {
 					if (oFieldIds[i].getFieldGroupIds()[0] !== "fgSGBtn" && oFieldIds[i].getFieldGroupIds()[0] !== "" && oFieldIds[i].getFieldGroupIds()
 						.length !== 0) {
@@ -169,22 +202,6 @@ sap.ui.define([], function() {
 				}
 				return bErrorState;
 			}
-			// validation for  Redio fields
-			var oFieldRadiobtn = that.getView().getControlsByFieldGroupId("fgRedioBtn");
-			oFieldRadiobtn.forEach(function(oFieldIds) {
-				try {
-					for (var i = 0; i < oFieldIds.length; i++) {
-						if (oFieldIds[i].getFieldGroupIds()[0] !== "fgSGBtn" && oFieldIds[i].getFieldGroupIds()[0] !== "" && oFieldIds[i].getFieldGroupIds()
-							.length !== 0) {
-							if (oFieldIds[i].getValueState() === "Error") {
-								FocusonFields(oFieldIds[i]);
-								break;
-							}
-						}
-					}
-				} catch (e) {}
-			});
-
 		},
 		//2. Method for reseting the error state of the fields
 		resetErrorStates: function(that) {
