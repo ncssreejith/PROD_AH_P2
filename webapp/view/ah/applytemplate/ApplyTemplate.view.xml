@@ -38,7 +38,7 @@
 						</HBox>
 						<HBox justifyContent="End" visible="{applTmplModel>/header/bWorkCenter}">
 							<Label class="sapUiSmallMarginTop sapUiLargeMarginBegin" text="Choose template" design="Bold"/>
-							<ComboBox width="25rem" visible="{applTmplModel>/bWorkCenter}" change="onWorkCenterTempChange" required="true" fieldGroupIds="fgCmbBox"
+							<ComboBox placeholder="{i18n>phSelect}" width="25rem" visible="{applTmplModel>/bWorkCenter}" change="onWorkCenterTempChange" required="true" fieldGroupIds="fgCmbBox"
 								class="sapUiSmallMargin" items="{path:'applTmplModel>/tmpls'}" selectedKey="{applTmplModel>/header/selTmpl}"
 								valueStateText="{i18n>ERROR_GENERIC}">
 								<core:Item key="{applTmplModel>ddid}" text="{applTmplModel>description}"/>
