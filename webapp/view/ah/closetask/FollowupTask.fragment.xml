@@ -68,7 +68,10 @@
 												text="{parts:['TaskModel>tt1id','TaskModel>tt2id', 'TaskModel>CPRID'],templateShareable: false,formatter:'.formatter.taskContentTitle'}"
 												design="Bold"></Label>
 											<!--<Input fieldGroupIds="fgInput" value="{TaskModel>ftdesc}"></Input>-->
-											<TextArea width="100%" rows="5" value="{TaskModel>ftdesc}" maxLength="1000" showExceededText="true" liveChange="handleLiveChangeFlyingRequirements"/>
+											<TextArea width="100%" rows="5"
+												fieldGroupIds="{parts:['TaskModel>tmpid', 'TaskModel>tt1id'], templateShareable: false,formatter:'.formatter.textAreaFieldGrpFUTask'}"
+												required="{parts:['TaskModel>tmpid', 'TaskModel>tt1id'], templateShareable: false,formatter:'.formatter.textAreaRequiredFUTask'}" value="{TaskModel>ftdesc}"
+												maxLength="1000" showExceededText="true" liveChange="handleLiveChangeFlyingRequirements"/>
 											<layoutData>
 												<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 											</layoutData>

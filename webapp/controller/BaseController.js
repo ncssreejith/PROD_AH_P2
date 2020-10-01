@@ -9,8 +9,9 @@ sap.ui.define([
 	"../util/html2pdfbundle",
 	"avmet/ah/util/ajaxutil",
 	"avmet/ah/util/cvUtil",
-	"../model/AvMetInitialRecord"
-], function(Controller, JSONModel, MessageToast, Fragment, dataUtil, Log, html2pdfbundle, ajaxutil, cvUtil, AvMetInitialRecord) {
+	"../model/AvMetInitialRecord",
+	"sap/m/MessageBox",
+], function(Controller, JSONModel, MessageToast, Fragment, dataUtil, Log, html2pdfbundle, ajaxutil, cvUtil, AvMetInitialRecord, MessageBox) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for Managing generic function across the project               

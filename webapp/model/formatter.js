@@ -1646,6 +1646,26 @@ sap.ui.define([
 				}
 				return sText;
 			}
+		},
+		
+		textAreaRequiredFUTask : function (sTmpId, sTT1Id){
+			if (sTmpId) {
+				return true;
+			}
+			if (sTT1Id !== "TT1_11" && sTT1Id !== "TT1_14" && sTT1Id !== "TT1_15" && sTT1Id !== "TT1_16" && sTT1Id !== "TT1_19") {
+				return true;
+			}
+			return false;
+		},
+		
+		textAreaFieldGrpFUTask : function (sTmpId, sTT1Id){
+			if (sTmpId) {
+				return "fgTxtArea";
+			}
+			if (sTT1Id !== "TT1_11" && sTT1Id !== "TT1_14" && sTT1Id !== "TT1_15" && sTT1Id !== "TT1_16" && sTT1Id !== "TT1_19") {
+				return "fgTxtArea";
+			}
+			return "";
 		}
 
 	};
