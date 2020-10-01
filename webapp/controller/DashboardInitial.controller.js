@@ -799,13 +799,15 @@ sap.ui.define([
 					// LETOTAMT: "7000@8000@",
 					// LEUOM: "Pound@Pound@Pound@"
 				};
-				if (oFuel.LETOTAMT && oFuel.LEMAX) {
+				// if (oFuel.LETOTAMT && oFuel.LEMAX) {
 					
 					var aFL = [];
 					oData.results.forEach(function(oItem, i) {
 						var oTemp = {};
 						oTemp.REDESC = oItem.RESDESC;
 						oTemp.key = i;
+						oItem.LETOTAMT = oItem.LETOTAMT ? oItem.LETOTAMT : 0;
+						oItem.LEMAX = oItem.LEMAX ? oItem.LEMAX : 0;
 						oTemp.LTOTAMT = parseInt(oItem.LETOTAMT);
 						oTemp.LEMAX = parseInt(oItem.LEMAX);
 						oTemp.LEUOM = oItem.LEUOM;
@@ -818,7 +820,7 @@ sap.ui.define([
 					oFL.list.forEach(function(oItem) {
 						oFL.TOTAT += oItem.LTOTAMT;
 					});
-				}
+				// }
 				this.getModel("dashboardModel").setProperty("/fl", oFL);
 				this.getModel("dashboardModel").refresh();
 

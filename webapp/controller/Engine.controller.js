@@ -45,7 +45,7 @@ sap.ui.define([
 			var oSource = oEvent.getSource();
 			var sESJOBID = oSource.getBindingContext("oEngineModel").getObject().ESJOBID;
 			try {
-				this.getRouter().navTo("CosScheduleSummary",{
+				this.getRouter().navTo("CosScheduleSummary", {
 					ESJOBID: sESJOBID
 				});
 			} catch (e) {
@@ -250,8 +250,6 @@ sap.ui.define([
 					displayPowerLineChart: false
 				});
 				this.getView().setModel(oEngineModel, "oEngineModel");
-				
-				
 
 				this.getModel("oEngineModel").setProperty("/ENGID", oEvent.getParameter("arguments").ENGID);
 				this.getModel("oEngineModel").setProperty("/navType", oEvent.getParameter("arguments").navType);
@@ -281,7 +279,11 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length > 0) {
 						oData.results.forEach(function(oItem) {
+							if (oItem.ENGNO === null) {
+								oItem.ENGNO = "1";
+							}
 							oEngineModel.setProperty("/" + (oItem.ENGNO === "2" ? "header2Details" : "headerDetails"), oItem);
+
 							this._getEngPowerCheck(oItem.ENGID, oItem.ENGNO);
 							this._getEngineOilRepl(oItem.ENGID, oItem.ENGNO);
 							this._getEngCyclicLife(oItem.ENGID, oItem.ENGNO);
@@ -633,16 +635,18 @@ sap.ui.define([
 			html = id2 !== undefined ? this.generateHtml(this, html, id2) : html;
 			// </div>
 			html += "</body></html>";
-// 			{
-//   pagebreak: { mode: 'avoid-all', before: '#page2el' }
-// }
+			// 			{
+			//   pagebreak: { mode: 'avoid-all', before: '#page2el' }
+			// }
 			html2pdf().from(html).set({
 				margin: 0,
 				filename: tabName + '.pdf',
 				html2canvas: {
 					scale: 2
 				},
-				pagebreak: { mode: 'avoid-all' },
+				pagebreak: {
+					mode: 'avoid-all'
+				},
 				jsPDF: {
 					orientation: 'landscape',
 					unit: 'in',
@@ -685,8 +689,12 @@ sap.ui.define([
 			sDiff = Math.abs(sCurrentDate - new Date(sDate)) / 36e5;
 			return parseFloat(sDiff); // + " hrs";
 		},
+		/** 
+		 * If tailid is available
+		 * @returns
+		 */
 		fnCheckTailAvail: function() {
-			return ( this.getTailId() !== "NA" );
+			return (this.getTailId() !== "NA");
 		},
 		getSelectedTab: function() {
 			try {
