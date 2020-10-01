@@ -2879,7 +2879,7 @@ sap.ui.define([
 					}
 				}
 				FieldValidations.resetErrorStates(this);
-				if (FieldValidations.validateFields(this)) {
+			if (FieldValidations.validateFields(this,that._oMGDetails,true)) {
 					return;
 				}
 				if (oFlag) {
