@@ -2492,13 +2492,14 @@ sap.ui.define([
 		//  Private method: This will get called, to get Serial number for part number.
 		// Table: ENGINE
 		//--------------------------------------------------------------------------------------
-		getSerialNoPress: function(oEvent) {
+		getSerialNoPress: function(oEvent, oFlag) {
 			try {
 				var oPrmDD = {},
 					oModel,
-					oModelObj = oEvent.getSource().getModel("DetailsSupModel").getProperty("/partno"),
+					oModelObj,
 					that = this,
 					oPayload;
+				oModelObj = this._oSPDetails.getModel("DetailsSupEditModel").getProperty("/partno");
 				oPrmDD.filter = "ESTAT eq R and PARTNO eq " + oModelObj + " and INSON eq " + this.getTailId();
 				oPrmDD.error = function() {};
 
@@ -2507,6 +2508,39 @@ sap.ui.define([
 						oModel = dataUtil.createNewJsonModel();
 						oModel.setData(oData.results);
 						this.getView().setModel(oModel, "SerialNumModel");
+
+					} else {
+						MessageBox.error(
+							"Part number is invalid.", {
+								icon: sap.m.MessageBox.Icon.Error,
+								title: "Error",
+								styleClass: "sapUiSizeCompact"
+							});
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/GetSerNoSvc", oPrmDD, oPayload);
+			} catch (e) {
+				Log.error("Exception in getSerialNoPress function");
+			}
+		},
+
+		getSerialNoPressInstalled: function(oEvent, oFlag) {
+			try {
+				var oPrmDD = {},
+					oModel,
+					oModelObj,
+					that = this,
+					oPayload;
+				oModelObj = that._oMGDetails.getModel("ManageTaskModel").getProperty("/partno");
+				oPrmDD.filter = "ESTAT eq I and PARTNO eq " + oModelObj + " and INSON eq " + this.getTailId();
+				oPrmDD.error = function() {};
+
+				oPrmDD.success = function(oData) {
+					if (oData.results.length !== 0) {
+						oModel = dataUtil.createNewJsonModel();
+						oModel.setData(oData.results);
+						this.getView().setModel(oModel, "SerialNumModelInstalled");
 
 					} else {
 						MessageBox.error(
@@ -2879,7 +2913,7 @@ sap.ui.define([
 					}
 				}
 				FieldValidations.resetErrorStates(this);
-			if (FieldValidations.validateFields(this,that._oMGDetails,true)) {
+				if (FieldValidations.validateFields(this, that._oMGDetails, true)) {
 					return;
 				}
 				if (oFlag) {

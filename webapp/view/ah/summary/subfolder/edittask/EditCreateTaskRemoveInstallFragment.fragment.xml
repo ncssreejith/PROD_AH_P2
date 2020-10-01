@@ -62,17 +62,17 @@
 					<!--	required="{=((${ManageTaskModel>/engflag} === 'NE' || ${ManageTaskModel>/engflag} === 'NA') &amp;&amp; ${ManageTaskModel>/isser}==='Serial No. (S/N)') ? true:false}"-->
 					<!--	fieldGroupIds="fgInput" visible="{=${ManageTaskModel>/engflag} !== 'EG' ? true:false}"></Input>-->
 					<!--<Select id="cbSernr" forceSelection="false" width="170px" change="onTypeChange" selectedKey="{ManageTaskModel>/sernr}"-->
-					<!--	items="{SerialNumModel>/}" visible="{=${ManageTaskModel>/engflag} === 'EG' ? true:false}" valueStateText="{i18n>ERttSerNo}"-->
+					<!--	items="{SerialNumModelInstalled>/}" visible="{=${ManageTaskModel>/engflag} === 'EG' ? true:false}" valueStateText="{i18n>ERttSerNo}"-->
 					<!--	required="{=${ManageTaskModel>/engflag} === 'EG' &amp;&amp; ${ManageTaskModel>/isser}==='Serial No. (S/N)' ? true:false}"-->
 					<!--	fieldGroupIds="fgCmbBox">-->
-					<!--	<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>-->
+					<!--	<core:Item text="{SerialNumModelInstalled>SERNR}" key="{SerialNumModelInstalled>SERNR}"/>-->
 					<!--</Select>-->
 					<Input width="180px" maxLength="20" value="{ManageTaskModel>/sernr}" valueStateText="{i18n>ERttSerNoIn}" required="true"
 						fieldGroupIds="fgInput" visible="{=${ManageTaskModel>/engflag} !== 'EG' ? true:false}"></Input>
 					<Select id="cbSernr" forceSelection="false" width="170px" change="onTypeChange" selectedKey="{ManageTaskModel>/sernr}"
-						items="{SerialNumModel>/}" visible="{=${ManageTaskModel>/engflag} === 'EG' ? true:false}" valueStateText="{i18n>ERttSerNo}" required="true"
+						items="{SerialNumModelInstalled>/}" visible="{=${ManageTaskModel>/engflag} === 'EG' ? true:false}" valueStateText="{i18n>ERttSerNo}" required="true"
 						fieldGroupIds="fgCmbBox">
-						<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
+						<core:Item text="{SerialNumModelInstalled>SERNR}" key="{SerialNumModelInstalled>SERNR}"/>
 					</Select>
 				</VBox>
 			</HBox>
@@ -103,7 +103,7 @@
 						<Text text="For Engine Only"/>
 					</HBox>
 					<HBox>
-						<Button text="Get Serial No." class="sapUiTinyMarginBegin" press="getSerialNoPress"></Button>
+						<Button text="Get Serial No." class="sapUiTinyMarginBegin" press="getSerialNoPressInstalled"></Button>
 					</HBox>
 				</VBox>
 			</HBox>
