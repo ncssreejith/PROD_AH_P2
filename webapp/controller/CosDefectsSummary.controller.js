@@ -1744,8 +1744,8 @@ sap.ui.define([
 			oModel.setProperty("/cdesc", "");
 			oModel.setProperty("/tt4id", "");
 			oModel.setProperty("/tt3id", "");
-			oModel.setProperty("/ismat", "Part No.");
-			oModel.setProperty("/isser", "Serial No. (S/N)");
+			oModel.setProperty("/ismat", "");
+			oModel.setProperty("/isser", "");
 			oModel.setProperty("/fragid", "");
 			oModel.setProperty("/ftcdesc", "");
 			oModel.setProperty("/ftchkfor", "");

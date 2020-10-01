@@ -27,7 +27,7 @@
 					visible="{=(${ManageTaskModel>/tt1id} !== 'TT1_12' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_11' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_10' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_13' &amp;&amp; ${ManageTaskModel>/tmpid} === null &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_99') ? true : false}">
 					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.edittask.EditCreateTaskOthersFragment" type="XML"/>
 				</VBox>
-			<!--	<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{=${ManageTaskModel>/tt1id} === 'TT1_13' ? true : false}">
+				<!--	<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{=${ManageTaskModel>/tt1id} === 'TT1_13' ? true : false}">
 					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.edittask.EditCreateTaskToolCheckFragment" type="XML"/>
 				</VBox>-->
 				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{=${ManageTaskModel>/tmpid} !== null ? true : false}">
