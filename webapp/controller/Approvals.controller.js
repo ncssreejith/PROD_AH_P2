@@ -393,7 +393,8 @@ sap.ui.define([
 					"JDUDT": "",
 					"CREUSR": "",
 					"DMDID": "",
-					"OTHER_RSN": ""
+					"OTHER_RSN": "",
+					"CDESC":null 
 				};
 
 				oParameter.error = function(response) {
@@ -461,7 +462,8 @@ sap.ui.define([
 					"JDUDT": "",
 					"CREUSR": "",
 					"DMDID": "",
-					"OTHER_RSN": ""
+					"OTHER_RSN": "",
+					"CDESC":null 
 				};
 
 				oParameter.error = function(response) {
