@@ -1,0 +1,33 @@
+<mvc:View controllerName="avmet.ah.controller.PastFlightServicing" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core" displayBlock="true" xmlns="sap.m" xmlns:ct="avmet.ah.control">
+	<Page title="Past Flight Servicing ({oPastFlightModel>/sPageTitle})" showNavButton="true" enableScrolling="true"
+		navButtonPress="onNavBack">
+		<content>
+			<VBox class="sapUiSmallMargin backgroundBlue" >
+					<Toolbar>
+						<Title class="sapUiMediumMarginBegin" text="Select Tasks"></Title>
+					</Toolbar>
+					<VBox items="{path : 'oPastFlightModel>/aTasks' , sorter : { path : 'sequence', descending: false}}">
+						<l:Grid >
+							<VBox>
+								<ct:HeaderCard title="{oPastFlightModel>description}"/>
+							</VBox>
+							<!--<l:Grid >-->
+							<FlexBox wrap="Wrap" items="{path:'oPastFlightModel>subtask', templateShareable:false}" >
+								<items>
+									<ct:IconHeaderCard title="{oPastFlightModel>description}" press="onPressUpdateFlightSerTile" signOffFlag="{oPastFlightModel>status}"
+										class="sapUiSmallMarginEnd" hoverOut="onCardHoverOut" hover="onCardHover">
+										<Image src="{oPastFlightModel>ImgSrc}"/>
+										<core:Icon src="sap-icon://accept" color="white"></core:Icon>
+									</ct:IconHeaderCard>
+								</items>
+								<layoutData>
+									<l:GridData span="XL9 L9 M9 S9"/>
+								</layoutData>
+							</FlexBox>
+						</l:Grid>
+					</VBox>
+				</VBox>
+		</content>
+	</Page>
+</mvc:View>

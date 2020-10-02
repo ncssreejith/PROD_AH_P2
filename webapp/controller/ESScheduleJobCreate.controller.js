@@ -62,7 +62,7 @@ sap.ui.define([
 		onSelectionNatureofJobChange: function(oEvent) {
 			this.getModel("JobCreateModel").setProperty("/MODTYPE", 0);
 		},
-		
+
 		handleChange: function() {
 			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateJobPast", "errorCreateJobFuture");
 		},
@@ -76,8 +76,32 @@ sap.ui.define([
 				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq JDU";
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
+					var aJobDue = [];
+					//If coming from engine page
+					if (!this.fnCheckTailAvail() && oData.results) {
+						oData.results.forEach(function(oItem) {
+							switch (oItem.ddid) {
+								case "JDU_10":
+									aJobDue.push(oItem);
+									break;
+								case "JDU_22":
+									aJobDue.push(oItem);
+									break;
+							}
+						});
+					} else {
+						oData.results.forEach(function(oItem) {
+							switch (oItem.ddid) {
+								case "JDU_22":
+									break;
+								default:
+									aJobDue.push(oItem);
+									break;
+							}
+						});
+					}
 					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
+					oModel.setData(aJobDue);
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
@@ -106,6 +130,49 @@ sap.ui.define([
 				Log.error("Exception in _fnGetUtilisation function");
 			}
 		},
+		/** 
+		 * Get engine header data
+		 * @constructor 
+		 */
+		getEngineHeader: function() {
+			try {
+				var
+					oEngineModel = this.getView().getModel("JobCreateModel"),
+					oParameter = {};
+				var sEngID = oEngineModel.getProperty("/ENGID");
+				if (sEngID && sEngID !== " ") {
+					oParameter.filter = "ENGID eq '" + sEngID + "'";
+				} else {
+					oParameter.filter = "tailid eq '" + this.getTailId() + "'";
+				}
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject["JDU_22"] = {
+								VALUE: oData.results[i].EOT
+							};
+						}
+					}
+
+					// if (oData && oData.results && oData.results.length > 0) {
+					// 	oData.results.forEach(function(oItem) {
+					// 		if (oItem.ENGNO === null) {
+					// 			oItem.ENGNO = "1";
+					// 		}
+					// 		oEngineModel.setProperty("/" + (oItem.ENGNO === "2" ? "header2Details" : "headerDetails"), oItem);
+					// 	}.bind(this));
+
+					// }
+				}.bind(this);
+				ajaxutil.fnRead("/EngineDisSvc", oParameter);
+			} catch (e) {
+				Log.error("Exception in Engine:getEngineHeader function");
+				this.handleException(e);
+			}
+		},
 		_fnWorkCenterGet: function(sAir) {
 			try {
 				var that = this,
@@ -123,7 +190,7 @@ sap.ui.define([
 
 				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _fnWorkCenterGet function");
 			}
 		},
 
@@ -152,7 +219,7 @@ sap.ui.define([
 				oAppModel.setProperty("/UM", sDue);
 				oAppModel.updateBindings(true);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onDueSelectChange function");
 			}
 		},
 		//-------------------------------------------------------------
@@ -160,7 +227,7 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		ESJobCreate: function() {
 			try {
-				if (!this.handleChange()){
+				if (!this.handleChange()) {
 					return;
 				}
 				var that = this,
@@ -231,9 +298,19 @@ sap.ui.define([
 					}*/
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
-					this.getRouter().navTo("Cosjobs", {
-					State: "SCH"
-				});
+					if (!this.getModel("JobCreateModel").getProperty("/ENGID")) {
+						this.getRouter().navTo("Cosjobs", {
+							State: "SCH"
+						});
+					} else {
+						if (!this.fnCheckTailAvail()) {
+							this.getRouter().navTo("Engine", {
+								ENGID: this.getModel("JobCreateModel").getProperty("/ENGID")
+							}, true);
+						} else {
+							this.getRouter().navTo("Engine", {}, true);
+						}
+					}
 				}.bind(this);
 				oPrmTD.activity = 1;
 				ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_COS_JB", this);
@@ -264,8 +341,20 @@ sap.ui.define([
 				oJobModel.setData(oTempData[0]);
 
 				this.getView().setModel(oJobModel, "JobCreateModel");
+
+				var sEngID = oEvent.getParameter("arguments").ENGID;
+				this.getModel("JobCreateModel").setProperty("/ENGID", sEngID);
+				this.getModel("JobCreateModel").setProperty("/SERIAL", oEvent.getParameter("arguments").SN);
+				if (sEngID) {
+					this.getModel("JobCreateModel").setProperty("/SN", oEvent.getParameter("arguments").SN);
+					this.getModel("JobCreateModel").setProperty("/PN", oEvent.getParameter("arguments").ENGTY);
+					
+					this.getModel("JobCreateModel").setProperty("/CTYPE", "ENGINE");
+				}
+
 				this._fnJobDueGet(sAir);
 				this._fnGetUtilisation(sAir);
+				this.getEngineHeader();
 				this._fnWorkCenterGet(sAir);
 
 			} catch (e) {

@@ -3,35 +3,55 @@
 	<VBox backgroundDesign="Solid" width="100%" alignItems="Center">
 		<FlexBox class="sapUiSmallMarginTopBottom">
 			<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="6"
-				growingScrollToLoad="false" items="{path: 'oEngineModel>/EngineSchedule', filters : [{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="No Upcoming Schedules" showNoData="true">
+				growingScrollToLoad="false" items="{path: 'oEngineModel>/Engine2Schedule',sorter: [{ path: 'DUEIN', descending: false}]}" noDataText="No Upcoming Schedules" showNoData="true">
+				<!--, filters : [{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]-->
 				<headerToolbar>
 					<OverflowToolbar>
 						<content>
 							<Title level="H3" text="{i18n>tiUpcomingSchedules}"/>
 							<ToolbarSpacer/>
-							<Link text="{i18n>liView}" press="onScheduleLinkPress"/>
+							<Link text="{i18n>btnCreateOOPJob}" press="onSchedule2LinkPress"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
-					<Column width="6rem" hAlign="Center" class="CERTableTextColor">
-						<Label text="{i18n>lbServicingDue}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
-					</Column>
 					<Column width="6rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 						<Label text="{i18n>lbDueIn}" design="Bold" wrapping="true"/>
 					</Column>
+					<Column width="6rem" hAlign="Center" class="CERTableTextColor">
+						<HBox>
+							<Label text="Um" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<!--<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event, 'UM')"/>-->
+						</HBox>
+					</Column>
+					<Column width="6rem" hAlign="Center" class="CERTableTextColor">
+						<Label text="{i18n>lbServicingDue}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+					</Column>
+					
+					
 					<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 						<Label text="{i18n>lbJobDescriptionSc}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+					</Column>
+					<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Label text="Prime" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 					</Column>
 					<Column width="2rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
 				</columns>
 				<items>
-					<ColumnListItem type="Active">
+					<ColumnListItem type="Navigation" press="onDefectsDetailsPress">
 						<cells>
-							<Text text="{oEngineModel>SERVDUE}"/>
 							<Text text="{oEngineModel>DUEIN}"/>
+							<Text text="{oEngineModel>UM}"/>
+							<HBox justifyContent="Center">
+								<Text text="{path:'oEngineModel>SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}"
+									visible="{= ${oEngineModel>SERVDT}!=='' || ${oEngineModel>SERVDT}!==null ? true:false}"/>
+								<Text text="{oEngineModel>SERVDUE}" visible="{= ${oEngineModel>SERVDT}==='' || ${oEngineModel>SERVDT}===null ? true:false}"/>
+							</HBox>
+							
+							
 							<Text text="{oEngineModel>JOBDESC}"/>
-							<Button icon="sap-icon://open-command-field" type="Transparent" press="onDefectsDetailsPress"></Button>
+							<Text text="{oEngineModel>WRCTR}"/>
+							<Button icon="sap-icon://delete" type="Transparent" press="onDefectsDeleteDetailsPress"></Button>
 						</cells>
 					</ColumnListItem>
 				</items>

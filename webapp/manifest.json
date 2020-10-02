@@ -391,7 +391,7 @@
 				},
 				{
 					"name": "ESScheduleJobCreate",
-					"pattern": "ESScheduleJobCreate",
+					"pattern": "ESScheduleJobCreate/:ENGID:/:SN:/:ENGTY:",
 					"target": [
 						"ESScheduleJobCreate"
 					]

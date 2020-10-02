@@ -38,6 +38,9 @@ sap.ui.define([
 
 		onReplBtnClk: function(oEvent) {
 			try {
+				if(this.getModel("oReplModel").getProperty("/SRVID")){
+					return;
+				}
 				var sTile = oEvent.getSource().getBindingContext("oReplModel").getObject();
 				switch (sTile.remid) {
 					case "REM_F":
@@ -76,6 +79,7 @@ sap.ui.define([
 				}, "viewModel");
 				this.getModel("oReplModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
 				this.getModel("oReplModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
+				this.getModel("oReplModel").setProperty("/SRVID", oEvent.getParameter("arguments").srvid);
 				this.getModel("oReplModel").setProperty("/srv", []);
 				this.getModel("oReplModel").refresh();
 				this._getRepTiles();
@@ -87,9 +91,12 @@ sap.ui.define([
 		_getRepTiles: function() {
 			try {
 				var oParameter = {};
+				 var sSrvIdFilter = this.getModel("oReplModel").getProperty("/SRVID") ? 
+				 (" and SRVID eq " + this.getModel("oReplModel").getProperty("/SRVID") + " and PASTFLIGHT eq Y")
+				 : "";
 				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("oReplModel").getProperty("/srvtid") +
 					" and TAILID eq " + this.getTailId() +
-					" and STEPID eq " + this.getModel("oReplModel").getProperty("/stepid");
+					" and STEPID eq " + this.getModel("oReplModel").getProperty("/stepid") + sSrvIdFilter;
 				oParameter.error = function(hrex) {
 					this.updateModel({
 						busy: false
@@ -110,10 +117,13 @@ sap.ui.define([
 
 		_getFuelExtTanks: function() {
 			try {
+				var sSrvIdFilter = this.getModel("oReplModel").getProperty("/SRVID") ? 
+				 (" and SRVID eq " + this.getModel("oReplModel").getProperty("/SRVID") + " and PASTFLIGHT eq Y")
+				 : "";
 				var oParameter = {};
 				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("oReplModel").getProperty("/srvtid") +
 					" and TAILID eq " + this.getTailId() +
-					" and STEPID eq " + this.getModel("oReplModel").getProperty("/stepid");
+					" and STEPID eq " + this.getModel("oReplModel").getProperty("/stepid") + sSrvIdFilter;
 				oParameter.error = function(hrex) {
 					this.updateModel({
 						busy: false

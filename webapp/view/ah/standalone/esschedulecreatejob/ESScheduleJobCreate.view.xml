@@ -24,6 +24,7 @@
 						<VBox>
 							<Label text="{i18n>lbWINateureofJobs}" design="Bold"/>
 							<SegmentedButton id="SB1" class="sapUiSmallMarginBottom" selectionChange="onSelectionNatureofJobChange"
+							enabled="{= !${JobCreateModel>/ENGID}}"
 								selectedKey="{JobCreateModel>/CTYPE}" required="true" fieldGroupIds="fgSGBtn">
 								<items>
 									<SegmentedButtonItem id="idND" text="Aircraft" key="NA" visible="false"/>

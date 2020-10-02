@@ -204,6 +204,7 @@ sap.ui.define([
 			try {
 				this.getModel("rtModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
 				this.getModel("rtModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
+				this.getModel("rtModel").setProperty("/SRVID", oEvent.getParameter("arguments").srvid);
 				this.getModel("rtModel").setProperty("/isChange", false);
 				this.getModel("rtModel").setProperty("/sgEnable", false);
 				this.getModel("rtModel").setProperty("/tasks", []);
@@ -216,9 +217,13 @@ sap.ui.define([
 
 		_getRTTasks: function() {
 			try {
+				var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ? 
+				 (" and SRVID eq " + this.getModel("rtModel").getProperty("/SRVID") )
+				 : "";
 				var oParameter = {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("rtModel").getProperty("/srvtid") +
-					" and TAIL_ID eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid");
+					" and TAIL_ID eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") + sSrvIdFilter;
+					// + " and srvid eq " + this.getModel("rtModel").getProperty("/SRVID");
 				oParameter.error = function(hrex) {
 					this.updateModel({
 						busy: false
@@ -247,10 +252,13 @@ sap.ui.define([
 
 		_getRTLeadTasks: function() {
 			try {
+				var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ? 
+				 (" and SRVID eq " + this.getModel("rtModel").getProperty("/SRVID") )
+				 : "";
 				var oParameter = {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("rtModel").getProperty("/srvtid") +
 					" and TAIL_ID eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") +
-					" and leadflag eq X";
+					" and leadflag eq X" + sSrvIdFilter;
 				oParameter.error = function(hrex) {
 					this.updateModel({
 						busy: false

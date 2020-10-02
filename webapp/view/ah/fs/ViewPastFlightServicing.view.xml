@@ -1,0 +1,43 @@
+<mvc:View controllerName="avmet.ah.controller.ViewPastFlightServicing" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout">
+	<Page title="Past Flight Servicing" showNavButton="true" navButtonPress="onNavBack">
+		<VBox class="sapUiSmallMargin">
+			<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBegin CERTable tableHFont" 
+			items="{ path: 'ViewPastFlightServicingModel>/',sorter: { path: 'SRVID', descending: true}}"
+				width="95%">
+				<headerToolbar></headerToolbar>
+				<columns>
+					<Column hAlign="Center" width="8%" class="textColor">
+						<Label text="Date/ Time" design="Bold"/>
+					</Column>
+					<Column hAlign="Left" width="20%" class="textColor">
+						<Label text="Type of Servicing" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation" press="onClickFlightServicingDetails">
+						<cells>
+							<VBox>
+								<!--, {path:'ViewPastFlightServicingModel>CRETM', formatter:'.formatter.defaultTimeFormatDisplay'}-->
+								<Text
+									text="{path:'ViewPastFlightServicingModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+							</VBox>
+							<Text text="{ViewPastFlightServicingModel>SERVICEID_DESC}"/>
+							<!--<Text text="{ViewPastFlightServicingModel>SERVICEID_DESC}"/>-->
+							<!--<Text text="{ViewPastFlightServicingModel>REST_IMPOSE}"/>-->
+							<!--<HBox>-->
+							<!--	<VBox>-->
+							<!--	<Text text="{ViewPastFlightServicingModel>SCRCNT}" visible="{= ${ViewPastFlightServicingModel>MON_FOR} !== 'SORTI_5' &amp;&amp;  ${ViewPastFlightServicingModel>MON_FOR} !== 'SORTI_1'}"/>-->
+							<!--	<Text text="{ViewPastFlightServicingModel>COUNT}/{ViewPastFlightServicingModel>SCRCNT}" visible="{= ${ViewPastFlightServicingModel>MON_FOR} === 'SORTI_1'}"/>-->
+							<!--	<Text text="{ViewPastFlightServicingModel>SCRTEXT}" visible="{= ${ViewPastFlightServicingModel>MON_FOR} === 'SORTI_5'}"/>-->
+							<!--	</VBox>-->
+							<!--	<Text text="{ViewPastFlightServicingModel>MON_FORTXT}" class="sapUiTinyMarginBegin"/>-->
+							<!--</HBox>-->
+							<!--<Button type="Transparent" icon="sap-icon://navigation-right-arrow" press="onClickSortieDetails"/>-->
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</VBox>
+	</Page>
+</mvc:View>

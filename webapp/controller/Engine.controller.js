@@ -32,11 +32,25 @@ sap.ui.define([
 
 		onScheduleLinkPress: function() {
 			try {
-				this.getRouter().navTo("Cosjobs", {
-					State: "SCH"
+				this.getRouter().navTo("ESScheduleJobCreate", {
+					ENGID: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
+					SN: this.getModel("oEngineModel").getProperty("/headerDetails/SERIAL"),
+					ENGTY: this.getModel("oEngineModel").getProperty("/headerDetails/ENGTY")
 				});
 			} catch (e) {
 				Log.error("Exception in Engine:onScheduleLinkPress function");
+				this.handleException(e);
+			}
+		},
+		onSchedule2LinkPress: function() {
+			try {
+				this.getRouter().navTo("ESScheduleJobCreate", {
+					ENGID: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
+					SN: this.getModel("oEngineModel").getProperty("/header2Details/SERIAL"),
+					ENGTY: this.getModel("oEngineModel").getProperty("/header2Details/ENGTY")
+				});
+			} catch (e) {
+				Log.error("Exception in Engine:onSchedule2LinkPress function");
 				this.handleException(e);
 			}
 		},
@@ -50,6 +64,88 @@ sap.ui.define([
 				});
 			} catch (e) {
 				Log.error("Exception in Engine:onDefectsDetailsPress function");
+				this.handleException(e);
+			}
+		},
+		onETFEdit: function(oEvent) {
+			var oSource = oEvent.getSource();
+			var oObject = oSource.getBindingContext("oEngineModel").getObject();
+			if (this.getModel("oEngineModel").getProperty(
+					"/headerDetails/ETFEDIT")) {
+				this.fnSubmitETFSignOff(oObject);
+			}
+			this.getModel("oEngineModel").setProperty("/headerDetails/ETFEDIT", !this.getModel("oEngineModel").getProperty(
+				"/headerDetails/ETFEDIT"));
+
+		},
+		/** 
+		 * On OOP job delete
+		 * @param oEvent
+		 */
+		onDefectsDeleteDetailsPress: function(oEvent) {
+			var oSource = oEvent.getSource();
+			var oObject = oSource.getBindingContext("oEngineModel").getObject();
+			try {
+				this.fnSubmitDeleteJobSignOff(oObject);
+			} catch (e) {
+				Log.error("Exception in Engine:onDefectsDeleteDetailsPress function");
+				this.handleException(e);
+			}
+		},
+
+		/** 
+		 * Update to ESCJOBS for deletion
+		 */
+		fnSubmitDeleteJobSignOff: function(oObject) {
+			try {
+				var sPath = "/DelESJobsSvc";
+				var oData = [];
+				var oParameter = {};
+				oParameter.activity = 2;
+
+				oObject.J_FLAG = "X";
+				oData.push(oObject);
+
+				oParameter.error = function() {};
+				oParameter.success = function() {
+					sap.m.MessageToast.show("Tables updated");
+					this._getEngScheule(oObject.ENGNO, oObject.SN);
+				}.bind(this);
+				if (oData.length > 0) {
+					ajaxutil.fnUpdate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
+				} else {
+					sap.m.MessageToast.show("No table are changed");
+				}
+			} catch (e) {
+				Log.error("Exception in Engine:fnSubmitDeleteJobSignOff function");
+				this.handleException(e);
+			}
+		},
+		/** 
+		 * Update to ESCJOBS for deletion
+		 */
+		fnSubmitETFSignOff: function(oObject) {
+			try {
+				var sPath = "/EHSERSvc";
+				var oData = [];
+				var oParameter = {};
+				oParameter.activity = 2;
+
+				// oObject.J_FLAG = "X";
+				oData.push(oObject);
+
+				oParameter.error = function() {};
+				oParameter.success = function() {
+					sap.m.MessageToast.show("Tables updated");
+					this._getEngPowerCheck(oObject.ENGID, oObject.ENGNO);
+				}.bind(this);
+				if (oData.length > 0) {
+					ajaxutil.fnUpdate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
+				} else {
+					sap.m.MessageToast.show("No table are changed");
+				}
+			} catch (e) {
+				Log.error("Exception in Engine:fnSubmitDeleteJobSignOff function");
 				this.handleException(e);
 			}
 		},
@@ -253,6 +349,12 @@ sap.ui.define([
 
 				this.getModel("oEngineModel").setProperty("/ENGID", oEvent.getParameter("arguments").ENGID);
 				this.getModel("oEngineModel").setProperty("/navType", oEvent.getParameter("arguments").navType);
+
+				if (!this.fnCheckTailAvail()) {
+					this.getModel("avmetModel").setProperty("/airSel/tailid", "NA");
+					this.getModel("avmetModel").setProperty("/airSel/tailno", "NA");
+					this.getModel("avmetModel").refresh(true);
+				}
 				this._getHeader();
 
 			} catch (e) {
@@ -287,7 +389,7 @@ sap.ui.define([
 							this._getEngPowerCheck(oItem.ENGID, oItem.ENGNO);
 							this._getEngineOilRepl(oItem.ENGID, oItem.ENGNO);
 							this._getEngCyclicLife(oItem.ENGID, oItem.ENGNO);
-							this._getEngScheule();
+							this._getEngScheule(oItem.ENGNO, oItem.SERIAL);
 
 						}.bind(this));
 
@@ -306,7 +408,7 @@ sap.ui.define([
 		 */
 		_getEngPowerCheck: function(sEngID, iEngine) {
 			try {
-				var
+				var that = this,
 					oEngineModel = this.getView().getModel("oEngineModel"),
 					oParameter = {};
 				// var sEngID = oEngineModel.getProperty("/ENGID");
@@ -318,7 +420,21 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length) {
-
+						//sort by date
+						// oData.results.forEach(function(oItem) {
+						// 	oItem.ID = that.fnDateTime(oItem.SPDT, oItem.SPTM); //, 
+						// });
+						oData.results.sort(function(b, a) {
+							return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]);
+						});
+						var bFound = false;
+						oData.results.forEach(function(oItem) {
+							if (!bFound && oItem.CHKRN === "2") {
+								oItem.Special = true;
+								bFound = true;
+								oItem.minValue = parseFloat(JSON.parse(JSON.stringify(oItem.TQACT)));
+							}
+						});
 						if (oData) {
 							if (iEngine === "1") {
 								oEngineModel.setProperty("/EngPowerCheck", oData.results);
@@ -405,22 +521,48 @@ sap.ui.define([
 			}
 			return sDate + " " + sTime;
 		},
-		_getEngScheule: function() {
+		_getEngScheule: function(iEngine, sSerialNo) {
 			try {
 				var oEngineModel = this.getView().getModel("oEngineModel");
 				var oParameter = {};
-				oParameter.filter = "CTYPE eq ENGINE and tailid eq " + this.getTailId();
+				// oParameter.filter = "SN eq " + sSerialNo;
+				oParameter.filter = "CTYPE eq ENGINE and tailid eq " + this.getTailId() + " and SN eq" + sSerialNo;
+				// oEngineModel.getProperty("/headerDetails/SERIAL");
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					// for (var i = 0; i < oData.results.length; i++) {
-					// 	var date1 = new Date(oData.results[i].JDUVL);
-					// 	var date2 = new Date();
-					// 	var DiffDate = date1.getTime() - date2.getTime();
-					// 	var DiffIndays = DiffDate / (1000 * 3600 * 24);
-					// 	oData.results[i].DUEIN = Math.round(DiffIndays);
-					// }
-					oEngineModel.setProperty("/EngineSchedule", oData.results);
+					var that = this;
+					if (oData && oData.results && oData.results.length && oData.results.length > 0) {
+						var aEng1 = [],
+							aEng2 = [];
+						//sort by date
+						oData.results.forEach(function(oItem) {
+							oItem.ID = that.fnDateTime(oItem.CREDT, oItem.CRETM);
+							oItem.DUEIN = parseFloat(oItem.DUEIN);
+						});
+
+						oData.results.sort(function(a, b) {
+							return new Date(b.ID).getTime() - new Date(a.ID).getTime();
+						});
+
+						oData.results.forEach(function(oItem) {
+							if (that.getModel("oEngineModel").getProperty("/headerDetails/SERIAL") === oItem.SN) {
+								aEng1.push(oItem);
+							}
+							if (that.getModel("oEngineModel").getProperty("/header2Details/SERIAL") === oItem.SN) {
+								aEng2.push(oItem);
+							}
+						});
+
+						// if (this.getModel("oEngineModel").getProperty("/headerDetails/SERIAL") === oData.results[0].SN) {
+						oEngineModel.setProperty("/EngineSchedule", aEng1);
+						// } 
+						// if (this.getModel("oEngineModel").getProperty("/header2Details/SERIAL") === oData.results[0].SN) {
+						oEngineModel.setProperty("/Engine2Schedule", aEng2);
+						// }
+					}
+					// oEngineModel.setProperty("/EngineSchedule", oData.results);
 				}.bind(this);
+				// ajaxutil.fnRead("/DelESJobsSvc", oParameter);
 				ajaxutil.fnRead("/GetSerLogSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngScheule function");
@@ -500,10 +642,10 @@ sap.ui.define([
 						// aRedPoints.push(iDiff);
 						// aDataPoints.push(iDiff);
 					}
-					// else {
+
 					aDataPoints.push(iDiff);
 					aRedPoints.push(iDiff);
-					// }
+
 					aLDashPoints.push(iLLimit);
 					aUDashPoints.push(iULimit);
 					aLowerLimit.push(oItem.LLIMIT);

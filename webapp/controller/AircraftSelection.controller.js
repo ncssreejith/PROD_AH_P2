@@ -100,7 +100,7 @@ sap.ui.define([
 			// 	});
 			// 	return;
 			// }
-			this.fnLoadEngin();
+			this.fnLoadEngin(sInput);
 		},
 
 		onEnginePress: function(oEvent) {
@@ -109,6 +109,9 @@ sap.ui.define([
 			/*	var oSelType = this.getModel("oAirSelectViewModel").getProperty("/srcBy");
 				var sInput = this.getModel("oAirSelectViewModel").getProperty("/selInput");
 				var sSelTab = this.getModel("oAirSelectViewModel").getProperty("/selTab");*/
+			this.getModel("oAirSelectViewModel").setProperty("/sel/tailid", "NA");
+			this.getModel("oAirSelectViewModel").setProperty("/sel/tailno", "NA");
+			// this.getModel("avmetModel").setProperty("/dash/tailid", "NA");
 			var oData = this.getModel("oAirSelectViewModel").getProperty("/sel");
 			var sData = dataUtil.getDataSet(this.getOwnerComponent().appModel);
 			sData.airSel = oData;
@@ -171,6 +174,7 @@ sap.ui.define([
 				aResult = aResult.concat(oData.results);
 				this.getModel("oAirSelectViewModel").setProperty("/tails", aResult);
 				this.getModel("oAirSelectViewModel").setProperty("/sel/tailid", "NA");
+				this.getModel("oAirSelectViewModel").setProperty("/sel/tailno", "NA");
 				//this.getModel("oAirSelectViewModel").setProperty("/sel/tailno", oData.results.length > 0 ? oData.results[0].tailno : "");
 				this.getModel("oAirSelectViewModel").refresh();
 				this.fnLoadEnginDistinct();
@@ -225,8 +229,9 @@ sap.ui.define([
 			}.bind(this);
 			ajaxutil.fnRead("/GetWorkCenterSvc", oParameter);
 		},
-		fnLoadEngin: function() {
-			var selTailid = this.getModel("oAirSelectViewModel").getProperty("/sel/tailid");
+		fnLoadEngin: function(sEngType) {
+			var selTailid = this.getModel("oAirSelectViewModel").getProperty("/sel/tailid")
+			+ " and ENGTY eq " + sEngType;
 			var oParameter = {};
 			oParameter.filter = "tailid eq '" + selTailid + "'";
 			oParameter.error = function() {
@@ -265,6 +270,7 @@ sap.ui.define([
 		},
 		fnLoadEnginDistinct: function() {
 			var selTailid = this.getModel("oAirSelectViewModel").getProperty("/sel/tailid");
+			
 			var oParameter = {};
 			oParameter.filter = "tailid eq '" + selTailid + "'";
 			oParameter.error = function() {

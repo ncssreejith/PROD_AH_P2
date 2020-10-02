@@ -21,7 +21,7 @@
 					<Input  visible="{= ${oAirSelectViewModel>/srcBy}==='type'?false:true}" value="{oAirSelectViewModel>/selInput}" type="Text" placeholder="Search Engine ..." showSuggestion="true"
 						suggestionItems="{oAirSelectViewModel>/modelsDis}">
 						<suggestionItems>
-							<core:Item text="{oAirSelectViewModel>SERIAL}" additionalText="{oAirSelectViewModel>ENGID}"/>
+							<core:ListItem text="{oAirSelectViewModel>SERIAL}" additionalText="{oAirSelectViewModel>ENGID}"/>
 						</suggestionItems>
 					</Input>
 					<Button text="{= ${oAirSelectViewModel>/srcBy}==='type'?'Search':'Search'}" type="Emphasized" press="onEngineSearch"/>

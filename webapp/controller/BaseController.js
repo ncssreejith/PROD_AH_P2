@@ -11,7 +11,8 @@ sap.ui.define([
 	"avmet/ah/util/cvUtil",
 	"../model/AvMetInitialRecord",
 	"sap/m/MessageBox",
-], function(Controller, JSONModel, MessageToast, Fragment, dataUtil, Log, html2pdfbundle, ajaxutil, cvUtil, AvMetInitialRecord, MessageBox) {
+], function(Controller, JSONModel, MessageToast, Fragment, dataUtil, Log, html2pdfbundle, ajaxutil, cvUtil, AvMetInitialRecord,
+	MessageBox) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for Managing generic function across the project               
@@ -187,8 +188,13 @@ sap.ui.define([
 		onNavBack: function(oEvent, viewName) {
 
 			if (viewName !== undefined && viewName !== null) {
-				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-				oRouter.navTo(viewName);
+				if (this.fnCheckTailAvail()) {
+					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+					oRouter.navTo(viewName);
+				} else { //If no tailid
+					window.history.go(-1);
+				}
+
 			} else {
 
 				var oHistory, sPreviousHash;
@@ -198,7 +204,11 @@ sap.ui.define([
 				if (sPreviousHash !== undefined) {
 					window.history.go(-1);
 				} else {
-					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
+					if (this.fnCheckTailAvail()) {
+						this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
+					} else { //If no tailid
+						this.getRouter().navTo("AircraftSelection", {}, true /*no history*/ );
+					}
 				}
 			}
 		},
@@ -498,11 +508,11 @@ sap.ui.define([
 			}
 
 		},
-		
-		onStepChange : function (oEvent){
+
+		onStepChange: function(oEvent) {
 			var oSrc = oEvent.getSource(),
-			sVal = oSrc.getValue(),
-			sMinVal = oSrc.getMin();
+				sVal = oSrc.getValue(),
+				sMinVal = oSrc.getMin();
 			if (sMinVal > sVal) {
 				oSrc.setValue(sMinVal);
 			} else {
@@ -532,7 +542,7 @@ sap.ui.define([
 			// 	oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
 			// }
 		},
-		
+
 		onLogoffPress: function(oEvent) {
 			try {
 				var that = this;
@@ -583,7 +593,7 @@ sap.ui.define([
 				sValue = sValue.substring(0, iMaxLen);
 				oSource.setValue(sValue);
 			}
-			
+
 			if (sValue.length > 0) {
 				oSource.setValueState("None");
 			}
@@ -770,7 +780,13 @@ sap.ui.define([
 			}
 			return "";
 		},
-
+		/** 
+		 * If tailid is available
+		 * @returns
+		 */
+		fnCheckTailAvail: function() {
+			return (this.getTailId() !== "NA");
+		},
 		//AMIT KUMAR CHANGES 31082020 0207 
 		fnRemovePerFromRadial: function(oEvent) {
 			oEvent.getSource().onAfterRendering = function(oEvt) {

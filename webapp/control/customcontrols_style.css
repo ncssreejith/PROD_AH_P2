@@ -1057,6 +1057,16 @@ Description : This control used to add new work center in Rectifications area in
 
 .HeaderCardTitle {
     padding: 2rem;
+    /*padding-left: 2rem;*/
+    /*padding-right: 2rem;*/
+    /*padding-bottom: 1rem;*/
+}
+
+.HeaderCardSubHeaderDiv {
+    font-size: 12px !important;
+    padding-bottom: 5px;
+    padding-left: 2rem;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto', sans-serif;
 }
 
 

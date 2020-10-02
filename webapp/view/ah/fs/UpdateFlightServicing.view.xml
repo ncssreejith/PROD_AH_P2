@@ -1,6 +1,6 @@
 <mvc:View controllerName="avmet.ah.controller.UpdateFlightServicing" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
 	xmlns:core="sap.ui.core" displayBlock="true" xmlns="sap.m" xmlns:ct="avmet.ah.control">
-	<Page title="Update Flight Servicing ({oUpdateFlightModel>/sPageTitle})" showNavButton="true" enableScrolling="true"
+	<Page title="{= ${oUpdateFlightModel>/srv_id} ? 'Past':'Update'} Flight Servicing ({oUpdateFlightModel>/sPageTitle})" showNavButton="true" enableScrolling="true"
 		navButtonPress="onNavBack">
 		<content>
 			<VBox class="sapUiSmallMargin backgroundBlue" >
@@ -11,10 +11,12 @@
 					<VBox items="{path : 'oUpdateFlightModel>/aTasks' , sorter : { path : 'sequence', descending: false}}">
 						<l:Grid >
 							<VBox>
-								<ct:HeaderCard title="{oUpdateFlightModel>description}"/>
+								<ct:HeaderCard title="{oUpdateFlightModel>description}" 
+								 signOffFlag="X" signedBy="{oUpdateFlightModel>SGUSR}"
+								 dateTime="{path: 'oUpdateFlightModel>SGDTM', formatter: '.formatter.defaultDateTimeFormat'}"/>
 							</VBox>
 							<!--<l:Grid >-->
-							<FlexBox wrap="Wrap" items="{oUpdateFlightModel>subtask}">
+							<FlexBox wrap="Wrap" items="{path:'oUpdateFlightModel>subtask', templateShareable:false}">
 								<items>
 									<ct:IconHeaderCard title="{oUpdateFlightModel>description}" press="onPressUpdateFlightSerTile" signOffFlag="{oUpdateFlightModel>status}"
 										class="sapUiSmallMarginEnd" hoverOut="onCardHoverOut" hover="onCardHover">

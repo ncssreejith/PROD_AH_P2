@@ -15,9 +15,9 @@
 							<mc:RadialMicroChart tooltip=" " percentage="{parts : ['oReplModel>totamt','oReplModel>max'], formatter : '.formatter.FuelMC'}" size="M"
 								valueColor="{parts : ['oReplModel>totamt','oReplModel>max'], formatter : 'avmet.ah.model.formatter.FuelMCState'}" press="press"
 								class="percentageHidden"></mc:RadialMicroChart>
-							<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onEditIconPress"/>
-							<core:Icon src="sap-icon://up" useIconTooltip="false" color="green" size="10px" press="onEditIconPress"/>
-							<core:Icon src="sap-icon://down" useIconTooltip="false" color="red" size="10px" press="onEditIconPress"/>
+							<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onEditIconPress" visible="{= !${oReplModel>/SRVID}}"/>
+							<core:Icon src="sap-icon://up" useIconTooltip="false" color="green" size="10px" press="onEditIconPress" visible="{= !${oReplModel>/SRVID}}"/>
+							<core:Icon src="sap-icon://down" useIconTooltip="false" color="red" size="10px" press="onEditIconPress" visible="{= !${oReplModel>/SRVID}}"/>
 						</cs:FuelTile>
 					</grid:CSSGrid>
 				</l:VerticalLayout>
@@ -28,7 +28,7 @@
 						gridTemplateRows="130px" gridGap="0rem">
 						<cs:Others title="{oReplModel>resdescription}" subTitle="" count="{oReplModel>srvamt}"
 						footerRightInfo="{path:'oReplModel>upddate',formatter:'avmet.ah.model.formatter.fnDateDiff'}" footerLeftInfo="Max {oReplModel>max}" press="onReplBtnClk">
-							<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onIconPress"/>
+							<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onIconPress" visible="{= !${oReplModel>/SRVID}}"/>
 						</cs:Others>
 					</grid:CSSGrid>
 				</l:VerticalLayout>

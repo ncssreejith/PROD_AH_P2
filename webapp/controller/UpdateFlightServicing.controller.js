@@ -4,11 +4,13 @@ sap.ui.define([
 	"../model/dataUtil",
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
-	"sap/base/Log"
-], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log) {
+	"sap/base/Log",
+	"../model/formatter"
+], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log, formatter) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.UpdateFlightServicing", {
+		formatter: formatter,
 		// ***************************************************************************
 		//Developer : Priya
 		//                 1. UI Events  
@@ -103,31 +105,36 @@ sap.ui.define([
 					case "S_RT":
 						this.getOwnerComponent().getRouter().navTo("RoutineTasks", {
 							srvtid: oUpdateFlightModel.getProperty("/srvid"),
-							stepid: sSubId
+							stepid: sSubId,
+							srvid: oUpdateFlightModel.getProperty("/srv_id")
 						});
 						break;
 					case "S_FT":
 						this.getOwnerComponent().getRouter().navTo("FollowUpTasks", {
 							srvtid: oUpdateFlightModel.getProperty("/srvid"),
-							stepid: sSubId
+							stepid: sSubId,
+							srvid: oUpdateFlightModel.getProperty("/srv_id")
 						});
 						break;
 					case "S_WC":
 						this.getOwnerComponent().getRouter().navTo("WeaponConfig", {
 							srvtid: oUpdateFlightModel.getProperty("/srvid"),
-							stepid: sSubId
+							stepid: sSubId,
+							srvid: oUpdateFlightModel.getProperty("/srv_id")
 						});
 						break;
 					case "S_RE":
 						this.getOwnerComponent().getRouter().navTo("Replenishment", {
 							srvtid: oUpdateFlightModel.getProperty("/srvid"),
-							stepid: sSubId
+							stepid: sSubId,
+							srvid: oUpdateFlightModel.getProperty("/srv_id")
 						});
 						break;
 					case "S_CS":
 						this.getOwnerComponent().getRouter().navTo("PDSSummary", {
 							srvtid: oUpdateFlightModel.getProperty("/srvid"),
-							stepid: sSubId
+							stepid: sSubId,
+							srvid: oUpdateFlightModel.getProperty("/srv_id")
 						});
 						break;
 					case "S_CT":
@@ -136,7 +143,8 @@ sap.ui.define([
 						// 	"srvid": oUpdateFlightModel.getProperty("/srvid")
 						// });
 						this.getOwnerComponent().getRouter().navTo("CTCloseTask", {
-							"srvtid": oUpdateFlightModel.getProperty("/srvid")
+							"srvtid": oUpdateFlightModel.getProperty("/srvid"),
+							srvid: oUpdateFlightModel.getProperty("/srv_id")
 						});
 						break;
 				}
@@ -163,10 +171,17 @@ sap.ui.define([
 				var oUpdateFlightModel = this.getView().getModel("oUpdateFlightModel");
 				oUpdateFlightModel.setProperty("/aTasks", []);
 				oUpdateFlightModel.setProperty("/srvid", oEvent.getParameter("arguments").srvid);
+				var srv_id = oEvent.getParameter("arguments").srv_id;
+				oUpdateFlightModel.setProperty("/srv_id", srv_id);
 				oUpdateFlightModel.setProperty("/sPageTitle", oEvent.getParameter("arguments").srvid.split("_")[1]);
+				
+				var sSrvIdFilter = this.getModel("oUpdateFlightModel").getProperty("/srv_id") ? 
+				 (" and SRVID eq " + this.getModel("oUpdateFlightModel").getProperty("/srv_id") )
+				 : "";
 				var oParameter = {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oEvent.getParameter("arguments").srvid +
-					" and tailid eq " + this.getTailId();
+					" and tailid eq " + this.getTailId() 
+					+ sSrvIdFilter;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					oData.results.forEach(function(oItem) {
@@ -185,9 +200,14 @@ sap.ui.define([
 			try {
 				var oUpdateFlightModel = this.getView().getModel("oUpdateFlightModel"),
 					aTasks = oUpdateFlightModel.getProperty("/aTasks");
+					
+				var sSrvIdFilter = this.getModel("oUpdateFlightModel").getProperty("/srv_id") ? 
+				 (" and SRVID eq " + this.getModel("oUpdateFlightModel").getProperty("/srv_id") )
+				 : "";
+					
 				var oParameter = {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oUpdateFlightModel.getProperty("/srvid") +
-					" and mainid eq " + oItem.mainid + " and tailid eq " + this.getTailId();
+					" and mainid eq " + oItem.mainid + " and tailid eq " + this.getTailId() + sSrvIdFilter;
 				oParameter.error = function() {};
 				oParameter.success = function(oItem, oData) {
 					if (oData.results.length) {

@@ -36,8 +36,12 @@ sap.ui.define([
 		 *  To handle side navigation toggle
 		 */
 		onSideNavButtonPress: function(oEvent) {
+			if (!this.fnCheckTailAvail()) {
+				return;
+			}
 			if (this.getModel("avmetModel").getProperty("/ispopOpen")) {
 				this._oPopover.close();
+
 				this.getModel("avmetModel").setProperty("/ispopOpen", false);
 				this.getModel("avmetModel").refresh();
 			}

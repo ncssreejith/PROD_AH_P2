@@ -28,6 +28,7 @@
 			</IconTabBar>
 		</content>
 		<footer>
+			<!--visible="{= !${rtModel>/SRVID}}"-->
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<Button text="Back" press="onNavBack" type="Transparent"/>
