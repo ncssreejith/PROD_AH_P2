@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog title="Add Serial Number" contentHeight="auto" contentWidth="auto">
+	<Dialog title="{SerialAddSet>/Title}" contentHeight="auto" contentWidth="auto">
 		<VBox class="sapUiSmallMargin">
 			<VBox class="sapUiSmallMarginTop">
 				<VBox class="sapUiTinyMarginTop">

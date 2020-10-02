@@ -81,10 +81,10 @@
 										<Text text="{applTmplModel>TDESC}"/>
 										<Text text="{applTmplModel>FTDESC}" wrapping="true"/>
 										<VBox>
-											<Button text="Add Serial Number" type="Emphasized"
+											<Button text="{= ${applTmplModel>EDITFLAG} === true ? 'Edit' : 'Add'} Serial Number" type="Emphasized"
 												visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}"
 												press="onSerialNumPress($event,'SERIAL')"></Button>
-											<Button text="Add Batch Number" type="Emphasized"
+											<Button text="{= ${applTmplModel>EDITFLAG} === true ? 'Edit' : 'Add'} Batch Number" type="Emphasized"
 												visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.batchTemplateBtnVisibility'}"
 												press="onSerialNumPress($event,'BATCH')"></Button>
 										</VBox>
@@ -120,10 +120,10 @@
 										<Text text="{applTmplModel>TDESC}"/>
 										<Text text="{applTmplModel>FTDESC}"/>
 										<VBox>
-											<Button text="Add Serial Number" type="Emphasized"
+											<Button text="{= ${applTmplModel>EDITFLAG} === true ? 'Edit' : 'Add'} Serial Number" type="Emphasized"
 												visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}"
 												press="onSerialNumPress($event,'SERIAL')"></Button>
-											<Button text="Add Batch Number" type="Emphasized"
+											<Button text="{= ${applTmplModel>EDITFLAG} === true ? 'Edit' : 'Add'} Batch Number" type="Emphasized"
 												visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.batchTemplateBtnVisibility'}"
 												press="onSerialNumPress($event,'BATCH')"></Button>
 										</VBox>

@@ -250,7 +250,12 @@ sap.ui.define([
 						this);
 					oObj.ISMAT = "Part No.";
 					oObj.ISSER = sKey === "SERIAL" ? "Serial No. (S/N)" : "Batch No.";
-					oObj.ENGFLAG = "NA";
+					oObj.ENGFLAG = oObj.ENGFLAG ? oObj.ENGFLAG : "NA";
+					if (oObj.EDITFLAG){
+						oObj.Title = sKey === "SERIAL" ? "Edit Serial Number" : "Edit Batch Number";
+					} else {
+						oObj.Title = sKey === "SERIAL" ? "Add Serial Number" : "Add Batch Number";
+					}
 					oModel.setData(oObj);
 					that._oAddSR.setModel(oModel, "SerialAddSet");
 					that.getView().addDependent(that._oAddSR);
@@ -343,9 +348,15 @@ sap.ui.define([
 				return;
 			}
 			var obj = this.serialContext.getObject();
-			var desc = obj.TDESC;
+			var sContext = this.serialContext.getPath();
+			sContext = sContext.replace("tasks", "tasksCopy");
+			var objCopy = this.getModel("applTmplModel").getProperty(sContext);
+			var desc = objCopy.TDESC;
 			desc = desc.replace("&SERNR&", obj.SERNR);
 			oModel.setProperty(this.serialContext.getPath() + "/TDESC", desc);
+			oModel.setProperty(this.serialContext.getPath() + "/ENGFLAG", sKey);
+			oModel.setProperty(this.serialContext.getPath() + "/EDITFLAG", true);
+			
 			//oModel.updateBindings(true);
 			that.onSerialNumClose();
 		},
@@ -472,6 +483,7 @@ sap.ui.define([
 							oModel.setProperty("/tmpls", oData.results);
 						} else {
 							oModel.setProperty("/tasks", oData.results);
+							oModel.setProperty("/tasksCopy", JSON.parse(JSON.stringify(oData.results)));
 							oModel.setProperty("/ApplyTempTable", true);
 							oModel.setProperty("/SelectTaskTable", true);
 						}

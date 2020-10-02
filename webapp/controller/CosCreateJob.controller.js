@@ -79,6 +79,10 @@ sap.ui.define([
 		},
 
 		handleChange: function() {
+			var aData = this.getModel("appModel").getData();
+			if (aData.editMode) {
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture",aData.creDt, aData.cretm);
+			}
 			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateJobPast", "errorCreateJobFuture");
 		},
 
@@ -615,6 +619,9 @@ sap.ui.define([
 				if (FieldValidations.validateFields(this)) {
 					return;
 				}
+				if (!this.handleChange()) {
+					return;
+				}
 				oPayload = AvMetInitialRecord.createInitialBlankRecord("SCHJob")[0];
 
 				oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));
@@ -1007,15 +1014,18 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
+					oViewModel.setProperty("/editMode", true);
 					var oModel = this.getView().getModel("oViewCreateModel");
 					this.removeCoordinates();
 					if (oData.results.length !== 0) {
 						try {
+							oViewModel.setProperty("/creDt", oData.results[0].credt);
 							oData.results[0].credt = new Date(oData.results[0].credt);
 						} catch (e) {
 							oData.results[0].credt = oData.results[0].credt;
 						}
 						try {
+							oViewModel.setProperty("/cretm", oData.results[0].cretm);
 							oData.results[0].cretm = formatter.defaultTimeFormatDisplay(oData.results[0].cretm);
 						} catch (e) {
 							oData.results[0].cretm = oData.results[0].cretm;
@@ -1235,7 +1245,8 @@ sap.ui.define([
 					"XCor": "",
 					"YCor": "",
 					"DefectArea": "",
-					"oFlagEdit": true
+					"oFlagEdit": true,
+					"editMode": false
 
 				});
 				this.getView().setModel(oAppModel, "appModel");
