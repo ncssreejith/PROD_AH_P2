@@ -557,7 +557,10 @@ sap.ui.define([
 				var that = this,
 					oPrmWB = {};
 				oPrmWB.filter = "";
-				oPrmWB.error = function() {};
+				oPrmWB.error = function() {
+					var data = dataUtil.setDataSet("oUserSession", null);
+					sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
+				};
 				oPrmWB.success = function(oData) {
 					var data = dataUtil.setDataSet("oUserSession", null);
 					sap.m.URLHelper.redirect("/avmetlogin/index.html", false);

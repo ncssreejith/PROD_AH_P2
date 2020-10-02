@@ -211,17 +211,19 @@ sap.ui.define([
 		},
 
 		fnEncryptDetails: function(user, xhr) {
-			try {
-				xhr.setRequestHeader("PLANTUSER", dataUtil.getDataSet("oUserSession").PLANTUSER);
-				xhr.setRequestHeader("uname", user.username);
-				xhr.setRequestHeader("pin", user.password);
-				xhr.setRequestHeader("objid", user.objid);
-				xhr.setRequestHeader("activity", user.activity === undefined ? "99" : user.activity);
-				xhr.setRequestHeader("platform", dataUtil.getDataSet("oUserSession").platform.Platform);
-				xhr.setRequestHeader("sessionid", dataUtil.getDataSet("oUserSession").sessionid);
-			} catch (e) {
-				Log.error("Exception in fnEncryptDetails function");
-			}
+			 try {
+                xhr.setRequestHeader("uname", user.username);
+                xhr.setRequestHeader("pin", user.password);
+                xhr.setRequestHeader("objid", user.objid);
+                xhr.setRequestHeader("activity", user.activity === undefined ? "99" : user.activity);
+                if(dataUtil.getDataSet("oUserSession")){
+                    xhr.setRequestHeader("PLANTUSER", dataUtil.getDataSet("oUserSession").PLANTUSER);
+                    xhr.setRequestHeader("platform", dataUtil.getDataSet("oUserSession").platform.Platform);
+                    xhr.setRequestHeader("sessionid", dataUtil.getDataSet("oUserSession").sessionid);
+                }
+            } catch (e) {
+                Log.error("Exception in fnEncryptDetails function");
+            }
 
 		},
 
