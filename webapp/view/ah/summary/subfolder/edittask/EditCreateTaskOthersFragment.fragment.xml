@@ -8,7 +8,7 @@
 						color="#031E48"/>
 				</HBox>
 				<TextArea maxLength="500" valueStateText="{i18n>ERttTaskDesc}" value="{ManageTaskModel>/cdesc}" fieldGroupIds="fgTxtArea"
-					required="{=(${ManageTaskModel>/tt1id} === 'TT1_14' || ${ManageTaskModel>/tt1id} === 'TT1_15' || ${ManageTaskModel>/tt1id} === 'TT1_16' || ${ManageTaskModel>/tt1id} === 'TT1_19') ? true : false}"
+					required="{=(${ManageTaskModel>/tt1id} === 'TT1_14' || ${ManageTaskModel>/tt1id} === 'TT1_15' || ${ManageTaskModel>/tt1id} === 'TT1_17' || ${ManageTaskModel>/tt1id} === 'TT1_18') ? true : false}"
 					showExceededText="true" width="350px" rows="5" liveChange="handleLiveChangeFlyingRequirements"/>
 			</VBox>
 			<VBox class="sapUiLargeMarginBegin">

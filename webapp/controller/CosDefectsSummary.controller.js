@@ -1922,9 +1922,10 @@ sap.ui.define([
 				if (oTable.getSelectedItems().length !== 0) {
 					for (var i = 0; i < oTable.getSelectedItems().length; i++) {
 						oObj = oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject();
-						oTempObj = this._fnGetObjectTypeAndActivity(oObj.symbol, oObj.tt1id);
+						oTempObj = this._fnGetObjectTypeAndActivity(oObj.tt1id);
 						oObj.objectid = oTempObj.obj;
 						oObj.activity = oTempObj.Act;
+						oObj.symbol="0";
 						oObj.tstat = "C";
 						oPayload.push(oObj);
 					}
@@ -2091,10 +2092,11 @@ sap.ui.define([
 				if (oTable.getSelectedItems().length !== 0) {
 					for (var i = 0; i < oTable.getSelectedItems().length; i++) {
 						oObj = oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject();
-						oTempObj = this._fnGetObjectTypeAndActivity(oObj.symbol, oObj.tt1id);
+						oTempObj = this._fnGetObjectTypeAndActivity(oObj.tt1id);
 						oObj.tstat = "X";
 						oObj.objectid = oTempObj.obj;
 						oObj.activity = oTempObj.Act;
+						oObj.symbol="0";
 						oPayload.push(oObj);
 					}
 					oPrmTask.filter = "";
@@ -2298,15 +2300,15 @@ sap.ui.define([
 			}
 		},
 
-		_fnGetObjectTypeAndActivity: function(oSymbol, sTaskType) {
+		_fnGetObjectTypeAndActivity: function(sTaskType) {
 			var oTemp;
-			if (oSymbol === "1") {
+		/*	if (oSymbol === "1") {
 				oTemp = {
 					"obj": "ZRM_S_REDX",
 					"Act": "4"
 				};
 				return oTemp;
-			} else {
+			} else {*/
 				switch (sTaskType) {
 					case "TT1_10":
 					case "TT1_11":
@@ -2350,7 +2352,7 @@ sap.ui.define([
 						};
 						return oTemp;
 				}
-			}
+			/*}*/
 		},
 
 		// ***************************************************************************
@@ -2796,7 +2798,8 @@ sap.ui.define([
 				} catch (e) {
 					oPayload.utilvl = oPayload.utilvl;
 				}
-				oTempObj = this._fnGetObjectTypeAndActivity(oPayload.symbol, oPayload.tt1id);
+				oTempObj = this._fnGetObjectTypeAndActivity(oPayload.tt1id);
+				oPayload.symbol="0";
 				/*				delete oPayload[i].ValueState;
 								delete oPayload[i].ftcredtStateText;
 								delete oPayload[i].ftcretmState;*/
@@ -2900,7 +2903,7 @@ sap.ui.define([
 					}
 				}
 
-				if (oPayload.tt1id === "TT1_14") {
+				/*if (oPayload.tt1id === "TT1_14") {
 					if (oPayload.symbol !== "0") {
 						oFlag = true;
 					} else {
@@ -2912,7 +2915,7 @@ sap.ui.define([
 							});
 						oFlag = false;
 					}
-				}
+				}*/
 				FieldValidations.resetErrorStates(this);
 				if (FieldValidations.validateFields(this, that._oMGDetails, true)) {
 					return;
@@ -2923,7 +2926,7 @@ sap.ui.define([
 					if (oPayload.cdesc !== "" && oPayload.cdesc !== null && oPayload.tt1id !== "TT1_99") {
 						oPayload.tdesc = oPayload.cdesc;
 					}
-					oTempObj = this._fnGetObjectTypeAndActivity(oPayload.symbol, oPayload.tt1id);
+					oTempObj = this._fnGetObjectTypeAndActivity(oPayload.tt1id);
 					oPrmTask.filter = "";
 					oPrmTask.error = function() {};
 					oPrmTask.success = function(oData) {
