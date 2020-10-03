@@ -112,11 +112,11 @@
 													class="sapUiSmallMarginBegin"
 													fieldGroupIds="{parts:['DetailsSupModel>/engflag','DetailsSupModel>/isser','DetailsSupModel>/tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputGroupVisible'}"
 													visible="{parts:['DetailsSupModel>/engflag','DetailsSupModel>/isser','DetailsSupModel>/tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputVisible'}"
-													required="{parts:['DetailsSupModel>/engflag','DetailsSupModel>/isser','DetailsSupModel>/tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputRequired'}"/>
+													required="{parts:['DetailsSupModel>/engflag','DetailsSupModel>/isser','DetailsSupModel>/tt2id','DetailsSupModel>/tt1id'],templateShareable: false,formatter:'.formatter.serialNoInputRequired'}"/>
 												<ComboBox editable="false" width="180px" selectedKey="{DetailsSupModel>/ftsernr}" items="{path:'SerialNumModel>/',templateShareable: false}"
 													fieldGroupIds="{parts:['DetailsSupModel>/engflag','DetailsSupModel>/isser'],templateShareable: false,formatter:'.formatter.serialNoCBGroupVisible'}"
-													visible="{parts:['DetailsSupModel>/engflag','DetailsSupModel>/isser'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
-													required="{parts:['DetailsSupModel>/engflag','DetailsSupModel>/isser'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
+													visible="{parts:['DetailsSupModel>/engflag','DetailsSupModel>/isser','DetailsSupModel>/tt1id'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
+													required="{parts:['DetailsSupModel>/engflag','DetailsSupModel>/isser','DetailsSupModel>/tt1id'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
 													class="sapUiSmallMarginBegin">
 													<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
 												</ComboBox>

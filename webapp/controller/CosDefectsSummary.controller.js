@@ -1758,7 +1758,7 @@ sap.ui.define([
 			oModel.setProperty("/ftrsltgd", "");
 			oModel.setProperty("/ftsernr", "");
 			oModel.setProperty("/ftt1id", "");
-			oModel.setProperty("/fttoref", "");
+			oModel.setProperty("/fttoref", "IETM");
 			oModel.setProperty("/rtstat", "X");
 			oModel.setProperty("/sernr", "");
 			oModel.setProperty("/itemno", "");
@@ -1766,6 +1766,7 @@ sap.ui.define([
 			oModel.setProperty("/tdesc", "");
 			oModel.setProperty("/symbol", "0");
 			oModel.refresh();
+			oModel.updateBindings(true);
 		},
 
 		onRemoveInstallTaskChange: function(oEvent) {

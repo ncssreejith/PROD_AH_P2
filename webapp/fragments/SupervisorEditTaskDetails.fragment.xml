@@ -115,11 +115,11 @@
 											<Input width="180px" maxLength="20" change="onChangeDataInput" value="{DetailsSupEditModel>/ftsernr}" class="sapUiSmallMarginBegin"
 												fieldGroupIds="{parts:['DetailsSupEditModel>/engflag','DetailsSupEditModel>/isser','DetailsSupEditModel>/tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputGroupVisible'}"
 												visible="{parts:['DetailsSupEditModel>/engflag','DetailsSupEditModel>/isser','DetailsSupEditModel>/tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputVisible'}"
-												required="{parts:['DetailsSupEditModel>/engflag','DetailsSupEditModel>/isser','DetailsSupEditModel>/tt2id'],templateShareable: false,formatter:'.formatter.serialNoInputRequired'}"/>
+												required="{parts:['DetailsSupEditModel>/engflag','DetailsSupEditModel>/isser','DetailsSupEditModel>/tt2id','DetailsSupEditModel>/tt1id'],templateShareable: false,formatter:'.formatter.serialNoInputRequired'}"/>
 											<ComboBox width="180px" selectedKey="{DetailsSupEditModel>/ftsernr}" items="{path:'SerialNumModel>/',templateShareable: false}"
 												fieldGroupIds="{parts:['DetailsSupEditModel>/engflag','DetailsSupEditModel>/isser'],templateShareable: false,formatter:'.formatter.serialNoCBGroupVisible'}"
-												visible="{parts:['DetailsSupEditModel>/engflag','DetailsSupEditModel>/isser'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
-												required="{parts:['DetailsSupEditModel>/engflag','DetailsSupEditModel>/isser'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
+												visible="{parts:['DetailsSupEditModel>/engflag','DetailsSupEditModel>/isser','DetailsSupEditModel>/tt1id'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
+												required="{parts:['DetailsSupEditModel>/engflag','DetailsSupEditModel>/isser','DetailsSupEditModel>/tt1id'],templateShareable: false,formatter:'.formatter.serialNoCBVisible'}"
 												class="sapUiSmallMarginBegin">
 												<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
 											</ComboBox>
