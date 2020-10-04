@@ -38,8 +38,8 @@
 						</HBox>
 						<HBox justifyContent="End" visible="{applTmplModel>/header/bWorkCenter}">
 							<Label class="sapUiSmallMarginTop sapUiLargeMarginBegin" text="Choose template" design="Bold"/>
-							<ComboBox placeholder="{i18n>phSelect}" width="25rem" visible="{applTmplModel>/bWorkCenter}" change="onWorkCenterTempChange" required="true" fieldGroupIds="fgCmbBox"
-								class="sapUiSmallMargin" items="{path:'applTmplModel>/tmpls'}" selectedKey="{applTmplModel>/header/selTmpl}"
+							<ComboBox placeholder="{i18n>phSelect}" width="25rem" visible="{applTmplModel>/bWorkCenter}" change="onWorkCenterTempChange" required="true"
+								fieldGroupIds="fgCmbBox" class="sapUiSmallMargin" items="{path:'applTmplModel>/tmpls'}" selectedKey="{applTmplModel>/header/selTmpl}"
 								valueStateText="{i18n>ERROR_GENERIC}">
 								<core:Item key="{applTmplModel>ddid}" text="{applTmplModel>description}"/>
 							</ComboBox>
@@ -92,10 +92,7 @@
 								</ColumnListItem>
 							</items>
 						</Table>
-						<Table id="tbTask" width="60rem" visible="{applTmplModel>/SelectTaskTable}" mode="MultiSelect"
-							class="sapUiResponsivePadding sapUiSmallMarginTop CERTable sapUiSizeCompact TableNoDataText"
-							items="{path:'applTmplModel>/tasks',filters:[{path:'RTTY',operator:'NE',value1:'M'}],sorter:{path:'RTASKID', descending:false, group:false}}"
-							rememberSelections="true">
+						<Panel expandable="true" expanded="true" visible="{applTmplModel>/SelectTaskTable}" width="60rem" class="sapUiSmallMarginTop">
 							<headerToolbar>
 								<OverflowToolbar>
 									<content>
@@ -105,32 +102,37 @@
 									</content>
 								</OverflowToolbar>
 							</headerToolbar>
-							<columns >
-								<Column class="CERTableTextColor" hAlign="left" width="auto">
-									<Label text="Task" design="Bold"/>
-								</Column>
-								<Column minScreenWidth="Tablet" demandPopin="true" width="auto">
-									<Label text="Follow-up Task" design="Bold"/>
-								</Column>
-								<Column width="13rem"></Column>
-							</columns>
-							<items >
-								<ColumnListItem unread="true">
-									<cells>
-										<Text text="{applTmplModel>TDESC}"/>
-										<Text text="{applTmplModel>FTDESC}"/>
-										<VBox>
-											<Button text="{= ${applTmplModel>EDITFLAG} === true ? 'Edit' : 'Add'} Serial Number" type="Emphasized"
-												visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}"
-												press="onSerialNumPress($event,'SERIAL')"></Button>
-											<Button text="{= ${applTmplModel>EDITFLAG} === true ? 'Edit' : 'Add'} Batch Number" type="Emphasized"
-												visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.batchTemplateBtnVisibility'}"
-												press="onSerialNumPress($event,'BATCH')"></Button>
-										</VBox>
-									</cells>
-								</ColumnListItem>
-							</items>
-						</Table>
+							<Table id="tbTask" width="60rem" visible="{applTmplModel>/SelectTaskTable}" mode="MultiSelect"
+								class="sapUiResponsivePadding sapUiSmallMarginTop CERTable sapUiSizeCompact TableNoDataText"
+								items="{path:'applTmplModel>/tasks',filters:[{path:'RTTY',operator:'NE',value1:'M'}],sorter:{path:'RTASKID', descending:false, group:false}}"
+								rememberSelections="true">
+								<columns>
+									<Column class="CERTableTextColor" hAlign="left" width="auto">
+										<Label text="Task" design="Bold"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true" width="auto">
+										<Label text="Follow-up Task" design="Bold"/>
+									</Column>
+									<Column width="13rem"></Column>
+								</columns>
+								<items >
+									<ColumnListItem unread="true">
+										<cells>
+											<Text text="{applTmplModel>TDESC}"/>
+											<Text text="{applTmplModel>FTDESC}"/>
+											<VBox>
+												<Button text="{= ${applTmplModel>EDITFLAG} === true ? 'Edit' : 'Add'} Serial Number" type="Emphasized"
+													visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.serialTemplateBtnVisibility'}"
+													press="onSerialNumPress($event,'SERIAL')"></Button>
+												<Button text="{= ${applTmplModel>EDITFLAG} === true ? 'Edit' : 'Add'} Batch Number" type="Emphasized"
+													visible="{parts:[ 'applTmplModel>TT1ID' ,'applTmplModel>TT2ID'], formatter:'.formatter.batchTemplateBtnVisibility'}"
+													press="onSerialNumPress($event,'BATCH')"></Button>
+											</VBox>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</Panel>
 					</VBox>
 				</l:Grid>
 			</VBox>
