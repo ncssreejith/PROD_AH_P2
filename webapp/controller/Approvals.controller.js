@@ -835,7 +835,7 @@ sap.ui.define([
 							oData.results[0].EXPTM = formatter.defaultTimeFormatDisplay(oData.results[0].EXPTM);
 							oData.results[0].SUBUZT = new Date().getHours() + ":" + new Date().getMinutes();
 						}
-						if (oData.results[0].UTIL1 !== "UTIL1_20") {
+						if (oData.results[0].UTIL1 !== "UTIL1_20" && this.oObject && this.oObject[oData.results[0].UTIL1]) {
 							oViewModel.getData().UTILMINVL = parseFloat(this.oObject[oData.results[0].UTIL1].VALUE);
 						}
 						var bFlag = (oData.results[0].LDESC && oData.results[0].LDESC.length > 0)  ? true : false;
