@@ -251,7 +251,7 @@ sap.ui.define([
 					oObj.ISMAT = "Part No.";
 					oObj.ISSER = sKey === "SERIAL" ? "Serial No. (S/N)" : "Batch No.";
 					oObj.ENGFLAG = oObj.ENGFLAG ? oObj.ENGFLAG : "NA";
-					if (oObj.EDITFLAG){
+					if (oObj.EDITFLAG) {
 						oObj.Title = sKey === "SERIAL" ? "Edit Serial Number" : "Edit Batch Number";
 					} else {
 						oObj.Title = sKey === "SERIAL" ? "Add Serial Number" : "Add Batch Number";
@@ -310,13 +310,14 @@ sap.ui.define([
 					oModel = this.getModel("applTmplModel"),
 					oSelectedKey = oEvent.getSource().getSelectedKey(),
 					oSelectedText = oEvent.getSource().getValue();
-				this.fnLoadTask("WR", oSelectedKey);
 				oModel.setProperty("/SelectTaskTable", false);
 				oModel.setProperty("/ApplyTempTable", false);
-				this.getModel("applTmplModel").setProperty("/tmpls", []);
-				this.getModel("applTmplModel").setProperty("/WorkText", oSelectedText);
-				this.getModel("applTmplModel").setProperty("/header/selTmpl", "");
+				oModel.setProperty("/header/bWorkCenter", false);
+				oModel.setProperty("/tmpls", []);
+				oModel.setProperty("/WorkText", oSelectedText);
+				oModel.setProperty("/header/selTmpl", -1);
 				this.getModel("applTmplModel").refresh();
+				this.fnLoadTask("WR", oSelectedKey);
 
 			} catch (e) {
 				Log.error("Exception in onWorkCenterChange function");
@@ -356,7 +357,7 @@ sap.ui.define([
 			oModel.setProperty(this.serialContext.getPath() + "/TDESC", desc);
 			oModel.setProperty(this.serialContext.getPath() + "/ENGFLAG", sKey);
 			oModel.setProperty(this.serialContext.getPath() + "/EDITFLAG", true);
-			
+
 			//oModel.updateBindings(true);
 			that.onSerialNumClose();
 		},
@@ -470,9 +471,22 @@ sap.ui.define([
 				var oParameter = {},
 					oModel = this.getModel("applTmplModel");
 				if (oFlag === "WR") {
-					oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAILID EQ " + this.getTailId();
+					/*	oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAILID EQ " + this.getTailId();*/
+					if (oSelectedKey !== undefined) {
+						oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAIILID EQ " + this.getTailId();
+					} else {
+						sap.m.MessageBox.information("Please select workcenter to proceed.");
+						return;
+					}
 				} else {
-					oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "'";
+					/*oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "'";*/
+					var oTempId = this.getModel("applTmplModel").getProperty("/header/selTmpl");
+					if (oTempId !== -1 && oTempId !== "") {
+						oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "'";
+					} else {
+						sap.m.MessageBox.information("Please select template to proceed.");
+						return;
+					}
 				}
 				this.handleBusyDialogOpen();
 				oParameter.error = function() {};

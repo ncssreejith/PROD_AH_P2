@@ -156,7 +156,11 @@
 								</VBox>-->
 								<VBox class="sapUiSmallMarginEnd sapUiTinyMarginTop"
 									visible="{parts:['DetailsSupEditModel>/tt1id','DetailsSupEditModel>/tt2id','DetailsSupEditModel>/CPRID','DetailsSupEditModel>/rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisibleTB'}">
-									<Label width="196px" text="{i18n>lblTechRef}" design="Bold" class="sapUiSmallMarginTop"></Label>
+									<HBox>
+										<Label width="196px" text="{i18n>lblTechRef}" design="Bold" class="sapUiSmallMarginTop"></Label>
+										<Text text="Optional" class="sapUiSmallMarginBegin"
+											visible="{=(${DetailsSupEditModel>/tt1id} !== 'TT1_17' || ${DetailsSupEditModel>/tt1id} !== 'TT1_18') ? true : false}"/>
+									</HBox>
 									<Input value="{DetailsSupEditModel>/fttoref}" width="200px" showSuggestion="true" suggest=".onSuggestTechOrder"
 										suggestionItems="{TechRefSugg>/}">
 										<suggestionItems>

@@ -16,11 +16,15 @@
 				<Toolbar class="bgColorToolBar">
 					<Label text="Follow-up Task" design="Bold"/>
 					<ToolbarSpacer/>
-					<Label text="Task Type :" design="Bold"/>
-					<ComboBox width="330px" editable="false" items="{path:'TaskMainListModel>/',templateShareable: false}"
-						selectedKey="{DetailsComModel>/tt1id}">
-						<core:Item text="{TaskMainListModel>ttype}" key="{TaskMainListModel>ttid}"/>
-					</ComboBox>
+					<HBox visible="{=${DetailsComModel>/tmpid} === null ? true : false}">
+						<Label text="Task Type :" design="Bold" class="sapUiTinyMarginTop"/>
+						<Label class="sapUiTinyMarginBegin sapUiTinyMarginTop" design="Bold"
+							text="{parts:[{path:'DetailsComModel>/tt1id'},{path:'TaskMainListModel>/'}], formatter:'.formatter.taskNameText'}"/>
+					</HBox>
+					<HBox visible="{=${DetailsComModel>/tmpid} !== null ? true : false}">
+						<Label text="Task Type :" design="Bold"/>
+						<Label text="Template" design="Bold" class="sapUiTinyMarginBegin"></Label>
+					</HBox>
 				</Toolbar>
 				<ScrollContainer height="330px" width="100%" horizontal="false" vertical="true" focusable="true">
 					<VBox backgroundDesign="Solid">

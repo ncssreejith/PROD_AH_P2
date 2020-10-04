@@ -14,7 +14,7 @@
 			<VBox class="sapUiLargeMarginBegin">
 				<HBox>
 					<Label design="Bold" text="Technical Order/ Reference"/>
-					<Text text="Optional" class="sapUiSmallMarginBegin"/>
+					<Text text="Optional" class="sapUiSmallMarginBegin" visible="{=(${ManageTaskModel>/tt1id} !== 'TT1_17' || ${ManageTaskModel>/tt1id} !== 'TT1_18') ? true : false}"/>
 				</HBox>
 				<Input width="250px" value="{ManageTaskModel>/toref}" fieldGroupIds="fgInput" required="{ManageTaskModel>/bOthers}" showSuggestion="true"
 					suggest=".onSuggestTechOrder" suggestionItems="{TechRefSugg>/}">
@@ -24,7 +24,7 @@
 				</Input>
 			</VBox>
 		</HBox>
-		<VBox class="sapUiSmallMarginTopBottom"
+	<!--	<VBox class="sapUiSmallMarginTopBottom"
 			visible="{= (${ManageTaskModel>/tt1id} !== 'TT1_16' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_19' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_15') ? true:false}">
 			<HBox>
 				<Label design="Bold" text="Symbol"/>
@@ -39,6 +39,6 @@
 					<SegmentedButtonItem icon="sap-icon://less" width="8rem" key="3"/>
 				</items>
 			</SegmentedButton>
-		</VBox>
+		</VBox>-->
 	</l:VerticalLayout>
 </core:FragmentDefinition>

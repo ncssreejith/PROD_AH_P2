@@ -140,7 +140,8 @@ sap.ui.define([
 						"activity": null,
 						"RTTY": null,
 						"ENTINERR": null,
-						"RECTSTAR": null
+						"RECTSTAR": null,
+						"PRESERNR":null
 
 					};
 					oArray.push(oTask);

@@ -29,9 +29,15 @@
 									<HBox wrap="Wrap" class="textOverFlow">
 										<Text text="{ErroModel>taskId}" wrapping="true"/>
 									</HBox>
-									<ComboBox width="330px" editable="false" visible="{= ${ErroModel>tType}!==null ? true:false}" items="{path:'TaskMainListModel>/',templateShareable: false}" selectedKey="{ErroModel>tType}">
+									<ComboBox width="330px" editable="false" visible="{= ${ErroModel>tType}!==null ? true:false}"
+										items="{path:'TaskMainListModel>/',templateShareable: false}" selectedKey="{ErroModel>tType}">
 										<core:Item text="{TaskMainListModel>ttype}" key="{TaskMainListModel>ttid}"/>
 									</ComboBox>
+									<!--<VBox>
+										<Label text="Template" design="Bold" class="sapUiTinyMarginBegin" visible="{=${ErroModel>tmpid} !== null ? true : false}"></Label>
+										<Label class="sapUiTinyMarginBegin sapUiTinyMarginTop" design="Bold" visible="{=${ErroModel>tmpid} === null ? true : false}"
+											text="{parts:[{path:'ErroModel>tt1id'},{path:'TaskMainListModel>/'}], formatter:'.formatter.taskNameText'}"/>
+									</VBox>-->
 									<Text text="{ErroModel>errormsg}" wrapping="true"/>
 								</cells>
 							</ColumnListItem>
