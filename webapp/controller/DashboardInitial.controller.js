@@ -38,6 +38,27 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		onAfterRendering: function() {
+			var that = this;
+			// Retrieve backend posting messages of dashboard status every 30 secs.
+			this._LoadMessageInterval = setInterval(function() {
+				that._fnJobGetScheduled();
+			}, 30000);
+		},
+		/** 
+		 * Exit clean up.
+		 */
+		onExit: function() {
+			// Clear off state.
+			this.destroyState();
+		},
+		/** 
+		 * Clean up state object.
+		 */
+		destroyState: function() {
+			// Clear load message interval.
+			clearInterval(this._LoadMessageInterval);
+		},
 		//1. On click of Create Flight Servicing Button, navigates to that view.
 		onCreateFlightService: function() {
 			try {
@@ -671,6 +692,28 @@ sap.ui.define([
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadSCLDashboard function");
 				this.handleException(e);
+			}
+		},
+		/** 
+		 * Trigger schs job calculation
+		 * @constructor 
+		 */
+		_fnJobGetScheduled: function() {
+			try {
+				var
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "CTYPE eq ALL and tailid eq " + this.getTailId();
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					this.fnLoadSrv1Dashboard();
+				}.bind(this);
+
+				ajaxutil.fnRead("/GetSerLogSvc", oPrmJobDue);
+			} catch (e) {
+				this.Log.error("Exception in _fnJobGetScheduled function");
 			}
 		},
 		/** 
