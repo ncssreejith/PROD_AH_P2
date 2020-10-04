@@ -1210,13 +1210,13 @@ sap.ui.define([
 				case "SRVT_PTRT":
 					sSrvTitle = "PTR-Taxi";
 					break;
-					case "SRVT_PMSN":
+				case "SRVT_PMSN":
 					sSrvTitle = "PMS Non-Flight";
 					break;
-					case "SRVT_PTC":
+				case "SRVT_PTC":
 					sSrvTitle = "Post Thunderstorm Check";
 					break;
-					case "SRVT_WPT":
+				case "SRVT_WPT":
 					sSrvTitle = "WPT";
 					break;
 
@@ -1655,6 +1655,26 @@ sap.ui.define([
 				}
 				return sText;
 			}
+		},
+
+		textAreaRequiredFUTask: function(sTmpId, sTT1Id) {
+			if (sTmpId) {
+				return true;
+			}
+			if (sTT1Id !== "TT1_11" && sTT1Id !== "TT1_14" && sTT1Id !== "TT1_15" && sTT1Id !== "TT1_16" && sTT1Id !== "TT1_19") {
+				return true;
+			}
+			return false;
+		},
+
+		textAreaFieldGrpFUTask: function(sTmpId, sTT1Id) {
+			if (sTmpId) {
+				return "fgTxtArea";
+			}
+			if (sTT1Id !== "TT1_11" && sTT1Id !== "TT1_14" && sTT1Id !== "TT1_15" && sTT1Id !== "TT1_16" && sTT1Id !== "TT1_19") {
+				return "fgTxtArea";
+			}
+			return "";
 		}
 
 	};
