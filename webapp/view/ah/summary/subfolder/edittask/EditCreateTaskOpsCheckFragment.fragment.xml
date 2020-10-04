@@ -4,6 +4,6 @@
 			<Label design="Bold" text="Describe Task"/>
 			<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('DSCT',$event)" size="12px" color="#031E48"/>
 		</HBox>
-		<TextArea maxLength="500" width="100%" valueStateText="{i18n>ERttTaskDesc}" liveChange="handleLiveChangeFlyingRequirements" value="{ManageTaskModel>/cdesc}" showExceededText="true" rows="5" fieldGroupIds="fgTxtArea" required="{=${ManageTaskModel>/tt1id} === 'TT1_11' ? true : false}"/>
+		<TextArea maxLength="500" width="350px" valueStateText="{i18n>ERttTaskDesc}" liveChange="handleLiveChangeFlyingRequirements" value="{ManageTaskModel>/cdesc}" showExceededText="true" rows="5" fieldGroupIds="fgTxtArea" required="{=${ManageTaskModel>/tt1id} === 'TT1_11' ? true : false}"/>
 	</l:VerticalLayout>
 </core:FragmentDefinition>
