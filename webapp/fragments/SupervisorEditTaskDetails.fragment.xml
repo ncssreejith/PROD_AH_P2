@@ -40,7 +40,7 @@
 						<l:content>
 							<VBox>
 								<VBox class="sapUiTinyMarginBottom"
-									visible="{= ${DetailsSupEditModel>/tt1id}!=='TT1_11' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_14' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_15' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_16' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_19' ? true:false}">
+									visible="{= (${DetailsSupEditModel>/tt1id}!=='TT1_11' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_14' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_15' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_16' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_19' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_18' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_17') ? true:false}">
 									<TextArea width="100%" rows="5" value="{DetailsSupEditModel>/ftdesc}" maxLength="1000" showExceededText="true"
 										liveChange="handleLiveChangeFlyingRequirements"/>
 									<layoutData>

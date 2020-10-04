@@ -14,17 +14,19 @@
 			<VBox class="sapUiLargeMarginBegin">
 				<HBox>
 					<Label design="Bold" text="Technical Order/ Reference"/>
-					<Text text="Optional" class="sapUiSmallMarginBegin" visible="{=(${ManageTaskModel>/tt1id} !== 'TT1_17' || ${ManageTaskModel>/tt1id} !== 'TT1_18') ? true : false}"/>
+					<!--<Text text="Optional" class="sapUiSmallMarginBegin"/>-->
+					<!--visible="{=(${ManageTaskModel>/tt1id} === 'TT1_17' || ${ManageTaskModel>/tt1id} === 'TT1_18') ? true : false}"-->
 				</HBox>
-				<Input width="250px" value="{ManageTaskModel>/toref}" fieldGroupIds="fgInput" required="{ManageTaskModel>/bOthers}" showSuggestion="true"
-					suggest=".onSuggestTechOrder" suggestionItems="{TechRefSugg>/}">
+				<!--required="{=(${ManageTaskModel>/tt1id} === 'TT1_14' || ${ManageTaskModel>/tt1id} === 'TT1_15') ? true : false}"-->
+				<Input width="250px" value="{ManageTaskModel>/toref}" fieldGroupIds="fgInput" showSuggestion="true" suggest=".onSuggestTechOrder"
+					suggestionItems="{TechRefSugg>/}">
 					<suggestionItems>
 						<core:Item text="{TechRefSugg>TOREF}"/>
 					</suggestionItems>
 				</Input>
 			</VBox>
 		</HBox>
-	<!--	<VBox class="sapUiSmallMarginTopBottom"
+		<!--	<VBox class="sapUiSmallMarginTopBottom"
 			visible="{= (${ManageTaskModel>/tt1id} !== 'TT1_16' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_19' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_15') ? true:false}">
 			<HBox>
 				<Label design="Bold" text="Symbol"/>

@@ -1,13 +1,16 @@
 <core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar">
 	<l:VerticalLayout width="100%">
-	<VBox>
-			<HBox>
-				<Label design="Bold" text="Check on Area"/>
-				<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('CHEKON',$event)" class="sapUiTinyMarginBegin" size="12px"
-					color="#031E48"/>
-			</HBox>
-			<TextArea maxLength="500" value="{ManageTaskModel>/cdesc}" fieldGroupIds="fgTxtArea" required="{=${ManageTaskModel>/tt1id} === 'TT1_12' ? true : false}"
-				showExceededText="true" width="100%"  rows="5" valueStateText="{i18n>ERttMtaskType}" liveChange="handleLiveChangeFlyingRequirements"/>
-		</VBox>
+		<HBox>
+			<VBox>
+				<HBox>
+					<Label design="Bold" text="Check on Area"/>
+					<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('CHEKON',$event)" class="sapUiTinyMarginBegin" size="12px"
+						color="#031E48"/>
+				</HBox>
+				<TextArea maxLength="500" value="{ManageTaskModel>/cdesc}" fieldGroupIds="fgTxtArea"
+					required="{=${ManageTaskModel>/tt1id} === 'TT1_12' ? true : false}" showExceededText="true" width="350px" rows="5"
+					valueStateText="{i18n>ERttMtaskType}" liveChange="handleLiveChangeFlyingRequirements"/>
+			</VBox>
+		</HBox>
 	</l:VerticalLayout>
 </core:FragmentDefinition>

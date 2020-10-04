@@ -42,8 +42,8 @@
 						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('SERIALNO',$event)" class="sapUiTinyMarginBegin" size="12px"
 							color="#031E48"/>
 					</HBox>
-					<Select id="Type1Id" forceSelection="false" width="170px" change="onTypeChangeSerial" selectedKey="Serial No. (S/N)"
-						fieldGroupIds="fgCmbBox" required="{=${ManageTaskModel>/tt2id} !== 'TT2_11' ? true : false}" items="{TT1Model>/}">
+					<Select id="Type1Id" forceSelection="false" width="170px" change="onTypeChangeSerial" selectedKey="{ManageTaskModel>/isser}"
+						fieldGroupIds="fgCmbBox" required="{=(${ManageTaskModel>/tt1id} === 'TT1_10'&amp;&amp; ${ManageTaskModel>/tt2id} !== 'TT2_11') ? true : false}" items="{TT1Model>/}">
 						<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
 						<!--	<core:Item text="Serial No. (S/N)" key="Serial No. (S/N)"/> &amp;&amp; ${ManageTaskModel>/isser} === 'Serial No. (S/N)'
 						<core:Item text="Batch No." key="Batch No."/>-->
@@ -76,8 +76,8 @@
 						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PARTNO',$event)" class="sapUiTinyMarginBegin" size="12px"
 							color="#031E48"/>
 					</HBox>
-					<Select width="170px" forceSelection="false" change="onTypeChangePart" selectedKey="Part No." fieldGroupIds="fgCmbBox"
-						required="{ManageTaskModel>/bType}" items="{TT2Model>/}">
+					<Select width="170px" forceSelection="false" change="onTypeChangePart" selectedKey="{ManageTaskModel>/ismat}" fieldGroupIds="fgCmbBox"
+						items="{TT2Model>/}">
 						<core:Item text="{TT2Model>key}" key="{TT2Model>text}"/>
 					</Select>
 				</VBox>
@@ -124,7 +124,7 @@
 							color="#031E48"/>
 					</HBox>
 					<Select width="190px" forceSelection="false" change="onTypeDescChange" items="{TaskDescModel>/}" selectedKey="{ManageTaskModel>/tt3id}"
-						fieldGroupIds="fgCmbBox" required="{ManageTaskModel>/bAccess}" valueStateText="{i18n>ERttTaskDescription}">
+						fieldGroupIds="fgCmbBox" valueStateText="{i18n>ERttTaskDescription}">
 						<core:Item text="{TaskDescModel>ttype}" key="{TaskDescModel>ttid}"/>
 					</Select>
 				</VBox>
