@@ -121,6 +121,12 @@
 		"visible": true,
 		"pattern": "FileUpload"
 	}, {
+		"name": "Audit Log",
+		"icon": "",
+		"active": "x",
+		"visible": true,
+		"pattern": "AuditLog"
+	},{
 		"name": "Settings",
 		"icon": "",
 		"active": "x",

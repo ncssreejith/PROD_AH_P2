@@ -612,6 +612,13 @@
 					"target": [
 						"FileUpload"
 					]
+				},
+				{
+					"pattern": "AuditLog",
+					"name": "AuditLog",
+					"target": [
+						"AuditLog"
+					]
 				}
 			],
 			"targets": {
@@ -1243,6 +1250,16 @@
 					"viewId": "FileUpload",
 					"viewLevel": 2,
 					"title": "File Upload\\Download"
+				},
+				"AuditLog": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "AuditLog",
+					"viewId": "AuditLog",
+					"viewLevel": 2,
+					"title": "Audit Log"
 				}
 			}
 		}

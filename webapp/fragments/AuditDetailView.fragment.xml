@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog showHeader="true" title="Record Detail(s)" class="sapUiResponsivePadding--header sapUiResponsivePadding--footer" placement="Right">
+		<HBox>
+			<VBox class="sapUiMediumMargin">
+				<VBox items="{AuditInfo>/}">
+					<HBox class="sapUiTinyMargin">
+						<Label text="{AuditInfo>FIELD_NAME}" width="8rem" wrapping="true" design="Bold" class="sapUiTinyMarginEnd"></Label>
+						<Text text="{AuditInfo>FIELD_VALUE}"></Text>
+					</HBox>
+				</VBox>
+			</VBox>
+		</HBox>
+		<buttons>
+			<Button text="Close" press="onDialogClose"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

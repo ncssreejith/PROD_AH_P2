@@ -1,0 +1,97 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.AuditLog"
+	xmlns:fb="sap.ui.comp.filterbar">
+	<App>
+		<pages>
+			<Page showHeader="false">
+				<Toolbar id="tbId" height="4rem" class="backgroundWhite">
+					<Button icon="sap-icon://nav-back" class="sapUiSmallMarginBegin" press="onNavBack"></Button>
+					<VBox class="sapUiSmallMarginBegin">
+						<Title text="{auditLogModel>/Title}" width="36rem" class="titleTextBoldToolbar sapUiTinyMarginTop"></Title>
+						<Title text="{auditLogModel>/SubTitle}" width="36rem" class="sapUiTinyMarginTop" visible="{= ${auditLogModel>/flag} === 'H' ? true : false}"></Title>
+					</VBox>
+				</Toolbar>
+				<content>
+					<fb:FilterBar id="filterBar" useToolbar="false" showFilterConfiguration="false" reset="onReset" search="onSearch" 
+						cancel="onCancel" filtersDialogClosed="onFiltersDialogClosed" showRestoreButton="true" showClearOnFB="true" clear="onClearFilterBar">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="Application" labelTooltip="Application" visibleInFilterBar="true">
+								<fb:control>
+									<ComboBox items="{auditLogModel>/ApplicationSet}" selectedKey="{auditLogModel>/ApplicationKey}">
+										<items>
+											<core:Item key="{auditLogModel>OBJECT}" text="{auditLogModel>OBDESC}"/>
+										</items>
+									</ComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<!--<fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="User" labelTooltip="User" visibleInFilterBar="true">-->
+							<!--	<fb:control>-->
+							<!--		<ComboBox id="cbFilterBarAuditLog" change="onChange" items="{auditLogModel>/UserSet}" selectedKey="{auditLogModel>/UserKey}">-->
+							<!--			<items>-->
+							<!--				<core:Item key="{auditLogModel>PLANTUSER}" text="{auditLogModel>PLANTUSER} - {auditLogModel>NAMEFIRST} {auditLogModel>NAMELAST}"/>-->
+							<!--			</items>-->
+							<!--		</ComboBox>-->
+							<!--	</fb:control>-->
+							<!--</fb:FilterGroupItem>-->
+							<fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="Period" labelTooltip="Period" visibleInFilterBar="true">
+								<fb:control>
+									<DateRangeSelection displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" value="{auditLogModel>/PeriodDate}" change="onDateSelection"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+					<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
+						items="{ path: 'auditLogModel>/TableDataSet'}" width="auto">
+						<columns>
+							<Column hAlign="Left" width="auto" class="textColor">
+								<Label text="Application" design="Bold"/>
+							</Column>
+							<!--<Column hAlign="Left" width="auto" class="textColor" mergeDuplicates="true">-->
+							<!--	<Label text="Table" design="Bold"/>-->
+							<!--</Column>-->
+							<Column hAlign="Left" width="auto" class="textColor">
+								<Label text="Field Description" design="Bold"/>
+							</Column>
+							<Column hAlign="Left" width="auto" class="textColor">
+								<Label text="Action" wrapping="true" design="Bold"/>
+							</Column>
+							<Column hAlign="Left" width="auto" class="textColor">
+								<Label text="Old Value" wrapping="true" design="Bold"/>
+							</Column>
+							<Column hAlign="Left" width="auto" class="textColor">
+								<Label text="New value" wrapping="true" design="Bold"/>
+							</Column>
+							<Column hAlign="Left" width="auto" class="textColor">
+								<Label text="User" design="Bold"/>
+							</Column>
+							<Column minScreenWidth="Tablet" width="auto" demandPopin="true" hAlign="Left" class="textColor">
+								<Label text="Date Time" design="Bold" wrapping="true"/>
+							</Column>
+							<!--<Column minScreenWidth="Tablet" width="auto">-->
+							<!--	<Label/>-->
+							<!--</Column>-->
+						</columns>
+						<items>
+							<ColumnListItem type="Active" press="onRowSelection">
+								<cells>
+									<Text text="{auditLogModel>OBDESC}"/>
+									<!--<Text text="{auditLogModel>TABLE_NAME}"/>-->
+									<Text text="{auditLogModel>FILED_NAME}"/>
+									<Text text="{auditLogModel>ACTION}"/>
+									<Text text="{auditLogModel>OLDVALUE}"/>
+									<Text text="{auditLogModel>NEWVALUE}"/>
+									<Text text="{auditLogModel>PLANTUSER}"/>
+									<Text text="{path:'auditLogModel>ADATE', formatter:'.formatter.auditDateTimeFormatDisplay'}"/>
+									<!--<Button icon="sap-icon://display" press="onRowSelection"></Button>-->
+									<!--<Text text="{path:'auditLogModel>ADATE', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"/>-->
+									
+									
+									
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
