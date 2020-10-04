@@ -23,7 +23,7 @@
 			<grid:CSSGrid class="sapUiTinyMarginBegin sapUiTinyMarginTop"
 				items="{path:'pdsSummaryModel>repl/oil',filters:[{path:'remid',operator:'EQ',value1:'REM_O'}]}" gridTemplateColumns="220px 220px 220px 220px"
 				gridTemplateRows="130px" gridGap="0rem">
-				<cs:Others title="{pdsSummaryModel>resdescription}" subTitle="" count="{pdsSummaryModel>srvamt}" 
+				<cs:Others title="{pdsSummaryModel>resdescription}" subTitle="" count="{= (${pdsSummaryModel>srvamt}==='0.00' || ${pdsSummaryModel>srvamt}==='0')?'-':${pdsSummaryModel>srvamt}}"
 				footerRightInfo="{path:'pdsSummaryModel>upddate',formatter:'avmet.ah.model.formatter.fnDateDiff'}"
 					footerLeftInfo="Max {pdsSummaryModel>max}" press="onReplBtnClk">
 					<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onIconPress"/>

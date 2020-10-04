@@ -26,7 +26,7 @@
 					<grid:CSSGrid class="sapUiTinyMarginBegin sapUiTinyMarginTop"
 						items="{path:'oReplModel>/srv',filters:[{path:'remid',operator:'EQ',value1:'REM_O'}]}" gridTemplateColumns="220px 220px 220px 220px"
 						gridTemplateRows="130px" gridGap="0rem">
-						<cs:Others title="{oReplModel>resdescription}" subTitle="" count="{oReplModel>srvamt}"
+						<cs:Others title="{oReplModel>resdescription}" subTitle="" count="{= (${oReplModel>srvamt}==='0.00' || ${oReplModel>srvamt}==='0')?'-':${oReplModel>srvamt}}"
 						footerRightInfo="{path:'oReplModel>upddate',formatter:'avmet.ah.model.formatter.fnDateDiff'}" footerLeftInfo="Max {oReplModel>max}" press="onReplBtnClk">
 							<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onIconPress" visible="{= !${oReplModel>/SRVID}}"/>
 						</cs:Others>

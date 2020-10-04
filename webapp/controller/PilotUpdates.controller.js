@@ -101,7 +101,7 @@ sap.ui.define([
 			try {
 				var oModel = this.getView().getModel("oPilotUpdatesViewModel");
 				this.getOwnerComponent().setModel(oModel, "oPilotUpdatesViewModel");
-				this.getRouter().navTo("Limitations",true);
+				this.getRouter().navTo("Limitations", true);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -115,16 +115,16 @@ sap.ui.define([
 					"fr_no": null,
 					"sgusr": null,
 					"astid": null,
-					"jobty":"",
-					"jstat":"",
-					"symbol":"",
-					"purpose":"",
+					"jobty": "",
+					"jstat": "",
+					"symbol": "",
+					"purpose": "",
 					"fair": "N",
 					"srvtid": this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid"),
 					"stepid": this.getModel("oPilotUpdatesViewModel").getProperty("/stepid"),
 					"jobdesc": null,
 					"fstat": null,
-					"srvid":""
+					"srvid": ""
 				};
 				this.getModel("oPilotUpdatesViewModel").getProperty("/defects").push(oItems);
 				this.getModel("oPilotUpdatesViewModel").refresh();
@@ -134,7 +134,7 @@ sap.ui.define([
 			}
 		},
 
-		onEnginChange: function(oEvent) {
+		onEnginChange: function() {
 			try {
 				var sIndex = this.getModel("oPilotUpdatesViewModel").getProperty("/eng") === "engine1" ? "0" : "1";
 				this.getView().byId("engindId").bindElement({
@@ -197,9 +197,17 @@ sap.ui.define([
 						break;
 					case "StatusTest":
 						sNextKey = "EnginePowerCheck";
+						this.getModel("oPilotUpdatesViewModel").setProperty("/eng", "engine1");
+						this.onEnginChange();
 						break;
 					case "EnginePowerCheck":
 						sNextKey = "Manoeuvring";
+						if (this.getModel("oPilotUpdatesViewModel").getProperty("/eng") === "engine1") {
+							this.getModel("oPilotUpdatesViewModel").setProperty("/eng", "engine2");
+							this.onEnginChange();
+							sNextKey = "EnginePowerCheck";
+						}
+
 						break;
 					case "Manoeuvring":
 						sNextKey = "FlyingRecords";
@@ -222,9 +230,16 @@ sap.ui.define([
 						break;
 					case "EnginePowerCheck":
 						sNextKey = "StatusTest";
+						if (this.getModel("oPilotUpdatesViewModel").getProperty("/eng") === "engine2") {
+							this.getModel("oPilotUpdatesViewModel").setProperty("/eng", "engine1");
+							this.onEnginChange();
+							sNextKey = "EnginePowerCheck";
+						}
 						break;
 					case "Manoeuvring":
 						sNextKey = "EnginePowerCheck";
+						this.getModel("oPilotUpdatesViewModel").setProperty("/eng", "engine2");
+						this.onEnginChange();
 						break;
 					case "FlyingRecords":
 						this.onNavBackPilotUpdate();
@@ -251,7 +266,7 @@ sap.ui.define([
 		onSignOffPress: function(oEvent) {
 			this.fnCreateFlyRecords();
 		},
-		
+
 		onRemoveDefectPress: function(oEvent) {
 			try {
 				var oIndex = oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getPath().split("/")[2];
@@ -623,7 +638,7 @@ sap.ui.define([
 					}, "viewModel");
 				}.bind(this);
 				oParameter.success = function(oData) {
-					this._fnMakeAllPass(oData,"PILOT_P");
+					this._fnMakeAllPass(oData, "PILOT_P");
 					this.getModel("oPilotUpdatesViewModel").setProperty("/airMon", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
@@ -644,7 +659,7 @@ sap.ui.define([
 					}, "viewModel");
 				}.bind(this);
 				oParameter.success = function(oData) {
-					this._fnMakeAllPass(oData,"FRR_P");
+					this._fnMakeAllPass(oData, "FRR_P");
 					this.getModel("oPilotUpdatesViewModel").setProperty("/flyReq", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
@@ -679,7 +694,8 @@ sap.ui.define([
 				var sSrvtid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid");
 				var sStepid = this.getModel("oPilotUpdatesViewModel").getProperty("/stepid");
 				var oParameter = {};
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and STEPID eq " + sStepid + " and TAILID eq " + this.getTailId();
+				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and STEPID eq " + sStepid +
+					" and TAILID eq " + this.getTailId();
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -705,7 +721,8 @@ sap.ui.define([
 				var sSrvtid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid");
 				var sStepid = this.getModel("oPilotUpdatesViewModel").getProperty("/stepid");
 				var oParameter = {};
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and STEPID eq " + sStepid + " and TAILID eq " + this.getTailId() +
+				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and STEPID eq " + sStepid +
+					" and TAILID eq " + this.getTailId() +
 					" and REMID eq REM_F";
 				oParameter.error = function() {
 					this.updateModel({
@@ -735,9 +752,9 @@ sap.ui.define([
 			}
 			return sEngine;
 		},
-		_fnMakeAllPass:function(oData,sStat){
-			oData.results.forEach(function(oItem){
-				oItem.frrid = (oItem.frrid==="" || oItem.frrid===null )?sStat:oItem.frrid;                      
+		_fnMakeAllPass: function(oData, sStat) {
+			oData.results.forEach(function(oItem) {
+				oItem.frrid = (oItem.frrid === "" || oItem.frrid === null) ? sStat : oItem.frrid;
 			});
 		},
 		_fnCreateData: function() {
@@ -790,16 +807,16 @@ sap.ui.define([
 					"fr_no": null,
 					"sgusr": null,
 					"astid": null,
-					"jobty":"",
-					"jstat":"",
-					"symbol":"",
-					"purpose":"",
+					"jobty": "",
+					"jstat": "",
+					"symbol": "",
+					"purpose": "",
 					"fair": "N",
 					"srvtid": oPayload.srvtid,
 					"stepid": oPayload.stepid,
 					"jobdesc": null,
 					"fstat": null,
-					"srvid":""
+					"srvid": ""
 				}];
 				oPayload.engines = [{
 					"srvid": null,

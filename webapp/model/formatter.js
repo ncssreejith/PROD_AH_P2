@@ -400,10 +400,12 @@ sap.ui.define([
 
 		taskContentVisible3: function(stTask1, stTask2, stTask3, stTask4) {
 			if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
-						"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
-						stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
-						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === "TT1_16" && stTask3 === null) || (stTask1 === "TT1_17" && stTask2 === '') || 
-					(stTask1 === "TT1_18" && stTask2 === '') || (stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === '' || stTask4 === null)) {
+						"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
+						stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
+						stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" &&
+						stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
+						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === "TT1_16" && stTask3 === null) ||
+					(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === '' || stTask4 === null)) {
 				return true;
 			} else {
 				return false;
@@ -1208,6 +1210,15 @@ sap.ui.define([
 				case "SRVT_PTRT":
 					sSrvTitle = "PTR-Taxi";
 					break;
+					case "SRVT_PMSN":
+					sSrvTitle = "PMS Non-Flight";
+					break;
+					case "SRVT_PTC":
+					sSrvTitle = "Post Thunderstorm Check";
+					break;
+					case "SRVT_WPT":
+					sSrvTitle = "WPT";
+					break;
 
 			}
 			return sSrvTitle;
@@ -1644,26 +1655,6 @@ sap.ui.define([
 				}
 				return sText;
 			}
-		},
-		
-		textAreaRequiredFUTask : function (sTmpId, sTT1Id){
-			if (sTmpId) {
-				return true;
-			}
-			if (sTT1Id !== "TT1_11" && sTT1Id !== "TT1_14" && sTT1Id !== "TT1_15" && sTT1Id !== "TT1_16" && sTT1Id !== "TT1_19") {
-				return true;
-			}
-			return false;
-		},
-		
-		textAreaFieldGrpFUTask : function (sTmpId, sTT1Id){
-			if (sTmpId) {
-				return "fgTxtArea";
-			}
-			if (sTT1Id !== "TT1_11" && sTT1Id !== "TT1_14" && sTT1Id !== "TT1_15" && sTT1Id !== "TT1_16" && sTT1Id !== "TT1_19") {
-				return "fgTxtArea";
-			}
-			return "";
 		}
 
 	};

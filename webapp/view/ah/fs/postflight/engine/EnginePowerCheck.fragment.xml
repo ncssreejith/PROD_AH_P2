@@ -1,5 +1,4 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control">
-
 			<VBox id="engindId" class="sapUiSmallMargin backgroundBlue">
 				<VBox class="sapUiSmallMargin">
 					<VBox>
@@ -56,7 +55,7 @@
 							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 								<Label text="TGT Difference" design="Bold"/>
 								<StepInput editable="false" min="0" width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgtdiff}" fieldGroupIds="fgStepInput"
-									required="true"/>
+									required="true" />
 							</VBox>
 							<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 								<Label text="Strike Status" design="Bold"/>
