@@ -1601,14 +1601,14 @@ sap.ui.define([
 		},
 
 		serialTemplateBtnVisibility: function(stt1, stt2) {
-			if (stt1 && stt2 === "TT2_10") {
+			if (stt1 === "TT1_10" && (stt2 === "TT2_10" || stt2 === "TT2_12"|| stt2 === "TT2_13" ||stt2 === "TT2_14")) {
 				return true;
 			}
 			return false;
 		},
 
 		batchTemplateBtnVisibility: function(stt1, stt2) {
-			if (stt1 && stt2 === "TT2_15") {
+			if (stt1 === "TT1_10" && stt2 === "TT2_15") {
 				return true;
 			}
 			return false;

@@ -50,7 +50,7 @@
 						</layoutData>
 					</FlexBox>
 					<VBox class="hboxBorder" alignItems="Center">
-						<Table id="tbSummary" width="60rem" visible="{applTmplModel>/ApplyTempTable}"
+						<Table id="tbSummary" width="60rem" visible="{applTmplModel>/ApplyTempTable}"  mode="{= ${applTmplModel>/MasterTableMode} === 'X' ? 'MultiSelect' : 'None'}"
 							class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText"
 							items="{path:'applTmplModel>/tasks',filters:[{path:'RTTY',operator:'EQ',value1:'M'}]}">
 							<headerToolbar>

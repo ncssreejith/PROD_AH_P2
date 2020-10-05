@@ -76,17 +76,19 @@ sap.ui.define([
 				}
 				var that = this,
 					oPayloads = [],
-					sjobid = "",
-					srvtid = this.getModel("applTmplModel").getProperty("/srvtid"),
-					dDate = new Date();
-				if (this.getView().byId("tbTask").getSelectedItems().length === 0) {
+					srvtid = this.getModel("applTmplModel").getProperty("/srvtid");
+				var sMode = this.getModel("applTmplModel").getProperty("/MasterTableMode");
+				if (sMode !== "X" && this.getView().byId("tbTask").getSelectedItems().length === 0) {
 					sap.m.MessageBox.error("Please select task(s) to proceed");
 					return;
 				}
-				var oItems = this.getView().byId("tbSummary").getItems();
+				var oMasterTable = this.getView().byId("tbSummary");
+				var oItems = sMode === "X" ? oMasterTable.getSelectedItems() : oMasterTable.getItems();
+
 				for (var i in oItems) {
 					var oItem = oItems[i].getBindingContext("applTmplModel").getObject();
-					if ((oItem.TT1ID || oItem.TT2ID) && oItem.SERNR === "") {
+					if ((oItem.TT1ID === "TT1_10" && (oItem.TT2ID === "TT2_10" || oItem.TT2ID === "TT2_12" || oItem.TT2ID === "TT2_13" || oItem.TT2ID ===
+							"TT2_14" || oItem.TT2ID === "TT2_15")) && oItem.SERNR === "") {
 						sap.m.MessageBox.error("Please add Serial No for Main Task");
 						return;
 					}
@@ -137,7 +139,8 @@ sap.ui.define([
 				var ftTasks = this.getView().byId("tbTask").getSelectedItems();
 				for (var i in ftTasks) {
 					var oItem = ftTasks[i].getBindingContext("applTmplModel").getObject();
-					if ((oItem.TT1ID || oItem.TT2ID) && oItem.SERNR === "") {
+					if ((oItem.TT1ID === "TT1_10" && (oItem.TT2ID === "TT2_10" || oItem.TT2ID === "TT2_12" || oItem.TT2ID === "TT2_13" || oItem.TT2ID ===
+							"TT2_14" || oItem.TT2ID === "TT2_15")) && oItem.SERNR === "") {
 						sap.m.MessageBox.error("Please add Serial No for Sub Task");
 						return;
 					}
@@ -482,7 +485,8 @@ sap.ui.define([
 					/*oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "'";*/
 					var oTempId = this.getModel("applTmplModel").getProperty("/header/selTmpl");
 					if (oTempId !== -1 && oTempId !== "") {
-						oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "'";
+						var jobId = this.getModel("applTmplModel").getProperty("/header/selJobId");
+						oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "' and JOBID eq " + jobId;
 					} else {
 						sap.m.MessageBox.information("Please select template to proceed.");
 						return;
@@ -500,6 +504,7 @@ sap.ui.define([
 							oModel.setProperty("/tasksCopy", JSON.parse(JSON.stringify(oData.results)));
 							oModel.setProperty("/ApplyTempTable", true);
 							oModel.setProperty("/SelectTaskTable", true);
+							oModel.setProperty("/MasterTableMode", oData.results[0].dflag);
 						}
 						this.getModel("applTmplModel").refresh();
 					} else {
