@@ -5,7 +5,7 @@
 				<VBox items="{AuditInfo>/}">
 					<HBox class="sapUiTinyMargin">
 						<Label text="{AuditInfo>FIELD_NAME}" width="8rem" wrapping="true" design="Bold" class="sapUiTinyMarginEnd"></Label>
-						<Text text="{AuditInfo>FIELD_VALUE}"></Text>
+						<Text text="{AuditInfo>FIELD_VALUE}"  width="30rem" wrapping="true"></Text>
 					</HBox>
 				</VBox>
 			</VBox>

@@ -102,7 +102,7 @@ sap.ui.define([
 					if (sKey === "H") {
 						oPrmWBM.filter = "PLATFORM eq AIR_11 and FLAG eq J and JOBID eq " + sJobId;
 					} else {
-						oPrmWBM.filter = "PLATFORM eq AIR_11 and FLAG eq O";
+						oPrmWBM.filter = "PLATFORM eq AIR_11 and FLAG eq O and TAILID eq " + this.getTailId();
 					}
 				
 				oPrmWBM.error = function() {
@@ -133,7 +133,7 @@ sap.ui.define([
 					sDateRange = this.getModel("auditLogModel").getProperty("/PeriodDate"),
 					fromDate = "",
 					toDate = "",
-					filter = "PLATFORM eq AIR_11 and FLAG eq T";
+					filter = "PLATFORM eq AIR_11 and FLAG eq T and TAILID eq " + this.getTailId();
 				sApplication = sApplication ? sApplication : null;
 				if (sUser) {
 					filter = filter.concat(" and PLANTUSER eq " + sUser);
