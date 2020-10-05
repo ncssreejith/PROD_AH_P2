@@ -230,10 +230,14 @@ sap.ui.define([
 			ajaxutil.fnRead("/GetWorkCenterSvc", oParameter);
 		},
 		fnLoadEngin: function(sEngType) {
-			var selTailid = this.getModel("oAirSelectViewModel").getProperty("/sel/tailid")
-			+ " and ENGTY eq " + sEngType;
+			var selTailid = 
+			// this.getModel("oAirSelectViewModel").getProperty("/sel/tailid")
+			// + " and 
+			"ENGTY eq " + sEngType;
 			var oParameter = {};
-			oParameter.filter = "tailid eq '" + selTailid + "'";
+			oParameter.filter = 
+			// "tailid eq '" + 
+			selTailid;
 			oParameter.error = function() {
 
 			};

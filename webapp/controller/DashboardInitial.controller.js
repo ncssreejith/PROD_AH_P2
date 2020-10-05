@@ -280,26 +280,38 @@ sap.ui.define([
 				oItem.LV_COLOR = "Good";
 				switch (sSelectedKey) {
 					case "Hrs":
-						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_THRS >= 0 ? parseFloat(oItem.LV_THRS) : 0), "", (oItem.LV_THRS >= 0 ? parseFloat(oItem.LV_THRS) : 0),
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_THRS >= 0 ? parseFloat(oItem.LV_THRS) : 0), "", (oItem.LV_THRS >= 0 ? parseFloat(oItem.LV_HRS) : 0),
 							oItem.LV_HRS);
 						if (oItem.LV_HRS > 0) {
-							oItem.LV_COLOR = "Critical";
+							if(oItem.LV_THRS === 0){
+								oItem.LV_COLOR = "Error";
+							} else {
+								oItem.LV_COLOR = "Critical";
+							}
 						}
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
 						break;
 					case "Days":
-						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TDAY >= 0 ? parseFloat(oItem.LV_TDAY) : 0), "", (oItem.LV_TDAY >= 0 ? parseFloat(oItem.LV_TDAY) : 0),
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TDAY >= 0 ? parseFloat(oItem.LV_TDAY) : 0), "", (oItem.LV_TDAY >= 0 ? parseFloat(oItem.LV_DAY) : 0),
 							oItem.LV_DAY);
 						if (oItem.LV_DAY > 0) {
-							oItem.LV_COLOR = "Critical";
+							if(oItem.LV_TDAY === 0){
+								oItem.LV_COLOR = "Error";
+							} else {
+								oItem.LV_COLOR = "Critical";
+							}
 						}
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TDAY));
 						break;
 					case "TAC":
-						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC >= 0 ? parseFloat(oItem.LV_TTAC) : 0), "", (oItem.LV_TTAC >= 0 ? parseFloat(oItem.LV_TTAC) : 0),
+						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC >= 0 ? parseFloat(oItem.LV_TTAC) : 0), "", (oItem.LV_TTAC >= 0 ? parseFloat(oItem.LV_TAC) : 0),
 							oItem.LV_TAC);
 						if (oItem.LV_TAC > 0) {
-							oItem.LV_COLOR = "Critical";
+							if(oItem.LV_TTAC === 0){
+								oItem.LV_COLOR = "Error";
+							} else {
+								oItem.LV_COLOR = "Critical";
+							}
 						}
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TTAC));
 						break;
@@ -578,7 +590,6 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
-				// + " and REFID eq " + this.getAircraftId() ;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results.length && oData.results.length > 0) {
@@ -657,7 +668,11 @@ sap.ui.define([
 						oLoad.LV_COLOR = "Good";
 						if (oLoad.LV_HRS > 0) {
 							oLoad.LV_COUNT += oLoad.LV_HRS;
-							oLoad.LV_COLOR = "Critical";
+							if(oLoad.LV_THRS === 0){
+								oLoad.LV_COLOR = "Error";
+							} else {
+								oLoad.LV_COLOR = "Critical";
+							}
 							this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "sap-icon://alert");
 						} else {
 							this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "");
@@ -682,7 +697,7 @@ sap.ui.define([
 							if (sHours < 0 || sHours === null) {
 								sHours = 0;
 							}
-							this._setRadialChartText("scheduleMicroChartId", sHours, "", sHours, oData.results[0].LV_HRS);
+							this._setRadialChartText("scheduleMicroChartId", sHours, "", oData.results[0].LV_HRS, oData.results[0].LV_HRS);
 							return;
 						}
 						this._setRadialChartText("scheduleMicroChartId", "", "", 0, 0);
@@ -708,7 +723,7 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
-					this.fnLoadSrv1Dashboard();
+					this.fnLoadSCLDashboard();
 				}.bind(this);
 
 				ajaxutil.fnRead("/GetSerLogSvc", oPrmJobDue);

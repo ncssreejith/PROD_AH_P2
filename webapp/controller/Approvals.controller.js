@@ -451,7 +451,7 @@ sap.ui.define([
 					"fndduring": null,
 					"jobdesc": null,
 					"Capty": null,
-					"Cstat": "A",
+					"Cstat": sValue,
 					"Apprusr": "Test User1",
 					"Apprdtm": "2020-07-29",
 					"Appruzt": "22:9",

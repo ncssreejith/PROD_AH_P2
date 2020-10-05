@@ -432,7 +432,8 @@ sap.ui.define([
 							if (!bFound && oItem.CHKRN === "2") {
 								oItem.Special = true;
 								bFound = true;
-								oItem.minValue = parseFloat(JSON.parse(JSON.stringify(oItem.TQACT)));
+								oItem.minValue = parseFloat(JSON.parse(JSON.stringify(
+									oItem.ETF ? oItem.ETF : 0)));
 							}
 						});
 						if (oData) {

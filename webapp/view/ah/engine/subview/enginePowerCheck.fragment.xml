@@ -141,7 +141,7 @@
 					</headerToolbar>
 					<columns>
 						<Column hAlign="Center" class="CERTableTextColor">
-							<Label text="Date/Time" design="Bold" wrapping="true" class="whiteText"/>
+							<Label text="Date /Time" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 							<Label text="Ambient Temp (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
@@ -208,13 +208,13 @@
 						</OverflowToolbar>
 					</headerToolbar>
 					<columns>
-						<Column hAlign="Center" class="CERTableTextColor">
-							<Label text="Date/Time" design="Bold" wrapping="true" class="whiteText"/>
+						<Column hAlign="Center" class="CERTableTextColor" width="10%">
+							<Label text="Date /Time" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 							<Label text="Ambient Temp (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
-						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="10%">
 							<Label text="Ambient Baro Pressure(FT)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
@@ -241,6 +241,8 @@
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="ETF" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="15%">
+						</Column>
 					</columns>
 					<items>
 						<ColumnListItem>
@@ -256,12 +258,13 @@
 								<Text text="{oEngineModel>NP}"/>
 								<Text text="{oEngineModel>NP}"/>
 								<Text text="{oEngineModel>ASPEED}"/>
-								<HBox justifyContent="Start">
-									<Text text="{path:'oEngineModel>TQACT'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>
-									<StepInput min="{oEngineModel>minValue}" value="{oEngineModel>TQACT}" visible="{= !!${oEngineModel>/headerDetails/ETFEDIT} &amp;&amp; !!${oEngineModel>Special} }"/>
-									<Button text="{= !!${oEngineModel>/headerDetails/ETFEDIT} ? ${i18n>txtSignOff} : ${i18n>btnEdit} }" visible="{= !!${oEngineModel>Special} }"
-										press="onETFEdit"/>
+								<HBox justifyContent="Center">
+									<Text text="{path:'oEngineModel>ETF'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>
+									<StepInput min="{oEngineModel>minValue}" value="{oEngineModel>ETF}" visible="{= !!${oEngineModel>/headerDetails/ETFEDIT} &amp;&amp; !!${oEngineModel>Special} }"
+									displayValuePrecision="2"/>
 								</HBox>
+								<Button text="{= !!${oEngineModel>/headerDetails/ETFEDIT} ? ${i18n>txtSignOff} : ${i18n>btnEdit} }" visible="{= !!${oEngineModel>Special} }"
+										icon="sap-icon://request" press="onETFEdit" type="Emphasized"/>
 							</cells>
 						</ColumnListItem>
 					</items>
@@ -271,20 +274,5 @@
 				</Table>
 			</VBox>
 		</FlexBox>
-		<VBox width="36rem" height="22rem">
-			<!--<FlexBox justifyContent="SpaceBetween" alignContent="SpaceBetween">-->
-			<!--	<Text text=""/>-->
-			<!--	<Link text="view more"/>-->
-			<!--</FlexBox>-->
-			<VBox alignItems="Start" class="vboxChart sapUiMediumMarginTop dimensionClass">
-				<!--<Label text="HIT Chart" design="Bold"/>-->
-				<!--id="line_chart"-->
-				<!--<lab:LineChartJS datasets="{temp>/lineChart/datasets}" labels="{temp>/lineChart/labels}" titleDisplay="false"-->
-				<!--	titleText="Replenishment Frequency" onLegendItemClick="onLegendItemClick" onLegendItemHover="onLegendItemHover" onClick="onClick"-->
-				<!--	onHover="onHover" tooltipEnabled="true" class="dimensionClass" onAnimationProgress="onAnimationProgress"-->
-				<!--	onAnimationComplete="onAnimationComplete" showLines="true" spanGaps="true"></lab:LineChartJS>-->
-				<!--<core:HTML content="&lt;canvas id=&quot;myChart1&quot; &gt;&lt;/canvas&gt;"></core:HTML>-->
-			</VBox>
-		</VBox>
 	</VBox>
 </core:FragmentDefinition>
