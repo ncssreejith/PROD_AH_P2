@@ -15,6 +15,7 @@
 				<u:MenuItem icon="sap-icon://suitcase" text="{i18n>muManageWorkCenter}"/>
 			</u:Menu>
 		</u:MenuItem>
+		<u:MenuItem icon="sap-icon://redo" text="{i18n>muRaiseScheduleCon}" visible="{SummaryModel>/MenuSheduleVisible}"/>
 		<u:MenuItem icon="sap-icon://sys-add" text="{i18n>muAddRelatedJob}" visible="{SummaryModel>/MenuVisible}"/>
 		<u:MenuItem icon="sap-icon://alert" text="{i18n>muDeclareFAIR}"
 			visible="{=${SummaryModel>/MenuVisible} === true &amp;&amp; ${SummaryModel>/FAIRStatusText} !== 'Release for Rectifications' ? true : false}"/>

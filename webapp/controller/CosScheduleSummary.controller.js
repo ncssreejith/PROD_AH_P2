@@ -221,7 +221,8 @@ sap.ui.define([
 							"ExpDateFlag": aData.UMKEY === 'JDU_10' ? true : false,
 							"UtilValFlag": aData.UMKEY !== 'JDU_10' ? true : false,
 							"UM": "",
-							"minVal": parseFloat(this.oObject[aData.UMKEY].VALUE)
+							"minVal": this.oObject[aData.UMKEY] ? parseFloat(this.oObject[aData.UMKEY].VALUE) : 0,
+							"minDT": new Date(aData.SERVDT)
 
 						};
 						if (this.getView().getModel("RSModel")) {
@@ -783,7 +784,9 @@ sap.ui.define([
 					this.getView().setModel(oModel1, "RSModel");
 
 					if (oFlag === "Y") {
-						this.getRouter().navTo("Cosjobs");
+						this.getRouter().navTo("Cosjobs", {
+							State: "SCH"
+						});
 					} else {
 						that.onCloseAddWorkCenterDialog("N");
 						this._fnSumamryDetailsGet(that.getView().getModel("LocalModel").getProperty("/ESJobId"));

@@ -284,8 +284,10 @@ sap.ui.define([
 						oSummaryModel.setProperty("/MenuWorkCenterVisible", false);
 					} else {
 						oSummaryModel.setProperty("/MenuVisible", true);
+						oSummaryModel.setProperty("/MenuSheduleVisible", false);
 						if (oJobModel.getProperty("/jobty") === 'S') {
 							oSummaryModel.setProperty("/MenuVisibleEdit", false);
+							oSummaryModel.setProperty("/MenuSheduleVisible", true);
 						} else {
 							var bFlag = this._fnJobEditCheck();
 							oSummaryModel.setProperty("/MenuVisibleEdit", bFlag);
@@ -576,7 +578,8 @@ sap.ui.define([
 							});
 							dataUtil.setDataSet("TransferJobModel", oModelData[0]);
 							break;
-						case "Raise Extension":
+						case "Raise Schedule Concession":
+							this.onRaiseScheduleConcession();
 							break;
 					}
 					that.getView().getModel("SummaryModel").updateBindings(true);
@@ -587,6 +590,34 @@ sap.ui.define([
 				this.handleException(e);
 			}
 
+		},
+
+		onRaiseScheduleConcession: function() {
+			try {
+				if (!this._oRaiseConcession) {
+					this._oRaiseConcession = sap.ui.xmlfragment(this.createId("idScheduleJobExtension"),
+						"avmet.ah.fragments.ScheduleJobExtension",
+						this);
+
+					this._fnJobDueGet();
+					this.getView().addDependent(this._oRaiseConcession);
+				}
+				this._fnGetUtilisationSched();
+			} catch (e) {
+				Log.error("Exception in onRaiseScheduleConcession function");
+			}
+		},
+
+		onCloseRaiseScheduleConcession: function() {
+			try {
+				if (this._oRaiseConcession) {
+					this._oRaiseConcession.close(this);
+					this._oRaiseConcession.destroy();
+					delete this._oRaiseConcession;
+				}
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
 		},
 
 		onAddNewWorkCenter: function(sMode) {
@@ -1270,6 +1301,7 @@ sap.ui.define([
 					oModel = dataUtil.createNewJsonModel(),
 					oTable = that.getView().byId("tbWcOutstandingId");
 				oEvent.getSource().setSelected(true);
+				oModel.setData(null);
 				oModel.setData(oObj);
 				if (!that._oOSDetails) {
 					that._oOSDetails = sap.ui.xmlfragment("OSTId",
@@ -1313,6 +1345,7 @@ sap.ui.define([
 				oModel = dataUtil.createNewJsonModel();
 			this.onAllOutStandingDetailsClose();
 			var oMod = JSON.parse(JSON.stringify(oObj));
+			oModel.setData(null);
 			oModel.setData(oMod);
 			if (!that._oMGDetails) {
 				that._oMGDetails = sap.ui.xmlfragment("OSTId",
@@ -1377,6 +1410,121 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnMultiTradmanGet function");
 				this.handleException(e);
+			}
+		},
+
+		_fnJobDueGet: function(sAir) {
+			try {
+				var that = this,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq JDU";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "JobDueSet");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
+			}
+		},
+
+		onRaiseScheduleConcessionPress: function() {
+			try {
+				var that = this,
+					oPayload, oModel, oJobModel,
+					oPrmSchJob = {};
+				try {
+					oModel = this.getView().getModel("RSModel").getData();
+				} catch (e) {
+					oModel = "";
+				}
+
+				oJobModel = this.getView().getModel("JobModel");
+				oPayload = {
+					"JOBID": oJobModel.getProperty("/jobid"),
+					"TAILID": that.getTailId(),
+					"SCONFLAG": "E",
+					"JDUID": null,
+					"JDUTXT": oJobModel.getProperty("/jdutxt"),
+					"JDUVL": null
+				};
+
+				if (oModel.DueBy === "JDU_10") {
+					oPayload.JDUVL = oModel.ExpDate;
+					oPayload.JDUID = oModel.DueBy;
+				} else {
+					oPayload.JDUID = oModel.DueBy;
+					oPayload.JDUVL = (oModel.UtilVal).toString();
+				}
+
+				oPrmSchJob.error = function() {};
+				oPrmSchJob.success = function(oData) {
+					this.getRouter().navTo("Cosjobs", {
+						State: "SCH"
+					});
+				}.bind(this);
+				oPrmSchJob.activity = 2;
+				ajaxutil.fnUpdate("/RaiseSchSvc", oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
+			} catch (e) {
+				Log.error("Exception in onRaiseScheduleConcessionPress function");
+			}
+		},
+
+		_fnGetUtilisationSched: function() {
+			try {
+				var that = this,
+					sDate = null,
+					aData = this.getModel("JobModel").getData(),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + that.getAircraftId() + " and JDUID eq JDU";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+						var min = 0;
+						/*if (this.oObject && this.oObject[aData.jduid] && this.oObject[aData.jduid].VALUE) {
+							min = parseFloat(this.oObject[aData.jduid].VALUE);
+						}*/
+						if (aData.jduid === "JDU_10") {
+							//min = new Date(aData.jduvl);
+							sDate = new Date(aData.jduvl);
+
+						} else {
+							min = parseFloat(this.oObject[aData.jduid].VALUE);
+						}
+						var data = {
+							"DueBy": aData.jduid,
+							"ExpDate": sDate,
+							"Util": "",
+							"UtilVal": aData.jduvl,
+							"ExpDateFlag": aData.jduid === 'JDU_10' ? true : false,
+							"UtilValFlag": aData.jduid !== 'JDU_10' ? true : false,
+							"UM": "",
+							"minVal": min,
+							"minDT": sDate
+
+						};
+						if (this.getView().getModel("RSModel")) {
+							this.getModel("RSModel").setData(data);
+						} else {
+							this.getView().setModel(new JSONModel(data), "RSModel");
+						}
+
+						this._oRaiseConcession.open(this);
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisation function");
 			}
 		},
 
@@ -1774,10 +1922,9 @@ sap.ui.define([
 				var oModel = this._oMGDetails.getModel("ManageTaskModel");
 				var sSelectedKey = oEvent.getSource().getSelectedKey();
 				this._fnResetTaskModelData();
-				if(sSelectedKey!=="TT2_12")
-				{
-				oModel.setProperty("/ismat","Part No.");
-				oModel.setProperty("/isser","Serial No. (S/N)");
+				if (sSelectedKey !== "TT2_12") {
+					oModel.setProperty("/ismat", "Part No.");
+					oModel.setProperty("/isser", "Serial No. (S/N)");
 				}
 				oModel.refresh();
 			} catch (e) {
@@ -2771,19 +2918,25 @@ sap.ui.define([
 		// Table: TASK
 		//--------------------------------------------------------------------------------------
 		//8.on click of Sign Off button
-		onEditTaskSignOff: function(oEvent) {
+		onEditTaskSignOff: function(oFlag) {
 			try {
-				FieldValidations.resetErrorStates(this);
+				/* FieldValidations.resetErrorStates(this);
 				if (FieldValidations.validateFields(this)) {
 					return;
-				}
+				} */
 				var that = this,
 					oTempObj,
-					oModel = this._oSPDetails.getModel("DetailsSupEditModel"),
+					oModel,
 					sObject,
 					oViewModel = that.getView().getModel("LocalModel"),
 					oPrmTask = {},
 					oPayload = [];
+
+				if (oFlag === "ED") {
+					oModel = this._oSPDetails.getModel("DetailsSupEditModel")
+				} else {
+					oModel = that._oSupDetails.getModel("DetailsSupModel")
+				}
 				oPayload = oModel.getData();
 				oPayload.tstat = "X";
 				if (oPayload.expdt !== null && oPayload.expdt !== "") {
@@ -2823,6 +2976,7 @@ sap.ui.define([
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					this.onPendingSupEditDetailsClose();
+					this.onPendingSupDetailsClose();
 					that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 					that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 					that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
@@ -2942,6 +3096,7 @@ sap.ui.define([
 					oPrmTask.error = function() {};
 					oPrmTask.success = function(oData) {
 						that.onMangeTaskPressClose();
+						that.onAllOutStandingDetailsClose();
 						for (var j = 0; j < oData.results.length; j++) {
 							if (oData.results[j].errormsg !== "" && oData.results[j].errormsg !== null) {
 								oErrorArray.push({
