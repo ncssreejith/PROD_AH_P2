@@ -260,7 +260,7 @@
 										</HBox>
 									</HBox>
 									<MessageStrip class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" type="Warning" showIcon="true" text='Pending Supervisor Sign Off'>
-										<Link text="Sign Off" press="onEditTaskSignOff" class="sapUiLargeMarginBegin"/>
+										<Link text="Sign Off" press="onEditTaskSignOff('SP')" class="sapUiLargeMarginBegin"/>
 									</MessageStrip>
 									<layoutData>
 										<l:GridData linebreak="false" span="XL12 L12 M12 S12"/>

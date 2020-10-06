@@ -7,12 +7,12 @@
 					<Table class="sapUiResponsivePadding sapUiSizeCompact sapUiSmallMarginTopBottom sapUiSmallMarginEnd CERTable tableHFont" mode="None"
 						items="{ path: 'ErroModel>/'}" showNoData="true">
 						<columns>
-							<Column width="50%" hAlign="Start" minScreenWidth="Tablet" demandPopin="true" class="textColor">
+							<Column width="50%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true" class="textColor">
 								<HBox>
 									<Label text="{i18n>lbTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 								</HBox>
 							</Column>
-							<Column width="45%" hAlign="Start" minScreenWidth="Tablet" demandPopin="true" class="textColor">
+							<Column width="45%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true" class="textColor">
 								<HBox>
 									<Label text="Task Type" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 								</HBox>
@@ -29,15 +29,11 @@
 									<HBox wrap="Wrap" class="textOverFlow">
 										<Text text="{ErroModel>taskId}" wrapping="true"/>
 									</HBox>
-									<ComboBox width="330px" editable="false" visible="{= ${ErroModel>tType}!==null ? true:false}"
-										items="{path:'TaskMainListModel>/',templateShareable: false}" selectedKey="{ErroModel>tType}">
-										<core:Item text="{TaskMainListModel>ttype}" key="{TaskMainListModel>ttid}"/>
-									</ComboBox>
-									<!--<VBox>
-										<Label text="Template" design="Bold" class="sapUiTinyMarginBegin" visible="{=${ErroModel>tmpid} !== null ? true : false}"></Label>
-										<Label class="sapUiTinyMarginBegin sapUiTinyMarginTop" design="Bold" visible="{=${ErroModel>tmpid} === null ? true : false}"
-											text="{parts:[{path:'ErroModel>tt1id'},{path:'TaskMainListModel>/'}], formatter:'.formatter.taskNameText'}"/>
-									</VBox>-->
+									<VBox alignItems="Center">
+										<Text design="Bold" visible="{= ${ErroModel>tTempId} === null ? true : false}"
+											text="{parts:[{path:'ErroModel>tType'},{path:'TaskMainListModel>/'}], formatter:'.formatter.taskNameText'}"/>
+										<Text text="Template" design="Bold" visible="{= ${ErroModel>tTempId} === null ? false : true}"></Text>
+									</VBox>
 									<Text text="{ErroModel>errormsg}" wrapping="true"/>
 								</cells>
 							</ColumnListItem>

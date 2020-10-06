@@ -41,8 +41,12 @@
 							<VBox>
 								<VBox class="sapUiTinyMarginBottom"
 									visible="{= (${DetailsSupEditModel>/tt1id}!=='TT1_11' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_14' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_15' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_16' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_19' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_18' &amp;&amp; ${DetailsSupEditModel>/tt1id}!=='TT1_17') ? true:false}">
-									<TextArea width="100%" rows="5" value="{DetailsSupEditModel>/ftdesc}" maxLength="1000" showExceededText="true"
-										liveChange="handleLiveChangeFlyingRequirements"/>
+									<!--<TextArea width="100%" rows="5" value="{DetailsSupEditModel>/ftdesc}" maxLength="1000" showExceededText="true"
+										liveChange="handleLiveChangeFlyingRequirements"/>-->
+									<TextArea width="100%" rows="5"
+										fieldGroupIds="{parts:['DetailsSupEditModel>/tmpid', 'DetailsSupEditModel>/tt1id'], templateShareable: false,formatter:'.formatter.textAreaFieldGrpFUTask'}"
+										required="{parts:['TaskModel>tmpid', 'TaskModel>tt1id'], templateShareable: false,formatter:'.formatter.textAreaRequiredFUTask'}"
+										value="{DetailsSupEditModel>/ftdesc}" maxLength="1000" showExceededText="true" liveChange="handleLiveChangeFlyingRequirements"/>
 									<layoutData>
 										<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 									</layoutData>
@@ -298,7 +302,7 @@
 		</VBox>
 		<buttons>
 			<Button text="Cancel" press="onPendingSupEditDetailsClose" type="Reject" visible="{oCreateTaskModel>/bCreateTaskBtn}"/>
-			<Button press="onEditTaskSignOff" text="Sign off" type="Emphasized"></Button>
+			<Button press="onEditTaskSignOff('ED')" text="Sign off" type="Emphasized"></Button>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>
