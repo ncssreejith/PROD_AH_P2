@@ -75,13 +75,13 @@
 								<SegmentedButton selectedKey="{dashboardModel>/scl/Index}" selectionChange="onScheduleSegBtnChange" width="100%" class="sapUiSizeCompact">
 									<items>
 										<SegmentedButtonItem key="Hrs" text="Hrs" icon="{dashboardModel>/scl/HrsAlert}" width="30%"
-											ariaDescribedBy="rejectButtonDescription genericButtonDescription">
+											ariaDescribedBy="rejectButtonDescription">
 											<customData>
-												<core:CustomData writeToDom="true"/>
+												<core:CustomData writeToDom="'true'"/>
 											</customData>
 										</SegmentedButtonItem>
 										<SegmentedButtonItem text="Days" key="Days" icon="{dashboardModel>/scl/DaysAlert}"
-											ariaDescribedBy="rejectButtonDescription genericButtonDescription"/>
+											ariaDescribedBy="rejectButtonDescription"/>
 										<SegmentedButtonItem text="Eng" key="TAC" icon="{dashboardModel>/scl/TACAlert}"/>
 									</items>
 								</SegmentedButton>

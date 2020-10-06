@@ -594,6 +594,11 @@ sap.ui.define([
 				}.bind(this);
 				oParameter.success = function(oData) {
 					oData.results = this.fnSortEngine(oData.results);
+					this._getEngPowerCheck(oData.results[0].engid, oData.results[0].engno);
+					if (oData.results.length > 1) {
+						this._getEngPowerCheck(oData.results[1].engid, oData.results[1].engno);
+					}
+
 					this.getModel("oPilotUpdatesViewModel").setProperty("/engines", oData.results);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/chkrn", oData.results[0].chkrn === null ? "1" : oData.results[0]
 						.chkrn);
@@ -604,6 +609,100 @@ sap.ui.define([
 				ajaxutil.fnRead("/PilotAH4PowerSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAmResults function");
+				this.handleException(e);
+			}
+		},
+		/** 
+		 * Get Power check data
+		 * @constructor 
+		 */
+		_getEngPowerCheck: function(sEngID, iEngine) {
+			try {
+				var 
+					oEngineModel = this.getView().getModel("oPilotUpdatesViewModel"),
+					oParameter = {};
+				if (sEngID) {
+					oParameter.filter = "ENGID eq " + sEngID + " and FLAG eq P and tailid eq " + this.getTailId();
+				} else {
+					oParameter.filter = "tailid eq " + this.getTailId() + " and FLAG eq P";
+				}
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					if (oData && oData.results && oData.results.length) {
+						oData.results.sort(function(b, a) {
+							return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]);
+						});
+						var bFound = false;
+						oData.results.forEach(function(oItem) {
+							if (!bFound && oItem.CHKRN === "2") {
+								oItem.Special = true;
+								bFound = true;
+								oItem.minValue = parseFloat(JSON.parse(JSON.stringify(
+									oItem.ETF ? oItem.ETF : 0)));
+							}
+						});
+						if (oData) {
+							if (iEngine === "1") {
+								oEngineModel.setProperty("/EngPowerCheck", oData.results);
+								this._setData(iEngine);
+							} else {
+								oEngineModel.setProperty("/EngPowerCheck2", oData.results);
+								this._setData(iEngine);
+							}
+						}
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/EHSERSvc", oParameter);
+			} catch (e) {
+				Log.error("Exception in Engine:_getEngPowerCheck function");
+				this.handleException(e);
+			}
+		},
+		//2.Data for the chart 
+		fnCheckHIT: function(iEngine) {
+			try {
+				var oEngineModel = this.getView().getModel("oPilotUpdatesViewModel");
+				var aEngPowerCheck = {};
+				if (iEngine === "1") {
+					aEngPowerCheck = oEngineModel.getProperty("/EngPowerCheck");
+				} else {
+					aEngPowerCheck = oEngineModel.getProperty("/EngPowerCheck2");
+				}
+				var aLowerLimit = [];
+				var aUpperLimit = [];
+				var aDataPoints = [];
+				var aRedPoints = [];
+				var aLDashPoints = [];
+				var aUDashPoints = [];
+				//Loop
+				aEngPowerCheck.forEach(function(oItem) {
+					if (oItem.CHKRN !== "1") {
+						return;
+					}
+					var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
+					var iLLimit = parseInt(oItem.LLIMIT ? oItem.LLIMIT : 0) + 5;
+					var iDiff = parseInt(oItem.TGTDIFF);
+					if (iDiff > iULimit) {
+						oItem.ULimitFlag = true;
+						// aRedPoints.push(iDiff);
+						// aDataPoints.push(iDiff);
+					}
+					if (iDiff < iLLimit) {
+						oItem.LLimitFlag = true;
+						// aRedPoints.push(iDiff);
+						// aDataPoints.push(iDiff);
+					}
+
+					aDataPoints.push(iDiff);
+					aRedPoints.push(iDiff);
+
+					aLDashPoints.push(iLLimit);
+					aUDashPoints.push(iULimit);
+					aLowerLimit.push(oItem.LLIMIT);
+					aUpperLimit.push(oItem.ULIMIT);
+				});
+			} catch (e) {
+				Log.error("Exception in Engine:_getEngPowerCheck function");
 				this.handleException(e);
 			}
 		},
