@@ -227,13 +227,16 @@ sap.ui.define([
 				oPrmTask.success = function(oData) {
 					oModel.setProperty("/signOffBtn", false);
 					oModel.setProperty("/signOffBtn1", true);
+					oModel.setProperty("/RectEdit", false);
+					oModel.setProperty("/backBtn", false);
+					oModel.setProperty("/backBtnSup", true);
 					if (sSignFlag === "SP") {
 						if (oSelectedItemId === "1") {
 							that.ESJobCreate();
 						} else {
 							that.getRouter().navTo("Cosjobs", {
 								State: "COM"
-							});
+							}, true);
 						}
 					} else {
 						MessageBox.show(
@@ -306,8 +309,10 @@ sap.ui.define([
 						that.onRectificationSelectTask();
 						oViewModel.setProperty("/signOffBtn", false);
 						oViewModel.setProperty("/signOffBtn1", true);
+						oModel.setProperty("/RectEdit", false);
 						oViewModel.setProperty("/proccedBtn", false);
-						oViewModel.setProperty("/backBtn", true);
+						oViewModel.setProperty("/backBtn", false);
+						oViewModel.setProperty("/backBtnSup", true);
 						oViewModel.setProperty("/bFlag", true);
 						oViewModel.setProperty("/selectedIcon", "SignOff");
 
@@ -450,7 +455,9 @@ sap.ui.define([
 				oPayload.JOBTY = "ZP";
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
-					this.getRouter().navTo("Cosjobs");
+					that.getRouter().navTo("Cosjobs", {
+						State: "COM"
+					}, true);
 				}.bind(this);
 				oPrmTD.activity = 1;
 				ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_COS_JB", this);
@@ -646,8 +653,10 @@ sap.ui.define([
 						oModel.setProperty("/selectedIcon", "SignOff");
 						oModel.setProperty("/signOffBtn", false);
 						oModel.setProperty("/signOffBtn1", true);
+						oModel.setProperty("/RectEdit", false);
 						oModel.setProperty("/proccedBtn", false);
-						oModel.setProperty("/backBtn", true);
+						oModel.setProperty("/backBtn", false);
+						oModel.setProperty("/backBtnSup", true);
 						this.selectedTab = "SignOff";
 						oModel.setProperty("/selectedIcon", this.selectedTab);
 						oModel.refresh(true);
@@ -685,25 +694,45 @@ sap.ui.define([
 		//  Private Method: This will get called, on click of onBack.
 		//------------------------------------------------------------------------------------------
 		//4.on click of back
-		onBack: function() {
+		onBack: function(oFlag) {
 			try {
-				var oModel = this.getView().getModel("ViewModel"),
-					oJobModel;
-				this.selectedTab = "Summary";
-				oJobModel = this.getView().getModel("JobModel");
-				this.onWorkCenterSelect(oJobModel.getProperty("/prime"));
-				//this.getView().getModel("TaskModel").setData(null);
-				//this.getView().getModel("ViewModel").setProperty("/selectedTask", []);
-				this.getView().byId("cbWorkCenterId").setSelectedKey(oJobModel.getProperty("/prime"));
-				oModel.setProperty("/PrimeWC", oJobModel.getProperty("/prime"));
-				oModel.setProperty("/selectedIcon", "Summary");
-				oModel.setProperty("/signOffBtn", false);
-				oModel.setProperty("/signOffBtn1", false);
-				oModel.setProperty("/proccedBtn", true);
-				oModel.setProperty("/backBtn", false);
+				var that = this,
+					oModel = this.getView().getModel("ViewModel");
+				if (oFlag === "TR") {
+					this._fnBackBtnPress();
+				} else {
+					MessageBox.error("Do you want to edit rectification summary?", {
+						actions: ["NO", "YES"],
+						emphasizedAction: "YES",
+						initialFocus: "YES",
+						onClose: function(sAction) {
+							if (sAction === "YES") {
+								oModel.setProperty("/RectEdit", true);
+								that._fnBackBtnPress();
+							}
+						}
+					});
+				}
 			} catch (e) {
 				Log.error("Exception in onBack function");
 			}
+		},
+
+		_fnBackBtnPress: function() {
+			var oModel = this.getView().getModel("ViewModel"),
+				oJobModel;
+			this.selectedTab = "Summary";
+			oJobModel = this.getView().getModel("JobModel");
+			this.onWorkCenterSelect(oJobModel.getProperty("/prime"));
+			this.getView().byId("cbWorkCenterId").setSelectedKey(oJobModel.getProperty("/prime"));
+			oModel.setProperty("/PrimeWC", oJobModel.getProperty("/prime"));
+			oModel.setProperty("/selectedIcon", "Summary");
+			oModel.setProperty("/signOffBtn", false);
+			oModel.setProperty("/signOffBtn1", false);
+			oModel.setProperty("/proccedBtn", true);
+			oModel.setProperty("/backBtn", false);
+			oModel.setProperty("/backBtnSup", false);
+			this.byId("pageCloseId").scrollTo(0);
 		},
 
 		//------------------------------------------------------------------------------------------
@@ -806,6 +835,7 @@ sap.ui.define([
 					"dTime": new Date().getHours() + ":" + new Date().getMinutes(),
 					"proccedBtn": true,
 					"backBtn": false,
+					"backBtnSup": false,
 					"signOffBtn": false,
 					"signOffBtn1": false,
 					"WCText": "",
@@ -814,7 +844,8 @@ sap.ui.define([
 					"TaskStatus": "",
 					"selectedTask": [],
 					"oldSelectedTask": [],
-					"PrimeWC": ""
+					"PrimeWC": "",
+					"RectEdit": true
 				});
 				this.getView().setModel(oAppModel, "ViewModel");
 				oJobModel = dataUtil.createNewJsonModel();

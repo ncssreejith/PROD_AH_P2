@@ -239,14 +239,14 @@ sap.ui.define([
 					if (oViewModel.getProperty("/Flag") === "FS") {
 						that.getRouter().navTo("CTCloseTask", {
 							"srvtid": oViewModel.getProperty("/srvtid")
-						});
+						}, true);
 					} else {
 						that.getRouter().navTo("CosDefectsSummary", {
 							"JobId": oViewModel.getProperty("/JobId"),
 							"Flag": "Y",
 							"WcKey": oViewModel.getProperty("/WorkKey"),
 							"goTo": "SP"
-						});
+						}, true);
 					}
 				}.bind(this);
 				ajaxutil.fnCreate("/CreTuserSvc", oPrmTD, oPayLoad);
@@ -350,7 +350,7 @@ sap.ui.define([
 							"Flag": "Y",
 							"WcKey": oViewModel.getProperty("/WorkKey"),
 							"goTo": "SP"
-						});
+						}, true);
 					}
 				}.bind(this);
 				if (oViewModel.getProperty("/Flag") === "FS") {
@@ -552,7 +552,7 @@ sap.ui.define([
 				var oViewLimitModel = this.getModel("oViewLimitModel");
 				oViewLimitModel.setProperty("/bLimitation", false);
 				oViewLimitModel.setProperty("/bAddLimitationBtn", true);
-				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC","");
+				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", "");
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onRemoveLimitaionPress function");
 				this.handleException(e);

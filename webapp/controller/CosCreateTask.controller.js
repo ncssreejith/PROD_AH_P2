@@ -1012,14 +1012,14 @@ sap.ui.define([
 					if (oModel.getProperty("/sFlag") === "FS") {
 						that.getRouter().navTo("CTCloseTask", {
 							"srvtid": oModel.getProperty("/ssrvid")
-						});
+						},true);
 					} else {
 						that.getRouter().navTo("CosDefectsSummary", {
 							"JobId": oModel.getProperty("/JobId"),
 							"Flag": "Y",
 							"WcKey": oModel.getProperty("/WorkKey"),
 							"goTo": "OS"
-						});
+						},true);
 					}
 				}.bind(this);
 				oPrmTask.activity = 1;

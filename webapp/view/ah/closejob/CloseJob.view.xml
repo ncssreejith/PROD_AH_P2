@@ -29,7 +29,8 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<Button text="Proceed" press="onProceed" visible="{ViewModel>/proccedBtn}" type="Emphasized"/>
-				<Button text="Back" press="onBack" visible="{ViewModel>/backBtn}" type="Unstyled" class="sapUiSizeCompact"/>
+				<Button text="Back" press="onBack('TR')" visible="{ViewModel>/backBtn}" type="Unstyled" class="sapUiSizeCompact"/>
+				<Button text="Back" press="onBack('SP')" visible="{ViewModel>/backBtnSup}" type="Unstyled" class="sapUiSizeCompact"/>
 				<Button text="Sign Off" press="onSignOff('TR')" visible="{ViewModel>/signOffBtn}" type="Emphasized"/>
 				<Button text="Sign Off" press="onSignOff('SP')" visible="{ViewModel>/signOffBtn1}" type="Emphasized"/>
 			</OverflowToolbar>

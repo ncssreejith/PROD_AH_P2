@@ -58,8 +58,8 @@
 								<VBox>
 									<!--visible="{= (${JobModel>/jobty}==='D' || ${JobModel>/notity}!==null ) ? true:false}"-->
 									<Label text="Rectification Summary"></Label>
-									<TextArea cols="60" width="100%" value="{JobModel>/recttxt}" rows="3" maxLength="1000" showExceededText="true"
-										liveChange="handleLiveChangeFlyingRequirements" required="true" fieldGroupIds="fgTxtArea"></TextArea>
+									<TextArea cols="60" width="100%" value="{JobModel>/recttxt}" rows="6" maxLength="1000" showExceededText="true"
+										liveChange="handleLiveChangeFlyingRequirements" required="true" fieldGroupIds="fgTxtArea" editable="{ViewModel>/RectEdit}"></TextArea>
 									<layoutData>
 										<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 									</layoutData>

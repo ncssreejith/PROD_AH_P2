@@ -2106,6 +2106,7 @@ sap.ui.define([
 							this.getView().byId("itbTaskId").setSelectedKey("CM");
 						}
 						that.onPendingSupDetailsClose();
+						this._fnTaskStatusGet();
 						that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
@@ -2276,6 +2277,7 @@ sap.ui.define([
 						}
 
 						that.onPendingSupDetailsClose();
+						this._fnTaskStatusGet();
 						that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
@@ -2933,9 +2935,9 @@ sap.ui.define([
 					oPayload = [];
 
 				if (oFlag === "ED") {
-					oModel = this._oSPDetails.getModel("DetailsSupEditModel")
+					oModel = this._oSPDetails.getModel("DetailsSupEditModel");
 				} else {
-					oModel = that._oSupDetails.getModel("DetailsSupModel")
+					oModel = that._oSupDetails.getModel("DetailsSupModel");
 				}
 				oPayload = oModel.getData();
 				oPayload.tstat = "X";
@@ -2960,21 +2962,10 @@ sap.ui.define([
 				}
 				oTempObj = this._fnGetObjectTypeAndActivity(oPayload.tt1id);
 				oPayload.symbol = "0";
-				/*				delete oPayload[i].ValueState;
-								delete oPayload[i].ftcredtStateText;
-								delete oPayload[i].ftcretmState;*/
-				/*	try {
-						oPayload[i].ftcredt = formatter.defaultOdataDateFormat(oPayload[i].ftcredt);
-					} catch (e) {
-						oPayload[i].ftcredt = oPayload[i].ftcredt;
-					}
-					if (oPayload[i].CPRID !== null) {
-						oPayload[i].ftdesc = "Transfer to Acceptable Deferred Defects Log";
-					}*/
-
 				oPrmTask.filter = "";
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
+					this._fnTaskStatusGet();
 					this.onPendingSupEditDetailsClose();
 					this.onPendingSupDetailsClose();
 					that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
@@ -3107,6 +3098,7 @@ sap.ui.define([
 								oErroFlag = true;
 							}
 						}
+						this._fnTaskStatusGet();
 						this.getView().byId("itbTaskId").setSelectedKey("OS");
 						that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
@@ -4076,6 +4068,7 @@ sap.ui.define([
 		_fnToolCheck: function(sJobId, oFlag) {
 			try {
 				var that = this,
+					oModel = this.getView().getModel("LocalModel"),
 					oPrmTask = {};
 				oPrmTask.filter = "JOB_ID eq " + sJobId;
 
@@ -4084,10 +4077,15 @@ sap.ui.define([
 					if (oData && oData.results.length > 0) {
 						this._onfnToolCheckSuccess(oData.results, oFlag);
 					} else {
-						this.getRouter().navTo("CosCloseJob", {
-							"JobId": sJobId,
-							"Flag": oFlag
-						});
+						if (oModel.getProperty("/JobStatus")) {
+							this.getRouter().navTo("CosCloseJob", {
+								"JobId": sJobId,
+								"Flag": oFlag
+							});
+						} else {
+							var sText = "Please close all tasks of the job : " + oModel.getProperty("/sJobId");
+							sap.m.MessageBox.error(sText);
+						}
 					}
 				}.bind(this);
 				ajaxutil.fnRead("/ToolCheckValSvc", oPrmTask);
