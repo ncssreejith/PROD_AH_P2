@@ -113,8 +113,8 @@ sap.ui.define([
 		},
 
 		handleChange: function() {
-			var prevDt = this.getModel("ViewModel").getProperty("/jobDate");
-			var prevTime = this.getModel("ViewModel").getProperty("/jobTime");
+			var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+			var prevTime = this.getModel("ViewModel").getProperty("/backTm");
 			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
 		},
 
@@ -704,6 +704,23 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+		_fnGetDateValidation: function(sJobId) {
+			try {
+				var oPrmTaskDue = {};
+				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("ViewModel").setProperty("/backDt", oData.results[0].VDATE);
+						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetDateValidation function");
+			}
+		},
 
 		onSubmit: function() {
 			try {
@@ -864,9 +881,7 @@ sap.ui.define([
 					ssrvid: ssrvid,
 					sDate: oDate,
 					Time: oDate.getHours() + ":" + oDate.getMinutes(),
-					flag: sFlag,
-					jobDate: oEvent.getParameters().arguments.jbDate,
-					jobTime: oEvent.getParameters().arguments.jbTime
+					flag: sFlag
 				});
 				that.getView().setModel(oViewModel, "ViewModel");
 				oModel = dataUtil.createNewJsonModel();
@@ -933,6 +948,7 @@ sap.ui.define([
 					bSrComFlag: "N"
 				});
 				that.getView().setModel(oModel, "oCreateTaskModel");
+				this._fnGetDateValidation(sJobId);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_onObjectMatched function");
 				this.handleException(e);

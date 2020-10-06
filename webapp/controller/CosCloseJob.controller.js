@@ -51,6 +51,11 @@ sap.ui.define([
 			}
 		},
 
+		handleChange: function() {
+			var aData = this.getModel("ViewModel").getData();
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCloseJobPast", "errorCloseJobFuture", aData.backDt, aData.backTm);
+		},
+
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
@@ -644,47 +649,33 @@ sap.ui.define([
 				}
 
 				var oModel = this.getView().getModel("ViewModel"),
-					oJobModel = this.getView().getModel("JobModel"),
-					oTemp, bFlag, bFlagCurrentTime, oResource = this.getView().getModel("i18n").getResourceBundle();
-				bFlag = this._fnValidateTime();
-				bFlagCurrentTime = this._fnValidateCreationDateTime();
-				if (bFlag && bFlagCurrentTime) {
-					if (oJobModel.getProperty("/jstat") === "P") {
-						oModel.setProperty("/selectedIcon", "SignOff");
-						oModel.setProperty("/signOffBtn", false);
-						oModel.setProperty("/signOffBtn1", true);
-						oModel.setProperty("/RectEdit", false);
-						oModel.setProperty("/proccedBtn", false);
-						oModel.setProperty("/backBtn", false);
-						oModel.setProperty("/backBtnSup", true);
-						this.selectedTab = "SignOff";
-						oModel.setProperty("/selectedIcon", this.selectedTab);
-						oModel.refresh(true);
-						this.byId("pageCloseId").scrollTo(0);
-					} else {
-						oModel.setProperty("/selectedIcon", "Confirmation");
-						oModel.setProperty("/signOffBtn", true);
-						oModel.setProperty("/proccedBtn", false);
-						oModel.setProperty("/backBtn", true);
-						this.selectedTab = "Confirmation";
-						oModel.setProperty("/selectedIcon", this.selectedTab);
-						oModel.refresh(true);
-						this.byId("pageCloseId").scrollTo(0);
-					}
-				} else {
-					if (!bFlag) {
-						oTemp = oResource.getText("errorCloserMessageCurrent");
-					}
-					if (!bFlagCurrentTime) {
-						oTemp = oResource.getText("errorCloserMessage") + " " + formatter.defaultTimeFormatDisplay(oJobModel.getProperty("/cretm"));
-					}
-					MessageBox.error(
-						oTemp, {
-							icon: sap.m.MessageBox.Icon.Error,
-							title: "Error",
-							styleClass: "sapUiSizeCompact"
-						});
+					oJobModel = this.getView().getModel("JobModel");
+				if (!this.handleChange()) {
+					return;
 				}
+				if (oJobModel.getProperty("/jstat") === "P") {
+					oModel.setProperty("/selectedIcon", "SignOff");
+					oModel.setProperty("/signOffBtn", false);
+					oModel.setProperty("/signOffBtn1", true);
+					oModel.setProperty("/RectEdit", false);
+					oModel.setProperty("/proccedBtn", false);
+					oModel.setProperty("/backBtn", false);
+					oModel.setProperty("/backBtnSup", true);
+					this.selectedTab = "SignOff";
+					oModel.setProperty("/selectedIcon", this.selectedTab);
+					oModel.refresh(true);
+					this.byId("pageCloseId").scrollTo(0);
+				} else {
+					oModel.setProperty("/selectedIcon", "Confirmation");
+					oModel.setProperty("/signOffBtn", true);
+					oModel.setProperty("/proccedBtn", false);
+					oModel.setProperty("/backBtn", true);
+					this.selectedTab = "Confirmation";
+					oModel.setProperty("/selectedIcon", this.selectedTab);
+					oModel.refresh(true);
+					this.byId("pageCloseId").scrollTo(0);
+				}
+
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onProceed function");
 				this.handleException(e);
@@ -780,6 +771,23 @@ sap.ui.define([
 				Log.error("Exception in onBack function");
 			}
 		},
+		
+		_fnGetDateValidation : function (sJobId){
+			try {
+				var oPrmTaskDue = {};
+				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq C and jobid eq " + sJobId;
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("ViewModel").setProperty("/backDt",oData.results[0].VDATE);
+						this.getModel("ViewModel").setProperty("/backTm",oData.results[0].VTIME);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetDateValidation function");
+			}
+		},
 
 		//------------------------------------------------------------------
 		// Function: _fnMultiTradmanJobGet
@@ -857,6 +865,7 @@ sap.ui.define([
 				that._fnJobDetailsGet(sJobId);
 				that._fnTaskStatusGet(sJobId);
 				that._fnMultiTradmanJobGet(sJobId);
+				this._fnGetDateValidation(sJobId);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_onObjectMatched function");
 				this.handleException(e);

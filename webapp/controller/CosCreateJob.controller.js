@@ -80,10 +80,15 @@ sap.ui.define([
 
 		handleChange: function() {
 			var aData = this.getModel("appModel").getData();
-			if (aData.editMode) {
-				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture",aData.creDt, aData.cretm);
-			}
-			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateJobPast", "errorCreateJobFuture");
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
+		},
+		
+		onTypeMissmatch: function(oEvent) {
+			sap.m.MessageBox.error("Selected file type not allowed");
+		},
+
+		onFileSizeExceed: function() {
+			sap.m.MessageBox.error("File size exceeded maximum allowed file size 5 MB");
 		},
 
 		//------------------------------------------------------------------
@@ -619,9 +624,7 @@ sap.ui.define([
 				if (FieldValidations.validateFields(this)) {
 					return;
 				}
-				if (!this.handleChange()) {
-					return;
-				}
+
 				oPayload = AvMetInitialRecord.createInitialBlankRecord("SCHJob")[0];
 
 				oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));
@@ -1016,6 +1019,8 @@ sap.ui.define([
 				oPrmJobDue.success = function(oData) {
 					oViewModel.setProperty("/editMode", true);
 					var oModel = this.getView().getModel("oViewCreateModel");
+					this.getModel("appModel").setProperty("/backDt", oData.results[0].credt);
+					this.getModel("appModel").setProperty("/backTm", oData.results[0].cretm);
 					this.removeCoordinates();
 					if (oData.results.length !== 0) {
 						try {
@@ -1057,6 +1062,24 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+		_fnGetDateValidation: function() {
+			try {
+				var oPrmTaskDue = {};
+				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq I";
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("appModel").setProperty("/backDt", oData.results[0].VDATE);
+						this.getModel("appModel").setProperty("/backTm", oData.results[0].VTIME);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetDateValidation function");
+			}
+		},
+
 
 		//------------------------------------------------------------------
 		// Function: _fnTaskStatusGet
@@ -1281,6 +1304,7 @@ sap.ui.define([
 			this.getModel("oViewCreateModel").setProperty("/airid", this.getAircraftId());
 			this.getModel("oViewCreateModel").setProperty("/tailid", this.getTailId());
 			this.getModel("oViewCreateModel").setProperty("/modid", this.getModelId());
+			this._fnGetDateValidation();
 		}
 
 	});
