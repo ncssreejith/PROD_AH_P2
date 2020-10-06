@@ -1384,6 +1384,12 @@ sap.ui.define([
 			if (sValue === "LOX") {
 				return 1;
 			}
+			if (sValue === "Eng Oil #1") {
+				return 2;
+			}
+			if (sValue === "Eng Oil #2") {
+				return 2;
+			}
 		},
 
 		formatStepOil: function(sValue) {

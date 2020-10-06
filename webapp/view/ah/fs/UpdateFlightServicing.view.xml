@@ -12,7 +12,7 @@
 						<l:Grid >
 							<VBox>
 								<ct:HeaderCard title="{oUpdateFlightModel>description}" 
-								 signOffFlag="X" signedBy="{oUpdateFlightModel>SGUSR}"
+								 signOffFlag="{= ${oUpdateFlightModel>SGUSR} ? 'X' : '' }" signedBy="{oUpdateFlightModel>SGUSR}"
 								 dateTime="{path: 'oUpdateFlightModel>SGDTM', formatter: '.formatter.defaultDateTimeFormat'}"/>
 							</VBox>
 							<!--<l:Grid >-->
