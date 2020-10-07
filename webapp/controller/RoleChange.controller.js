@@ -165,6 +165,10 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
+					if(oData.results[0].APRNO === 1){
+						this.onNavBack();
+						return;
+					}
 					this._getStations();
 				}.bind(this);
 				var sAct = 99,

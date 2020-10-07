@@ -187,6 +187,7 @@ sap.ui.define([
 						oSelWpns.serialNos.splice(sIndex, 1);
 					}
 				}.bind(this, oSelWpn));
+				this.getModel("configModel").setProperty("/selStn/selADP/selWpn/srcount", 1);
 				this.getModel("configModel").setProperty("/selStn/selADP/selWpn", oSelWpn);
 				this.getModel("configModel").setProperty("/selStn/TOTQTY", oSelWpn.srcount);
 				this.getModel("configModel").refresh();

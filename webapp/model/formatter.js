@@ -646,6 +646,18 @@ sap.ui.define([
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
 
+		stnsQty:function(isSer,srCount,sTotQty){
+			var sQty = 0;
+			if(isSer === "X"){
+				sQty = srCount;
+			}
+			sQty = sTotQty;
+			if(sQty === 0){
+				sQty = "";
+			}
+			return sQty;
+		},
+		
 		fnFuelMaxAmt: function(srvtId, maxAmt, orgAmt) {
 			if (srvtId === "SRVT_DE") {
 				return parseInt(orgAmt);

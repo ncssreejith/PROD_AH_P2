@@ -82,7 +82,9 @@
 								<TileContent>
 									<HBox width="100%" justifyContent="SpaceBetween">
 										<Label class="sapUiSmallMarginBegin" text="{configModel>/selStn/selADP/selWpn/WESDESC} {configModel>/selStn/selADP/selWpn/ADPDESC}"/>
-										<Label class="sapUiSmallMarginEnd" text="{= ${configModel>/selStn/selADP/selWpn/ISSER}==='X'?${configModel>/selStn/selADP/selWpn/srcount}:${configModel>/selStn/TOTQTY}}"/>
+										<Label class="sapUiSmallMarginEnd"
+										text="{parts:['configModel>/selStn/selADP/selWpn/ISSER','configModel>/selStn/selADP/selWpn/srcount','configModel>/selStn/TOTQTY'],formatter:'.formatter.stnsQty'}"/>
+										<!--text="{= ${configModel>/selStn/selADP/selWpn/ISSER}==='X'?${configModel>/selStn/selADP/selWpn/srcount}:${configModel>/selStn/TOTQTY}}"/>-->
 									</HBox>
 								</TileContent>
 							</GenericTile>
