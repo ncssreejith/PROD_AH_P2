@@ -56,7 +56,7 @@
 				<VBox class="sapUiTinyMarginBegin">
 					<HBox>
 						<Label/>
-						<Text text="Optional" class="optionalTxtMargin" visible="{oCreateTaskModel>/bOptionalLabel}"/>
+						<!--<Text text="Optional" class="optionalTxtMargin" visible="{oCreateTaskModel>/bOptionalLabel}"/>-->
 					</HBox>
 					<Input width="180px" maxLength="20" value="{oCreateTaskModel>/sType1Value}" valueStateText="{i18n>ERttSerNoIn}"
 						required="{=${oCreateTaskModel>/sEngFlag} !== 'EG' &amp;&amp; ${oCreateTaskModel>/sType1}==='Serial No. (S/N)' ? true:false}"

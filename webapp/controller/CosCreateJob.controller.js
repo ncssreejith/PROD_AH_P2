@@ -595,7 +595,7 @@ sap.ui.define([
 						this.getRouter().navTo("CosDefectsSummary", {
 							"JobId": oData.results[0].jobid,
 							"Flag": "Y"
-						});
+						},true);
 						this.getView().byId("topId").setVisible(false);
 
 					}.bind(this);

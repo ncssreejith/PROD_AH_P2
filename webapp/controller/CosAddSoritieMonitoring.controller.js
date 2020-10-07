@@ -123,14 +123,14 @@ sap.ui.define([
 			if (sKey.length > 0) {
 				if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
 					var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
-					oModel.setProperty(sPath+"/MinVal", minVal);
-					var sVal = oModel.getProperty(sPath+"/SortiesNo") ? oModel.getProperty(sPath+"/SortiesNo") : 0;
+					oModel.setProperty(sPath + "/MinVal", minVal);
+					var sVal = oModel.getProperty(sPath + "/SortiesNo") ? oModel.getProperty(sPath + "/SortiesNo") : 0;
 					sVal = parseFloat(sVal, [10]);
 					var iPrec = formatter.JobDueDecimalPrecision(sKey);
-					oModel.setProperty(sPath+"/SortiesNo", parseFloat(minVal, [10]).toFixed(iPrec));
+					oModel.setProperty(sPath + "/SortiesNo", parseFloat(minVal, [10]).toFixed(iPrec));
 				} else {
-					oModel.setProperty(sPath+"/MinVal", 0);
-					oModel.setProperty(sPath+"/SortiesNo", 0);
+					oModel.setProperty(sPath + "/MinVal", 0);
+					oModel.setProperty(sPath + "/SortiesNo", 0);
 				}
 			}
 		},
@@ -360,7 +360,7 @@ sap.ui.define([
 						"Flag": "Y",
 						"WcKey": oModelSMJ.getProperty("/sWorkKey"),
 						"goTo": "SM"
-					});
+					}, true);
 				}.bind(this);
 				oParameter.activity = 1;
 				ajaxutil.fnCreate("/SortieMonSvc", oParameter, oPayloads, "dummy", this);
