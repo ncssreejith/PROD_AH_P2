@@ -1978,6 +1978,8 @@ sap.ui.define([
 					} else {
 						bFlag = "Y";
 					}
+					this.onAllOutStandingDetailsClose();
+                    this.onMangeTaskPressClose();
 					that.getRouter().navTo("CosCloseTask", {
 						"JobId": oModel.getProperty("/sJobId"),
 						"TaskId": JSON.stringify(oTaskId),
@@ -2547,6 +2549,8 @@ sap.ui.define([
 				oViewModel.setProperty("/sAirId", sAirId);
 				oViewModel.setProperty("/sSqnId", sSqnId);
 				oViewModel.setProperty("/sJobId", sJobId);
+				oViewModel.setProperty("/RectSummaryFlag", false);
+				oViewModel.setProperty("/editModeRectify", false);
 				this.getOwnerComponent().setModel(new JSONModel({
 					"jobId": sJobId
 				}), "jobModel");
@@ -3086,6 +3090,11 @@ sap.ui.define([
 					oPayload.symbol = "0";
 					if (oPayload.cdesc !== "" && oPayload.cdesc !== null && oPayload.tt1id !== "TT1_99") {
 						oPayload.tdesc = oPayload.cdesc;
+					}
+					if (oPayload.isser === "Batch No.") {
+						oPayload.tt2id = "TT2_15";
+					} else if (oPayload.isser === "Serial No. (S/N)") {
+						oPayload.tt2id = "TT2_10";
 					}
 					oTempObj = this._fnGetObjectTypeAndActivity(oPayload.tt1id);
 					oPrmTask.filter = "";
@@ -4183,7 +4192,7 @@ sap.ui.define([
 		},
 
 		_onfnToolCheckSuccess: function(aData, oFlag) {
-			if (aData.length === 1 && aData[0].FLAG === "OKAY") {
+			if (aData.length === 1 && aData[0].FLAG === "OKAY" ||  oFlag === "Y") {
 				this.getRouter().navTo("CosCloseJob", {
 					"JobId": aData[0].JOBID,
 					"Flag": oFlag
