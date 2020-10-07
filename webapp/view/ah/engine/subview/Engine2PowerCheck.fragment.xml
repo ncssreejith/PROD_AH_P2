@@ -221,7 +221,7 @@
 							<Label text="Airspeed (IAS)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="ETF" design="Bold" wrapping="true" class="whiteText"/>
+							<Label text="ETF Check" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="15%">
 						</Column>
