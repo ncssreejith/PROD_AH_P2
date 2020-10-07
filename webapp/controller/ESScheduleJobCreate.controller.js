@@ -149,7 +149,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 
 					if (oData && oData.results.length > 0) {
-						this.oObject = {};
+						// this.oObject = {};
 						for (var i in oData.results) {
 							this.oObject["JDU_22"] = {
 								VALUE: oData.results[i].EOT
