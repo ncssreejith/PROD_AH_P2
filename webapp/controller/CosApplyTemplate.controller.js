@@ -78,13 +78,17 @@ sap.ui.define([
 					oPayloads = [],
 					srvtid = this.getModel("applTmplModel").getProperty("/srvtid");
 				var sMode = this.getModel("applTmplModel").getProperty("/MasterTableMode");
-				if (sMode !== "X" && this.getView().byId("tbTask").getSelectedItems().length === 0) {
+				var iLen = this.getView().byId("tbTask").getSelectedItems().length;
+				if (sMode !== "X" && iLen === 0) {
 					sap.m.MessageBox.error("Please select task(s) to proceed");
 					return;
 				}
 				var oMasterTable = this.getView().byId("tbSummary");
 				var oItems = sMode === "X" ? oMasterTable.getSelectedItems() : oMasterTable.getItems();
-
+				if (sMode === "X" && iLen === 0 && oItems.length === 0) {
+					sap.m.MessageBox.error("Please select task(s) to proceed");
+					return;
+				}
 				for (var i in oItems) {
 					var oItem = oItems[i].getBindingContext("applTmplModel").getObject();
 					if ((oItem.TT1ID === "TT1_10" && (oItem.TT2ID === "TT2_10" || oItem.TT2ID === "TT2_12" || oItem.TT2ID === "TT2_13" || oItem.TT2ID ===
@@ -166,13 +170,12 @@ sap.ui.define([
 
 					if (oItem.SERNR !== "") {
 						oTask.sernr = oItem.SERNR;
-						oTask.isser = oItem.ISSER;
-
 					}
+					oTask.isser = oItem.ISSER;
 					if (oItem.PARTNO !== "") {
 						oTask.partno = oItem.PARTNO;
-						oTask.ismat = oItem.ISMAT;
 					}
+					oTask.ismat = oItem.ISMAT;
 					if (this.getModel("applTmplModel").getProperty("/Flag") === "FS") {
 						oTask.jobid = "";
 						oTask.wrctr = "";
