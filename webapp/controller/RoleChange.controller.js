@@ -130,18 +130,19 @@ sap.ui.define([
 			this.getModel("rcModel").refresh();
 		},
 		fnChkEdit: function() {
-			var oData = {},sFlag = true;
+			var oData = {},
+				sFlag = true;
 			if (this.getModel("rcModel").getProperty("/mode") === 0) {
-				sFlag =  false;
+				sFlag = false;
 			}
 			if (this.getModel("rcModel").getProperty("/stns/0/APRNO") === 1) {
-				sFlag =  false;
+				sFlag = false;
 			}
-			if(!sFlag){
+			if (!sFlag) {
 				oData = {
 					messages: ["Changes are not allowed"]
 				};
-				this.fnShowMessage("E", oData, null, function() {});	
+				this.fnShowMessage("E", oData, null, function() {});
 			}
 			return sFlag;
 		},
@@ -155,16 +156,13 @@ sap.ui.define([
 		onStationSignOff: function() {
 			try {
 				var oPayloads = this.fnRoleChanegPayload();
-				if (oPayloads.length === 0) {
-					var oData = {
-						messages: ["Please do role change at least for one station"]
-					};
-					this.fnShowMessage("E", oData, null, function() {});
-					return;
-				}
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
+					if (oData.results[0].APRNO === 1) {
+						this.onNavBack();
+						return;
+					}
 					this._getStations();
 				}.bind(this);
 				var sAct = 99,
@@ -263,6 +261,13 @@ sap.ui.define([
 					oPayloads.push(this.fnPayload(stn, adp));
 				}.bind(this));
 			}.bind(this));
+			if (oPayloads.length === 0) {
+				var oPayload = this.getModel("rcModel").getProperty("/stns/0");
+				oPayload.ADPFLAG = "X";
+				delete oPayload.adapters;
+				delete oPayload.selADP;
+				oPayloads.push(oPayload);
+			}
 			return oPayloads;
 		},
 
