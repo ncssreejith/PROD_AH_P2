@@ -301,7 +301,7 @@ sap.ui.define([
 					if (!this.getModel("JobCreateModel").getProperty("/ENGID")) {
 						this.getRouter().navTo("Cosjobs", {
 							State: "SCH"
-						});
+						}, true);
 					} else {
 						if (!this.fnCheckTailAvail()) {
 							this.getRouter().navTo("Engine", {
@@ -348,7 +348,7 @@ sap.ui.define([
 				if (sEngID) {
 					this.getModel("JobCreateModel").setProperty("/SN", oEvent.getParameter("arguments").SN);
 					this.getModel("JobCreateModel").setProperty("/PN", oEvent.getParameter("arguments").ENGTY);
-					
+
 					this.getModel("JobCreateModel").setProperty("/CTYPE", "ENGINE");
 				}
 
