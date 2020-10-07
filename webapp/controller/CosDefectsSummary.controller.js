@@ -2990,7 +2990,7 @@ sap.ui.define([
 					that._fnTasksOutStandingGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 					that._fnTasksCompleteGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 					that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
-					this.getView().byId("itbTaskId").setSelectedKey("CM");
+					//this.getView().byId("itbTaskId").setSelectedKey("CM");
 				}.bind(this);
 
 				sObject = "dummy";
