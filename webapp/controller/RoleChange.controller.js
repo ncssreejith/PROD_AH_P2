@@ -159,11 +159,11 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					if (oData.results[0].APRNO === 1) {
+					if(!this.getModel("rcModel").getProperty("/stns/0/APRNO") > 1){
 						this.onNavBack();
 						return;
 					}
-					this._getStations();
+					this._getStations();	
 				}.bind(this);
 				var sAct = 99,
 					sObj = "";
@@ -264,6 +264,7 @@ sap.ui.define([
 			if (oPayloads.length === 0) {
 				var oPayload = this.getModel("rcModel").getProperty("/stns/0");
 				oPayload.ADPFLAG = "X";
+				oPayload.APRNO = oPayload.APRNO > 1 ? 0 : oPayload.APRNO;
 				delete oPayload.adapters;
 				delete oPayload.selADP;
 				oPayloads.push(oPayload);

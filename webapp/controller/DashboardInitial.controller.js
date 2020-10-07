@@ -276,56 +276,6 @@ sap.ui.define([
 				var oItem = this.getModel("dashboardModel").getProperty("/scl");
 
 				this.fnProcessSchedule(oItem, sSelectedKey);
-				// if (!oItem) {
-				// 	return;
-				// }
-				// oItem.LV_COLOR = "Good";
-				// switch (sSelectedKey) {
-				// 	case "Hrs":
-				// 		this._setRadialChartText("scheduleMicroChartId", (oItem.LV_THRS >= 0 ? parseFloat(oItem.LV_THRS) : 0), "", (oItem.LV_THRS >= 0 ?
-				// 				parseFloat(oItem.LV_HRS) : 0),
-				// 			oItem.LV_HRS);
-				// 		if (oItem.LV_HRS > 0) {
-				// 			if (oItem.LV_THRS === 0) {
-				// 				oItem.LV_COLOR = "Error";
-				// 			} else {
-				// 				oItem.LV_COLOR = "Critical";
-				// 			}
-				// 		}
-				// 		// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
-				// 		break;
-				// 	case "Days":
-				// 		this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TDAY >= 0 ? parseFloat(oItem.LV_TDAY) : 0), "", (oItem.LV_TDAY >= 0 ?
-				// 				parseFloat(oItem.LV_DAY) : 0),
-				// 			oItem.LV_DAY);
-				// 		if (oItem.LV_DAY > 0) {
-				// 			if (oItem.LV_TDAY === 0) {
-				// 				oItem.LV_COLOR = "Error";
-				// 			} else {
-				// 				oItem.LV_COLOR = "Critical";
-				// 			}
-				// 		}
-				// 		// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TDAY));
-				// 		break;
-				// 	case "TAC":
-				// 		this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TTAC >= 0 ? parseFloat(oItem.LV_TTAC) : 0), "", (oItem.LV_TTAC >= 0 ?
-				// 				parseFloat(oItem.LV_TAC) : 0),
-				// 			oItem.LV_TAC);
-				// 		if (oItem.LV_TAC > 0) {
-				// 			if (oItem.LV_TTAC === 0) {
-				// 				oItem.LV_COLOR = "Error";
-				// 			} else {
-				// 				oItem.LV_COLOR = "Critical";
-				// 			}
-				// 		}
-				// 		// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_TTAC));
-				// 		break;
-				// 	default:
-				// 		this._setRadialChartText("scheduleMicroChartId", parseFloat(oItem.LV_THRS), "", parseFloat(oItem.LV_THRS), oItem.LV_HRS);
-				// 		// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
-				// 		break;
-				// }
-				// this.getModel("dashboardModel").refresh();
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onScheduleSegBtnChange function");
 				this.handleException(e);
@@ -430,7 +380,7 @@ sap.ui.define([
 					return;
 				}
 				oItem.list.forEach(function(oFL) {
-					if (oFL.key === parseInt(sSelectedKey)) {
+					if (oFL.key === sSelectedKey) {
 						that._setRadialChartTextDisplay("fuelMicroChartId", oFL.LTOTAMT, oFL.LEMAX, oFL.LTOTAMT, oFL.LEMAX);
 						oItem.REDESC = JSON.parse(JSON.stringify(oFL.REDESC));
 						oItem.LTOTAMT = JSON.parse(JSON.stringify(oFL.LTOTAMT));
@@ -885,7 +835,7 @@ sap.ui.define([
 					aFuel.forEach(function(oItem, i) {
 						var oTemp = {};
 						oTemp.REDESC = oItem;
-						oTemp.key = i;
+						oTemp.key = i.toString();
 						oTemp.LTOTAMT = parseInt(oFuel.LETOTAMT.split("@")[i]);
 						oTemp.LEMAX = parseInt(oFuel.LEMAX.split("@")[i]);
 						oTemp.LEUOM = oFuel.LEUOM.split("@")[i];
@@ -935,7 +885,7 @@ sap.ui.define([
 				oData.results.forEach(function(oItem, i) {
 					var oTemp = {};
 					oTemp.REDESC = oItem.RESDESC;
-					oTemp.key = i;
+					oTemp.key = i.toString();
 					oItem.LETOTAMT = oItem.LETOTAMT ? oItem.LETOTAMT : 0;
 					oItem.LEMAX = oItem.LEMAX ? oItem.LEMAX : 0;
 					oTemp.LTOTAMT = parseInt(oItem.LETOTAMT);
