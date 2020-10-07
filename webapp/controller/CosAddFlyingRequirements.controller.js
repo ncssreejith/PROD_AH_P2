@@ -227,7 +227,7 @@ sap.ui.define([
 							"Flag": "Y",
 							"WcKey": oModel.getProperty("/sWorkKey"),
 							"goTo": "FR"
-						});
+						},true);
 					} else {
 						this.getRouter().navTo("FlyingRequirements");
 					}

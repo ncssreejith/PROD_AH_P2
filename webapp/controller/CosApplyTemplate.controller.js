@@ -197,7 +197,7 @@ sap.ui.define([
 						that.getRouter().navTo("CosDefectsSummary", {
 							"JobId": this.getModel("applTmplModel").getProperty("/header/selJobId"),
 							"Flag": "Y"
-						});
+						},true);
 					}
 				}.bind(this);
 				oParameter.activity = 2;

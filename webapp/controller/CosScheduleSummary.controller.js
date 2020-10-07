@@ -786,7 +786,7 @@ sap.ui.define([
 					if (oFlag === "Y") {
 						this.getRouter().navTo("Cosjobs", {
 							State: "SCH"
-						});
+						}, true);
 					} else {
 						that.onCloseAddWorkCenterDialog("N");
 						this._fnSumamryDetailsGet(that.getView().getModel("LocalModel").getProperty("/ESJobId"));
@@ -810,7 +810,7 @@ sap.ui.define([
 					oPayload.FLAG = "";
 					oPrmSchJob.error = function() {};
 					oPrmSchJob.success = function(oData) {
-						this.getRouter().navTo("Cosjobs");
+						this.getRouter().navTo("Cosjobs", true);
 					}.bind(this);
 					oPrmSchJob.activity = 1;
 					ajaxutil.fnCreate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);

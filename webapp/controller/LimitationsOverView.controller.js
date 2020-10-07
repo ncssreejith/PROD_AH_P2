@@ -370,7 +370,7 @@ sap.ui.define([
 						this._fnADDCapDataMultipleGet("E", oModel.getProperty("/JOB"), oModel.getProperty("/CAPID"));
 						this._fnADDCapDataGet("O", oModel.getProperty("/JOB"), oModel.getProperty("/CAPID"));
 						this.onCloseMangeLimitaionDialog();
-						this.getRouter().navTo("DashboardInitial");
+						this.getRouter().navTo("DashboardInitial",true);
 					}
 				}.bind(this);
 				oPrmJobDue.activity = 2;
@@ -422,7 +422,7 @@ sap.ui.define([
 				};
 
 				oParameter.success = function(oData) {
-					this.getRouter().navTo("DashboardInitial");
+					this.getRouter().navTo("DashboardInitial",true);
 				}.bind(this);
 				oParameter.activity = 2;
 				ajaxutil.fnUpdate("/StartRectificSvc", oParameter, [oPayload], "ZRM_ADDL", this);

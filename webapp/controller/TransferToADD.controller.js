@@ -293,7 +293,7 @@ sap.ui.define([
 
 				};
 				oParameter.success = function(oData) {
-					this.getRouter().navTo("DashboardInitial");
+					this.getRouter().navTo("DashboardInitial", true);
 					var ViewGlobalModel = this.getModel("oViewGlobalModel");
 					ViewGlobalModel.setData(null);
 				}.bind(this);
