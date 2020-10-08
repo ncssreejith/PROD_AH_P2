@@ -11,7 +11,8 @@
 						<content>
 							<Title level="H3" text="{i18n>tiUpcomingSchedules}"/>
 							<ToolbarSpacer/>
-							<Link text="{i18n>btnCreateOOPJob}" press="onScheduleLinkPress"/>
+							<Link text="{i18n>btnCreateOOPJob}" press="onScheduleLinkPress"
+							visible="{= ${oEngineModel>SERVDT}!=='' || ${oEngineModel>SERVDT}!==null ? true:false}"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>
@@ -52,7 +53,8 @@
 							
 							<Text text="{oEngineModel>JOBDESC}"/>
 							<Text text="{oEngineModel>WRCTR}"/>
-							<Button icon="sap-icon://delete" type="Transparent" press="onDefectsDeleteDetailsPress"></Button>
+							<Button icon="sap-icon://delete" type="Transparent" press="onDefectsDeleteDetailsPress"
+							enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"></Button>
 						</cells>
 					</ColumnListItem>
 				</items>

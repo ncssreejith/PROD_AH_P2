@@ -122,8 +122,8 @@ sap.ui.define([
 		 */
 		onUpdateRecord: function() {
 			try {
-				this.getRouter().navTo("UpdateWDNSView");
-				// this.getRouter().navTo("PilotAFEWDNS");
+				// this.getRouter().navTo("UpdateWDNSView");
+				this.getRouter().navTo("PilotAFEWDNS");
 				
 			} catch (e) {
 				Log.error("Exception in WDNSCoefficients:onUpdateRecord function");

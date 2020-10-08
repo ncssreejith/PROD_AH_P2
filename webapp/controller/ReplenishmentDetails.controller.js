@@ -111,10 +111,10 @@ sap.ui.define([
 		_fnValidateFuel: function(oItems) {
 			var oContext = oItems.getBindingContext("oRepDetailsModel");
 			var sTtlAmt = this.formatter.integerUnit(oContext.getObject().orgamt) + this.formatter.integerUnit(oContext.getObject().srvamt);
-			if(this.getModel("oRepDetailsModel").getProperty("/srvtid")==="SRVT_DE"){
+			if (this.getModel("oRepDetailsModel").getProperty("/srvtid") === "SRVT_DE") {
 				sTtlAmt = this.formatter.integerUnit(oContext.getObject().orgamt) - this.formatter.integerUnit(oContext.getObject().srvamt);
 			}
-				
+
 			// var sTtlAmt = this.formatter.integerUnit(oContext.getObject().orgamt) + this.formatter.integerUnit(oContext.getObject().srvamt);
 			this.getModel("oRepDetailsModel").setProperty(oContext.getPath() + "/totamt", sTtlAmt);
 			this.getModel("oRepDetailsModel").refresh();
@@ -142,11 +142,11 @@ sap.ui.define([
 				var ssrvamt = this.formatter.integerUnit(sItems.getBindingContext("oRepDetailsModel").getProperty("srvamt"));
 				this.getModel("oRepDetailsModel").setProperty(sItems.getBindingContextPath() + "/totamt", (sorgMnt + ssrvamt));
 
-				if(this.getModel("oRepDetailsModel").getProperty("/srvtid")==="SRVT_DE"){
+				if (this.getModel("oRepDetailsModel").getProperty("/srvtid") === "SRVT_DE") {
 					this.getModel("oRepDetailsModel").setProperty(sItems.getBindingContextPath() + "/totamt", (sorgMnt - ssrvamt));
 					// orgamt = orgamt + sorgMnt;
 				}
-				
+
 				this.getModel("oRepDetailsModel").refresh();
 				orgamt = orgamt + sorgMnt;
 				srvamt = srvamt + ssrvamt;
@@ -302,20 +302,28 @@ sap.ui.define([
 		fnDateEngineHrsDiff: function(oItems) {
 			switch (oItems.resid) {
 				case "RES_105":
+					var sEngineHrs = this.getModel("avmetModel").getProperty("/airutil/COL_13");
 					break;
 				case "RES_106":
+					sEngineHrs = this.getModel("avmetModel").getProperty("/airutil/COL_14");
 					break;
 				default:
 					return false;
 			}
 			var sDiff = 0;
-			if (!oItems.upddate || oItems.srvamt === "0") {
+			if (!oItems.hrsince || oItems.srvamt === "0" || !sEngineHrs) {
 				return false;
 			}
 
-			var sCurrentDate = new Date();
-			sDiff = Math.abs(sCurrentDate - new Date(oItems.upddate)) / 36e5;
+			sDiff = parseFloat(sEngineHrs) - parseFloat(oItems.hrsince);
+			if (!sDiff) {
+				return false;
+			}
 			return (sDiff < 10);
+
+			// var sCurrentDate = new Date();
+			// sDiff = Math.abs(sCurrentDate - new Date(oItems.upddate)) / 36e5;
+			// return (sDiff < 10);
 		},
 		_getFuelExtTanks: function() {
 			try {

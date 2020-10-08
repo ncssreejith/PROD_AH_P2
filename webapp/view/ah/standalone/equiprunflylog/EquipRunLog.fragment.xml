@@ -3,7 +3,8 @@
 		<Toolbar>
 			<ToolbarSpacer/>
 			<!--addTaskBtn-->
-			<Button icon="sap-icon://sys-add" text="Add Equip Running Log" press="onAddEquipRunLog"/>
+			<Button icon="sap-icon://sys-add" text="Add Equip Running Log" press="onAddEquipRunLog"
+			enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"/>
 		</Toolbar>
 		<Table id="tblEquip" columns="{oAircraftUtilModel>/equip}" class="TableHeaderBGColor">
 			<columns>

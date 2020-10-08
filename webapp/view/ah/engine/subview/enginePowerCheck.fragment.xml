@@ -264,6 +264,7 @@
 									displayValuePrecision="2"/>
 								</HBox>
 								<Button text="{= !!${oEngineModel>/headerDetails/ETFEDIT} ? ${i18n>txtSignOff} : ${i18n>btnEdit} }" visible="{= !!${oEngineModel>Special} }"
+								enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"
 										icon="sap-icon://request" press="onETFEdit" type="Emphasized"/>
 							</cells>
 						</ColumnListItem>

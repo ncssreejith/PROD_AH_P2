@@ -26,10 +26,11 @@
 						min="0" change="onOilChange" max="{path:'oRepDetailsModel>max',formatter:'.formatter.formatMaxValue'}"
 						description="/ {oRepDetailsModel>max}" fieldGroupIds="fgStep" />
 						<HBox>
-					<Text  text="{path:'oRepDetailsModel>upddate',formatter:'avmet.ah.model.formatter.fnDateDiff'}"
+							<!--{path:'oRepDetailsModel>upddate',formatter:'avmet.ah.model.formatter.fnDateDiff'}-->
+					<Text  text="{parts:['oRepDetailsModel>hrsince', 'avmetModel>/airutil/COL_13'],formatter:'avmet.ah.model.formatter.fnEngHrsDiff'}"
 						wrapping="true" ></Text>
 						<MessageStrip
-						visible="{path:'oRepDetailsModel>upddate',formatter:'avmet.ah.model.formatter.fnDateEngineHrsDiff'}"
+						visible="{parts:['oRepDetailsModel>hrsince', 'avmetModel>/airutil/COL_13'],formatter:'avmet.ah.model.formatter.fnDateEngineHrsInfoDiff'}"
 						text="Last top up is less than 10hrs"
 						type="Warning"
 						showIcon="true"

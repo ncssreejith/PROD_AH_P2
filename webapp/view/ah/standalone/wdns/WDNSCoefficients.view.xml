@@ -6,7 +6,8 @@
 				<HBox justifyContent="End">
 					<Button text="Print" icon="sap-icon://print" press="onPrint"/>
 					<Button text="View Past Record" type="Transparent" class="sapUiTinyMarginBeginEnd" press="onViewPastRecord"></Button>
-					<Button text="Update Record" type="Emphasized" press="onUpdateRecord"></Button>
+					<Button text="Update Record" type="Emphasized" press="onUpdateRecord"
+						enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"/>
 				</HBox>
 				<HBox>
 					<VBox width="auto">

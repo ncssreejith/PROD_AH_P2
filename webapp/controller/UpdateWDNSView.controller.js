@@ -79,7 +79,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		onUpdateRecord: function(oEvent) {
+		onUpdateRecord: function() {
 			try {
 				this.getRouter().navTo("UpdateWDNSView");
 			} catch (e) {

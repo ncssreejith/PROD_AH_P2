@@ -239,6 +239,8 @@ sap.ui.define([
 				this.getView().setModel(oAppModel, "appModel");
 				this.getModel("appModel").setProperty("/isVisPastRecords", bFlag);
 				this.getModel("appModel").setProperty("/isEdit", bFlag);
+				
+				this.getModel("avmetModel").getProperty("/dash/astid");
 
 				var bPastRec = oEvent.getParameter("arguments").isPastHistory;
 				if (bPastRec) {

@@ -142,7 +142,7 @@ sap.ui.define([
 					return;
 				}
 				this.getModel("pdsSummaryModel").setProperty("/enableSign", true);
-				if (this.getModel("pdsSummaryModel").getProperty("/srvtid")) {
+				if (this.getModel("pdsSummaryModel").getProperty("/srvid")) {
 					this.getModel("pdsSummaryModel").setProperty("/enableSign", false);
 				}
 				this.getModel("pdsSummaryModel").refresh();
@@ -244,7 +244,7 @@ sap.ui.define([
 				this.getModel("pdsSummaryModel").setProperty("/srvid", oEvent.getParameter("arguments").srvid);
 				this.getModel("pdsSummaryModel").setProperty("/enableSign", true);
 
-				if (this.getModel("pdsSummaryModel").getProperty("/srvtid")) {
+				if (this.getModel("pdsSummaryModel").getProperty("/srvid")) {
 					this.getModel("pdsSummaryModel").setProperty("/enableSign", false);
 				}
 

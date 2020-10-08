@@ -27,7 +27,10 @@
 										selectionChange="onSelectionChangesqn">
 										<core:Item text="{atckModel>SQNID}" key="{atckModel>SQN}"/>
 									</ComboBox>
-									<ComboBox fieldGroupIds="fgCmbBox" items="{atckModel>/location}" selectedKey="{atckModel>/header/LOCID}" required="true" selectionChange="onSelectionChangeLoc">
+									<ComboBox fieldGroupIds="fgCmbBox" items="{atckModel>/location}" selectedKey="{atckModel>/header/LOCID}" 
+									valueState="{= !${atckModel>/header/LOCID}?'Error':'None'}"
+										valueStateText="{= !${atckModel>/header/LOCID} ? 'Required field':''}"
+									required="true" selectionChange="onSelectionChangeLoc">
 										<core:Item key="{atckModel>LOCID}" text="{atckModel>LOC}"/>
 									</ComboBox>
 								</HBox>

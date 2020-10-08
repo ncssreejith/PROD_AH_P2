@@ -11,7 +11,8 @@
 							<content>
 								<Title level="H3" text="Engine Oil Replenishment"/>
 								<ToolbarSpacer/>
-								<Button text="Add Replenishment Log" type="Emphasized" press="onAddEngOilLog" visible="{= ${avmetModel>/airSel/tailid} !=='NA'}"/>
+								<Button text="Add Replenishment Log" type="Emphasized" press="onAddEngOilLog" visible="{= ${avmetModel>/airSel/tailid} !=='NA'}"
+								enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"/>
 								<!--<Link text="{i18n>liView}" press="handleLinkPress"/>-->
 							</content>
 						</OverflowToolbar>
