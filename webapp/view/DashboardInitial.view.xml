@@ -106,7 +106,7 @@
 									valueColor="{path : 'dashboardModel>/fl/COLOR', formatter : '.formatter.DBFuelPercentage'}" class="customChartFont numFontColor"></mc:RadialMicroChart>
 								<mc:RadialMicroChart id="fuelMicroChartId" size="L"
 									valueColor="{path : 'dashboardModel>/fl/COLOR', formatter : '.formatter.DBFuelPercentage'}" class="numFontColor"></mc:RadialMicroChart>
-								<SegmentedButton items="{dashboardModel>/fl/list}" selectionChange="onFuelSegBtnChange" width="80%" class="sapUiSizeCompact fontSizeSmall">
+								<SegmentedButton selectedKey="{dashboardModel>/fl/key}" items="{dashboardModel>/fl/list}" selectionChange="onFuelSegBtnChange" width="80%" class="sapUiSizeCompact fontSizeSmall">
 									<items>
 										<SegmentedButtonItem text="{dashboardModel>REDESC}" key="{dashboardModel>key}" width="67px"/>
 									</items>

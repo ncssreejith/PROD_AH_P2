@@ -8,7 +8,7 @@ sap.ui.define([
 	"sap/base/Log",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log, Filter,FilterOperator) {
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.PDSSummary", {
@@ -21,7 +21,7 @@ sap.ui.define([
 					"selItem": "",
 					"enableSign": true,
 					"addViewSel": "DEA_T",
-					
+
 					"masterList": [],
 					"confirm": {
 						"signOffOption": [],
@@ -119,7 +119,7 @@ sap.ui.define([
 				sFlag = false;
 				// MessageToast.show("There is " + parseInt(oJobCount) + " outstanding jobs");
 			}
-			
+
 			this.getModel("pdsSummaryModel").setProperty("/confirm/selDesc", selItem.description);
 			this.getModel("pdsSummaryModel").setProperty("/confirm/sgEnable", sFlag);
 			this.getModel("pdsSummaryModel").refresh();
@@ -142,17 +142,20 @@ sap.ui.define([
 					return;
 				}
 				this.getModel("pdsSummaryModel").setProperty("/enableSign", true);
+				if (this.getModel("pdsSummaryModel").getProperty("/srvtid")) {
+					this.getModel("pdsSummaryModel").setProperty("/enableSign", false);
+				}
 				this.getModel("pdsSummaryModel").refresh();
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
 		},
-		onDefectsDetailsPress:function(oEvent){
-				var sObject = oEvent.getSource().getBindingContext("pdsSummaryModel").getObject();
-				this.getRouter().navTo("CosDefectsSummary",{
-					JobId:sObject.jobid,
-					Flag:"N"
-				});
+		onDefectsDetailsPress: function(oEvent) {
+			var sObject = oEvent.getSource().getBindingContext("pdsSummaryModel").getObject();
+			this.getRouter().navTo("CosDefectsSummary", {
+				JobId: sObject.jobid,
+				Flag: "N"
+			});
 		},
 		onPresSignOff: function() {
 			try {
@@ -170,12 +173,12 @@ sap.ui.define([
 				}
 				var oJobCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T8_OJOBS") + "/count");
 				var sFlag = true;
-				
+
 				var selDDID = this.getModel("pdsSummaryModel").getProperty("/confirm/selDDID");
 				var sMsg = "";
 				if ((selDDID === "AST_FFC" || selDDID === "AST_FFF") && parseInt(oJobCount) > 0) {
 					sFlag = false;
-					sMsg = "There is "+ parseInt(oJobCount) +" outstanding job you can not do Fit-for-Flight or Fit-for-Check Flight";
+					sMsg = "There is " + parseInt(oJobCount) + " outstanding job you can not do Fit-for-Flight or Fit-for-Check Flight";
 				}
 				this.getModel("pdsSummaryModel").setProperty("/confirm/outjob", sMsg);
 				this.getModel("pdsSummaryModel").setProperty("/confirm/sgEnable", sFlag);
@@ -238,7 +241,13 @@ sap.ui.define([
 		_onObjectMatched: function(oEvent) {
 			try {
 				this.getModel("pdsSummaryModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
+				this.getModel("pdsSummaryModel").setProperty("/srvid", oEvent.getParameter("arguments").srvid);
 				this.getModel("pdsSummaryModel").setProperty("/enableSign", true);
+
+				if (this.getModel("pdsSummaryModel").getProperty("/srvtid")) {
+					this.getModel("pdsSummaryModel").setProperty("/enableSign", false);
+				}
+
 				this.getModel("pdsSummaryModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
 				this.getModel("pdsSummaryModel").setProperty("/masterList", []);
 				this.getModel("pdsSummaryModel").setProperty("/confirm/signOffOption", []);
@@ -247,7 +256,7 @@ sap.ui.define([
 				this.getModel("pdsSummaryModel").refresh();
 				this._getPDSLists();
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _onObjectMatched function");
 			}
 		},
 		onCancelLimitationDetail: function() {
@@ -272,7 +281,8 @@ sap.ui.define([
 			try {
 				var oStation = oEvent.getParameter("oSource").getParent().getBindingContext("pdsSummaryModel").getObject();
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID+" and ADPID eq "+oStation.ADPID;
+				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID +
+					" and ADPID eq " + oStation.ADPID;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty("/srnos", oData.results);
@@ -447,7 +457,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("pdsSummaryModel").getProperty(
-						"/srvtid") + " and TAIL_ID eq " + this.getTailId() +" and stepid eq S_RT";
+					"/srvtid") + " and TAIL_ID eq " + this.getTailId() + " and stepid eq S_RT";
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T6_FLC");
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/rt", oData.results);
@@ -497,8 +507,8 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-			fnDueJob: function(oData) {
-			for (var i = oData.length - 1;  i >= 0; i--) {
+		fnDueJob: function(oData) {
+			for (var i = oData.length - 1; i >= 0; i--) {
 				if ((parseInt(oData[i].DUEIN) > 5 && oData[i].UM === "DAYS") || (parseInt(oData[i].DUEIN) > 10 && oData[i].UM !== "DAYS")) {
 					oData.splice(i, 1);
 				}
@@ -873,7 +883,7 @@ sap.ui.define([
 				return oMark;
 			}
 			var sCount = 0;
-			oData.results.forEach(function(oItem,sIndex) {
+			oData.results.forEach(function(oItem, sIndex) {
 				oItem.NAME1 = this.formatter.fnMarkLable(sIndex);
 				if (oItem.DEAID_M !== "" && oItem.DEAID_M !== null) {
 					var sMark = {

@@ -25,7 +25,7 @@
 						</VBox>
 						<!--enabled="{= ${rtModel>APR_NO}==='0'}"-->
 						<SegmentedButton
-						enabled="{= ${rtModel>/tasks/0/APR_NO}===0}"
+						enabled="{= ${rtModel>/tasks/0/APR_NO}===0 &amp;&amp; !${rtModel>/SRVID}}"
 							selectedKey="{= (${rtModel>DONE}===null || ${rtModel>DONE}==='')?'noKey':${rtModel>DONE}}" selectionChange="onRTStatusChange">
 							<items>
 								<SegmentedButtonItem text="Done" key="Y"/>

@@ -234,7 +234,8 @@ sap.ui.define([
 					// oData.results[0].APR_NO = 0;
 					var sCount = this.formatter.integerUnit((oData.results.length > 0 ? oData.results[0].APR_NO : 0));
 					this.getModel("rtModel").setProperty("/tasks", oData.results);
-					this.getModel("rtModel").setProperty("/sgEnable", sCount < 4 ? true : false);
+					var sSRVID = this.getModel("rtModel").getProperty("/SRVID");
+					this.getModel("rtModel").setProperty("/sgEnable", (sCount < 4) && !sSRVID ? true : false);
 					// this.getModel("rtModel").setProperty("/tasks/0/APR_NO", sCount > 3 ? 3 : sCount);
 					this.getModel("rtModel").refresh();
 
