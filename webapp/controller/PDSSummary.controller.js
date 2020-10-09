@@ -178,7 +178,11 @@ sap.ui.define([
 				var sMsg = "";
 				if ((selDDID === "AST_FFC" || selDDID === "AST_FFF") && parseInt(oJobCount) > 0) {
 					sFlag = false;
-					sMsg = "There is " + parseInt(oJobCount) + " outstanding job you can not do Fit-for-Flight or Fit-for-Check Flight";
+					if (parseInt(oJobCount) > 1) {
+						sMsg = "There is " + parseInt(oJobCount) + " outstanding jobs you can not do Fit-for-Flight or Fit-for-Check Flight";
+					} else {
+						sMsg = "There is " + parseInt(oJobCount) + " outstanding job you can't do Fit-for-Flight or Fit-for-Check Flight";
+					}
 				}
 				this.getModel("pdsSummaryModel").setProperty("/confirm/outjob", sMsg);
 				this.getModel("pdsSummaryModel").setProperty("/confirm/sgEnable", sFlag);

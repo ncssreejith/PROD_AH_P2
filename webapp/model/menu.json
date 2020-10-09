@@ -92,14 +92,14 @@
 		"pattern": "",
 		"child": [{
 			"name": "Overview",
-			"section": "[C-1]",
+			"section": "[C]",
 			"icon": "",
 			"active": "x",
 			"visible": true,
 			"pattern": "AircraftOverview"
 		}, {
 			"name": "Weight and Balance",
-			"section": "[C]",
+			"section": "[C-1]",
 			"icon": "",
 			"active": "x",
 			"visible": true,

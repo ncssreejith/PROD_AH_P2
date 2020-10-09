@@ -191,7 +191,8 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					this.onNavBack();
+					this.getRouter().navTo("UpdateFlightServicing", {
+					}, true);
 				}.bind(this);
 				oParameter.activity = 4;
 				ajaxutil.fnCreate("/ReplshmentSvc", oParameter, aPayloads, "ZRM_FS_RP", this);
@@ -299,6 +300,11 @@ sap.ui.define([
 				}
 			}.bind(this));
 		},
+		/** 
+		 * Calculate engine hours diff
+		 * @param oItems
+		 * @returns
+		 */
 		fnDateEngineHrsDiff: function(oItems) {
 			switch (oItems.resid) {
 				case "RES_105":
@@ -317,13 +323,9 @@ sap.ui.define([
 
 			sDiff = parseFloat(sEngineHrs) - parseFloat(oItems.hrsince);
 			if (!sDiff) {
-				return false;
+				return true;
 			}
 			return (sDiff < 10);
-
-			// var sCurrentDate = new Date();
-			// sDiff = Math.abs(sCurrentDate - new Date(oItems.upddate)) / 36e5;
-			// return (sDiff < 10);
 		},
 		_getFuelExtTanks: function() {
 			try {
