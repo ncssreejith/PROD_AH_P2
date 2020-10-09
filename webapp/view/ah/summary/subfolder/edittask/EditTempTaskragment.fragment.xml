@@ -29,7 +29,7 @@
 						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('SERIALNO',$event)" class="sapUiTinyMarginBegin" size="12px"
 							color="#031E48"/>
 					</HBox>
-					<Select id="Type1IdTemp" forceSelection="false" width="170px" change="onTypeChangeSerial" selectedKey="{ManageTaskModel>/isser}"
+					<Select id="Type1IdTemp" forceSelection="false" width="170px" editable="false" change="onTypeChangeSerial" selectedKey="{ManageTaskModel>/isser}"
 						fieldGroupIds="fgCmbBox" required="{ManageTaskModel>/bType}" items="{TT1Model>/}">
 						<core:Item text="{TT1Model>key}" key="{TT1Model>text}"/>
 						<!--	<core:Item text="Serial No. (S/N)" key="Serial No. (S/N)"/>
@@ -39,13 +39,23 @@
 				<VBox class="sapUiTinyMarginBegin">
 					<HBox>
 						<Label/>
+						<Text text="Optional" class="optionalTxtMargin"/>
 					</HBox>
-					<Input width="180px" maxLength="20" value="{ManageTaskModel>/sernr}" valueStateText="{i18n>ERttSerNoIn}"
-						required="{=((${ManageTaskModel>/engflag} === 'NE' || ${ManageTaskModel>/engflag} === 'NA')  &amp;&amp; ${ManageTaskModel>/isser}==='Serial No. (S/N)')) ? true:false}"
+					<!-- <Input width="180px" maxLength="20" value="{ManageTaskModel>/sernr}" valueStateText="{i18n>ERttSerNoIn}"
+						required="{=((${ManageTaskModel>/engflag} === 'NE' &amp;&amp; ${ManageTaskModel>/engflag} === 'NA') &amp;&amp; ${ManageTaskModel>/isser}==='Serial No. (S/N)') ? true:false}"
 						fieldGroupIds="fgInput" visible="{=${ManageTaskModel>/engflag} !== 'EG' ? true:false}"></Input>
 					<Select id="cbSernr1" forceSelection="false" width="170px" change="onTypeChange" selectedKey="{ManageTaskModel>/sernr}"
 						items="{SerialNumModelInstalled>/}" visible="{=${ManageTaskModel>/engflag} === 'EG' ? true:false}" valueStateText="{i18n>ERttSerNo}"
-						required="{=${ManageTaskModel>/engflag} === 'EG' &amp;&amp; ${ManageTaskModel>/isser} ==='Serial No. (S/N)') ? true:false}"
+						required="{=${ManageTaskModel>/engflag} === 'EG' &amp;&amp; ${ManageTaskModel>/isser}==='Serial No. (S/N)' ? true:false}"
+						fieldGroupIds="fgCmbBox">
+						<core:Item text="{SerialNumModelInstalled>SERNR}" key="{SerialNumModelInstalled>SERNR}"/>
+					</Select> -->
+					<Input width="180px" maxLength="20" value="{ManageTaskModel>/sernr}" valueStateText="{i18n>ERttSerNoIn}"
+						required="{=((${ManageTaskModel>/engflag} === 'NE' || ${ManageTaskModel>/engflag} === 'NA') &amp;&amp; ${ManageTaskModel>/isser}==='Serial No. (S/N)') ? true:false}"
+						fieldGroupIds="fgInput" visible="{=${ManageTaskModel>/engflag} !== 'EG' ? true:false}"></Input>
+					<Select id="cbSernrTemp" forceSelection="false" width="170px" change="onTypeChange" selectedKey="{ManageTaskModel>/sernr}"
+						items="{SerialNumModelInstalled>/}" visible="{=${ManageTaskModel>/engflag} === 'EG' ? true:false}" valueStateText="{i18n>ERttSerNo}"
+						required="{=${ManageTaskModel>/engflag} === 'EG' &amp;&amp; ${ManageTaskModel>/isser}==='Serial No. (S/N)' ? true:false}"
 						fieldGroupIds="fgCmbBox">
 						<core:Item text="{SerialNumModelInstalled>SERNR}" key="{SerialNumModelInstalled>SERNR}"/>
 					</Select>
