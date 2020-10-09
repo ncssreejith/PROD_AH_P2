@@ -205,15 +205,27 @@ sap.ui.define([
 
 		onSubmitFlyingRequirements: function() {
 			try {
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
 				var oPrmFL = {},
 					oDate = new Date(),
 					oModel = this.getView().getModel("ViewModel"),
 					oPayload = [],
 					oTemp = this.getView().getModel("FlyingRequirementsModel").getData(),
 					that = this;
+					if (oTemp.FlyingRequirements.length < 1) {
+						sap.m.MessageBox.error("Please add flying requirement to proceed");
+						return;
+					}
+					var dDate = oModel.getProperty("/dDate"),
+					tTime = oModel.getProperty("/dDateTime");
 				for (var i = 0; i < oTemp.FlyingRequirements.length; i++) {
 					oTemp.FlyingRequirements[i].SGDTM = formatter.defaultOdataDateFormat(oDate);
 					oTemp.FlyingRequirements[i].SGUZT = oDate.getHours() + ":" + oDate.getMinutes();
+					oTemp.FlyingRequirements[i].FR_DT = formatter.defaultOdataDateFormat(dDate);
+					oTemp.FlyingRequirements[i].FR_TM = tTime;
 					oPayload.push(oTemp.FlyingRequirements[i]);
 				}
 				oPrmFL.error = function() {
