@@ -230,9 +230,9 @@
 						</FlexBox>
 					</HBox>
 				</HBox>
-				<MessageStrip class="sapUiSmallMarginBeginEnd" type="Warning" showIcon="true" text='Pending Supervisor Sign Off'>
+			<!--	<MessageStrip class="sapUiSmallMarginBeginEnd" type="Warning" showIcon="true" text='Pending Supervisor Sign Off'>
 					<Link text="Sign Off" press="onSignOffTask" class="sapUiLargeMarginBegin"/>
-				</MessageStrip>
+				</MessageStrip>-->
 			</VBox>
 		</VBox>
 		<endButton>

@@ -69,7 +69,7 @@
 											</HBox>
 											<HBox class="sapUiTinyMarginTop" visible="{= ${JobModel>/jobty}!=='S' ? true :false}">
 												<Label design="Bold" text="{i18n>lbFoundduring}" width="150px"/>
-												<Text text="{path:'JobModel>/fndid', formatter:'.formatter.fndIdFormatter'}" width="200px"/>
+												<Text text="{parts:[{path:'JobModel>/fndid'},{path:'FoundDuringSet>/'}], formatter:'.formatter.FoundDuringText'}"/>
 											</HBox>
 											<HBox class="sapUiTinyMarginTop">
 												<!--visible="{=${JobModel>/jduid}!=='' ? true :false}"-->

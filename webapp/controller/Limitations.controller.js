@@ -51,12 +51,28 @@ sap.ui.define([
 		//  
 		//-------------------------------------------------------------
 		onAfterRendering: function() {
-			try {
-				this.onSelectionDefectAreaChange("DEA_T");
-			} catch (e) {
-				Log.error("Exception in Limitations:onAfterRendering function");
-				this.handleException(e);
-			}
+			var that = this;
+			this.onSelectionDefectAreaChange("DEA_T");
+			// Retrieve backend posting messages of dashboard status every 30 secs.
+			this._LoadMessageInterval = setInterval(function() {
+				that._fnADDGet();
+				that._fnLimitationsGet();
+				that._fnLimitationsCompleteGet();
+			}, 30000);
+		},
+		/** 
+		 * Exit clean up.
+		 */
+		onExit: function() {
+			// Clear off state.
+			this.destroyState();
+		},
+		/** 
+		 * Clean up state object.
+		 */
+		destroyState: function() {
+			// Clear load message interval.
+			clearInterval(this._LoadMessageInterval);
 		},
 
 		// ***************************************************************************
@@ -311,7 +327,7 @@ sap.ui.define([
 					sADDCount: "",
 					sLimitCount: "",
 					totalCount: 0,
-					SelectedKey:"ADD"
+					SelectedKey: "ADD"
 
 				});
 				this.getView().setModel(oModel, "oViewModel");

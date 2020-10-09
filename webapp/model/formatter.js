@@ -463,6 +463,17 @@ sap.ui.define([
 			}
 		},
 
+		FoundDuringText: function(stFndId, stModel) {
+			if (stModel) {
+				for (var i in stModel) {
+					if (stModel[i].ddid === stFndId) {
+						return stModel[i].description;
+					}
+				}
+				return null;
+			}
+		},
+
 		serialNoInputVisible: function(engFlag, isser, tTask2) {
 			if ((engFlag === "NE" && isser === "Serial No. (S/N)") || (engFlag === "NA" && isser ===
 					"Serial No. (S/N)") || (engFlag === "NA" && isser ===
@@ -726,10 +737,10 @@ sap.ui.define([
 					break;
 				case "RES_106":
 					break;
-				// case "RES_107": //Issue 826
-				// 	break;
-				// case "RES_108":
-				// 	break;
+					// case "RES_107": //Issue 826
+					// 	break;
+					// case "RES_108":
+					// 	break;
 				default:
 					return "";
 			}
@@ -753,10 +764,10 @@ sap.ui.define([
 					break;
 				case "RES_106":
 					break;
-				// case "RES_107": //Issue 826
-				// 	break;
-				// case "RES_108":
-				// 	break;
+					// case "RES_107": //Issue 826
+					// 	break;
+					// case "RES_108":
+					// 	break;
 				default:
 					return "";
 			}
@@ -783,7 +794,7 @@ sap.ui.define([
 			if (!sDiff) {
 				return false;
 			}
-			return (sDiff < 10); 
+			return (sDiff < 10);
 		},
 		fnDateTimeDiff: function(sDate, sTime) {
 			var sDiff = 0;
@@ -1651,7 +1662,7 @@ sap.ui.define([
 		},
 
 		serialTemplateBtnVisibility: function(stt1, stt2) {
-			if (stt1 === "TT1_10" && (stt2 === "TT2_10" || stt2 === "TT2_12"|| stt2 === "TT2_13" ||stt2 === "TT2_14")) {
+			if (stt1 === "TT1_10" && (stt2 === "TT2_10" || stt2 === "TT2_12" || stt2 === "TT2_13" || stt2 === "TT2_14")) {
 				return true;
 			}
 			return false;
