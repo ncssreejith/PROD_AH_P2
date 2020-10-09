@@ -289,8 +289,7 @@ sap.ui.define([
 							oSummaryModel.setProperty("/MenuVisibleEdit", false);
 							oSummaryModel.setProperty("/MenuSheduleVisible", true);
 						} else {
-							var bFlag = this._fnJobEditCheck();
-							oSummaryModel.setProperty("/MenuVisibleEdit", bFlag);
+							oSummaryModel.setProperty("/MenuVisibleEdit", true);
 						}
 						oSummaryModel.setProperty("/MenuScheduleVisible", false);
 						oSummaryModel.setProperty("/MenuActivateVisible", false);
@@ -1923,7 +1922,7 @@ sap.ui.define([
 				var oModel = this._oMGDetails.getModel("ManageTaskModel");
 				var sSelectedKey = oEvent.getSource().getSelectedKey();
 				this._fnResetTaskModelData();
-				if (sSelectedKey !== "TT2_12") {
+				if (sSelectedKey !== "TT2_11") {
 					oModel.setProperty("/ismat", "Part No.");
 					oModel.setProperty("/isser", "Serial No. (S/N)");
 				}
@@ -2593,6 +2592,7 @@ sap.ui.define([
 				this._fnGetTaskDropDown();
 				that._fnGetTaskTT310DropDown();
 				that._fnGetTaskTT311DropDown();
+				that._fnFoundDuringGet();
 				sap.ui.getCore().getEventBus().subscribe(
 					"SubView1",
 					"UpdateJob",

@@ -894,25 +894,7 @@ sap.ui.define([
 				Log.error("Exception in _fnGetUtilisation function");
 			}
 		},
-		_fnFoundDuringGet: function(sAirId) {
-			try {
-				var that = this,
-					oPrmFND = {};
-				oPrmFND.filter = "ddid eq FND_ and refid eq " + sAirId;
-				oPrmFND.error = function() {};
-				oPrmFND.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "FoundDuringSet");
-				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmFND);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnFoundDuringGet function");
-				this.handleException(e);
-			}
-		},
-
-		_fnWorkCenterGet: function(sAirId) {
+	_fnWorkCenterGet: function(sAirId) {
 			try {
 				var that = this,
 					oPrmWorkCen = {};
@@ -1289,7 +1271,7 @@ sap.ui.define([
 				this._fnJobDueGet();
 				this._fnGetUtilisation(sAirId);
 				this._fnWorkCenterGet(sAirId);
-				this._fnFoundDuringGet(sAirId);
+				this._fnFoundDuringGet();
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_handleRouteMatched function");
 				this.handleException(e);
