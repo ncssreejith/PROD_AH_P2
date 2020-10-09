@@ -59,7 +59,7 @@
 						<Text text="Optional" class="optionalTxtMargin" visible="{=${ManageTaskModel>/isser} !== 'Serial No. (S/N)' ? true : false}"/>
 					</HBox>
 					<Input width="180px" maxLength="20" value="{ManageTaskModel>/sernr}" valueStateText="{i18n>ERttSerNoIn}"
-						required="{=((${ManageTaskModel>/engflag} === 'NE' &amp;&amp; ${ManageTaskModel>/engflag} === 'NA') &amp;&amp; ${ManageTaskModel>/isser}==='Serial No. (S/N)') ? true:false}"
+						required="{=((${ManageTaskModel>/engflag} === 'NE' || ${ManageTaskModel>/engflag} === 'NA') &amp;&amp; ${ManageTaskModel>/isser}==='Serial No. (S/N)') ? true:false}"
 						fieldGroupIds="fgInput" visible="{=${ManageTaskModel>/engflag} !== 'EG' ? true:false}"></Input>
 					<Select id="cbSernr" forceSelection="false" width="170px" change="onTypeChange" selectedKey="{ManageTaskModel>/sernr}"
 						items="{SerialNumModelInstalled>/}" visible="{=${ManageTaskModel>/engflag} === 'EG' ? true:false}" valueStateText="{i18n>ERttSerNo}"
@@ -110,7 +110,7 @@
 						color="#031E48"/>
 				</HBox>
 				<Input width="360px" placeholder="eg. Engine" value="{ManageTaskModel>/cdesc}" fieldGroupIds="fgInput"
-					required="{=${ManageTaskModel>/tt2id} !== 'TT2_11' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_13' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_99' ? true:false}"
+					required="{=${ManageTaskModel>/tt2id} !== 'TT2_11' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_13' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_99' &amp;&amp; ${ManageTaskModel>/tmpid} === null  ? true:false}"
 					valueStateText="{i18n>ERttCompDesc}"/>
 			</VBox>
 		</HBox>
