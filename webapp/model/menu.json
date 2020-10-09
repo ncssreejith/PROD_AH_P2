@@ -112,14 +112,9 @@
 			"visible": true,
 			"pattern": "MainWDNS"
 		}]
-	},	{
-			"name": "View Past Flight Servicing",
-			"section": "[5]",
-			"icon": "",
-			"active": "x",
-			"visible": true,
-			"pattern": "ViewPastFlightServicing"
-	}, {
+	}
+	
+	, {
 		"name": "Transfer Aircraft",
 		"section": "[1]",
 		"icon": "",
