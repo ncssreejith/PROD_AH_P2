@@ -8,8 +8,8 @@
 						<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('TASKTYPE',$event)" size="12px"
 							color="#031E48"/>
 					</HBox>
-					<Select width="250px" change="onTaskTypeChange" required="{=${ManageTaskModel>/tmpid} === null ? true : false}" fieldGroupIds="fgCmbBox" items="{TaskMainListModel>/}"
-						forceSelection="false" selectedKey="{ManageTaskModel>/tt1id}">
+					<Select width="250px" change="onTaskTypeChange" required="{=${ManageTaskModel>/tmpid} === null ? true : false}" fieldGroupIds="fgCmbBox"
+						items="{TaskMainListModel>/}" forceSelection="false" selectedKey="{ManageTaskModel>/tt1id}">
 						<core:Item text="{TaskMainListModel>ttype}" key="{TaskMainListModel>ttid}"/>
 					</Select>
 				</VBox>
@@ -30,9 +30,9 @@
 				<!--	<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{=${ManageTaskModel>/tt1id} === 'TT1_13' ? true : false}">
 					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.edittask.EditCreateTaskToolCheckFragment" type="XML"/>
 				</VBox>-->
-			<!--	<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{=${ManageTaskModel>/tmpid} !== null ? true : false}">
+				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{=${ManageTaskModel>/tmpid} !== null ? true : false}">
 					<core:Fragment fragmentName="avmet.ah.view.ah.summary.subfolder.edittask.EditTempTaskragment" type="XML"/>
-				</VBox>-->
+				</VBox>
 			</VBox>
 		</VBox>
 		<buttons>
