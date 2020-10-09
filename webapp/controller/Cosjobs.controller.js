@@ -385,15 +385,17 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
 					if (oData && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel();
+
 						var aData = oData.results;
 						for (var i in aData) {
 							aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
 						}
-						oModel.setData(aData);
-						that.getView().setModel(oModel, "JobModelAll");
+
 					}
+					oModel.setData(aData);
+					that.getView().setModel(oModel, "JobModelAll");
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -412,15 +414,17 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
 					if (oData && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel();
+
 						var aData = oData.results;
 						for (var i in aData) {
 							aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
 						}
-						oModel.setData(aData);
-						that.getView().setModel(oModel, "JobModelD");
+
 					}
+					oModel.setData(aData);
+					that.getView().setModel(oModel, "JobModelD");
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -438,15 +442,17 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
 					if (oData && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel();
+
 						var aData = oData.results;
 						for (var i in aData) {
 							aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
 						}
-						oModel.setData(aData);
-						that.getView().setModel(oModel, "JobModelS");
+
 					}
+					oModel.setData(aData);
+					that.getView().setModel(oModel, "JobModelS");
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -464,15 +470,17 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
 					if (oData && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel();
+
 						var aData = oData.results;
 						for (var i in aData) {
 							aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
 						}
-						oModel.setData(aData);
-						that.getView().setModel(oModel, "JobModelU");
+
 					}
+					oModel.setData(aData);
+					that.getView().setModel(oModel, "JobModelU");
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -490,16 +498,18 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
 					if (oData && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel();
+
 						var aData = oData.results;
 						for (var i in aData) {
 							aData[i].createTimeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
 							aData[i].closeTimeVal = formatter.getTimeValueForDate(aData[i], "rectdt", "recttm");
 						}
-						oModel.setData(aData);
-						that.getView().setModel(oModel, "JobModelC");
+
 					}
+					oModel.setData(aData);
+					that.getView().setModel(oModel, "JobModelC");
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -666,24 +676,24 @@ sap.ui.define([
 					return "Y";
 			}
 		},
-		
-		fGrouper: function (oGroup) {
-			var sVal = this.getCount(oGroup,oGroup.sPath);
+
+		fGrouper: function(oGroup) {
+			var sVal = this.getCount(oGroup, oGroup.sPath);
 			return {
 				key: sVal
 			};
 		},
-		
-		getCount : function (oGroup, sPath){
+
+		getCount: function(oGroup, sPath) {
 			if (oGroup.getObject(sPath).UMKEY === "JDU_10") {
 				return "group1";
 			} else {
 				return "group2";
 			}
-			
+
 		},
 
-		getGroupHeader: function (oGroup) {
+		getGroupHeader: function(oGroup) {
 
 			return new sap.m.GroupHeaderListItem({
 				title: oGroup.key,
