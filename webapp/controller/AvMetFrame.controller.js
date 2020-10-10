@@ -178,7 +178,7 @@ sap.ui.define([
 					this.fnLoadSrv1Dashboard();
 					this.getModel("avmetModel").refresh();
 				}.bind(this);
-				ajaxutil.fnCreate("/voidFlightSvc", oParameter, [oPayload], "ZRM_AC_U", this);
+				ajaxutil.fnCreate("/voidFlightSvc", oParameter, [oPayload], "ZRM_FS_VS", this);
 			} catch (e) {
 				Log.error("Exception in ReleaseForRectification:onSignOffPress function");
 				this.handleException(e);

@@ -302,6 +302,7 @@ sap.ui.define([
 			try {
 				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
 				if (oPayloads.length === 0) {
+					this.onSendOthers();
 					return;
 				}
 				var oParameter = {};
