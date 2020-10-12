@@ -17,6 +17,24 @@ sap.ui.define([
 				this.getView().getModel("FileUploadModel").setProperty("/filePath", oDataSet.oData.filePath);
 			}
 		},
+		
+		onFileInput:function(oEvent){
+			//this.fnFileValidate(oEvent.getSource().getValue());
+		},
+		
+		fnFileValidate:function(sPath){
+			if(!sPath){
+				MessageBox.error("No file path found");
+				return false;
+			}
+			sPath = sPath.split("/")[sPath.split("/").length-1];
+				
+			if(!sPath.match("^[a-zA-Z0-9]{1,200}\\.[a-zA-Z0-9]{1,10}$")){
+				MessageBox.error("Invalid file name");
+				return false;
+			}
+			return true;
+		},
 
 		onActionSelected: function(oEvent) {
 			var sKey = oEvent.getSource().getSelectedKey();
@@ -36,9 +54,10 @@ sap.ui.define([
 				sPath = this.getView().getModel("FileUploadModel").getProperty("/filePath"),
 				sActionKey = this.getView().getModel("FileUploadModel").getProperty("/ActionKey");
 			if (sActionKey === "UPLOAD") {
-				//if (sPath.search(sTableName) !== -1) {
+				if (this.fnFileValidate(sPath)) {
+				
 				this._postFile(sTableK, sPath);
-				//}
+				}
 			} else {
 				this._DownloadFile(sTableK, sPath);
 			}

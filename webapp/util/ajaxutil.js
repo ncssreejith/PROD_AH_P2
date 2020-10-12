@@ -6,8 +6,8 @@ sap.ui.define([
 	"use strict";
 	return {
 		// http://localhost:58983/AVMET/avmetDB/AircraftModelSvc
-		fnBasePath: "/DBSRV17/avmetdb",
-		//fnBasePath: "",
+		//fnBasePath: "/DBSRV17/avmet",
+		fnBasePath: "/sap/opu/odata/sap/AVMET_SRV",
 		fnCreate: function(sPath, oParameters, oPayLoad, oObjectId, ref) {
 			try {
 				if (oObjectId) {
@@ -35,9 +35,7 @@ sap.ui.define([
 					oData.beforeSend = this.fnEncryptDetails.bind(this, user);
 				}
 				oData.type = "POST";
-				oData.headers = {
-					"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
-				};
+				
 				oData.url = this.fnBasePath + "" + sPath;
 				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
@@ -87,9 +85,7 @@ sap.ui.define([
 				}
 
 				oData.type = "PUT";
-				oData.headers = {
-					"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
-				};
+				
 				oData.url = this.fnBasePath + "" + sPath;
 				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
@@ -137,9 +133,7 @@ sap.ui.define([
 					oData.beforeSend = this.fnEncryptDetails.bind(this, user);
 				}
 				oData.type = "DELETE";
-				oData.headers = {
-					"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
-				};
+				
 				oData.url = this.fnBasePath + "" + sPath;
 				oData.contentType = "application/json";
 				oData.error = function(hrex) {
@@ -165,9 +159,7 @@ sap.ui.define([
 				oParameters = this.fnCheckForParameters(oParameters);
 				$.ajax({
 					type: 'GET',
-					headers: {
-						"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
-					},
+					
 					url: this.fnBasePath + "" + sPath + "" + oParameters.queryParam,
 					error: oParameters.error.bind(this),
 					success: oParameters.success.bind(this)
@@ -212,21 +204,20 @@ sap.ui.define([
 
 		fnEncryptDetails: function(user, xhr) {
 			 try {
-                xhr.setRequestHeader("uname", user.username);
-                xhr.setRequestHeader("pin", user.password);
-                xhr.setRequestHeader("objid", user.objid);
+				
+				//var signAuth = dataUtil._encriptInfo(user.username+ ":" + user.password+ ":" +user.objid+":"+(user.activity === undefined ? "99" : user.activity));
+				var signAuth = dataUtil._encriptInfo(user.username+ ":" + user.password);
+                xhr.setRequestHeader("signAuth",signAuth);
+				xhr.setRequestHeader("objid", user.objid);
                 xhr.setRequestHeader("activity", user.activity === undefined ? "99" : user.activity);
                 if(dataUtil.getDataSet("oUserSession")){
-                    xhr.setRequestHeader("PLANTUSER", dataUtil.getDataSet("oUserSession").PLANTUSER);
-                    xhr.setRequestHeader("platform", dataUtil.getDataSet("oUserSession").platform.Platform);
+					xhr.setRequestHeader("platform", dataUtil.getDataSet("oUserSession").platform.Platform);
                     xhr.setRequestHeader("sessionid", dataUtil.getDataSet("oUserSession").sessionid);
                 }
             } catch (e) {
                 Log.error("Exception in fnEncryptDetails function");
             }
-
 		},
-
 		fnGetRoleObject: function() {
 			try {
 				var roleObjModel = this.getView().getModel("roleObjModel");

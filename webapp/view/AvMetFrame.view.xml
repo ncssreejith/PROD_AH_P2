@@ -8,7 +8,7 @@
 						<OverflowToolbarLayoutData priority="NeverOverflow"/>
 					</layoutData>
 				</Button>
-				<Title text="AH {avmetModel>/airSel/modidtx} {= ${avmetModel>/airSel/tailid} !=='NA' ? ${avmetModel>/airSel/tailno} : ''}" class="frameTitle sapUiTinyMarginTop"></Title>
+				<Title text="{avmetModel>/login/air} {avmetModel>/airSel/modidtx} {= ${avmetModel>/airSel/tailid} !=='NA' ? ${avmetModel>/airSel/tailno} : ''}" class="frameTitle sapUiTinyMarginTop"></Title>
 				<ToolbarSeparator/>
 				<ToolbarSpacer/>
 				<ToolbarSpacer/>

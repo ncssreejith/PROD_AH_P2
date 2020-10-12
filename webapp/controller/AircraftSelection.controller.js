@@ -35,7 +35,7 @@ sap.ui.define([
 				selInput: "",
 				selTab: "AIR",
 				sel: {
-					airid: that.getOwnerComponent().airid,
+					airid: dataUtil.getDataSet(this.getOwnerComponent().appModel).login.airid,
 					modid: "",
 					modidtx: "",
 					tailid: "",

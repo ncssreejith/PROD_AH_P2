@@ -21,10 +21,6 @@ sap.ui.define([
 		 */
 
 		///////////////////////////BASIC DETAILS FOR AIRCRAFT//////////////////////
-		airid: "AIR_11",
-		username: "EA12345",
-		password: "12345",
-		pin: "12345",
 		appModel: "AirCraftSelectionGBModel",
 		init: function() {
 			// call the base component's init function
@@ -32,17 +28,40 @@ sap.ui.define([
 
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
-			if (dataUtil.getDataSet("oUserSession")) {
-				this.fnLoginUser();
-			} else {
-				sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
-			}
-			//this.fnLoginUser();
+			var oUserSession = dataUtil.getDataSet("oUserSession");
+			// set the device model
+			this.setModel(models.createDeviceModel(), "device");
+			var oUserSession = dataUtil.getDataSet("oUserSession");
+			this._fnSessionChk();
 		},
+		
+		_fnSessionChk: function (sPkey) {
+			try {
+				$.ajax({
+					type: 'GET',
+					url: "/ws_authenticate",
+					error: function (xhrx) {
+						this.getRouter().initialize();
+					}.bind(this),
+					success:function(oResponse, status, xhr){
+						if(xhr.getResponseHeader("Location").search('ah')>=0){
+							this.fnLoginUser();
+							return 
+						}
+						sap.m.URLHelper.redirect(xhr.getResponseHeader("Location"), false);
+						dataUtil.setDataSet("oUserSession", null);
+						dataUtil.setDataSet("AirCraftSelectionGBModel", null);
+					}.bind(this)
+				});
+			} catch (e) {
+				Log.error("Exception in onInit function");
+			}
+		},
+		
 		fnLoginUser: function() {
 			var sPath = "/AuthorizationSvc";
 			var oParameter = {};
-			oParameter.filter = "PLANTUSER eq " + this.username + " and PWD eq " + this.password;
+			
 			oParameter.error = function(xhrx) {
 				MessageBox.error("Invalid login credentials", {
 					title: "Login Error"
@@ -51,8 +70,8 @@ sap.ui.define([
 			oParameter.success = function(oData) {
 				var sData = {};
 				sData.login = {
-					airid: "AIR_11",
-					air: "AH",
+					airid: oData.results.length > 0 ? oData.results[0].PWD : "",
+					air: oData.results.length > 0 ? oData.results[0].PLANT : "",
 					name: oData.results.length > 0 ? oData.results[0].BACKEND_UNAME : "",
 					sqnid: oData.results.length > 0 ? oData.results[0].SQNWC : "",
 					sqntx: oData.results.length > 0 ? oData.results[0].SNAME : "",
