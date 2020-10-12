@@ -63,7 +63,10 @@ sap.ui.define([
 				// 	return;
 				// }
 				var oPayload = this.getModel("oAddEngCycLogModel").getProperty("/");
-				delete oPayload.ReasonCodes;
+				if (oPayload.OLREA === "125_F") {
+					oPayload.SFLAG = " ";
+				}
+				// delete oPayload.ReasonCodes;
 				oPayload.SPDT = formatter.defaultOdataDateFormat(new Date());
 				oPayload.SPTM = formatter.fnTimeFormat(new Date());
 				oPayload.BEGDA = formatter.defaultOdataDateFormat(new Date());

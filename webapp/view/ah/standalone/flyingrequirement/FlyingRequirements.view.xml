@@ -6,13 +6,15 @@
 				<Toolbar>
 					<ToolbarSpacer/>
 					<SearchField placeholder="Search" width="15rem"/>
-					<Button text="{i18n>btnAddFlyingRequirements}" type="Default" press="onAddFlyingRequirements" class="sapUiSmallMarginEnd"/>
+					<Button text="{i18n>btnAddFlyingRequirements}" type="Default" press="onAddFlyingRequirements"
+					enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}" class="sapUiSmallMarginEnd"/>
 				</Toolbar>
 				<VBox backgroundDesign="Solid" alignContent="Center" visible="{=${FRAllModel>/}.length === 0 ? true:false}" alignItems="Center"
 					class="vboxAlign" width="100%">
 					<items>
 						<Title text="{i18n>txtNoTextFLR}" level="H1" titleStyle="H3"/>
-						<Button text="{i18n>btnAddFlyingRequirements}" type="Default" press="onAddFlyingRequirements" enabled="{LocalModel>/FairEditFlag}"/>
+						<Button text="{i18n>btnAddFlyingRequirements}" type="Default" press="onAddFlyingRequirements"
+						visible="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}" enabled="{LocalModel>/FairEditFlag}"/>
 					</items>
 				</VBox>
 				<VBox visible="{=${FRAllModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center" width="100%">

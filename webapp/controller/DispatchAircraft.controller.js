@@ -113,10 +113,14 @@ sap.ui.define([
 					oModel = this.getView().getModel("oViewModel");
 				if (key !== "") {
 					oModel.setProperty("/sReceiveTable", true);
+					oEvent.getSource().setValueState("None");
+					oEvent.getSource().setValueText("");
 				} else {
 					oModel.setProperty("/sReceiveTable", false);
+					oEvent.getSource().setValueState("Error");
+					oEvent.getSource().setValueText("Required field");
 				}
-				FieldValidations.validateFields(this);
+				// FieldValidations.validateFields(this);
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:onSelectionChangeLoc function");
 				this.handleException(e);
@@ -127,6 +131,10 @@ sap.ui.define([
 				var sText = oEvent.getSource()._getSelectedItemText(),
 					oModel = this.getView().getModel("atckModel");
 				oModel.setProperty("/header/RSQN", sText);
+				if (sText === oModel.getProperty("/header/SQN")) {
+					oEvent.getSource().setValueState("Error");
+					oEvent.getSource().setValueText("Cannot transfer platform to dispatcher or empty");
+				}
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:onSelectionChangesqn function");
 				this.handleException(e);
@@ -280,10 +288,14 @@ sap.ui.define([
 				if (oModel.getProperty("/Receive") && this.fnCheckResponse()) {
 					return; //Check fail
 				}
-				if (FieldValidations.validateFields(this)){
+				if (this.fnCheckValueState("fgCmbBox")) {
 					sap.m.MessageToast.show("Fill in all required input first");
 					return;
 				}
+				// if (FieldValidations.validateFields(this)){
+				// 	sap.m.MessageToast.show("Fill in all required input first");
+				// 	return;
+				// }
 				this.getModel("atckModel").getProperty("/checklist").forEach(function(oItem) {
 					var oPayload = {};
 					oPayload.tranid = this.getModel("atckModel").getProperty("/isListChange") ? "X" : "";
@@ -347,6 +359,27 @@ sap.ui.define([
 				ajaxutil.fnRead("/airtranscurrsvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:fnLoadSqn function");
+				this.handleException(e);
+			}
+		},
+		/** 
+		 * Check for function group error state
+		 * @param sFunctionGroupId
+		 * @returns
+		 */
+		fnCheckValueState: function(sFunctionGroupId) {
+			try {
+				var aGroupControls = sap.ui.getCore().byFieldGroupId(sFunctionGroupId);
+				var bError = false;
+				aGroupControls.forEach(function(oControl) {
+					if (oControl.setValueState && oControl.getValueState() === "Error") {
+						bError = true;
+						oControl.focus();
+					}
+				});
+				return bError;
+			} catch (e) {
+				Log.error("Exception in fnCheckValueState function");
 				this.handleException(e);
 			}
 		}

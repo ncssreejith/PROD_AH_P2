@@ -172,27 +172,8 @@ sap.ui.define([
 						});
 						break;
 					case "AST_S0":
-						if (aRenderSafePopup === "X") {
-							this.getRouter().navTo("WeaponExpenditure", {
-								srvtid: sSrvtId ? sSrvtId : " ",
-								stepid: "S_WE"
-							});
-						} else {
-							this._renderSafeNF();
-						}
-						break;
 					case "AST_US0":
-						if (aRenderSafePopup === "X") {
-							this.getRouter().navTo("WeaponExpenditure", {
-								srvtid: sSrvtId ? sSrvtId : " ",
-								stepid: "S_WE"
-							});
-						} else {
-							this._renderSafeNF();
-						}
-						break;
 					case "AST_FAIR0":
-
 						if (aRenderSafePopup === "X") {
 							this.getRouter().navTo("WeaponExpenditure", {
 								srvtid: sSrvtId ? sSrvtId : " ",

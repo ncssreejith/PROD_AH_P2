@@ -4,8 +4,11 @@
 		<content>
 			<Toolbar>
 				<ToolbarSpacer/>
+				<!--enabled="{= ${avmetModel>/dash/astid} !=== 'AST_S' ? true : false}"-->
 				<Button text="View Past records" press="onPastRecords" visible="{= ${appModel>/isVisPastRecords} ? true : false}"/>
-				<Button text="Update Records" type="Emphasized" press="onUpdateRecords" visible="{= ${appModel>/isVisUpdateRecords} ? true : false}"/>
+				<Button text="Update Records" type="Emphasized" press="onUpdateRecords"
+				enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"
+				visible="{= ${appModel>/isVisUpdateRecords} ? true : false}"/>
 			</Toolbar>
 			<VBox>
 				<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"

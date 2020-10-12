@@ -159,7 +159,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					if(!this.getModel("rcModel").getProperty("/stns/0/APRNO") > 1){
+					if(oData.results[0].APRNO === 1){
 						this.onNavBack();
 						return;
 					}
@@ -167,10 +167,11 @@ sap.ui.define([
 				}.bind(this);
 				var sAct = 99,
 					sObj = "";
-				var sCount = this.getModel("rcModel").getProperty("/stns/0/APRNO") > 1 ? 0 : 1;
+				var sCount = this.getModel("rcModel").getProperty("/stns/0/APRNO");// > 1 ? 0 : 1;
 
 				switch (sCount) {
 					case 0:
+					case 2:		
 						sAct = "4";
 						sObj = "ZRM_FS_RCT";
 						break;

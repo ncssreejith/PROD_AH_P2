@@ -35,6 +35,9 @@
 						</layoutData>
 					</Switch>
 				</HBox>
+				<HBox visible="{= ${avmetModel>/dash/PDSFLAG} === 'Y' ? true:false}">
+					<Button text="Void Flight Servicing" press="onVoidFSPress" type="Emphasized"/>
+				</HBox>
 				<!--<List class="flightinfolist2" includeItemInSelection="false" select="onFlightInfoSelect">-->
 				<!--	<StandardListItem visible="{= !!${avmetModel>/Unlock}}" class="flightinfolistItem flightinfolistItemTransperent" title="Pilot Accept Aircraft"-->
 				<!--		type="Navigation" press="onAircraftUnlock"/>-->

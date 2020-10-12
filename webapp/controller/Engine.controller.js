@@ -244,12 +244,12 @@ sap.ui.define([
 			}
 		},
 		/** 
-		 * Add cyclic count
+		 * Add engine oil
 		 */
 		onAddEngOilLog: function() {
 			try {
 				//Check engine hours since last top up
-				if (this.LastRepEngine1Hours < 10) {
+				if (this.fnDateEngineHrsDiff("1")) {
 					sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
 						actions: [sap.m.MessageBox.Action.OK],
 						emphasizedAction: sap.m.MessageBox.Action.OK,
@@ -291,12 +291,12 @@ sap.ui.define([
 			}
 		},
 		/** 
-		 * Add cyclic count
+		 * Add engine oil
 		 */
 		onAddEng2OilLog: function() {
 			try {
 				//Check engine hours since last top up
-				if (this.LastRepEngine2Hours < 10) {
+				if (this.fnDateEngineHrsDiff("2")) {
 					sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
 						actions: [sap.m.MessageBox.Action.OK],
 						emphasizedAction: sap.m.MessageBox.Action.OK,
@@ -339,6 +339,10 @@ sap.ui.define([
 				// 	lineChart: {}
 				// });
 				// this.getView().setModel(oModel, "engine1Chart");
+
+				this.LastRepEngine1Hours = 999;
+				this.LastRepEngine2Hours = 999;
+				// this.LastEngine1Hours = ;
 
 				var oEngineModel = dataUtil.createJsonModel({
 					EngCyclicLife: [],
@@ -472,16 +476,6 @@ sap.ui.define([
 
 				};
 				oParameter.success = function(oData) {
-					// var oLabel = [],
-					// 	Data = [];
-					// for (var i = 0; i < oData.results.length; i++) {
-					// 	var oTemp = oData.results[i].SPTM;
-					// 	oData.results[i].SPTM = oTemp.substring(0, 5);
-					// 	if (oData.results[i].SOAP === "") {
-					// 		Data.push(oData.results[i].SRVAMT);
-					// 		oLabel.push(oData.results[i].ENGHR);
-					// 	}
-					// }
 					var that = this;
 					if (oData && oData.results && oData.results.length && oData.results.length > 0) {
 						//sort by date
@@ -489,23 +483,19 @@ sap.ui.define([
 							oItem.ID = that.fnDateTime(oItem.SPDT, oItem.SPTM); //, 
 						});
 						//sort by date
-						// oData.results.forEach(function(oItem) {
-						// 	oItem.ID = this.fnDateTime(oItem.CREDTM, oItem.CREUZT); //, 
-						// }.bind(this));
 						oData.results.sort(function(a, b) {
 							return new Date(b.ID).getTime() - new Date(a.ID).getTime();
 						});
 
 						if (iEngine === "1" || iEngine === null) {
-							this.LastRepEngine1Hours = this.fnDateTimeDiff(oData.results[0].ID);
+							this.LastRepEngine1Hours = oData.results[0].ENGHR;
 							oEngineModel.setProperty("/soapTableData", oData.results);
 						} else {
-							this.LastRepEngine2Hours = this.fnDateTimeDiff(oData.results[0].ENGHR);
+							this.LastRepEngine2Hours = oData.results[0].ENGHR;
 							oEngineModel.setProperty("/soapTableData2", oData.results);
 						}
 					}
-					// oEngineModel.setProperty("/Label", oLabel);
-					// oEngineModel.setProperty("/Data", Data);
+
 				}.bind(this);
 				ajaxutil.fnRead("/EngSoapSvc", oParameter);
 			} catch (e) {
@@ -586,9 +576,14 @@ sap.ui.define([
 				oParameter.filter = "FLAG eq L and TAILID eq " + this.getTailId() + " and ENGID eq " + sEngID;
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length) {
-						oData.results.sort(function(a, b) {
-							return b.LOGID - a.LOGID;
+						
+						oData.results.sort(function(b, a) {
+							return parseInt(a.LOGID.split("_")[1]) - parseInt(b.LOGID.split("_")[1]);
 						});
+						
+						// oData.results.sort(function(a, b) {
+						// 	return b.LOGID - a.LOGID;
+						// });
 
 						if (iEngine === "1") {
 							this.LastEngine1Hours = oData.results[0].TENGHR;
@@ -608,7 +603,36 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		//  Get Method to get Reason for SOAP samplling
 		//-------------------------------------------------------------
+		/** 
+		 * Calculate engine hours diff
+		 * @param oItems
+		 * @returns
+		 */
+		fnDateEngineHrsDiff: function(sEngNo) {
+			var sDiff = 0;
+			switch (sEngNo) {
+				case "1":
+					var sEngineHrs = this.LastEngine1Hours; //this.getModel("avmetModel").getProperty("/airutil/COL_13");
+					if (this.LastRepEngine1Hours === "0" || !sEngineHrs) { //LastEngine1Hours
+						return false;
+					}
 
+					sDiff = parseFloat(sEngineHrs) - parseFloat(this.LastRepEngine1Hours);
+					break;
+				case "2":
+					sEngineHrs = this.LastEngine2Hours;//this.getModel("avmetModel").getProperty("/airutil/COL_14");
+					if (this.LastRepEngine2Hours === "0" || !sEngineHrs) {
+						return false;
+					}
+
+					sDiff = parseFloat(sEngineHrs) - parseFloat(this.LastRepEngine2Hours);
+					break;
+				default:
+					return false;
+			}
+
+			return (sDiff < 10);
+		},
 		//2.Data for the chart 
 		_setData: function(iEngine) {
 			try {

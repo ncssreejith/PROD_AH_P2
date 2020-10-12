@@ -163,6 +163,27 @@ sap.ui.define([
 				Log.error("Exception in onReleaseForRectification function");
 			}
 		},
+		onVoidFSPress: function() {
+			try {
+
+				var oPayload = {
+					tailid: this.getTailId(),
+					refid: this.getAircraftId()
+				};
+
+				var oParameter = {};
+				oParameter.activity = 4;
+				oParameter.error = function() {};
+				oParameter.success = function() {
+					this.fnLoadSrv1Dashboard();
+					this.getModel("avmetModel").refresh();
+				}.bind(this);
+				ajaxutil.fnCreate("/voidFlightSvc", oParameter, [oPayload], "ZRM_FS_VS", this);
+			} catch (e) {
+				Log.error("Exception in ReleaseForRectification:onSignOffPress function");
+				this.handleException(e);
+			}
+		},
 
 		onDetailsMenuClick: function(oEvent) {
 			var sText = oEvent.getSource().getText();

@@ -6,7 +6,7 @@
 				<Button icon="sap-icon://arrow-left" press="onNavBack" class="sapUiSmallMarginBegin"/>
 				<Title text="{i18n>titleAircraftCap}"/>
 				<ToolbarSpacer/>
-				<Button type="Emphasized" text="Refresh" press="onRefresh"></Button>
+			<!--	<Button type="Emphasized" text="Refresh" press="onRefresh"></Button>-->
 			</OverflowToolbar>
 		</subHeader>
 		<content>

@@ -1,71 +1,83 @@
 [{
 		"name": "Dashboard",
+		"section": "",
 		"icon": "",
 		"active": "x",
 		"visible": true,   
 		"pattern": "DashboardInitial"
 	}, {
 		"name": "Flight Servicing",
+		"section": "[5]",
 		"icon": "",
 		"active": "x",
 		"visible": true,
 		"pattern": "CreateFlightService"
 	}, {
 		"name": "Jobs",
+		"section": "[6 8 9-1 9-2]",
 		"icon": "",
 		"active": "x",
 		"visible": true,
 		"pattern": "Cosjobs"
 	}, {
 		"name": "Role Change",
+		"section": "[6]",
 		"icon": "",
 		"active": "x",
 		"visible": true,
 		"pattern": "RoleChangeStations"
 	}, {
 		"name": "Approvals",
+		"section": "",
 		"icon": "",
 		"active": "x",
 		"visible": true,
 		"pattern": "Approvals"
 	}, {
 		"name": "Engine",
+		"section": "[7 7-1 7-2 7-3]",
 		"icon": "",
 		"active": "x",
 		"visible": true,
 		"pattern": "Engine"
 	}, {
 		"name": "Aircraft Capability",
+		"section": "[2 3]",
 		"icon": "",
 		"active": "x",
 		"visible": true,
 		"pattern": "Limitations"
 	}, {
 		"name": "Aircraft Monitoring",
-		"icon": "",
+		"section": "[2-1 4 5]",
+		"icon": "sap-icon://navigation-right-arrow",
 		"active": "x",
 		"visible": true,
 		"pattern": "",
 		"child": [{
 			"name": "Flying Requirement",
+			"section": "[5]",
 			"icon": "",
 			"active": "x",
 			"visible": true,
 			"pattern": "FlyingRequirements"
 		}, {
 			"name": "Aircraft Monitoring",
+			"section": "[5]",
 			"icon": "",
 			"active": "x",
 			"visible": true,
 			"pattern": "SortieMonitoring"
 		}, {
 			"name": "Trial Modification Monitoring",
+			"section": "[2-1]",
 			"icon": "",
 			"active": "x",
 			"visible": true,
 			"pattern": "Trial_Mod"
 		}, {
 			"name": "Aircraft Utilisation",
+			"section": "[4]",
 			"icon": "",
 			"active": "x",
 			"visible": true,
@@ -73,61 +85,66 @@
 		}]
 	}, {
 		"name": "Aircraft Information",
-		"icon": "",
+		"section": "[C C-1 5 12]",
+		"icon": "sap-icon://navigation-right-arrow",
 		"active": "x",
 		"visible": true,
 		"pattern": "",
 		"child": [{
 			"name": "Overview",
+			"section": "[C]",
 			"icon": "",
 			"active": "x",
 			"visible": true,
 			"pattern": "AircraftOverview"
 		}, {
 			"name": "Weight and Balance",
+			"section": "[C-1]",
 			"icon": "",
 			"active": "x",
 			"visible": true,
 			"pattern": "WeightBalance"
 		}, {
 			"name": "WDNS Coefficients Records",
+			"section": "[12]",
 			"icon": "",
 			"active": "x",
 			"visible": true,
 			"pattern": "MainWDNS"
 		}]
-	},	{
-			"name": "View Past Flight Servicing",
-			"icon": "",
-			"active": "x",
-			"visible": true,
-			"pattern": "ViewPastFlightServicing"
-	}, {
+	}
+	
+	, {
 		"name": "Transfer Aircraft",
+		"section": "[1]",
 		"icon": "",
 		"active": "x",
 		"visible": true,
 		"pattern": "AircraftTransfer"
 	}, {
 		"name": "Switch Aircraft",
+		"section": "",
 		"icon": "",
 		"active": "x",
 		"visible": true,
 		"pattern": "AircraftSelection"
 	}, {
 		"name": "Upload/Download",
+		"section": "",
 		"icon": "",
 		"active": "x",
 		"visible": true,
 		"pattern": "FileUpload"
 	}, {
 		"name": "Audit Log",
+		"section": "",
 		"icon": "",
 		"active": "x",
 		"visible": true,
 		"pattern": "AuditLog"
 	},{
 		"name": "Settings",
+		"section": "",
 		"icon": "",
 		"active": "x",
 		"visible": true,

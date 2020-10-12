@@ -11,8 +11,10 @@
 								<Title level="H3" text="Engine Indicator Value"/>
 								<ToolbarSpacer/>
 								<!--<Link text="View Past Records"/>-->
-								<Button text="Reset Indicator Value" type="Transparent" press="onResetEngCycLog"/>
-								<Button text="Add Engine Cyclic Log" type="Emphasized" press="onAddEngCycLog" visible="{= ${avmetModel>/airSel/tailid} !=='NA'}"/>
+								<Button text="Reset Indicator Value" type="Transparent" press="onResetEngCycLog"
+								enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"/>
+								<Button text="Add Engine Cyclic Log" type="Emphasized" press="onAddEngCycLog" visible="{= ${avmetModel>/airSel/tailid} !=='NA'}"
+								enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"/>
 							</content>
 						</OverflowToolbar>
 					</headerToolbar>
