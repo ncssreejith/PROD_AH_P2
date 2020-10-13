@@ -1,5 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.OFPUpdateView"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.OFPUpdateView">
 	<App>
 		<pages>
 			<Page title="Aircraft OFP" navButtonPress="onNavBack" showNavButton="true">

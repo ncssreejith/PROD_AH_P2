@@ -112,7 +112,10 @@ sap.ui.define([
 
 		handleChange: function(oEvent) {
 			try {
-				FieldValidations.resetErrorStates(this);
+				var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+				var prevTime = this.getModel("ViewModel").getProperty("/backTm");
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateFlyReqPast", "errorCreateFlyReqFuture", prevDt, prevTime);
+
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:handleChange function");
 				this.handleException(e);
@@ -177,6 +180,8 @@ sap.ui.define([
 				});
 				that.getView().setModel(oFLyReqModel, "FlyingRequirementsModel");
 				this._fnFlyingRequirementsGet(sJobId);
+				this._fnGetDateValidation(sJobId);
+				FieldValidations.resetErrorStates(this);
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
 			}
@@ -209,17 +214,20 @@ sap.ui.define([
 				if (FieldValidations.validateFields(this)) {
 					return;
 				}
+				if (!this.handleChange()) {
+					return;
+				}
 				var oPrmFL = {},
 					oDate = new Date(),
 					oModel = this.getView().getModel("ViewModel"),
 					oPayload = [],
 					oTemp = this.getView().getModel("FlyingRequirementsModel").getData(),
 					that = this;
-					if (oTemp.FlyingRequirements.length < 1) {
-						sap.m.MessageBox.error("Please add flying requirement to proceed");
-						return;
-					}
-					var dDate = oModel.getProperty("/dDate"),
+				if (oTemp.FlyingRequirements.length < 1) {
+					sap.m.MessageBox.error("Please add flying requirement to proceed");
+					return;
+				}
+				var dDate = oModel.getProperty("/dDate"),
 					tTime = oModel.getProperty("/dDateTime");
 				for (var i = 0; i < oTemp.FlyingRequirements.length; i++) {
 					oTemp.FlyingRequirements[i].SGDTM = formatter.defaultOdataDateFormat(oDate);
@@ -239,7 +247,7 @@ sap.ui.define([
 							"Flag": "Y",
 							"WcKey": oModel.getProperty("/sWorkKey"),
 							"goTo": "FR"
-						},true);
+						}, true);
 					} else {
 						this.getRouter().navTo("FlyingRequirements");
 					}
@@ -249,6 +257,28 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onSubmitFlyingRequirements function");
 				this.handleException(e);
+			}
+		},
+		
+		_fnGetDateValidation: function(sJobId) {
+			try {
+				var oPrmTaskDue = {};
+				if (sJobId) {
+					oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+				} else {
+					oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq I";
+				}
+
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("ViewModel").setProperty("/backDt", oData.results[0].VDATE);
+						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetDateValidation function");
 			}
 		}
 

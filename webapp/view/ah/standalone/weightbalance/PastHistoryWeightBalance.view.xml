@@ -1,5 +1,4 @@
-<mvc:View controllerName="avmet.ah.controller.PastHistoryWeightBalance" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
-	xmlns:l="sap.ui.layout">
+<mvc:View controllerName="avmet.ah.controller.PastHistoryWeightBalance" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
 	<Page title="History Weight and Balance Record" navButtonPress="onNavBack" showNavButton="true">
 		<content>
 			<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont" items="{ path: 'WeightBalanceSet>/'}"

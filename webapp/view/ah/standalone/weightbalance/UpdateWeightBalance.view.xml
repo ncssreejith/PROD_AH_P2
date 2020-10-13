@@ -1,5 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.UpdateWeightBalance"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.UpdateWeightBalance">
 	<App>
 		<pages>
 			<Page title="Basic Weight and Balance Record" navButtonPress="onNavBack" showNavButton="true">

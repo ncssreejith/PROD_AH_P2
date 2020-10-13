@@ -151,7 +151,10 @@ sap.ui.define([
 
 		handleChange: function(oEvent) {
 			try {
-				FieldValidations.resetErrorStates(this);
+				var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+				var prevTime = this.getModel("ViewModel").getProperty("/backTm");
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateFlyReqPast", "errorCreateFlyReqFuture", prevDt, prevTime);
+
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:handleChange function");
 				this.handleException(e);
@@ -256,6 +259,28 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+		_fnGetDateValidation: function(sJobId) {
+			try {
+				var oPrmTaskDue = {};
+				if (sJobId) {
+					oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+				} else {
+					oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq I";
+				}
+
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("ViewModel").setProperty("/backDt", oData.results[0].VDATE);
+						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetDateValidation function");
+			}
+		},
 
 		// ***************************************************************************
 		//                 4. Private Methods   
@@ -288,6 +313,8 @@ sap.ui.define([
 				that._fnMonitoredForGet(sAirId);
 				that._fnGetUtilisation(sAirId);
 				that._fnGetOperationType(sAirId);
+				this._fnGetDateValidation(sJobId);
+				FieldValidations.resetErrorStates(this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_onObjectMatched function");
 				this.handleException(e);
@@ -296,6 +323,9 @@ sap.ui.define([
 
 		fnCreateSorti: function() {
 			try {
+				if (!this.handleChange()) {
+					return;
+				}
 				var that = this,
 					oPayloads = [],
 					oModel = that.getModel("SortieMonitoringModel");

@@ -1,5 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.CosCloseJob"
-	xmlns:l="sap.ui.layout">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.CosCloseJob">
 	<Page id="pageCloseId" showHeader="false">
 		<subHeader class="headerHeight">
 			<OverflowToolbar class="headerHeight">
