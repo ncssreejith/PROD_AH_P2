@@ -8,7 +8,7 @@ sap.ui.define([
 		// http://localhost:58983/AVMET/avmetDB/AircraftModelSvc
 		//fnBasePath: "/DBSRV17/avmet",
 		//"/DBSRV17/avmetdb",
-		fnBasePath: "/AVMET/avmetnf/sap/opu/odata/sap/AVMET_SRV",
+		fnBasePath: "/DBSRV17/avmetnf/sap/opu/odata/sap/AVMET_SRV",
 		fnCreate: function(sPath, oParameters, oPayLoad, oObjectId, ref) {
 			try {
 				if (oObjectId) {
@@ -203,7 +203,7 @@ sap.ui.define([
 					oParameters.queryParam = "?";
 					oParameters.queryParam = oParameters.queryParam + (oParameters.expand === undefined ? "" : "$expand=" + oParameters.expand);
 					oParameters.queryParam = oParameters.queryParam + (oParameters.filter === undefined ? "" : "$filter=" + oParameters.filter);
-					oParameters.queryParam = oParameters.queryParam + "sessionid=" + dataUtil.getDataSet("oUserSession").sessionid;
+					oParameters.queryParam = oParameters.queryParam + "&sessionid=" + dataUtil.getDataSet("oUserSession").sessionid;
 				}
 					if(!isQueryParam){
 						oParameters.queryParam = "?";

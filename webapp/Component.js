@@ -19,7 +19,6 @@ sap.ui.define([
 			this.setModel(models.createDeviceModel(), "device");
 			//this._fnSessionChk();
 			this._fnUserPinLogin();
-			
 		},
 
 		_fnSessionChk: function() {
@@ -27,7 +26,7 @@ sap.ui.define([
 				var that = this;
 				$.ajax({
 					type: 'GET',
-					url: "/AVMET/avmetnf/ws_authenticate?sessionid="+dataUtil.getDataSet("oUserSession").sessionid,
+					url: "/DBSRV17/avmetnf/ws_authenticate?sessionid="+dataUtil.getDataSet("oUserSession").sessionid,
 					error: function(xhrx) {
 						that.getRouter().initialize();
 					},
@@ -84,10 +83,10 @@ sap.ui.define([
 		_fnUserPinLogin: function() {
 			try {
 				// var sPass = "amitkumar:pass1234";
-				var sPass = "USER_AH_01:pass1234";
+				var sPass = "amitkumar:pass1234";
 				$.ajax({
 					type: 'GET',
-					url: "/AVMET/avmetnf/ws_authenticate",
+					url: "/DBSRV17/avmetnf/ws_authenticate",
 					headers: {
 						"Authorization": "Basic " + dataUtil._encriptInfo(sPass),
 						"state": "new"
@@ -114,7 +113,7 @@ sap.ui.define([
 			try {
 				$.ajax({
 					type: 'GET',
-					url: "/AVMET/avmetnf/ws_authenticate?sessionid="+dataUtil.getDataSet("oUserSession").sessionid,
+					url: "/DBSRV17/avmetnf/ws_authenticate?sessionid="+dataUtil.getDataSet("oUserSession").sessionid,
 					headers: {
 						"state": "selPtfm",
 						"ptfm": sPkey
