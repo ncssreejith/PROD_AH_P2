@@ -1,4 +1,4 @@
-<mvc:View controllerName="avmet.ah.controller.AvMetFrame" xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:html="http://www.w3.org/1999/xhtml"
+<mvc:View controllerName="avmet.ah.controller.AvMetFrame" xmlns="sap.m" xmlns:tnt="sap.tnt"
 	xmlns:mvc="sap.ui.core.mvc">
 	<tnt:ToolPage id="tpAvmet" sideExpanded="false">
 		<tnt:header>

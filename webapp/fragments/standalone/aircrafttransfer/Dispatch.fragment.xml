@@ -27,7 +27,7 @@
 						<Text text="{atckModel>chkdesc}"/>
 						<SegmentedButton selectedKey="{atckModel>answ}"
 							enabled="{= (${atckModel>/header/CSQNID}===${atckModel>/header/SQNID}) &amp;&amp; (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?true:false}"
-							selectedButton="none" selectionChange="onSelecectionCustodian">
+							selectionChange="onSelecectionCustodian">
 							<items>
 								<SegmentedButtonItem width="6rem" text="Yes" key="Y"></SegmentedButtonItem>
 								<SegmentedButtonItem width="6rem" text="No" key="N"></SegmentedButtonItem>
@@ -58,7 +58,7 @@
 						<Text text="{atckModel>chkdesc}"/>
 						<SegmentedButton selectedKey="{atckModel>answ}"
 							enabled="{= (${atckModel>/header/CSQNID}===${atckModel>/header/SQNID}) &amp;&amp; (${atckModel>/header/ASTID}===null || ${atckModel>/header/ASTID}==='')?true:false}"
-							selectedButton="none" selectionChange="onSelecectionCustodian">
+							selectionChange="onSelecectionCustodian">
 							<items>
 								<SegmentedButtonItem width="6rem" text="Yes" key="Y"></SegmentedButtonItem>
 								<SegmentedButtonItem width="6rem" text="No" key="N"></SegmentedButtonItem>
