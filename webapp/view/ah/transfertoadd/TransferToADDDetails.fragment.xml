@@ -32,14 +32,13 @@
 					<VBox class="bgColorWhiteWithRightBorder sapUiSmallMarginBegin sapUiSmallMarginTopBottom" width="30%">
 						<VBox class="sapUiSmallMarginBeginEnd">
 							<Label design="Bold" text="Date" width="150px"/>
-							<DatePicker
+							<DatePicker id="DP1"
 								value="{path: 'oViewGlobalModel>/CAPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-								width="200px" fieldGroupIds="fgDate" required="true"/>
+								width="200px" fieldGroupIds="fgDate" required="true" change="handleChange"/>
 						</VBox>
 						<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
 							<Label design="Bold" text="Time" width="150px"/>
-							<TimePicker editable="false" width="200px" value="{oViewGlobalModel>/CAPTM}" valueFormat="HH:mm" displayFormat="HH:mm"
-								fieldGroupIds="fgTime" required="true"/>
+							<TimePicker id="TP1" change="handleChange" width="200px" value="{oViewGlobalModel>/CAPTM}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true"/>
 						</VBox>
 					</VBox>
 					<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">

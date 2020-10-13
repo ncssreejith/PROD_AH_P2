@@ -42,6 +42,12 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+		handleChange: function() {
+			var prevDt = this.getModel("oViewModel").getProperty("/backDt");
+			var prevTime = this.getModel("oViewModel").getProperty("/backTm");
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateADDpast", "errorCreateADDfuture", prevDt, prevTime);
+		},
 		//-------------------------------------------------------------
 		// 
 		//-------------------------------------------------------------
@@ -232,6 +238,10 @@ sap.ui.define([
 			try {
 				FieldValidations.resetErrorStates(this);
 				if (FieldValidations.validateFields(this)) {
+					return;
+				}
+				
+				if (!this.handleChange()) {
 					return;
 				}
 				var dDate = new Date();
@@ -523,6 +533,23 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+		_fnGetDateValidation: function(sJobId) {
+			try {
+				var oPrmTaskDue = {};
+				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("oViewModel").setProperty("/backDt", oData.results[0].VDATE);
+						this.getModel("oViewModel").setProperty("/backTm", oData.results[0].VTIME);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetDateValidation function");
+			}
+		},
 
 		// ***************************************************************************
 		//                 3. Private Methods   
@@ -596,6 +623,7 @@ sap.ui.define([
 				this._fnUtilization2Get();
 				this._fnGetUtilisationDefaultValue(sAirId);
 				this._fnPerioOfDeferCBGet();
+				this._fnGetDateValidation(sJobId);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_onObjectMatched function");
 				this.handleException(e);

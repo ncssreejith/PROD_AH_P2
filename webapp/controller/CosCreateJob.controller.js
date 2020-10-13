@@ -1271,7 +1271,7 @@ sap.ui.define([
 				this._fnJobDueGet();
 				this._fnGetUtilisation(sAirId);
 				this._fnWorkCenterGet(sAirId);
-				this._fnFoundDuringGet();
+				//this._fnFoundDuringGet();
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_handleRouteMatched function");
 				this.handleException(e);

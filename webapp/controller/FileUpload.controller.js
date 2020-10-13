@@ -89,8 +89,8 @@ sap.ui.define([
 				"TOT_SUCC_REC": "0",
 				"TOT_ER_REC": "0"
 			});
-			oPrmWBMCreate.error = function() {
-				MessageBox.success("Error occured during file Uploaded.");
+			oPrmWBMCreate.error = function(err) {
+					MessageBox.error(err.responseText);
 			};
 
 			oPrmWBMCreate.success = function(oData) {
@@ -114,8 +114,8 @@ sap.ui.define([
 				"TOT_SUCC_REC": "0",
 				"TOT_ER_REC": "0"
 			});
-			oPrmWBMCreate.error = function() {
-				MessageBox.error("Error occured during download.");
+			oPrmWBMCreate.error = function(err) {
+				MessageBox.error(err.responseText);
 			};
 
 			oPrmWBMCreate.success = function(oData) {

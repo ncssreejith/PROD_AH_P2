@@ -515,6 +515,7 @@ sap.ui.define([
 				sMinVal = oSrc.getMin();
 			if (sMinVal > sVal) {
 				oSrc.setValue(sMinVal);
+				sap.m.MessageBox.error("Value should be greater than " + sMinVal);
 			} else {
 				oSrc.setValueState("None");
 			}
@@ -546,7 +547,7 @@ sap.ui.define([
 		onLogoffPress: function(oEvent) {
 			try {
 				var that = this;
-				MessageBox.confirm("Want to Log off?", {
+				MessageBox.confirm("Do you want to log off?", {
 					actions: [MessageBox.Action.YES, MessageBox.Action.CANCEL],
 					emphasizedAction: MessageBox.Action.YES,
 					onClose: function(sAction) {
@@ -571,12 +572,12 @@ sap.ui.define([
 						//"sessionid": dataUtil.getDataSet("oUserSession").sessionid,
 						"state": "delete"
 					},
-					error: function (xhrx) {
-					dataUtil.setDataSet("oUserSession", null);
-					dataUtil.setDataSet("AirCraftSelectionGBModel", null);
-					sap.m.URLHelper.redirect("/avmet/login.html", false);
+					error: function(xhrx) {
+						dataUtil.setDataSet("oUserSession", null);
+						dataUtil.setDataSet("AirCraftSelectionGBModel", null);
+						sap.m.URLHelper.redirect("/avmet/login.html", false);
 					},
-					success: function(){
+					success: function() {
 						dataUtil.setDataSet("oUserSession", null);
 						dataUtil.setDataSet("AirCraftSelectionGBModel", null);
 						sap.m.URLHelper.redirect("/avmet/login.html", false);
@@ -585,7 +586,6 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewItemGet function");
 			}
-			
 
 		},
 

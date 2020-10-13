@@ -61,22 +61,31 @@ sap.ui.define([
 			return '8Cnh7Ks5Mp'; // Later will replace with service call
 		},
 		_encriptInfo: function(info) {
-			if (info) {
-				info = btoa(btoa(JSON.stringify(info)) + this.fnGetUIEncriptionKey());
+			try {
+				if (info) {
+					info = btoa(btoa(JSON.stringify(info)) + this.fnGetUIEncriptionKey());
+					return info;
+				}
+				return null;
+			} catch (e) {
 				return info;
 			}
-			return null;
 
 		},
 
 		_decryptInfo: function(info) {
-			if (info) {
-				info = atob(info);
-				info = info.replace(this.fnGetUIEncriptionKey(), '');
-				info = atob(info);
-				return JSON.parse(info);
+			//return info;
+			try {
+				if (info) {
+					info = atob(info);
+					info = info.replace(this.fnGetUIEncriptionKey(), '');
+					info = atob(info);
+					return JSON.parse(info);
+				}
+				return null;
+			} catch (e) {
+				return info;
 			}
-			return null;
 
 		}
 

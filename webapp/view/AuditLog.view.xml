@@ -37,6 +37,15 @@
 									<DateRangeSelection displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" value="{auditLogModel>/PeriodDate}" change="onDateSelection"/>
 								</fb:control>
 							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="Search" labelTooltip="Search" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{auditLogModel>/ObjectId}" showSuggestion="true" suggest=".onSuggestObj" suggestionItems="{ObjectSugg>/}">
+										<suggestionItems>
+											<core:Item text="{ObjectSugg>OBJECT_VALUE}"/>
+										</suggestionItems>
+									</Input>
+								</fb:control>
+							</fb:FilterGroupItem>
 						</fb:filterGroupItems>
 					</fb:FilterBar>
 					<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
@@ -45,13 +54,13 @@
 							<Column hAlign="Left" width="auto" class="textColor">
 								<Label text="Application" design="Bold"/>
 							</Column>
-							<!--<Column hAlign="Left" width="auto" class="textColor" mergeDuplicates="true">-->
-							<!--	<Label text="Table" design="Bold"/>-->
-							<!--</Column>-->
+							<Column hAlign="Left" width="auto" class="textColor" mergeDuplicates="true">
+								<Label text="Transaction Id" design="Bold"/>
+							</Column>
 							<Column hAlign="Left" width="auto" class="textColor">
 								<Label text="Field Description" design="Bold"/>
 							</Column>
-							<Column hAlign="Left" width="auto" class="textColor">
+							<Column hAlign="Left" width="6%" class="textColor">
 								<Label text="Action" wrapping="true" design="Bold"/>
 							</Column>
 							<Column hAlign="Left" width="auto" class="textColor">
@@ -74,13 +83,19 @@
 							<ColumnListItem type="Active" press="onRowSelection">
 								<cells>
 									<Text text="{auditLogModel>OBDESC}"/>
-									<!--<Text text="{auditLogModel>TABLE_NAME}"/>-->
+									<Text text="{auditLogModel>APPLICATION}"/>
 									<Text text="{auditLogModel>FILED_NAME}"/>
 									<Text text="{auditLogModel>ACTION}"/>
-									<Text text="{auditLogModel>OLDVALUE}"/>
-									<Text text="{auditLogModel>NEWVALUE}"/>
+									<VBox>
+										<Text text="{auditLogModel>OLDVALUE}" visible="{= ${auditLogModel>OLDDESC} === null}"/>
+										<Text text="{auditLogModel>OLDDESC}" visible="{= ${auditLogModel>OLDDESC} !== null}"/>
+									</VBox>
+									<VBox>
+										<Text text="{auditLogModel>NEWVALUE}" visible="{= ${auditLogModel>NEWDESC} === null}"/>
+										<Text text="{auditLogModel>NEWDESC}" visible="{= ${auditLogModel>NEWDESC} !== null}"/>
+									</VBox>
 									<Text text="{auditLogModel>PLANTUSER}"/>
-									<Text text="{path:'auditLogModel>ADATE', formatter:'.formatter.auditDateTimeFormatDisplay'}"/>
+									<Text text="{path:'auditLogModel>ADATE'} {path:'auditLogModel>ATIME'}"/>
 									<!--<Button icon="sap-icon://display" press="onRowSelection"></Button>-->
 									<!--<Text text="{path:'auditLogModel>ADATE', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"/>-->
 									

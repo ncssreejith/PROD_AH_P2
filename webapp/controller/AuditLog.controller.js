@@ -23,7 +23,7 @@ sap.ui.define([
 
 		onClearFilterBar: function() {
 			this.getModel("auditLogModel").setProperty("/ApplicationKey", "");
-			this.getModel("auditLogModel").setProperty("/UserKey", "");
+			this.getModel("auditLogModel").setProperty("/ObjectId", "");
 			this.getModel("auditLogModel").setProperty("/PeriodDate", "");
 		},
 
@@ -100,9 +100,9 @@ sap.ui.define([
 				var that = this,
 					oPrmWBM = {};
 					if (sKey === "H") {
-						oPrmWBM.filter = "PLATFORM eq AIR_11 and FLAG eq J and JOBID eq " + sJobId;
+						oPrmWBM.filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq J and JOBID eq " + sJobId;
 					} else {
-						oPrmWBM.filter = "PLATFORM eq AIR_11 and FLAG eq O and TAILID eq " + this.getTailId();
+						oPrmWBM.filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq O and TAILID eq " + this.getTailId();
 					}
 				
 				oPrmWBM.error = function() {
@@ -123,20 +123,39 @@ sap.ui.define([
 				Log.error("Exception in _fnGetAudLog function");
 			}
 		},
+		
+		onSuggestObj : function (oEvent){
+			var sText = oEvent.getSource().getValue();
+			try {
+				var that = this,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq J and KEYWORD eq " + sText + " and TAILID eq " + this.getTailId();
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "ObjectSugg");
+				}.bind(this);
+				ajaxutil.fnRead("/GetAuditLogSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
+				this.handleException(e);
+			}
+		},
 
 		onSearch: function() {
 			try {
 				var that = this,
 					oPrmWBM = {},
-					sUser = this.getModel("auditLogModel").getProperty("/UserKey"),
+					sObjId = this.getModel("auditLogModel").getProperty("/ObjectId"),
 					sApplication = this.getModel("auditLogModel").getProperty("/ApplicationKey"),
 					sDateRange = this.getModel("auditLogModel").getProperty("/PeriodDate"),
 					fromDate = "",
 					toDate = "",
-					filter = "PLATFORM eq AIR_11 and FLAG eq T and TAILID eq " + this.getTailId();
+					filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq T and TAILID eq " + this.getTailId();
 				sApplication = sApplication ? sApplication : null;
-				if (sUser) {
-					filter = filter.concat(" and PLANTUSER eq " + sUser);
+				if (sObjId) {
+					filter = filter.concat(" and JOBID eq " + sObjId);
 				}
 
 				if (sApplication) {
@@ -177,6 +196,7 @@ sap.ui.define([
 				this._fnGetUserAudLog();
 				this._fnGetApplicationAudLog();
 				this.getView().setModel(new JSONModel({}), "auditLogModel");
+				this.getView().getModel("auditLogModel").setSizeLimit(10000);
 				this.getModel("auditLogModel").setProperty("/Title","Audit Log Report");
 				this.getModel("auditLogModel").setProperty("/flag", null) ;
 				this.getModel("auditLogModel").setProperty("/isActionEnabled", false);

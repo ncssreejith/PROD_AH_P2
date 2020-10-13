@@ -349,7 +349,7 @@ sap.ui.define([
 					DefectTableFlag: false,
 					ScheduledTableFlag: false,
 					UnscheduledTableFlag: false,
-					SelectedKey: sState,
+					SelectedKey: sState ? sState : "OST",
 					SchAllTableFlag: true,
 					SchAirTableFlag: false,
 					SchCompTableFlag: false,
