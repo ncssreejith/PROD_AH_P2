@@ -85,7 +85,7 @@
 		</VBox>
 		<buttons>
 			<Button text="Cancel" press="onCloseAddLimDialog"/>
-			<Button text="Create Limitation" press="onCreateLimitationPress('LIM')" type="Emphasized"/>
+			<Button text="Save" press="onCreateLimitationPress('LIM')" type="Emphasized"/>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

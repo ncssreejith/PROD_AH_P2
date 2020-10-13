@@ -106,7 +106,13 @@ sap.ui.define([
 				this._oDialog = this.createoDialog(this, "AppInfo", "ApplicationInfo");
 				this._oDialog.openBy(this.getView().byId("btnSideNavToggle"));
 			} else {
-				this.getRouter().navTo(oBindingContext.getProperty("pattern"));
+				if (oBindingContext.getProperty("pattern") === "Cosjobs") {
+					this.getRouter().navTo(oBindingContext.getProperty("pattern"), {
+						State: "OST"
+					}, true);
+				} else {
+					this.getRouter().navTo(oBindingContext.getProperty("pattern"));
+				}
 			}
 		},
 		// onSideNavButtonPress: function () {

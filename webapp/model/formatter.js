@@ -109,15 +109,15 @@ sap.ui.define([
 			if (!dDate) {
 				return "";
 			}
-			/*var nDate=new Date(dDate);
-			var fnDateFormatter = DateFormat.getDateInstance({
-				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy"
-			});
-			var sDate = fnDateFormatter.format(nDate);*/
+			var oResTemp = "0";
 			var res = dDate.split(":");
+			if (res[1].length === 1) {
+				oResTemp = oResTemp.concat(res[1]);
+				res[1] = oResTemp;
+			}
 			var Temp = res[0].concat(":", res[1]);
 
-			return Temp;
+			return " " + Temp;
 		},
 
 		approvalText: function(sValue) {
@@ -399,13 +399,16 @@ sap.ui.define([
 		},
 
 		taskContentVisible3: function(stTask1, stTask2, stTask3, stTask4) {
-			if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
+			if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_12" && stTask3 ===
+						null) || (stTask1 === "TT1_10" && stTask2 ===
 						"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
 						stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
 						stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" &&
 						stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
-						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === "TT1_16" && stTask3 === null) ||
-					(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === '' || stTask4 === null)) {
+						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === "TT1_15" && stTask3 === null) || (stTask1 === "TT1_16" &&
+						stTask3 === null) || (stTask1 === "TT1_17" &&
+						stTask3 === null) || (stTask1 === "TT1_18" && stTask3 === null) ||
+					(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === "" || stTask4 === null)) {
 				return true;
 			} else {
 				return false;
@@ -657,18 +660,18 @@ sap.ui.define([
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
 
-		stnsQty:function(isSer,srCount,sTotQty){
+		stnsQty: function(isSer, srCount, sTotQty) {
 			var sQty = 0;
-			if(isSer === "X"){
+			if (isSer === "X") {
 				sQty = srCount;
 			}
 			sQty = sTotQty;
-			if(sQty === 0){
+			if (sQty === 0) {
 				sQty = "";
 			}
 			return sQty;
 		},
-		
+
 		fnFuelMaxAmt: function(srvtId, maxAmt, orgAmt) {
 			if (srvtId === "SRVT_DE") {
 				return parseInt(orgAmt);
