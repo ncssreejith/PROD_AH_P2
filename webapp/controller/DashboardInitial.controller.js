@@ -670,26 +670,26 @@ sap.ui.define([
 							// oLoad.LV_COLOR = "Good";
 							if (oLoad.LV_HRS > 0) {
 								oLoad.LV_COUNT += oLoad.LV_HRS;
-							// 	if (oLoad.LV_THRS === 0) {
-							// 		oLoad.LV_COLOR = "Error";
-							// 	} else {
-							// 		oLoad.LV_COLOR = "Critical";
-							// 	}
-							// 	this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "sap-icon://alert");
-							// } else {
-							// 	this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "");
+								// 	if (oLoad.LV_THRS === 0) {
+								// 		oLoad.LV_COLOR = "Error";
+								// 	} else {
+								// 		oLoad.LV_COLOR = "Critical";
+								// 	}
+								// 	this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "sap-icon://alert");
+								// } else {
+								// 	this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "");
 							}
 							if (oLoad.LV_DAY > 0) {
 								oLoad.LV_COUNT += oLoad.LV_DAY;
-							// 	this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "sap-icon://alert");
-							// } else {
-							// 	this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "");
+								// 	this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "sap-icon://alert");
+								// } else {
+								// 	this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "");
 							}
 							if (oLoad.LV_TAC > 0) {
 								oLoad.LV_COUNT += oLoad.LV_TAC;
-							// 	this.getModel("dashboardModel").setProperty("/scl/TACAlert", "sap-icon://alert");
-							// } else {
-							// 	this.getModel("dashboardModel").setProperty("/scl/TACAlert", "");
+								// 	this.getModel("dashboardModel").setProperty("/scl/TACAlert", "sap-icon://alert");
+								// } else {
+								// 	this.getModel("dashboardModel").setProperty("/scl/TACAlert", "");
 							}
 							// this.getModel("dashboardModel").setProperty("/scl/LV_COUNT", JSON.parse(JSON.stringify(oLoad.LV_THRS)));
 
@@ -1096,7 +1096,9 @@ sap.ui.define([
 				window.setTimeout(function() {
 					var sT1 = sText1 ? sText1 : "0";
 					// var sT2 = sText2 ? sText2 : "0";
-					document.querySelector(scheduleMicroChartId).textContent = sT1 + "\n" + sText2;
+					if (document.querySelector(scheduleMicroChartId)) {
+						document.querySelector(scheduleMicroChartId).textContent = sT1 + "\n" + sText2;
+					}
 					// document.querySelector(scheduleMicroChartId).textContent = "2 \n ADDs";
 					// document.querySelector(FueltMicroChartId).textContent = "2500 \n /2500 lbs";
 				}.bind(this, scheduleMicroChartId), 10);

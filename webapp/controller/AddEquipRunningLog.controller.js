@@ -71,7 +71,8 @@ sap.ui.define([
 		//-------------------------------------------------------------		
 		fnLogById: function() {
 			try {
-				var sPath = "/AircraftLogSvc/" + this.getModel("oAircraftAddModel").getProperty("/logid") + "/" + this.getTailId() + "/TABA_102";
+				var sPath = "/AircraftLogSvc(logid=" + this.getModel("oAircraftAddModel").getProperty("/logid") + ",tailid=" + this.getTailId() + ",tabid=TABA_102)";
+				// var sPath = "/AircraftLogSvc/" + this.getModel("oAircraftAddModel").getProperty("/logid") + "/" + this.getTailId() + "/TABA_102";
 				var oParameter = {};
 				oParameter.error = function() {
 

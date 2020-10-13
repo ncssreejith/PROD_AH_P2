@@ -651,7 +651,7 @@ sap.ui.define([
 				var aLDashPoints = [];
 				var aUDashPoints = [];
 				//Loop
-				var aCopyPowerCheck = JSON.parse(JSON.stringify(aEngPowerCheck));
+				var aCopyPowerCheck = aEngPowerCheck; //JSON.parse(JSON.stringify(aEngPowerCheck));
 				aCopyPowerCheck.sort(function(a, b) {
 					return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]);
 				});
@@ -662,12 +662,12 @@ sap.ui.define([
 					var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
 					var iLLimit = parseInt(oItem.LLIMIT ? oItem.LLIMIT : 0) + 5;
 					var iDiff = parseInt(oItem.TGTDIFF);
-					if (iDiff > iULimit) {
+					if (iDiff > iULimit) { // upper limit
 						oItem.ULimitFlag = true;
 						// aRedPoints.push(iDiff);
 						// aDataPoints.push(iDiff);
 					}
-					if (iDiff < iLLimit) {
+					if (iDiff < iLLimit) { // lower limit
 						oItem.LLimitFlag = true;
 						// aRedPoints.push(iDiff);
 						// aDataPoints.push(iDiff);

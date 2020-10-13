@@ -80,30 +80,30 @@
 								<Text text="{oEngineModel>NP}"/>
 								<Text text="{oEngineModel>ULIMIT}"/>
 								<HBox>
-									<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= !${oEngineModel>ULimitFlag}}">
+									<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= !!${oEngineModel>ULimitFlag}}">
 										<core:layoutData>
 											<FlexItemData growFactor="1"/>
 										</core:layoutData>
 									</core:Icon>
-									<core:Icon src="sap-icon://decline" color="#FF0000" size="2em" visible="{= !!${oEngineModel>ULimitFlag}}">
-										<core:layoutData>
-											<FlexItemData growFactor="1"/>
-										</core:layoutData>
-									</core:Icon>
+									<!--<core:Icon src="sap-icon://decline" color="#FF0000" size="2em" visible="{= !!${oEngineModel>ULimitFlag}}">-->
+									<!--	<core:layoutData>-->
+									<!--		<FlexItemData growFactor="1"/>-->
+									<!--	</core:layoutData>-->
+									<!--</core:Icon>-->
 								</HBox>
 								<!--<Text text="{oEngineModel>AmbTemp}"/>-->
 								<Text text="{oEngineModel>LLIMIT}"/>
 								<HBox>
-									<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= !${oEngineModel>LLimitFlag}}">
+									<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= !!${oEngineModel>LLimitFlag}}">
 										<core:layoutData>
 											<FlexItemData growFactor="1"/>
 										</core:layoutData>
 									</core:Icon>
-									<core:Icon src="sap-icon://decline" color="#FF0000" size="2em" visible="{= !!${oEngineModel>LLimitFlag}}">
-										<core:layoutData>
-											<FlexItemData growFactor="1"/>
-										</core:layoutData>
-									</core:Icon>
+									<!--<core:Icon src="sap-icon://decline" color="#FF0000" size="2em" visible="{= !!${oEngineModel>LLimitFlag}}">-->
+									<!--	<core:layoutData>-->
+									<!--		<FlexItemData growFactor="1"/>-->
+									<!--	</core:layoutData>-->
+									<!--</core:Icon>-->
 								</HBox>
 								<!--<Text text="{oEngineModel>AmbTemp}"/>-->
 							</cells>

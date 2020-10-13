@@ -163,8 +163,10 @@ sap.ui.define([
 				var sLogid = this.getModel("oWDNSModel").getProperty("/logid");
 				var sLogidPath = sLogid ? " and logid eq " + sLogid : "";
 				if (sLogidPath) {
-					sPath = sPath + "/" + sLogid + "/" + this.getTailId() + "/" + this.getModel(
-						"oWDNSModel").getProperty("/hartabId");
+					sPath = sPath + "(logid=" + sLogid + ",tailid=" + this.getTailId() + ",tabid=" + this.getModel(
+						"oWDNSModel").getProperty("/hartabId") + ")";
+					// sPath = sPath + "/" + sLogid + "/" + this.getTailId() + "/" + this.getModel(
+					// 	"oWDNSModel").getProperty("/hartabId");
 				} else {
 					oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
 						"/hartabId") + " and otype eq D";
