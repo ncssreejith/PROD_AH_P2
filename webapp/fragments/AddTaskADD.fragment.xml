@@ -118,7 +118,7 @@
 		</VBox>
 		<buttons>
 			<Button text="Cancel" press="onCloseADDDialog"/>
-			<Button text="Create ADD" press="onCreateLimitationPress('ADD')" type="Emphasized"/>
+			<Button text="Save" press="onCreateLimitationPress('ADD')" type="Emphasized"/>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

@@ -361,14 +361,7 @@ sap.ui.define([
 				var oModel = dataUtil.createJsonModel("model/aircraftInfo.json");
 				this.getView().setModel(oModel, "DDModel");
 				this._fnJobGetScheduled();
-				this._fnJobGetAircraftScheduled();
-				this._fnJobGetCompScheduled();
-				this._fnJobGetENGScheduled();
-				this._fnJobGetMODSTIScheduled();
 				this._fnJobDetailsGetAll();
-				this._fnJobDetailsGetDefect();
-				this._fnJobDetailsGetScheduled();
-				this._fnJobDetailsGetUnScheduled();
 				this._fnJobDetailsGetUnCompleted();
 				this.fnLoadSrv1Dashboard();
 			} catch (e) {
@@ -396,6 +389,9 @@ sap.ui.define([
 					}
 					oModel.setData(aData);
 					that.getView().setModel(oModel, "JobModelAll");
+					that._fnJobDetailsGetDefect();
+					that._fnJobDetailsGetScheduled();
+					that._fnJobDetailsGetUnScheduled();
 				}.bind(this);
 
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
@@ -540,6 +536,10 @@ sap.ui.define([
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "SchJobModelAll");
+					that._fnJobGetAircraftScheduled();
+					that._fnJobGetCompScheduled();
+					that._fnJobGetENGScheduled();
+					that._fnJobGetMODSTIScheduled();
 				}.bind(this);
 
 				ajaxutil.fnRead("/GetSerLogSvc", oPrmJobDue);

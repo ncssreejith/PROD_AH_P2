@@ -942,8 +942,9 @@ sap.ui.define([
 					var ViewGlobalModel = this.getModel("oViewGlobalModel");
 					ViewGlobalModel.setData(null);
 				}.bind(this);
-				oParameter.activity = 1;
-				ajaxutil.fnCreate("/ADDSvc", oParameter, [oPayLoad], "ZRM_ADDL", this);
+				/*oParameter.activity = 1;
+				, "ZRM_ADDL", this*/
+				ajaxutil.fnCreate("/ADDSvc", oParameter, [oPayLoad]);
 
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onCreateLimitationPress function");
