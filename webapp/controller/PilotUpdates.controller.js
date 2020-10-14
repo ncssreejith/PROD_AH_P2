@@ -645,10 +645,10 @@ sap.ui.define([
 						if (oData) {
 							if (iEngine === "1") {
 								oEngineModel.setProperty("/EngPowerCheck", oData.results);
-								this._setData(iEngine);
+								// this._setData(iEngine);
 							} else {
 								oEngineModel.setProperty("/EngPowerCheck2", oData.results);
-								this._setData(iEngine);
+								// this._setData(iEngine);
 							}
 						}
 					}
