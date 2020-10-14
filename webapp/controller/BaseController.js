@@ -862,7 +862,28 @@ sap.ui.define([
 			this._oBusyFrag.destroy();
 			delete this._oBusyFrag;
 
-		}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnFoundDuringGet
+		// Parameter: oEvent
+		// Description: General Method: This will get called, when to get found during data from backend.
+		// Table: DDREF, DDVAL
+		//------------------------------------------------------------------
+		_fnFoundDuringGet: function(sAirId) {
+			try {
+				var that = this,
+					oPrmFND = {};
+				oPrmFND.filter = "ddid eq FND_ and refid eq " + this.getAircraftId();
+				oPrmFND.error = function() {};
+				oPrmFND.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.setModel(oModel, "FoundDuringSet");
+				}.bind(this);
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmFND);
+			} catch (e) {
+				Log.error("Exception in _fnFoundDuringGet function");
+			}
 
 	});
 
