@@ -38,6 +38,10 @@
 				<HBox visible="{= ${avmetModel>/dash/PDSFLAG} === 'Y' ? true:false}">
 					<Button text="Void Flight Servicing" press="onVoidFSPress" type="Emphasized"/>
 				</HBox>
+				<!--<HBox-->
+				<!--	visible="{= (${avmetModel>/runningChange/length} > 0 ) ? true : false}">-->
+				<!--	<Button text="Running Change" press="onRunningChangePress" type="Emphasized"/>-->
+				<!--</HBox>-->
 				<!--<List class="flightinfolist2" includeItemInSelection="false" select="onFlightInfoSelect">-->
 				<!--	<StandardListItem visible="{= !!${avmetModel>/Unlock}}" class="flightinfolistItem flightinfolistItemTransperent" title="Pilot Accept Aircraft"-->
 				<!--		type="Navigation" press="onAircraftUnlock"/>-->

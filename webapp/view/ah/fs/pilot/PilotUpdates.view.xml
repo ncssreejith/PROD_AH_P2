@@ -19,7 +19,8 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<Button text="Back"></Button>
-				<Button text="Next" press="onFlyingNext" visible="{=${oPilotUpdatesViewModel>/SignOffBtn} === true ? false : true}"></Button>
+
+				<Button text="Next" press="onFlyingNext" visible="{= (${avmetModel>/runningChange/length} > 0 ) ? false : true}"></Button>
 				<Button text="Sign Off" type="Emphasized" press="onSignOffPress" visible="{oPilotUpdatesViewModel>/SignOffBtn}"></Button>
 			</OverflowToolbar>
 		</footer>

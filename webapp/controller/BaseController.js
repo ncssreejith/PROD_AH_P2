@@ -308,6 +308,30 @@ sap.ui.define([
 			}
 		},
 		/** 
+		 * Load running changes data
+		 */
+		fnLoadRunningChange: function() {
+			try {
+				var aPilot = [];
+				var oParameter = {};
+				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					if (oData && oData.results && oData.results.length) {
+						this.getModel("avmetModel").setProperty("/runningChange", oData.results.length > 0 ? oData.results : []);
+						this.getModel("avmetModel").refresh();
+					} else {
+						this.getModel("avmetModel").setProperty("/runningChange", []);
+					}
+					
+				}.bind(this);
+				this.getModel("avmetModel").setProperty("/runningChange", []);
+				ajaxutil.fnRead("/PilotInvolvedlSvc", oParameter);
+			} catch (e) {
+				Log.error("Exception in fnLoadRunningChange function");
+			}
+		},
+		/** 
 		 *  Save and clear history
 		 */
 		fnSaveHistory: function() {

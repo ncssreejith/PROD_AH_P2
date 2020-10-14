@@ -58,7 +58,8 @@
 		<footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button text="Back" press="onNavBack"/> 				<Button text="Reject" type="Reject" press="onRejectPress"/>
+				<Button text="Back" press="onNavBack"/> 				
+				<Button text="Reject"  visible="{= (${avmetModel>/runningChange/length} > 0 ) ? false : true}" type="Reject" press="onRejectPress"/>
 				<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
 			</OverflowToolbar>
 		</footer>

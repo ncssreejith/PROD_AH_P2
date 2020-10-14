@@ -137,6 +137,7 @@ sap.ui.define([
 				var sSrvtId = this.getModel("avmetModel").getProperty("/dash/SRVTID");
 				var aState = this.getModel("avmetModel").getProperty("/dash/astid");
 				var aRenderSafePopup = this.getModel("avmetModel").getProperty("/dash/WEXPE");
+				var aRunningChanges = this.getModel("avmetModel").getProperty("/runningChange");
 				switch (aState) {
 					case "AST_REC":
 						this.getRouter().navTo("DispatchAircraft");
@@ -159,10 +160,14 @@ sap.ui.define([
 						break;
 					case "AST_RFF":
 					case "AST_RFF0":
-						this.getRouter().navTo("PilotUpdates", {
-							srvtid: sSrvtId ? sSrvtId : " ",
-							stepid: "S_PF"
-						});
+						if (aRunningChanges && aRunningChanges.length && aRunningChanges.length > 0) {
+							this.fnOpenPilotUpdate(oEvent);
+						} else {
+							this.getRouter().navTo("PilotUpdates", {
+								srvtid: sSrvtId ? sSrvtId : " ",
+								stepid: "S_PF"
+							});
+						}
 						break;
 					case "AST_US":
 					case "AST_WE":
@@ -245,7 +250,57 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		/** 
+		 * On pilot running changes
+		 */
+		fnOpenPilotUpdate: function() {
+			try {
+				// create popover
+				if (!this._oRunningChangeDialogInfo) {
+					this._oRunningChangeDialogInfo = sap.ui.core.Fragment.load({
+						name: "avmet.ah.fragments.RunningChange",
+						id: this.createId("RunningChangeid"),
+						controller: this
+					}).then(function(pPopover) {
+						this._oRunningChangeDialogInfo = pPopover;
+						this.getView().addDependent(this._oRunningChangeDialogInfo);
+						this._oRunningChangeDialogInfo.open();
+					}.bind(this));
+				} else {
+					this._oRunningChangeDialogInfo.open();
+				}
+			} catch (e) {
+				this.Log.error("Exception in fnOpenPilotUpdate function");
+			}
+		},
+		/** 
+		 * On running changes cancel
+		 */
+		onRunningChangeCancel: function() {
+			try {
+				this._oRunningChangeDialogInfo.close();
+				this._oRunningChangeDialogInfo.destroy();
+				delete this._oRunningChangeDialogInfo;
+			} catch (e) {
+				this.Log.error("Exception in onRunningChangeCancel function");
+			}
+		},
+		/** 
+		 * On running pilot change
+		 */
+		onRunningChangePress: function() {
+			try {
+				var sSrvtId = this.getModel("avmetModel").getProperty("/dash/SRVTID");
+				this.getRouter().navTo("PilotUpdates", {
+					srvtid: sSrvtId ? sSrvtId : " ",
+					stepid: "S_PF"
+				});
 
+			} catch (e) {
+				this.Log.error("Exception in ReleaseForRectification:onRunningChangePress function");
+				this.handleException(e);
+			}
+		},
 		/**
 		 * Schedule button click
 		 * @param oEvent
@@ -639,6 +694,7 @@ sap.ui.define([
 				this.fnLoadROLDashboard();
 				this.fnLoadLocation();
 				this.fnLoadUtilization();
+				this.fnLoadRunningChange();
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:_onObjectMatched function");
 				this.handleException(e);
@@ -718,6 +774,7 @@ sap.ui.define([
 		 */
 		_fnJobGetScheduled: function() {
 			try {
+				this.fnLoadRunningChange();
 				var
 					oPrmJobDue = {};
 				oPrmJobDue.filter = "CTYPE eq ALL and tailid eq " + this.getTailId();

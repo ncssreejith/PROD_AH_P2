@@ -190,7 +190,21 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		/** 
+		 * On running pilot change
+		 */
+		onRunningChangePress: function() {
+			try {
+				var sSrvtId = this.getModel("avmetModel").getProperty("/dash/SRVTID");
+				this.getRouter().navTo("PilotAccept", {
+					srvtid: sSrvtId ? sSrvtId : " ",
+					stepid: "S_PA"
+				});
+			} catch (e) {
+				Log.error("Exception in ReleaseForRectification:onRunningChangePress function");
+				this.handleException(e);
+			}
+		},
 		onDetailsMenuClick: function(oEvent) {
 			var sText = oEvent.getSource().getText();
 			if (sText === "Aircraft Monitoring") {
