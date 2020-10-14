@@ -11,7 +11,7 @@
 			<Button text="Cancel" type="Transparent" press="onRunningChangeCancel"/>
 		</beginButton>
 		<endButton>
-			<Button text="Pilot Update" type="Emphasized" press="onRunningChangePress"/>
+			<Button text="Pilot Update" type="Emphasized" press="onRunningChangePress" enabled="{= !${avmetModel>/runningChangeDone}}"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

@@ -32,6 +32,38 @@ sap.ui.define([
 			this.getView().setModel(new JSONModel(oData), "avmetModel");
 			this.fnLoadInitialData();
 		},
+		onAfterRendering: function() {
+			var that = this;
+			// Retrieve backend posting messages of dashboard status every 30 secs.
+			this._LoadAVMETServices = setInterval(function() {
+				that._fnJobGetScheduled();
+			}, 30000);
+		},
+		/** 
+		 * Exit clean up.
+		 */
+		onExit: function() {
+			// Clear off state.
+			this.destroyState();
+		},
+		/** 
+		 * Clean up state object.
+		 */
+		destroyState: function() {
+			// Clear load message interval.
+			clearInterval(this._LoadAVMETServices);
+		},
+		/** 
+		 * Trigger schs job calculation
+		 * @constructor 
+		 */
+		_fnJobGetScheduled: function() {
+			try {
+				this.fnLoadRunningChange();
+			} catch (e) {
+				this.Log.error("Exception in _fnJobGetScheduled function");
+			}
+		},
 		/* Function : onSideNavButtonPress
 		 *  To handle side navigation toggle
 		 */
@@ -349,6 +381,7 @@ sap.ui.define([
 		//	4.1 First level Private functions
 		_onObjectMatched: function() {
 			this.fnLoadInitialData();
+			this._fnJobGetScheduled();
 		},
 
 		fnLoadInitialData: function() {

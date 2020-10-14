@@ -161,6 +161,7 @@ sap.ui.define([
 					case "AST_RFF":
 					case "AST_RFF0":
 						if (aRunningChanges && aRunningChanges.length && aRunningChanges.length > 0) {
+							this.fnCheckPilotDone(aRunningChanges);
 							this.fnOpenPilotUpdate(oEvent);
 						} else {
 							this.getRouter().navTo("PilotUpdates", {
@@ -249,6 +250,19 @@ sap.ui.define([
 				this.Log.error("Exception in DashboardInitial:onButtnItem2Press function");
 				this.handleException(e);
 			}
+		},
+		/** 
+		 * Check has all Pilots updated
+		 * @param aRunningChanges
+		 */
+		fnCheckPilotDone: function(aRunningChanges) {
+			var bAllUpdated = true;
+			aRunningChanges.forEach(function(oPilot){
+				if(oPilot.PILOTFLAG !== "X"){
+					bAllUpdated = false;
+				}
+			});
+			this.getModel("avmetModel").setProperty("/runningChangeDone", bAllUpdated);
 		},
 		/** 
 		 * On pilot running changes
@@ -723,42 +737,16 @@ sap.ui.define([
 								this.fnProcessSchedule(oLoad, sSelectedIndex);
 							}
 							oLoad.LV_COUNT = 0;
-							// oLoad.LV_COLOR = "Good";
 							if (oLoad.LV_HRS > 0) {
 								oLoad.LV_COUNT += oLoad.LV_HRS;
-								// 	if (oLoad.LV_THRS === 0) {
-								// 		oLoad.LV_COLOR = "Error";
-								// 	} else {
-								// 		oLoad.LV_COLOR = "Critical";
-								// 	}
-								// 	this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "sap-icon://alert");
-								// } else {
-								// 	this.getModel("dashboardModel").setProperty("/scl/HrsAlert", "");
 							}
 							if (oLoad.LV_DAY > 0) {
 								oLoad.LV_COUNT += oLoad.LV_DAY;
-								// 	this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "sap-icon://alert");
-								// } else {
-								// 	this.getModel("dashboardModel").setProperty("/scl/DaysAlert", "");
 							}
 							if (oLoad.LV_TAC > 0) {
 								oLoad.LV_COUNT += oLoad.LV_TAC;
-								// 	this.getModel("dashboardModel").setProperty("/scl/TACAlert", "sap-icon://alert");
-								// } else {
-								// 	this.getModel("dashboardModel").setProperty("/scl/TACAlert", "");
 							}
-							// this.getModel("dashboardModel").setProperty("/scl/LV_COUNT", JSON.parse(JSON.stringify(oLoad.LV_THRS)));
-
 							this.getModel("dashboardModel").refresh();
-							// if (oData.results.length > 0) {
-							// 	var sHours = parseFloat(oData.results[0].LV_THRS);
-							// 	if (sHours < 0 || sHours === null) {
-							// 		sHours = 0;
-							// 	}
-							// 	this._setRadialChartText("scheduleMicroChartId", sHours, "", oData.results[0].LV_HRS, oData.results[0].LV_HRS);
-							// 	return;
-							// }
-							// this._setRadialChartText("scheduleMicroChartId", "", "", 0, 0);
 						}
 					}
 				}.bind(this);
@@ -774,21 +762,30 @@ sap.ui.define([
 		 */
 		_fnJobGetScheduled: function() {
 			try {
-				this.fnLoadRunningChange();
+				this.fnTriggerScheduledJobs();
+			} catch (e) {
+				this.Log.error("Exception in _fnJobGetScheduled function");
+			}
+		},
+		/** 
+		 * Trigger scheduled jobs calculation
+		 * @constructor 
+		 */
+		fnTriggerScheduledJobs: function() {
+			try {
 				var
 					oPrmJobDue = {};
 				oPrmJobDue.filter = "CTYPE eq ALL and tailid eq " + this.getTailId();
 				oPrmJobDue.error = function() {
-
 				};
 
-				oPrmJobDue.success = function(oData) {
+				oPrmJobDue.success = function() {
 					this.fnLoadSCLDashboard(true);
 				}.bind(this);
 
 				ajaxutil.fnRead("/GetSerLogSvc", oPrmJobDue);
 			} catch (e) {
-				this.Log.error("Exception in _fnJobGetScheduled function");
+				this.Log.error("Exception in fnTriggerScheduledJobs function");
 			}
 		},
 		/** 
