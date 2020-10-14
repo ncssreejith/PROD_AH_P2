@@ -323,7 +323,7 @@ sap.ui.define([
 					} else {
 						this.getModel("avmetModel").setProperty("/runningChange", []);
 					}
-					
+
 				}.bind(this);
 				this.getModel("avmetModel").setProperty("/runningChange", []);
 				ajaxutil.fnRead("/PilotInvolvedlSvc", oParameter);
@@ -884,6 +884,7 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in _fnFoundDuringGet function");
 			}
+		}
 
 	});
 
