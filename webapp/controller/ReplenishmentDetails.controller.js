@@ -192,6 +192,8 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getRouter().navTo("UpdateFlightServicing", {
+						srvid: this.getModel("oRepDetailsModel").getProperty(
+						"/srvtid") 
 					}, true);
 				}.bind(this);
 				oParameter.activity = 4;
