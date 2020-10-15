@@ -59,8 +59,8 @@
 		<VBox class="sapUiSmallMarginBegin sapUiMediumMarginBottom">
 			<Toolbar class="toolbarBorder sapUiTinyMarginTop">
 				<Label text="{i18n>lbTaponDefectArea}" design="Bold"/>
-				<ToolbarSpacer/>
 				<Label text="{i18n>lbOptional}"/>
+				<ToolbarSpacer/>
 				<Button icon="sap-icon://refresh" press="onRefersh"/>
 			</Toolbar>
 			<core:HTML id="topId" visible="true"

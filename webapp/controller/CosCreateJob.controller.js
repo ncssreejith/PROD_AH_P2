@@ -78,11 +78,12 @@ sap.ui.define([
 			window.location.reload(); // Reason for this code????????????
 		},
 
-		handleChange: function() {
+		handleChange: function(oEvent) {
 			var aData = this.getModel("appModel").getData();
+			this.getView().getModel("oViewCreateModel").setProperty("/jduvl", oEvent.getSource().getDateValue());
 			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
 		},
-		
+
 		onTypeMissmatch: function(oEvent) {
 			sap.m.MessageBox.error("Selected file type not allowed");
 		},
@@ -595,7 +596,7 @@ sap.ui.define([
 						this.getRouter().navTo("CosDefectsSummary", {
 							"JobId": oData.results[0].jobid,
 							"Flag": "Y"
-						},true);
+						}, true);
 						this.getView().byId("topId").setVisible(false);
 
 					}.bind(this);
@@ -625,32 +626,37 @@ sap.ui.define([
 					return;
 				}
 
-				oPayload = AvMetInitialRecord.createInitialBlankRecord("SCHJob")[0];
+				if (oModel.getProperty("/sRJobIdFlag") !== "N") {
+					oPayload = AvMetInitialRecord.createInitialBlankRecord("SCHJob")[0];
 
-				oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));
-				oPayload.CRETM = oJobModel.getProperty("/cretm");
-				oPayload.J_FLAG = "N";
-				oPayload.FLAG = "ES";
-				oPayload.SYMBOL = "0";
-				oPayload.CTYPE = "AIRCRAFT";
-				oPayload.TAILID = this.getTailId();
-				oPayload.AIRID = this.getAircraftId();
-				oPayload.MODID = this.getModelId();
-				oPayload.JOBDESC = oJobModel.getProperty("/jobdesc");
-				oPayload.JOBTY = "ZA";
-				if (oJobModel.getProperty("/jduid") === 'JDU_10') {
-					oPayload.SERVDT = oJobModel.getProperty("/jdudt");
+					oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));
+					oPayload.CRETM = oJobModel.getProperty("/cretm");
+					oPayload.J_FLAG = "N";
+					oPayload.FLAG = "ES";
+					oPayload.SYMBOL = "0";
+					oPayload.CTYPE = "AIRCRAFT";
+					oPayload.TAILID = this.getTailId();
+					oPayload.AIRID = this.getAircraftId();
+					oPayload.MODID = this.getModelId();
+					oPayload.JOBDESC = oJobModel.getProperty("/jobdesc");
+					oPayload.JOBTY = "ZA";
+					if (oJobModel.getProperty("/jduid") === 'JDU_10') {
+						oPayload.SERVDT = oJobModel.getProperty("/jdudt");
+					} else {
+						oPayload.SERVDUE = oJobModel.getProperty("/jduvl");
+					}
+					oPayload.UMKEY = oJobModel.getProperty("/jduid");
+					oPayload.PRIME = oJobModel.getProperty("/prime");
+					oPrmTD.error = function() {};
+					oPrmTD.success = function(oData) {
+						this.getRouter().navTo("Cosjobs");
+					}.bind(this);
+					oPrmTD.activity = 1;
+					ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_SCH", this);
 				} else {
-					oPayload.SERVDUE = oJobModel.getProperty("/jduvl");
+					oPayload = this.getView().getModel("oViewCreateModel").getData();
+					that._fnUpdateJob(oPayload);
 				}
-				oPayload.UMKEY = oJobModel.getProperty("/jduid");
-				oPayload.PRIME = oJobModel.getProperty("/prime");
-				oPrmTD.error = function() {};
-				oPrmTD.success = function(oData) {
-					this.getRouter().navTo("Cosjobs");
-				}.bind(this);
-				oPrmTD.activity = 1;
-				ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_SCH", this);
 			} catch (e) {
 				Log.error("Exception in onESJobCreate function");
 			}
@@ -894,7 +900,7 @@ sap.ui.define([
 				Log.error("Exception in _fnGetUtilisation function");
 			}
 		},
-	_fnWorkCenterGet: function(sAirId) {
+		_fnWorkCenterGet: function(sAirId) {
 			try {
 				var that = this,
 					oPrmWorkCen = {};
@@ -1020,6 +1026,10 @@ sap.ui.define([
 						oViewModel.setProperty("/oFlagEdit", false);
 						//
 						that.onSelectionNatureofJobChange(null, oData.results[0].deaid);
+						if (oData.results[0].jduid === "JDU_10") {
+							oData.results[0].jduvl = new Date(oData.results[0].jduvl);
+
+						}
 						if (oData.results[0].mark !== "") {
 							that._fnGetMark(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].deaid);
 						}
@@ -1044,7 +1054,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		_fnGetDateValidation: function() {
 			try {
 				var oPrmTaskDue = {};
@@ -1061,7 +1071,6 @@ sap.ui.define([
 				Log.error("Exception in _fnGetDateValidation function");
 			}
 		},
-
 
 		//------------------------------------------------------------------
 		// Function: _fnTaskStatusGet

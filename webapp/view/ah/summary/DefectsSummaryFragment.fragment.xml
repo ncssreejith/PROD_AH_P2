@@ -53,7 +53,7 @@
 											<FlexItemData growFactor="3" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
 										</layoutData>
 									</Text>
-									<VBox class="sapUiMediumMarginBegin">
+									<VBox class="sapUiMediumMarginBegin" alignContent="End" alignItems="End">
 										<VBox
 											visible="{=${JobModel>/jobty}==='D' || ${JobModel>/jobty}==='U' || ${JobModel>/jobty}==='S' || ${JobModel>/jobty}==='ZQ' ? true :false}">
 											<HBox class="sapUiTinyMarginTop" alignItems="Start" alignContent="Start">

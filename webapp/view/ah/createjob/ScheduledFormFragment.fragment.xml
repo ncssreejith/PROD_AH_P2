@@ -18,7 +18,7 @@
 						<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 					</ComboBox>
 					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin" visible="false">
-						<StepInput min="{oViewCreateModel>/minValue}"  change="onStepChange"
+						<StepInput min="{oViewCreateModel>/minValue}" change="onStepChange"
 							fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? 'fgStepInput' : ''}"
 							valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}"
 							visible="{=${oViewCreateModel>/jduid}!=='' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10'}"
@@ -28,8 +28,8 @@
 					<DatePicker width="13rem" required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10' ? true : false}"
 						fieldGroupIds="{=(${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10') ? 'fgDate' : ''}"
 						valueStateText="{i18n>ERROR_GENERIC}" visible="{=${oViewCreateModel>/jduid}==='JDU_10' ? true:false}"
-						value="{path: 'oViewCreateModel>/jdudt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-						placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+						value="{ path: 'oViewCreateModel>/jduvl', formatter:'.formatter.defaultDateFormat'}" placeholder="New job creation date ..."
+						change="handleChange" class="sapUiSmallMarginBottom"/>
 				</HBox>
 			</VBox>
 		</HBox>

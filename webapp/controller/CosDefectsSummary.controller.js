@@ -2118,6 +2118,7 @@ sap.ui.define([
 						this.byId("pageSummaryId").scrollTo(0);
 					}.bind(this);
 					oPrmTask.activity = 4;
+					oPrmTask.title = "Supervisor Sign Off";
 					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "dummy", this);
 				} else {
 					MessageBox.error(
@@ -2291,6 +2292,7 @@ sap.ui.define([
 						this.byId("pageSummaryId").scrollTo(0);
 					}.bind(this);
 					oPrmTask.activity = 4;
+					oPrmTask.title = "Supervisor Sign Off";
 					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "dummy", this);
 				} else {
 					MessageBox.error(
@@ -3003,7 +3005,7 @@ sap.ui.define([
 
 				sObject = "dummy";
 				oPrmTask.activity = "4";
-
+				oPrmTask.title = "Supervisor Sign Off";
 				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, [oPayload], sObject, this);
 			} catch (e) {
 				Log.error("Exception in onSignOff function");
@@ -3126,6 +3128,7 @@ sap.ui.define([
 					}.bind(this);
 					sObject = oTempObj.obj;
 					oPrmTask.activity = oTempObj.Act;
+					oPrmTask.title = "Tradesman Sign Off";
 					ajaxutil.fnUpdate("/Task1Svc", oPrmTask, [oPayload], sObject, this);
 				}
 			} catch (e) {
@@ -4202,7 +4205,7 @@ sap.ui.define([
 					"Flag": oFlag
 				});
 			} else {
-				var sText = "Tool Check task not found for below Work Center(s):\n";
+				var sText = "Tools Check task not found for below Work Center(s):\n";
 				for (var i in aData) {
 					sText = sText.concat("\n" + aData[i].WORKCENTERDESC);
 				}

@@ -359,7 +359,7 @@ sap.ui.define([
 					sObject = "ZRM_COS_TT";
 				}
 				oPrmTask.activity = 4;
-
+				oPrmTask.title = "Tradesman Sign Off";
 				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, oPayload, sObject, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onSignOff function");
@@ -757,7 +757,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				oPrmJobDue.filter = "refid eq " + oModel.getProperty("/AirId") + " and ddid eq UTIL1_";
-			
+
 				oPrmJobDue.error = function() {
 
 				};
