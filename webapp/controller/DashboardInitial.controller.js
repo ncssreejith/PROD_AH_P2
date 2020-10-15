@@ -257,8 +257,8 @@ sap.ui.define([
 		 */
 		fnCheckPilotDone: function(aRunningChanges) {
 			var bAllUpdated = true;
-			aRunningChanges.forEach(function(oPilot){
-				if(oPilot.PILOTFLAG !== "X"){
+			aRunningChanges.forEach(function(oPilot) {
+				if (oPilot.PILOTFLAG !== "X") {
 					bAllUpdated = false;
 				}
 			});
@@ -706,6 +706,8 @@ sap.ui.define([
 				this.fnLoadFLDashboard();
 				this.fnLoadCAPDashboard();
 				this.fnLoadROLDashboard();
+				this._fnADDGet();
+				this._fnLimitationsGet();
 				this.fnLoadLocation();
 				this.fnLoadUtilization();
 				this.fnLoadRunningChange();
@@ -762,6 +764,9 @@ sap.ui.define([
 		 */
 		_fnJobGetScheduled: function() {
 			try {
+				var that = this;
+				that._fnADDGet();
+				that._fnLimitationsGet();
 				this.fnTriggerScheduledJobs();
 			} catch (e) {
 				this.Log.error("Exception in _fnJobGetScheduled function");
@@ -776,8 +781,7 @@ sap.ui.define([
 				var
 					oPrmJobDue = {};
 				oPrmJobDue.filter = "CTYPE eq ALL and tailid eq " + this.getTailId();
-				oPrmJobDue.error = function() {
-				};
+				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function() {
 					this.fnLoadSCLDashboard(true);

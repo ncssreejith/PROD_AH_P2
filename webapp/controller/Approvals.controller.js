@@ -142,7 +142,7 @@ sap.ui.define([
 							oAppModel.setProperty("/UTILVL", parseFloat(minVal, [10]).toFixed(iPrec));
 
 						}
-					} 
+					}
 				}
 
 				oAppModel.setProperty("/UM", sDue);
@@ -394,7 +394,7 @@ sap.ui.define([
 					"CREUSR": "",
 					"DMDID": "",
 					"OTHER_RSN": "",
-					"CDESC":null 
+					"CDESC": null
 				};
 
 				oParameter.error = function(response) {
@@ -463,7 +463,7 @@ sap.ui.define([
 					"CREUSR": "",
 					"DMDID": "",
 					"OTHER_RSN": "",
-					"CDESC":null 
+					"CDESC": null
 				};
 
 				oParameter.error = function(response) {
@@ -489,7 +489,9 @@ sap.ui.define([
 
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "airid eq " + this.getAircraftId() + " and ddid eq UTIL2_";
+				/*oPrmJobDue.filter = "airid eq " + this.getAircraftId() + " and ddid eq UTIL2_";*/
+
+				oPrmJobDue.filter = "ddid eq UTIL2_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -838,7 +840,7 @@ sap.ui.define([
 						if (oData.results[0].UTIL1 !== "UTIL1_20" && this.oObject && this.oObject[oData.results[0].UTIL1]) {
 							oViewModel.getData().UTILMINVL = parseFloat(this.oObject[oData.results[0].UTIL1].VALUE);
 						}
-						var bFlag = (oData.results[0].LDESC && oData.results[0].LDESC.length > 0)  ? true : false;
+						var bFlag = (oData.results[0].LDESC && oData.results[0].LDESC.length > 0) ? true : false;
 						this.getModel("oViewLimitModel").setProperty("/bLimitation", bFlag);
 						this.getModel("oViewLimitModel").setProperty("/bAddLimitationBtn", !bFlag);
 						that.getView().setModel(oViewModel, "CapExtendSet");
@@ -918,7 +920,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq CPR_";
+				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq CPR_";
+
 				oPrmJobDue.error = function() {
 
 				};
@@ -940,7 +943,8 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";
+				/*oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";*/
+				oPrmJobDue.filter = "ddid eq 118_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -962,9 +966,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
 				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq UTIL1_";
-				oPrmJobDue.error = function() {
-
-				};
+				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();

@@ -550,7 +550,7 @@ sap.ui.define([
 
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq CPR_";
+				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq CPR_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -576,7 +576,8 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";
+				/*oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";*/
+				oPrmJobDue.filter = "ddid eq 118_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -626,7 +627,8 @@ sap.ui.define([
 
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "airid eq " + this.getAircraftId() + " and ddid eq UTIL2_";
+				/*oPrmJobDue.filter = "airid eq " + this.getAircraftId() + " and ddid eq UTIL2_";*/
+				oPrmJobDue.filter = "ddid eq UTIL2_";
 				oPrmJobDue.error = function() {
 
 				};

@@ -884,6 +884,37 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in _fnFoundDuringGet function");
 			}
+		},
+		_fnADDGet: function() {
+			try {
+				var that = this,
+					oPrmLimGet = {};
+				oPrmLimGet.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+				oPrmLimGet.error = function() {};
+
+				oPrmLimGet.success = function(oData) {}.bind(this);
+
+				ajaxutil.fnRead("/CheckAddLimitationsSvc", oPrmLimGet);
+			} catch (e) {
+				Log.error("Exception in Limitations:_fnADDGet function");
+				this.handleException(e);
+			}
+		},
+		// ***************************************************************************
+		//                 Backend Calls
+		// ***************************************************************************
+		_fnLimitationsGet: function() {
+			try {
+				var that = this,
+					oPrmLimGet = {};
+				oPrmLimGet.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+				oPrmLimGet.error = function() {};
+				oPrmLimGet.success = function(oData) {}.bind(this);
+				ajaxutil.fnRead("/CheckAddLimitationsSvc", oPrmLimGet);
+			} catch (e) {
+				Log.error("Exception in Limitations:_fnLimitationsGet function");
+				this.handleException(e);
+			}
 		}
 
 	});
