@@ -123,13 +123,14 @@ sap.ui.define([
 					Log.error("Exception in onUserIdClk function");
 				}
 			},
-			onSignOffClk: function(sObjId,sAct, currentContext, fnCallback) {
+			onSignOffClk: function(sObjId,oParameters, currentContext, fnCallback) {
 				try {
 					this.fnCallback = fnCallback;
 					this.ref = currentContext;
 					var oDailog = this.openDialog("SignOffLogin");
 					oDailog.getModel("signOffModel").setProperty("/objid", sObjId);
-					oDailog.getModel("signOffModel").setProperty("/activity", sAct);
+					oDailog.getModel("signOffModel").setProperty("/activity", oParameters.activity);
+					oDailog.getModel("signOffModel").setProperty("/title", oParameters.title);
 					oDailog.getModel("signOffModel").refresh();
 					return oDailog;
 				} catch (e) {

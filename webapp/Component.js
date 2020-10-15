@@ -3,7 +3,7 @@ sap.ui.define([
 	"sap/ui/Device",
 	"avmet/ah/model/models",
 	"avmet/ah/util/ajaxutil",
-	"avmet/ah/model/dataUtil",
+	"avmet/ah/util/dataUtil",
 	"sap/m/MessageBox",
 	"sap/base/Log"
 ], function(UIComponent, Device, models, ajaxutil, dataUtil, MessageBox, Log) {
@@ -26,7 +26,7 @@ sap.ui.define([
 				var that = this;
 				$.ajax({
 					type: 'GET',
-					url: "/DBSRV17/avmetnf/ws_authenticate?sessionid="+dataUtil.getDataSet("oUserSession").sessionid,
+					url: dataUtil.destination+"/ws_authenticate?sessionid="+dataUtil.getDataSet("oUserSession").sessionid,
 					error: function(xhrx) {
 						that.getRouter().initialize();
 					},
@@ -82,11 +82,11 @@ sap.ui.define([
 
 		_fnUserPinLogin: function() {
 			try {
-				// var sPass = "amitkumar:pass1234";
-				var sPass = "amitkumar:pass1234";
+				
+				var sPass = dataUtil.username+":"+dataUtil.pwd;
 				$.ajax({
 					type: 'GET',
-					url: "/DBSRV17/avmetnf/ws_authenticate",
+					url: dataUtil.destination+"/ws_authenticate",
 					headers: {
 						"Authorization": "Basic " + dataUtil._encriptInfo(sPass),
 						"state": "new"
@@ -113,7 +113,7 @@ sap.ui.define([
 			try {
 				$.ajax({
 					type: 'GET',
-					url: "/DBSRV17/avmetnf/ws_authenticate?sessionid="+dataUtil.getDataSet("oUserSession").sessionid,
+					url: dataUtil.destination+"/ws_authenticate?sessionid="+dataUtil.getDataSet("oUserSession").sessionid,
 					headers: {
 						"state": "selPtfm",
 						"ptfm": sPkey
@@ -128,7 +128,7 @@ sap.ui.define([
 					success: function(oResponse, status, xhr) {
 						var sessionData = dataUtil.getDataSet("oUserSession");
 						sessionData.PLANTUSER = oResponse.length > 0 ? oResponse[0].PLANTUSER : "";
-						sessionData.platform = oResponse.length > 0 ? oResponse[0].PLATFORM : "";
+						sessionData.PLATFORM = oResponse.length > 0 ? oResponse[0].PLATFORM : "";
 						dataUtil.setDataSet("oUserSession", sessionData);
 						this._fnSessionChk();
 					}.bind(this)

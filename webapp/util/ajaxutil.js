@@ -1,14 +1,14 @@
 sap.ui.define([
 	"../util/signoffUtil",
 	"sap/base/Log",
-	"../model/dataUtil"
+	"../util/dataUtil"
 ], function(signoffUtil, Log, dataUtil) {
 	"use strict";
 	return {
 		// http://localhost:58983/AVMET/avmetDB/AircraftModelSvc
 		//fnBasePath: "/DBSRV17/avmet",
-		//"/DBSRV17/avmetdb",
-		fnBasePath: "/DBSRV17/avmetnf/sap/opu/odata/sap/AVMET_SRV",
+		sessionTimeOutWin : null,
+		fnBasePath: dataUtil.destination+"/sap/opu/odata/sap/AVMET_SRV",
 		fnCreate: function(sPath, oParameters, oPayLoad, oObjectId, ref) {
 			try {
 				if (oObjectId) {
@@ -19,6 +19,7 @@ sap.ui.define([
 					signoffUtil.onSignOffClk(oObjectId, oParameters.activity, ref, function(srPayload, user) {
 						this._fnPostData(srPayload.sPath, srPayload.oParameters, srPayload.oPayLoad, user);
 					}.bind(this, srvPayload));
+
 					return;
 				}
 				this._fnPostData(sPath, oParameters, oPayLoad);
@@ -35,19 +36,18 @@ sap.ui.define([
 					oData.beforeSend = this.fnEncryptDetails.bind(this, user);
 				}
 				oData.type = "POST";
-				oData.headers = {
-					"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
-				};
-				oData.url = this.fnBasePath + "" + sPath;
+				
+				oData.url = this.fnBasePath + "" + sPath + "" + oParameters.queryParam;
 				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
 				oData.contentType = "application/json";
 				oData.error = function(hrex) {
+					this.sessionTimeOutCheck(hrex);
 					if (signoffUtil) {
 						signoffUtil.onSignOffError(JSON.parse(hrex.responseText).sortmessage);
 					}
 					oParameters.error(hrex);
-				};
+				}.bind(this);
 				oData.success = function(oData) {
 					if (signoffUtil) {
 						signoffUtil.closeSignOff();
@@ -87,19 +87,18 @@ sap.ui.define([
 				}
 
 				oData.type = "PUT";
-				oData.headers = {
-					"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
-				};
-				oData.url = this.fnBasePath + "" + sPath;
+				
+				oData.url = this.fnBasePath + "" + sPath + "" + oParameters.queryParam;
 				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
 				oData.contentType = "application/json";
 				oData.error = function(hrex) {
+					this.sessionTimeOutCheck(hrex);
 					if (signoffUtil) {
 						signoffUtil.onSignOffError(JSON.parse(hrex.responseText).sortmessage);
 					}
 					oParameters.error(hrex);
-				};
+				}.bind(this);
 				oData.success = function(oData) {
 					if (signoffUtil) {
 						signoffUtil.closeSignOff();
@@ -137,17 +136,16 @@ sap.ui.define([
 					oData.beforeSend = this.fnEncryptDetails.bind(this, user);
 				}
 				oData.type = "DELETE";
-				oData.headers = {
-					"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
-				};
-				oData.url = this.fnBasePath + "" + sPath;
+				
+				oData.url = this.fnBasePath + "" + sPath + "" + oParameters.queryParam;
 				oData.contentType = "application/json";
 				oData.error = function(hrex) {
+					this.sessionTimeOutCheck(hrex);
 					if (signoffUtil) {
 						signoffUtil.onSignOffError(JSON.parse(hrex.responseText).sortmessage);
 					}
 					oParameters.error(hrex);
-				};
+				}.bind(this);
 				oData.success = function(oData) {
 					if (signoffUtil) {
 						signoffUtil.closeSignOff();
@@ -165,11 +163,12 @@ sap.ui.define([
 				oParameters = this.fnCheckForParameters(oParameters);
 				$.ajax({
 					type: 'GET',
-					// headers: {
-					// 	"Authorization": "Basic " + "ZGJhOnNxbDEyMw=="
-					// },
-					url: this.fnBasePath + "" + sPath + "" + oParameters.queryParam+"",
-					error: oParameters.error.bind(this),
+					
+					url: this.fnBasePath + "" + sPath + "" + oParameters.queryParam,
+					error: function(hrex){
+						this.sessionTimeOutCheck(hrex);
+						oParameters.error(hrex);
+					}.bind(this),//oParameters.error.bind(this),
 					success: oParameters.success.bind(this)
 				});
 			} catch (e) {
@@ -203,13 +202,13 @@ sap.ui.define([
 					oParameters.queryParam = "?";
 					oParameters.queryParam = oParameters.queryParam + (oParameters.expand === undefined ? "" : "$expand=" + oParameters.expand);
 					oParameters.queryParam = oParameters.queryParam + (oParameters.filter === undefined ? "" : "$filter=" + oParameters.filter);
-					oParameters.queryParam = oParameters.queryParam + "&sessionid=" + dataUtil.getDataSet("oUserSession").sessionid;
+					oParameters.queryParam = oParameters.queryParam+"&sessionid="+dataUtil.getDataSet("oUserSession").sessionid;
 				}
-					if(!isQueryParam){
-						oParameters.queryParam = "?";
-						oParameters.queryParam = oParameters.queryParam + "sessionid=" + dataUtil.getDataSet("oUserSession").sessionid;
-					}
-				
+				if (!isQueryParam) {
+					oParameters.queryParam = "?";
+					oParameters.queryParam = oParameters.queryParam+"sessionid="+dataUtil.getDataSet("oUserSession").sessionid;
+					
+				}
 				return oParameters;
 			} catch (e) {
 				Log.error("Exception in fnCheckForParameters function");
@@ -218,104 +217,37 @@ sap.ui.define([
 
 		fnEncryptDetails: function(user, xhr) {
 			 try {
-                xhr.setRequestHeader("uname", user.username);
-                xhr.setRequestHeader("pin", user.password);
-                xhr.setRequestHeader("objid", user.objid);
+				
+				//var signAuth = dataUtil._encriptInfo(user.username+ ":" + user.password+ ":" +user.objid+":"+(user.activity === undefined ? "99" : user.activity));
+				var signAuth = dataUtil._encriptInfo(user.username+ ":" + user.password);
+                xhr.setRequestHeader("signAuth",signAuth);
+				xhr.setRequestHeader("objid", user.objid);
                 xhr.setRequestHeader("activity", user.activity === undefined ? "99" : user.activity);
                 if(dataUtil.getDataSet("oUserSession")){
-                	xhr.setRequestHeader("sessionid", dataUtil.getDataSet("oUserSession").sessionid);
-                    xhr.setRequestHeader("PLANTUSER", dataUtil.getDataSet("oUserSession").PLANTUSER);
-                    
+					xhr.setRequestHeader("platform", dataUtil.getDataSet("oUserSession").platform.Platform);
+                    xhr.setRequestHeader("sessionid", dataUtil.getDataSet("oUserSession").sessionid);
                 }
             } catch (e) {
                 Log.error("Exception in fnEncryptDetails function");
             }
-
 		},
-
-		fnGetRoleObject: function() {
-			try {
-				var roleObjModel = this.getView().getModel("roleObjModel");
-				if (roleObjModel.getData() !== undefined && roleObjModel.getData().length < 1) {
-					var oRoleObjModel = new sap.ui.model.json.JSONModel({
-						"key": "ZRM_AC_O",
-						"Value": "Aircraft Overview - Update",
-						"Activity": "04"
-					}, {
-						"key": "ZRM_TR_AC",
-						"Value": "Transfer Aircraft - Dispatch and Receive",
-						"Activity": "01"
-					}, {
-						"key": "ZRM_LIM_S",
-						"Value": "Limitation - Create and Remove",
-						"Activity": "01"
-					}, {
-						"key": "ZRM_T_MOD",
-						"Value": "Trial MOD - Create",
-						"Activity": "01"
-					}, {
-						"key": "ZRM_ADDL",
-						"Value": "ADDL - Create",
-						"Activity": "01"
-					}, {
-						"key": "ZRM_AC_U",
-						"Value": "Aircraft Utilisation - Equipment Running Log - Sign off",
-						"Activity": "02"
-					}, {
-						"key": "ZRM_FS_RP",
-						"Value": "Flight Servicing - Replenishment Sign Off",
-						"Activity": "04"
-					}, {
-						"key": "ZRM_FS_RTT",
-						"Value": "Flight Servicing - Routine Task - Tradesman Sign Off",
-						"Activity": "04"
-					}, {
-						"key": "ZRM_FS_FTT",
-						"Value": "Flight Servicing - Follow Up Task - Tradesman Sign Off",
-						"Activity": "04"
-					}, {
-						"key": "ZRM_FS_CTT",
-						"Value": "Flight Servicing - Create Task - Tradesman Sign Off",
-						"Activity": "04"
-					}, {
-						"key": "ZRM_FS_WCT",
-						"Value": "Flight Servicing - Weapon Config - Tradesman Sign Off",
-						"Activity": "04"
-					}, {
-						"key": "ZRM_COS_JB",
-						"Value": "Job - Defect/Schedule/Unschedule - Create",
-						"Activity": "01"
-					}, {
-						"key": "ZRM_COS_TK",
-						"Value": "Job - Task - Create",
-						"Activity": "01"
-					}, {
-						"key": "ZRM_COS_TP",
-						"Value": "Job - Task - Apply and Edit Template",
-						"Activity": "02"
-					}, {
-						"key": "ZRM_COS_TT",
-						"Value": "Job - Task - Tradesman Closed Task",
-						"Activity": "04"
-					}, {
-						"key": "ZRM_COS_JT",
-						"Value": "Job - Tradesman Close Job",
-						"Activity": "06"
-					}, {
-						"key": "ZRM_E_SSAM",
-						"Value": "Engine - SOAP Sampling - Create (F16)",
-						"Activity": "01"
-					}, {
-						"key": "ZRM_SCH",
-						"Value": "Schedule - Create",
-						"Activity": "01"
-					});
-					this.getView().setModel(oRoleObjModel, "roleObjModel");
-				}
-				return roleObjModel;
-			} catch (e) {
-				Log.error("Exception in fnGetRoleObject function");
+		
+		sessionTimeOutCheck:function(hrex){
+			if(hrex.status===403 && this.sessionTimeOutWin==null){
+				this.fnOpenSessionTimeOutDialog(hrex);
 			}
+		},
+		fnOpenSessionTimeOutDialog:function(hrex){
+			  sap.m.MessageBox.error("Session timeout please login again ", {
+                    actions: [sap.m.MessageBox.Action.OK],
+                    emphasizedAction: sap.m.MessageBox.Action.OK,
+                    onClose: function(sAction) {
+                        if (sAction === "OK") {
+							this.sessionTimeOutWin = window.open(hrex.getResponseHeader("Location"),"_blank");
+                        }
+                    }.bind(this)
+                });
+				
 		},
 		fnCloseSignOffDialog: function() {
 			if (signoffUtil) {
