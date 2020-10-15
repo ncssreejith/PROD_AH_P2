@@ -52,13 +52,13 @@
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'LDESC')"/>
 						</HBox>
 					</Column>
-					<Column width="7%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 						<HBox>
 							<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SG1USR','SG1UZT')"/>
 						</HBox>
 					</Column>
-					<Column width="7%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 						<HBox>
 							<Label text="{i18n>lbSuperviosr}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SG2USR','SG2UZT')"/>
