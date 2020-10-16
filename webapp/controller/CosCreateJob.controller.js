@@ -78,11 +78,17 @@ sap.ui.define([
 			window.location.reload(); // Reason for this code????????????
 		},
 
-		handleChange: function(oEvent) {
+		handleChangeSche: function(oEvent) {
 			var aData = this.getModel("appModel").getData();
 			this.getView().getModel("oViewCreateModel").setProperty("/jduvl", oEvent.getSource().getDateValue());
 			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
 		},
+		
+		handleChange: function() {
+			var aData = this.getModel("appModel").getData();
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
+		},
+
 
 		onTypeMissmatch: function(oEvent) {
 			sap.m.MessageBox.error("Selected file type not allowed");

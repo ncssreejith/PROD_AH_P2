@@ -29,7 +29,7 @@
 						fieldGroupIds="{=(${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10') ? 'fgDate' : ''}"
 						valueStateText="{i18n>ERROR_GENERIC}" visible="{=${oViewCreateModel>/jduid}==='JDU_10' ? true:false}"
 						value="{ path: 'oViewCreateModel>/jduvl', formatter:'.formatter.defaultDateFormat'}" placeholder="New job creation date ..."
-						change="handleChange" class="sapUiSmallMarginBottom"/>
+						change="handleChangeSche" class="sapUiSmallMarginBottom"/>
 				</HBox>
 			</VBox>
 		</HBox>
