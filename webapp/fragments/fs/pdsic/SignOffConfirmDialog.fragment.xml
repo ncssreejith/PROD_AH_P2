@@ -22,7 +22,7 @@
 			
 		</VBox>
 		<beginButton>
-			<Button text="Cancel" press="onPressSignOffClose" type="Reject"/>
+			<Button text="Close" press="onPressSignOffClose" type="Default"/>
 		</beginButton>
 		<endButton>
 			<!--enabled="{= ${pdsSummaryModel>chk1} &amp;&amp;${pdsSummaryModel>chk2} &amp;&amp; &{pdsSummaryModel>sgEnable}}-->

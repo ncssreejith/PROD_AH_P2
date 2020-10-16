@@ -175,6 +175,7 @@ sap.ui.define([
 				var sFlag = true;
 
 				var selDDID = this.getModel("pdsSummaryModel").getProperty("/confirm/selDDID");
+				var sBFValid = this.getModel("avmetModel").getProperty("/dash/bfvalid");
 				var sMsg = "";
 				if ((selDDID === "AST_FFC" || selDDID === "AST_FFF") && parseInt(oJobCount) > 0) {
 					sFlag = false;
@@ -183,6 +184,9 @@ sap.ui.define([
 					} else {
 						sMsg = "There is " + parseInt(oJobCount) + " outstanding job you can't do Fit-for-Flight or Fit-for-Check Flight";
 					}
+				}
+				if(sBFValid === null){
+					// sMsg += " Not within BF validity";
 				}
 				this.getModel("pdsSummaryModel").setProperty("/confirm/outjob", sMsg);
 				this.getModel("pdsSummaryModel").setProperty("/confirm/sgEnable", sFlag);
@@ -646,13 +650,14 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/reviewd", oData.results.length > 0 ? false : true);
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/stns", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
-					// this._fnNavToDetail("/masterList/0");
+					
 				}.bind(this);
 				ajaxutil.fnRead("/WeaponSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
 		},
+		
 		_getSignOffOptions: function() {
 			try {
 				var oParameter = {};
