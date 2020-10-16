@@ -376,7 +376,7 @@ sap.ui.define([
 
 		onStationSignOff: function() {
 			try {
-				var sMsg = this.fnValidOther();
+				var sMsg = "";// this.fnValidOther();
 				if (sMsg !== "") {
 					var oData = {
 						messages: [sMsg]
@@ -613,6 +613,7 @@ sap.ui.define([
 			var sMsg = "";
 			this.getModel("configModel").getProperty("/stns").forEach(function(oItem) {
 				if (oItem.STNMID === "STNM_O") {
+				// if(oItem.STNMID === "STNM_O" && oItem.STNSID !== "STNS_102"){	
 					var sQty = parseInt(oItem.TOTQTY);
 					if (isNaN(sQty) || sQty > oItem.MAX) {
 						sMsg = "Invalid value for " + oItem.LTXT;

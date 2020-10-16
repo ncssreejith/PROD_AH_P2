@@ -619,7 +619,7 @@ sap.ui.define([
 		 */
 		_getEngPowerCheck: function(sEngID, iEngine) {
 			try {
-				var 
+				var
 					oEngineModel = this.getView().getModel("oPilotUpdatesViewModel"),
 					oParameter = {};
 				if (sEngID) {
@@ -645,10 +645,10 @@ sap.ui.define([
 						if (oData) {
 							if (iEngine === "1") {
 								oEngineModel.setProperty("/EngPowerCheck", oData.results);
-								// this._setData(iEngine);
+								// this.fnCheckHIT(iEngine);
 							} else {
 								oEngineModel.setProperty("/EngPowerCheck2", oData.results);
-								// this._setData(iEngine);
+								// this.fnCheckHIT(iEngine);
 							}
 						}
 					}
@@ -659,7 +659,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//2.Data for the chart 
+		//2.Check for defect in the HIT chart 
 		fnCheckHIT: function(iEngine) {
 			try {
 				var oEngineModel = this.getView().getModel("oPilotUpdatesViewModel");
@@ -673,10 +673,21 @@ sap.ui.define([
 				var aUpperLimit = [];
 				var aDataPoints = [];
 				var aRedPoints = [];
+				var aOutOfRangePoints = [];
 				var aLDashPoints = [];
 				var aUDashPoints = [];
 				//Loop
 				aEngPowerCheck.forEach(function(oItem) {
+					if (oItem.CHKRN === "3") { //Re-estabishment reset HIT
+						aDataPoints = [];
+						aRedPoints = [];
+						aOutOfRangePoints = [];
+						aLDashPoints = [];
+						aUDashPoints = [];
+						aLowerLimit = [];
+						aUpperLimit = [];
+						return;
+					}
 					if (oItem.CHKRN !== "1") {
 						return;
 					}
@@ -685,23 +696,34 @@ sap.ui.define([
 					var iDiff = parseInt(oItem.TGTDIFF);
 					if (iDiff > iULimit) {
 						oItem.ULimitFlag = true;
-						// aRedPoints.push(iDiff);
-						// aDataPoints.push(iDiff);
+						if(iDiff <= (iULimit + 5)){
+							aRedPoints.push(iDiff);
+						} else {
+							aOutOfRangePoints.push(iDiff);
+						}
 					}
 					if (iDiff < iLLimit) {
 						oItem.LLimitFlag = true;
-						// aRedPoints.push(iDiff);
-						// aDataPoints.push(iDiff);
+						if(iDiff >= (iLLimit - 5)){
+							aRedPoints.push(iDiff);
+						} else {
+							aOutOfRangePoints.push(iDiff);
+						}
 					}
 
 					aDataPoints.push(iDiff);
-					aRedPoints.push(iDiff);
 
 					aLDashPoints.push(iLLimit);
 					aUDashPoints.push(iULimit);
 					aLowerLimit.push(oItem.LLIMIT);
 					aUpperLimit.push(oItem.ULIMIT);
 				});
+				
+				if(aRedPoints.length >= 3 || aOutOfRangePoints.length > 0){
+					return true; //Create defect
+				} else {
+					return false;
+				}
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngPowerCheck function");
 				this.handleException(e);

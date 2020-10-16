@@ -697,11 +697,12 @@ sap.ui.define([
 		fnCheckRecLockStatus: function(sStatus) {
 			try {
 				switch (sStatus) {
-					case "AST_FAIR":
-					case "AST_FAIR0":
+					// case "AST_FAIR":
+					// case "AST_FAIR0":
+					// case "AST_RECT1":
 						// case "AST_FAIR1":
 						// case "AST_FAIR2":
-						return true;
+						// return true;
 					default:
 						return false;
 				}

@@ -42,6 +42,7 @@
 					max="{= ${oRepDetailsModel>max}-${oRepDetailsModel>srvamt}}"
 					fieldGroupIds="fgStep"  />
 					<StepInput width="100%" textAlign="Center" value="{oRepDetailsModel>srvamt}" change="onFuleChange" validationMode="LiveChange" min="0"
+					enabled="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE' &amp;&amp; ${oRepDetailsModel>srvamt} !== 0}"
 					max="{parts:['oRepDetailsModel>/srvtid','oRepDetailsModel>max','oRepDetailsModel>orgamt'],formatter:'.formatter.fnFuelMaxAmt'}"
 					fieldGroupIds="fgStep"  />
 					<!--max="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE'?(${oRepDetailsModel>max}-${oRepDetailsModel>orgamt}):${oRepDetailsModel>orgamt}}"-->

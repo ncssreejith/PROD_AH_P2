@@ -59,7 +59,7 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<Button text="Back" press="onNavBack"/> 				
-				<Button text="Reject"  visible="{= (${avmetModel>/runningChange/length} > 0 ) ? false : true}" type="Reject" press="onRejectPress"/>
+				<Button text="Reject"  visible="{= (${avmetModel>/runningChange/length} > 0 ) ? false : true || (${paModel>/srvtid} === 'SRVT_ARM' ) ? false : true}" type="Reject" press="onRejectPress"/>
 				<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
 			</OverflowToolbar>
 		</footer>
