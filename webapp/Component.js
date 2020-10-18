@@ -21,14 +21,20 @@ sap.ui.define([
 			this._fnUserPinLogin();
 		},
 
-		_fnSessionChk: function() {
+	_fnSessionChk: function() {
 			try {
+				var sPath = dataUtil.destination+"/ws_authenticate";
+				if(dataUtil.getDataSet("oUserSession")){
+					sPath = sPath+"?sessionid="+dataUtil.getDataSet("oUserSession").sessionid;
+				}
 				var that = this;
 				$.ajax({
 					type: 'GET',
-					url: dataUtil.destination+"/ws_authenticate?sessionid="+dataUtil.getDataSet("oUserSession").sessionid,
+					url: sPath,
 					error: function(xhrx) {
-						that.getRouter().initialize();
+						sap.m.URLHelper.redirect(xhrx.getResponseHeader("Location"), false);
+						dataUtil.setDataSet("oUserSession", null);
+						dataUtil.setDataSet("AirCraftSelectionGBModel", null);
 					},
 					success: function(oResponse, status, xhr) {
 						if (xhr.getResponseHeader("Location").search('ah') >= 0) {
@@ -36,8 +42,6 @@ sap.ui.define([
 							return "";
 						}
 					    sap.m.URLHelper.redirect(xhr.getResponseHeader("Location"), false);
-						dataUtil.setDataSet("oUserSession", null);
-						dataUtil.setDataSet("AirCraftSelectionGBModel", null);
 					}
 				});
 			} catch (e) {

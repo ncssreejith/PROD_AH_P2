@@ -5,7 +5,6 @@
 				<l:VerticalLayout class="sapUiTinyMarginEnd">
 					<Label design="Bold" text="Adapter Description"/>
 					<Text text="{rcModel>ADPDESC}" class="sapUiMediumMarginBottom"/>
-					
 					<Label design="Bold" text="Serial Number"/>
 					<Input width="16rem" value="{rcModel>SGUSR}"/>
 				</l:VerticalLayout>

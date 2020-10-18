@@ -305,6 +305,7 @@ sap.ui.define([
 			oPayload.begda = null;
 			oPayload.endda = stn.endda;
 			oPayload.tailid = stn.tailid;
+			oPayload.other = adp.other;
 			return oPayload;
 		}
 	});

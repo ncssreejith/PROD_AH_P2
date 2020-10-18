@@ -8,6 +8,7 @@ sap.ui.define([
 		// http://localhost:58983/AVMET/avmetDB/AircraftModelSvc
 		//fnBasePath: "/DBSRV17/avmet",
 		sessionTimeOutWin : null,
+		swnDialog : null,
 		fnBasePath: dataUtil.destination+"/sap/opu/odata/sap/AVMET_SRV",
 		fnCreate: function(sPath, oParameters, oPayLoad, oObjectId, ref) {
 			try {
@@ -16,7 +17,7 @@ sap.ui.define([
 					srvPayload.sPath = sPath;
 					srvPayload.oParameters = oParameters;
 					srvPayload.oPayLoad = oPayLoad;
-					signoffUtil.onSignOffClk(oObjectId, oParameters.activity, ref, function(srPayload, user) {
+					signoffUtil.onSignOffClk(oObjectId, oParameters, ref, function(srPayload, user) {
 						this._fnPostData(srPayload.sPath, srPayload.oParameters, srPayload.oPayLoad, user);
 					}.bind(this, srvPayload));
 
@@ -67,7 +68,7 @@ sap.ui.define([
 					srvPayload.sPath = sPath;
 					srvPayload.oParameters = oParameters;
 					srvPayload.oPayLoad = oPayLoad;
-					signoffUtil.onSignOffClk(oObjectId, oParameters.activity, ref, function(srPayload, user) {
+					signoffUtil.onSignOffClk(oObjectId, oParameters, ref, function(srPayload, user) {
 						this.fnUpdateData(srPayload.sPath, srPayload.oParameters, srPayload.oPayLoad, user);
 					}.bind(this, srvPayload));
 					return;
@@ -117,7 +118,7 @@ sap.ui.define([
 					var srvPayload = {};
 					srvPayload.sPath = sPath;
 					srvPayload.oParameters = oParameters;
-					signoffUtil.onSignOffClk(oObjectId, oParameters.activity, ref, function(srPayload, user) {
+					signoffUtil.onSignOffClk(oObjectId, oParameters, ref, function(srPayload, user) {
 						this.fnDeleteData(srPayload.sPath, srPayload.oParameters, user);
 					}.bind(this, srvPayload));
 					return;
@@ -169,7 +170,10 @@ sap.ui.define([
 						this.sessionTimeOutCheck(hrex);
 						oParameters.error(hrex);
 					}.bind(this),//oParameters.error.bind(this),
-					success: oParameters.success.bind(this)
+					success: function(oData){
+						this.fnCloseChildWindow();
+						oParameters.success(oData);
+					}.bind(this)
 				});
 			} catch (e) {
 				Log.error("Exception in fnRead function");
@@ -217,38 +221,56 @@ sap.ui.define([
 
 		fnEncryptDetails: function(user, xhr) {
 			 try {
-				
-				//var signAuth = dataUtil._encriptInfo(user.username+ ":" + user.password+ ":" +user.objid+":"+(user.activity === undefined ? "99" : user.activity));
-				var signAuth = dataUtil._encriptInfo(user.username+ ":" + user.password);
+        		var act = user.activity === undefined ? "99" : user.activity;
+                var signAuth = dataUtil._encriptInfo(user.username+ ":" + user.password+":"+user.objid+":"+act);
                 xhr.setRequestHeader("signAuth",signAuth);
-				xhr.setRequestHeader("objid", user.objid);
-                xhr.setRequestHeader("activity", user.activity === undefined ? "99" : user.activity);
-                if(dataUtil.getDataSet("oUserSession")){
-					xhr.setRequestHeader("platform", dataUtil.getDataSet("oUserSession").platform.Platform);
-                    xhr.setRequestHeader("sessionid", dataUtil.getDataSet("oUserSession").sessionid);
-                }
             } catch (e) {
                 Log.error("Exception in fnEncryptDetails function");
             }
 		},
 		
+		fnCloseChildWindow:function(){
+			if(this.sessionTimeOutWin !== null){
+				this.sessionTimeOutWin.close();
+				this.sessionTimeOutWin = null;
+				this.swnDialog.close();
+				this.swnDialog = null;
+			}
+		},
 		sessionTimeOutCheck:function(hrex){
-			if(hrex.status===403 && this.sessionTimeOutWin==null){
+			if(hrex.status===403 && this.swnDialog ===null){
 				this.fnOpenSessionTimeOutDialog(hrex);
 			}
 		},
 		fnOpenSessionTimeOutDialog:function(hrex){
-			  sap.m.MessageBox.error("Session timeout please login again ", {
-                    actions: [sap.m.MessageBox.Action.OK],
-                    emphasizedAction: sap.m.MessageBox.Action.OK,
-                    onClose: function(sAction) {
-                        if (sAction === "OK") {
-							this.sessionTimeOutWin = window.open(hrex.getResponseHeader("Location"),"_blank");
-                        }
-                    }.bind(this)
-                });
+				var sLabel = new sap.m.Label({
+					wrapping:true,
+					text:"Session timeout please login again ", 
+					width:"100%" ,
+					design:"Bold",
+					textAlign:"Center"
+				});
+				var sButton = new sap.m.Button({
+					type:"Emphasized",
+					text:"OK", 
+					design:"Bold",
+					press:function(oEvent){
+						this.sessionTimeOutWin = window.open(hrex.getResponseHeader("Location"),"_blank");
+					}.bind(this)
+				});
+				this.swnDialog = new sap.m.Dialog({
+					 type:"Message",
+					  title:"Session timeout",
+					  draggable:true,
+					  content:[sLabel],
+					  endButton:sButton
+		});  
+		this.swnDialog.open();
 				
 		},
+		
+		
+		
 		fnCloseSignOffDialog: function() {
 			if (signoffUtil) {
 				signoffUtil.closeSignOff();
