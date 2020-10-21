@@ -394,11 +394,27 @@ sap.ui.define([
 		},
 
 		onRelatedJobPress: function(oEvent) {
-			var sJobId = oEvent.getSource().getText();
-			this.getRouter().navTo("CosDefectsSummary", {
-				"JobId": sJobId,
-				"Flag": "Y"
-			});
+			try {
+				var oPrmJobDue = {};
+				var that = this;
+				var sJobId = oEvent.getSource().getText();
+				oPrmJobDue.filter = "jobid eq " + sJobId;
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results && oData.results.length > 0) {
+						var sFlag = oData.results[0].jstat === "X" ? "N" : "Y";
+						that.getRouter().navTo("F16CosDefectsSummary", {
+							"JobId": sJobId,
+							"Flag": sFlag
+						});
+					}
+				};
+
+				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnJobDetailsGet function");
+			}
+
 		},
 
 		handleChangeEtr: function(oEvent) {
@@ -3640,16 +3656,16 @@ sap.ui.define([
 				Log.error("Exception in _fnUpdateJob function");
 			}
 		},
-		
-		_fnGetDateValidation : function (sJobId){
+
+		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};
 				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq C and jobid eq " + sJobId;
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {
 					if (oData && oData.results.length > 0) {
-						this.getModel("LocalModel").setProperty("/backDt",oData.results[0].VDATE);
-						this.getModel("LocalModel").setProperty("/backTm",oData.results[0].VTIME);
+						this.getModel("LocalModel").setProperty("/backDt", oData.results[0].VDATE);
+						this.getModel("LocalModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
 				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
@@ -3657,7 +3673,7 @@ sap.ui.define([
 				Log.error("Exception in _fnGetDateValidation function");
 			}
 		},
-		
+
 		handleChange: function() {
 			var aData = this.getModel("LocalModel").getData();
 			return formatter.validDateTimeChecker(this, "DP2", "TP2", "errorCloseJobPast", "errorCloseJobFuture", aData.backDt, aData.backTm);
@@ -3673,40 +3689,41 @@ sap.ui.define([
 				return;
 			}
 			var oPrmTask = {},
-			sObject,
-			sSignFlag,
+				sObject,
+				sSignFlag,
 				oPayload = this.getView().getModel("JobModel").getData(),
-			oModel = this.getView().getModel("LocalModel");
+				oModel = this.getView().getModel("LocalModel");
 			oPrmTask.filter = "";
 			oPrmTask.error = function() {};
 			oPrmTask.success = function(oData) {
 				oModel.setProperty("/editModeRectify", false);
 			}.bind(this);
-			if (oModel.getProperty("/sFlag") === "Y") {
-				sObject = "ZRM_COS_EO";
-				oPrmTask.activity = 6;
-			} else {
-				if (oPayload.symbol === "1") {
-					sObject = "ZRM_S_REDX";
-					oPrmTask.activity = 4;
-				} else {
-					if (sSignFlag === "TR") {
-						if (oPayload.fstat === "A" || oPayload.fstat === "R") {
-							sObject = "ZRM_S_FAIR";
-						} else {
-							sObject = "ZRM_COS_JT";
-						}
-					} else {
-						if (oPayload.fstat === "A" || oPayload.fstat === "R") {
-							sObject = "ZRM_S_FAIR";
-						} else {
-							sObject = "ZRM_COS_JS";
-						}
-					}
-					oPrmTask.activity = 6;
-				}
-			}
-
+			// if (oModel.getProperty("/sFlag") === "Y") {
+			// 	sObject = "ZRM_COS_EO";
+			// 	oPrmTask.activity = 6;
+			// } else {
+			// 	if (oPayload.symbol === "1") {
+			// 		sObject = "ZRM_S_REDX";
+			// 		oPrmTask.activity = 4;
+			// 	} else {
+			// 		if (sSignFlag === "TR") {
+			// 			if (oPayload.fstat === "A" || oPayload.fstat === "R") {
+			// 				sObject = "ZRM_S_FAIR";
+			// 			} else {
+			// 				sObject = "ZRM_COS_JT";
+			// 			}
+			// 		} else {
+			// 			if (oPayload.fstat === "A" || oPayload.fstat === "R") {
+			// 				sObject = "ZRM_S_FAIR";
+			// 			} else {
+			// 				sObject = "ZRM_COS_JS";
+			// 			}
+			// 		}
+			// 		oPrmTask.activity = 6;
+			// 	}
+			// }
+			sObject = "ZRM_COS_JS";
+			oPrmTask.activity = 6;
 			ajaxutil.fnUpdate("/DefectJobSvc", oPrmTask, [oPayload], sObject, this);
 		},
 

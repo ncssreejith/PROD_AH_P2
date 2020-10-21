@@ -332,6 +332,7 @@ sap.ui.define([
 					delete oPayload[i].ValueState;
 					delete oPayload[i].ftcredtStateText;
 					delete oPayload[i].ftcretmState;
+					delete oPayload[i].addLimitAdded;
 					//oPayload[i].sernr = oPayload[i].ftsernr;
 					try {
 						oPayload[i].ftcredt = formatter.defaultOdataDateFormat(oPayload[i].ftcredt);
@@ -348,6 +349,7 @@ sap.ui.define([
 
 				};
 				oPrmTask.success = function(oData) {
+					this._fnUpdateLimitations();
 					if (dataUtil.getDataSet("TempCloseTaskModel")) {
 						dataUtil.setDataSet("TempCloseTaskModel", null);
 					}
@@ -960,19 +962,45 @@ sap.ui.define([
 
 				oPayLoad.CSTAT = "C";
 
-				oParameter.error = function() {
+				delete oPayLoad.UTILMinVL;
+				delete oPayLoad.bUtilisationSection;
+				var oLimit = this.getModel("ViewModel").getProperty("/LimitADD");
+				if (!oLimit) {
+					oLimit = [];
+				}
+				oLimit.push(oPayLoad);
+				this.getModel("ViewModel").setProperty("/LimitADD",oLimit);
+				var oTaskModel = this.getModel("TaskModel").getData();
+				for (var i in oTaskModel) {
+					if (oTaskModel[i].taskid === oPayLoad.TASKID) {
+						oTaskModel[i].CPRID = oPayLoad.CPRID;
+						oTaskModel[i].DEFPD = oPayLoad.DEFPD;
+						oTaskModel[i].DMDID = oPayLoad.DMDID;
+						oTaskModel[i].OTHER_RSN = oPayLoad.OTHER_RSN;
+						oTaskModel[i].ldesc = oPayLoad.LDESC;
+						oTaskModel[i].oppr = oPayLoad.OPPR;
+						oTaskModel[i].expdt = oPayLoad.EXPDT;
+						oTaskModel[i].exptm = oPayLoad.EXPTM;
+						oTaskModel[i].util1 = oPayLoad.UTIL1;
+						oTaskModel[i].utilvl = oPayLoad.UTILVL;
+						oTaskModel[i].addLimitAdded = true;
 
-				};
-				oParameter.success = function(oData) {
-					this._fnTasksADDGet(oData.results[0].TASKID);
-					this.onCloseAddLimDialog();
-					this.onCloseADDDialog();
-					var ViewGlobalModel = this.getModel("oViewGlobalModel");
-					ViewGlobalModel.setData(null);
-				}.bind(this);
-				/*oParameter.activity = 1;
-				, "ZRM_ADDL", this*/
-				ajaxutil.fnCreate("/ADDSvc", oParameter, [oPayLoad]);
+					}
+				}
+				this.getModel("TaskModel").setData(oTaskModel);
+				this.onCloseAddLimDialog();
+				this.onCloseADDDialog();
+				// oParameter.error = function() {};
+				// oParameter.success = function(oData) {
+				// 	this._fnTasksADDGet(oData.results[0].TASKID);
+				// 	this.onCloseAddLimDialog();
+				// 	this.onCloseADDDialog();
+				// 	var ViewGlobalModel = this.getModel("oViewGlobalModel");
+				// 	ViewGlobalModel.setData(null);
+				// }.bind(this);
+				// /*	oParameter.activity = 1;
+				// 	, "ZRM_ADDL", this*/
+				// ajaxutil.fnCreate("/ADDSvc", oParameter, [oPayLoad]);
 
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onCreateLimitationPress function");

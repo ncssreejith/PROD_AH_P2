@@ -105,7 +105,7 @@
 											<!--Other-->
 											<VBox visible="{= ${TaskModel>CPRID}===null ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
-												<ComboBox width="330px" change="onTypeChangeOther" selectedKey="{TaskModel>tt1id}"
+												<ComboBox width="330px" change="onTypeChangeOther" selectedKey="{TaskModel>tt1id}" editable="{= ${TaskModel>addLimitAdded} ? false : true}"
 													items="{path:'FollowOtherModel>/',templateShareable: false}">
 													<core:Item text="{FollowOtherModel>text}" key="{FollowOtherModel>key}"/>
 												</ComboBox>
@@ -355,7 +355,7 @@
 														<!--	<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" size="12px" class="sapUiTinyMarginBegin"
 															color="#031E48"/>-->
 													</HBox>
-													<TextArea width="400px" showExceededText="true" maxLength="100" rows="5" value="{TaskModel>ldesc}" editable="false"
+													<TextArea width="400px" showExceededText="false" maxLength="100" rows="5" value="{TaskModel>ldesc}" editable="false"
 														liveChange="handleLiveChangeFlyingRequirements"/>
 												</VBox>
 											</HBox>
