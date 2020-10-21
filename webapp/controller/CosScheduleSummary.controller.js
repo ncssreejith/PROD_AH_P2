@@ -183,19 +183,44 @@ sap.ui.define([
 				Log.error("Exception in onCloseAddWorkCenterDialog function");
 			}
 		},
-		onRaiseScheduleConcession: function() {
+		onRaiseScheduleConcession: function(oEvent) {
 			try {
+				var sText = oEvent.getParameter("item").getText();
+				if (sText.search("Raise Schedule Concession") !== -1) {
+					if (!this._oRaiseConcession) {
+						this._oRaiseConcession = sap.ui.xmlfragment(this.createId("idScheduleJobExtension"),
+							"avmet.ah.fragments.ScheduleJobExtension",
+							this);
 
-				if (!this._oRaiseConcession) {
-					this._oRaiseConcession = sap.ui.xmlfragment(this.createId("idScheduleJobExtension"),
-						"avmet.ah.fragments.ScheduleJobExtension",
-						this);
-					this._fnJobDueGet();
-					this.getView().addDependent(this._oRaiseConcession);
+						this._fnJobDueGet();
+						this.getView().addDependent(this._oRaiseConcession);
+					}
+					this._fnGetUtilisation();
+				} else if (sText.search("Delete") !== -1){
+					this._fnDeleteScheduleJob();
 				}
-				this._fnGetUtilisation();
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcession function");
+			}
+		},
+		
+		_fnDeleteScheduleJob : function (){
+			try {
+				var sPath = "/GetSerLogSvc(" +
+					"ESJOBID=" + this.getModel("LocalModel").getProperty("/ESJobId") +
+					")";
+				var oParameter = {};
+				oParameter.error = function(hrex) {}.bind(this);
+				oParameter.success = function(oData) {
+				this.getRouter().navTo("F16Cosjobs", {
+					State: "SCH"
+				});   
+				}.bind(this);
+				oParameter.activity = 3;
+				ajaxutil.fnDelete(sPath, oParameter,"ZRM_COS_JB",this);
+			} catch (e) {
+				Log.error("Exception in _fnDeleteScheduleJob function");
+				this.handleException(e);
 			}
 		},
 		

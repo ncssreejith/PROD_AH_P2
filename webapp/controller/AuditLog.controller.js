@@ -52,6 +52,35 @@ sap.ui.define([
 				delete this._oDialog;
 			}
 		},
+		
+		onObjSelect: function(oEvent) {
+			try {
+				var sKey = oEvent.getSource().getSelectedKey();
+				var bFlag = sKey && sKey.length > 0 ? true : false;
+				this.getModel("auditLogModel").setProperty("/enabledSubApp", bFlag);
+
+				var that = this,
+					oPrmWBM = {};
+				oPrmWBM.filter = "POBJECT eq " + sKey + " and FLAG eq S and TAILID eq " + this.getTailId();
+				oPrmWBM.error = function() {
+
+				};
+
+				oPrmWBM.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("auditLogModel").setProperty("/ApplicationDetailSet", oData.results);
+					} else {
+						sap.m.MessageToast.show("No application(s) found");
+					}
+
+				}.bind(this);
+
+				ajaxutil.fnRead("/GetAuditLogSvc", oPrmWBM);
+			} catch (e) {
+				Log.error("Exception in _fnGetAudLog function");
+			}
+
+		},
 
 		_fnGetUserAudLog: function() {
 			try {

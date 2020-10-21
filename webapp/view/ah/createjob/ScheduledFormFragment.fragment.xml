@@ -17,7 +17,7 @@
 						change="onDueSelectChange">
 						<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 					</ComboBox>
-					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin" visible="false">
+					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin">
 						<StepInput min="{oViewCreateModel>/minValue}" change="onStepChange"
 							fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? 'fgStepInput' : ''}"
 							valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}"

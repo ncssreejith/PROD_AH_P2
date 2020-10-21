@@ -1,5 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
 	<u:Menu itemSelect="onRaiseScheduleConcession">
 		<u:MenuItem icon="sap-icon://redo" text="Raise Schedule Concession"/>
+		<u:MenuItem icon="sap-icon://delete" text="Delete Job"/>
 	</u:Menu>
 </core:FragmentDefinition>

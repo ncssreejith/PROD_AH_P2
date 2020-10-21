@@ -1621,7 +1621,7 @@ sap.ui.define([
 			}
 		},
 
-		validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime) {
+		validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime, futureCheck) {
 			var maxDt = new Date(),
 				oDatePicker = that.getView().byId(idDate),
 				creDt = oDatePicker.getDateValue(),
@@ -1646,12 +1646,18 @@ sap.ui.define([
 				minDate.setMinutes(minDate.getMinutes() - 1);
 				minDate.setSeconds(0);
 			}
+			futureCheck = futureCheck !== null && futureCheck !== undefined ? futureCheck : true;
 			if (crDtTime.getTime() <= maxDt.getTime()) {
 				if (crDtTime.getTime() >= minDate.getTime()) {
 					oDatePicker.setValueState("None");
 					oTimePick.setValueState("None");
 					return true;
 				} else {
+					if (!futureCheck) {
+						oDatePicker.setValueState("None");
+						oTimePick.setValueState("None");
+						return true;
+					}
 					oDatePicker.setValueState("Error");
 					oTimePick.setValueState("Error");
 					sap.m.MessageBox.error(that.getResourceBundle().getText(errorMessagePast));

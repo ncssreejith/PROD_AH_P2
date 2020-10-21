@@ -16,7 +16,16 @@
 						<fb:filterGroupItems>
 							<fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="Application" labelTooltip="Application" visibleInFilterBar="true">
 								<fb:control>
-									<ComboBox items="{auditLogModel>/ApplicationSet}" selectedKey="{auditLogModel>/ApplicationKey}">
+									<ComboBox items="{auditLogModel>/ApplicationSet}" selectedKey="{auditLogModel>/ApplicationKey}" change="onObjSelect">
+										<items>
+											<core:Item key="{auditLogModel>POBJECT}" text="{auditLogModel>POBDESC}"/>
+										</items>
+									</ComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="Sub Application" labelTooltip="Sub Application" visibleInFilterBar="true">
+								<fb:control>
+									<ComboBox items="{auditLogModel>/ApplicationDetailSet}" selectedKey="{auditLogModel>/ApplicationDetailKey}" enabled="{= ${auditLogModel>/enabledSubApp} ? true : false}">
 										<items>
 											<core:Item key="{auditLogModel>OBJECT}" text="{auditLogModel>OBDESC}"/>
 										</items>
@@ -34,7 +43,7 @@
 							<!--</fb:FilterGroupItem>-->
 							<fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="Period" labelTooltip="Period" visibleInFilterBar="true">
 								<fb:control>
-									<DateRangeSelection displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" value="{auditLogModel>/PeriodDate}" change="onDateSelection"/>
+									<DateRangeSelection displayFormat="dd/MM/yyyy" value="{auditLogModel>/PeriodDate}" change="onDateSelection"/>
 								</fb:control>
 							</fb:FilterGroupItem>
 							<fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="Search" labelTooltip="Search" visibleInFilterBar="true">

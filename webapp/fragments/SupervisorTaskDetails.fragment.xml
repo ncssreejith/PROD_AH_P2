@@ -30,7 +30,7 @@
 						<Label text="Task Type :" design="Bold"/>
 						<Label text="Template" design="Bold" class="sapUiTinyMarginBegin"></Label>
 					</HBox>
-					<Button press="onPendingSupEditDetailsPress" text="Edit Task" type="Emphasized"></Button>
+					<Button press="onPendingSupEditDetailsPress" text="Edit Task" visible="{DetailsSupModel>/editable}" type="Emphasized"></Button>
 				</Toolbar>
 				<ScrollContainer height="350px" width="100%" horizontal="false" vertical="true" focusable="true">
 					<VBox backgroundDesign="Solid">
@@ -276,8 +276,9 @@
 			</VBox>
 		</VBox>
 		<buttons>
-			<Button press="onOSViewHistory" text="View history log" type="Ghost"></Button>
-			<Button press="onUndoSignOff" text="Undo sign off" type="Emphasized"></Button>
+			<Button press="onOSViewHistory" text="View history log" type="Ghost" visible="{= ${DetailsSupModel>/tstat} === 'P' ? true : false}"></Button>
+			<Button press="onUndoSignOff" text="Undo sign off" type="Emphasized" visible="{= ${DetailsSupModel>/tstat} === 'P' ? true : false}"></Button>
+			<Button press="onPendingSupDetailsClose" text="Cancel" type="Ghost" visible="{= ${DetailsSupModel>/tstat} === 'X' ? true : false}"></Button>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

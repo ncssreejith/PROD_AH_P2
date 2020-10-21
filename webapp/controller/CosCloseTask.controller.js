@@ -1170,7 +1170,7 @@ sap.ui.define([
 
 				that.getView().setModel(ViewModel, "ViewModel");
 				var oTempCTModel = dataUtil.getDataSet("TempCloseTaskModel");
-				if (oTempCTModel !== undefined || oTempCTModel !== null) {
+				if (oTempCTModel) {
 					this._fnCreateTempTaskModel();
 				} else {
 					this._fnTasksGet(oTempJB);

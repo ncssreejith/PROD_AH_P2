@@ -221,7 +221,7 @@ sap.ui.define([
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
-					if (oData.results.length !== 0) {
+					if (oData && oData.results && oData.results.length !== 0) {
 						if (!this._oAddSR.getModel("SerialNumModel")) {
 							this._oAddSR.setModel(new JSONModel({}), "SerialNumModel");
 						}

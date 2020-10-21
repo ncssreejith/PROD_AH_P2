@@ -265,6 +265,24 @@ sap.ui.define([
 
 		},
 
+		onEditRectify: function() {
+			var oModel = this.getView().getModel("LocalModel");
+			var bEditable = this._fnJobEditCheck();
+			if (!bEditable) {
+				oModel.setProperty("/isEditableRect", false);
+				oModel.setProperty("/editModeRectify", false);
+				sap.m.MessageBox.error("Job cannot be edit. As it already passed 24hrs");
+				return;
+			}
+			var bFlag = oModel.getProperty("/editModeRectify");
+			oModel.setProperty("/editModeRectify", !bFlag);
+			if (bFlag) {
+				this.getModel("JobModel").setProperty("/rectdt", oModel.getProperty("/oldRectdt"));
+				this.getModel("JobModel").setProperty("/recttm", oModel.getProperty("/oldRecttm"));
+				this.getModel("JobModel").setProperty("/recttxt", oModel.getProperty("/oldRectsum"));
+			}
+		},
+
 		onOpenQuickView: function(sFlag, oEvent) {
 			try {
 				var that = this;
@@ -1755,17 +1773,60 @@ sap.ui.define([
 					this._fnMultiTradmanGet(oPayLoad.taskid);
 				}
 
-				if (!that._oComDetails) {
-					that._oComDetails = sap.ui.xmlfragment("OSTId",
-						"avmet.ah.fragments.CompletedTaskDetails",
+				if (oPayLoad.tstat === "P") {
+					oPayLoad.editable = true;
+				} else if (oPayLoad.tstat === "X") {
+					var bFlag = this._fnCheckTime24hrs(oPayLoad);
+					oPayLoad.editable = bFlag;
+				}
+
+				if (!that._oSupDetails) {
+					that._oSupDetails = sap.ui.xmlfragment("OSTId",
+						"avmet.f16.fragments.SupervisorTaskDetails",
 						that);
 					oModel.setData(oPayLoad);
-					that._oComDetails.setModel(oModel, "DetailsComModel");
-					that.getView().addDependent(that._oComDetails);
+					that._oSupDetails.setModel(oModel, "DetailsSupModel");
+					that.getView().addDependent(that._oSupDetails);
 				}
-				that._oComDetails.open(that);
+				that._oSupDetails.open(that);
+
+				// if (!that._oComDetails) {
+				// 	that._oComDetails = sap.ui.xmlfragment("OSTId",
+				// 		"avmet.f16.fragments.CompletedTaskDetails",
+				// 		that);
+				// 	oModel.setData(oPayLoad);
+				// 	that._oComDetails.setModel(oModel, "DetailsComModel");
+				// 	that.getView().addDependent(that._oComDetails);
+				// }
+				// that._oComDetails.open(that);
 			} catch (e) {
 				Log.error("Exception in onCompleteDetailsPress function");
+			}
+		},
+
+		_fnCheckTime24hrs: function(oPayload) {
+			try {
+				var oModel = oPayload;
+				var maxDt = new Date(),
+					creDt = new Date(oModel.SG1DTM),
+					creTm = oModel.SG1UZT;
+
+				var timeParts = creTm.split(":");
+				creDt.setHours(timeParts[0]);
+				creDt.setMinutes(timeParts[1]);
+				creDt.setSeconds(0);
+
+				var diff = maxDt.getTime() - creDt.getTime();
+				var daysDifference = Math.floor(diff / 1000 / 60 / 60 / 24);
+				if (daysDifference >= 1) {
+					return false;
+				} else {
+					return true;
+				}
+
+			} catch (e) {
+				Log.error("Exception in fnJobEditCheck function");
+				this.handleException(e);
 			}
 		},
 
@@ -2599,6 +2660,7 @@ sap.ui.define([
 				that._fnGetTaskTT310DropDown();
 				that._fnGetTaskTT311DropDown();
 				that._fnFoundDuringGet();
+				this._fnGetDateValidation(sJobId);
 				sap.ui.getCore().getEventBus().subscribe(
 					"SubView1",
 					"UpdateJob",
@@ -3556,6 +3618,11 @@ sap.ui.define([
 				if (oPayload.etrtm === "") {
 					oPayload.etrtm = null;
 				}
+				var bFlag = formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateETRPast", "errorCreateETRFuture", oPayload.credtm,
+					oPayload.creuzt, false);
+				if (!bFlag) {
+					return;
+				}
 				oParameter.error = function(response) {};
 				oParameter.success = function(oData) {
 					that._fnJobDetailsGet(oLocalModel.getProperty("/sJobId"), oLocalModel.getProperty("/sTailId"));
@@ -3572,6 +3639,75 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in _fnUpdateJob function");
 			}
+		},
+		
+		_fnGetDateValidation : function (sJobId){
+			try {
+				var oPrmTaskDue = {};
+				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq C and jobid eq " + sJobId;
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("LocalModel").setProperty("/backDt",oData.results[0].VDATE);
+						this.getModel("LocalModel").setProperty("/backTm",oData.results[0].VTIME);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetDateValidation function");
+			}
+		},
+		
+		handleChange: function() {
+			var aData = this.getModel("LocalModel").getData();
+			return formatter.validDateTimeChecker(this, "DP2", "TP2", "errorCloseJobPast", "errorCloseJobFuture", aData.backDt, aData.backTm);
+		},
+
+		onSignOffRectify: function() {
+			FieldValidations.resetErrorStates(this);
+			if (FieldValidations.validateFields(this)) {
+				return;
+			}
+
+			if (!this.handleChange()) {
+				return;
+			}
+			var oPrmTask = {},
+			sObject,
+			sSignFlag,
+				oPayload = this.getView().getModel("JobModel").getData(),
+			oModel = this.getView().getModel("LocalModel");
+			oPrmTask.filter = "";
+			oPrmTask.error = function() {};
+			oPrmTask.success = function(oData) {
+				oModel.setProperty("/editModeRectify", false);
+			}.bind(this);
+			if (oModel.getProperty("/sFlag") === "Y") {
+				sObject = "ZRM_COS_EO";
+				oPrmTask.activity = 6;
+			} else {
+				if (oPayload.symbol === "1") {
+					sObject = "ZRM_S_REDX";
+					oPrmTask.activity = 4;
+				} else {
+					if (sSignFlag === "TR") {
+						if (oPayload.fstat === "A" || oPayload.fstat === "R") {
+							sObject = "ZRM_S_FAIR";
+						} else {
+							sObject = "ZRM_COS_JT";
+						}
+					} else {
+						if (oPayload.fstat === "A" || oPayload.fstat === "R") {
+							sObject = "ZRM_S_FAIR";
+						} else {
+							sObject = "ZRM_COS_JS";
+						}
+					}
+					oPrmTask.activity = 6;
+				}
+			}
+
+			ajaxutil.fnUpdate("/DefectJobSvc", oPrmTask, [oPayload], sObject, this);
 		},
 
 		/* Function: onUpdateJob
@@ -4107,7 +4243,7 @@ sap.ui.define([
 					} else {
 						if (oModel.getProperty("/JobStatus")) {
 							if (oJobModel.getProperty("/jobdesc") !== null && oJobModel.getProperty("/jobdesc") !== "") {
-							if (oJobModel.getProperty("/fndid") !== null && oJobModel.getProperty("/fndid") !== "") {
+								if (oJobModel.getProperty("/fndid") !== null && oJobModel.getProperty("/fndid") !== "") {
 									this.getRouter().navTo("CosCloseJob", {
 										"JobId": sJobId,
 										"Flag": oFlag
@@ -4219,7 +4355,7 @@ sap.ui.define([
 			var oJobModel = this.getView().getModel("JobModel");
 			if (aData.length === 1 && aData[0].FLAG === "OKAY" || oFlag === "Y") {
 				if (oJobModel.getProperty("/jobdesc") !== null && oJobModel.getProperty("/jobdesc") !== "") {
-				if (oJobModel.getProperty("/fndid") !== null && oJobModel.getProperty("/fndid") !== "") {
+					if (oJobModel.getProperty("/fndid") !== null && oJobModel.getProperty("/fndid") !== "") {
 						this.getRouter().navTo("CosCloseJob", {
 							"JobId": aData[0].JOBID,
 							"Flag": oFlag
@@ -4274,7 +4410,8 @@ sap.ui.define([
 				creDt.setSeconds(0);
 
 				var diff = maxDt.getTime() - creDt.getTime();
-				if (diff > 86400000) {
+				var daysDifference = Math.floor(diff / 1000 / 60 / 60 / 24);
+				if (daysDifference >= 1) {
 					return false;
 				} else {
 					return true;

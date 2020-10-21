@@ -98,8 +98,8 @@ sap.ui.define([
 					.TOT_SUCC_REC +
 					"\n Error Records: " + oData.results[0].TOT_ER_REC);
 			}.bind(this);
-
-			ajaxutil.fnCreate("/FileSvc", oPrmWBMCreate, oPayload);
+			oPrmWBMCreate.activity = 4;
+			ajaxutil.fnCreate("/FileSvc", oPrmWBMCreate, oPayload, "ZRM_S_UPLD", this);
 		},
 
 		_DownloadFile: function(sTableK, sPath) {
