@@ -227,6 +227,10 @@ sap.ui.define([
 						oPayload.jstat = "X";
 					}
 				}
+				if (oPayload.jstat === "X" && oPayload.fstat === "R") {
+					oPayload.fstat = "C";
+					oPayload.fstatflag = "C";
+				}
 				oPrmTask.filter = "";
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
@@ -771,16 +775,16 @@ sap.ui.define([
 				Log.error("Exception in onBack function");
 			}
 		},
-		
-		_fnGetDateValidation : function (sJobId){
+
+		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};
 				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq C and jobid eq " + sJobId;
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {
 					if (oData && oData.results.length > 0) {
-						this.getModel("ViewModel").setProperty("/backDt",oData.results[0].VDATE);
-						this.getModel("ViewModel").setProperty("/backTm",oData.results[0].VTIME);
+						this.getModel("ViewModel").setProperty("/backDt", oData.results[0].VDATE);
+						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
 				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);

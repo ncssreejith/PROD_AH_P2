@@ -32,7 +32,7 @@
 									<!--<DatePicker fieldGroupIds="fgDate" displayFormat="dd.MM.YYY" required="true" width="10rem" value="{JobModel>/rectdt}"
 										valueStateText="{i18n>MSG_DATE}"/>-->
 									<DatePicker id="DP1" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
-										value="{path: 'JobModel>/rectdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+										value="{path: 'JobModel>/rectdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
 										change="handleChange" class="sapUiSmallMarginBottom" minDate="{JobModel>/credt}" maxDate="{ViewModel>/dDate}"/>
 									<layoutData>
 										<l:GridData linebreak="false" span="XL3 L3 M3 S12"/>
@@ -163,7 +163,7 @@
 													displayValuePrecision="{path:'JobCreateModel>/UMKEY' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 											</HBox>
 											<DatePicker id="dpServdt" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
-												value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+												value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
 												placeholder="Select Date ..." change="handleChange" class="sapUiSmallMarginBottom sapUiTinyMarginBegin"/>
 										</HBox>
 										<HBox class="sapUiTinyMargin">
@@ -189,7 +189,7 @@
 													displayValuePrecision="{path:'JobModel>/TRAILKEY' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 											</HBox>
 											<DatePicker id="dpServdtTR" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobModel>/TRAILKEY}==='JDU_10' ? true:false}"
-												value="{path: 'JobModel>/TRAILKDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+												value="{path: 'JobModel>/TRAILKDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
 												placeholder="Select Date ..." valueFormat="yyyy-MM-dd" change="handleChange" class="sapUiSmallMarginBottom sapUiTinyMarginBegin"/>
 										</HBox>
 									</VBox>

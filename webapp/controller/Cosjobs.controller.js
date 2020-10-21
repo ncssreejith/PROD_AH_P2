@@ -24,6 +24,32 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
+		//-------------------------------------------------------------
+		//  
+		//-------------------------------------------------------------
+		onAfterRendering: function() {
+			var that = this;
+			// Retrieve backend posting messages of dashboard status every 30 secs.
+			this._LoadMessageInterval = setInterval(function() {
+				that._fnJobGetScheduled();
+				that._fnJobDetailsGetAll();
+				that.fnLoadSrv1Dashboard();
+			}, 30000);
+		},
+		/** 
+		 * Exit clean up.
+		 */
+		onExit: function() {
+			// Clear off state.
+			this.destroyState();
+		},
+		/** 
+		 * Clean up state object.
+		 */
+		destroyState: function() {
+			// Clear load message interval.
+			clearInterval(this._LoadMessageInterval);
+		},
 
 		/* =========================================================== */
 		/* Event Handlers                                              */

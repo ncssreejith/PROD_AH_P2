@@ -8,7 +8,7 @@
 						<VBox>
 							<Label text="{i18n>lbDate}" design="Bold"/>
 							<DatePicker id="DP1" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
-								value="{path: 'JobCreateModel>/CREDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+								value="{path: 'JobCreateModel>/CREDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
 								placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 						</VBox>
 						<VBox>
@@ -137,7 +137,7 @@
 										</HBox>
 										<DatePicker width="15rem" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
 											visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
-											value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+											value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
 											placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 									</HBox>
 								</VBox>

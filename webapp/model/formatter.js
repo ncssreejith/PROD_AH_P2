@@ -656,6 +656,8 @@ sap.ui.define([
 				return "Release for Rectification";
 			} else if (sValue === 'A') {
 				return "FAIR";
+			} else if (sValue === 'C') {
+				return "FAIR Closed";
 			}
 		},
 

@@ -43,8 +43,7 @@
 			"libs": {
 				"sap.m": {},
 				"sap.ui.core": {},
-				"sap.ui.layout": {},
-				"it.designfuture.chartjs": {}
+				"sap.ui.layout": {}
 			}
 		},
 		"contentDensities": {
@@ -132,7 +131,7 @@
 				},
 				{
 					"name": "CosCloseTask",
-					"pattern": "CosCloseTask/:JobId:/:TaskId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:MultiFLag:",
+					"pattern": "CosCloseTask/:JobId:/:TaskId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:MultiFLag:/:jbDate:/:jbTime:",
 					"target": [
 						"CosCloseTask"
 					]

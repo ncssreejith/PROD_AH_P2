@@ -81,14 +81,13 @@ sap.ui.define([
 		handleChangeSche: function(oEvent) {
 			var aData = this.getModel("appModel").getData();
 			this.getView().getModel("oViewCreateModel").setProperty("/jduvl", oEvent.getSource().getDateValue());
-			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
+			//return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
 		},
-		
+
 		handleChange: function() {
 			var aData = this.getModel("appModel").getData();
 			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
 		},
-
 
 		onTypeMissmatch: function(oEvent) {
 			sap.m.MessageBox.error("Selected file type not allowed");
@@ -129,6 +128,7 @@ sap.ui.define([
 					curOffsetY = 0;
 				var dDate = new Date();
 				oModelMain.setProperty("/mark", 1);
+				oModelMain.setProperty("/deaid", oModel.SelectedKey);
 				var oModel = that.getView().getModel("appModel").getData();
 				if (oModel.DefectNameChar === "") {
 					oModel.DefectNameChar = "A";
@@ -567,7 +567,8 @@ sap.ui.define([
 				}
 				oPayload = this.getView().getModel("oViewCreateModel").getData();
 				oPayload.DOCREFID = this.docRefId;
-				if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === undefined) {
+				if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === "T" || oModel.getProperty("/sRJobIdFlag") ===
+					undefined) {
 					oPayload.jobid = sjobid.concat("JOB_", dDate.getFullYear(), dDate.getMonth(), dDate.getDate(), dDate.getHours(), dDate.getMinutes(),
 						dDate.getSeconds());
 					oPayload.endda = formatter.defaultOdataDateFormat(oPayload.credt);
@@ -578,7 +579,7 @@ sap.ui.define([
 						oPayload.symbol = "3";
 					}
 					oPayload.jstat = "C";
-					if (oModel.getProperty("/sRJobIdFlag") === "Y") {
+					if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === "T") {
 						oPayload.rjobid = oModel.getProperty("/sRJobId");
 					}
 
@@ -588,9 +589,6 @@ sap.ui.define([
 						if (oData.results[0].mark !== "") {
 							that._fnCreateMark(oData.results[0].jobid);
 						}
-						if (oData.results[0].photo !== "") {
-							that._fnPhotoUploadCreate(oData.results[0].jobid, oData.results[0].tailid);
-						}
 						if (oData.results[0].prime !== "") {
 							that._fnDefectWorkCenterCreate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime);
 						}
@@ -599,10 +597,15 @@ sap.ui.define([
 						that.getView().byId("unscheduledId").setVisible(false);
 						var ViewGlobalModel = this.getModel("oViewCreateModel");
 						ViewGlobalModel.setData(null);
-						this.getRouter().navTo("CosDefectsSummary", {
-							"JobId": oData.results[0].jobid,
-							"Flag": "Y"
-						}, true);
+						if (oModel.getProperty("/sRJobIdFlag") === "T") {
+							/*that.onNavBack();*/
+							window.history.go(-1);
+						} else {
+							this.getRouter().navTo("CosDefectsSummary", {
+								"JobId": oData.results[0].jobid,
+								"Flag": "Y"
+							}, true);
+						}
 						this.getView().byId("topId").setVisible(false);
 
 					}.bind(this);
@@ -692,11 +695,12 @@ sap.ui.define([
 					if (oData.results[0].mark !== "") {
 						that._fnUpdateMark(oData.results[0].jobid);
 					}
-					if (oData.results[0].photo !== "") {
-						that._fnPhotoUploadCreate(oData.results[0].jobid, oData.results[0].tailid);
-					}
 					if (oData.results[0].prime !== "" && oModel.getProperty("/PrimeStatus")) {
-						that._fnDefectWorkCenterUpdate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime, oldWrkctr);
+						if (oModel.getProperty("/isWrctr")) {
+							that._fnDefectWorkCenterUpdate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime, oldWrkctr);
+						} else {
+							that._fnDefectWorkCenterCreate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime);
+						}
 					}
 					that.getView().byId("defectId").setVisible(false);
 					that.getView().byId("scheduledId").setVisible(false);
@@ -924,27 +928,6 @@ sap.ui.define([
 			}
 		},
 
-		_fnPhotoUploadCreate: function(sJobId, sTailId) {
-			try {
-				var that = this,
-					oPrmPhoto = {},
-					oAppModel = this.getView().getModel("appModel"),
-					sDefectImageSrc = oAppModel.getProperty("/DefectImageSrc");
-				for (var i = 0; i < sDefectImageSrc.length; i++) {
-					sDefectImageSrc[i].jobid = sJobId;
-					sDefectImageSrc[i].tailid = sTailId;
-				}
-				oAppModel.updateBindings(true);
-				oPrmPhoto.filter = "";
-				oPrmPhoto.error = function() {};
-				oPrmPhoto.success = function(oData) {}.bind(this);
-				ajaxutil.fnCreate("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnPhotoUploadCreate function");
-				this.handleException(e);
-			}
-		},
-
 		_fnDefectWorkCenterCreate: function(sJobId, sTailId, sWorkCenter) {
 			try {
 				var that = this,
@@ -1046,7 +1029,10 @@ sap.ui.define([
 							oViewModel.setProperty("/DefectImageSrc", []);
 						}
 						if (oData.results[0].prime !== "" || oData.results[0].prime !== null) {
+							oViewModel.setProperty("/isWrctr", true);
 							that._fnTaskStatusGet(sJobId, oData.results[0].prime);
+						} else {
+							oViewModel.setProperty("/isWrctr", false);
 						}
 						oData.results[0].LASTWC = oData.results[0].prime;
 						oModel.setData(oData.results[0]);
@@ -1266,7 +1252,8 @@ sap.ui.define([
 					"YCor": "",
 					"DefectArea": "",
 					"oFlagEdit": true,
-					"editMode": false
+					"editMode": false,
+					"isWrctr": true
 
 				});
 				this.getView().setModel(oAppModel, "appModel");
@@ -1275,7 +1262,7 @@ sap.ui.define([
 				sSqnId = this.getSqunId();
 				sModId = this.getModelId();
 				if (sRJobId) {
-					if (sRJobIdFlag !== "Y") {
+					if (sRJobIdFlag !== "Y" && sRJobIdFlag !== "T") {
 						this._fnJobDetailsGet(sRJobId, sAirId);
 					} else {
 						this._fnSetInitialModel();

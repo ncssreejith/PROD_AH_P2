@@ -704,7 +704,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};
@@ -750,9 +750,9 @@ sap.ui.define([
 					oTempData[0].tt1id = aTasks[i].sTaskType;
 					if (aTasks[i].sTask === "TT2_10") {
 						oTempData[0].tt2id = aTasks[i].sType1 === "Serial No. (S/N)" ? "TT2_10" : "TT2_15";
-					}else{
-                        oTempData[0].tt2id = aTasks[i].sTask;
-                    }
+					} else {
+						oTempData[0].tt2id = aTasks[i].sTask;
+					}
 					if (aTasks[i].sTypDesc !== "" || aTasks[i].sTypDesc !== undefined) {
 						oTempData[0].tt3id = aTasks[i].sTypDesc;
 					} else {
@@ -1025,17 +1025,19 @@ sap.ui.define([
 
 				oPrmTask.success = function(oData) {
 					sap.m.MessageToast.show("Task Created Successfully");
-					if (oModel.getProperty("/sFlag") === "FS") {
-						that.getRouter().navTo("CTCloseTask", {
+					if (oModel.getProperty("/sFlag") === "FS" || oModel.getProperty("/sFlag") === "TS") {
+						/*that.getRouter().navTo("CTCloseTask", {
 							"srvtid": oModel.getProperty("/ssrvid")
-						},true);
+						}, true);*/
+						that.onNavBack();
+						window.history.go(-1);
 					} else {
 						that.getRouter().navTo("CosDefectsSummary", {
 							"JobId": oModel.getProperty("/JobId"),
 							"Flag": "Y",
 							"WcKey": oModel.getProperty("/WorkKey"),
 							"goTo": "OS"
-						},true);
+						}, true);
 					}
 				}.bind(this);
 				oPrmTask.activity = 1;

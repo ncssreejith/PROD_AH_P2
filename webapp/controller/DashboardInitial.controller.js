@@ -699,15 +699,16 @@ sap.ui.define([
 				this.getView().getModel("avmetModel").setProperty("/login", oAppData.login);
 				this.getView().getModel("avmetModel").setProperty("/airSel", oAppData.airSel);
 				this.getView().getModel("avmetModel").refresh();
+				this.fnTriggerScheduledJobs();
 				this.fnCheckCapStatus();
+				this._fnADDGet();
+				this._fnLimitationsGet();
 				this.fnLoadSrv1Dashboard();
 				this.fnGetEngine();
 				this.fnLoadSCLDashboard();
 				this.fnLoadFLDashboard();
 				this.fnLoadCAPDashboard();
 				this.fnLoadROLDashboard();
-				this._fnADDGet();
-				this._fnLimitationsGet();
 				this.fnLoadLocation();
 				this.fnLoadUtilization();
 				this.fnLoadRunningChange();

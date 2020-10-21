@@ -29,6 +29,29 @@ sap.ui.define([
 				Log.error("Exception in onInit function");
 			}
 		},
+
+		onAfterRendering: function() {
+			var that = this;
+			// Retrieve backend posting messages of dashboard status every 30 secs.
+			this._LoadMessageInterval = setInterval(function() {
+				that._fnApprovalRequestGet();
+			}, 30000);
+		},
+
+		/** 
+		 * Exit clean up.
+		 */
+		onExit: function() {
+			// Clear off state.
+			this.destroyState();
+		},
+		/** 
+		 * Clean up state object.
+		 */
+		destroyState: function() {
+			// Clear load message interval.
+			clearInterval(this._LoadMessageInterval);
+		},
 		//-------------------------------------------------------------
 		//  
 		//-------------------------------------------------------------
@@ -40,7 +63,11 @@ sap.ui.define([
 				try {
 					oData = oEvt.getSource().getSelectedContexts()[0].getObject();
 				} catch (e) {
-					oData = this.getView().byId("lstMasterApprovals").getSelectedContexts()[0].getObject();
+					try {
+						oData = this.getView().byId("lstMasterApprovals").getSelectedContexts()[0].getObject();
+					} catch (e) {
+						oData = undefined;
+					}
 				}
 				if (oData !== undefined) {
 					this.Obj = oData;

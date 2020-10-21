@@ -41,6 +41,12 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		onExit: function() {
+			if (dataUtil.getDataSet("TempCloseTaskModel")) {
+				dataUtil.setDataSet("TempCloseTaskModel", null);
+			}
+		},
 		onRefresh: function() {
 			var oViewModel = this.getView().getModel("ViewModel");
 			this._fnTasksGet(oViewModel.getProperty("/TaskId"));
@@ -342,15 +348,22 @@ sap.ui.define([
 
 				};
 				oPrmTask.success = function(oData) {
+					if (dataUtil.getDataSet("TempCloseTaskModel")) {
+						dataUtil.setDataSet("TempCloseTaskModel", null);
+					}
 					if (oData.results[0].multi !== "0") {
 						that._fnCreateMultiTradesmenPayload();
 					} else {
-						that.getRouter().navTo("CosDefectsSummary", {
-							"JobId": oViewModel.getProperty("/JobId"),
-							"Flag": "Y",
-							"WcKey": oViewModel.getProperty("/WorkKey"),
-							"goTo": "SP"
-						}, true);
+						if (oViewModel.getProperty("/Flag") === "FS") {
+							that.onNavBack();
+						} else {
+							that.getRouter().navTo("CosDefectsSummary", {
+								"JobId": oViewModel.getProperty("/JobId"),
+								"Flag": "Y",
+								"WcKey": oViewModel.getProperty("/WorkKey"),
+								"goTo": "SP"
+							}, true);
+						}
 					}
 				}.bind(this);
 				if (oViewModel.getProperty("/Flag") === "FS") {
@@ -364,6 +377,18 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onSignOff function");
 				this.handleException(e);
+			}
+		},
+
+		_fnUpdateLimitations: function() {
+			var obj = this.getModel("ViewModel").getProperty("/LimitADD");
+			if (obj && obj.length > 0) {
+				var oParameter = {};
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {};
+				/*	oParameter.activity = 1;
+					, "ZRM_ADDL", this*/
+				ajaxutil.fnCreate("/ADDSvc", oParameter, obj);
 			}
 		},
 
@@ -1061,6 +1086,8 @@ sap.ui.define([
 					sWorkKey = oEvent.getParameters().arguments.WorkKey,
 					sflag = oEvent.getParameters().arguments.Flag,
 					ssrvtid = oEvent.getParameters().arguments.srvtid,
+					jbDate = oEvent.getParameters().arguments.jbDate,
+					jbTime = oEvent.getParameters().arguments.jbTime,
 					ViewModel = dataUtil.createNewJsonModel(),
 					oDate = new Date(),
 					oDDT1Model = dataUtil.createNewJsonModel(),
@@ -1114,6 +1141,8 @@ sap.ui.define([
 					WorkKey: sWorkKey,
 					Flag: sflag,
 					srvtid: ssrvtid,
+					jbDate: jbDate,
+					jbTime: jbTime,
 					sDate: oDate,
 					Time: oDate.getHours() + ":" + oDate.getMinutes(),
 					MulitiFlag: "N",
@@ -1126,6 +1155,7 @@ sap.ui.define([
 					bAddADDOps: false,
 					bLiveChnage: true,
 					ADDCount: "",
+					ResultStatus: "",
 					tradesManTable: [{
 						"Name": "",
 						"NRIC": "",
@@ -1139,6 +1169,12 @@ sap.ui.define([
 				});
 
 				that.getView().setModel(ViewModel, "ViewModel");
+				var oTempCTModel = dataUtil.getDataSet("TempCloseTaskModel");
+				if (oTempCTModel !== undefined || oTempCTModel !== null) {
+					this._fnCreateTempTaskModel();
+				} else {
+					this._fnTasksGet(oTempJB);
+				}
 				this._fnTasksGet(oTempJB);
 				this._fnReasonforADDGet();
 				this._fnUtilizationGet();
@@ -1150,6 +1186,44 @@ sap.ui.define([
 				Log.error("Exception in CosCloseTask:_onObjectMatched function");
 				this.handleException(e);
 			}
+		},
+
+		_fnCreateTempTaskModel: function() {
+
+			var that = this,
+				oModel = dataUtil.createNewJsonModel(),
+				oTempModel = dataUtil.getDataSet("TempCloseTaskModel");
+			for (var i = 0; i < oTempModel.length; i++) {
+				oTempModel[i].ftcredt = new Date(oTempModel[i].ftcredt);
+			}
+			oModel.setData(oTempModel);
+			that.getView().setModel(oModel, "TaskModel");
+			that.getView().byId("vbLimId").invalidate();
+			that.getView().byId("vbTaskId").invalidate();
+			var oFollowModelOther = dataUtil.createNewJsonModel();
+			oFollowModelOther.setData([{
+				"key": "TT1_14",
+				"text": "Others"
+			}, {
+				"key": "TT1_ADD",
+				"text": "Transfer to Acceptable Deferred Defects Log"
+			}]);
+			this.getView().setModel(oFollowModelOther, "FollowOtherModel");
+
+			var oFollowModelOPS = dataUtil.createNewJsonModel();
+			oFollowModelOPS.setData([{
+				"key": "TT1_11",
+				"text": "OPS Check"
+			}, {
+				"key": "TT1_AD",
+				"text": "Transfer to Acceptable Deferred Defects Log"
+			}]);
+			this.getView().setModel(oFollowModelOPS, "FollowOPSModel");
+
+			this.byId("pageCloseTaskId").scrollTo(0);
+			//oView.setBusy(false);
+			//that.handleBusyDialogClose();
+
 		},
 
 		_fnCheckTaskType: function(tt1id, tt2id, tt3id, tt4id) {
@@ -1194,7 +1268,7 @@ sap.ui.define([
 						oData.results[i].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();
 						if (oData.results[i].tt1id === 'TT1_12' && oData.results[i].tt2id === '' && oData.results[i].tt3id === '' && oData.results[i].tt4id ===
 							'') {
-							if (oData.results[i].ftrsltgd === "" || oData.results[i].ftrsltgd === null) {
+							if (oData.results[i].ftrsltgd === "" || oData.results[i].ftrsltgd === null || oData.results[i].ftrsltgd === 0) {
 								oData.results[i].ftrsltgd = 2;
 							}
 
@@ -1289,6 +1363,75 @@ sap.ui.define([
 				this.getView().getModel("ViewModel").setProperty("/bLiveChnage", false);
 			} catch (e) {
 				Log.error("Exception in handleLiveChangeFlyingRequire function");
+			}
+		},
+		onVIResultSelect: function(oEvent) {
+			try {
+				var that = this,
+					sPath = oEvent.getSource().getBindingContext("TaskModel").getPath();
+
+				if (oEvent.getSource().getSelectedIndex() === 1) {
+					dataUtil.setDataSet("TempCloseTaskModel", this.getView().getModel("TaskModel").getData());
+					that.getVIResultStatus();
+				}
+			} catch (e) {
+				Log.error("Exception in handleLiveChangeFlyingRequire function");
+			}
+		},
+
+		getVIResultStatus: function() {
+			try {
+				if (!this._oVIDialog) {
+					this._oVIDialog = sap.ui.xmlfragment(this.createId("idVTResultStatus"),
+						"avmet.ah.fragments.VisualInspectionDialog",
+						this);
+					this.getView().addDependent(this._oVIDialog);
+				}
+				this._oVIDialog.open(this);
+			} catch (e) {
+				Log.error("Exception in getVIResultStatus function");
+			}
+		},
+
+		onCloseVIStatus: function() {
+			try {
+				if (this._oVIDialog) {
+					this._oVIDialog.close(this);
+					this._oVIDialog.destroy();
+					delete this._oVIDialog;
+				}
+			} catch (e) {
+				Log.error("Exception in onCloseVIStatus function");
+			}
+		},
+
+		onSaveVIStatus: function(oEvent) {
+			try {
+				var that = this,
+					oSelectedIndex,
+					oModel = this.getView().getModel("ViewModel");
+				oSelectedIndex = that.getFragmentControl("idVTResultStatus", "rbVIStatus").getSelectedIndex();
+				if (oSelectedIndex === 1) {
+					that.getRouter().navTo("RouteCreateTask", {
+						"JobId": oModel.getProperty("/JobId"),
+						"AirId": oModel.getProperty("/AirId"),
+						"TailId": oModel.getProperty("/TailId"),
+						"WorkCenter": oModel.getProperty("/WorkCenter"),
+						"WorkKey": oModel.getProperty("/WorkKey"),
+						"Flag": "TS",
+						"srvid": "NA",
+						"jbDate": oModel.getProperty("/jbDate"),
+						"jbTime": oModel.getProperty("/jbTime")
+					});
+				} else {
+					//that.getRouter().navTo("F16CosCreateJob");
+					that.getRouter().navTo("CosCreateJob", {
+						"JobId": oModel.getProperty("/JobId"),
+						"RJobId": "T"
+					});
+				}
+			} catch (e) {
+				Log.error("Exception in onCloseVIStatus function");
 			}
 		},
 

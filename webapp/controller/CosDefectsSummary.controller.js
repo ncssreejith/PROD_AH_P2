@@ -497,7 +497,7 @@ sap.ui.define([
 							that.getRouter().navTo("CosCreateJob", {
 								"JobId": oLocalModel.getProperty("/sJobId"),
 								"RJobId": "N"
-							});
+							}, true);
 							break;
 						case "Job Enter in Error":
 							if (oLocalModel.getProperty("/JobStatus")) {
@@ -560,7 +560,7 @@ sap.ui.define([
 							that.getRouter().navTo("CosCreateJob", {
 								"JobId": oLocalModel.getProperty("/sJobId"),
 								"RJobId": "Y"
-							});
+							}, true);
 							break;
 						case "Declare FAIR":
 							that._fnUpdateFAIRJob("A");
@@ -1418,7 +1418,7 @@ sap.ui.define([
 				var that = this,
 					oPrmJobDue = {};
 				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq JDU";
-				
+
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -1980,7 +1980,7 @@ sap.ui.define([
 						bFlag = "Y";
 					}
 					this.onAllOutStandingDetailsClose();
-                    this.onMangeTaskPressClose();
+					this.onMangeTaskPressClose();
 					that.getRouter().navTo("CosCloseTask", {
 						"JobId": oModel.getProperty("/sJobId"),
 						"TaskId": JSON.stringify(oTaskId),
@@ -1988,7 +1988,9 @@ sap.ui.define([
 						"TailId": oModel.getProperty("/sTailId"),
 						"WorkCenter": oModel.getProperty("/WorkCenterTitle"),
 						"WorkKey": oModel.getProperty("/WorkCenterKey"),
-						"MultiFLag": bFlag
+						"MultiFLag": bFlag,
+						"jbDate": that.getView().getModel("JobModel").getProperty("/credt"),
+						"jbTime": that.getView().getModel("JobModel").getProperty("/cretm")
 					});
 				} else {
 					MessageBox.error(
@@ -2760,7 +2762,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq UTIL1_";
-			
+
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -3426,6 +3428,9 @@ sap.ui.define([
 							oSummaryModel.setProperty("/FAIRStatusText", "Release for Rectifications");
 							oSummaryModel.setProperty("/MenuVisible", true);
 							oSummaryModel.setProperty("/MenuActivateVisible", false);
+						} else if (oData.results[0].fstat === 'C') {
+							//oViewModel.setProperty("/FairEditFlag", false);
+							oSummaryModel.setProperty("/FAIRStatus", "Error");
 						}
 
 						if (oData.results[0].mark === '1') {
@@ -4090,6 +4095,7 @@ sap.ui.define([
 		_fnToolCheck: function(sJobId, oFlag) {
 			try {
 				var that = this,
+					oJobModel = this.getView().getModel("JobModel"),
 					oModel = this.getView().getModel("LocalModel"),
 					oPrmTask = {};
 				oPrmTask.filter = "JOB_ID eq " + sJobId;
@@ -4100,10 +4106,21 @@ sap.ui.define([
 						this._onfnToolCheckSuccess(oData.results, oFlag);
 					} else {
 						if (oModel.getProperty("/JobStatus")) {
-							this.getRouter().navTo("CosCloseJob", {
-								"JobId": sJobId,
-								"Flag": oFlag
-							});
+							if (oJobModel.getProperty("/jobdesc") !== null && oJobModel.getProperty("/jobdesc") !== "") {
+							if (oJobModel.getProperty("/fndid") !== null && oJobModel.getProperty("/fndid") !== "") {
+									this.getRouter().navTo("CosCloseJob", {
+										"JobId": sJobId,
+										"Flag": oFlag
+									});
+								} else {
+									var sTextFD = "Please add found during to close this job.";
+									sap.m.MessageBox.error(sTextFD);
+									return false;
+								}
+							} else {
+								var sText1 = "Please add job description to close this job.";
+								sap.m.MessageBox.error(sText1);
+							}
 						} else {
 							var sText = "Please close all tasks of the job : " + oModel.getProperty("/sJobId");
 							sap.m.MessageBox.error(sText);
@@ -4199,11 +4216,24 @@ sap.ui.define([
 		},
 
 		_onfnToolCheckSuccess: function(aData, oFlag) {
-			if (aData.length === 1 && aData[0].FLAG === "OKAY" ||  oFlag === "Y") {
-				this.getRouter().navTo("CosCloseJob", {
-					"JobId": aData[0].JOBID,
-					"Flag": oFlag
-				});
+			var oJobModel = this.getView().getModel("JobModel");
+			if (aData.length === 1 && aData[0].FLAG === "OKAY" || oFlag === "Y") {
+				if (oJobModel.getProperty("/jobdesc") !== null && oJobModel.getProperty("/jobdesc") !== "") {
+				if (oJobModel.getProperty("/fndid") !== null && oJobModel.getProperty("/fndid") !== "") {
+						this.getRouter().navTo("CosCloseJob", {
+							"JobId": aData[0].JOBID,
+							"Flag": oFlag
+						});
+					} else {
+						var sTextFD = "Please add found during to close this job.";
+						sap.m.MessageBox.error(sTextFD);
+						return false;
+					}
+				} else {
+					var sTextCL = "Please add job description to close this job.";
+					sap.m.MessageBox.error(sTextCL);
+					return false;
+				}
 			} else {
 				var sText = "Tools Check task not found for below Work Center(s):\n";
 				for (var i in aData) {

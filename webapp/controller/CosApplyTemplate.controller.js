@@ -479,7 +479,7 @@ sap.ui.define([
 				if (oFlag === "WR") {
 					/*	oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAILID EQ " + this.getTailId();*/
 					if (oSelectedKey !== undefined) {
-						oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAIILID EQ " + this.getTailId();
+						oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAILID EQ " + this.getTailId();
 					} else {
 						sap.m.MessageBox.information("Please select workcenter to proceed.");
 						return;
