@@ -333,6 +333,8 @@ sap.ui.define([
 					delete oPayload[i].ftcredtStateText;
 					delete oPayload[i].ftcretmState;
 					delete oPayload[i].addLimitAdded;
+					delete oPayload[i].LNDPIN;
+					delete oPayload[i].TIREID;
 					//oPayload[i].sernr = oPayload[i].ftsernr;
 					try {
 						oPayload[i].ftcredt = formatter.defaultOdataDateFormat(oPayload[i].ftcredt);
@@ -350,6 +352,7 @@ sap.ui.define([
 				};
 				oPrmTask.success = function(oData) {
 					this._fnUpdateLimitations();
+					this._fnUpdateLandingTyre(oData.results);
 					if (dataUtil.getDataSet("TempCloseTaskModel")) {
 						dataUtil.setDataSet("TempCloseTaskModel", null);
 					}
@@ -391,6 +394,46 @@ sap.ui.define([
 				/*	oParameter.activity = 1;
 					, "ZRM_ADDL", this*/
 				ajaxutil.fnCreate("/ADDSvc", oParameter, obj);
+			}
+		},
+		
+		_fnUpdateLandingTyre: function(oData) {
+			var oTyre = this.getView().getModel("LandingTyreModel").getData();
+			if (oTyre && oTyre.length > 0) {
+				var oPayload = [];
+				var oParameter = {};
+				for (var i in oData) {
+					for (var j in oTyre) {
+						if (oTyre[j].partno === oData[i].partno) {
+							var tempObj = JSON.parse(JSON.stringify(oTyre[j]));
+							var obj = {};
+							obj.TAILID = tempObj.tailid;
+							obj.PARTNO = oData[i].partno;
+							obj.LNDPIN = tempObj.LNDPIN;
+							obj.TASKID = tempObj.taskid;
+							obj.TIREID = tempObj.TIREID;
+							obj.ITMNO = null;
+							obj.LATIS = null;
+							obj.LATRE = null;
+							obj.SERNR = null;
+							obj.LTIREID = null;
+							obj.TIREDESC = null;
+							obj.REFID = null;
+							obj.IRFLAG = null;
+							obj.INSON = null;
+							obj.RMVFR = null;
+							obj.TOTLND = null;
+							oPayload.push(JSON.parse(JSON.stringify(obj)));
+						}
+					}
+
+				}
+
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {};
+				/*	oParameter.activity = 1;
+					, "ZRM_ADDL", this*/
+				ajaxutil.fnCreate("/LandingTyreSvc", oParameter, oPayload);
 			}
 		},
 
@@ -968,7 +1011,7 @@ sap.ui.define([
 				if (!oLimit) {
 					oLimit = [];
 				}
-				oLimit.push(oPayLoad);
+				oLimit.push(JSON.parse(JSON.stringify(oPayLoad)));
 				this.getModel("ViewModel").setProperty("/LimitADD",oLimit);
 				var oTaskModel = this.getModel("TaskModel").getData();
 				for (var i in oTaskModel) {
@@ -1203,6 +1246,7 @@ sap.ui.define([
 				} else {
 					this._fnTasksGet(oTempJB);
 				}
+				this.landTyre = {};
 				this._fnTasksGet(oTempJB);
 				this._fnReasonforADDGet();
 				this._fnUtilizationGet();
@@ -1307,6 +1351,7 @@ sap.ui.define([
 						// }
 					}
 					oModel.setData(oData.results);
+					this._fnGetLandingTyre(oData.results);
 					that.getView().setModel(oModel, "TaskModel");
 					that.getView().byId("vbLimId").invalidate();
 					that.getView().byId("vbTaskId").invalidate();
@@ -1337,6 +1382,94 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnTasksGet function");
 				this.handleException(e);
+			}
+		},
+		
+		_fnGetLandingTyre: function(aData) {
+			var partNo = "";
+			for (var i in aData) {
+				if (aData[i].tt1id === "TT1_10" && (aData[i].tt2id === "TT2_10" || aData[i].tt2id === "TT2_15") && aData[i].engflag === "NE" &&
+					aData[i].partno && aData[i].partno.trim() !== "") {
+					this.landTyre[aData[i].partno] = aData[i];
+					if (partNo === "") {
+						partNo = partNo.concat(aData[i].partno);
+					} else {
+						partNo = partNo.concat("," + aData[i].partno);
+					}
+				}
+			}
+			if (partNo !== "") {
+				this._fnCheckLandingTyre(aData[i], partNo);
+			}
+		},
+
+		_fnCheckLandingTyre: function(obj, partNo) {
+			try {
+				var oPayload = [],
+					oPrmTask = {};
+				oPrmTask.filter = "TAILID eq " + obj.tailid + " and PARTNO eq " + partNo;
+				oPrmTask.error = function() {};
+				oPrmTask.success = function(oData) {
+					if (oData && oData.results && oData.results.length > 0) {
+						this._fnOpenLandingTyreBox(oData.results);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/LandingTyreSvc", oPrmTask, oPayload);
+			} catch (e) {
+				Log.error("Exception in _fnSubmitTireSignOff function");
+			}
+		},
+
+		_fnOpenLandingTyreBox: function(aData) {
+			try {
+				var aItem,
+					oData = [];
+				for (var i in aData) {
+					if (this.landTyre[aData[i].PARTNO]) {
+						this.landTyre[aData[i].PARTNO].TIREID = aData[i].TIREID;
+						oData.push(this.landTyre[aData[i].PARTNO]);
+					}
+				}
+				if (oData.length > 0) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(JSON.parse(JSON.stringify(oData)));
+					this.getView().setModel(oModel, "LandingTyreModel");
+					if (!this._oLandingTyre) {
+						this._oLandingTyre = sap.ui.xmlfragment(this.createId("idLandingTyre"),
+							"avmet.ah.fragments.LandingTyreCannibalized",
+							this);
+						this.getView().addDependent(this._oLandingTyre);
+					}
+					this._oLandingTyre.open(this);
+				}
+
+			} catch (e) {
+				Log.error("Exception in _fnOpenLandingTyreBox function");
+			}
+
+		},
+
+		onLandingTyreValChange: function(oEvent) {
+			var oSrc = oEvent.getSource(),
+				sText = oSrc.getValue(),
+				sPath = oSrc.getBindingContext("LandingTyreModel").getPath();
+			this.getModel("LandingTyreModel").setProperty(sPath + "/LNDPIN", sText);
+		},
+
+		onLandingTyreUpdate: function() {
+			try {
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this, this._oLandingTyre, true)) {
+					return;
+				}
+
+				if (this._oLandingTyre) {
+					this._oLandingTyre.close(this);
+					this._oLandingTyre.destroy();
+					delete this._oLandingTyre;
+				}
+			} catch (e) {
+				Log.error("Exception in onLandingTyreId function");
 			}
 		},
 

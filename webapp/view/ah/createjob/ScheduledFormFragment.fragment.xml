@@ -27,7 +27,7 @@
 					</HBox>
 					<DatePicker width="13rem" required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10' ? true : false}"
 						fieldGroupIds="{=(${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10') ? 'fgDate' : ''}"
-						valueStateText="{i18n>ERROR_GENERIC}" visible="{=${oViewCreateModel>/jduid}==='JDU_10' ? true:false}"
+						valueStateText="{i18n>ERROR_GENERIC}" visible="{=${oViewCreateModel>/jduid}==='JDU_10' ? true:false}" displayFormat="dd/MM/yyyy"
 						value="{ path: 'oViewCreateModel>/jduvl', formatter:'.formatter.defaultDateFormat'}" placeholder="New job creation date ..."
 						change="handleChangeSche" class="sapUiSmallMarginBottom"/>
 				</HBox>

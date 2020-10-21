@@ -1024,6 +1024,7 @@ sap.ui.define([
 				};
 
 				oPrmTask.success = function(oData) {
+					this._fnSubmitTireSignOff(oPayload);
 					sap.m.MessageToast.show("Task Created Successfully");
 					if (oModel.getProperty("/sFlag") === "FS" || oModel.getProperty("/sFlag") === "TS") {
 						/*that.getRouter().navTo("CTCloseTask", {
@@ -1046,6 +1047,43 @@ sap.ui.define([
 				Log.error("Exception in CosCreateTask:_fnCreateTask function");
 				this.handleException(e);
 			}
+		},
+		
+		_fnSubmitTireSignOff: function(oData) {
+			try {
+				var oPayload = [],
+					oPrmTask = {};
+				for (var i in oData) {
+					if (oData[i].tt1id === "TT1_10" && (oData[i].tt2id === "TT2_10" || oData[i].tt2id === "TT2_15") && oData[i].engflag === "NE" &&
+						oData[i].partno && oData[i].partno.trim() !== "") {
+						var tempObj = JSON.parse(JSON.stringify(oData[i]));
+						var obj = {};
+						obj.TAILID = tempObj.tailid;
+						obj.PARTNO = tempObj.partno;
+						obj.LNDPIN = null;
+						obj.TIREID = null;
+						obj.ITMNO = null;
+						obj.LATIS = null;
+						obj.LATRE = null;
+						obj.SERNR = tempObj.sernr;
+						obj.LTIREID = null;
+						obj.TIREDESC = null;
+						obj.REFID = null;
+						obj.IRFLAG = null;
+						obj.INSON = null;
+						obj.RMVFR = null;
+						obj.TOTLND = null;
+						obj.TASKID = null;
+						oPayload.push(JSON.parse(JSON.stringify(obj)));
+					}
+				}
+				oPrmTask.error = function() {};
+				oPrmTask.success = function(oData) {}.bind(this);
+				ajaxutil.fnUpdate("/LandingTyreSvc", oPrmTask, oPayload);
+			} catch (e) {
+				Log.error("Exception in _fnSubmitTireSignOff function");
+			}
+
 		},
 
 		_fnGetMainTaskDropDown: function() {

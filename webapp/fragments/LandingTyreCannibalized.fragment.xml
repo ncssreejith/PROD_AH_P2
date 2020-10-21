@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Cannibalized Tire – Landings made from previous installation" draggable="true" contentHeight="auto" contentWidth="30%">
+		<VBox class="sapUiSmallMargin" items="{LandingTyreModel>/}">
+			<HBox class="sapUiTinyMargin">
+				<Label text="{LandingTyreModel>ftdesc}" design="Bold" wrapping="true" class="sapUiTinyMarginTop sapUiTinyMarginEnd" width="13rem"></Label>
+				<Input value="{LandingTyreModel>LNDPIN}" required="true" fieldGroupIds="fgInput" change="onLandingTyreValChange"></Input>
+			</HBox>
+		</VBox>
+		<buttons>
+			<Button text="Cancel" press="onLandingTyreCancel" type="Reject"/>
+			<Button text="Update" press="onLandingTyreUpdate" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

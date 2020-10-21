@@ -359,7 +359,16 @@ sap.ui.define([
 			sContext = sContext.replace("tasks", "tasksCopy");
 			var objCopy = this.getModel("applTmplModel").getProperty(sContext);
 			var desc = objCopy.TDESC;
-			desc = desc.replace("&SERNR&", obj.SERNR);
+			if (obj.ISSER === "Serial No. (S/N)") {
+				desc = desc.replace("&SERNR&", obj.SERNR);
+			} else {
+				if (obj.SERNR && obj.SERNR.trim() !== "") {
+					desc = desc.replace("Batch No:&SERNR&", "Batch No:"+obj.SERNR);
+				} else {
+					desc = desc.replace(",Batch No:&SERNR&", "");
+				}
+				
+			}
 			oModel.setProperty(this.serialContext.getPath() + "/TDESC", desc);
 			oModel.setProperty(this.serialContext.getPath() + "/ENGFLAG", sKey);
 			oModel.setProperty(this.serialContext.getPath() + "/EDITFLAG", true);

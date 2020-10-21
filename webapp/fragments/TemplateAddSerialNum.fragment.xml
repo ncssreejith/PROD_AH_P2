@@ -26,12 +26,13 @@
 					</VBox>
 					<VBox class="sapUiTinyMarginBegin">
 						<Label design="Bold"/>
-						<Input width="170px" value="{SerialAddSet>/SERNR}"  maxLength="20" required="true" fieldGroupIds="fgInput" visible="{= ${SerialAddSet>/ENGFLAG} !== 'EG'}" />
+						<Input width="170px" value="{SerialAddSet>/SERNR}" maxLength="20"
+							required="{= ${SerialAddSet>/ISSER} === 'Serial No. (S/N)' ? true : false}"
+							fieldGroupIds="{= ${SerialAddSet>/ISSER} === 'Serial No. (S/N)' ? 'fgInput' : ''}" visible="{= ${SerialAddSet>/ENGFLAG} !== 'EG'}"/>
 						<ComboBox width="170px" change="onTypeSRSelect" required="true" fieldGroupIds="fgCmbBox" selectedKey="{SerialAddSet>/SERNR}"
 							items="{SerialNumModel>/}" visible="{= ${SerialAddSet>/ENGFLAG} === 'EG'}">
 							<core:Item text="{SerialNumModel>SERNR}" key="{SerialNumModel>SERNR}"/>
 						</ComboBox>
-						
 					</VBox>
 				</HBox>
 				<HBox class="sapUiMediumMarginTop">
