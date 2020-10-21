@@ -61,7 +61,7 @@
 						items="{ path: 'auditLogModel>/TableDataSet'}" width="auto">
 						<columns>
 							<Column hAlign="Left" width="auto" class="textColor">
-								<Label text="Application" design="Bold"/>
+								<Label text="Sub Application" design="Bold"/>
 							</Column>
 							<Column hAlign="Left" width="auto" class="textColor" mergeDuplicates="true">
 								<Label text="Transaction Id" design="Bold"/>

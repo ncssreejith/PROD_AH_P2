@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
 	xmlns:f="sap.f">
 	<ScrollContainer horizontal="false" vertical="true" width="100%" focusable="false" class="sapUiTinyMarginTop">
-		<Table id="AllJobId" class="sapUiResponsivePadding CERTable sapUiSizeCompact" growing="true" items="{JobModelAll>/}">
+		<Table id="AllJobId" class="sapUiResponsivePadding CERTable sapUiSizeCompact" items="{JobModelAll>/}">
 			<headerToolbar>
 				<OverflowToolbar>
 					<Title text="{i18n>tiAllOutstandingJobs}" level="H2"/>

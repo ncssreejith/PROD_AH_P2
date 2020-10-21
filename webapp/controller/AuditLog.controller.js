@@ -178,6 +178,7 @@ sap.ui.define([
 					oPrmWBM = {},
 					sObjId = this.getModel("auditLogModel").getProperty("/ObjectId"),
 					sApplication = this.getModel("auditLogModel").getProperty("/ApplicationKey"),
+					sSubApplication = this.getModel("auditLogModel").getProperty("/ApplicationDetailKey"),
 					sDateRange = this.getModel("auditLogModel").getProperty("/PeriodDate"),
 					fromDate = "",
 					toDate = "",
@@ -188,7 +189,14 @@ sap.ui.define([
 				}
 
 				if (sApplication) {
-					filter = filter.concat(" and OBJECT eq " + sApplication);
+					filter = filter.concat(" and POBJECT eq " + sApplication);
+				} else {
+					sap.m.MessageBox.error("Please select application");
+					return;
+				}
+				
+				if (sSubApplication) {
+					filter = filter.concat(" and OBJECT eq " + sSubApplication);
 				}
 
 				if (sDateRange) {
