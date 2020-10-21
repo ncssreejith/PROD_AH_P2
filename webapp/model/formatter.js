@@ -1660,7 +1660,9 @@ sap.ui.define([
 					}
 					oDatePicker.setValueState("Error");
 					oTimePick.setValueState("Error");
-					sap.m.MessageBox.error(that.getResourceBundle().getText(errorMessagePast));
+					var dt = this.defaultDatetoDateFormatDisplay(prevDate);
+					var tm = this.defaultTimeFormatDisplay(prevTime).trim();
+					sap.m.MessageBox.error(that.getResourceBundle().getText(errorMessagePast, [dt + " " + tm]));
 					return false;
 				}
 			} else {

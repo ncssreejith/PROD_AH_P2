@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.ah.control">
 	<l:VerticalLayout width="100%" class="backgroundWhite">
 		<HBox class="sapUiSmallMargin">
-			<HBox class="sapUiSmallMarginTop" visible="{= ${JobModel>/mark}==='1' ? true:false}">
+			<HBox class="sapUiSmallMarginTop" visible="{= ${PhotoModel>/photoSet}.length > 0 ? true : false}">
 				<core:HTML id="CanvasId" visible="false"
 					content='&lt;canvas id=&quot;myCanvasTop&quot; click="getPointPosition($event)" width=&quot;380&quot; height=&quot;170&quot; style=&quot;border:1px solid #000000&quot;&gt;&lt;/canvas&gt;'></core:HTML>
 				<List items="{PhotoModel>/photoSet}" class="sapUiTinyMarginBegin" width="95%"

@@ -64,6 +64,13 @@ sap.ui.define([
 		onInit: function() {
 			try {
 				var that = this;
+				window.onbeforeunload = function() {
+					that._fnDeleteUnusedDocs();
+				};
+
+				window.onhashchange = function() {
+					that._fnDeleteUnusedDocs();
+				};
 				this.getRouter().getRoute("CosCreateJob").attachPatternMatched(this._handleRouteMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onInit function");
@@ -516,14 +523,21 @@ sap.ui.define([
 		onDeleteImagePress: function(oEvent) {
 			try {
 				var obj = oEvent.getSource().getBindingContext("appModel").getObject();
+				var sPath = "/DefectPhotosSvc(" +
+					"DOCID=" + obj.DOCID +
+					",JOBID=A)";
+				this.getView().byId("photoUpload").setBusy(true);
 				var oPrmMark = {};
-				oPrmMark.error = function() {};
-				oPrmMark.success = function(oData) {
+				oPrmMark.error = function() {
+					this.getView().byId("photoUpload").setBusy(false);
+				}.bind(this);
+				oPrmMark.success = function() {
+					this.getView().byId("photoUpload").setBusy(false);
 					this.getView().byId("iImageTicket").setSrc(null);
 					this._fnPhotoUploadGet(this.docRefId);
 				}.bind(this);
 
-				ajaxutil.fnDelete("/DefectPhotosSvc/" + obj.DOCID, oPrmMark);
+				ajaxutil.fnDelete(sPath, oPrmMark);
 			} catch (e) {
 				Log.error("Exception in onDeleteImagePress function");
 			}
@@ -537,10 +551,15 @@ sap.ui.define([
 		//------------------------------------------------------------------
 		_fnDeleteUnusedDocs: function() {
 			try {
-				var oPrmMark = {};
-				oPrmMark.error = function() {};
-				oPrmMark.success = function(oData) {}.bind(this);
-				ajaxutil.fnDelete("/DefectPhotosSvc/" + this.docRefId + "/P", oPrmMark);
+				if (this.docRefId) {
+					var sPath = "/DefectPhotosSvc(" +
+						"DOCID=" + this.docRefId +
+						",JOBID=P)";
+					var oPrmMark = {};
+					oPrmMark.error = function() {};
+					oPrmMark.success = function(oData) {}.bind(this);
+					ajaxutil.fnDelete(sPath, oPrmMark);
+				}
 			} catch (e) {
 				Log.error("Exception in _fnDeleteUnusedDocs function");
 			}

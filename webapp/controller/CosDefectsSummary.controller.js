@@ -1126,7 +1126,7 @@ sap.ui.define([
 					oModel.setProperty("/WorcenterFlag", false);
 					oModel.setProperty("/RectSummaryFlag", false);
 					that._fnTaskStatusGet(sJobId);
-					that.onSelectionDefectAreaChange(oModelLocal.getProperty("/deaid"));
+					//that.onSelectionDefectAreaChange(oModelLocal.getProperty("/deaid"));
 				} else if (sSelectedKey === "RectSum") {
 					oModel.setProperty("/SummaryFlag", false);
 					oModel.setProperty("/WorcenterFlag", false);
@@ -2477,10 +2477,13 @@ sap.ui.define([
 			var that = this,
 				oCanvas;
 			oCanvas = document.getElementById("myCanvasTop");
-			var ctx = oCanvas.getContext("2d");
-			oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
-			oCanvas.style.backgroundRepeat = "no-repeat";
-			oCanvas.style.backgroundSize = "100%";
+			if (oCanvas) {
+				var ctx = oCanvas.getContext("2d");
+				oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
+				oCanvas.style.backgroundRepeat = "no-repeat";
+				oCanvas.style.backgroundSize = "100%";
+			}
+
 			/*	} catch (e) {
 					Log.error("Exception in CosDefectsSummary:_fnRenderImage function");
 					this.handleException(e);
@@ -3512,8 +3515,11 @@ sap.ui.define([
 						}
 
 						if (oData.results[0].mark === '1') {
+							this.getView().byId("CanvasId").setVisible(true);
 							that.onSelectionDefectAreaChange(oData.results[0].deaid);
 							that._fnGetMark(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].deaid);
+						} else {
+							this.getView().byId("CanvasId").setVisible(false);
 						}
 
 						if (oData.results[0].DOCREFID) {
@@ -3572,6 +3578,7 @@ sap.ui.define([
 				oPrmPhoto.error = function() {};
 				oPrmPhoto.success = function(oData) {
 					if (oData && oData.results.length > 0) {
+						this.getView().byId("CanvasId").setVisible(true);
 						var oDataSet = this.getModel("PhotoModel").getProperty("/photoSet");
 						if (!oDataSet) {
 							oDataSet = [];

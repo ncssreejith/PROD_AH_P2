@@ -23,6 +23,7 @@ sap.ui.define([
 
 		onClearFilterBar: function() {
 			this.getModel("auditLogModel").setProperty("/ApplicationKey", "");
+			this.getModel("auditLogModel").setProperty("/ApplicationDetailKey", "");
 			this.getModel("auditLogModel").setProperty("/ObjectId", "");
 			this.getModel("auditLogModel").setProperty("/PeriodDate", "");
 		},
