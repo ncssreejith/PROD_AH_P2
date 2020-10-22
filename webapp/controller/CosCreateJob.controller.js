@@ -364,31 +364,51 @@ sap.ui.define([
 				var sDefectImageSrc = [];
 				oModel.setProperty("/photo", 1);
 				if (oFiles && oFiles[0]) {
-					var reader = new FileReader(oFiles[0]);
-					reader.readAsDataURL(oFiles[0]);
-					reader.onload = function(e) {
-						sDefectImageSrc.push({
-							"docid": "",
-							"jobid": "",
-							"tailid": oAppModel.getProperty("/sTailId"),
-							"fname": oFiles[0].name,
-							"dvalue": e.target.result,
-							"flag": "",
-							"rawbase": "",
-							"DOCREFID": this.docRefId === undefined ? "" : this.docRefId
-						});
-						oPrmPhoto.filter = "";
-						oPrmPhoto.error = function() {};
-						oPrmPhoto.success = function(oData) {
-							this.docRefId = oData.results[0].DOCREFID;
-							that._fnPhotoUploadGet(oData.results[0].DOCREFID);
-						}.bind(this);
-						ajaxutil.fnCreate("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
-					}.bind(this);
+					this.getView().byId("photoUpload").setBusy(true);
+					var fileReader = new FileReader();
+					fileReader.readAsDataURL(oFiles[0]);
+					var bFlag = false;
+					fileReader.onloadend = function(e) {
+						var src = e.target.result;
+						bFlag = dataUtil._fileMimeVerification(e);
+						if (bFlag) {
+							sDefectImageSrc.push({
+								"docid": "",
+								"jobid": "",
+								"tailid": oAppModel.getProperty("/sTailId"),
+								"fname": oFiles[0].name,
+								"dvalue": src,
+								"flag": "",
+								"rawbase": "",
+								"DOCREFID": that.docRefId === undefined ? "" : that.docRefId
+							});
+							oPrmPhoto.filter = "";
+							oPrmPhoto.error = function(Response) {
+								that.getView().byId("photoUpload").setBusy(false);
+							};
+							oPrmPhoto.success = function(oData) {
+								that.getView().byId("photoUpload").setBusy(false);
+								that.docRefId = oData.results[0].DOCREFID;
+								that._fnPhotoUploadGet(that.docRefId);
+							}.bind(this);
+							ajaxutil.fnCreate("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
+						} else {
+							that.onTypeMissmatch();
+							that.getView().byId("photoUpload").setBusy(false);
+						}
+						if (that.docRefId) {
+							that.getView().byId("photoUpload").setBusy(false);
+							that._fnPhotoUploadGet(that.docRefId);
+						} else {
+							oAppModel.setProperty("/DefectImageSrc", []);
+							oAppModel.refresh(true);
+						}
+						that.getView().byId("photoUpload").setBusy(false);
+					};
 				}
 			} catch (e) {
-				Log.error("Exception in CosCreateJob:onAddDefectImage function");
-				this.handleException(e);
+				this.getView().byId("photoUpload").setBusy(false);
+				Log.error("Exception in onAddDefectImage function");
 			}
 		},
 
