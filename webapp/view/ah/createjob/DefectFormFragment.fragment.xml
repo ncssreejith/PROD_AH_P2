@@ -63,18 +63,20 @@
 				<ToolbarSpacer/>
 				<Button icon="sap-icon://refresh" press="onRefersh"/>
 			</Toolbar>
-			<core:HTML id="topId" visible="true"
-				content='&lt;canvas id=&quot;myCanvasTopDefect&quot; click="getPointPosition($event)" width=&quot;380&quot; height=&quot;170&quot; style=&quot;border:1px solid #000000&quot;&gt;&lt;/canvas&gt;'></core:HTML>
-			<SegmentedButton id="sbDfArea" class="sapUiSmallMarginBottom" selectedKey="{oViewCreateModel>/deaid}"
-				selectionChange="onSelectionDefectAreaChange">
-				<items>
-					<SegmentedButtonItem text="Top" key="ND" width="4rem" visible="false"/>
-					<SegmentedButtonItem text="Top" key="DEA_T" width="4rem"/>
-					<SegmentedButtonItem text="Front" key="DEA_F" width="5rem"/>
-					<SegmentedButtonItem text="Left" key="DEA_l" width="4rem"/>
-					<SegmentedButtonItem text="Right" key="DEA_R" width="4rem"/>
-				</items>
-			</SegmentedButton>
+			<VBox alignContent="Center" alignItems="Center">
+				<core:HTML id="topId" visible="true"
+					content='&lt;canvas id=&quot;myCanvasTopDefect&quot; click="getPointPosition($event)" width=&quot;380&quot; height=&quot;170&quot; style=&quot;border:1px solid #000000&quot;&gt;&lt;/canvas&gt;'></core:HTML>
+				<SegmentedButton id="sbDfArea" class="sapUiSmallMarginBottom" selectedKey="{oViewCreateModel>/deaid}"
+					selectionChange="onSelectionDefectAreaChange">
+					<items>
+						<SegmentedButtonItem text="Top" key="ND" width="4rem" visible="false"/>
+						<SegmentedButtonItem text="Top" key="DEA_T" width="4rem"/>
+						<SegmentedButtonItem text="Front" key="DEA_F" width="5rem"/>
+						<SegmentedButtonItem text="Left" key="DEA_l" width="4rem"/>
+						<SegmentedButtonItem text="Right" key="DEA_R" width="4rem"/>
+					</items>
+				</SegmentedButton>
+			</VBox>
 			<!--</Panel>-->
 		</VBox>
 	</HBox>

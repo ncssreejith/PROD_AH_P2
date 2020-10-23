@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
 	xmlns:f="sap.f">
 	<!--	<Panel class="sapUiResponsivePadding">-->
-	<VBox backgroundDesign="Solid" class="sapUiResponsiveMargin vboxBackgrounds">
+	<VBox backgroundDesign="Solid" class="sapUiSmallMargin vboxBackgrounds">
 		<l:Splitter height="90%" class="sapUiResponsiveMargin">
 			<VBox>
 				<VBox>
