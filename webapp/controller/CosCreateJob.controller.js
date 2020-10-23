@@ -395,13 +395,13 @@ sap.ui.define([
 						} else {
 							that.onTypeMissmatch();
 							that.getView().byId("photoUpload").setBusy(false);
-						}
-						if (that.docRefId) {
-							that.getView().byId("photoUpload").setBusy(false);
-							that._fnPhotoUploadGet(that.docRefId);
-						} else {
-							oAppModel.setProperty("/DefectImageSrc", []);
-							oAppModel.refresh(true);
+							if (that.docRefId) {
+								that.getView().byId("photoUpload").setBusy(false);
+								that._fnPhotoUploadGet(that.docRefId);
+							} else {
+								oAppModel.setProperty("/DefectImageSrc", []);
+								oAppModel.refresh(true);
+							}
 						}
 						that.getView().byId("photoUpload").setBusy(false);
 					};

@@ -87,7 +87,7 @@ sap.ui.define([
 				return info;
 			}
 		},
-		
+
 		_fileMimeVerification: function(e) {
 			var src = e.target.result;
 			var bFlag = false;
@@ -96,8 +96,12 @@ sap.ui.define([
 				var raw = atob(byteString);
 				var result = '';
 				for (var i in raw) {
-					var hex = raw.charCodeAt(i).toString(16);
-					result += (hex.length === 2 ? hex : '0' + hex);
+					if (i <= 7) {
+						var hex = raw.charCodeAt(i).toString(16);
+						result += (hex.length === 2 ? hex : '0' + hex);
+					} else {
+						break;
+					}
 				}
 				var header = result.substring(0, 8);
 				switch (header) {
