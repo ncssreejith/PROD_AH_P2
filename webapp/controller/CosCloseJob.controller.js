@@ -264,11 +264,12 @@ sap.ui.define([
 					sObject = "ZRM_COS_EO";
 				} else {
 					if (sSignFlag === "TR") {
-						if (oPayload.fstat === "A" || oPayload.fstat === "R") {
+						/*if (oPayload.fstat === "A" || oPayload.fstat === "R") {
 							sObject = "ZRM_S_FAIR";
 						} else {
 							sObject = "ZRM_COS_JT";
-						}
+						}*/
+						sObject = "ZRM_COS_JT";
 					} else {
 						if (oPayload.fstat === "A" || oPayload.fstat === "R") {
 							sObject = "ZRM_S_FAIR";
