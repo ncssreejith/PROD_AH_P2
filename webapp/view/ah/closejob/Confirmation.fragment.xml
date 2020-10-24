@@ -40,6 +40,12 @@
 								<Column minScreenWidth="Tablet" demandPopin="true">
 									<Label class="whiteText" text="Follow-up Task"/>
 								</Column>
+								<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+								</Column>
+								<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+									<Label text="{i18n>lbSuperviosr}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+								</Column>
 							</columns>
 							<items >
 								<ColumnListItem unread="true" type="{ViewModel>type}">
@@ -48,6 +54,8 @@
 										<Text text="{parts:[{path:'ViewModel>wrctr'},{path:'CreatedWorkCenterModel>/'}], formatter:'.formatter.taskWorkCenterText'}"/>
 										<Text text="{ViewModel>tdesc}"/>
 										<Text text="{ViewModel>ftdesc}"/>
+										<Text text="{ViewModel>SG1USR}"/>
+										<Text text="{ViewModel>SG2USR}"/>
 									</cells>
 								</ColumnListItem>
 							</items>

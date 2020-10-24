@@ -45,7 +45,7 @@
 										liveChange="handleLiveChangeFlyingRequirements"/>-->
 									<TextArea width="100%" rows="5"
 										fieldGroupIds="{parts:['DetailsSupEditModel>/tmpid', 'DetailsSupEditModel>/tt1id'], templateShareable: false,formatter:'.formatter.textAreaFieldGrpFUTask'}"
-										required="{parts:['TaskModel>tmpid', 'TaskModel>tt1id'], templateShareable: false,formatter:'.formatter.textAreaRequiredFUTask'}"
+										required="{parts:['DetailsSupEditModel>/tmpid', 'DetailsSupEditModel>/tt1id'], templateShareable: false,formatter:'.formatter.textAreaRequiredFUTask'}"
 										value="{DetailsSupEditModel>/ftdesc}" maxLength="1000" showExceededText="true" liveChange="handleLiveChangeFlyingRequirements"/>
 									<layoutData>
 										<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
@@ -79,6 +79,31 @@
 										<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
 									</layoutData>
 								</VBox>
+								<HBox class="sapUiTinyMarginTopBottom"
+									visible="{parts:['DetailsSupEditModel>/tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}">
+									<VBox class="sapUiTinyMarginTop">
+										<HBox>
+											<Label design="Bold" text="Tool quantity"/>
+											<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('TOOLQUAN',$event)" class="sapUiTinyMarginBegin" size="12px"
+												color="#031E48"/>
+										</HBox>
+										<StepInput width="200px" value="{DetailsSupEditModel>/TOOLQTY}" min="0" fieldGroupIds="fgStepInput"/>
+										<!--	required="{parts:['DetailsSupEditModel>/tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}"-->
+									</VBox>
+									<VBox class="sapUiTinyMarginTop sapUiSmallMarginBegin">
+										<HBox>
+											<Label design="Bold" text="Publication quantity"/>
+											<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PUBQUAN',$event)" class="sapUiTinyMarginBegin" size="12px"
+												color="#031E48"/>
+										</HBox>
+										<StepInput width="200px" value="{DetailsSupEditModel>/PUBLCQTY}" min="0"
+											required="{parts:['DetailsSupEditModel>/tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}"
+											fieldGroupIds="fgStepInput"/>
+									</VBox>
+									<layoutData>
+										<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
+									</layoutData>
+								</HBox>
 								<HBox class="sapUiTinyMarginTopBottom"
 									visible="{parts:['DetailsSupEditModel>/tt1id','DetailsSupEditModel>/tt2id'],templateShareable: false,formatter:'.formatter.taskContentVisible'}">
 									<VBox>
@@ -160,7 +185,7 @@
 								</VBox>-->
 								<VBox class="sapUiSmallMarginEnd sapUiTinyMarginTop"
 									visible="{parts:['DetailsSupEditModel>/tt1id','DetailsSupEditModel>/tt2id','DetailsSupEditModel>/CPRID','DetailsSupEditModel>/rtaskid'],templateShareable: false,formatter:'.formatter.taskContentVisible3'}">
-								<!--	<HBox>
+									<!--	<HBox>
 										<Label width="196px" text="{i18n>lblTechRef}" design="Bold" class="sapUiSmallMarginTop"></Label>
 										<Text text="Optional" class="sapUiSmallMarginBegin"
 											visible="{=(${DetailsSupEditModel>/tt1id} !== 'TT1_17' || ${DetailsSupEditModel>/tt1id} !== 'TT1_18') ? true : false}"/>
@@ -182,7 +207,6 @@
 											<core:Item text="{TechRefSugg>TOREF}"/>
 										</suggestionItems>
 									</Input>
-									
 									<layoutData>
 										<l:GridData span="XL8 L8 M8 S8" linebreak="true"/>
 									</layoutData>
@@ -234,13 +258,14 @@
 											<Label design="Bold" text="Expiry Date" width="150px"/>
 											<DatePicker
 												value="{path: 'DetailsSupEditModel>/expdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
-												width="200px" fieldGroupIds="fgDate"  minDate="{oViewLimitModel>/DatePrev}"/>
-										</VBox> <!--required="{oViewLimitModel>/bDateSection}"-->
+												width="200px" fieldGroupIds="fgDate" minDate="{oViewLimitModel>/DatePrev}"/>
+										</VBox>
+										<!--required="{oViewLimitModel>/bDateSection}"-->
 										<VBox class="sapUiSmallMarginBegin">
 											<Label design="Bold" text="Time" width="150px"/>
-											<TimePicker width="230px" value="{DetailsSupEditModel>/exptm}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime"
-												/>
-										</VBox> <!--required="{oViewLimitModel>/bDateSection}"-->
+											<TimePicker width="230px" value="{DetailsSupEditModel>/exptm}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime"/>
+										</VBox>
+										<!--required="{oViewLimitModel>/bDateSection}"-->
 									</HBox>
 									<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{oViewLimitModel>/bUtilisationSection}">
 										<VBox>
@@ -270,7 +295,7 @@
 											<!--	<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>-->
 										</HBox>
 										<!--<Text text="{DetailsSupEditModel>/ldesc}" wrapping="true"/>-->
-										<TextArea width="443px" showExceededText="true" maxLength="100" rows="5" value="{DetailsSupEditModel>/ldesc}"
+										<TextArea width="443px" showExceededText="true" maxLength="500" rows="5" value="{DetailsSupEditModel>/ldesc}"
 											liveChange="handleLiveChangeFlyingRequirements"/>
 									</VBox>
 								</VBox>

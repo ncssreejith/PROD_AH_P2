@@ -26,7 +26,7 @@
 						<Text text="{CapSet>/PAST_COUNT}" class="sapUiLargeMarginBegin"/>
 					</VBox>
 					<VBox alignItems="Start" class="sapUiLargeMarginBegin sapUiSmallMarginBottom">
-					<!--	visible="{=${CapSet>/CAPTY}==='A' ? true :false}"-->
+						<!--	visible="{=${CapSet>/CAPTY}==='A' ? true :false}"-->
 						<Label design="Bold" text="Initial ADD Date" class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd"/>
 						<!--<Text text="{CapSet>/IDATE}"/>-->
 						<Text text="{path:'CapSet>/IDATE', formatter:'.formatter.defaultDateFormatLimDisplay'}"/>
@@ -53,6 +53,11 @@
 							<Text text="{path:'CapSet>/APPRUZT', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
 						</HBox>
 					</VBox>
+				</HBox>
+				<HBox visible="{= ${CapSet>/REMARKS} !== null ? true : false}" width="95%">
+					<Label design="Bold" text="Remarks : " class="sapUiTinyMarginTop sapUiTinyMarginEnd"/>
+					<TextArea width="620px" class="sapUiTinyMarginTop" rows="7" value="{CapSet>/REMARKS}" maxLength="500" showExceededText="true"
+						liveChange="handleLiveChangeFlyingRequirements" editable="false"/>
 				</HBox>
 			</VBox>
 		</HBox>

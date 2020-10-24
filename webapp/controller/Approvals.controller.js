@@ -33,9 +33,11 @@ sap.ui.define([
 		onAfterRendering: function() {
 			var that = this;
 			// Retrieve backend posting messages of dashboard status every 30 secs.
-			this._LoadMessageInterval = setInterval(function() {
-				that._fnApprovalRequestGet();
-			}, 30000);
+			if (!this._LoadMessageInterval) {
+				this._LoadMessageInterval = setInterval(function() {
+					that._fnApprovalRequestGet();
+				}, 30000);
+			}
 		},
 
 		/** 
@@ -545,6 +547,7 @@ sap.ui.define([
 		_fnUpdateADD: function(sValue) {
 			try {
 				var that = this,
+					oObject,
 					sjobid = "",
 					oModel,
 					oPayload;
@@ -574,8 +577,13 @@ sap.ui.define([
 					this.getView().byId("MasterId").setVisible(false);
 					that.onOpenDialogApp(sValue);
 				}.bind(this);
+				if (oPayload.Capty === "L") {
+					oObject = "ZRM_LIM_S";
+				} else {
+					oObject = "ZRM_ADDL";
+				}
 				oParameter.activity = 5;
-				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], "ZRM_ADDL", this);
+				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], oObject, this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateADD function");
 			}
@@ -596,6 +604,7 @@ sap.ui.define([
 						var oModel = dataUtil.createNewJsonModel();
 						that._fnCAPDataGet("O", oData.results[0].jobid, oData.results[0].capid);
 						oModel.setData(oData.results[0]);
+						this._fnADDCountGet(oData.results[0].Capty);
 						that.getView().setModel(oModel, "ApprovalDetailstModel");
 						that.getView().byId("MasterId").setVisible(true);
 						this.byId("pageApprovalId").scrollTo(0);
@@ -943,6 +952,34 @@ sap.ui.define([
 			}
 		},
 
+		//-------------------------------------------------------------------------------------
+		//  Private method: This will get called, to get ADD count.
+		// Table: CAP
+		//--------------------------------------------------------------------------------------
+		_fnADDCountGet: function(sCapTy) {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("ViewModel"),
+					sCount,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId();
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					if (oData !== undefined && oData.results.length > 0) {
+					sCount = oData.results[0].COUNT;
+					} else {
+						sCount="0";
+					}
+					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
+				}.bind(this);
+
+				ajaxutil.fnRead("/GetAddCountSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
+				this.handleException(e);
+			}
+		},
+
 		_fnReasonforADDGet: function(sAirId) {
 			try {
 				var that = this,
@@ -1031,11 +1068,13 @@ sap.ui.define([
 					editableFlag: true,
 					dialogTitle: "",
 					btnText: "Edit",
-					DatePrev: new Date()
+					DatePrev: new Date(),
+					ADDCount: ""
 				});
 
 				this.getView().setModel(oViewModel, "ViewModel");
 				var sAirId = that.getAircraftId();
+				this._fnADDCountGet();
 				this._fnReasonforADDGet(sAirId);
 				this._fnPerioOfDeferCBGet(sAirId);
 				this._fnUtilizationGet(sAirId);

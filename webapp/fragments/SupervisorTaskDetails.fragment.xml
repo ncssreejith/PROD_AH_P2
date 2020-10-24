@@ -73,6 +73,31 @@
 										</layoutData>
 									</VBox>
 									<HBox class="sapUiTinyMarginTopBottom"
+										visible="{parts:['DetailsSupModel>/tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}">
+										<VBox class="sapUiTinyMarginTop">
+											<HBox>
+												<Label design="Bold" text="Tool quantity"/>
+												<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('TOOLQUAN',$event)" class="sapUiTinyMarginBegin" size="12px"
+													color="#031E48"/>
+											</HBox>
+											<StepInput width="200px" value="{DetailsSupModel>/TOOLQTY}" min="0" editable="false" fieldGroupIds="fgStepInput"/>
+											<!--	required="{parts:['DetailsSupModel>/tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}"-->
+										</VBox>
+										<VBox class="sapUiTinyMarginTop sapUiSmallMarginBegin">
+											<HBox>
+												<Label design="Bold" text="Publication quantity"/>
+												<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PUBQUAN',$event)" class="sapUiTinyMarginBegin" size="12px"
+													color="#031E48"/>
+											</HBox>
+											<StepInput width="200px" value="{DetailsSupModel>/PUBLCQTY}" min="0" editable="false"
+												required="{parts:['DetailsSupModel>/tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}"
+												fieldGroupIds="fgStepInput"/>
+										</VBox>
+										<layoutData>
+											<l:GridData span="XL12 L12 M12 S12" linebreak="true"/>
+										</layoutData>
+									</HBox>
+									<HBox class="sapUiTinyMarginTopBottom"
 										visible="{parts:['DetailsSupModel>/tt1id','DetailsSupModel>/tt2id'],templateShareable: false,formatter:'.formatter.taskContentVisible'}">
 										<VBox>
 											<HBox>
@@ -239,7 +264,7 @@
 											<HBox>
 												<Label design="Bold" text="Limitation" width="196px"/>
 											</HBox>
-											<TextArea editable="false" width="400px" showExceededText="true" maxLength="100" rows="5" value="{DetailsSupModel>/ldesc}"
+											<TextArea editable="false" width="400px" showExceededText="true" maxLength="500" rows="5" value="{DetailsSupModel>/ldesc}"
 												liveChange="handleLiveChangeFlyingRequirements"/>
 										</VBox>
 									</VBox>

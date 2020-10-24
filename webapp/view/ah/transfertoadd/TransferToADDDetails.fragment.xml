@@ -152,7 +152,7 @@
 									<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATION',$event)" size="12px" class="sapUiTinyMarginBegin"
 										color="#031E48"/>
 								</HBox>
-								<TextArea width="400px" value="{oViewGlobalModel>/LDESC}" visible="{oViewModel>/bLimitation}" maxLength="100" showExceededText="true"
+								<TextArea width="400px" value="{oViewGlobalModel>/LDESC}" visible="{oViewModel>/bLimitation}" maxLength="500" showExceededText="true"
 									fieldGroupIds="fgTxtArea" required="{oViewModel>/bLimitation}" liveChange="handleLiveChangeFlyingRequirements"/>
 								<Button icon="sap-icon://sys-add" text="Add Limitation" width="400px" class="sapUiTinyMarginTop addLimitationBtn addTemBtn"
 									press="onAddLimitaionPress" visible="{oViewModel>/bAddLimitationBtn}" iconFirst="true"/>

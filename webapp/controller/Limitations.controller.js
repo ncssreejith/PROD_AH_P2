@@ -54,11 +54,13 @@ sap.ui.define([
 			var that = this;
 			this.onSelectionDefectAreaChange("DEA_T");
 			// Retrieve backend posting messages of dashboard status every 30 secs.
-			this._LoadMessageInterval = setInterval(function() {
-				that._fnADDGet();
-				that._fnLimitationsGet();
-				that._fnLimitationsCompleteGet();
-			}, 30000);
+			if (!this._LoadMessageInterval) {
+				this._LoadMessageInterval = setInterval(function() {
+					that._fnADDGet();
+					that._fnLimitationsGet();
+					that._fnLimitationsCompleteGet();
+				}, 30000);
+			}
 		},
 		/** 
 		 * Exit clean up.

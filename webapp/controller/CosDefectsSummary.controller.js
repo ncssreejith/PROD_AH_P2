@@ -3057,8 +3057,10 @@ sap.ui.define([
 					oPayload.utilvl = oPayload.utilvl;
 				}
 				oTempObj = this._fnGetObjectTypeAndActivity(oPayload.tt1id);
-				oPayload.objectid = oTempObj.obj;
-				oPayload.activity = oTempObj.Act;
+				/*oPayload.objectid = oTempObj.obj;
+				oPayload.activity = oTempObj.Act;*/
+				oPayload.objectid = "ZRM_COS_TP";
+				oPayload.activity = "2";
 				oPayload.symbol = "0";
 				oPrmTask.filter = "";
 				oPrmTask.error = function() {};

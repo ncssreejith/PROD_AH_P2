@@ -143,9 +143,8 @@
 													<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('TOOLQUAN',$event)" class="sapUiTinyMarginBegin" size="12px"
 														color="#031E48"/>
 												</HBox>
-												<StepInput width="200px" value="{TaskModel>TOOLQTY}" min="0"
-													required="{parts:['TaskModel>tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}"
-													fieldGroupIds="fgStepInput"/>
+												<StepInput width="200px" value="{TaskModel>TOOLQTY}" min="0" fieldGroupIds="fgStepInput"/>
+												<!--	required="{parts:['TaskModel>tt1id'],templateShareable: false,formatter:'.formatter.taskContentVisibleToolCheck'}"-->
 											</VBox>
 											<VBox class="sapUiTinyMarginTop sapUiSmallMarginBegin">
 												<HBox>
@@ -355,7 +354,7 @@
 														<!--	<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" size="12px" class="sapUiTinyMarginBegin"
 															color="#031E48"/>-->
 													</HBox>
-													<TextArea width="400px" showExceededText="false" maxLength="100" rows="5" value="{TaskModel>ldesc}" editable="false"
+													<TextArea width="400px" showExceededText="false" maxLength="500" rows="5" value="{TaskModel>ldesc}" editable="false"
 														liveChange="handleLiveChangeFlyingRequirements"/>
 												</VBox>
 											</HBox>

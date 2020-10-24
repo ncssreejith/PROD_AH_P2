@@ -45,6 +45,16 @@
 									<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 								</layoutData>
 							</HBox>
+							<VBox
+								visible="{=(${ViewModel>/ADDCount} >= '8' &amp;&amp; (${ApprovalDetailstModel>/Capty} === 'A' || ${ApprovalDetailstModel>/Capty} === 'B')) ? true:false}">
+								<Label width="18rem" wrapping="true" text="Reason for Additional ADD Count" design="Bold"></Label>
+								<TextArea width="400px" class="sapUiTinyMarginTop" rows="6" value="{ApprovalDetailstModel>/remarks}" maxLength="500" showExceededText="true"
+									liveChange="handleLiveChangeFlyingRequirements"
+									visible="{=(${ViewModel>/ADDCount} >== '8' &amp;&amp; (${ApprovalDetailstModel>/Capty} === 'A' || ${ApprovalDetailstModel>/Capty} === 'B')) ? true:false}"/>
+								<layoutData>
+									<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+								</layoutData>
+							</VBox>
 						</l:Grid>
 					</VBox>
 				</VBox>

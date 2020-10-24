@@ -398,7 +398,11 @@ sap.ui.define([
 		},
 		
 		_fnUpdateLandingTyre: function(oData) {
-			var oTyre = this.getView().getModel("LandingTyreModel").getData();
+			var oModel = this.getView().getModel("LandingTyreModel");
+			if (!oModel) {
+				return;
+			}
+			var oTyre = oModel.getData();
 			if (oTyre && oTyre.length > 0) {
 				var oPayload = [];
 				var oParameter = {};

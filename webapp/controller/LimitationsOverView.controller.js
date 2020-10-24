@@ -447,7 +447,7 @@ sap.ui.define([
 
 					}*/
 					if (oData && oData.results.length > 0) {
-						if (oData.results[0].EXTEND !== '' || oData.results[0].EXTEND !== null) {
+						if (oData.results[0].EXTEND !== '' && oData.results[0].EXTEND !== null) {
 							this._fnADDCapDataMultipleGet("E", sJobId, sCapId);
 							oModel.setProperty("/tableFlag", true);
 						}
