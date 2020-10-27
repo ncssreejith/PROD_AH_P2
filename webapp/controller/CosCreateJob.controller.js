@@ -86,9 +86,17 @@ sap.ui.define([
 		},
 
 		handleChangeSche: function(oEvent) {
-			var aData = this.getModel("appModel").getData();
-			this.getView().getModel("oViewCreateModel").setProperty("/jduvl", oEvent.getSource().getDateValue());
-			//return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
+			var oSrc = oEvent.getSource(),
+				oAppModel = this.getView().getModel("oViewCreateModel"),
+				sKey = oAppModel.getProperty("/UMKEY"),
+				sInt = oAppModel.getProperty("/INTERVAL");
+			oSrc.setValueState("None");
+			oAppModel.setProperty("/jduvl", oSrc.getDateValue());
+			var iPrec = formatter.JobDueDecimalPrecision(sKey);
+			if (parseFloat(sInt, [10]) > 0) {
+				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
+			}
 		},
 
 		handleChange: function() {
@@ -441,7 +449,12 @@ sap.ui.define([
 						sVal = parseFloat(sVal, [10]);
 						var iPrec = formatter.JobDueDecimalPrecision(sDue);
 						oModel.setProperty("/jduvl", parseFloat(minVal, [10]).toFixed(iPrec));
-
+						oModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+					} else {
+						oModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(0));
+					}
+					if (sDue === "JDU_10") {
+						oModel.setProperty("/jduvl", null);
 					}
 
 				}
@@ -449,6 +462,59 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onDueSelectChange function");
 				this.handleException(e);
+			}
+		},
+
+		onStepChangeSchedule: function(oEvent) {
+			this.onStepChange(oEvent);
+			var oSrc = oEvent.getSource(),
+				oAppModel = this.getView().getModel("oViewCreateModel"),
+				sKey = oAppModel.getProperty("/jduid"),
+				sInt = oAppModel.getProperty("/INTERVAL");
+			oSrc.setValueState("None");
+			var iPrec = formatter.JobDueDecimalPrecision(sKey);
+			if (parseFloat(sInt, [10]) > 0) {
+				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
+			}
+		},
+
+		onIntervalChange: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					oAppModel = this.getView().getModel("oViewCreateModel"),
+					sVal = oSrc.getValue(),
+					sKey = oAppModel.getProperty("/jduid"),
+					sDue = oAppModel.getProperty("/jduvl"),
+					bFlag = false;
+				oSrc.setValueState("None");
+				var iPrec = formatter.JobDueDecimalPrecision(sKey);
+				if (!sVal || sVal === "") {
+					sVal = 0;
+				}
+				oAppModel.setProperty("/INTERVAL", parseFloat(sVal, [10]).toFixed(iPrec));
+				if (sKey !== "JDU_10") {
+					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+						var val = parseFloat(minVal, [10]).toFixed(iPrec);
+						if (sDue !== val) {
+							oAppModel.setProperty("/jduvl", val);
+							bFlag = true;
+						}
+					}
+				} else if (sKey === "JDU_10") {
+					if (sDue && sDue !== "") {
+						oAppModel.setProperty("/jduvl", null);
+						bFlag = true;
+					}
+				}
+
+				if (bFlag) {
+					sap.m.MessageBox.warning("As you are changing interval, Job Due By value has been reset");
+				}
+
+			} catch (e) {
+				Log.error("Exception in onIntervalChange function");
 			}
 		},
 
@@ -606,7 +672,10 @@ sap.ui.define([
 					return;
 				}
 				oPayload = this.getView().getModel("oViewCreateModel").getData();
-				oPayload.DOCREFID = this.docRefId;
+
+				if (oPayload.jobty === "D") {
+					oPayload.DOCREFID = this.docRefId;
+				}
 				if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === "T" || oModel.getProperty("/sRJobIdFlag") ===
 					undefined) {
 					oPayload.jobid = sjobid.concat("JOB_", dDate.getFullYear(), dDate.getMonth(), dDate.getDate(), dDate.getHours(), dDate.getMinutes(),
@@ -674,8 +743,13 @@ sap.ui.define([
 				if (FieldValidations.validateFields(this)) {
 					return;
 				}
-
-				if (oModel.getProperty("/sRJobIdFlag") !== "N") {
+				if (oJobModel.getData().jduid === "JDU_10" && parseInt(oJobModel.getData().INTERVAL, 10) === 0) {
+					if (!oJobModel.getData().jduvl) {
+						this.getView().byId("DP2").setValueState("Error");
+						return;
+					}
+				}
+				if (oJobModel.getProperty("/sRJobIdFlag") !== "N") {
 					oPayload = AvMetInitialRecord.createInitialBlankRecord("SCHJob")[0];
 
 					oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));

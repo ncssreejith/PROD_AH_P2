@@ -3076,7 +3076,7 @@ sap.ui.define([
 							"tTempId": oData.results[0].tmpid
 						});
 						that.onOpenErrorDialog(oErrorArray);
-						this.getView().byId("itbTaskId").setSelectedKey("SP");
+						//this.getView().byId("itbTaskId").setSelectedKey("SP");
 					} else {
 						this.getView().byId("itbTaskId").setSelectedKey("CM");
 					}
@@ -3120,6 +3120,7 @@ sap.ui.define([
 
 				oPrmTask.success = function(oData) {
 					var oModel = new JSONModel({});
+					oModel.setSizeLimit(1000);
 					var aData = oData.results;
 					for (var i in aData) {
 						aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
@@ -3236,6 +3237,7 @@ sap.ui.define([
 
 				oPrmTask.success = function(oData) {
 					var oModel = new JSONModel({});
+					oModel.setSizeLimit(1000);
 					var aData = oData.results;
 					for (var i in aData) {
 						aData[i].createTimeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
@@ -3265,6 +3267,7 @@ sap.ui.define([
 
 				oPrmTask.success = function(oData) {
 					var oModel = new JSONModel({});
+					oModel.setSizeLimit(1000);
 					var aData = oData.results;
 					for (var i in aData) {
 						aData[i].createTimeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");

@@ -228,7 +228,8 @@ sap.ui.define([
 						"CRETM": null,
 						"CDESC": null,
 						"UMKEY": null,
-						"SCONFLAG": null
+						"SCONFLAG": null,
+						"INTERVAL":0
 					};
 					oArray.push(SCHJobData);
 					break;
