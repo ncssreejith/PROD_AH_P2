@@ -11,26 +11,31 @@
 		<HBox>
 			<VBox>
 				<Label text="{i18n>lbJobDue}" design="Bold"/>
-				<HBox>
-					<ComboBox placeholder="{i18n>phSelect}" required="{=${oViewCreateModel>/jobty} === 'S' ? true : false}"
-						fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' ? 'fgCmbBox' : ''}" selectedKey="{oViewCreateModel>/jduid}" items="{JobDueSet>/}"
-						change="onDueSelectChange">
-						<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
-					</ComboBox>
-					<HBox id="SchJobDueId" class="sapUiTinyMarginBegin">
-						<StepInput min="{oViewCreateModel>/minValue}" change="onStepChange"
-							fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? 'fgStepInput' : ''}"
-							valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}"
-							visible="{=${oViewCreateModel>/jduid}!=='' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10'}"
-							required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? true : false}"
-							displayValuePrecision="{ path:'oViewCreateModel>/jduid' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
-					</HBox>
+				<ComboBox placeholder="{i18n>phSelect}" required="{=${oViewCreateModel>/jobty} === 'S' ? true : false}"
+					fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' ? 'fgCmbBox' : ''}" selectedKey="{oViewCreateModel>/jduid}" items="{JobDueSet>/}"
+					change="onDueSelectChange">
+					<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
+				</ComboBox>
+			</VBox>
+			<VBox class="sapUiTinyMarginBegin" visible="{= ${oViewCreateModel>/jduid} ? true:false}">
+				<Label text="Job Due By" design="Bold"/>
+				<HBox id="SchJobDueId">
+					<StepInput min="{oViewCreateModel>/minValue}" change="onStepChangeSchedule"
+						fieldGroupIds="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? 'fgStepInput' : ''}"
+						valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/jduvl}"
+						visible="{=${oViewCreateModel>/jduid}!=='' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10'}"
+						required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? true : false}"
+						displayValuePrecision="{ path:'oViewCreateModel>/jduid' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 					<DatePicker width="13rem" required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10' ? true : false}"
-						fieldGroupIds="{=(${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10') ? 'fgDate' : ''}"
 						valueStateText="{i18n>ERROR_GENERIC}" visible="{=${oViewCreateModel>/jduid}==='JDU_10' ? true:false}" displayFormat="dd/MM/yyyy"
 						value="{ path: 'oViewCreateModel>/jduvl', formatter:'.formatter.defaultDateFormat'}" placeholder="New job creation date ..."
 						change="handleChangeSche" class="sapUiSmallMarginBottom"/>
+					<!--fieldGroupIds="{=(${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10') ? 'fgDate' : ''}"-->
 				</HBox>
+			</VBox>
+			<VBox class="sapUiTinyMarginBegin" visible="{= ${oViewCreateModel>/jduid} ? true:false}">
+				<Label text="Interval" design="Bold"/>
+				<Input value="{oViewCreateModel>/INTERVAL}" type="Number" textAlign="End" change="onIntervalChange"></Input>
 			</VBox>
 		</HBox>
 		<HBox class="sapUiSmallMarginTop">

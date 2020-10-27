@@ -1339,6 +1339,7 @@ sap.ui.define([
 
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
+					oModel.setSizeLimit(1000);
 					for (var i = 0; i < oData.results.length; i++) {
 						oData.results[i].ftcredt = new Date();
 						oData.results[i].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();

@@ -1,0 +1,216 @@
+<mvc:View controllerName="avmet.ah.controller.ESOperator" xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core"
+	xmlns:m="sap.m" height="100%">
+	<m:Page title="{i18n>title}" titleLevel="H2" showHeader="false" enableScrolling="false">
+		<m:Toolbar height="4rem" class="backgroundWhite">
+			<m:Button icon="sap-icon://arrow-left" type="Transparent" press="onNavBack" class="iconColorWhite sapUiMediumMarginBegin"/>
+			<m:VBox class="sapUiMediumMarginBegin">
+				<m:Title text="ES Operator" class="titleTextBoldToolbar sapUiTinyMarginTop"/>
+			</m:VBox>
+		</m:Toolbar>
+		<m:content>
+			<!--<m:Vbox>-->
+			<!--	<m:HBox>-->
+			<!--		<m:Label text="Air ID" wrapping="true" design="Bold" width="50px" class="sapUiSmallMarginBegin sapUiSmallMarginTop"></m:Label>-->
+			<!--		<m:ComboBox id="idAirID" selectionChange="onAirIDChange" class="sapUiContentPadding" width="150px" items="{oInitialModel>/AirIDs}"-->
+			<!--			showSecondaryValues="true">-->
+			<!--			<c:ListItem key="{oInitialModel>airid}" text="{oInitialModel>air}"/>-->
+			<!--		</m:ComboBox>-->
+			<!--		<m:Label text="Tail ID" wrapping="true" design="Bold" width="50px" class="sapUiLargeMarginBegin sapUiSmallMarginTop"></m:Label>-->
+			<!--		<m:ComboBox id="idTailID" selectionChange="onTailIDChange" class="sapUiContentPadding" width="150px" items="{oInitialModel>/TailIDs}"-->
+			<!--			showSecondaryValues="true">-->
+			<!--			<c:ListItem key="{oInitialModel>tailid}" text="{oInitialModel>tailno}"/>-->
+			<!--		</m:ComboBox>-->
+			<!--		<m:Button id="buttonGo" text="Go" press="onclickGo" class="sapUiLargeMarginBegin"/>-->
+			<!--	</m:HBox>-->
+			<!--</m:Vbox>-->
+			<Table id="jobTable" rows="{oGlobalModel>/Jobs}" selectionMode="MultiToggle" visibleRowCount="11" ariaLabelledBy="Job"
+				class="sapUiSmallMarginBegin">
+				<extension>
+					<m:OverflowToolbar>
+						<m:Title id="JobTable" level="H2" titleStyle="H2" text="Job Details" textAlign="Center"/>
+						<m:ToolbarSpacer/>
+						<m:Label id="ipSLabel" labelFor="inputButtomRow" text=""/>
+						<m:Input id="inputButtomRow" width="20%" liveChange="onFilterLiveChange" placeholder="search" tooltip="search"/>
+						<m:Button id="button" text="Download" press="onclickDownload"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="11rem">
+						<m:Label text="Job ID"/>
+						<template>
+							<m:Text text="{oGlobalModel>JOBID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Aircraft Tail"/>
+						<template>
+							<m:Text text="{oGlobalModel>AircraftTail}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Defect Type"/>
+						<template>
+							<m:Text text="{oGlobalModel>DefectType}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Defect Description"/>
+						<template>
+							<m:Text text="{oGlobalModel>DefectDescription}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Airframe Hours"/>
+						<template>
+							<m:Text text="{oGlobalModel>AirframeHours}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Defect Start Date/ Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>DefectStartTimestamp}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Found By"/>
+						<template>
+							<m:Text text="{oGlobalModel>FoundBy}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Found During"/>
+						<template>
+							<m:Text text="{oGlobalModel>FoundDuring}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Prime Work Center"/>
+						<template>
+							<m:Text text="{oGlobalModel>PrimeWorkCenter}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="ADD Reason"/>
+						<template>
+							<m:Text text="{oGlobalModel>ADDReason}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Period of Deferment"/>
+						<template>
+							<m:Text text="{oGlobalModel>PeriodOfDeferment}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Limitation Description"/>
+						<template>
+							<m:Text text="{oGlobalModel>LimitationDescription}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Parameters Due"/>
+						<template>
+							<m:Text text="{oGlobalModel>ParametersDue}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Parameters Value"/>
+						<template>
+							<m:Text text="{oGlobalModel>ParameterValue}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Date Due/Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>DueDateTime}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Add Approved By"/>
+						<template>
+							<m:Text text="{oGlobalModel>AddApprovedBy}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Sub Work Center"/>
+						<template>
+							<m:Text text="{oGlobalModel>SubWorkCenter}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Task ID"/>
+						<template>
+							<m:Text text="{oGlobalModel>TaskID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Component Description"/>
+						<template>
+							<m:Text text="{oGlobalModel>ComponentDescription}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Part No. Removed"/>
+						<template>
+							<m:Text text="{oGlobalModel>PartNoRemoved}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Serial No Removed"/>
+						<template>
+							<m:Text text="{oGlobalModel>SerialNoRemoved}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Part No. Installed"/>
+						<template>
+							<m:Text text="{oGlobalModel>PartNoInstalled}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Serial No Installed"/>
+						<template>
+							<m:Text text="{oGlobalModel>SerialNoInstalled}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Task - Tradesman"/>
+						<template>
+							<m:Text text="{oGlobalModel>TaskTradesman}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Task Supervisor"/>
+						<template>
+							<m:Text text="{oGlobalModel>TaskSupervisor}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Rectification Summary"/>
+						<template>
+							<m:Text text="{oGlobalModel>RectificationSummary}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Defect End Date/ Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>DefectEndTimestamp}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Job - Tradesman"/>
+						<template>
+							<m:Text text="{oGlobalModel>JobTradesman}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Job - Supervisor"/>
+						<template>
+							<m:Text text="{oGlobalModel>JobSupervisor}" wrapping="false"/>
+						</template>
+					</Column>
+				</columns>
+			</Table>
+		</m:content>
+	</m:Page>
+</mvc:View>

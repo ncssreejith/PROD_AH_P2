@@ -916,6 +916,178 @@ sap.ui.define([
 				Log.error("Exception in Limitations:_fnLimitationsGet function");
 				this.handleException(e);
 			}
+		},
+		
+		// ***************************************************************************
+		//  Profile Section  
+		// ***************************************************************************	
+		// Change Pin
+
+		onProfileModelLoad: function(oEvent) {
+			//var oProfileModel = this.getModel("oProfileModel");
+
+			try {
+				var that = this,
+					oParameter = {};
+
+				oParameter.error = function(error) {
+					MessageBox.error(error.responseText);
+				};
+				oParameter.success = function(oData) {
+					if (oData.results.length) {
+						// Populate Profile UserId/Name
+
+						this.getModel("oProfileModel").setProperty("/userId", oData.results[0].plantuser);
+						this.getModel("oProfileModel").setProperty("/userName", oData.results[0].namefirst + " " + oData.results[0].namelast);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/EmpPinPwdSvc", oParameter);
+
+			} catch (e) {
+				Log.error("Exception in UserRole:_getSystemRoles function");
+				this.handleException(e);
+			}
+
+			//	var sessionData = dataUtil.getDataSet("oUserSession");
+			//	this.getModel("oProfileModel").setProperty("/userId", "UserId");
+			//	this.getModel("oProfileModel").setProperty("/userName", "UserName");
+		},
+
+		onChangePinPress: function(oEvent) {
+			this.openDialog("ChangePin", ".fragments.");
+		},
+		onChangePwdPress: function(oEvent) {
+			this.openDialog("ChangePassword", ".fragments.");
+		},
+		onSaveChangePin: function(oEvent) {
+			var that = this;
+			if (!that._validateChangedPin(oEvent)) {
+				that._saveChangedPin(oEvent);
+				that.closeDialog("ChangePin");
+			}
+		},
+		onSaveChangePwd: function(oEvent) {
+			var that = this;
+			if (!that._validateChangedPwd(oEvent)) {
+				that._saveChangedPin(oEvent);
+				that.closeDialog("ChangePassword");
+			}
+		},
+		_validateChangedPin: function(oEvent) {
+			
+			var aChangedUser = this.getView().getModel("oProfileModel").getData();
+			if (aChangedUser.newPin === "") {
+				MessageBox.error("Pin can not be blank");
+				return true; //Invalid
+			}
+			if (aChangedUser.newPin.length !== 6) {
+				MessageBox.error("Pin should be of 6 digits");
+				return true; //Invalid
+			}
+			if (aChangedUser.newPin !== aChangedUser.newCPin) {
+				MessageBox.error("Pin is not matching");
+				return true; //Invalid
+			} else {
+				return false; //Valid
+			}
+		},
+		_validateChangedPwd: function(oEvent) {
+
+			var aChangedUser = this.getView().getModel("oProfileModel").getData();
+			var errorMsg = this._validatePasswordStr(aChangedUser.newPwd);
+			if (errorMsg) {
+				MessageBox.error(errorMsg);
+				return true; // Invalid
+			}
+			if (aChangedUser.newPwd !== aChangedUser.newCPwd) {
+				MessageBox.error("Password is not matching");
+				return true; //Invalid
+			} else {
+				return false; //Valid
+			}
+		},
+		_validatePasswordStr: function(password) {
+			try {
+				var strength = 0;
+				var lv_message = "";
+				var inValid = false;
+				if (password.match(/[a-z]+/)) {
+					strength += 1;
+				}
+				if (password.match(/[A-Z]+/)) {
+					strength += 1;
+				}
+				if (password.match(/[0-9]+/)) {
+					strength += 1;
+				}
+				if (password.match(/[$@#&!]+/)) {
+					strength += 1;
+				}
+				if (password.length < 12) {
+					lv_message = "minimum number of characters is 12";
+					inValid = true;
+				} else {
+					strength += 1;
+				}
+
+				if (password.length > 24) {
+					lv_message = "maximum number of characters is 24";
+					inValid = true;
+				} else {
+					strength += 1;
+				}
+
+				if (strength < 5) {
+					lv_message = "password is weak.Use strong password";
+					inValid = true;
+				}
+				if (inValid) {
+					//	this.getView().byId("ipPassword").setValueState(sap.ui.core.ValueState.Error);
+					//	this.getView().byId("ipPassword").setValueStateText(lv_message);
+					return lv_message;
+				} else {
+					return false;
+				}
+			} catch (e) {}
+
+		},
+		_saveChangedPin: function(oEvent) {
+			var that = this;
+
+			var aChangedUser = that.getView().getModel("oProfileModel").getData(); //oEvent.getSource().getBindingContext("oProfileModel").getObject();
+			aChangedUser.newPin = dataUtil._encriptInfo(aChangedUser.newPin);
+			aChangedUser.oldPin = dataUtil._encriptInfo(aChangedUser.oldPin);
+			if (aChangedUser.newPwd !== "" || aChangedUser.newPwd !== undefined) {
+				aChangedUser.newPwd = dataUtil._encriptInfo(aChangedUser.newPwd);
+				aChangedUser.oldPwd = dataUtil._encriptInfo(aChangedUser.oldPwd);
+			} else {
+				aChangedUser.newPwd = "";
+				aChangedUser.oldPwd = "";
+			}
+			var userDetail = {
+				plantuser: aChangedUser.userId,
+				namefirst: "",
+				namelast: "",
+				oldpin: aChangedUser.oldPin,
+				pin: aChangedUser.newPin,
+				oldpwd: aChangedUser.oldPwd,
+				pwd: aChangedUser.newPwd
+			};
+			var oParameter = {};
+			oParameter.error = function(error) {
+				MessageBox.error(error.responseText);
+			};
+			oParameter.success = function() {
+				that.getView().getModel("oProfileModel").refresh();
+				MessageBox.show("Changes are saved");
+			};
+			ajaxutil.fnUpdate("/EmpPinPwdSvc", oParameter, [userDetail], "ZRM_E_REPL", this);
+		},
+
+		onCancel: function(oEvent) {
+			var that = this;
+			that.closeDialog("ChangePin");
+			that.closeDialog("ChangePassword");
 		}
 
 	});

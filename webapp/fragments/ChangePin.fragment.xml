@@ -1,55 +1,29 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form">
 	<Dialog title="{i18n>txtChangePin}">
 		<content>
-			<l:VerticalLayout width="100%">
-				<l:BlockLayout class="nopadding">
-					<l:BlockLayoutRow class="nopadding">
-						<l:BlockLayoutCell title="" width="70%" class="nopadding infoSection">
-							<VBox width="100%">
-								<form:Form id="FormChange480_12120" editable="true">
-									<form:layout>
-										<form:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
-											emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false"/>
-									</form:layout>
-									<form:formContainers>
-										<form:FormContainer >
-											<form:formElements>
-												<form:FormElement label="{i18n>txtPinName}">
-													<form:fields>
-														<VBOX>
-															<Input id="ipOldPin" name="oldPin" fieldGroupIds="profileInfo" valueStateText="{i18n>txtPinNameVst}"
-																placeholder="{i18n>txtOldPinNamePh}" type="Password" value="{oProfileModel>/oldPin}" width="8rem" maxLength="6">
-																<layoutData>
-																	<l:GridData span="XL1 L4 M4 S4"/>
-																</layoutData>
-															</Input>
-															<!--<HBOX>-->
-																<Input id="ipPin" name="Pin" fieldGroupIds="profileInfo" valueStateText="{i18n>txtPinNameVst}" 
-																	placeholder="{i18n>txtPinNamePh}" type="Password" value="{oProfileModel>/newPin}" width="8rem" maxLength="6">
-																	<layoutData>
-																		<l:GridData span="XL1 L4 M4 S4"/>
-																	</layoutData>
-																</Input>
-																<Input id="ipCPin" name="cPin" fieldGroupIds="profileInfo" valueStateText="{i18n>txtCPinNameVst}"
-																	placeholder="{i18n>txtCPinNamePh}" type="Password" value="{oProfileModel>/newCPin}" width="8rem" maxLength="6">
-																	<layoutData>
-																		<l:GridData span="XL1 L4 M4 S4"/>
-																	</layoutData>
-																</Input>
-																<!--<Text text="{i18n>txtPinSideText}" class="sapUiTinyMarginBegin"></Text>-->
-															<!--</HBOX>-->
-														</VBOX>
-													</form:fields>
-												</form:FormElement>
-											</form:formElements>
-										</form:FormContainer>
-									</form:formContainers>
-								</form:Form>
-							</VBox>
-						</l:BlockLayoutCell>
-					</l:BlockLayoutRow>
-				</l:BlockLayout>
-			</l:VerticalLayout >
+			<VBox justifyContent="Center" alignItems="Center" class="sapUiSmallMargin">
+				<Input id="ipOldPin" name="oldPin" fieldGroupIds="profileInfo" valueStateText="{i18n>txtPinNameVst}" placeholder="{i18n>txtOldPinNamePh}"
+					type="Password" value="{oProfileModel>/oldPin}" width="8rem" maxLength="6">
+					<layoutData>
+						<l:GridData span="XL1 L4 M4 S4"/>
+					</layoutData>
+				</Input>
+				<!--<HBOX>-->
+				<Input id="ipPin" name="Pin" fieldGroupIds="profileInfo" valueStateText="{i18n>txtPinNameVst}" placeholder="{i18n>txtPinNamePh}"
+					type="Password" value="{oProfileModel>/newPin}" width="8rem" maxLength="6">
+					<layoutData>
+						<l:GridData span="XL1 L4 M4 S4"/>
+					</layoutData>
+				</Input>
+				<Input id="ipCPin" name="cPin" fieldGroupIds="profileInfo" valueStateText="{i18n>txtCPinNameVst}" placeholder="{i18n>txtCPinNamePh}"
+					type="Password" value="{oProfileModel>/newCPin}" width="8rem" maxLength="6">
+					<layoutData>
+						<l:GridData span="XL1 L4 M4 S4"/>
+					</layoutData>
+				</Input>
+				<!--<Text text="{i18n>txtPinSideText}" class="sapUiTinyMarginBegin"></Text>-->
+				<!--</HBOX>-->
+			</VBox>
 		</content>
 		<beginButton>
 			<Button text="{i18n>txtCancel}" type="Transparent" press="onCancel"/>

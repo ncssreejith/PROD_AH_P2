@@ -132,6 +132,11 @@ Description :
     width: 90px !important;
 }
 
+.aircraftSelToolbarBG {
+	background: #354a5f !important;
+}
+
+
 .tailDiv {
     height: inherit !important;
 }

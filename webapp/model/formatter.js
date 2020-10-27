@@ -1626,8 +1626,14 @@ sap.ui.define([
 				oDatePicker = that.getView().byId(idDate),
 				creDt = oDatePicker.getDateValue(),
 				oTimePick = that.getView().byId(idTime),
-				creTm = oTimePick.getValue(),
-				date = creDt.getDate(),
+				creTm = oTimePick.getValue();
+				
+				if (!creDt) {
+					creDt = oDatePicker.getValue();
+					var splitDt = creDt.split("/");
+					creDt = new Date(splitDt[2],splitDt[1]-1,splitDt[0]);
+				}
+				var date = creDt.getDate(),
 				year = creDt.getFullYear(),
 				month = creDt.getMonth() + 1;
 			var dateString = '' + year + '-' + month + '-' + date;

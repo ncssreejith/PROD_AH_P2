@@ -1,5 +1,4 @@
-<mvc:View controllerName="avmet.ah.controller.AvMetFrame" xmlns="sap.m" xmlns:tnt="sap.tnt"
-	xmlns:mvc="sap.ui.core.mvc">
+<mvc:View controllerName="avmet.ah.controller.AvMetFrame" xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:mvc="sap.ui.core.mvc">
 	<tnt:ToolPage id="tpAvmet" sideExpanded="false">
 		<tnt:header>
 			<tnt:ToolHeader>
@@ -8,22 +7,26 @@
 						<OverflowToolbarLayoutData priority="NeverOverflow"/>
 					</layoutData>
 				</Button>
-				<Title text="{avmetModel>/login/air} {avmetModel>/airSel/modidtx} {= ${avmetModel>/airSel/tailid} !=='NA' ? ${avmetModel>/airSel/tailno} : ''}" class="frameTitle sapUiTinyMarginTop"></Title>
+				<Title
+					text="{avmetModel>/login/air} {avmetModel>/airSel/modidtx} {= ${avmetModel>/airSel/tailid} !=='NA' ? ${avmetModel>/airSel/tailno} : ''}"
+					class="frameTitle sapUiTinyMarginTop"></Title>
 				<ToolbarSeparator/>
 				<ToolbarSpacer/>
 				<ToolbarSpacer/>
 				<ToolbarSeparator/>
 				<!-- Sample for showing Notification -->
 				<!--class="infobtn"-->
-				<Button visible="{= ${avmetModel>/airSel/tailid} !=='NA'}" icon="sap-icon://flight" text="{parts:['avmetModel>/dash/astid','avmetModel>/dash/astat'],formatter:'avmet.ah.model.formatter.statusColor'}"  type="Transparent" press="onAircraftInfoPress"/>
+				<Button visible="{= ${avmetModel>/airSel/tailid} !=='NA'}" icon="sap-icon://flight"
+					text="{parts:['avmetModel>/dash/astid','avmetModel>/dash/astat'],formatter:'avmet.ah.model.formatter.statusColor'}" type="Transparent"
+					press="onAircraftInfoPress"/>
 				<HBox visible="{= ${avmetModel>/airSel/tailid} !=='NA'}">
 					<Avatar src="sap-icon://employee" displaySize="XS" class="avatarSM"/>
-					<MenuButton text="{avmetModel>/dash/sqnidtxt}" activeIcon="sap-icon://attachment" buttonMode="Regular" type="Transparent" defaultAction="onActionEvt"
-						useDefaultActionOnly="true">
+					<MenuButton text="{avmetModel>/dash/sqnidtxt}" activeIcon="sap-icon://attachment" buttonMode="Regular" type="Transparent"
+						defaultAction="onActionEvt" useDefaultActionOnly="true">
 						<menu>
 							<Menu >
 								<items>
-									<MenuItem text="Main custodian: {avmetModel>/dash/csqidtxt}" icon="sap-icon://flight" />
+									<MenuItem text="Main custodian: {avmetModel>/dash/csqidtxt}" icon="sap-icon://flight"/>
 								</items>
 							</Menu>
 						</menu>
@@ -31,8 +34,23 @@
 							<OverflowToolbarLayoutData priority="NeverOverflow"/>
 						</layoutData>
 					</MenuButton>
+					<MenuButton icon="sap-icon://employee" displaySize="S" buttonMode="Regular" type="Transparent" defaultAction="onClickProfile"
+						useDefaultActionOnly="true">
+						<menu>
+							<Menu itemSelected="onProfileAction">
+								<MenuItem text="{oProfileModel>/userName}" icon="sap-icon://activity-individual"/>
+								<MenuItem text="{oProfileModel>/userId}" icon="sap-icon://business-card"/>
+								<MenuItem text="Change Pin" icon="sap-icon://edit" press="onChangePinPress"/>
+								<!--<MenuItem text="Change Password" icon="sap-icon://edit" press="onChangePwdPress" />-->
+								<MenuItem text="Logoff" type='Reject' class="logoff" press="onLogoffPress" icon="sap-icon://log"/>
+							</Menu>
+						</menu>
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</MenuButton>
 				</HBox>
-				<Button icon="sap-icon://log" type='Reject' class="logoff"  press="onLogoffPress"/>
+				<!--<Button icon="sap-icon://log" type='Reject' class="logoff"  press="onLogoffPress"/>-->
 			</tnt:ToolHeader>
 		</tnt:header>
 		<tnt:mainContents>

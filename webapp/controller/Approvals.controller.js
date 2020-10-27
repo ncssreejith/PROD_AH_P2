@@ -319,6 +319,11 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel");
 				switch (oModel.getProperty("/flag")) {
 					case "W":
+						if (sValue === "A") {
+							oModel.setProperty("/successText", "This Weight and Balance is approved");
+						} else {
+							oModel.setProperty("/successText", "This Weight and Balance is rejected");
+						}
 						this._fnUpdateWB(sValue);
 						break;
 					case "A":
@@ -423,7 +428,8 @@ sap.ui.define([
 					"CREUSR": "",
 					"DMDID": "",
 					"OTHER_RSN": "",
-					"CDESC": null
+					"CDESC": null,
+					"remarks":""
 				};
 
 				oParameter.error = function(response) {
@@ -492,7 +498,8 @@ sap.ui.define([
 					"CREUSR": "",
 					"DMDID": "",
 					"OTHER_RSN": "",
-					"CDESC": null
+					"CDESC": null,
+					"remarks":""
 				};
 
 				oParameter.error = function(response) {
@@ -966,9 +973,9 @@ sap.ui.define([
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
-					sCount = oData.results[0].COUNT;
+						sCount = oData.results[0].COUNT;
 					} else {
-						sCount="0";
+						sCount = "0";
 					}
 					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
 				}.bind(this);

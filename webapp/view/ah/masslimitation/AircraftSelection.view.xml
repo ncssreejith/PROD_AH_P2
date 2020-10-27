@@ -1,6 +1,16 @@
 <mvc:View controllerName="avmet.ah.controller.AircraftSelection" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core" displayBlock="true" xmlns="sap.m">
 	<Page title="AVMET">
+		<customHeader>
+			<Toolbar class="aircraftSelToolbarBG">
+			<Title text="AH" class="sapUiMediumMarginBegin whiteText"></Title>
+			<ToolbarSeparator/>
+			<ToolbarSpacer/>
+			<ToolbarSpacer/>
+			<ToolbarSeparator/>
+			<Button text="Logoff" type='Reject' class="logoff" press="onLogoffPress" icon="sap-icon://log"></Button>
+			</Toolbar>
+		</customHeader>
 		<content>
 			<IconTabBar id="idIconTabBarFiori2" upperCase="true" selectedKey="{oAirSelectViewModel>/selTab}" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding" >
 				<items>
