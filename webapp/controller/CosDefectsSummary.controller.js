@@ -2842,7 +2842,7 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq UTIL1_";
+				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq UTIL1_";
 
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
@@ -2890,7 +2890,7 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq CPR_";
+				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq CPR_";
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
