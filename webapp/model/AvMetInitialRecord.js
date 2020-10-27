@@ -72,7 +72,15 @@ sap.ui.define([
 						"TRAILKVAL": null,
 						"TRAILKDT": null,
 						"fstatflag": null,
-						"ETRFLAG": null
+						"ETRFLAG": null,
+						"FAIRNR": null,
+						"INTERVAL": null,
+						"SG1USR": null,
+						"SG1DTM": null,
+						"SG1UZT": null,
+						"SG2USR": null,
+						"SG2DTM": null,
+						"SG2UZT": null
 					};
 					oArray.push(CREATEJOB);
 					break;
@@ -141,7 +149,7 @@ sap.ui.define([
 						"RTTY": null,
 						"ENTINERR": null,
 						"RECTSTAR": null,
-						"PRESERNR":null
+						"PRESERNR": null
 
 					};
 					oArray.push(oTask);

@@ -133,10 +133,11 @@ sap.ui.define([
 					canvas, curOffsetX = 0,
 					oModelMain = this.getView().getModel("oViewCreateModel"),
 					curOffsetY = 0;
+				var oModel = that.getView().getModel("appModel").getData();
 				var dDate = new Date();
 				oModelMain.setProperty("/mark", 1);
 				oModelMain.setProperty("/deaid", oModel.SelectedKey);
-				var oModel = that.getView().getModel("appModel").getData();
+
 				if (oModel.DefectNameChar === "") {
 					oModel.DefectNameChar = "A";
 					sNewChar = oModel.DefectNameChar;

@@ -2160,8 +2160,10 @@ sap.ui.define([
 					for (var i = 0; i < oTable.getSelectedItems().length; i++) {
 						oObj = oTable.getSelectedItems()[i].getBindingContext("TaskPendingModel").getObject();
 						oTempObj = this._fnGetObjectTypeAndActivity(oObj.tt1id);
-						oObj.objectid = oTempObj.obj;
-						oObj.activity = oTempObj.Act;
+						/*oObj.objectid = oTempObj.obj;
+						oObj.activity = oTempObj.Act;*/
+						oObj.objectid = "ZRM_COS_TT";
+						oObj.activity = "4";
 						oObj.symbol = "0";
 						oObj.tstat = "C";
 						oPayload.push(oObj);
@@ -3057,10 +3059,10 @@ sap.ui.define([
 					oPayload.utilvl = oPayload.utilvl;
 				}
 				oTempObj = this._fnGetObjectTypeAndActivity(oPayload.tt1id);
-				/*oPayload.objectid = oTempObj.obj;
-				oPayload.activity = oTempObj.Act;*/
-				oPayload.objectid = "ZRM_COS_TP";
-				oPayload.activity = "2";
+				oPayload.objectid = oTempObj.obj;
+				oPayload.activity = oTempObj.Act;
+				/*	oPayload.objectid = "ZRM_COS_TP";
+					oPayload.activity = "2";*/
 				oPayload.symbol = "0";
 				oPrmTask.filter = "";
 				oPrmTask.error = function() {};
@@ -3211,8 +3213,10 @@ sap.ui.define([
 						that._fnTasksPendingSupGet(oViewModel.getProperty("/sJobId"), oViewModel.getProperty("/WorkCenterKey"));
 						this.byId("pageSummaryId").scrollTo(0);
 					}.bind(this);
-					sObject = oTempObj.obj;
-					oPrmTask.activity = oTempObj.Act;
+					/*	sObject = oTempObj.obj;
+						oPrmTask.activity = oTempObj.Act;*/
+					sObject = "ZRM_COS_TT";
+					oPrmTask.activity = "4";
 					oPrmTask.title = "Tradesman Sign Off";
 					ajaxutil.fnUpdate("/Task1Svc", oPrmTask, [oPayload], sObject, this);
 				}
