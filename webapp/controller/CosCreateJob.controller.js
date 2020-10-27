@@ -764,7 +764,7 @@ sap.ui.define([
 					oPayload.JOBDESC = oJobModel.getProperty("/jobdesc");
 					oPayload.JOBTY = "ZA";
 					if (oJobModel.getProperty("/jduid") === 'JDU_10') {
-						oPayload.SERVDT = oJobModel.getProperty("/jdudt");
+						oPayload.SERVDT = oJobModel.getProperty("/jduvl");
 					} else {
 						oPayload.SERVDUE = oJobModel.getProperty("/jduvl");
 					}

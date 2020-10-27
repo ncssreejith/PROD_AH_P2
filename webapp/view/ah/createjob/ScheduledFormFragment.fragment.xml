@@ -26,7 +26,7 @@
 						visible="{=${oViewCreateModel>/jduid}!=='' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10'}"
 						required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}!=='JDU_10' ? true : false}"
 						displayValuePrecision="{ path:'oViewCreateModel>/jduid' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
-					<DatePicker width="13rem" required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10' ? true : false}"
+					<DatePicker id="DP2" width="13rem" required="{=${oViewCreateModel>/jobty} === 'S' &amp;&amp; ${oViewCreateModel>/jduid}==='JDU_10' ? true : false}"
 						valueStateText="{i18n>ERROR_GENERIC}" visible="{=${oViewCreateModel>/jduid}==='JDU_10' ? true:false}" displayFormat="dd/MM/yyyy"
 						value="{ path: 'oViewCreateModel>/jduvl', formatter:'.formatter.defaultDateFormat'}" placeholder="New job creation date ..."
 						change="handleChangeSche" class="sapUiSmallMarginBottom"/>
