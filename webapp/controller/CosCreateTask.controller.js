@@ -1048,7 +1048,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		_fnSubmitTireSignOff: function(oData) {
 			try {
 				var oPayload = [],
@@ -1077,9 +1077,12 @@ sap.ui.define([
 						oPayload.push(JSON.parse(JSON.stringify(obj)));
 					}
 				}
-				oPrmTask.error = function() {};
-				oPrmTask.success = function(oData) {}.bind(this);
-				ajaxutil.fnUpdate("/LandingTyreSvc", oPrmTask, oPayload);
+				if (oPayload.length > 0) {
+					oPrmTask.error = function() {};
+					oPrmTask.success = function(oData) {}.bind(this);
+					ajaxutil.fnUpdate("/LandingTyreSvc", oPrmTask, oPayload);
+				}
+
 			} catch (e) {
 				Log.error("Exception in _fnSubmitTireSignOff function");
 			}

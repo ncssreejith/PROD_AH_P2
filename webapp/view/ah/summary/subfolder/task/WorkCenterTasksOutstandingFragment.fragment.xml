@@ -24,9 +24,15 @@
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
+					<Column width="10%" hAlign="Start" class="textColor">
+						<HBox>
+							<Label text="Type" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'taskTypeText')"/>
+						</HBox>
+					</Column>
 					<Column width="auto" hAlign="Start" minScreenWidth="Tablet" demandPopin="true" class="textColor">
 						<HBox>
-							<Label text="{i18n>lbTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Label text="{i18n>lblTaskDesc}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'tdesc')"/>
 						</HBox>
 					</Column>
@@ -46,6 +52,7 @@
 				<items>
 					<ColumnListItem vAlign="Middle" type="Navigation" press="onAllOutStandingDetailsPress">
 						<cells>
+							<Text text="{TaskOutModel>taskTypeText}"/>
 					<!--		<HBox>
 								<Text text="{TaskOutModel>tdesc}"
 									visible="{= ${TaskOutModel>tt1id}!=='TT1_15'|| ${TaskOutModel>tt1id}!=='TT1_17' || ${TaskOutModel>tt1id}!=='TT1_18'? true:false}"/>

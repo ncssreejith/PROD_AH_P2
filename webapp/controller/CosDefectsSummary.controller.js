@@ -1785,7 +1785,7 @@ sap.ui.define([
 				var that = this,
 					oModel;
 				oModel = dataUtil.createNewJsonModel();
-				if (oPayLoad.multi !== null) {
+				if (oPayLoad.multi !== null && oPayLoad.multi !== "0") {
 					this._fnMultiTradmanGet(oPayLoad.taskid);
 				}
 
@@ -1798,7 +1798,7 @@ sap.ui.define([
 
 				if (!that._oSupDetails) {
 					that._oSupDetails = sap.ui.xmlfragment("OSTId",
-						"avmet.f16.fragments.SupervisorTaskDetails",
+						"avmet.ah.fragments.SupervisorTaskDetails",
 						that);
 					oModel.setData(oPayLoad);
 					that._oSupDetails.setModel(oModel, "DetailsSupModel");
@@ -2964,10 +2964,10 @@ sap.ui.define([
 				var that = this,
 					filters = [],
 					oModel,
-					oObj = oEvent.getSource().getBindingContext("TaskCompleteModel").getObject(),
+					oObj = oEvent.getSource().getSelectedContexts()[0].getObject(),
 					sFilter, bFlag = true,
 					oPrmJobDue = {};
-				oEvent.getSource().setSelected(true);
+				//oEvent.getSource().setSelected(true);
 				sFilter = "taskid eq " + oObj.taskid;
 				oPrmJobDue.filter = sFilter;
 				oPrmJobDue.error = function() {};
@@ -3124,6 +3124,7 @@ sap.ui.define([
 					var aData = oData.results;
 					for (var i in aData) {
 						aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
+						aData[i].taskTypeText = formatter.taskTemplateCheck(aData[i].RTTY);
 					}
 					oModel.setData(aData);
 					oLocalModel.setProperty("/OutstandingCount", aData.length);
@@ -3242,6 +3243,7 @@ sap.ui.define([
 					for (var i in aData) {
 						aData[i].createTimeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
 						aData[i].closeTimeVal = formatter.getTimeValueForDate(aData[i], "ftcredt", "ftcretm");
+						aData[i].taskTypeText = formatter.taskTemplateCheck(aData[i].RTTY);
 					}
 					oModel.setData(aData);
 					oLocalModel.setProperty("/PendingSupCount", aData.length);
@@ -3272,6 +3274,7 @@ sap.ui.define([
 					for (var i in aData) {
 						aData[i].createTimeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
 						aData[i].closeTimeVal = formatter.getTimeValueForDate(aData[i], "ftcredt", "ftcretm");
+						aData[i].taskTypeText = formatter.taskTemplateCheck(aData[i].RTTY);
 					}
 					oModel.setData(aData);
 					oLocalModel.setProperty("/CompleteCount", aData.length);

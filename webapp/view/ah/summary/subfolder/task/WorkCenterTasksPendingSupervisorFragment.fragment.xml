@@ -22,9 +22,15 @@
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
-					<Column width="13%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Column width="6%" hAlign="Start" class="textColor">
 						<HBox>
-							<Label text="{i18n>lbTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Label text="Type" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'taskTypeText')"/>
+						</HBox>
+					</Column>
+					<Column width="13%" hAlign="Start" minScreenWidth="Tablet" demandPopin="true">
+						<HBox>
+							<Label text="{i18n>lblTaskDesc}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'tdesc')"/>
 						</HBox>
 					</Column>
@@ -34,7 +40,7 @@
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor sapUiTinyMarginTop" press="onSort($event,'createTimeVal')"/>
 						</HBox>
 					</Column>
-					<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Start">
 						<HBox>
 							<Label text="{i18n>lbFollowupTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')"/>
@@ -68,6 +74,7 @@
 								<Text text="{TaskPendingModel>cdesc}"
 									visible="{= ${TaskPendingModel>tt1id}==='TT1_15'|| ${TaskPendingModel>tt1id}==='TT1_17' || ${TaskPendingModel>tt1id}==='TT1_18'? true:false}"/>
 							</HBox>-->
+							<Text text="{TaskPendingModel>taskTypeText}"/>
 							<HBox wrap="Wrap" class="textOverFlow">
 								<Text text="{TaskPendingModel>tdesc}" wrapping="true" visible="{= ${TaskOutModel>tt1id} !== 'TT1_12' ? true:false}"/>
 								<Text text="{TaskPendingModel>tdesc}" wrapping="true" visible="{= ${TaskOutModel>tt1id} === 'TT1_12' ? true:false}"/>

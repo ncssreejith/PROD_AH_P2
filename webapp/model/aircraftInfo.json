@@ -109,12 +109,17 @@
 		"text": "Prime Work Center",
 		"type": "JobC",
 		"filter": "Contains"
-	}, {
-		"key": "tdesc",
-		"text": "Task",
+	},{
+		"key": "taskTypeText",
+		"text": "Type",
 		"type": "TaskOut TaskPending TaskCompleted",
 		"filter": "Contains"
 	}, {
+		"key": "tdesc",
+		"text": "Description",
+		"type": "TaskOut TaskPending TaskCompleted",
+		"filter": "Contains"
+	},{
 		"key": "ftdesc",
 		"text": "Follow-Up Task",
 		"type": "TaskPending TaskCompleted",

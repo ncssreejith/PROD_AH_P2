@@ -1621,11 +1621,11 @@ sap.ui.define([
 			}
 		},
 
-		validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime, futureCheck) {
+		validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime, futureCheck, fragmentId) {
 			var maxDt = new Date(),
-				oDatePicker = that.getView().byId(idDate),
+				oDatePicker = fragmentId ? sap.ui.core.Fragment.byId(fragmentId, idDate) : that.getView().byId(idDate),
 				creDt = oDatePicker.getDateValue(),
-				oTimePick = that.getView().byId(idTime),
+				oTimePick = fragmentId ? sap.ui.core.Fragment.byId(fragmentId, idTime) : that.getView().byId(idTime),
 				creTm = oTimePick.getValue();
 				
 				if (!creDt) {
@@ -1790,6 +1790,13 @@ sap.ui.define([
 				return "fgTxtArea";
 			}
 			return "";
+		},
+		taskTemplateCheck : function (sVal){
+			if (sVal) {
+				return  "Template";
+			} else {
+				return "Manual";
+			}
 		}
 
 	};

@@ -48,6 +48,12 @@ sap.ui.define([
 			var prevTime = this.getModel("oViewModel").getProperty("/backTm");
 			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateADDpast", "errorCreateADDfuture", prevDt, prevTime);
 		},
+		
+		handleChangeExpiry : function (){
+			var prevDt = this.getModel("oViewModel").getProperty("/backDt");
+			var prevTime = this.getModel("oViewModel").getProperty("/backTm");
+			return formatter.validDateTimeChecker(this, "DP2", "TP2", "errorADDexpiryDatePast", "", prevDt, prevTime, false);
+		},
 		//-------------------------------------------------------------
 		// 
 		//-------------------------------------------------------------
@@ -242,6 +248,9 @@ sap.ui.define([
 				}
 				
 				if (!this.handleChange()) {
+					return;
+				}
+				if (!this.handleChangeExpiry()) {
 					return;
 				}
 				var dDate = new Date();

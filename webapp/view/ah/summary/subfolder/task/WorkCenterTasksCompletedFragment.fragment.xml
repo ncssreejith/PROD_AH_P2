@@ -8,7 +8,7 @@
 			</items>
 		</VBox>
 		<VBox backgroundDesign="Solid" visible="{=${TaskCompleteModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
-			<Table id="tbWcCompletedId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect"
+			<Table id="tbWcCompletedId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="SingleSelectMaster" itemPress="onSelTasksGetComplete"
 				items="{ path: 'TaskCompleteModel>/', sorter: [{ path: 'rtaskid', descending: false }]}" noDataText="{i18n>txtNoTextCompleted}" showNoData="true">
 				<headerToolbar>
 					<OverflowToolbar>
@@ -22,9 +22,15 @@
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
-					<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Column width="6%" hAlign="Center" class="textColor">
 						<HBox>
-							<Label text="{i18n>lbTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Label text="Type" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'taskTypeText')"/>
+						</HBox>
+					</Column>
+					<Column width="10%" hAlign="Start" minScreenWidth="Tablet" demandPopin="true">
+						<HBox>
+							<Label text="{i18n>lblTaskDesc}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'tdesc')"/>
 						</HBox>
 					</Column>
@@ -34,7 +40,7 @@
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'createTimeVal')"/>
 						</HBox>
 					</Column>
-					<Column width="9%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Column width="9%" minScreenWidth="Tablet" demandPopin="true" hAlign="Start">
 						<HBox>
 							<Label text="{i18n>lbFollowupTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')"/>
@@ -75,6 +81,7 @@
 								<Text text="{TaskCompleteModel>cdesc}"
 									visible="{= ${TaskCompleteModel>tt1id}==='TT1_15'|| ${TaskCompleteModel>tt1id}==='TT1_17' || ${TaskCompleteModel>tt1id}==='TT1_18'? true:false}"/>
 							</HBox>-->
+							<Text text="{TaskCompleteModel>taskTypeText}"/>
 							<HBox wrap="Wrap" class="textOverFlow">
 								<Text text="{TaskCompleteModel>tdesc}" wrapping="true" visible="{= ${TaskOutModel>tt1id} !== 'TT1_12' ? true:false}"/>
 								<Text text="{TaskCompleteModel>tdesc}" wrapping="true" visible="{= ${TaskOutModel>tt1id} === 'TT1_12' ? true:false}"/>

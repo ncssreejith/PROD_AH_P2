@@ -205,6 +205,12 @@ sap.ui.define([
 				Log.error("Exception in onManageRequest function");
 			}
 		},
+		
+		handleChange: function() {
+			var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+			var prevTime = this.getModel("ViewModel").getProperty("/backTm");
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorADDexpiryDatePast", "", prevDt, prevTime, false, "EditLimId");
+		},
 		//-------------------------------------------------------------
 		//  
 		//-------------------------------------------------------------
@@ -903,6 +909,9 @@ sap.ui.define([
 					oPayload,
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
+				if (!this.handleChange()) {
+					return;
+				}
 				oPayload = this.getView().getModel("CapExtendSet").getData();
 
 				if (oPayload.OPPR === "U") {
@@ -1050,6 +1059,23 @@ sap.ui.define([
 				Log.error("Exception in _fnUtilizationGet function");
 			}
 		},
+		
+		_fnGetDateValidation: function(sJobId) {
+			try {
+				var oPrmTaskDue = {};
+				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("ViewModel").setProperty("/backDt", oData.results[0].VDATE);
+						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetDateValidation function");
+			}
+		},
 
 		// ***************************************************************************
 		//                 3.  Specific Methods  
@@ -1098,7 +1124,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("CapExtendSet"),
 					oModelDialog = this.getView().getModel("ViewModel");
 				this._fnCAPDataGet("O", oNavModel.getProperty("/jobid"), oNavModel.getProperty("/capid"));
-
+				this._fnGetDateValidation(oNavModel.getProperty("/jobid"));
 				if (!this._oManageLim) {
 					this._oManageLim = sap.ui.xmlfragment("EditLimId",
 						"avmet.ah.fragments.ApprovalManageLimitation",
