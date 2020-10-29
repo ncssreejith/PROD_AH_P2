@@ -1,25 +1,39 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog title="Raise Schedule Concession" class="popoverHeaderCSS" contentWidth="40%">
-		<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">
-			<VBox class="sapUiLargeMarginBeginEnd sapUiMediumMarginTopBottom" alignItems="Central" alignContent="Central">
-				<Label text="{i18n>lbJobDue}" design="Bold"/>
-				<HBox>
-					<ComboBox width="13rem" class="sapUiTinyMarginEnd"  placeholder="{i18n>phSelect}" selectedKey="{RSModel>/DueBy}" editable="false" items="{JobDueSet>/}" change="onDueSelectChange">
+	<Dialog id="dgId" title="Raise Schedule Concession" class="popoverHeaderCSS" contentWidth="50%">
+		<VBox class="sapUiSmallMarginTop" alignContent="Center" alignItems="Center">
+			<HBox>
+				<VBox alignItems="Central" alignContent="Central">
+					<Label text="{i18n>lbJobDue}" design="Bold"/>
+					<Select id="cbJobDueId" width="13rem" placeholder="{i18n>phSelect}" selectedKey="{RSModel>/DueBy}" class="sapUiTinyMarginEnd"
+						items="{JobDueSet>/}" change="onDueSelectChange">
 						<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
-					</ComboBox>
-					<HBox id="SchJobDueId" visible="{RSModel>/UtilValFlag}">
-						<StepInput width="13rem"  min="{RSModel>/minVal}"  valueStateText="{i18n>ERROR_GENERIC}" value="{RSModel>/UtilVal}"
-							displayValuePrecision="{path:'RSModel>/DueBy' , formatter:'.formatter.JobDueDecimalPrecision'}" change="onStepChange" />
+					</Select>
+				</VBox>
+				<VBox>
+					<Label text="Job Due At" design="Bold"></Label>
+					<HBox>
+						<HBox id="SchJobDueId">
+							<StepInput id="siSchedId" width="13rem" min="{RSModel>/minVal}"
+								visible="{= (${RSModel>/DueBy}!=='' &amp;&amp; ${RSModel>/DueBy}!=='JDU_10') ? true : false}"
+								displayValuePrecision="{path:'RSModel>/DueBy' , formatter:'.formatter.JobDueDecimalPrecision'}" valueStateText="{i18n>ERROR_GENERIC}"
+								value="{RSModel>/UtilVal}" change="onStepChangeSchedule"/>
+						</HBox>
+						<DatePicker id="dpScheId" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" minDate="{RSModel>/minDT}"
+							visible="{=${RSModel>/DueBy}==='JDU_10' ? true:false}"
+							value="{path: 'RSModel>/ExpDate', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+							placeholder="New job creation date ..." change="handleChangeSche" class="sapUiSmallMarginBottom"/>
 					</HBox>
-					<DatePicker width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{RSModel>/ExpDateFlag}" minDate="{RSModel>/minDT}"
-						value="{path: 'RSModel>/ExpDate', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
-						placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
-				</HBox>
-			</VBox>
+				</VBox>
+				<VBox id="vbInterval" class="sapUiTinyMarginBegin">
+					<Label text="Interval" design="Bold"/>
+					<Input id="ipInterval" value="{RSModel>/INTERVAL}" type="Number" textAlign="End" change="onIntervalChange"></Input>
+				</VBox>
+			</HBox>
 		</VBox>
 		<buttons>
 			<Button text="Cancel" press="onCloseRaiseScheduleConcession"/>
-			<Button text="Raise Schedule Concession" press="onRaiseScheduleConcessionPress('Y')" type="Emphasized"/>
+			<Button id="btnRaise" text="Raise Schedule Concession" press="onRaiseScheduleConcessionPress('Y')" type="Emphasized"/>
+			<Button id="btnEdit" text="Edit Schedule Concession" press="onRaiseScheduleConcessionPress('E')" type="Emphasized"/>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

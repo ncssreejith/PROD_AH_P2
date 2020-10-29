@@ -121,7 +121,7 @@ sap.ui.define([
 		},
 		
 		
-		onFlyingRequirementDelete: function(oObj) {
+		/*onFlyingRequirementDelete: function(oObj) {
 			try {
 				var that = this,
 					oPrmFR = {},
@@ -132,6 +132,23 @@ sap.ui.define([
 				}.bind(this);
 				oPrmFR.activity = 4;
 				ajaxutil.fnDelete("/FlyingRequirementSvc/" + oObj.JOBID + "/" + oObj.TAILID + "/" + oObj.FR_NO, oPrmFR, "dummy", this);
+			} catch (e) {
+				Log.error("Exception in onFlyingRequirementDelete function");
+			}
+		},*/
+		onFlyingRequirementDelete: function(oObj) {
+			try {
+				var that = this,
+					oPrmFR = {},
+					oModel = this.getView().getModel("LocalModel");
+				var sPath = "/FlyingRequirementSvc(" +
+					"JOBID=" + oObj.JOBID + ",TAILID=" + oObj.TAILID + ",FR_NO=" + oObj.FR_NO + ")";
+				oPrmFR.error = function() {};
+				oPrmFR.success = function(oData) {
+					that._fnFlyingRequirementsMasterGet();
+				}.bind(this);
+				oPrmFR.activity = 4;
+				ajaxutil.fnDelete(sPath, oPrmFR, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in onFlyingRequirementDelete function");
 			}

@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<Dialog showHeader="false" horizontalScrolling="false" draggable="true">
 		<content>
 			<VBox id="addWCId" visible="true">
@@ -15,7 +15,7 @@
 				<Toolbar class="sapUiSmallMarginBottom toolbarBorder">
 					<ToolbarSpacer/>
 					<Button width="6rem" text="{i18n>btnCancel}" press="onCloseAddWorkCenterDialog('Y')" type="Default" class="btnClass"></Button>
-					<Button width="6rem" text="{i18n>btnConfirm}" class="btnColor" press="onRaiseScheduleConcessionPress('N')"></Button>
+					<Button width="6rem" text="{i18n>btnConfirm}" class="btnColor" press="onUpdateWorkCenterPress"></Button>
 					<ToolbarSpacer/>
 				</Toolbar>
 			</VBox>

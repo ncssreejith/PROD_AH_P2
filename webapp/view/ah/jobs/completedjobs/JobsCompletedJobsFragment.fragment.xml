@@ -63,8 +63,8 @@
 				<ColumnListItem vAlign="Middle" type="Navigation" press="onDefectsCompletePress">
 					<cells>
 						<VBox>
-							<Text text="{path:'JobModelC>credtm', formatter:'.formatter.defaultDateFormatDisplay'}"/>
-							<Text text="{path:'JobModelC>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+							<Text text="{path:'JobModelC>credt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+							<Text text="{path:'JobModelC>cretm', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
 						</VBox>
 						<Text text="{JobModelC>jobid}"/>
 						<Text text="{JobModelC>jobdesc}"/>

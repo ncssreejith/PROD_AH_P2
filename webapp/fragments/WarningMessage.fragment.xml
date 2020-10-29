@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<ResponsivePopover title="{Name}" showHeader="false" class="sapUiPopupWithPadding" placement="Bottom">
 		<content>
 			<Text text="{ToolTipModel>/Text}" width="25rem"/>

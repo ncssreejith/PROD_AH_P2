@@ -180,20 +180,20 @@ sap.ui.define([
 					oSegmentedButton = this.byId('ScheReqId'),
 					oSelectedItemId = oSegmentedButton.getSelectedKey();
 				oPayload = that.getView().getModel("JobModel").getData();
+				try {
+					oPayload.rectdt = formatter.defaultOdataDateFormat(oPayload.rectdt);
+				} catch (e) {
+					oPayload.rectdt = oPayload.rectdt;
+				}
+				try {
+					oPayload.credt = formatter.defaultOdataDateFormat(oPayload.credt);
+				} catch (e) {
+					oPayload.credt = oPayload.credt;
+				}
 
 				if (oModel.getProperty("/sFlag") === "N") {
 					if (oPayload.notity !== null && oPayload.trail !== "0") {
 						if (sSignFlag === "TR") {
-							try {
-								oPayload.rectdt = formatter.defaultOdataDateFormat(oPayload.rectdt);
-							} catch (e) {
-								oPayload.rectdt = oPayload.rectdt;
-							}
-							try {
-								oPayload.credt = formatter.defaultOdataDateFormat(oPayload.credt);
-							} catch (e) {
-								oPayload.credt = oPayload.credt;
-							}
 							try {
 								if (oPayload.TRAILKDT) {
 									oPayload.TRAILKDT = formatter.defaultOdataDateFormat(oPayload.TRAILKDT);
@@ -755,6 +755,29 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onDueSelectChange function");
 				this.handleException(e);
+			}
+		},
+		
+		onDueSelectChangeES: function(oEvent) {
+			try {
+				var sDue = oEvent.getSource().getSelectedItem().getText();
+				var sKey = oEvent.getSource().getSelectedKey();
+				var oAppModel = this.getView().getModel("JobCreateModel");
+				oAppModel.setProperty("/UM", sDue);
+				oAppModel.setProperty("/UMKEY", sKey);
+				if (sKey.length > 0) {
+					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+						oAppModel.setProperty("/UMMinVal", minVal);
+						var sVal = oAppModel.getProperty("/SERVDUE") ? oAppModel.getProperty("/SERVDUE") : 0;
+						sVal = parseFloat(sVal, [10]);
+						var iPrec = formatter.JobDueDecimalPrecision(sKey);
+						oAppModel.setProperty("/SERVDUE", parseFloat(minVal, [10]).toFixed(iPrec));
+
+					}
+				}
+			} catch (e) {
+				Log.error("Exception in onDueSelectChange function");
 			}
 		},
 

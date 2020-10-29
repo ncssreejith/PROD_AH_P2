@@ -6,9 +6,13 @@
 			<VBox>
 				<VBox>
 					<Label text="{i18n>lbDate}" design="Bold"/>
+					<!--<DatePicker id="DP1" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
+						value="{path: 'oViewCreateModel>/credt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+						placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>-->
 					<DatePicker id="DP1" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
-						value="{path: 'oViewCreateModel>/credt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
-						placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+						value="{path: 'oViewCreateModel>/credt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
+						placeholder="New job creation date ..." maxDate="{oViewCreateModel>/creMaxdt}" minDate="{oViewCreateModel>/creMindt}" change="handleChange"
+						class="sapUiSmallMarginBottom"/>
 				</VBox>
 				<VBox>
 					<Label text="{i18n>lbTime}" design="Bold"/>
@@ -23,7 +27,7 @@
 				<VBox>
 					<Label text="{i18n>lbWINateureofJobs}" design="Bold"/>
 					<SegmentedButton id="SB1" class="sapUiSmallMarginBottom" required="true" fieldGroupIds="fgSGBtn"
-						selectionChange="onSelectionNatureofJobChange" selectedKey="{oViewCreateModel>/jobty}"  enabled="{appModel>/isEnabledNatureJob}">
+						selectionChange="onSelectionNatureofJobChange" selectedKey="{oViewCreateModel>/jobty}" enabled="{appModel>/isEnabledNatureJob}">
 						<items>
 							<SegmentedButtonItem id="idND" text="{i18n>btnDefects}" key="NA" visible="false"/>
 							<SegmentedButtonItem id="idDefect" text="{i18n>btnDefects}" key="D"/>
@@ -32,13 +36,13 @@
 						</items>
 					</SegmentedButton>
 				</VBox>
-				<VBox id="defectId" visible="false">
+				<VBox id="defectId" visible="{=${oViewCreateModel>/jobty} === 'D' ? true : false}">
 					<core:Fragment fragmentName="avmet.ah.view.ah.createjob.DefectFormFragment" type="XML"/>
 				</VBox>
-				<VBox id="scheduledId" visible="false">
+				<VBox id="scheduledId" visible="{=${oViewCreateModel>/jobty} === 'S' ? true : false}">
 					<core:Fragment fragmentName="avmet.ah.view.ah.createjob.ScheduledFormFragment" type="XML"/>
 				</VBox>
-				<VBox id="unscheduledId" visible="false">
+				<VBox id="unscheduledId" visible="{=${oViewCreateModel>/jobty} === 'U' ? true : false}">
 					<core:Fragment fragmentName="avmet.ah.view.ah.createjob.UnScheduledFormFragment" type="XML"/>
 				</VBox>
 				<layoutData>

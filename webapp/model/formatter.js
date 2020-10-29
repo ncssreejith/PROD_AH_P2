@@ -13,7 +13,7 @@ sap.ui.define([
 		 */
 
 		//return new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0];
-		defaultDateTimeFormat: function(dDate, sFormat) {
+		/*defaultDateTimeFormat: function(dDate, sFormat) {
 			if (!dDate) {
 				dDate = new Date();
 			}
@@ -28,7 +28,31 @@ sap.ui.define([
 				return sDate;
 			}
 		},
-
+*/
+		defaultDateTimeFormat: function(dDate, sFormat) {
+			if (!dDate) {
+				dDate = new Date();
+				// return "";
+			}
+			var fnDateFormatter = DateFormat.getDateInstance({
+				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy HH:mm"
+			});
+			if (dDate instanceof Date) {
+				var sDate = fnDateFormatter.format(dDate);
+				return sDate;
+			} else {
+				try {
+					sDate = new Date(dDate);
+					if (sDate.toDateString() === "Invalid Date") {
+						return dDate;
+					}
+					sDate = fnDateFormatter.format(sDate);
+					return sDate;
+				} catch (e) {
+					return dDate;
+				}
+			}
+		},
 		defaultDateFormat: function(dDate, sFormat) {
 			if (!dDate || typeof dDate.getMonth !== "function") {
 				return "";
@@ -51,7 +75,7 @@ sap.ui.define([
 			return sDate;
 		},
 
-		defaultOdataDateFormat: function(dDate, sFormat) {
+		/*defaultOdataDateFormat: function(dDate, sFormat) {
 			if (!dDate) {
 				return "";
 			}
@@ -60,6 +84,28 @@ sap.ui.define([
 			});
 			var sDate = fnDateFormatter.format(dDate);
 			return sDate;
+		},*/
+		defaultOdataDateFormat: function(dDate, sFormat) {
+			if (!dDate) {
+				return "";
+			}
+			try {
+				var fnDateFormatter = DateFormat.getDateInstance({
+					pattern: sFormat !== undefined ? sFormat : "yyyy-MM-dd"
+				});
+				var sDate = fnDateFormatter.format(dDate);
+				return sDate;
+			} catch (e) {
+				return dDate;
+			}
+
+		},
+		roleChOtherEditableStatus: function(sVal) {
+			if (sVal === 'TO' || sVal === 'LO' || sVal === 'PO') {
+				return true;
+			} else {
+				return false;
+			}
 		},
 
 		defaultDateFormatDisplay: function(dDate, sFormat) {
@@ -1627,13 +1673,13 @@ sap.ui.define([
 				creDt = oDatePicker.getDateValue(),
 				oTimePick = fragmentId ? sap.ui.core.Fragment.byId(fragmentId, idTime) : that.getView().byId(idTime),
 				creTm = oTimePick.getValue();
-				
-				if (!creDt) {
-					creDt = oDatePicker.getValue();
-					var splitDt = creDt.split("/");
-					creDt = new Date(splitDt[2],splitDt[1]-1,splitDt[0]);
-				}
-				var date = creDt.getDate(),
+
+			if (!creDt) {
+				creDt = oDatePicker.getValue();
+				var splitDt = creDt.split("/");
+				creDt = new Date(splitDt[2], splitDt[1] - 1, splitDt[0]);
+			}
+			var date = creDt.getDate(),
 				year = creDt.getFullYear(),
 				month = creDt.getMonth() + 1;
 			var dateString = '' + year + '-' + month + '-' + date;
@@ -1791,9 +1837,9 @@ sap.ui.define([
 			}
 			return "";
 		},
-		taskTemplateCheck : function (sVal){
+		taskTemplateCheck: function(sVal) {
 			if (sVal) {
-				return  "Template";
+				return "Template";
 			} else {
 				return "Manual";
 			}

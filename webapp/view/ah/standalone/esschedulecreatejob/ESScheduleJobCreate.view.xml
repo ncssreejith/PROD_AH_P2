@@ -7,9 +7,12 @@
 					<VBox>
 						<VBox>
 							<Label text="{i18n>lbDate}" design="Bold"/>
+							<!--<DatePicker id="DP1" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
+								value="{path: 'JobCreateModel>/CREDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+								placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>-->
 							<DatePicker id="DP1" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
-								value="{path: 'JobCreateModel>/CREDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
-								placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+								value="{path: 'JobCreateModel>/CREDT',formatter:'.formatter.defaultDateFormat'}" placeholder="New job creation date ..."
+								change="handleChange" class="sapUiSmallMarginBottom"/>
 						</VBox>
 						<VBox>
 							<Label text="{i18n>lbTime}" design="Bold"/>
@@ -130,17 +133,22 @@
 									</ComboBox>
 								</VBox>
 								<VBox class="sapUiTinyMarginBegin" visible="{= ${JobCreateModel>/UMKEY} !== null ? true:false}">
-									<Label text="Job Due By" design="Bold"/>
+									<Label text="Job Due At" design="Bold" visible="{= ${JobCreateModel>/UMKEY} !== 'JDU_23' ? true:false}"/>
+									<Label text="" design="Bold" visible="{= ${JobCreateModel>/UMKEY} === 'JDU_23' ? true:false}"/>
 									<HBox id="SchJobDueId">
-										<StepInput min="{JobCreateModel>/DefValue}" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}" change="onStepChangeSchedule"
-											width="15rem" visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' &amp;&amp; ${JobCreateModel>/UMKEY} !== null ? true:false}" required="true"
-											fieldGroupIds="fgStepInput" displayValuePrecision="{ path:'JobCreateModel>/UMKEY' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
+										<StepInput min="{JobCreateModel>/DefValue}" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}"
+											change="onStepChangeSchedule" width="15rem"
+											visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' &amp;&amp; ${JobCreateModel>/UMKEY} !== null &amp;&amp; ${JobCreateModel>/UMKEY} !== 'JDU_23' ? true:false}"
+											required="true" fieldGroupIds="fgStepInput"
+											displayValuePrecision="{ path:'JobCreateModel>/UMKEY' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 										<DatePicker width="15rem" id="DP2" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
-											value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
+											value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 											placeholder="New job creation date ..." change="onDueDateChange" class="sapUiSmallMarginBottom"/>
+										<Input maxLength="30" width="16rem" visible="{=${JobCreateModel>/UMKEY}==='JDU_23' ? true:false}" value="{JobCreateModel>/SERVDUE}"></Input>
 									</HBox>
 								</VBox>
-								<VBox class="sapUiTinyMarginBegin" visible="{= ${JobCreateModel>/UMKEY} !== null ? true:false}">
+								<VBox class="sapUiTinyMarginBegin"
+									visible="{= ${JobCreateModel>/UMKEY} !== null &amp;&amp; ${JobCreateModel>/UMKEY} !== 'JDU_23' ? true:false}">
 									<Label text="Interval" design="Bold"/>
 									<Input value="{JobCreateModel>/INTERVAL}" type="Number" textAlign="End" change="onIntervalChange" livechange="onIntervalLiveChange"></Input>
 								</VBox>

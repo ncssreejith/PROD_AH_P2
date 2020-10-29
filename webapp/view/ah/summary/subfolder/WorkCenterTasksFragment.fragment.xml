@@ -1,5 +1,4 @@
-<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
-	xmlns:f="sap.f">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<VBox class="sapUiTinyMarginTop" width="99%">
 		<OverflowToolbar>
 			<Title text="{i18n>liTaks}" level="H2"/>

@@ -21,7 +21,7 @@
 						<items>
 							<VBox backgroundDesign="Solid" class="vbox1BgColor" height="30rem" width="25rem">
 								<Title class="sapUiMediumMarginTop whiteText sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>headingMod}"/>
-								<Text class="sapUiMediumMarginBegin whiteText" text="{path:'trialModel>jobdesc'}"/>
+								<Text class="sapUiMediumMarginBegin whiteText" text="{path:'trialModel>JOBDESC'}"/>
 								<VBox class="sapUiSmallMargin sapUiLargeMarginTop">
 									<l:Grid hSpacing="1" defaultSpan="XL10 L10 M10 S12">
 										<HBox justifyContent="SpaceBetween">

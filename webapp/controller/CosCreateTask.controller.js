@@ -44,6 +44,7 @@ sap.ui.define([
 	 *   Note :
 	 *************************************************************************** */
 	return BaseController.extend("avmet.ah.controller.CosCreateTask", {
+		formatter: formatter,
 
 		// ***************************************************************************
 		//                 1. UI Events  
@@ -763,7 +764,12 @@ sap.ui.define([
 					} else {
 						oTempData[0].tt4id = "";
 					}
-					oTempData[0].credtm = formatter.defaultOdataDateFormat(oModel.getProperty("/sDate"));
+					/*oTempData[0].credtm = formatter.defaultOdataDateFormat(oModel.getProperty("/sDate"));*/
+					try {
+						oTempData[0].credtm = formatter.defaultOdataDateFormat(oModel.getProperty("/sDate"));
+					} catch (e) {
+						oTempData[0].credtm = oTempData[0].credtm;
+					}
 					oTempData[0].creuzt = oModel.getProperty("/Time");
 					if (aTasks[i].sCheckfor !== "") {
 						oTempData[0].chkfor = aTasks[i].sCheckfor;

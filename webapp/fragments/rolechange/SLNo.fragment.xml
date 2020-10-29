@@ -4,8 +4,10 @@
 			<l:Grid hSpacing="0" defaultSpan="XL6 L6 M6 S12" class="sapUiLargeMargin">
 				<l:VerticalLayout class="sapUiTinyMarginEnd">
 						<Label design="Bold" text="Adapter Description"/>
-					<Text text="{oRoleChangeModel>/oSelLauncher/ADPDESC}" class="sapUiMediumMarginBottom"/>
-					<Label design="Bold" text="Serial Number"/>
+					<!--<Text text="{oRoleChangeModel>/oSelLauncher/ADPDESC}" class="sapUiMediumMarginBottom"/>-->
+					<Input width="16rem" value="{rcModel>/oSelLauncher/ADPDESC}"
+						editable="{path:'rcModel>POT', formatter:'.formatter.roleChOtherEditableStatus'}"/>
+					<Label design="Bold" text="Serial Number" class="sapUiTinyMarginTop"/>
 					<Input width="16rem" value="{oRoleChangeModel>/iSLNo}"/>
 				</l:VerticalLayout>
 			</l:Grid>

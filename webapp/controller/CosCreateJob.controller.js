@@ -93,10 +93,10 @@ sap.ui.define([
 			oSrc.setValueState("None");
 			oAppModel.setProperty("/jduvl", oSrc.getDateValue());
 			var iPrec = formatter.JobDueDecimalPrecision(sKey);
-			if (parseFloat(sInt, [10]) > 0) {
+			/*if (parseFloat(sInt, [10]) > 0) {
 				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
 				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
-			}
+			}*/
 		},
 
 		handleChange: function() {
@@ -473,10 +473,10 @@ sap.ui.define([
 				sInt = oAppModel.getProperty("/INTERVAL");
 			oSrc.setValueState("None");
 			var iPrec = formatter.JobDueDecimalPrecision(sKey);
-			if (parseFloat(sInt, [10]) > 0) {
+			/*if (parseFloat(sInt, [10]) > 0) {
 				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
 				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
-			}
+			}*/
 		},
 
 		onIntervalChange: function(oEvent) {
@@ -493,7 +493,7 @@ sap.ui.define([
 					sVal = 0;
 				}
 				oAppModel.setProperty("/INTERVAL", parseFloat(sVal, [10]).toFixed(iPrec));
-				if (sKey !== "JDU_10") {
+			/*	if (sKey !== "JDU_10") {
 					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
 						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
 						var val = parseFloat(minVal, [10]).toFixed(iPrec);
@@ -511,7 +511,7 @@ sap.ui.define([
 
 				if (bFlag) {
 					sap.m.MessageBox.warning("As you are changing interval, Job Due By value has been reset");
-				}
+				}*/
 
 			} catch (e) {
 				Log.error("Exception in onIntervalChange function");
@@ -751,8 +751,13 @@ sap.ui.define([
 				}
 				if (oJobModel.getProperty("/sRJobIdFlag") !== "N") {
 					oPayload = AvMetInitialRecord.createInitialBlankRecord("SCHJob")[0];
+					try {
+						oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));
+					} catch (e) {
+						oPayload.CREDT = oPayload.CREDT;
+					}
 
-					oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));
+				/*	oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));*/
 					oPayload.CRETM = oJobModel.getProperty("/cretm");
 					oPayload.J_FLAG = "N";
 					oPayload.FLAG = "ES";
@@ -764,15 +769,20 @@ sap.ui.define([
 					oPayload.JOBDESC = oJobModel.getProperty("/jobdesc");
 					oPayload.JOBTY = "ZA";
 					if (oJobModel.getProperty("/jduid") === 'JDU_10') {
-						oPayload.SERVDT = oJobModel.getProperty("/jduvl");
+						if (oJobModel.getProperty("/jduvl") !== "") {
+							oPayload.SERVDT = oJobModel.getProperty("/jduvl");
+						}
 					} else {
 						oPayload.SERVDUE = oJobModel.getProperty("/jduvl");
+						oPayload.SERVDT = null;
 					}
 					oPayload.UMKEY = oJobModel.getProperty("/jduid");
 					oPayload.PRIME = oJobModel.getProperty("/prime");
 					oPrmTD.error = function() {};
 					oPrmTD.success = function(oData) {
-						this.getRouter().navTo("Cosjobs");
+						this.getRouter().navTo("Cosjobs", {
+							State: "SCH"
+						},true);
 					}.bind(this);
 					oPrmTD.activity = 1;
 					ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_SCH", this);
@@ -824,7 +834,7 @@ sap.ui.define([
 					this.getRouter().navTo("CosDefectsSummary", {
 						"JobId": oData.results[0].jobid,
 						"Flag": "Y"
-					});
+					},true);
 					this.getView().byId("topId").setVisible(false);
 				}.bind(this);
 				oParameter.activity = 2;

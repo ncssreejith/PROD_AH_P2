@@ -99,11 +99,17 @@ sap.ui.define([
 					var oTask = this.avmentUtil.createInitialBlankRecord("NewTask")[0];
 					/*oTask.taskid = sjobid.concat("TASK_", dDate.getFullYear(), dDate.getMonth(), dDate.getDate(), dDate.getHours(), dDate.getMinutes(),
 						dDate.getSeconds(), i);*/
+						var sDateMaI;
+					try {
+						sDateMaI = formatter.defaultOdataDateFormat(this.getModel("applTmplModel").getProperty("/header/dDate"));
+					} catch (e) {
+						sDateMaI = this.getModel("applTmplModel").getProperty("/header/dDate");
+					}
 					oTask.taskid = null;
 					oTask.jobid = this.getModel("applTmplModel").getProperty("/header/selJobId");
 					oTask.wrctr = this.getModel("applTmplModel").getProperty("/header/selWC");
 					oTask.tailid = this.getModel("applTmplModel").getProperty("/header/selTailId");
-					oTask.credtm = this.getModel("applTmplModel").getProperty("/header/dDate");
+					oTask.credtm = sDateMaI;
 					oTask.creuzt = this.getModel("applTmplModel").getProperty("/header/dTime");
 					oTask.tmpid = oItem.TMPID;
 					oTask.rtaskid = oItem.RTASKID;
@@ -151,11 +157,17 @@ sap.ui.define([
 					var oTask = this.avmentUtil.createInitialBlankRecord("NewTask")[0];
 					/*	oTask.taskid = sjobid.concat("TASK_", dDate.getFullYear(), dDate.getMonth(), dDate.getDate(), dDate.getHours(), dDate.getMinutes(),
 							dDate.getSeconds(), i);*/
+					var sDateMa;
+					try {
+						sDateMa = formatter.defaultOdataDateFormat(this.getModel("applTmplModel").getProperty("/header/dDate"));
+					} catch (e) {
+						sDateMa = this.getModel("applTmplModel").getProperty("/header/dDate");
+					}
 					oTask.taskid = null;
 					oTask.jobid = this.getModel("applTmplModel").getProperty("/header/selJobId");
 					oTask.wrctr = this.getModel("applTmplModel").getProperty("/header/selWC");
 					oTask.tailid = this.getModel("applTmplModel").getProperty("/header/selTailId");
-					oTask.credtm = this.getModel("applTmplModel").getProperty("/header/dDate");
+					oTask.credtm = sDateMa;
 					oTask.creuzt = this.getModel("applTmplModel").getProperty("/header/dTime");
 					oTask.tmpid = oItem.TMPID;
 					oTask.rtaskid = oItem.RTASKID;

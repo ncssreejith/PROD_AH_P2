@@ -45,6 +45,7 @@ sap.ui.define([
 		onExit: function() {
 			if (dataUtil.getDataSet("TempCloseTaskModel")) {
 				dataUtil.setDataSet("TempCloseTaskModel", null);
+				dataUtil.setDataSet("TempCloseCAPModel", null);
 			}
 		},
 		onRefresh: function() {
@@ -355,6 +356,7 @@ sap.ui.define([
 					this._fnUpdateLandingTyre(oData.results);
 					if (dataUtil.getDataSet("TempCloseTaskModel")) {
 						dataUtil.setDataSet("TempCloseTaskModel", null);
+						dataUtil.setDataSet("TempCloseCAPModel", null);
 					}
 					if (oData.results[0].multi !== "0") {
 						that._fnCreateMultiTradesmenPayload();
@@ -1247,6 +1249,7 @@ sap.ui.define([
 				var oTempCTModel = dataUtil.getDataSet("TempCloseTaskModel");
 				if (oTempCTModel) {
 					this._fnCreateTempTaskModel();
+					this.getView().getModel("ViewModel").setProperty("/LimitADD",dataUtil.getDataSet("TempCloseCAPModel"));
 				} else {
 					this._fnTasksGet(oTempJB);
 				}
@@ -1538,6 +1541,7 @@ sap.ui.define([
 
 				if (oEvent.getSource().getSelectedIndex() === 1) {
 					dataUtil.setDataSet("TempCloseTaskModel", this.getView().getModel("TaskModel").getData());
+					dataUtil.setDataSet("TempCloseCAPModel", this.getView().getModel("ViewModel").getProperty("/LimitADD"));
 					that.getVIResultStatus();
 				}
 			} catch (e) {

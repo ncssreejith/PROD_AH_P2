@@ -36,7 +36,7 @@ sap.ui.define([
 			if (!this._LoadMessageInterval) {
 				this._LoadMessageInterval = setInterval(function() {
 					that._fnApprovalRequestGet();
-				}, 30000);
+				}, 120000);
 			}
 		},
 
@@ -982,9 +982,9 @@ sap.ui.define([
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
-						sCount = oData.results[0].COUNT;
+					sCount = oData.results[0].COUNT;
 					} else {
-						sCount = "0";
+						sCount="0";
 					}
 					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
 				}.bind(this);

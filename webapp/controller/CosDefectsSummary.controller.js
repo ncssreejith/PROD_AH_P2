@@ -635,6 +635,11 @@ sap.ui.define([
 					this._fnJobDueGet();
 					this.getView().addDependent(this._oRaiseConcession);
 				}
+				this.getFragmentControl("idScheduleJobExtension", "cbJobDueId").setEditable(false);
+				this.getFragmentControl("idScheduleJobExtension", "btnRaise").setVisible(true);
+				this.getFragmentControl("idScheduleJobExtension", "btnEdit").setVisible(false);
+				this.getFragmentControl("idScheduleJobExtension", "ipInterval").setEditable(false);
+				this.getFragmentControl("idScheduleJobExtension", "dgId").setTitle("Raise Schedule Concession");
 				this._fnGetUtilisationSched();
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcession function");
@@ -2462,7 +2467,7 @@ sap.ui.define([
 				this.getModel("PhotoModel").setProperty("/photoSet", [obj]);
 				setTimeout(function demo() {
 					that._fnRenderImage(sImagePath);
-				}, 500);
+				}, 300);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onSelectionDefectAreaChange function");
 				this.handleException(e);
@@ -2474,22 +2479,39 @@ sap.ui.define([
 		 * Description: To render images in to canvas on segment button selections.
 		 */
 
+		// _fnRenderImage: function(sImagePath) {
+		// 	/*try {*/
+		// 	var that = this,
+		// 		oCanvas;
+		// 	oCanvas = document.getElementById("myCanvasTop");
+		// 	if (oCanvas) {
+		// 		var ctx = oCanvas.getContext("2d");
+		// 		oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
+		// 		oCanvas.style.backgroundRepeat = "no-repeat";
+		// 		oCanvas.style.backgroundSize = "100%";
+		// 	}
+
+		// 	/*	} catch (e) {
+		// 			Log.error("Exception in CosDefectsSummary:_fnRenderImage function");
+		// 			this.handleException(e);
+		// 		}*/
+		// },
 		_fnRenderImage: function(sImagePath) {
 			/*try {*/
 			var that = this,
 				oCanvas;
 			oCanvas = document.getElementById("myCanvasTop");
-			if (oCanvas) {
-				var ctx = oCanvas.getContext("2d");
-				oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
-				oCanvas.style.backgroundRepeat = "no-repeat";
-				oCanvas.style.backgroundSize = "100%";
+			var ctx = oCanvas.getContext("2d");
+			oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
+			oCanvas.style.backgroundRepeat = "no-repeat";
+			oCanvas.style.backgroundSize = "100%";
+			var aCord = this.getModel("PhotoModel").getProperty("/Coordinates");
+			if (aCord) {
+				this.drawCoordinates("", aCord);
 			}
-
-			/*	} catch (e) {
-					Log.error("Exception in CosDefectsSummary:_fnRenderImage function");
-					this.handleException(e);
-				}*/
+			/*} catch (e) {
+				Log.error("Exception in _fnRenderImage function");
+			}*/
 		},
 
 		/* Function: drawCoordinates
@@ -2589,7 +2611,7 @@ sap.ui.define([
 					return oTemp;
 				case "TT1_19":
 					oTemp = {
-						"obj": "ZRM_S_REDX",
+						"obj": "ZRM_FS_SRX",
 						"Act": "4"
 					};
 					return oTemp;
@@ -3061,8 +3083,8 @@ sap.ui.define([
 				oTempObj = this._fnGetObjectTypeAndActivity(oPayload.tt1id);
 				oPayload.objectid = oTempObj.obj;
 				oPayload.activity = oTempObj.Act;
-				/*	oPayload.objectid = "ZRM_COS_TP";
-					oPayload.activity = "2";*/
+				/*oPayload.objectid = "ZRM_COS_TP";
+				oPayload.activity = "2";*/
 				oPayload.symbol = "0";
 				oPrmTask.filter = "";
 				oPrmTask.error = function() {};
@@ -3346,6 +3368,8 @@ sap.ui.define([
 				var that = this,
 					oPrmFR = {},
 					oModel = this.getView().getModel("LocalModel");
+				var sPath = "/FlyingRequirementSvc(" +
+					"JOBID=" + oObj.JOBID + ",TAILID=" + oObj.TAILID + ",FR_NO=" + oObj.FR_NO + ")";
 				oPrmFR.error = function() {};
 				oPrmFR.success = function(oData) {
 					var oTable = this.getView().byId("tbWcFlyingReqId");
@@ -3353,10 +3377,9 @@ sap.ui.define([
 					that._fnFlyingRequirementsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/WorkCenterKey"));
 				}.bind(this);
 				oPrmFR.activity = 4;
-				ajaxutil.fnDelete("/FlyingRequirementSvc/" + oObj.JOBID + "/" + oObj.TAILID + "/" + oObj.FR_NO, oPrmFR, "dummy", this);
+				ajaxutil.fnDelete(sPath, oPrmFR, "dummy", this);
 			} catch (e) {
-				Log.error("Exception in CosDefectsSummary:onFlyingRequirementDelete function");
-				this.handleException(e);
+				Log.error("Exception in onFlyingRequirementDelete function");
 			}
 		},
 
@@ -3427,6 +3450,8 @@ sap.ui.define([
 				var that = this,
 					oPrmSORT = {},
 					oModel = this.getView().getModel("LocalModel");
+				var sPath = "/SortieMonSvc(" +
+					"JOBID=" + oObj.JOBID + ",TAILID=" + oObj.TAILID + ",SORNO=" + oObj.SORNO + ")";
 				oPrmSORT.error = function() {};
 				oPrmSORT.success = function(oData) {
 					var oTable = this.getView().byId("tbWcSortieMonId");
@@ -3434,10 +3459,9 @@ sap.ui.define([
 					that._fnSortieMonitoringGet(oModel.getProperty("/sJobId"), oModel.getProperty("/WorkCenterKey"));
 				}.bind(this);
 				oPrmSORT.activity = 7;
-				ajaxutil.fnDelete("/SortieMonSvc/" + oObj.JOBID + "/" + oObj.TAILID + "/" + oObj.SORNO, oPrmSORT, "dummy", this);
+				ajaxutil.fnDelete(sPath, oPrmSORT, "dummy", this);
 			} catch (e) {
-				Log.error("Exception in CosDefectsSummary:onSortieMonitoringDelete function");
-				this.handleException(e);
+				Log.error("Exception in onSortieMonitoringDelete function");
 			}
 		},
 
@@ -3820,10 +3844,10 @@ sap.ui.define([
 				}.bind(this);
 				if (oFlag === "R") {
 					oObjectId = "ZRM_FAIR_R";
-					oParameter.activity = "04";
+					oParameter.activity = "4";
 				} else {
 					oObjectId = "ZRM_FAIR_D";
-					oParameter.activity = "01";
+					oParameter.activity = "1";
 				}
 
 				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], oObjectId, this);
@@ -3947,6 +3971,8 @@ sap.ui.define([
 				bTaskFlag = this._fnCheckWCTaskCount(sWorkCenterKey);
 				if (bTaskFlag) {
 					/*oPrmWorkCenter.filter="jobid eq "+sJobId+" and taild eq "+sTailId;*/
+					var sPath = "/DefectWorkcenterSvc(" +
+						"JOBID=" + oModel.getProperty("/sJobId") + ",WRCTR=" + sWorkCenterKey + ")";
 					oPrmWorkCenter.error = function() {};
 					oPrmWorkCenter.success = function(oData) {
 						oModel.setProperty("/SummaryFlag", true);
@@ -3956,8 +3982,7 @@ sap.ui.define([
 						that.onCloseAddWorkCenterDialog();
 					}.bind(this);
 					oPrmWorkCenter.activity = 7;
-					ajaxutil.fnDelete("/DefectWorkcenterSvc/" + oModel.getProperty("/sJobId") + "/" + sWorkCenterKey, oPrmWorkCenter, "ZRM_COS_JB",
-						this);
+					ajaxutil.fnDelete(sPath, oPrmWorkCenter, "ZRM_COS_JB", this);
 				} else {
 					MessageBox.error(
 						"There is record created under this work center, no deletion is allowed", {

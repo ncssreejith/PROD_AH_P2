@@ -359,6 +359,7 @@ sap.ui.define([
 					oPayload.REST_IMPOSE = oItem.RestrictionText;
 					oPayload.MON_FOR = oItem.MonFor;
 					oPayload.MON_FORTXT = null;
+					oPayload.FLAG = null;
 					oModel.setProperty("/SortieMonitoring/SN", oPayload.SORNO);
 					oPayloads.push(oPayload);
 				}.bind(this));

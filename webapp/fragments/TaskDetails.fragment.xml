@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<Dialog showHeader="false" contentWidth="60%">
 		<OverflowToolbar class="bgColorToolBar">
 			<!--	<Button icon="sap-icon://decline" class="red" type="Transparent" visible="{=${DetailsOutModel>/symbol} === '1' ? true : false}"></Button>

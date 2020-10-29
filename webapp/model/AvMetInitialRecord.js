@@ -74,7 +74,7 @@ sap.ui.define([
 						"fstatflag": null,
 						"ETRFLAG": null,
 						"FAIRNR": null,
-						"INTERVAL": null,
+						"INTERVAL": 0,
 						"SG1USR": null,
 						"SG1DTM": null,
 						"SG1UZT": null,

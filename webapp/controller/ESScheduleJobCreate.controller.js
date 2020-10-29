@@ -74,10 +74,10 @@ sap.ui.define([
 				sInt = oAppModel.getProperty("/INTERVAL");
 			oSrc.setValueState("None");
 			var iPrec = formatter.JobDueDecimalPrecision(sKey);
-			if (parseFloat(sInt, [10]) > 0) {
+			/*if (parseFloat(sInt, [10]) > 0) {
 				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
 				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
-			}
+			}*/
 		},
 		// ***************************************************************************
 		//                 2.  Private Methods  
@@ -247,10 +247,10 @@ sap.ui.define([
 				sInt = oAppModel.getProperty("/INTERVAL");
 			oSrc.setValueState("None");
 			var iPrec = formatter.JobDueDecimalPrecision(sKey);
-			if (parseFloat(sInt, [10]) > 0) {
+			/*if (parseFloat(sInt, [10]) > 0) {
 				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
 				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
-			}
+			}*/
 		},
 
 		onIntervalChange: function(oEvent) {
@@ -268,7 +268,7 @@ sap.ui.define([
 					sVal = 0;
 				}
 				oAppModel.setProperty("/INTERVAL", parseFloat(sVal, [10]).toFixed(iPrec));
-				if (sKey !== "JDU_10") {
+			/*	if (sKey !== "JDU_10") {
 					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
 						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
 						var val = parseFloat(minVal, [10]).toFixed(iPrec);
@@ -286,7 +286,7 @@ sap.ui.define([
 
 				if (bFlag) {
 					sap.m.MessageBox.warning("As you are changing interval, Job Due By value has been reset");
-				}
+				}*/
 
 			} catch (e) {
 				Log.error("Exception in onIntervalChange function");

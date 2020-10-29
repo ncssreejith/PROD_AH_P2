@@ -5,8 +5,9 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/base/Log",
 	"sap/m/MessageBox",
-	"sap/ui/model/json/JSONModel"
-], function(BaseController, dataUtil, formatter, ajaxutil, Log, MessageBox, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"../model/FieldValidations"
+], function(BaseController, dataUtil, formatter, ajaxutil, Log, MessageBox, JSONModel, FieldValidations) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????    Rahul        
@@ -187,24 +188,42 @@ sap.ui.define([
 			try {
 				var sText = oEvent.getParameter("item").getText();
 				if (sText.search("Raise Schedule Concession") !== -1) {
-					if (!this._oRaiseConcession) {
-						this._oRaiseConcession = sap.ui.xmlfragment(this.createId("idScheduleJobExtension"),
-							"avmet.ah.fragments.ScheduleJobExtension",
-							this);
-
-						this._fnJobDueGet();
-						this.getView().addDependent(this._oRaiseConcession);
-					}
-					this._fnGetUtilisation();
-				} else if (sText.search("Delete") !== -1){
+					this._fnOpenScheduleConcessionDialog("NE");
+				} else if (sText.search("Delete") !== -1) {
 					this._fnDeleteScheduleJob();
+				} else if (sText.search("Edit Schedule Details") !== -1) {
+					this._fnOpenScheduleConcessionDialog("ED");
 				}
+
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcession function");
 			}
 		},
-		
-		_fnDeleteScheduleJob : function (){
+		_fnOpenScheduleConcessionDialog: function(oFlag) {
+			if (!this._oRaiseConcession) {
+				this._oRaiseConcession = sap.ui.xmlfragment(this.createId("idScheduleJobExtension"),
+					"avmet.ah.fragments.ScheduleJobExtension",
+					this);
+				this._fnJobDueGet();
+				this.getView().addDependent(this._oRaiseConcession);
+			}
+			if (oFlag === "ED") {
+				this.getFragmentControl("idScheduleJobExtension", "cbJobDueId").setEditable(true);
+				this.getFragmentControl("idScheduleJobExtension", "btnRaise").setVisible(false);
+				this.getFragmentControl("idScheduleJobExtension", "btnEdit").setVisible(true);
+				this.getFragmentControl("idScheduleJobExtension", "ipInterval").setEditable(true);
+				this.getFragmentControl("idScheduleJobExtension","dgId").setTitle("Edit Schedule Concession");
+			} else {
+				this.getFragmentControl("idScheduleJobExtension", "cbJobDueId").setEditable(false);
+				this.getFragmentControl("idScheduleJobExtension", "ipInterval").setEditable(false);
+				this.getFragmentControl("idScheduleJobExtension", "btnRaise").setVisible(true);
+				this.getFragmentControl("idScheduleJobExtension", "btnEdit").setVisible(false);
+				this.getFragmentControl("idScheduleJobExtension","dgId").setTitle("Raise Schedule Concession");
+			}
+			this._fnGetUtilisation();
+		},
+
+		_fnDeleteScheduleJob: function() {
 			try {
 				var sPath = "/GetSerLogSvc(" +
 					"ESJOBID=" + this.getModel("LocalModel").getProperty("/ESJobId") +
@@ -212,18 +231,18 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function(hrex) {}.bind(this);
 				oParameter.success = function(oData) {
-				this.getRouter().navTo("F16Cosjobs", {
-					State: "SCH"
-				});   
+					this.getRouter().navTo("Cosjobs", {
+						State: "SCH"
+					});
 				}.bind(this);
 				oParameter.activity = 3;
-				ajaxutil.fnDelete(sPath, oParameter,"ZRM_COS_JB",this);
+				ajaxutil.fnDelete(sPath, oParameter, "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in _fnDeleteScheduleJob function");
 				this.handleException(e);
 			}
 		},
-		
+
 		_fnGetUtilisation: function(sAir) {
 			try {
 				var that = this,
@@ -247,9 +266,13 @@ sap.ui.define([
 							"UtilValFlag": aData.UMKEY !== 'JDU_10' ? true : false,
 							"UM": "",
 							"minVal": this.oObject[aData.UMKEY] ? parseFloat(this.oObject[aData.UMKEY].VALUE) : 0,
-							"minDT": new Date(aData.SERVDT)
+							"minDT": new Date(aData.SERVDT),
+							"INTERVAL": aData.INTERVAL
 
 						};
+						if (aData.INTERVAL === 0) {
+							this.getFragmentControl("idScheduleJobExtension", "vbInterval").setVisible(false);
+						}
 						if (this.getView().getModel("RSModel")) {
 							this.getModel("RSModel").setData(data);
 						} else {
@@ -265,7 +288,6 @@ sap.ui.define([
 				Log.error("Exception in _fnGetUtilisation function");
 			}
 		},
-
 
 		onUilisationChange: function(oEvent) {
 			try {
@@ -605,22 +627,126 @@ sap.ui.define([
 			}
 		},
 
+		/*	onDueSelectChange: function(oEvent) {
+				var oModel = this.getView().getModel("RSModel");
+				var oSelectedKey = oEvent.getSource().getSelectedKey();
+				if (oSelectedKey === "JDU_10") {
+					oModel.setProperty("/ExpDateFlag", true);
+					oModel.setProperty("/UtilValFlag", false);
+					oModel.setProperty("/UtilVal", "");
+					oModel.setProperty("/UM", "DAYS");
+
+				} else {
+					oModel.setProperty("/UtilValFlag", true);
+					oModel.setProperty("/ExpDateFlag", false);
+					oModel.setProperty("/ExpDate", null);
+					oModel.setProperty("/UM", oEvent.getSource().getSelectedItem().getText());
+				}
+
+			},*/
 		onDueSelectChange: function(oEvent) {
-			var oModel = this.getView().getModel("RSModel");
-			var oSelectedKey = oEvent.getSource().getSelectedKey();
-			if (oSelectedKey === "JDU_10") {
-				oModel.setProperty("/ExpDateFlag", true);
-				oModel.setProperty("/UtilValFlag", false);
-				oModel.setProperty("/UtilVal", "");
-				oModel.setProperty("/UM", "DAYS");
+			try {
+				var sDue = oEvent.getSource().getSelectedKey();
+				var oModel = this.getView().getModel("RSModel");
+				var okeyText = this.getFragmentControl("idScheduleJobExtension", "cbJobDueId").getSelectedItem().getText();
+				//this.getView().byId("SchJobDueId").setVisible(true);
+				if (sDue.length > 0) {
+					if (this.oObject && this.oObject[sDue] && this.oObject[sDue].VALUE) {
+						var minVal = parseFloat(this.oObject[sDue].VALUE, [10]);
+						oModel.setProperty("/minValue", minVal);
+						if (sDue === "JDU_11") {
+							okeyText = "AFH";
+						}
+						oModel.setProperty("/UM", okeyText);
+						var sVal = oModel.getProperty("/UtilVal") ? oModel.getProperty("/UtilVal") : 0;
+						sVal = parseFloat(sVal, [10]);
+						var iPrec = formatter.JobDueDecimalPrecision(sDue);
+						oModel.setProperty("/UtilVal", parseFloat(minVal, [10]).toFixed(iPrec));
+						oModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+					} else {
+						var temp = new Date();
+						oModel.setProperty("/minDT", temp);
+						oModel.setProperty("/ExpDate", temp);
+						oModel.setProperty("/UM", okeyText);
+						oModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(0));
+					}
 
-			} else {
-				oModel.setProperty("/UtilValFlag", true);
-				oModel.setProperty("/ExpDateFlag", false);
-				oModel.setProperty("/ExpDate", null);
-				oModel.setProperty("/UM", oEvent.getSource().getSelectedItem().getText());
+				}
+				oModel.setProperty("/jduid", sDue);
+				oModel.setProperty("/DueBy", sDue);
+				oModel.refresh(true);
+			} catch (e) {
+				Log.error("Exception in xxxxx function");
 			}
+		},
 
+		/*handleChangeSche: function(oEvent) {
+			var oSrc = oEvent.getSource(),
+				oAppModel = this.getView().getModel("RSModel"),
+				sKey = oAppModel.getProperty("/DueBy"),
+				sInt = oAppModel.getProperty("/INTERVAL");
+			oSrc.setValueState("None");
+			oAppModel.setProperty("/ExpDate", oSrc.getDateValue());
+			var iPrec = formatter.JobDueDecimalPrecision(sKey);
+			if (parseFloat(sInt, [10]) > 0) {
+				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
+			}
+		},*/
+
+		onStepChangeSchedule: function(oEvent) {
+			this.onStepChange(oEvent);
+			var oSrc = oEvent.getSource(),
+				oAppModel = this.getView().getModel("RSModel"),
+				sKey = oAppModel.getProperty("/DueBy"),
+				sInt = oAppModel.getProperty("/INTERVAL");
+			oSrc.setValueState("None");
+			/*var iPrec = formatter.JobDueDecimalPrecision(sKey);
+			if (parseFloat(sInt, [10]) > 0) {
+				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
+			}*/
+		},
+
+		onIntervalChange: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					oAppModel = this.getView().getModel("RSModel"),
+					sVal = oSrc.getValue(),
+					sKey = oAppModel.getProperty("/DueBy"),
+					sDue = oAppModel.getProperty("/UtilVal"),
+					bFlag = false;
+				oSrc.setValueState("None");
+				this.getFragmentControl("idScheduleJobExtension", "dpScheId").setValueState("None");
+				this.getFragmentControl("idScheduleJobExtension", "siSchedId").setValueState("None");
+				var iPrec = formatter.JobDueDecimalPrecision(sKey);
+				if (!sVal || sVal === "") {
+					sVal = 0;
+				}
+				oAppModel.setProperty("/INTERVAL", parseFloat(sVal, [10]).toFixed(iPrec));
+			/*	if (sKey !== "JDU_10") {
+					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+						var val = parseFloat(minVal, [10]).toFixed(iPrec);
+						if (sDue !== val) {
+							oAppModel.setProperty("/UtilVal", val);
+							bFlag = true;
+						}
+					}
+				} else if (sKey === "JDU_10") {
+					if (sDue && sDue !== "") {
+						oAppModel.setProperty("/ExpDate", null);
+						bFlag = true;
+					}
+				}
+
+				if (bFlag) {
+					sap.m.MessageBox.warning("As you are changing interval, Job Due By value has been reset");
+				}*/
+
+			} catch (e) {
+				Log.error("Exception in onIntervalChange function");
+			}
 		},
 		// ***************************************************************************
 		//   4. Private Function   
@@ -772,23 +898,52 @@ sap.ui.define([
 				var that = this,
 					oPayload, oModel,
 					oPrmSchJob = {};
+				var okeyText = this.getFragmentControl("idScheduleJobExtension", "cbJobDueId").getSelectedItem().getText();
 				try {
 					oModel = this.getView().getModel("RSModel").getData();
 				} catch (e) {
 					oModel = "";
 				}
 				oPayload = this.getView().getModel("SummaryModel").getData();
-				oPayload.SCONFLAG = "E";
+
 				//oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
-				if (oFlag === "Y") {
+				if (oFlag === "E") {
+
+					if (oModel.UM === "") {
+						oModel.UM = okeyText;
+					}
 					if (oModel.DueBy === "JDU_10") {
+						if (oModel.ExpDate === null && parseFloat(oModel.INTERVAL) === 0) {
+							this.getFragmentControl("idScheduleJobExtension", "dpScheId").setValueState("Error");
+							this.getFragmentControl("idScheduleJobExtension", "dpScheId").setValueStateText("Please fill required field");
+							return;
+						}
 						oPayload.SERVDT = oModel.ExpDate;
 						oPayload.UM = oModel.UM;
 						oPayload.UMKEY = oModel.DueBy;
 						oPayload.SERVDUE = null;
+						oPayload.INTERVAL = oModel.INTERVAL;
 					} else {
+						if (oModel.ExpDate === null && parseFloat(oModel.INTERVAL) === 0) {
+							this.getFragmentControl("idScheduleJobExtension", "siSchedId").setValueState("Error");
+							this.getFragmentControl("idScheduleJobExtension", "siSchedId").setValueStateText("Please fill required field");
+							return;
+						}
 						oPayload.SERVDT = null;
 						oPayload.UM = oModel.UM;
+						oPayload.SERVDUE = (oModel.UtilVal).toString();
+						oPayload.UMKEY = oModel.DueBy;
+						oPayload.INTERVAL = oModel.INTERVAL;
+					}
+					oPayload.SCONFLAG = "";
+				} else {
+					oPayload.SCONFLAG = "E";
+					if (oModel.DueBy === "JDU_10") {
+						oPayload.SERVDT = oModel.ExpDate;
+						oPayload.UMKEY = oModel.DueBy;
+						oPayload.SERVDUE = null;
+					} else {
+						oPayload.SERVDT = null;
 						oPayload.SERVDUE = (oModel.UtilVal).toString();
 						oPayload.UMKEY = oModel.DueBy;
 					}
@@ -798,17 +953,17 @@ sap.ui.define([
 					var oModel1 = dataUtil.createNewJsonModel();
 					oModel1.setData({
 						"DueBy": "",
-						"ExpDate": "",
+						"ExpDate": null,
 						"Util": "",
 						"UtilVal": "",
 						"ExpDateFlag": false,
 						"UtilValFlag": false,
-						"UM": ""
+						"UM": "",
+						"INTERVAL": 0
 
 					});
 					this.getView().setModel(oModel1, "RSModel");
-
-					if (oFlag === "Y") {
+					if (oFlag === "Y" || oFlag === "E") {
 						this.getRouter().navTo("Cosjobs", {
 							State: "SCH"
 						}, true);
@@ -818,10 +973,50 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmSchJob.activity = 2;
-
 				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcessionPress function");
+			}
+		},
+		
+		onUpdateWorkCenterPress: function() {
+			try {
+				var that = this,
+					oPayload, oModel,
+					oPrmSchJob = {};
+
+				try {
+					oModel = this.getView().getModel("RSModel").getData();
+				} catch (e) {
+					oModel = "";
+				}
+				oPayload = this.getView().getModel("SummaryModel").getData();
+				oPayload.SCONFLAG = "E";
+				//oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+
+				oPrmSchJob.error = function() {};
+				oPrmSchJob.success = function(oData) {
+					var oModel1 = dataUtil.createNewJsonModel();
+					oModel1.setData({
+						"DueBy": "",
+						"ExpDate": null,
+						"Util": "",
+						"UtilVal": "",
+						"ExpDateFlag": false,
+						"UtilValFlag": false,
+						"UM": "",
+						"INTERVAL": 0
+
+					});
+					this.getView().setModel(oModel1, "RSModel");
+					that.onCloseAddWorkCenterDialog("N");
+					this._fnSumamryDetailsGet(that.getView().getModel("LocalModel").getProperty("/ESJobId"));
+
+				}.bind(this);
+				oPrmSchJob.activity = 2;
+				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
+			} catch (e) {
+				Log.error("Exception in onUpdateWorkCenterPress function");
 			}
 		},
 
