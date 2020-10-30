@@ -80,7 +80,7 @@
 											<HBox class="sapUiTinyMarginTop">
 												<!--visible="{=${JobModel>/jduid}!=='' ? true :false}"-->
 												<Label design="Bold" text="Airframe Hrs" width="150px"/>
-												<Text text="{JobModel>/airhrs} ( Original )" width="200px"/>
+												<Text text="{JobModel>/airhrs}" width="200px"/>
 											</HBox>
 											<HBox class="sapUiTinyMarginTop" visible="{=${JobModel>/jobty}==='S' ? true :false}">
 												<Label design="Bold" text="Scheduled Due" width="150px"/>

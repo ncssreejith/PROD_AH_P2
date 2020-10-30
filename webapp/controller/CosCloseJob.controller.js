@@ -35,6 +35,8 @@ sap.ui.define([
 	 *        3.6 onBack
 	 *        3.7 onDueSelectChange
 	 *        3.8 _onObjectMatched
+	 *  4. Private Methods   
+	 *        4.1 _onObjectMatched
 	 *   Note :
 	 *************************************************************************** */
 	return BaseController.extend("avmet.ah.controller.CosCloseJob", {
@@ -133,11 +135,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
-		//-------------------------------------------------------------
-		//  This will get called, when signing off the Job for closer.
-		//-------------------------------------------------------------
-
+		//------------------------------------------------------------------
+		// Function: onRectificationSelectTask
+		// Parameter: oEvent
+		// Description: This will get called, to handle, when updating the task selected for rectification for Job while closer.
+		//------------------------------------------------------------------
 		onUpdateTask: function(oEvent) {
 			try {
 				var oModel = this.getView().getModel("ViewModel"),
@@ -177,13 +179,15 @@ sap.ui.define([
 					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload);
 				}
 			} catch (e) {
-				Log.error("Exception in onSignOff function");
+				Log.error("Exception in CosCloseJob:onUpdateTask function");
+				this.handleException(e);
 			}
 		},
-
-		//-------------------------------------------------------------
-		//  This will get called, when signing off the Job for closer.
-		//-------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: onSignOff
+		// Parameter: oEvent
+		// Description: This will get called, to handle, when signing off the Job for closer..
+		//------------------------------------------------------------------
 		onSignOff: function(sSignFlag) {
 			try {
 				var that = this,
@@ -295,12 +299,15 @@ sap.ui.define([
 				oPrmTask.activity = 6;
 				ajaxutil.fnUpdate("/DefectJobSvc", oPrmTask, [oPayload], sObject, this);
 			} catch (e) {
-				Log.error("Exception in onSignOff function");
+				Log.error("Exception in CosCloseJob:onSignOff function");
+				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		//  This will get called, to get Job details for selected jobs.
-		//-------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: _fnJobDetailsGet
+		// Parameter: sJobId
+		// Description: This will get called, to handle, when to get Job details for selected jobs..
+		//------------------------------------------------------------------
 		_fnJobDetailsGet: function(sJobId) {
 			try {
 				var that = this,
@@ -350,12 +357,15 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
 			} catch (e) {
-				Log.error("Exception in _fnJobDetailsGet function");
+				Log.error("Exception in CosCloseJob:_fnJobDetailsGet function");
+				this.handleException(e);
 			}
 		},
-		//----------------------------------------------------------------------------
-		//  This will get called, to get count of the tasks those are open under selected Job.
-		//----------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: _fnTaskStatusGet
+		// Parameter: sJobId
+		// Description: This will get called, to handle, when to get count of the tasks those are open under selected Job.
+		//------------------------------------------------------------------
 		_fnTaskStatusGet: function(sJobId) {
 			try {
 				var that = this,
@@ -373,9 +383,12 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//----------------------------------------------------------------------------
-		//  General Method: This will get called, to get workcenter data.
-		//----------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: _fnTaskStatusGet
+		// Parameter: 
+		// Description: This will get called, to handle, when to get workcenter data.
+		//------------------------------------------------------------------
+
 		_fnWorkCenterGet: function() {
 			try {
 				var that = this,
@@ -394,7 +407,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: _fnGetUtilisation
+		// Parameter: 
+		// Description: This will get called, to handle, when to get utilization dropdown data.
+		//------------------------------------------------------------------
 		_fnGetUtilisation: function() {
 			try {
 				var oPrmJobDue = {};
@@ -412,12 +429,16 @@ sap.ui.define([
 
 				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
 			} catch (e) {
-				Log.error("Exception in _fnGetUtilisationDefaultValue function");
+				Log.error("Exception in CosCloseJob:_fnGetUtilisation function");
+				this.handleException(e);
 			}
 		},
-		//------------------------------------------------------------------------------------------
-		//  Private Method: This will get called, to get workcenter data created under selected Job.
-		//------------------------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: _fnCreatedWorkCenterGet
+		// Parameter: sJobId
+		// Description: This will get called, to handle, when to get workcenter data created under selected Job.
+		//------------------------------------------------------------------
+
 		_fnCreatedWorkCenterGet: function(sJobId) {
 			try {
 				var that = this,
@@ -436,12 +457,12 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//------------------------------------------------------------------------------------------
-		//  Private Method: This will get called, to get tasks data created under selected Job.
-		//------------------------------------------------------------------------------------------
-		//------------------------------------------------------------------------------------------
-		//  General Method: This will get called, to get Jobdue dropdown data.
-		//------------------------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: _fnJobDueGet
+		// Parameter: sJobId
+		// Description: This will get called, to handle, when to get Jobdue dropdown data.
+		//------------------------------------------------------------------
+
 		_fnJobDueGet: function() {
 			try {
 				var that = this,
@@ -459,9 +480,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//------------------------------------------------------------------------------------------
-		//  Private Method: This will get called, to create ES logs Jobs in backedn.
-		//------------------------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: ESJobCreate
+		// Parameter: 
+		// Description: This will get called, to handle, when to create ES logs Jobs in backend.
+		//------------------------------------------------------------------
 		ESJobCreate: function() {
 			try {
 				var that = this,
@@ -494,9 +517,11 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 3.  Specific Methods  
 		// ***************************************************************************
-		//------------------------------------------------------------------------------------------
-		//  Private Method: This will get called, when selection in icon tab bar change.
-		//------------------------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: onIconSelected
+		// Parameter: oEvent
+		// Description: This will get called, to handle,  when selection in icon tab bar change.
+		//------------------------------------------------------------------
 		onIconSelected: function(oEvent) {
 			try {
 				var oModel = this.getView().getModel("ViewModel");
@@ -506,9 +531,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//------------------------------------------------------------------------------------------
-		//  Private Method: This will get called, on selection of task from the list.
-		//------------------------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: onSelectTaskList
+		// Parameter: oEvent
+		// Description: This will get called, to handle,  when on selection of task from the list.
+		//------------------------------------------------------------------
 		onSelectTaskList: function(oEvent) {
 			try {
 				var oModel = this.getView().getModel("ViewModel"),
@@ -583,10 +610,12 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		//------------------------------------------------------------------
+		// Function: _fnValidateTime
+		// Parameter: 
+		// Description: This will get called, to handle, to validate job closer time with respective current date.
+		//------------------------------------------------------------------
 
-		//------------------------------------------------------------------------------------------
-		//  Private Method: This will get called, to validate job closer time with respective current date.
-		//------------------------------------------------------------------------------------------
 		_fnValidateTime: function() {
 			try {
 				var oJobModel = this.getView().getModel("JobModel"),
@@ -622,9 +651,11 @@ sap.ui.define([
 			}
 
 		},
-		//------------------------------------------------------------------------------------------
-		//  Private Method: This will get called, to validate job closer time with respective Job Creation date.
-		//------------------------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: _fnValidateCreationDateTime
+		// Parameter: 
+		// Description: This will get called, to handle, to validate job closer time with respective Job Creation date.
+		//------------------------------------------------------------------
 		_fnValidateCreationDateTime: function() {
 			try {
 				var oJobModel = this.getView().getModel("JobModel"),
@@ -652,14 +683,16 @@ sap.ui.define([
 					return true;
 				}
 			} catch (e) {
-				Log.error("Exception in CosCloseJob:_fnValidateTime function");
+				Log.error("Exception in CosCloseJob:_fnValidateCreationDateTime function");
 				this.handleException(e);
 			}
 		},
+		//------------------------------------------------------------------
+		// Function: onProceed
+		// Parameter: 
+		// Description: This will get called, to handle, on click of proceed.
+		//------------------------------------------------------------------
 
-		//------------------------------------------------------------------------------------------
-		//  Private Method: This will get called, on click of proceed.
-		//------------------------------------------------------------------------------------------
 		onProceed: function() {
 			try {
 				FieldValidations.resetErrorStates(this);
@@ -700,10 +733,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//------------------------------------------------------------------------------------------
-		//  Private Method: This will get called, on click of onBack.
-		//------------------------------------------------------------------------------------------
-		//4.on click of back
+		//------------------------------------------------------------------
+		// Function: onBack
+		// Parameter: oFlag : to identify the request from Supervisor or Tradesman 
+		// Description: This will get called, to handle, on click of onBack.
+		//------------------------------------------------------------------
 		onBack: function(oFlag) {
 			try {
 				var that = this,
@@ -724,30 +758,41 @@ sap.ui.define([
 					});
 				}
 			} catch (e) {
-				Log.error("Exception in onBack function");
+				Log.error("Exception in CosCloseJob:onBack function");
+				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onBack
+		// Parameter:
+		// Description: This will get called, to handle, on click reset properties and controlling visibility of buttons.
+		//------------------------------------------------------------------
 		_fnBackBtnPress: function() {
-			var oModel = this.getView().getModel("ViewModel"),
-				oJobModel;
-			this.selectedTab = "Summary";
-			oJobModel = this.getView().getModel("JobModel");
-			this.onWorkCenterSelect(oJobModel.getProperty("/prime"));
-			this.getView().byId("cbWorkCenterId").setSelectedKey(oJobModel.getProperty("/prime"));
-			oModel.setProperty("/PrimeWC", oJobModel.getProperty("/prime"));
-			oModel.setProperty("/selectedIcon", "Summary");
-			oModel.setProperty("/signOffBtn", false);
-			oModel.setProperty("/signOffBtn1", false);
-			oModel.setProperty("/proccedBtn", true);
-			oModel.setProperty("/backBtn", false);
-			oModel.setProperty("/backBtnSup", false);
-			this.byId("pageCloseId").scrollTo(0);
+			try {
+				var oModel = this.getView().getModel("ViewModel"),
+					oJobModel;
+				this.selectedTab = "Summary";
+				oJobModel = this.getView().getModel("JobModel");
+				this.onWorkCenterSelect(oJobModel.getProperty("/prime"));
+				this.getView().byId("cbWorkCenterId").setSelectedKey(oJobModel.getProperty("/prime"));
+				oModel.setProperty("/PrimeWC", oJobModel.getProperty("/prime"));
+				oModel.setProperty("/selectedIcon", "Summary");
+				oModel.setProperty("/signOffBtn", false);
+				oModel.setProperty("/signOffBtn1", false);
+				oModel.setProperty("/proccedBtn", true);
+				oModel.setProperty("/backBtn", false);
+				oModel.setProperty("/backBtnSup", false);
+				this.byId("pageCloseId").scrollTo(0);
+			} catch (e) {
+				Log.error("Exception in CosCloseJob:_fnBackBtnPress function");
+				this.handleException(e);
+			}
 		},
-
-		//------------------------------------------------------------------------------------------
-		//  Private Method: This will get called, to sheduled defect on change of due type.
-		//------------------------------------------------------------------------------------------ 
+		//------------------------------------------------------------------
+		// Function: onDueSelectChange
+		// Parameter:oEvent
+		// Description: This will get called, to handle,to sheduled defect on change of due type.
+		//------------------------------------------------------------------
 		onDueSelectChange: function(oEvent) {
 			try {
 				var sDue = oEvent.getSource().getSelectedItem().getText();
@@ -771,7 +816,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onDueSelectChangeES
+		// Parameter:oEvent
+		// Description: This will get called, to handle,to set utilization basic values on selection.
+		//------------------------------------------------------------------
 		onDueSelectChangeES: function(oEvent) {
 			try {
 				var sDue = oEvent.getSource().getSelectedItem().getText();
@@ -791,10 +840,15 @@ sap.ui.define([
 					}
 				}
 			} catch (e) {
-				Log.error("Exception in onDueSelectChange function");
+				Log.error("Exception in CosCloseJob:onDueSelectChangeES function");
+				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onUpdateFinishedTB
+		// Parameter:oEvent
+		// Description: This will get called, to handle,to updatefinished of the table for task selection.
+		//------------------------------------------------------------------
 		onUpdateFinishedTB: function() {
 			try {
 				var oTable = this.getView().byId("tbWorkCenterCJ"),
@@ -810,10 +864,15 @@ sap.ui.define([
 				}
 
 			} catch (e) {
-				Log.error("Exception in onBack function");
+				Log.error("Exception in CosCloseJob:onUpdateFinishedTB function");
+				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: _fnGetDateValidation
+		// Parameter:sJobId
+		// Description: This will get called, to handle,to valisdate date.
+		//------------------------------------------------------------------
 		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};
@@ -827,13 +886,14 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
 			} catch (e) {
-				Log.error("Exception in _fnGetDateValidation function");
+				Log.error("Exception in CosCloseJob:_fnGetDateValidation function");
+				this.handleException(e);
 			}
 		},
 
 		//------------------------------------------------------------------
 		// Function: _fnMultiTradmanJobGet
-		// Parameter: sJObId
+		// Parameter: sJobId
 		// Description: This will get called, when to get involved trademans data.
 		//Table: TUSER
 		//------------------------------------------------------------------
@@ -850,16 +910,21 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead("/CreTuserSvc", oPrmTD);
 			} catch (e) {
-				Log.error("Exception in _fnMultiTradmanJobGet function");
+
+				Log.error("Exception in CosCloseJob:_fnMultiTradmanJobGet function");
+				this.handleException(e);
 			}
 		},
 
 		// ***************************************************************************
 		//                 4. Private Methods   
 		// ***************************************************************************
-		//-------------------------------------------------------------
-		//  This will called to handle route matched.
-		//-------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: _onObjectMatched
+		// Parameter: sJobId
+		// Description: This will get called, This will called to handle route matched.
+		//Table: TUSER
+		//------------------------------------------------------------------
 		_onObjectMatched: function(oEvent) {
 			try {
 				var that = this,

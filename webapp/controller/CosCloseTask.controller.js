@@ -41,36 +41,68 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onExit
+		// Parameter: oEvent
+		// Description: This will get called, on exit of the view.
+		//------------------------------------------------------------------
 		onExit: function() {
-			if (dataUtil.getDataSet("TempCloseTaskModel")) {
-				dataUtil.setDataSet("TempCloseTaskModel", null);
-				dataUtil.setDataSet("TempCloseCAPModel", null);
+			try {
+				if (dataUtil.getDataSet("TempCloseTaskModel")) {
+					dataUtil.setDataSet("TempCloseTaskModel", null);
+					dataUtil.setDataSet("TempCloseCAPModel", null);
+				}
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:onExit function");
+				this.handleException(e);
 			}
 		},
+		//------------------------------------------------------------------
+		// Function: onRefresh
+		// Parameter: oEvent
+		// Description: This will get called, to refresh the view.
+		//------------------------------------------------------------------
 		onRefresh: function() {
-			var oViewModel = this.getView().getModel("ViewModel");
-			this._fnTasksGet(oViewModel.getProperty("/TaskId"));
-		},
-
-		handleChange: function(oEvent) {
-			var oSrc = oEvent.getSource(),
-				sId = oSrc.getId(),
-				sPath = oSrc.getBindingContext("TaskModel").getPath();
-			var dpId = "";
-			var tpId = "";
-			if (sId.search("DP1") !== -1) {
-				dpId = sId;
-				tpId = sId.replace("DP1", "TP1");
-			} else {
-				tpId = sId;
-				dpId = sId.replace("TP1", "DP1");
+			try {
+				var oViewModel = this.getView().getModel("ViewModel");
+				this._fnTasksGet(oViewModel.getProperty("/TaskId"));
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:onRefresh function");
+				this.handleException(e);
 			}
-			var prevDt = this.getModel("TaskModel").getProperty(sPath + "/credtm");
-			var prevTime = this.getModel("TaskModel").getProperty(sPath + "/creuzt");
-			return formatter.validDateTimeChecker(this, dpId, tpId, "errorCloseTaskPast", "errorCloseTaskFuture", prevDt, prevTime);
 		},
-
+		//------------------------------------------------------------------
+		// Function: handleChange
+		// Parameter: oEvent
+		// Description: This will get called, to handle change in date on view.
+		//------------------------------------------------------------------
+		handleChange: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					sId = oSrc.getId(),
+					sPath = oSrc.getBindingContext("TaskModel").getPath();
+				var dpId = "";
+				var tpId = "";
+				if (sId.search("DP1") !== -1) {
+					dpId = sId;
+					tpId = sId.replace("DP1", "TP1");
+				} else {
+					tpId = sId;
+					dpId = sId.replace("TP1", "DP1");
+				}
+				var prevDt = this.getModel("TaskModel").getProperty(sPath + "/credtm");
+				var prevTime = this.getModel("TaskModel").getProperty(sPath + "/creuzt");
+				return formatter.validDateTimeChecker(this, dpId, tpId, "errorCloseTaskPast", "errorCloseTaskFuture", prevDt, prevTime);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:handleChange function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: onSuggestTechOrder
+		// Parameter: oEvent
+		// Description: This will get called, to handle suggestion on technical order.
+		//------------------------------------------------------------------
 		onSuggestTechOrder: function(oEvent) {
 			var sText = oEvent.getSource().getValue();
 			try {
@@ -96,7 +128,11 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 3.  Specific Methods  
 		// ***************************************************************************
-		//1.on segmented button selection change
+		//------------------------------------------------------------------
+		// Function: onSegmentedButtonSelection
+		// Parameter: oEvent
+		// Description: This will get called, on segmented button selection change.
+		//------------------------------------------------------------------
 		onSegmentedButtonSelection: function(oEvent) {
 			try {
 				var oModel = this.getView().getModel("ViewModel"),
@@ -112,7 +148,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//2.on icon bar selection change
+		//------------------------------------------------------------------
+		// Function: onIconSelected
+		// Parameter: oEvent
+		// Description: This will get called, on icon bar selection change.
+		//------------------------------------------------------------------
 		onIconSelected: function(oEvent) {
 			try {
 				var oModel = this.getView().getModel("ViewModel");
@@ -130,7 +170,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//3.on click of procced button
+		//------------------------------------------------------------------
+		// Function: onProceed
+		// Parameter: oEvent
+		// Description: This will get called, on click of procced button.
+		//------------------------------------------------------------------
 		onProceed: function(oEvent) {
 			try {
 				FieldValidations.resetErrorStates(this);
@@ -188,7 +232,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//4.to add new tradesman to the list
+		//------------------------------------------------------------------
+		// Function: onAddTradesMan
+		// Parameter: oEvent
+		// Description: This will get called, to add new tradesman to the list.
+		//------------------------------------------------------------------
 		onAddTradesMan: function() {
 			try {
 				var oModel = this.getView().getModel("ViewModel").getProperty("/tradesManTable");
@@ -203,7 +251,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: _fnCreateMultiTradesmenPayload
+		// Parameter: oEvent
+		// Description: This will get called, to create.
+		//------------------------------------------------------------------
 		_fnCreateMultiTradesmenPayload: function() {
 			try {
 				var that = this,
@@ -398,7 +450,7 @@ sap.ui.define([
 				ajaxutil.fnCreate("/ADDSvc", oParameter, obj);
 			}
 		},
-		
+
 		_fnUpdateLandingTyre: function(oData) {
 			var oModel = this.getView().getModel("LandingTyreModel");
 			if (!oModel) {
@@ -1018,7 +1070,7 @@ sap.ui.define([
 					oLimit = [];
 				}
 				oLimit.push(JSON.parse(JSON.stringify(oPayLoad)));
-				this.getModel("ViewModel").setProperty("/LimitADD",oLimit);
+				this.getModel("ViewModel").setProperty("/LimitADD", oLimit);
 				var oTaskModel = this.getModel("TaskModel").getData();
 				for (var i in oTaskModel) {
 					if (oTaskModel[i].taskid === oPayLoad.TASKID) {
@@ -1249,7 +1301,7 @@ sap.ui.define([
 				var oTempCTModel = dataUtil.getDataSet("TempCloseTaskModel");
 				if (oTempCTModel) {
 					this._fnCreateTempTaskModel();
-					this.getView().getModel("ViewModel").setProperty("/LimitADD",dataUtil.getDataSet("TempCloseCAPModel"));
+					this.getView().getModel("ViewModel").setProperty("/LimitADD", dataUtil.getDataSet("TempCloseCAPModel"));
 				} else {
 					this._fnTasksGet(oTempJB);
 				}
@@ -1392,7 +1444,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		_fnGetLandingTyre: function(aData) {
 			var partNo = "";
 			for (var i in aData) {
