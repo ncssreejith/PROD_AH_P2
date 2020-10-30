@@ -17,12 +17,67 @@ sap.ui.define([
 	 *   Functions :
 	 *   1.UI Events
 	 *        1.1 onInit
-	 *        1.2 onSignOffPress
+	 *        1.2 onExit
+	 *        1.3 onRefresh
 	 *     2. Backend Calls
-	 *        2.1 fnLogById
-	 *     3. Private calls
+	 *        2.1 onLandingTyreUpdate
+	 *        2.2 _fnMultiTradmanCreate
+	 *        2.3 _fnUpdateLimitations
+	 *        2.4 _fnUpdateLandingTyre
+	 *        2.5 _fnADDCountGet
+	 *        2.6 getSerialNoPress
+	 *        2.7 _fnGetUtilisationDefaultVal
+	 *        2.8 _fnReasonforADDGet
+	 *        2.9 _fnPerioOfDeferCBGet
+	 *        2.10 _fnTasksADDGet
+	 *        2.11 _fnTasksGet
+	 *        2.12 _fnCheckLandingTyre
+	 *        2.13 _fnUtilization2Get
+	 *        2.14 _fnUtilizationGet
+	 *        2.14 onSignOff
+     *     3. Private calls
 	 *        3.1 _onObjectMatched
-	 *        3.2 fnSetReason
+	 *        3.2 handleChange
+	 *        3.3 onSuggestTechOrder
+	 *        3.4 onSegmentedButtonSelection
+	 *        3.5 onIconSelected
+	 *        3.6 onProceed
+	 *        3.7 onAddTradesMan
+	 *        3.8 _fnCreateMultiTradesmenPayload
+	 *        3.9 onDeleteTradesMan
+	 *        3.10 onIconTabSelection
+	 *        3.11 onBack
+	 *        3.12 onPrdOfDefermentChange
+	 *        3.13 onReasonForADDChange
+	 *        3.14 onReasonTypeChange
+	 *        3.15 onUilisationChange
+	 *        3.16 onAddLimitaionPress
+	 *        3.17 onRemoveLimitaionPress
+	 *        3.18 onEnterToTheErrorPress
+	 *        3.19 onAddLimitaionDialog
+	 *        3.20 onCloseAddLimDialog
+	 *        3.21 onAddADDDialog
+	 *        3.22 onCloseADDDialog
+	 *        3.23 onTimeChange
+	 *        3.24 _fnCreateLimitation
+	 *        3.25 onCreateLimitationPress
+	 *        3.26 onTypeChangeOther
+	 *        3.27 onTypeChangeOPS
+	 *        3.28 onTypeChange
+	 *        3.29 _fnCreateTempTaskModel
+	 *        3.30 _fnCheckTaskType
+	 *        3.31 _fnGetLandingTyre
+	 *        3.32 _fnOpenLandingTyreBox
+	 *        3.33 onLandingTyreValChange
+	 *        3.34 _fnInitialLoad
+	 *        3.35 onChangeData
+	 *        3.36 onChangeDataInput
+	 *        3.37 onVIResultSelect
+	 *        3.38 getVIResultStatus
+	 *        3.39 onCloseVIStatus
+	 *        3.40 onSaveVIStatus
+	 *        3.41 handleLiveChange
+	 *        3.42 _InitializeLimDialogModel
 	 *   Note :
 	 *************************************************************************** */
 	return BaseController.extend("avmet.ah.controller.CosCloseTask", {
@@ -98,6 +153,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		// ***************************************************************************
+		//                 2. Database/Ajax/OData Calls  
+		// ***************************************************************************	
 		//------------------------------------------------------------------
 		// Function: onSuggestTechOrder
 		// Parameter: oEvent
@@ -121,9 +180,535 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		// ***************************************************************************
-		//                 2. Database/Ajax/OData Calls  
-		// ***************************************************************************	
+		//------------------------------------------------------------------
+		// Function: _fnMultiTradmanCreate
+		// Parameter: oPayLoad
+		// Description: This will get called, to create multi trademan record creation.
+		//------------------------------------------------------------------
+		_fnMultiTradmanCreate: function(oPayLoad) {
+			try {
+				var that = this,
+					oPrmTD = {},
+					oAppModel = that.getView().getModel("LocalModel"),
+					oViewModel = that.getView().getModel("ViewModel");
+
+				oPrmTD.filter = "";
+				oPrmTD.error = function() {};
+				oPrmTD.success = function(oData) {
+					if (oViewModel.getProperty("/Flag") === "FS") {
+						that.getRouter().navTo("CTCloseTask", {
+							"srvtid": oViewModel.getProperty("/srvtid")
+						}, true);
+					} else {
+						that.getRouter().navTo("CosDefectsSummary", {
+							"JobId": oViewModel.getProperty("/JobId"),
+							"Flag": "Y",
+							"WcKey": oViewModel.getProperty("/WorkKey"),
+							"goTo": "SP"
+						}, true);
+					}
+				}.bind(this);
+				ajaxutil.fnCreate("/CreTuserSvc", oPrmTD, oPayLoad);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnMultiTradmanCreate function");
+				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: onSignOff
+		// Parameter: oEvent
+		// Description: This will get called, on click of Sign Off button
+		//------------------------------------------------------------------
+
+		onSignOff: function(oEvent) {
+			try {
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
+				var oModel = this.getView().getModel("TaskModel"),
+					oFLag = "0",
+					sObject,
+					oViewModel = this.getView().getModel("ViewModel"),
+					oPrmTask = {},
+					that = this,
+					oPayload = [];
+
+				oPayload = oModel.getData();
+				if (oViewModel.getProperty("/MulitiFlag") === "Y") {
+					oFLag = "1";
+				}
+				for (var i = 0; i < oPayload.length; i++) {
+					oPayload[i].tstat = "P";
+					oPayload[i].multi = oFLag;
+					delete oPayload[i].ValueState;
+					delete oPayload[i].ftcredtStateText;
+					delete oPayload[i].ftcretmState;
+					delete oPayload[i].addLimitAdded;
+					delete oPayload[i].LNDPIN;
+					delete oPayload[i].TIREID;
+					//oPayload[i].sernr = oPayload[i].ftsernr;
+					try {
+						oPayload[i].ftcredt = formatter.defaultOdataDateFormat(oPayload[i].ftcredt);
+					} catch (e) {
+						oPayload[i].ftcredt = oPayload[i].ftcredt;
+					}
+					if (oPayload[i].CPRID !== null) {
+						oPayload[i].ftdesc = "Transfer to Acceptable Deferred Defects Log";
+					}
+				}
+
+				oPrmTask.filter = "";
+				oPrmTask.error = function() {
+
+				};
+				oPrmTask.success = function(oData) {
+					this._fnUpdateLimitations();
+					this._fnUpdateLandingTyre(oData.results);
+					if (dataUtil.getDataSet("TempCloseTaskModel")) {
+						dataUtil.setDataSet("TempCloseTaskModel", null);
+						dataUtil.setDataSet("TempCloseCAPModel", null);
+					}
+					if (oData.results[0].multi !== "0") {
+						that._fnCreateMultiTradesmenPayload();
+					} else {
+						if (oViewModel.getProperty("/Flag") === "FS") {
+							that.onNavBack();
+						} else {
+							that.getRouter().navTo("CosDefectsSummary", {
+								"JobId": oViewModel.getProperty("/JobId"),
+								"Flag": "Y",
+								"WcKey": oViewModel.getProperty("/WorkKey"),
+								"goTo": "SP"
+							}, true);
+						}
+					}
+				}.bind(this);
+				if (oViewModel.getProperty("/Flag") === "FS") {
+					sObject = "ZRM_FS_CTT";
+				} else {
+					sObject = "ZRM_COS_TT";
+				}
+				oPrmTask.activity = 4;
+				oPrmTask.title = "Tradesman Sign Off";
+				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, oPayload, sObject, this);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:onSignOff function");
+				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnUpdateLimitations
+		// Parameter: 
+		// Description: This will get called, to create ADD/Limitation record in cap table
+		//------------------------------------------------------------------
+		_fnUpdateLimitations: function() {
+			try {
+				var obj = this.getModel("ViewModel").getProperty("/LimitADD");
+				if (obj && obj.length > 0) {
+					var oParameter = {};
+					oParameter.error = function() {};
+					oParameter.success = function(oData) {};
+					/*	oParameter.activity = 1;
+						, "ZRM_ADDL", this*/
+					ajaxutil.fnCreate("/ADDSvc", oParameter, obj);
+				}
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnUpdateLimitations function");
+				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnUpdateLandingTyre
+		// Parameter: oData
+		// Description: This will get called, to create leading tyre records.
+		//------------------------------------------------------------------
+		_fnUpdateLandingTyre: function(oData) {
+			var oModel = this.getView().getModel("LandingTyreModel");
+			if (!oModel) {
+				return;
+			}
+			var oTyre = oModel.getData();
+			if (oTyre && oTyre.length > 0) {
+				var oPayload = [];
+				var oParameter = {};
+				for (var i in oData) {
+					for (var j in oTyre) {
+						if (oTyre[j].partno === oData[i].partno) {
+							var tempObj = JSON.parse(JSON.stringify(oTyre[j]));
+							var obj = {};
+							obj.TAILID = tempObj.tailid;
+							obj.PARTNO = oData[i].partno;
+							obj.LNDPIN = tempObj.LNDPIN;
+							obj.TASKID = tempObj.taskid;
+							obj.TIREID = tempObj.TIREID;
+							obj.ITMNO = null;
+							obj.LATIS = null;
+							obj.LATRE = null;
+							obj.SERNR = null;
+							obj.LTIREID = null;
+							obj.TIREDESC = null;
+							obj.REFID = null;
+							obj.IRFLAG = null;
+							obj.INSON = null;
+							obj.RMVFR = null;
+							obj.TOTLND = null;
+							oPayload.push(JSON.parse(JSON.stringify(obj)));
+						}
+					}
+
+				}
+
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {};
+				/*	oParameter.activity = 1;
+					, "ZRM_ADDL", this*/
+				ajaxutil.fnCreate("/LandingTyreSvc", oParameter, oPayload);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnADDCountGet
+		// Parameter: oEvent
+		// Description: This will get called,to get total add count as of now from DB.
+		//------------------------------------------------------------------
+		_fnADDCountGet: function() {
+			try {
+				var that = this,
+					sCount,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId();
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					if (oData !== undefined && oData.results.length > 0) {
+						sCount = oData.results[0].COUNT;
+					} else {
+						sCount = "0";
+					}
+					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
+				}.bind(this);
+
+				ajaxutil.fnRead("/GetAddCountSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnADDCountGet function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: getSerialNoPress
+		// Parameter: oEvent
+		//Table: ENGINE
+		// Description: This will get called, to get Serial number for part number.
+		//------------------------------------------------------------------
+		getSerialNoPress: function(oEvent) {
+			try {
+				var oPrmDD = {},
+					oModel,
+					oModelObj = oEvent.getSource().getParent().getParent().getParent().getParent().getParent().getParent().getParent().getParent().getParent()
+					.getBindingContext("TaskModel"),
+					that = this,
+					oPayload;
+				oModelObj.getObject("partno");
+				oPrmDD.filter = "PARTNO eq " + oModelObj.getObject("partno") + " and ESTAT eq R and INSON eq " + this.getTailId();
+				oPrmDD.error = function() {};
+
+				oPrmDD.success = function(oData) {
+					if (oData.results.length !== 0) {
+						oModel = dataUtil.createNewJsonModel();
+						oModel.setData(oData.results);
+						this.getView().setModel(oModel, "SerialNumModel");
+
+					} else {
+						MessageBox.error(
+							"Part number is invalid.", {
+								icon: sap.m.MessageBox.Icon.Error,
+								title: "Error",
+								styleClass: "sapUiSizeCompact"
+							});
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/GetSerNoSvc", oPrmDD, oPayload);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:getSerialNoPress function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnUtilizationGet
+		// Parameter: oEvent
+		// Description: This will get called,to get utilization dropdown master data.
+		//------------------------------------------------------------------
+		_fnUtilizationGet: function() {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("ViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "refid eq " + oModel.getProperty("/AirId") + " and ddid eq UTIL1_";
+
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "UtilizationCBModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnUtilizationGet function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnGetUtilisationDefaultVal
+		// Parameter: sAir
+		// Description: This will get called,to get utilization record default values from DB.
+		//------------------------------------------------------------------
+
+		_fnGetUtilisationDefaultVal: function(sAir) {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnGetUtilisationDefaultVal function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnReasonforADDGet
+		// Parameter: sAir
+		// Description: This will get called,to get reason for ADD values from DB.
+		//------------------------------------------------------------------
+		_fnReasonforADDGet: function() {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("ViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "refid eq " + oModel.getProperty("/AirId") + " and ddid eq CPR_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "ReasonforADDModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnReasonforADDGet function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnUtilization2Get
+		// Parameter: sAir
+		// Description: This will get called,to get utillization 2 combobox values from DB.
+		//------------------------------------------------------------------
+		_fnUtilization2Get: function() {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("ViewModel"),
+					oPrmJobDue = {};
+				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/AirId") + " and ddid eq UTIL2_";*/
+				oPrmJobDue.filter = "ddid eq UTIL2_";
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "Utilization2CBModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnUtilization2Get function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnPerioOfDeferCBGet
+		// Parameter: 
+		// Description: This will get called,to get Period of Deferment combobox values from DB.
+		//------------------------------------------------------------------
+		_fnPerioOfDeferCBGet: function() {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("ViewModel"),
+					oPrmJobDue = {};
+				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/AirId") + " and ddid eq 118_";*/
+				oPrmJobDue.filter = "ddid eq 118_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "PerioOfDeferCBModel");
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnPerioOfDeferCBGet function");
+				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnTasksADDGet
+		// Parameter: oEvent
+		// Table: TASK
+		// Description:  This will get called, to get data fro selected tasks.
+		//------------------------------------------------------------------
+		_fnTasksADDGet: function(oTempJB) {
+			try {
+				var that = this,
+					filters = [],
+					oModel,
+					sFilter, bFlag = true,
+					oModelView = this.getView().getModel("TaskModel"),
+					oPrmJobDue = {};
+				sFilter = "taskid eq " + oTempJB;
+				oPrmJobDue.filter = sFilter;
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					oData.results[0].ftsernr = oModelView.getData()[this.oObjectPath.split("/")[1]].ftsernr;
+					oData.results[0].ftdesc = oModelView.getData()[this.oObjectPath.split("/")[1]].ftdesc;
+					oData.results[0].fttoref = oModelView.getData()[this.oObjectPath.split("/")[1]].fttoref;
+					oData.results[0].ValueState = "None";
+					oModelView.getData().splice(this.oObjectPath.split("/")[1], 1);
+					oData.results[0].ftcredt = new Date();
+					oData.results[0].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();
+					oModelView.getData().push(oData.results[0]);
+					oModelView.updateBindings();
+				}.bind(this);
+				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnTasksADDGet function");
+				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnTasksGet
+		// Parameter: oTempJB
+		// Description: This will get called, to get selected tasks data from backend.
+		//------------------------------------------------------------------
+
+		_fnTasksGet: function(oTempJB) {
+			try {
+				var that = this,
+					filters = [],
+					sFilter, bFlag = true,
+					oModel = this.getView().getModel("ViewModel"),
+					oPrmJobDue = {};
+				this.handleBusyDialogOpen();
+				var Temp = oModel.getProperty("/TaskId");
+				for (var i = 0; i < Temp.length; i++) {
+					if (bFlag) {
+						sFilter = "taskid eq " + Temp[i];
+						bFlag = false;
+					} else {
+						var sFilterStr = " and taskid eq " + Temp[i];
+						sFilter = sFilter.concat(sFilterStr);
+					}
+					/*filters.push(new sap.ui.model.Filter("taskid", sap.ui.model.FilterOperator.EQ, Temp[i]));*/
+				}
+				oPrmJobDue.filter = sFilter;
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setSizeLimit(1000);
+					for (var i = 0; i < oData.results.length; i++) {
+						oData.results[i].ftcredt = new Date();
+						oData.results[i].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();
+						if (oData.results[i].tt1id === 'TT1_12' && oData.results[i].tt2id === '' && oData.results[i].tt3id === '' && oData.results[i].tt4id ===
+							'') {
+							if (oData.results[i].ftrsltgd === "" || oData.results[i].ftrsltgd === null || oData.results[i].ftrsltgd === 0) {
+								oData.results[i].ftrsltgd = 2;
+							}
+						}
+						oData.results[i].ValueState = "None";
+						// if (oData.results[i].util1 === "UTIL1_20") {
+						// 	oData.results[i].util2 = oData.results[i].utilvl;
+						// }
+					}
+					oModel.setData(oData.results);
+					this._fnGetLandingTyre(oData.results);
+					that.getView().setModel(oModel, "TaskModel");
+					that.getView().byId("vbLimId").invalidate();
+					that.getView().byId("vbTaskId").invalidate();
+					var oFollowModelOther = dataUtil.createNewJsonModel();
+					oFollowModelOther.setData([{
+						"key": "TT1_14",
+						"text": "Others"
+					}, {
+						"key": "TT1_ADD",
+						"text": "Transfer to Acceptable Deferred Defects Log"
+					}]);
+					this.getView().setModel(oFollowModelOther, "FollowOtherModel");
+
+					var oFollowModelOPS = dataUtil.createNewJsonModel();
+					oFollowModelOPS.setData([{
+						"key": "TT1_11",
+						"text": "OPS Check"
+					}, {
+						"key": "TT1_AD",
+						"text": "Transfer to Acceptable Deferred Defects Log"
+					}]);
+					this.getView().setModel(oFollowModelOPS, "FollowOPSModel");
+					this.byId("pageCloseTaskId").scrollTo(0);
+					that.handleBusyDialogClose();
+				}.bind(this);
+
+				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnTasksGet function");
+				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnCheckLandingTyre
+		// Parameter: obj, partNo
+		// Description: This will get called, to get data for the landing tyre record with respective TAILID and PARTNO.
+		//------------------------------------------------------------------
+		_fnCheckLandingTyre: function(obj, partNo) {
+			try {
+				var oPayload = [],
+					oPrmTask = {};
+				oPrmTask.filter = "TAILID eq " + obj.tailid + " and PARTNO eq " + partNo;
+				oPrmTask.error = function() {};
+				oPrmTask.success = function(oData) {
+					if (oData && oData.results && oData.results.length > 0) {
+						this._fnOpenLandingTyreBox(oData.results);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/LandingTyreSvc", oPrmTask, oPayload);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnCheckLandingTyre function");
+				this.handleException(e);
+			}
+		},
 
 		// ***************************************************************************
 		//                 3.  Specific Methods  
@@ -254,7 +839,7 @@ sap.ui.define([
 		//------------------------------------------------------------------
 		// Function: _fnCreateMultiTradesmenPayload
 		// Parameter: oEvent
-		// Description: This will get called, to create.
+		// Description: This will get called, to create payload for multi trademan creation.
 		//------------------------------------------------------------------
 		_fnCreateMultiTradesmenPayload: function() {
 			try {
@@ -285,37 +870,11 @@ sap.ui.define([
 			}
 		},
 
-		_fnMultiTradmanCreate: function(oPayLoad) {
-			try {
-				var that = this,
-					oPrmTD = {},
-					oAppModel = that.getView().getModel("LocalModel"),
-					oViewModel = that.getView().getModel("ViewModel");
-
-				oPrmTD.filter = "";
-				oPrmTD.error = function() {};
-				oPrmTD.success = function(oData) {
-					if (oViewModel.getProperty("/Flag") === "FS") {
-						that.getRouter().navTo("CTCloseTask", {
-							"srvtid": oViewModel.getProperty("/srvtid")
-						}, true);
-					} else {
-						that.getRouter().navTo("CosDefectsSummary", {
-							"JobId": oViewModel.getProperty("/JobId"),
-							"Flag": "Y",
-							"WcKey": oViewModel.getProperty("/WorkKey"),
-							"goTo": "SP"
-						}, true);
-					}
-				}.bind(this);
-				ajaxutil.fnCreate("/CreTuserSvc", oPrmTD, oPayLoad);
-			} catch (e) {
-				Log.error("Exception in CosCloseTask:_fnMultiTradmanCreate function");
-				this.handleException(e);
-			}
-		},
-
-		//5.delete the tradesman item
+		//------------------------------------------------------------------
+		// Function: onDeleteTradesMan
+		// Parameter: oEvent
+		// Description: This will get called, to delete the tradesman item.
+		//------------------------------------------------------------------
 		onDeleteTradesMan: function(oEvent) {
 			try {
 				var oModel = this.getView().getModel("ViewModel").getProperty("/tradesManTable"),
@@ -327,7 +886,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//6. on Icon Tab selection change
+		//------------------------------------------------------------------
+		// Function: onIconTabSelection
+		// Parameter: oEvent
+		// Description: This will get called, on Icon Tab selection change
+		//------------------------------------------------------------------
 		onIconTabSelection: function(oEvent) {
 			try {
 				var oModel = this.getView().getModel("ViewModel"),
@@ -347,7 +910,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//7.on click of back button
+		//------------------------------------------------------------------
+		// Function: onBack
+		// Parameter: oEvent
+		// Description: This will get called, on click of back button
+		//------------------------------------------------------------------
 		onBack: function(oEvent) {
 			try {
 				var oModel = this.getView().getModel("ViewModel");
@@ -360,187 +927,12 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//8.on click of Sign Off button
-		onSignOff: function(oEvent) {
-			try {
-				FieldValidations.resetErrorStates(this);
-				if (FieldValidations.validateFields(this)) {
-					return;
-				}
-				var oModel = this.getView().getModel("TaskModel"),
-					oFLag = "0",
-					sObject,
-					oViewModel = this.getView().getModel("ViewModel"),
-					oPrmTask = {},
-					that = this,
-					oPayload = [];
 
-				oPayload = oModel.getData();
-				if (oViewModel.getProperty("/MulitiFlag") === "Y") {
-					oFLag = "1";
-				}
-				for (var i = 0; i < oPayload.length; i++) {
-					oPayload[i].tstat = "P";
-					oPayload[i].multi = oFLag;
-					delete oPayload[i].ValueState;
-					delete oPayload[i].ftcredtStateText;
-					delete oPayload[i].ftcretmState;
-					delete oPayload[i].addLimitAdded;
-					delete oPayload[i].LNDPIN;
-					delete oPayload[i].TIREID;
-					//oPayload[i].sernr = oPayload[i].ftsernr;
-					try {
-						oPayload[i].ftcredt = formatter.defaultOdataDateFormat(oPayload[i].ftcredt);
-					} catch (e) {
-						oPayload[i].ftcredt = oPayload[i].ftcredt;
-					}
-					if (oPayload[i].CPRID !== null) {
-						oPayload[i].ftdesc = "Transfer to Acceptable Deferred Defects Log";
-					}
-				}
-
-				oPrmTask.filter = "";
-				oPrmTask.error = function() {
-
-				};
-				oPrmTask.success = function(oData) {
-					this._fnUpdateLimitations();
-					this._fnUpdateLandingTyre(oData.results);
-					if (dataUtil.getDataSet("TempCloseTaskModel")) {
-						dataUtil.setDataSet("TempCloseTaskModel", null);
-						dataUtil.setDataSet("TempCloseCAPModel", null);
-					}
-					if (oData.results[0].multi !== "0") {
-						that._fnCreateMultiTradesmenPayload();
-					} else {
-						if (oViewModel.getProperty("/Flag") === "FS") {
-							that.onNavBack();
-						} else {
-							that.getRouter().navTo("CosDefectsSummary", {
-								"JobId": oViewModel.getProperty("/JobId"),
-								"Flag": "Y",
-								"WcKey": oViewModel.getProperty("/WorkKey"),
-								"goTo": "SP"
-							}, true);
-						}
-					}
-				}.bind(this);
-				if (oViewModel.getProperty("/Flag") === "FS") {
-					sObject = "ZRM_FS_CTT";
-				} else {
-					sObject = "ZRM_COS_TT";
-				}
-				oPrmTask.activity = 4;
-				oPrmTask.title = "Tradesman Sign Off";
-				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, oPayload, sObject, this);
-			} catch (e) {
-				Log.error("Exception in CosCloseTask:onSignOff function");
-				this.handleException(e);
-			}
-		},
-
-		_fnUpdateLimitations: function() {
-			var obj = this.getModel("ViewModel").getProperty("/LimitADD");
-			if (obj && obj.length > 0) {
-				var oParameter = {};
-				oParameter.error = function() {};
-				oParameter.success = function(oData) {};
-				/*	oParameter.activity = 1;
-					, "ZRM_ADDL", this*/
-				ajaxutil.fnCreate("/ADDSvc", oParameter, obj);
-			}
-		},
-
-		_fnUpdateLandingTyre: function(oData) {
-			var oModel = this.getView().getModel("LandingTyreModel");
-			if (!oModel) {
-				return;
-			}
-			var oTyre = oModel.getData();
-			if (oTyre && oTyre.length > 0) {
-				var oPayload = [];
-				var oParameter = {};
-				for (var i in oData) {
-					for (var j in oTyre) {
-						if (oTyre[j].partno === oData[i].partno) {
-							var tempObj = JSON.parse(JSON.stringify(oTyre[j]));
-							var obj = {};
-							obj.TAILID = tempObj.tailid;
-							obj.PARTNO = oData[i].partno;
-							obj.LNDPIN = tempObj.LNDPIN;
-							obj.TASKID = tempObj.taskid;
-							obj.TIREID = tempObj.TIREID;
-							obj.ITMNO = null;
-							obj.LATIS = null;
-							obj.LATRE = null;
-							obj.SERNR = null;
-							obj.LTIREID = null;
-							obj.TIREDESC = null;
-							obj.REFID = null;
-							obj.IRFLAG = null;
-							obj.INSON = null;
-							obj.RMVFR = null;
-							obj.TOTLND = null;
-							oPayload.push(JSON.parse(JSON.stringify(obj)));
-						}
-					}
-
-				}
-
-				oParameter.error = function() {};
-				oParameter.success = function(oData) {};
-				/*	oParameter.activity = 1;
-					, "ZRM_ADDL", this*/
-				ajaxutil.fnCreate("/LandingTyreSvc", oParameter, oPayload);
-			}
-		},
-
-		//8.on click of Sign Off button
-		onSaveAsDraft: function(oEvent) {
-			try {
-				var oModel = this.getView().getModel("TaskModel"),
-					oFLag = "0",
-					sObject,
-					oViewModel = this.getView().getModel("ViewModel"),
-					oPrmTask = {},
-					that = this,
-					oPayload = [];
-
-				oPayload = oModel.getData();
-
-				for (var i = 0; i < oPayload.length; i++) {
-					//oPayload[i].sernr = oPayload[i].ftsernr;
-					try {
-						oPayload[i].ftcredt = formatter.defaultOdataDateFormat(oPayload[i].ftcredt);
-					} catch (e) {
-						oPayload[i].ftcredt = oPayload[i].ftcredt;
-					}
-				}
-
-				oPrmTask.filter = "";
-				oPrmTask.error = function() {
-
-				};
-				oPrmTask.success = function(oData) {
-					this._fnTasksGet(oViewModel.getProperty("/TaskId"));
-					this.getView().getModel("ViewModel").setProperty("/bLiveChnage", true);
-					this.byId("pageCloseTaskId").scrollTo(0);
-					this.getView().getModel("FollowOtherModel").setData(null);
-					this.getView().getModel("FollowOPSModel").setData(null);
-				}.bind(this);
-				if (oViewModel.getProperty("/Flag") === "FS") {
-					sObject = "ZRM_FS_CTT";
-				} else {
-					sObject = "ZRM_COS_TT";
-				}
-				oPrmTask.activity = 4;
-
-				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, oPayload, sObject, this);
-			} catch (e) {
-				Log.error("Exception in CosCloseTask:onSaveAsDraft function");
-				this.handleException(e);
-			}
-		},
+		//------------------------------------------------------------------
+		// Function: onPrdOfDefermentChange
+		// Parameter: oEvent
+		// Description: This will get called, to set called when Period Deferment change.
+		//------------------------------------------------------------------
 
 		onPrdOfDefermentChange: function(oEvent) {
 			try {
@@ -558,7 +950,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onReasonForADDChange
+		// Parameter: oEvent
+		// Description: This will get called, to set called when Reason for ADD change.
+		//------------------------------------------------------------------
 		onReasonForADDChange: function(oEvent) {
 			try {
 				var oViewLimitModel = this.getModel("oViewLimitModel"),
@@ -585,7 +981,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onReasonForADDChange
+		// Parameter: oEvent
+		// Description: This will get called, to set called when Reason for ADD change.
+		//------------------------------------------------------------------
 		onReasonTypeChange: function(oEvent) {
 			try {
 				var oViewLimitModel = this.getModel("oViewLimitModel"),
@@ -624,7 +1024,11 @@ sap.ui.define([
 				Log.error("Exception in onReasonTypeChange function");
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onUilisationChange
+		// Parameter: oEvent
+		// Description: This will get called, to set called when utilization selection change.
+		//------------------------------------------------------------------
 		onUilisationChange: function(oEvent) {
 			try {
 				var oViewLimitModel = this.getModel("oViewLimitModel"),
@@ -663,7 +1067,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onAddLimitaionPress
+		// Parameter: oEvent
+		// Description: This will get called, when add limitation button clicked.
+		//------------------------------------------------------------------
 		onAddLimitaionPress: function() {
 			try {
 				var oViewLimitModel = this.getModel("oViewLimitModel");
@@ -674,7 +1082,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onRemoveLimitaionPress
+		// Parameter: oEvent
+		// Description: This will get called, when remove limitation button clicked.
+		//------------------------------------------------------------------
 		onRemoveLimitaionPress: function() {
 			try {
 				var oViewLimitModel = this.getModel("oViewLimitModel");
@@ -686,7 +1098,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onEnterToTheErrorPress
+		// Parameter: oEvent
+		// Description: This will get called, when Enter To The Error button clicked.
+		//------------------------------------------------------------------
 		onEnterToTheErrorPress: function(oEvent) {
 			try {
 				var oModel = this.getView().getModel("TaskModel"),
@@ -694,14 +1110,15 @@ sap.ui.define([
 				oModel.setProperty(oModelError + "/ftdesc", "Entry Enter in Error. No Discrepancy Found.");
 				oModel.refresh();
 			} catch (e) {
-				Log.error("Exception in onCloseSignOffDialog function");
+				Log.error("Exception in CosCloseTask:onEnterToTheErrorPress function");
+				this.handleException(e);
 			}
 		},
-
-		//-------------------------------------------------------------------------------------
-		//  Private method: This will get called,to open Limitation dialog.
-		// Table: 
-		//--------------------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: onAddLimitaionDialog
+		// Parameter: oEvent
+		// Description: This will get called,to open Limitation dialog.
+		//------------------------------------------------------------------
 		onAddLimitaionDialog: function(oEvent) {
 			try {
 				var that = this,
@@ -735,9 +1152,16 @@ sap.ui.define([
 				this._oAddLim.open(this);
 
 			} catch (e) {
-				Log.error("Exception in onAddLimitaionDialog function");
+				Log.error("Exception in CosCloseTask:onAddLimitaionDialog function");
+				this.handleException(e);
 			}
 		},
+
+		//------------------------------------------------------------------
+		// Function: onCloseAddLimDialog
+		// Parameter: oEvent
+		// Description: This will get called,to close Limitation dialog.
+		//------------------------------------------------------------------
 		onCloseAddLimDialog: function() {
 			try {
 				var oViewModel = this.getView().getModel("TaskModel");
@@ -749,14 +1173,16 @@ sap.ui.define([
 					delete this._oAddLim;
 				}
 			} catch (e) {
-				Log.error("Exception in onCloseAddLimDialog function");
+				Log.error("Exception in CosCloseTask:onCloseAddLimDialog function");
+				this.handleException(e);
 			}
 		},
 
-		//-------------------------------------------------------------------------------------
-		//  Private method: This will get called,to open add ADD dialog.
-		// Table: 
-		//--------------------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: onAddADDDialog
+		// Parameter: oEvent
+		// Description: This will get called,to open add ADD dialog..
+		//------------------------------------------------------------------
 		onAddADDDialog: function(oEvent) {
 			try {
 				var that = this,
@@ -782,9 +1208,15 @@ sap.ui.define([
 				this._oAddADD.open(this);
 
 			} catch (e) {
-				Log.error("Exception in onAddADDDialog function");
+				Log.error("Exception in CosCloseTask:onAddADDDialog function");
+				this.handleException(e);
 			}
 		},
+		//------------------------------------------------------------------
+		// Function: onCloseADDDialog
+		// Parameter: oEvent
+		// Description: This will get called,to close add ADD dialog..
+		//------------------------------------------------------------------
 		onCloseADDDialog: function() {
 			try {
 				var oViewModel = this.getView().getModel("TaskModel"),
@@ -800,14 +1232,15 @@ sap.ui.define([
 					delete this._oAddADD;
 				}
 			} catch (e) {
-				Log.error("Exception in onCloseADDDialog function");
+				Log.error("Exception in CosCloseTask:onCloseADDDialog function");
+				this.handleException(e);
 			}
 		},
-
-		//-------------------------------------------------------------------------------------
-		//  Private method: This will get called,icon bar selection change.
-		// Table: 
-		//--------------------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: onTimeChange
+		// Parameter: oEvent
+		// Description: This will get called,icon bar selection change.
+		//------------------------------------------------------------------
 		onTimeChange: function(oEvent) {
 			try {
 				var oTime = oEvent.getSource().getValue(),
@@ -815,184 +1248,16 @@ sap.ui.define([
 				oObject.ftcretm = oTime;
 				this.handleChange(oEvent);
 			} catch (e) {
-				Log.error("Exception in onIconSelected function");
-			}
-		},
-		_fnADDCountGet: function() {
-			try {
-				var that = this,
-					sCount,
-					oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId();
-				oPrmJobDue.error = function() {};
-				oPrmJobDue.success = function(oData) {
-					if (oData !== undefined && oData.results.length > 0) {
-						sCount = oData.results[0].COUNT;
-					} else {
-						sCount = "0";
-					}
-					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
-				}.bind(this);
-
-				ajaxutil.fnRead("/GetAddCountSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
+				Log.error("Exception in CosCloseTask:onTimeChange function");
 				this.handleException(e);
 			}
 		},
 
-		//-------------------------------------------------------------------------------------
-		//  Private method: This will get called, to get Serial number for part number.
-		// Table: ENGINE
-		//--------------------------------------------------------------------------------------
-		getSerialNoPress: function(oEvent) {
-			try {
-				var oPrmDD = {},
-					oModel,
-					oModelObj = oEvent.getSource().getParent().getParent().getParent().getParent().getParent().getParent().getParent().getParent().getParent()
-					.getBindingContext("TaskModel"),
-					that = this,
-					oPayload;
-				oModelObj.getObject("partno");
-				oPrmDD.filter = "PARTNO eq " + oModelObj.getObject("partno") + " and ESTAT eq R and INSON eq " + this.getTailId();
-				oPrmDD.error = function() {};
-
-				oPrmDD.success = function(oData) {
-					if (oData.results.length !== 0) {
-						oModel = dataUtil.createNewJsonModel();
-						oModel.setData(oData.results);
-						this.getView().setModel(oModel, "SerialNumModel");
-
-					} else {
-						MessageBox.error(
-							"Part number is invalid.", {
-								icon: sap.m.MessageBox.Icon.Error,
-								title: "Error",
-								styleClass: "sapUiSizeCompact"
-							});
-					}
-				}.bind(this);
-
-				ajaxutil.fnRead("/GetSerNoSvc", oPrmDD, oPayload);
-			} catch (e) {
-				Log.error("Exception in getSerialNoPress function");
-			}
-		},
-
-		_fnUtilizationGet: function() {
-			try {
-				var that = this,
-					oModel = this.getView().getModel("ViewModel"),
-					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + oModel.getProperty("/AirId") + " and ddid eq UTIL1_";
-
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "UtilizationCBModel");
-				}.bind(this);
-
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in CosCloseTask:_fnUtilizationGet function");
-				this.handleException(e);
-			}
-		},
-
-		_fnGetUtilisationDefaultVal: function(sAir) {
-			try {
-				var oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
-				oPrmJobDue.error = function() {};
-
-				oPrmJobDue.success = function(oData) {
-					if (oData && oData.results.length > 0) {
-						this.oObject = {};
-						for (var i in oData.results) {
-							this.oObject[oData.results[i].JDUID] = oData.results[i];
-						}
-					}
-				}.bind(this);
-
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in _fnGetUtilisationDefaultVal function");
-			}
-		},
-
-		_fnReasonforADDGet: function() {
-			try {
-				var that = this,
-					oModel = this.getView().getModel("ViewModel"),
-					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + oModel.getProperty("/AirId") + " and ddid eq CPR_";
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "ReasonforADDModel");
-				}.bind(this);
-
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in CosCloseTask:_fnReasonforADDGet function");
-				this.handleException(e);
-			}
-		},
-		_fnUtilization2Get: function() {
-			try {
-				var that = this,
-					oModel = this.getView().getModel("ViewModel"),
-					oPrmJobDue = {};
-				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/AirId") + " and ddid eq UTIL2_";*/
-				oPrmJobDue.filter = "ddid eq UTIL2_";
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "Utilization2CBModel");
-				}.bind(this);
-
-				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in CosCloseTask:_fnUtilization2Get function");
-				this.handleException(e);
-			}
-		},
-
-		_fnPerioOfDeferCBGet: function() {
-			try {
-				var that = this,
-					oModel = this.getView().getModel("ViewModel"),
-					oPrmJobDue = {};
-				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/AirId") + " and ddid eq 118_";*/
-				oPrmJobDue.filter = "ddid eq 118_";
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "PerioOfDeferCBModel");
-				}.bind(this);
-
-				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in CosCloseTask:_fnPerioOfDeferCBGet function");
-				this.handleException(e);
-			}
-		},
+		//------------------------------------------------------------------
+		// Function: _fnCreateLimitation
+		// Parameter: oObject
+		// Description: This will get called,to create limitation payload.
+		//------------------------------------------------------------------
 
 		_fnCreateLimitation: function(oObject) {
 			try {
@@ -1015,7 +1280,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onCreateLimitationPress
+		// Parameter: sFragId
+		// Description: This will get called,to create limitation and stored locally.
+		//------------------------------------------------------------------
 		onCreateLimitationPress: function(sFragId) {
 			try {
 				var sFragTempId;
@@ -1108,7 +1377,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onTypeChangeOther
+		// Parameter: oEvent
+		// Description: This will get called,when task combobox selection chnage for Task Type Other.
+		//------------------------------------------------------------------
 		onTypeChangeOther: function(oEvent) {
 			try {
 				var oSelectedKey = oEvent.getSource().getSelectedKey(),
@@ -1123,10 +1396,15 @@ sap.ui.define([
 				}
 
 			} catch (e) {
-				Log.error("Exception in onTypeChangeOther function");
+				Log.error("Exception in CosCloseTask:onTypeChangeOther function");
+				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onTypeChangeOPS
+		// Parameter: oEvent
+		// Description: This will get called,when task combobox selection chnage for Task Type Other.
+		//------------------------------------------------------------------
 		onTypeChangeOPS: function(oEvent) {
 			try {
 				var oSelectedKey = oEvent.getSource().getSelectedKey(),
@@ -1139,46 +1417,16 @@ sap.ui.define([
 					oEvent.getSource().setSelectedKey("TT1_11");
 				}
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in CosCloseTask:onTypeChangeOPS function");
+				this.handleException(e);
 			}
 		},
 
-		//-------------------------------------------------------------------------------------
-		//  Private method: This will get called, to get data fro selected tasks.
-		// Table: TASK
-		//--------------------------------------------------------------------------------------
-		_fnTasksADDGet: function(oTempJB) {
-			try {
-				var that = this,
-					filters = [],
-					oModel,
-					sFilter, bFlag = true,
-					oModelView = this.getView().getModel("TaskModel"),
-					oPrmJobDue = {};
-				sFilter = "taskid eq " + oTempJB;
-				oPrmJobDue.filter = sFilter;
-				oPrmJobDue.error = function() {};
-				oPrmJobDue.success = function(oData) {
-					oData.results[0].ftsernr = oModelView.getData()[this.oObjectPath.split("/")[1]].ftsernr;
-					oData.results[0].ftdesc = oModelView.getData()[this.oObjectPath.split("/")[1]].ftdesc;
-					oData.results[0].fttoref = oModelView.getData()[this.oObjectPath.split("/")[1]].fttoref;
-					oData.results[0].ValueState = "None";
-					oModelView.getData().splice(this.oObjectPath.split("/")[1], 1);
-					oData.results[0].ftcredt = new Date();
-					oData.results[0].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();
-					oModelView.getData().push(oData.results[0]);
-					oModelView.updateBindings();
-				}.bind(this);
-				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in _fnTasksGet function");
-			}
-		},
-
-		//----------------------------------------------------------------------------------------------
-		//  Private method: This will get called,whene type for OPS task change.
-		// Table: 
-		//----------------------------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: onTypeChange
+		// Parameter: oEvent
+		// Description:  This will get called,whene type change.
+		//------------------------------------------------------------------
 		onTypeChange: function(oEvent) {
 			try {
 				var oSelectedKey = oEvent.getSource().getSelectedKey(),
@@ -1190,12 +1438,18 @@ sap.ui.define([
 					oEvent.getSource().setSelectedKey("TT1_11");
 				}
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onTypeChange function");
 			}
 		},
 		// ***************************************************************************
 		//                 4. Private Methods   
 		// ***************************************************************************
+
+		//------------------------------------------------------------------
+		// Function: _onObjectMatched
+		// Parameter: sJobId
+		// Description: This will get called, This will called to handle route matched.
+		//------------------------------------------------------------------
 		_onObjectMatched: function(oEvent) {
 			try {
 				//var workcenter = oEvent.getParameters().arguments.WorkCenter;
@@ -1318,168 +1572,100 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: _fnCreateTempTaskModel
+		// Parameter: oEvent
+		// Description: This will get called, to create temporary task model.
+		//------------------------------------------------------------------
 		_fnCreateTempTaskModel: function() {
-
-			var that = this,
-				oModel = dataUtil.createNewJsonModel(),
-				oTempModel = dataUtil.getDataSet("TempCloseTaskModel");
-			for (var i = 0; i < oTempModel.length; i++) {
-				oTempModel[i].ftcredt = new Date(oTempModel[i].ftcredt);
-			}
-			oModel.setData(oTempModel);
-			that.getView().setModel(oModel, "TaskModel");
-			that.getView().byId("vbLimId").invalidate();
-			that.getView().byId("vbTaskId").invalidate();
-			var oFollowModelOther = dataUtil.createNewJsonModel();
-			oFollowModelOther.setData([{
-				"key": "TT1_14",
-				"text": "Others"
-			}, {
-				"key": "TT1_ADD",
-				"text": "Transfer to Acceptable Deferred Defects Log"
-			}]);
-			this.getView().setModel(oFollowModelOther, "FollowOtherModel");
-
-			var oFollowModelOPS = dataUtil.createNewJsonModel();
-			oFollowModelOPS.setData([{
-				"key": "TT1_11",
-				"text": "OPS Check"
-			}, {
-				"key": "TT1_AD",
-				"text": "Transfer to Acceptable Deferred Defects Log"
-			}]);
-			this.getView().setModel(oFollowModelOPS, "FollowOPSModel");
-
-			this.byId("pageCloseTaskId").scrollTo(0);
-			//oView.setBusy(false);
-			//that.handleBusyDialogClose();
-
-		},
-
-		_fnCheckTaskType: function(tt1id, tt2id, tt3id, tt4id) {
-			if ((tt1id === "TT1_10" && tt2id === "TT2_10") || (tt1id === "TT1_10" && tt2id === "TT2_13")) {
-				return true;
-			} else {
-				return false;
-			}
-
-		},
-
-		_fnTasksGet: function(oTempJB) {
 			try {
 				var that = this,
-					filters = [],
-					sFilter, bFlag = true,
-					oModel = this.getView().getModel("ViewModel"),
-					oPrmJobDue = {};
-				this.handleBusyDialogOpen();
-				var Temp = oModel.getProperty("/TaskId");
-
-				for (var i = 0; i < Temp.length; i++) {
-					if (bFlag) {
-						sFilter = "taskid eq " + Temp[i];
-						bFlag = false;
-					} else {
-						var sFilterStr = " and taskid eq " + Temp[i];
-						sFilter = sFilter.concat(sFilterStr);
-					}
-					/*filters.push(new sap.ui.model.Filter("taskid", sap.ui.model.FilterOperator.EQ, Temp[i]));*/
+					oModel = dataUtil.createNewJsonModel(),
+					oTempModel = dataUtil.getDataSet("TempCloseTaskModel");
+				for (var i = 0; i < oTempModel.length; i++) {
+					oTempModel[i].ftcredt = new Date(oTempModel[i].ftcredt);
 				}
+				oModel.setData(oTempModel);
+				that.getView().setModel(oModel, "TaskModel");
+				that.getView().byId("vbLimId").invalidate();
+				that.getView().byId("vbTaskId").invalidate();
+				var oFollowModelOther = dataUtil.createNewJsonModel();
+				oFollowModelOther.setData([{
+					"key": "TT1_14",
+					"text": "Others"
+				}, {
+					"key": "TT1_ADD",
+					"text": "Transfer to Acceptable Deferred Defects Log"
+				}]);
+				this.getView().setModel(oFollowModelOther, "FollowOtherModel");
 
-				oPrmJobDue.filter = sFilter;
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setSizeLimit(1000);
-					for (var i = 0; i < oData.results.length; i++) {
-						oData.results[i].ftcredt = new Date();
-						oData.results[i].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();
-						if (oData.results[i].tt1id === 'TT1_12' && oData.results[i].tt2id === '' && oData.results[i].tt3id === '' && oData.results[i].tt4id ===
-							'') {
-							if (oData.results[i].ftrsltgd === "" || oData.results[i].ftrsltgd === null || oData.results[i].ftrsltgd === 0) {
-								oData.results[i].ftrsltgd = 2;
-							}
-
-						}
-						oData.results[i].ValueState = "None";
-						// if (oData.results[i].util1 === "UTIL1_20") {
-						// 	oData.results[i].util2 = oData.results[i].utilvl;
-						// }
-					}
-					oModel.setData(oData.results);
-					this._fnGetLandingTyre(oData.results);
-					that.getView().setModel(oModel, "TaskModel");
-					that.getView().byId("vbLimId").invalidate();
-					that.getView().byId("vbTaskId").invalidate();
-					var oFollowModelOther = dataUtil.createNewJsonModel();
-					oFollowModelOther.setData([{
-						"key": "TT1_14",
-						"text": "Others"
-					}, {
-						"key": "TT1_ADD",
-						"text": "Transfer to Acceptable Deferred Defects Log"
-					}]);
-					this.getView().setModel(oFollowModelOther, "FollowOtherModel");
-
-					var oFollowModelOPS = dataUtil.createNewJsonModel();
-					oFollowModelOPS.setData([{
-						"key": "TT1_11",
-						"text": "OPS Check"
-					}, {
-						"key": "TT1_AD",
-						"text": "Transfer to Acceptable Deferred Defects Log"
-					}]);
-					this.getView().setModel(oFollowModelOPS, "FollowOPSModel");
-					this.byId("pageCloseTaskId").scrollTo(0);
-					that.handleBusyDialogClose();
-				}.bind(this);
-
-				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);
+				var oFollowModelOPS = dataUtil.createNewJsonModel();
+				oFollowModelOPS.setData([{
+					"key": "TT1_11",
+					"text": "OPS Check"
+				}, {
+					"key": "TT1_AD",
+					"text": "Transfer to Acceptable Deferred Defects Log"
+				}]);
+				this.getView().setModel(oFollowModelOPS, "FollowOPSModel");
+				this.byId("pageCloseTaskId").scrollTo(0);
 			} catch (e) {
-				Log.error("Exception in CosCloseTask:_fnTasksGet function");
+				Log.error("Exception in CosCloseTask:_fnCreateTempTaskModel function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnCheckTaskType
+		// Parameter: tt1id, tt2id, tt3id, tt4id
+		// Description: This will get called, to create check task type.
+		//------------------------------------------------------------------
+		_fnCheckTaskType: function(tt1id, tt2id, tt3id, tt4id) {
+			try {
+				if ((tt1id === "TT1_10" && tt2id === "TT2_10") || (tt1id === "TT1_10" && tt2id === "TT2_13")) {
+					return true;
+				} else {
+					return false;
+				}
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:_fnCheckTaskType function");
 				this.handleException(e);
 			}
 		},
 
+		//------------------------------------------------------------------
+		// Function: _fnGetLandingTyre
+		// Parameter: aData
+		// Description: This will get called, to add partno for the landing tyre record.
+		//------------------------------------------------------------------
+
 		_fnGetLandingTyre: function(aData) {
-			var partNo = "";
-			for (var i in aData) {
-				if (aData[i].tt1id === "TT1_10" && (aData[i].tt2id === "TT2_10" || aData[i].tt2id === "TT2_15") && aData[i].engflag === "NE" &&
-					aData[i].partno && aData[i].partno.trim() !== "") {
-					this.landTyre[aData[i].partno] = aData[i];
-					if (partNo === "") {
-						partNo = partNo.concat(aData[i].partno);
-					} else {
-						partNo = partNo.concat("," + aData[i].partno);
+			try {
+				var partNo = "";
+				for (var i in aData) {
+					if (aData[i].tt1id === "TT1_10" && (aData[i].tt2id === "TT2_10" || aData[i].tt2id === "TT2_15") && aData[i].engflag === "NE" &&
+						aData[i].partno && aData[i].partno.trim() !== "") {
+						this.landTyre[aData[i].partno] = aData[i];
+						if (partNo === "") {
+							partNo = partNo.concat(aData[i].partno);
+						} else {
+							partNo = partNo.concat("," + aData[i].partno);
+						}
 					}
 				}
-			}
-			if (partNo !== "") {
-				this._fnCheckLandingTyre(aData[i], partNo);
-			}
-		},
-
-		_fnCheckLandingTyre: function(obj, partNo) {
-			try {
-				var oPayload = [],
-					oPrmTask = {};
-				oPrmTask.filter = "TAILID eq " + obj.tailid + " and PARTNO eq " + partNo;
-				oPrmTask.error = function() {};
-				oPrmTask.success = function(oData) {
-					if (oData && oData.results && oData.results.length > 0) {
-						this._fnOpenLandingTyreBox(oData.results);
-					}
-				}.bind(this);
-				ajaxutil.fnRead("/LandingTyreSvc", oPrmTask, oPayload);
+				if (partNo !== "") {
+					this._fnCheckLandingTyre(aData[i], partNo);
+				}
 			} catch (e) {
-				Log.error("Exception in _fnSubmitTireSignOff function");
+				Log.error("Exception in CosCloseTask:_fnGetLandingTyre function");
+				this.handleException(e);
 			}
 		},
 
+		//------------------------------------------------------------------
+		// Function: _fnOpenLandingTyreBox
+		// Parameter: aData
+		// Description: This will get called, Update landing tyre locally and close fragment.
+		//------------------------------------------------------------------
 		_fnOpenLandingTyreBox: function(aData) {
 			try {
 				var aItem,
@@ -1504,17 +1690,35 @@ sap.ui.define([
 				}
 
 			} catch (e) {
-				Log.error("Exception in _fnOpenLandingTyreBox function");
+				Log.error("Exception in CosCloseTask:_fnOpenLandingTyreBox function");
+				this.handleException(e);
+			}
+
+		},
+		//------------------------------------------------------------------
+		// Function: onLandingTyreValChange
+		// Parameter: oEvent
+		// Description: This will get called, Open landing tyre fragment.
+		//------------------------------------------------------------------
+
+		onLandingTyreValChange: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					sText = oSrc.getValue(),
+					sPath = oSrc.getBindingContext("LandingTyreModel").getPath();
+				this.getModel("LandingTyreModel").setProperty(sPath + "/LNDPIN", sText);
+			} catch (e) {
+				Log.error("Exception in CosCloseTask:onLandingTyreValChange function");
+				this.handleException(e);
 			}
 
 		},
 
-		onLandingTyreValChange: function(oEvent) {
-			var oSrc = oEvent.getSource(),
-				sText = oSrc.getValue(),
-				sPath = oSrc.getBindingContext("LandingTyreModel").getPath();
-			this.getModel("LandingTyreModel").setProperty(sPath + "/LNDPIN", sText);
-		},
+		//------------------------------------------------------------------
+		// Function: onLandingTyreUpdate
+		// Parameter: oEvent
+		// Description: This will get called, Update landing tyre locally and close fragment
+		//------------------------------------------------------------------
 
 		onLandingTyreUpdate: function() {
 			try {
@@ -1529,11 +1733,16 @@ sap.ui.define([
 					delete this._oLandingTyre;
 				}
 			} catch (e) {
-				Log.error("Exception in onLandingTyreId function");
+				Log.error("Exception in CosCloseTask:onLandingTyreUpdate function");
+				this.handleException(e);
 			}
 		},
+		//------------------------------------------------------------------
+		// Function: _fnInitialLoad
+		// Parameter: oEvent
+		// Description: This will get called, Loads the data after the view initialised
+		//------------------------------------------------------------------
 
-		//Loads the data after the view initialised
 		_fnInitialLoad: function() {
 			try {
 				var oModel = this.getView().getModel("ViewModel"),
@@ -1560,22 +1769,25 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		//------------------------------------------------------------------
+		// Function: onChangeData
+		// Parameter: oEvent
+		// Description: showing the message text and validation of maxlength
+		//------------------------------------------------------------------
 
-		//-------------------------------------------------------------------------------------
-		//  Private method: This will get called,to add new tradesman to the list.
-		// Table: 
-		//--------------------------------------------------------------------------------------
-
-		//showing the message text and validation of maxlength
 		onChangeData: function(oEvent) {
 			try {
 				this.getView().getModel("ViewModel").setProperty("/bLiveChnage", false);
-
 			} catch (e) {
-				Log.error("Exception in handleLiveChangeFlyingRequirements function");
+				Log.error("Exception in CosCloseTask:onChangeData function");
+				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onChangeDataInput
+		// Parameter: oEvent
+		// Description: Function to save sernr value in local model
+		//------------------------------------------------------------------
 		onChangeDataInput: function(oEvent) {
 			try {
 				var sPath = oEvent.getSource().getBindingContext("TaskModel").getPath();
@@ -1586,6 +1798,11 @@ sap.ui.define([
 				Log.error("Exception in handleLiveChangeFlyingRequire function");
 			}
 		},
+		//------------------------------------------------------------------
+		// Function: onVIResultSelect
+		// Parameter: oEvent
+		// Description: Function on click VI result type selection
+		//------------------------------------------------------------------
 		onVIResultSelect: function(oEvent) {
 			try {
 				var that = this,
@@ -1600,7 +1817,11 @@ sap.ui.define([
 				Log.error("Exception in handleLiveChangeFlyingRequire function");
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: getVIResultStatus
+		// Parameter: oEvent
+		// Description:  Function to open fragment for VI results
+		//------------------------------------------------------------------
 		getVIResultStatus: function() {
 			try {
 				if (!this._oVIDialog) {
@@ -1614,7 +1835,11 @@ sap.ui.define([
 				Log.error("Exception in getVIResultStatus function");
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onCloseVIStatus
+		// Parameter: oEvent
+		// Description: Function to close fragment for VI results
+		//------------------------------------------------------------------
 		onCloseVIStatus: function() {
 			try {
 				if (this._oVIDialog) {
@@ -1626,7 +1851,11 @@ sap.ui.define([
 				Log.error("Exception in onCloseVIStatus function");
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onSaveVIStatus
+		// Parameter: oEvent
+		// Description: Function to navigate to selected screen.
+		//------------------------------------------------------------------
 		onSaveVIStatus: function(oEvent) {
 			try {
 				var that = this,
@@ -1661,8 +1890,12 @@ sap.ui.define([
 		//  Private method: This will get called,to add new tradesman to the list.
 		// Table: 
 		//--------------------------------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: handleLiveChange
+		// Parameter: oEvent
+		// Description: showing the message text and validation of maxlength.
+		//------------------------------------------------------------------
 
-		//showing the message text and validation of maxlength
 		handleLiveChange: function(oEvent) {
 			try {
 
@@ -1679,7 +1912,11 @@ sap.ui.define([
 				Log.error("Exception in handleLiveChangeFlyingRequirements function");
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: _InitializeLimDialogModel
+		// Parameter: oEvent
+		// Description: This will get called, to add initialize limitation model
+		//------------------------------------------------------------------
 		_InitializeLimDialogModel: function() {
 			try {
 				var oModel = dataUtil.createNewJsonModel();
