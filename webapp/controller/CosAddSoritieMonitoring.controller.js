@@ -9,7 +9,7 @@ sap.ui.define([
 ], function(BaseController, dataUtil, ajaxutil, FieldValidations, formatter, JSONModel, Log) {
 	"use strict";
 	/* ***************************************************************************
-	 *     Developer : RAJAT GUPTA 
+	 *     Developer : Rahul Thorat
 	 *   Control name: CosAddSortieMonitoring        
 	 *   Purpose : Add sortie monitoring functionality
 	 *   Functions :
@@ -60,8 +60,12 @@ sap.ui.define([
 		/* =========================================================== */
 		/* Event Handlers                                              */
 		/* =========================================================== */
+		//------------------------------------------------------------------
+		// Function: handleLiveChangeSorteiMonitoring
+		// Parameter: oEvent
+		// Description: This will get called, to handle showing the message text and validation of maxlength.
+		//------------------------------------------------------------------
 
-		//showing the message text and validation of maxlength
 		handleLiveChangeSorteiMonitoring: function(oEvent) {
 			try {
 				var oSource = oEvent.getSource(),
@@ -77,7 +81,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onAddSorteiMonitoring
+		// Parameter: oEvent
+		// Description: This will get called, to handle to add new entry for sortie monitoring.
+		//------------------------------------------------------------------
 		onAddSorteiMonitoring: function(oEvent) {
 			try {
 				var that = this,
@@ -95,7 +103,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onDeletePress
+		// Parameter: oEvent
+		// Description: This will get called, to handle to delete new entry for sortie monitoring.
+		//------------------------------------------------------------------
 		onDeletePress: function(oEvent) {
 			try {
 				var that = this;
@@ -109,12 +121,11 @@ sap.ui.define([
 			}
 		},
 
-		onSorteiMonitoringChange: function(oEvent) {
-			// var that = this;
-			// var oObject = oEvent.getSource().getBindingContext("SortieMonitoringModel").getObject();
-			// oObject.Text = oEvent.getParameter("value");
-			// that.getView().getModel("SortieMonitoringModel").updateBindings(true);
-		},
+		//------------------------------------------------------------------
+		// Function: onFoundDuringChange
+		// Parameter: oEvent
+		// Description: This will get called, to handle found during change.
+		//------------------------------------------------------------------
 
 		onFoundDuringChange: function(oEvent) {
 			var oModel = this.getView().getModel("SortieMonitoringModel");
@@ -134,7 +145,11 @@ sap.ui.define([
 				}
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onSortiesNoChange
+		// Parameter: oEvent
+		// Description: This will get called, to handle sortie no change.
+		//------------------------------------------------------------------
 		onSortiesNoChange: function(oEvent) {
 			try {
 				var that = this;
@@ -148,7 +163,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: handleChange
+		// Parameter: oEvent
+		// Description: This will get called, to handle date change in view.
+		//------------------------------------------------------------------
 		handleChange: function(oEvent) {
 			try {
 				var prevDt = this.getModel("ViewModel").getProperty("/backDt");
@@ -160,7 +179,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onSubmitSortieMonitoring
+		// Parameter: oEvent
+		// Description: This will get called, to handle submit request for creation of new Sortie monitoring.
+		//------------------------------------------------------------------
 		onSubmitSortieMonitoring: function(oEvent) {
 			try {
 				var that = this;
@@ -174,7 +197,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: _fnSortieMonitoringGet
+		// Parameter: sJobId
+		// Description: This will get called, to handle to get selected Sortie monitoring serial no data.
+		//------------------------------------------------------------------
 		_fnSortieMonitoringGet: function(sJobId) {
 			try {
 				var that = this,
@@ -194,7 +221,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: _fnMonitoredForGet
+		// Parameter: sAirId
+		// Description: This will get called, to handle to get Monitored for dropdown data.
+		//------------------------------------------------------------------
 		_fnMonitoredForGet: function(sAirId) {
 			try {
 				var that = this,
@@ -216,7 +247,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: _fnGetUtilisation
+		// Parameter: sAirId
+		// Description: This will get called, to handle to get Uitlization dropdown data.
+		//------------------------------------------------------------------
 		_fnGetUtilisation: function(sAir) {
 			try {
 				var oPrmJobDue = {};
@@ -237,7 +272,11 @@ sap.ui.define([
 				Log.error("Exception in _fnGetUtilisation function");
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: _fnGetOperationType
+		// Parameter: sAirId
+		// Description: This will get called, to handle to get Operation type dropdown data.
+		//------------------------------------------------------------------
 		_fnGetOperationType: function(sAirId) {
 			try {
 				var that = this,
@@ -259,7 +298,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+		//------------------------------------------------------------------
+		// Function: _fnGetDateValidation
+		// Parameter: sJobId
+		// Description: This will get called, to handle to date on screen.
+		//------------------------------------------------------------------
 		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};
@@ -320,7 +363,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: fnCreateSorti
+		// Parameter: sJobId
+		// Description: This will get called, to handle creation of the new sortimonitoring entries data.
+		//------------------------------------------------------------------
 		fnCreateSorti: function() {
 			try {
 				if (!this.handleChange()) {

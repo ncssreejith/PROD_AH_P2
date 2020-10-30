@@ -1594,7 +1594,7 @@ sap.ui.define([
 						"jbTime": oModel.getProperty("/jbTime")
 					});
 				} else {
-					//that.getRouter().navTo("F16CosCreateJob");
+					//that.getRouter().navTo("CosCreateJob");
 					that.getRouter().navTo("CosCreateJob", {
 						"JobId": oModel.getProperty("/JobId"),
 						"RJobId": "T"

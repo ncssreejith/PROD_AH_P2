@@ -51,17 +51,30 @@ sap.ui.define([
 			}
 		},
 
+		//------------------------------------------------------------------
+		// Function: handleChange
+		// Parameter: oEvent
+		// Description: This will get called, to handle change in date on view.
+		//------------------------------------------------------------------
+
 		handleChange: function() {
-			var aData = this.getModel("ViewModel").getData();
-			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCloseJobPast", "errorCloseJobFuture", aData.backDt, aData.backTm);
+			try {
+				var aData = this.getModel("ViewModel").getData();
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCloseJobPast", "errorCloseJobFuture", aData.backDt, aData.backTm);
+			} catch (e) {
+				Log.error("Exception in CosCloseJob:handleChange function");
+				this.handleException(e);
+			}
 		},
 
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
-		//-------------------------------------------------------------
-		//  This will get called, when to get work center for selected Job.
-		//-------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: onWorkCenterSelect
+		// Parameter: oEvent
+		// Description: This will get called, to handle, when to get work center for selected Job.
+		//------------------------------------------------------------------
 		onWorkCenterSelect: function(oEvent) {
 			try {
 				var that = this,
@@ -88,13 +101,15 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead("/TaskSvc", oPrmTask);
 			} catch (e) {
-				Log.error("Exception in onWorkCenterSelect function");
+				Log.error("Exception in CosCloseJob:onWorkCenterSelect function");
+				this.handleException(e);
 			}
 		},
-
-		//-------------------------------------------------------------
-		//  This will get called, when to get work center for selected Job.
-		//-------------------------------------------------------------
+		//------------------------------------------------------------------
+		// Function: onRectificationSelectTask
+		// Parameter: oEvent
+		// Description: This will get called, to handle, when to get work center for selected Job.
+		//------------------------------------------------------------------
 		onRectificationSelectTask: function(oEvent) {
 			try {
 				var that = this,
@@ -106,9 +121,7 @@ sap.ui.define([
 					oSelectedTask,
 					oPrmTask = {};
 				oSelectedTask = oModelView.getProperty("/selectedTask");
-
 				oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
-
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					this.getView().getModel("ViewModel").setProperty("/selectedTask", oData.results);
@@ -116,7 +129,8 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead("/TaskSvc", oPrmTask);
 			} catch (e) {
-				Log.error("Exception in onWorkCenterSelect function");
+				Log.error("Exception in CosCloseJob:onRectificationSelectTask function");
+				this.handleException(e);
 			}
 		},
 
@@ -757,7 +771,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		onDueSelectChangeES: function(oEvent) {
 			try {
 				var sDue = oEvent.getSource().getSelectedItem().getText();

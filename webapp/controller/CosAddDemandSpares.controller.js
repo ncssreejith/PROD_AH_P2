@@ -3,8 +3,8 @@ sap.ui.define([
 	"../model/dataUtil",
 	"sap/ui/core/Fragment",
 	"../model/FieldValidations",
-		"sap/base/Log"
-], function (BaseController, dataUtil, Fragment, FieldValidations,Log) {
+	"sap/base/Log"
+], function(BaseController, dataUtil, Fragment, FieldValidations, Log) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAJAT GUPTA 
@@ -37,7 +37,13 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
-		//1.to add new row to table
+		//------------------------------------------------------------------
+		// Function: addNewSpares
+		// Parameter: oEvent
+		// Description: This will get called, to add new row to table.
+		//Table: TASK
+		//------------------------------------------------------------------
+
 		addNewSpares: function(oEvent) {
 			try {
 				var that = this,

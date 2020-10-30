@@ -403,7 +403,7 @@ sap.ui.define([
 				oPrmJobDue.success = function(oData) {
 					if (oData && oData.results && oData.results.length > 0) {
 						var sFlag = oData.results[0].jstat === "X" ? "N" : "Y";
-						that.getRouter().navTo("F16CosDefectsSummary", {
+						that.getRouter().navTo("CosDefectsSummary", {
 							"JobId": sJobId,
 							"Flag": sFlag
 						});
@@ -1813,7 +1813,7 @@ sap.ui.define([
 
 				// if (!that._oComDetails) {
 				// 	that._oComDetails = sap.ui.xmlfragment("OSTId",
-				// 		"avmet.f16.fragments.CompletedTaskDetails",
+				// 		"avmet.ah.fragments.CompletedTaskDetails",
 				// 		that);
 				// 	oModel.setData(oPayLoad);
 				// 	that._oComDetails.setModel(oModel, "DetailsComModel");

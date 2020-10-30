@@ -40,8 +40,11 @@ sap.ui.define([
 		/* =========================================================== */
 		/* Event Handlers                                              */
 		/* =========================================================== */
-
-		//showing the message text and validation of maxlength
+		//------------------------------------------------------------------
+		// Function: handleLiveChangeFlyingRequirements
+		// Parameter: oEvent
+		// Description: This will get called, showing the message text and validation of maxlength.
+		//------------------------------------------------------------------
 		handleLiveChangeFlyingRequirements: function(oEvent) {
 			try {
 				var oSource = oEvent.getSource(),
@@ -57,7 +60,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onAddFlyingRequirements
+		// Parameter: oEvent
+		// Description: This will get called, to add new entry in flying requirements table on view.
+		//------------------------------------------------------------------
 		onAddFlyingRequirements: function(oEvent) {
 			try {
 				var that = this,
@@ -97,7 +104,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onDeletePress
+		// Parameter: oEvent
+		// Description: This will get called, to delete new entry in flying requirements table on view.
+		//------------------------------------------------------------------
 		onDeletePress: function(oEvent) {
 			try {
 				var sPath = oEvent.getParameter("listItem").getBindingContext("FlyingRequirementsModel").getPath().split("/")[2];
@@ -109,7 +120,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: handleChange
+		// Parameter: oEvent
+		// Description: This will get called, to handle date change event in flying requirements view.
+		//------------------------------------------------------------------
 		handleChange: function(oEvent) {
 			try {
 				var prevDt = this.getModel("ViewModel").getProperty("/backDt");
@@ -125,6 +140,11 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 4. Private Methods   
 		// ***************************************************************************
+		//------------------------------------------------------------------
+		// Function: _onObjectMatched
+		// Parameter: oEvent
+		// Description: This will get called, to handle routematched.
+		//------------------------------------------------------------------
 		_onObjectMatched: function(oEvent) {
 			try {
 				var that = this,
@@ -186,16 +206,17 @@ sap.ui.define([
 				Log.error("Exception in _onObjectMatched function");
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: _fnFlyingRequirementsGet
+		// Parameter: sJobId
+		// Description: This will get called, to handle get flying requirement record for selected job.
+		//------------------------------------------------------------------
 		_fnFlyingRequirementsGet: function(sJobId) {
 			try {
 				var that = this,
 					oPrmFR = {};
 				oPrmFR.filter = "jobid eq " + sJobId;
-				oPrmFR.error = function() {
-
-				};
-
+				oPrmFR.error = function() {};
 				oPrmFR.success = function(oData) {
 					this.getModel("FlyingRequirementsModel").getData().FlyingRequirements[0].FR_NO = (oData.results.length + 1).toString();
 					this.getModel("ViewModel").setProperty("/SN", oData.results.length + 1);
@@ -207,7 +228,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		//------------------------------------------------------------------
+		// Function: onSubmitFlyingRequirements
+		// Parameter: oEvent
+		// Description: This will get called, to handle submittion of created flying requirements.
+		//------------------------------------------------------------------
 		onSubmitFlyingRequirements: function() {
 			try {
 				FieldValidations.resetErrorStates(this);
@@ -259,7 +284,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+		//------------------------------------------------------------------
+		// Function: _fnGetDateValidation
+		// Parameter: sJobId
+		// Description: This will get called, to handle date validation.
+		//------------------------------------------------------------------
 		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};
