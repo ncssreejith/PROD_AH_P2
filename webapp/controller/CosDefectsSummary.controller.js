@@ -3535,6 +3535,13 @@ sap.ui.define([
 							oData.results[0].etrtm = formatter.defaultTimeFormatDisplay(oData.results[0].etrtm);
 							oViewModel.setProperty("/etrMinDate", new Date(oData.results[0].credt));
 						}
+						if (oData.results[0].rectdt && oData.results[0].recttm) {
+							oData.results[0].rectdt = new Date(oData.results[0].rectdt);
+							oData.results[0].recttm = formatter.defaultTimeFormatDisplay(oData.results[0].recttm);
+							oViewModel.setProperty("/oldRectdt", oData.results[0].rectdt);
+							oViewModel.setProperty("/oldRecttm", oData.results[0].recttm);
+							oViewModel.setProperty("/oldRectsum", oData.results[0].recttxt);
+						}
 						if (oData.results[0].fstat === 'A') {
 							oViewModel.setProperty("/FairEditFlag", false);
 							oSummaryModel.setProperty("/FAIRStatusText", "ACTIVATED");
@@ -3567,6 +3574,7 @@ sap.ui.define([
 
 						oModel.setData(oData.results[0]);
 						that.getView().setModel(oModel, "JobModel");
+						this._fnEditRectButtonVisibility();
 					}
 					//that._fnTailStatusGet(that.getTailId());
 					oViewModel.refresh(true);
@@ -4455,6 +4463,24 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetTaskRefSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
+				this.handleException(e);
+			}
+		},
+		/* Function: _fnEditRectButtonVisibility
+		 * Parameter: 
+		 * Description: Function to handle edit button on recitfy summary
+		 */
+		_fnEditRectButtonVisibility: function() {
+			try {
+				var oLocalModel = this.getView().getModel("LocalModel");
+				if (oLocalModel.getProperty("/sFlag") === "Y") {
+					oLocalModel.setProperty("/isEditableRect", true);
+				} else if (oLocalModel.getProperty("/sFlag") === "N") {
+					var bFlag = this._fnJobEditCheck();
+					oLocalModel.setProperty("/isEditableRect", bFlag);
+				}
+			} catch (e) {
+				Log.error("Exception in _fnEditRectButtonVisibility function");
 				this.handleException(e);
 			}
 		},

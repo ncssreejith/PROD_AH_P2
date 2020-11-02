@@ -42,17 +42,27 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		handleChange: function() {
-			var prevDt = this.getModel("oViewModel").getProperty("/backDt");
-			var prevTime = this.getModel("oViewModel").getProperty("/backTm");
-			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateADDpast", "errorCreateADDfuture", prevDt, prevTime);
+			try {
+				var prevDt = this.getModel("oViewModel").getProperty("/backDt");
+				var prevTime = this.getModel("oViewModel").getProperty("/backTm");
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateADDpast", "errorCreateADDfuture", prevDt, prevTime);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:onInit function");
+				this.handleException(e);
+			}
 		},
-		
-		handleChangeExpiry : function (){
-			var prevDt = this.getModel("oViewModel").getProperty("/backDt");
-			var prevTime = this.getModel("oViewModel").getProperty("/backTm");
-			return formatter.validDateTimeChecker(this, "DP2", "TP2", "errorADDexpiryDatePast", "", prevDt, prevTime, false);
+
+		handleChangeExpiry: function() {
+			try {
+				var prevDt = this.getModel("oViewModel").getProperty("/backDt");
+				var prevTime = this.getModel("oViewModel").getProperty("/backTm");
+				return formatter.validDateTimeChecker(this, "DP2", "TP2", "errorADDexpiryDatePast", "", prevDt, prevTime, false);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:onInit function");
+				this.handleException(e);
+			}
 		},
 		//-------------------------------------------------------------
 		// 
@@ -219,7 +229,7 @@ sap.ui.define([
 				var oViewModel = this.getModel("oViewModel");
 				oViewModel.setProperty("/bLimitation", false);
 				oViewModel.setProperty("/bAddLimitationBtn", true);
-				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC","");
+				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", "");
 				oViewModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onRemoveLimitaionPress function");
@@ -246,17 +256,17 @@ sap.ui.define([
 				if (FieldValidations.validateFields(this)) {
 					return;
 				}
-				
+
 				if (!this.handleChange()) {
-					return;
-				}
-				if (!this.handleChangeExpiry()) {
 					return;
 				}
 				var dDate = new Date();
 				var oParameter = {};
 				var oPayLoad = {};
 				oPayLoad = this.getModel("oViewGlobalModel").getData();
+				if (oPayLoad.OPPR !== "U" && !this.handleChangeExpiry()) {
+					return;
+				}
 				if (oPayLoad.OPPR === "N") {
 					sap.m.MessageBox.error("Please select 'But not later than'");
 					return;
@@ -544,7 +554,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};

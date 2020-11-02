@@ -40,5 +40,12 @@
 				</VBox>
 			</VBox>
 		</content>
+		<footer >
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="Sign Off" press="onSignOffRectify" type="Emphasized"
+					visible="{= (${LocalModel>/editModeRectify} &amp;&amp; ${LocalModel>/RectSummaryFlag}) ? true : false}"/>
+			</OverflowToolbar>
+		</footer>
 	</Page>
 </mvc:View>

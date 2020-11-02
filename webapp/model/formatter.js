@@ -1673,13 +1673,13 @@ sap.ui.define([
 				creDt = oDatePicker.getDateValue(),
 				oTimePick = fragmentId ? sap.ui.core.Fragment.byId(fragmentId, idTime) : that.getView().byId(idTime),
 				creTm = oTimePick.getValue();
-
-			if (!creDt) {
-				creDt = oDatePicker.getValue();
-				var splitDt = creDt.split("/");
-				creDt = new Date(splitDt[2], splitDt[1] - 1, splitDt[0]);
-			}
-			var date = creDt.getDate(),
+				
+				if (!creDt) {
+					creDt = oDatePicker.getValue();
+					var splitDt = creDt.split("/");
+					creDt = new Date(splitDt[2],splitDt[1]-1,splitDt[0]);
+				}
+				var date = creDt.getDate(),
 				year = creDt.getFullYear(),
 				month = creDt.getMonth() + 1;
 			var dateString = '' + year + '-' + month + '-' + date;
@@ -1705,11 +1705,6 @@ sap.ui.define([
 					oTimePick.setValueState("None");
 					return true;
 				} else {
-					if (!futureCheck) {
-						oDatePicker.setValueState("None");
-						oTimePick.setValueState("None");
-						return true;
-					}
 					oDatePicker.setValueState("Error");
 					oTimePick.setValueState("Error");
 					var dt = this.defaultDatetoDateFormatDisplay(prevDate);
@@ -1718,6 +1713,11 @@ sap.ui.define([
 					return false;
 				}
 			} else {
+				if (!futureCheck) {
+					oDatePicker.setValueState("None");
+					oTimePick.setValueState("None");
+					return true;
+				}
 				oDatePicker.setValueState("Error");
 				oTimePick.setValueState("Error");
 				sap.m.MessageBox.error(that.getResourceBundle().getText(errorMessageFuture));
