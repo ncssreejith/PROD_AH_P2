@@ -38,7 +38,7 @@ sap.ui.define([
 
 		onReplBtnClk: function(oEvent) {
 			try {
-				if(this.getModel("oReplModel").getProperty("/SRVID")){
+				if (this.getModel("oReplModel").getProperty("/SRVID")) {
 					return;
 				}
 				var sTile = oEvent.getSource().getBindingContext("oReplModel").getObject();
@@ -91,9 +91,8 @@ sap.ui.define([
 		_getRepTiles: function() {
 			try {
 				var oParameter = {};
-				 var sSrvIdFilter = this.getModel("oReplModel").getProperty("/SRVID") ? 
-				 (" and SRVID eq " + this.getModel("oReplModel").getProperty("/SRVID") + " and PASTFLIGHT eq Y")
-				 : "";
+				var sSrvIdFilter = this.getModel("oReplModel").getProperty("/SRVID") ?
+					(" and SRVID eq " + this.getModel("oReplModel").getProperty("/SRVID") + " and PASTFLIGHT eq Y") : "";
 				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("oReplModel").getProperty("/srvtid") +
 					" and TAILID eq " + this.getTailId() +
 					" and STEPID eq " + this.getModel("oReplModel").getProperty("/stepid") + sSrvIdFilter;
@@ -106,9 +105,12 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					this.getModel("oReplModel").setProperty("/srv", oData.results);
 					this.getModel("oReplModel").refresh();
-					this._getFuelExtTanks();
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+					// this._getFuelExtTanks();
 				}.bind(this);
-				ajaxutil.fnRead("/ReplshmentSvc", oParameter);
+				ajaxutil.fnRead("/ReplenishmentSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRepTiles function");
 				this.handleException(e);
@@ -117,9 +119,8 @@ sap.ui.define([
 
 		_getFuelExtTanks: function() {
 			try {
-				var sSrvIdFilter = this.getModel("oReplModel").getProperty("/SRVID") ? 
-				 (" and SRVID eq " + this.getModel("oReplModel").getProperty("/SRVID") + " and PASTFLIGHT eq Y")
-				 : "";
+				var sSrvIdFilter = this.getModel("oReplModel").getProperty("/SRVID") ?
+					(" and SRVID eq " + this.getModel("oReplModel").getProperty("/SRVID") + " and PASTFLIGHT eq Y") : "";
 				var oParameter = {};
 				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("oReplModel").getProperty("/srvtid") +
 					" and TAILID eq " + this.getTailId() +

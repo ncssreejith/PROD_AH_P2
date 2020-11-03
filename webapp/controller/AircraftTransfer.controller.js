@@ -81,12 +81,15 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		// ***************************************************************************
+		//                 2.  Backend Calls 
+		// ***************************************************************************
 		/** 
-		 * 
+		 * Load current transfer logs header
 		 */
 		fnLoadCurrentDetails: function() {
 			try {
-				var sPath = "/airtranscurrsvc/" + this.getTailId();
+				var sPath = "/airtranscurrsvc(tailid=" + this.getTailId() + ")";
 				var oParameter = {};
 				oParameter.error = function() {
 
@@ -102,11 +105,11 @@ sap.ui.define([
 			}
 		},
 		/** 
-		 * 
+		 * Load current transfer logs details
 		 */
 		fnLoadHistory: function() {
 			try {
-				var sPath = "/AirTranssvc/" + this.getTailId();
+				var sPath = "/AirTranssvc(tailid=" + this.getTailId() + ")";
 				var oParameter = {};
 				oParameter.error = function() {
 
@@ -122,8 +125,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		// ***************************************************************************
+		//                 3. Private Methods   
+		// ***************************************************************************
 		/** 
-		 * 
+		 * Validate history
 		 */
 		fnCheckStatus: function() {
 			try {

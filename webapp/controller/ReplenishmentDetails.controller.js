@@ -287,7 +287,10 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					this.getModel("oRepDetailsModel").setProperty("/srv", oData.results);
 					this.getModel("oRepDetailsModel").refresh();
-					this._getFuelExtTanks();
+					this.updateModel({
+						busy: false
+					}, "viewModel");
+					// this._getFuelExtTanks();
 				}.bind(this);
 				ajaxutil.fnRead("/ReplshmentSvc", oParameter);
 			} catch (e) {
