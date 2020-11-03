@@ -51,37 +51,13 @@ sap.ui.define([
 			}
 
 		},
-		onNavBackSortie: function() {
-			try {
-				this.getRouter().navTo("SortieMonitoring");
-			} catch (e) {
-				Log.error("Exception in xxxxx function");
-			}
-		},
-
-		onSelectionNatureofJobChange: function(oEvent) {
-			this.getModel("JobCreateModel").setProperty("/MODTYPE", 0);
-		},
-
-		handleChange: function() {
-			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateJobPast", "errorCreateJobFuture");
-		},
-		
-		onDueDateChange : function (oEvent){
-			var oSrc = oEvent.getSource(),
-				oAppModel = this.getView().getModel("JobCreateModel"),
-				sKey = oAppModel.getProperty("/UMKEY"),
-				sInt = oAppModel.getProperty("/INTERVAL");
-			oSrc.setValueState("None");
-			var iPrec = formatter.JobDueDecimalPrecision(sKey);
-			/*if (parseFloat(sInt, [10]) > 0) {
-				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
-				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
-			}*/
-		},
 		// ***************************************************************************
-		//                 2.  Private Methods  
+		//     2. Backend Calls
 		// ***************************************************************************
+		/* Function: onClearFilterBar
+		 * Parameter: oEvt
+		 * Description: function to populate job due drop down
+		 */
 		_fnJobDueGet: function() {
 			try {
 				var that = this,
@@ -119,10 +95,14 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnJobDueGet function");
+				Log.error("Exception in ESScheduleJobCreate:_fnJobDueGet function");
 				this.handleException(e);
 			}
 		},
+		/* Function: _fnGetUtilisation
+		 * Parameter: oEvt
+		 * Description: function to populate local model minimum values for utilisation
+		 */
 		_fnGetUtilisation: function(sAir) {
 			try {
 				var oPrmJobDue = {};
@@ -143,10 +123,11 @@ sap.ui.define([
 				Log.error("Exception in _fnGetUtilisation function");
 			}
 		},
-		/** 
-		 * Get engine header data
-		 * @constructor 
+		/* Function: getEngineHeader
+		 * Parameter: oEvt
+		 * Description: function to Get engine header data
 		 */
+
 		getEngineHeader: function() {
 			try {
 				var
@@ -182,10 +163,13 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead("/EngineDisSvc", oParameter);
 			} catch (e) {
-				Log.error("Exception in Engine:getEngineHeader function");
-				this.handleException(e);
+				Log.error("Exception in getEngineHeader function");
 			}
 		},
+		/* Function: _fnWorkCenterGet
+		 * Parameter: sAir
+		 * Description: function to populate work center drop down
+		 */
 		_fnWorkCenterGet: function(sAir) {
 			try {
 				var that = this,
@@ -206,95 +190,10 @@ sap.ui.define([
 				Log.error("Exception in _fnWorkCenterGet function");
 			}
 		},
-
-		/* Function: onDueSelectChange
-		 * Parameter: oEvent
-		 * Description: To  sheduled defect on change of due type.
+		/* Function: ESJobCreate
+		 * Parameter: oEvt
+		 * Description: function to validate and save data at back end to create job
 		 */
-		onDueSelectChange: function(oEvent) {
-			try {
-				var oSrc = oEvent.getSource(),
-					sKey = oSrc.getSelectedKey(),
-					sDue = oEvent.getSource().getSelectedItem().getText(),
-					oAppModel = this.getView().getModel("JobCreateModel");
-				if (sKey.length > 0) {
-					oSrc.setValueState("None");
-					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
-						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
-						oAppModel.setProperty("/DefValue", minVal);
-						var sVal = oAppModel.getProperty("/SERVDUE") ? oAppModel.getProperty("/SERVDUE") : 0;
-						sVal = parseFloat(sVal, [10]);
-						var iPrec = formatter.JobDueDecimalPrecision(sKey);
-						oAppModel.setProperty("/SERVDUE", parseFloat(minVal, [10]).toFixed(iPrec));
-						oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
-					} else {
-						oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(0));
-					}
-				}
-
-				oAppModel.setProperty("/UM", sDue);
-				oAppModel.updateBindings(true);
-			} catch (e) {
-				Log.error("Exception in onDueSelectChange function");
-			}
-		},
-
-		onStepChangeSchedule: function(oEvent) {
-			this.onStepChange(oEvent);
-			var oSrc = oEvent.getSource(),
-				oAppModel = this.getView().getModel("JobCreateModel"),
-				sKey = oAppModel.getProperty("/UMKEY"),
-				sInt = oAppModel.getProperty("/INTERVAL");
-			oSrc.setValueState("None");
-			var iPrec = formatter.JobDueDecimalPrecision(sKey);
-			/*if (parseFloat(sInt, [10]) > 0) {
-				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
-				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
-			}*/
-		},
-
-		onIntervalChange: function(oEvent) {
-			try {
-				var oSrc = oEvent.getSource(),
-					oAppModel = this.getView().getModel("JobCreateModel"),
-					sVal = oSrc.getValue(),
-					sKey = oAppModel.getProperty("/UMKEY"),
-					sDue = oAppModel.getProperty("/SERVDUE"),
-					sDate = oAppModel.getProperty("/SERVDT"),
-					bFlag = false;
-				oSrc.setValueState("None");
-				var iPrec = formatter.JobDueDecimalPrecision(sKey);
-				if (!sVal || sVal === "") {
-					sVal = 0;
-				}
-				oAppModel.setProperty("/INTERVAL", parseFloat(sVal, [10]).toFixed(iPrec));
-			/*	if (sKey !== "JDU_10") {
-					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
-						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
-						var val = parseFloat(minVal, [10]).toFixed(iPrec);
-						if (sDue !== val) {
-							oAppModel.setProperty("/SERVDUE", val);
-							bFlag = true;
-						}
-					}
-				} else if (sKey === "JDU_10") {
-					if (sDate && sDate !== "") {
-						oAppModel.setProperty("/SERVDT", null);
-						bFlag = true;
-					}
-				}
-
-				if (bFlag) {
-					sap.m.MessageBox.warning("As you are changing interval, Job Due By value has been reset");
-				}*/
-
-			} catch (e) {
-				Log.error("Exception in onIntervalChange function");
-			}
-		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
 		ESJobCreate: function() {
 			try {
 				if (!this.handleChange()) {
@@ -393,9 +292,166 @@ sap.ui.define([
 				Log.error("Exception in ESJobCreate function");
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+		// ***************************************************************************
+		//     3.  Specific Methods  
+		// ***************************************************************************
+		/* Function: onNavBackSortie
+		 * Parameter: oEvt
+		 * Description: function to handle when back button is pressed
+		 */
+		onNavBackSortie: function() {
+			try {
+				this.getRouter().navTo("SortieMonitoring");
+			} catch (e) {
+				Log.error("Exception in onNavBackSortie function");
+			}
+		},
+		/* Function: onSelectionNatureofJobChange
+		 * Parameter: oEvt
+		 * Description: function call when job type is changed
+		 */
+		onSelectionNatureofJobChange: function(oEvent) {
+			try {
+				this.getModel("JobCreateModel").setProperty("/MODTYPE", 0);
+			} catch (e) {
+				Log.error("Exception in onNavBackSortie function");
+			}
+		},
+		/* Function: handleChange
+		 * Parameter: oEvt
+		 * Description: function to check validation on date/time
+		 */
+		handleChange: function() {
+			try {
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateJobPast", "errorCreateJobFuture");
+			} catch (e) {
+				Log.error("Exception in onNavBackSortie function");
+			}
+
+		},
+		/* Function: onDueDateChange
+		 * Parameter: oEvt
+		 * Description: function set value state when date is changed
+		 */
+		onDueDateChange: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					oAppModel = this.getView().getModel("JobCreateModel"),
+					sKey = oAppModel.getProperty("/UMKEY"),
+					sInt = oAppModel.getProperty("/INTERVAL");
+				oSrc.setValueState("None");
+				var iPrec = formatter.JobDueDecimalPrecision(sKey);
+				/*if (parseFloat(sInt, [10]) > 0) {
+					oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+					sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
+				}*/
+			} catch (e) {
+				Log.error("Exception in onDueDateChange function");
+			}
+		},
+
+		/* Function: onDueSelectChange
+		 * Parameter: oEvent
+		 * Description: To  sheduled defect on change of due type.
+		 */
+		onDueSelectChange: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					sKey = oSrc.getSelectedKey(),
+					sDue = oEvent.getSource().getSelectedItem().getText(),
+					oAppModel = this.getView().getModel("JobCreateModel");
+				if (sKey.length > 0) {
+					oSrc.setValueState("None");
+					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+						oAppModel.setProperty("/DefValue", minVal);
+						var sVal = oAppModel.getProperty("/SERVDUE") ? oAppModel.getProperty("/SERVDUE") : 0;
+						sVal = parseFloat(sVal, [10]);
+						var iPrec = formatter.JobDueDecimalPrecision(sKey);
+						oAppModel.setProperty("/SERVDUE", parseFloat(minVal, [10]).toFixed(iPrec));
+						oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+					} else {
+						oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(0));
+					}
+				}
+
+				oAppModel.setProperty("/UM", sDue);
+				oAppModel.updateBindings(true);
+			} catch (e) {
+				Log.error("Exception in onDueSelectChange function");
+			}
+		},
+		/* Function: onStepChangeSchedule
+		 * Parameter: oEvt
+		 * Description: function call when step input value is changed
+		 */
+		onStepChangeSchedule: function(oEvent) {
+			try {
+				this.onStepChange(oEvent);
+				var oSrc = oEvent.getSource(),
+					oAppModel = this.getView().getModel("JobCreateModel"),
+					sKey = oAppModel.getProperty("/UMKEY"),
+					sInt = oAppModel.getProperty("/INTERVAL");
+				oSrc.setValueState("None");
+				var iPrec = formatter.JobDueDecimalPrecision(sKey);
+				/*if (parseFloat(sInt, [10]) > 0) {
+					oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+					sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
+				}*/
+			} catch (e) {
+				Log.error("Exception in onStepChangeSchedule function");
+			}
+		},
+		/* Function: onIntervalChange
+		 * Parameter: oEvt
+		 * Description: function call when interval value is changed
+		 */
+		onIntervalChange: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					oAppModel = this.getView().getModel("JobCreateModel"),
+					sVal = oSrc.getValue(),
+					sKey = oAppModel.getProperty("/UMKEY"),
+					sDue = oAppModel.getProperty("/SERVDUE"),
+					sDate = oAppModel.getProperty("/SERVDT"),
+					bFlag = false;
+				oSrc.setValueState("None");
+				var iPrec = formatter.JobDueDecimalPrecision(sKey);
+				if (!sVal || sVal === "") {
+					sVal = 0;
+				}
+				oAppModel.setProperty("/INTERVAL", parseFloat(sVal, [10]).toFixed(iPrec));
+				/*	if (sKey !== "JDU_10") {
+						if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+							var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+							var val = parseFloat(minVal, [10]).toFixed(iPrec);
+							if (sDue !== val) {
+								oAppModel.setProperty("/SERVDUE", val);
+								bFlag = true;
+							}
+						}
+					} else if (sKey === "JDU_10") {
+						if (sDate && sDate !== "") {
+							oAppModel.setProperty("/SERVDT", null);
+							bFlag = true;
+						}
+					}
+
+					if (bFlag) {
+						sap.m.MessageBox.warning("As you are changing interval, Job Due By value has been reset");
+					}*/
+
+			} catch (e) {
+				Log.error("Exception in onIntervalChange function");
+			}
+		},
+		// ***************************************************************************
+		//   4. Private Function   
+		// ***************************************************************************
+		/* Function: _onObjectMatched
+		 * Parameter: oEvt
+		 * Description: function to intialize local model when route is matched
+		 */
 		_onObjectMatched: function(oEvent) {
 			try {
 				var that = this,

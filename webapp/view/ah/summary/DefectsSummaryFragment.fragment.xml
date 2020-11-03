@@ -77,11 +77,6 @@
 												<Label design="Bold" text="Airframe Hrs" width="150px"/>
 												<Text text="{JobModel>/airhrs}" width="200px"/>
 											</HBox>
-											<HBox class="sapUiTinyMarginTop">
-												<!--visible="{=${JobModel>/jduid}!=='' ? true :false}"-->
-												<Label design="Bold" text="Airframe Hrs" width="150px"/>
-												<Text text="{JobModel>/airhrs}" width="200px"/>
-											</HBox>
 											<HBox class="sapUiTinyMarginTop" visible="{=${JobModel>/jobty}==='S' ? true :false}">
 												<Label design="Bold" text="Scheduled Due" width="150px"/>
 												<Text text="{JobModel>/jduvl} {JobModel>/jdutxt}" width="200px" visible="{=${JobModel>/jduid}!=='JDU_10' ? true :false}"/>

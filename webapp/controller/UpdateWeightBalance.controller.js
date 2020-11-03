@@ -4,8 +4,9 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/FieldValidations",
 	"../util/ajaxutil",
-	"../model/formatter"
-], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter) {
+	"../model/formatter",
+		"sap/base/Log"
+], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter,Log) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.UpdateWeightBalance", {
@@ -145,6 +146,36 @@ sap.ui.define([
 
 			this.getView().getModel("WeightBalanceNewSet").updateBindings(true);
 			this.getView().getModel("WeightBalanceHeaderSet").updateBindings(true);
+		},
+
+		onAutoCalUpdateFinished: function() {
+			try {
+				var oModel = this.getView().getModel("WeightBalanceHeaderSet"),
+					sWeight, sArm, sMoment, oTotal;
+				sWeight = oModel.getProperty("/AutoCal/0/WEIGHT");
+				sArm = oModel.getProperty("/AutoCal/0/ARM");
+				sMoment = oModel.getProperty("/AutoCal/0/MOMENT");
+				oTotal = (sMoment / sWeight) * 100;
+				oModel.setProperty("/AutoCal/0/ARM", (parseFloat(oTotal)).toFixed(3));
+				oModel.refresh();
+			} catch (e) {
+				Log.error("Exception in onAutoCalUpdateFinished function");
+			}
+		},
+
+		onWeightWaitUpdateFinished: function() {
+			try {
+				var oModel = this.getView().getModel("WeightBalanceHeaderSet"),
+					sWeightWW, sArmWW, sMomentWW, oTotalWW;
+				sWeightWW = oModel.getProperty("/WeightedWght/0/WEIGHT");
+				sArmWW = oModel.getProperty("/WeightedWght/0/ARM");
+				sMomentWW = oModel.getProperty("/WeightedWght/0/MOMENT");
+				oTotalWW = (sMomentWW / sWeightWW) * 100;
+				oModel.setProperty("/WeightedWght/0/ARM", (parseFloat(oTotalWW)).toFixed(3));
+				oModel.refresh();
+			} catch (e) {
+				Log.error("Exception in onWeightWaitUpdateFinished function");
+			}
 		},
 
 		onChangeMomentAdd: function() {

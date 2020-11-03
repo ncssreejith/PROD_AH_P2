@@ -9,18 +9,26 @@ sap.ui.define([
 ], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log) {
 	"use strict";
 	/* ***************************************************************************
-	 *     Developer : RAJAT GUPTA 
+	 *     Developer : Rahul Thorat 
 	 *   Control name: Limitations          
 	 *   Purpose : To add limitations functionality
 	 *   Functions :
 	 *   1.UI Events
 	 *        1.1 onInit
-	 *        1.2 onSignOffPress
+	 *        1.2 onAfterRendering
+	 *        1.3 onExit
+	 *        1.4 destroyState
 	 *     2. Backend Calls
-	 *        2.1 fnLogById
+	 *        2.1 _fnADDGet
+	 *        2.2 _fnLimitationsGet
 	 *     3. Private calls
-	 *        3.1 _onObjectMatched
-	 *        3.2 fnSetReason
+	 *        3.1 onADDPress
+	 *        3.2 onLimitationPress
+	 *        3.3 onCompletePress
+	 *        3.4 onRefresh
+	 *        3.5 drawCoordinates
+	 *        3.6 onSelectionDefectAreaChange
+	 *        3.7 resetCanvas
 	 *   Note :
 	 *************************************************************************** */
 	return BaseController.extend("avmet.ah.controller.Limitations", {
@@ -28,6 +36,11 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 1. UI Events  
 		// ***************************************************************************
+		//-------------------------------------------------------------
+		//   Function: onInit
+		//   Parameter: NA 
+		//   Description: Internal method to initialize View dataUtil .
+		//-------------------------------------------------------------
 		onInit: function() {
 			try {
 				var that = this,
@@ -51,121 +64,51 @@ sap.ui.define([
 		//  
 		//-------------------------------------------------------------
 		onAfterRendering: function() {
-			var that = this;
-			this.onSelectionDefectAreaChange("DEA_T");
-			// Retrieve backend posting messages of dashboard status every 30 secs.
-			if (!this._LoadMessageInterval) {
-				this._LoadMessageInterval = setInterval(function() {
-					that._fnADDGet();
-					that._fnLimitationsGet();
-					that._fnLimitationsCompleteGet();
-				}, 30000);
+			try {
+				var that = this;
+				this.onSelectionDefectAreaChange("DEA_T");
+				// Retrieve backend posting messages of dashboard status every 30 secs.
+				if (!this._LoadMessageInterval) {
+					this._LoadMessageInterval = setInterval(function() {
+						that._fnADDGet();
+						that._fnLimitationsGet();
+						that._fnLimitationsCompleteGet();
+					}, 30000);
+				}
+			} catch (e) {
+				Log.error("Exception in onAfterRendering function");
 			}
 		},
 		/** 
 		 * Exit clean up.
 		 */
 		onExit: function() {
-			// Clear off state.
-			this.destroyState();
+			try {
+				// Clear off state.
+				this.destroyState();
+			} catch (e) {
+				Log.error("Exception in onExit function");
+			}
 		},
 		/** 
 		 * Clean up state object.
 		 */
 		destroyState: function() {
-			// Clear load message interval.
-			clearInterval(this._LoadMessageInterval);
+			try {
+				// Clear load message interval.
+				clearInterval(this._LoadMessageInterval);
+			} catch (e) {
+				Log.error("Exception in destroyState function");
+			}
 		},
 
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
-
-		// ***************************************************************************
-		//                 3.  Specific Methods  
-		// ***************************************************************************
-		/*	onSelectDefectArea: function(oEvent) {
-				var oCreateJobModel = this.getModel("localViewModel"),
-					sRootPath = jQuery.sap.getModulePath("avmet.ah"),
-					sUrl = sRootPath + oEvent.getSource().getBindingContext("localViewModel").getObject().imageUrl;
-				oCreateJobModel.setProperty("/sImageUrl", sUrl);
-
-			},*/
-		//-------------------------------------------------------------
-		//  
-		//-------------------------------------------------------------	
-		onADDPress: function(oEvent) {
-			try {
-				var oData = oEvent.getSource().getSelectedItem().getBindingContext("ADDLimSet").getObject();
-				if (oData) {
-					this.getRouter().navTo("LimitationsOverView", {
-						"CAP": oData.CAPID,
-						"JOB": oData.JOBID,
-						"CAPTY": oData.CAPTY,
-						"DEFID": oData.DEAID_M,
-						"XMARK": oData.XAXIS,
-						"YMARK": oData.YAXIS,
-						"FLag": "A"
-					});
-				} else {
-					sap.m.MessageToast.show("Something went wrong");
-				}
-			} catch (e) {
-				Log.error("Exception in Limitations:onADDPress function");
-				this.handleException(e);
-			}
-		},
-		//-------------------------------------------------------------
-		//  
-		//-------------------------------------------------------------
-		onLimitationPress: function(oEvent) {
-			try {
-				var oData = oEvent.getSource().getSelectedItem().getBindingContext("LimitationsSet").getObject();
-				if (oData) {
-					this.getRouter().navTo("LimitationsOverView", {
-						"CAP": oData.CAPID,
-						"JOB": oData.JOBID,
-						"CAPTY": oData.CAPTY,
-						"DEFID": oData.DEAID_M,
-						"XMARK": oData.XAXIS,
-						"YMARK": oData.YAXIS,
-						"FLag": "L"
-					});
-				} else {
-					sap.m.MessageToast.show("Something went wrong");
-				}
-			} catch (e) {
-				Log.error("Exception in Limitations:onLimitationPress function");
-				this.handleException(e);
-			}
-		},
-		//-------------------------------------------------------------
-		//  
-		//-------------------------------------------------------------
-		onCompletePress: function(oEvent) {
-			try {
-				var oData = oEvent.getSource().getSelectedItem().getBindingContext("LimCompleteSet").getObject();
-				if (oData) {
-					this.getRouter().navTo("LimitationsOverView", {
-						"CAP": oData.CAPID,
-						"JOB": oData.JOBID,
-						"CAPTY": oData.CAPTY,
-						"DEFID": oData.DEAID_M,
-						"XMARK": oData.XAXIS,
-						"YMARK": oData.YAXIS,
-						"FLag": "C"
-					});
-				} else {
-					sap.m.MessageToast.show("Something went wrong");
-				}
-			} catch (e) {
-				Log.error("Exception in Limitations:onCompletePress function");
-				this.handleException(e);
-			}
-		},
-		// ***************************************************************************
-		//                 Private Functions
-		// ***************************************************************************
+		/* Function: _fnADDGet
+		 * Parameter:
+		 * Description: This is called to retreive ADD records
+		 */
 		_fnADDGet: function() {
 			try {
 				var that = this,
@@ -223,9 +166,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		// ***************************************************************************
-		//                 Backend Calls
-		// ***************************************************************************
+
+		/* Function: _fnLimitationsGet
+		 * Parameter:
+		 * Description: his is called to retreive Limitation records
+		 */
 		_fnLimitationsGet: function() {
 			try {
 				var that = this,
@@ -249,9 +194,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		//  
-		//-------------------------------------------------------------
+		/* Function: _fnLimitationsCompleteGet
+		 * Parameter:
+		 * Description: This is called to retreive completed records
+		 */
 		_fnLimitationsCompleteGet: function() {
 			try {
 				var that = this,
@@ -274,76 +220,99 @@ sap.ui.define([
 			}
 		},
 
-		/*	onADDUpdateFinished: function() {
-				var oFilters, filterObj, oListADD, oBindingADD, oViewModel;
-				oListADD = this.getView().byId("ADDId");
-				oViewModel = this.getView().getModel("oViewModel");
-				oBindingADD = oListADD.getBinding("items");
-				oBindingADD.filter([]);
-
-				oFilters = [new sap.ui.model.Filter("CAPTY", sap.ui.model.FilterOperator.EQ, "B"),
-					new sap.ui.model.Filter("CAPTY", sap.ui.model.FilterOperator.EQ, "A")
-				];
-
-				filterObj = new sap.ui.model.Filter(oFilters, false);
-				oBindingADD.filter(filterObj);
-				oViewModel.setProperty("/sADDCount", oListADD.getItems().length);
-
-			},*/
-
-		/*	onLimitationADDUpdateFinished: function() {
-				var oFilters, filterObj, oListADD, oBindingADD, oViewModel;
-				oListADD = this.getView().byId("LimADDId");
-				oViewModel = this.getView().getModel("oViewModel");
-				oBindingADD = oListADD.getBinding("items");
-				oBindingADD.filter([]);
-
-				oFilters = [new sap.ui.model.Filter("CAPTY", sap.ui.model.FilterOperator.EQ, "B"),
-					new sap.ui.model.Filter("CAPTY", sap.ui.model.FilterOperator.EQ, "L")
-				];
-
-				filterObj = new sap.ui.model.Filter(oFilters, false);
-				oBindingADD.filter(filterObj);
-				oViewModel.setProperty("/sLimitCount", oListADD.getItems().length);
-			},*/
-		onRefresh: function() {
-			this._fnADDGet();
-			this._fnLimitationsGet();
-			this._fnLimitationsCompleteGet();
-		},
-
 		// ***************************************************************************
-		//                 4. Private Methods   
+		//                 3.  Specific Methods  
 		// ***************************************************************************
-		_onObjectMatched: function(oEvent) {
+
+		/* Function: onADDPress
+		 * Parameter:
+		 * Description: This is called to add ADD
+		 */
+		onADDPress: function(oEvent) {
 			try {
-				/*	var oModel = this.getView().getModel("localViewModel"),
-						sPath = jQuery.sap.getModulePath("avmet.ah"),
-						val = sPath + "/css/img/limHelicopcreateAircraftLeft.png";
-					oModel.setProperty("/sImageUrl", val);
-					oModel.updateBindings(true);*/
-				this.fnCheckCapStatus();
-				this.resetCanvas();
-				var oModel = dataUtil.createNewJsonModel();
-				oModel.setData({
-					sADDCount: "",
-					sLimitCount: "",
-					totalCount: 0,
-					SelectedKey: "ADD"
-
-				});
-				this.getView().setModel(oModel, "oViewModel");
-				this._fnADDGet();
-				this._fnLimitationsGet();
-				this._fnLimitationsCompleteGet();
-
+				var oData = oEvent.getSource().getSelectedItem().getBindingContext("ADDLimSet").getObject();
+				if (oData) {
+					this.getRouter().navTo("LimitationsOverView", {
+						"CAP": oData.CAPID,
+						"JOB": oData.JOBID,
+						"CAPTY": oData.CAPTY,
+						"DEFID": oData.DEAID_M,
+						"XMARK": oData.XAXIS,
+						"YMARK": oData.YAXIS,
+						"FLag": "A"
+					});
+				} else {
+					sap.m.MessageToast.show("Something went wrong");
+				}
 			} catch (e) {
-				Log.error("Exception in Limitations:_onObjectMatched function");
+				Log.error("Exception in Limitations:onADDPress function");
 				this.handleException(e);
 			}
 		},
-
-		/* Function: drawCoordinates
+		/* Function: onLimitationPress
+		 * Parameter:
+		 * Description: This is called to add Limitation
+		 */
+		onLimitationPress: function(oEvent) {
+			try {
+				var oData = oEvent.getSource().getSelectedItem().getBindingContext("LimitationsSet").getObject();
+				if (oData) {
+					this.getRouter().navTo("LimitationsOverView", {
+						"CAP": oData.CAPID,
+						"JOB": oData.JOBID,
+						"CAPTY": oData.CAPTY,
+						"DEFID": oData.DEAID_M,
+						"XMARK": oData.XAXIS,
+						"YMARK": oData.YAXIS,
+						"FLag": "L"
+					});
+				} else {
+					sap.m.MessageToast.show("Something went wrong");
+				}
+			} catch (e) {
+				Log.error("Exception in Limitations:onLimitationPress function");
+				this.handleException(e);
+			}
+		},
+		/* Function: onCompletePress
+		 * Parameter:
+		 * Description: This is called to complete add/limitation
+		 */
+		onCompletePress: function(oEvent) {
+			try {
+				var oData = oEvent.getSource().getSelectedItem().getBindingContext("LimCompleteSet").getObject();
+				if (oData) {
+					this.getRouter().navTo("LimitationsOverView", {
+						"CAP": oData.CAPID,
+						"JOB": oData.JOBID,
+						"CAPTY": oData.CAPTY,
+						"DEFID": oData.DEAID_M,
+						"XMARK": oData.XAXIS,
+						"YMARK": oData.YAXIS,
+						"FLag": "C"
+					});
+				} else {
+					sap.m.MessageToast.show("Something went wrong");
+				}
+			} catch (e) {
+				Log.error("Exception in Limitations:onCompletePress function");
+				this.handleException(e);
+			}
+		},
+		/* Function: onAddFlyingRequirements
+		 * Parameter:
+		 * Description: This is called refresh tables
+		 */
+		onRefresh: function() {
+			try {
+				this._fnADDGet();
+				this._fnLimitationsGet();
+				this._fnLimitationsCompleteGet();
+			} catch (e) {
+				Log.error("Exception in _fnLimitationsCompleteGet function");
+			}
+		},
+			/* Function: drawCoordinates
 		 * Parameter: x, y, oCanvas
 		 * Description: To draw coordinates on canvas image.
 		 */
@@ -394,23 +363,10 @@ sap.ui.define([
 
 		},
 
-		/*	_fnRenderImage: function(sImagePath, oCanvas) {
-				var that = this,
-					oCanvas;
-				oCanvas = document.getElementById("myCanvasTopLim");
-				var ctx = oCanvas.getContext("2d");
-				oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
-				oCanvas.style.backgroundRepeat = "no-repeat";
-				oCanvas.style.backgroundSize = "100%";
-				oCanvas.addEventListener('click', canvasClicked, false);
-
-				function canvasClicked(e) {
-					that.getPointPosition(e, oCanvas);
-				}
-			},*/
-		//-------------------------------------------------------------
-		//  
-		//-------------------------------------------------------------
+		/* Function: onSelectionDefectAreaChange
+		 * Parameter:
+		 * Description: This is called to set canvas image and marks
+		 */
 		onSelectionDefectAreaChange: function(sValue) {
 			try {
 				var that = this,
@@ -471,27 +427,60 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		/* Function: resetCanvas
+		 * Parameter:
+		 * Description: This is called to reset canvas
+		 */
 		resetCanvas: function() {
-			var oCanvasTop = document.getElementById("myCanvasTopLim");
-			if (oCanvasTop !== null) {
-				var ctx = oCanvasTop.getContext('2d');
-				ctx.clearRect(0, 0, oCanvasTop.width, oCanvasTop.height);
+			try {
+				var oCanvasTop = document.getElementById("myCanvasTopLim");
+				if (oCanvasTop !== null) {
+					var ctx = oCanvasTop.getContext('2d');
+					ctx.clearRect(0, 0, oCanvasTop.width, oCanvasTop.height);
+				}
+				var oMyCanvasFront = document.getElementById("myCanvasFront");
+				if (oMyCanvasFront !== null) {
+					var ctxF = oMyCanvasFront.getContext('2d');
+					ctxF.clearRect(0, 0, oMyCanvasFront.width, oMyCanvasFront.height);
+				}
+				var oMyCanvasLeft = document.getElementById("myCanvasLeft");
+				if (oMyCanvasLeft !== null) {
+					var ctxL = oMyCanvasLeft.getContext('2d');
+					ctxL.clearRect(0, 0, oMyCanvasLeft.width, oMyCanvasLeft.height);
+				}
+				var oMyCanvasRight = document.getElementById("myCanvasRight");
+				if (oMyCanvasRight !== null) {
+					var ctxR = oMyCanvasRight.getContext('2d');
+					ctxR.clearRect(0, 0, oMyCanvasRight.width, oMyCanvasRight.height);
+				}
+			} catch (e) {
+				Log.error("Exception in resetCanvas function");
 			}
-			var oMyCanvasFront = document.getElementById("myCanvasFront");
-			if (oMyCanvasFront !== null) {
-				var ctxF = oMyCanvasFront.getContext('2d');
-				ctxF.clearRect(0, 0, oMyCanvasFront.width, oMyCanvasFront.height);
-			}
-			var oMyCanvasLeft = document.getElementById("myCanvasLeft");
-			if (oMyCanvasLeft !== null) {
-				var ctxL = oMyCanvasLeft.getContext('2d');
-				ctxL.clearRect(0, 0, oMyCanvasLeft.width, oMyCanvasLeft.height);
-			}
-			var oMyCanvasRight = document.getElementById("myCanvasRight");
-			if (oMyCanvasRight !== null) {
-				var ctxR = oMyCanvasRight.getContext('2d');
-				ctxR.clearRect(0, 0, oMyCanvasRight.width, oMyCanvasRight.height);
+		},
+
+		// ***************************************************************************
+		//                 4. Private Methods   
+		// ***************************************************************************
+		_onObjectMatched: function(oEvent) {
+			try {
+				this.fnCheckCapStatus();
+				this.resetCanvas();
+				var oModel = dataUtil.createNewJsonModel();
+				oModel.setData({
+					sADDCount: "",
+					sLimitCount: "",
+					totalCount: 0,
+					SelectedKey: "ADD"
+
+				});
+				this.getView().setModel(oModel, "oViewModel");
+				this._fnADDGet();
+				this._fnLimitationsGet();
+				this._fnLimitationsCompleteGet();
+
+			} catch (e) {
+				Log.error("Exception in Limitations:_onObjectMatched function");
+				this.handleException(e);
 			}
 		}
 	});

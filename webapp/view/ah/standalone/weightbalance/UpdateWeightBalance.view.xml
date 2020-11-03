@@ -187,7 +187,7 @@
 							</HBox>
 						</Panel>
 						<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
-							items="{ path: 'WeightBalanceHeaderSet>/AutoCal'}" width="auto">
+							items="{ path: 'WeightBalanceHeaderSet>/AutoCal'}" width="auto" updateFinished="onAutoCalUpdateFinished">
 							<headerToolbar>
 								<OverflowToolbar>
 									<content>
@@ -231,7 +231,7 @@
 							</SegmentedButton>
 						</HBox>
 						<Table id="WeManId" class="sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBegin CERTable tableHFont" visible="false"
-							items="{ path: 'WeightBalanceHeaderSet>/WeightedWght'}" width="auto">
+							items="{ path: 'WeightBalanceHeaderSet>/WeightedWght'}" width="auto" updateFinished="onWeightWaitUpdateFinished">
 							<headerToolbar>
 								<OverflowToolbar>
 									<content>
@@ -257,9 +257,9 @@
 								<ColumnListItem>
 									<cells>
 										<Text text="{WeightBalanceHeaderSet>IDESC}"/>
-										<Input value="{WeightBalanceHeaderSet>WEIGHT}" type="Number"/>
-										<Input value="{WeightBalanceHeaderSet>ARM}" type="Number"/>
-										<Input value="{WeightBalanceHeaderSet>MOMENT}" type="Number"/>
+										<Input value="{WeightBalanceHeaderSet>WEIGHT}" type="Number" change="onWeightWaitUpdateFinished"/>
+										<Input value="{WeightBalanceHeaderSet>ARM}" type="Number" editable="false"/>
+										<Input value="{WeightBalanceHeaderSet>MOMENT}" type="Number" change="onWeightWaitUpdateFinished"/>
 									</cells>
 								</ColumnListItem>
 							</items>

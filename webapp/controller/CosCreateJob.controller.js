@@ -84,32 +84,863 @@ sap.ui.define([
 		onExit: function() {
 			window.location.reload(); // Reason for this code????????????
 		},
+		// ***************************************************************************
+		//     2. Backend Calls
+		// ***************************************************************************
+		//------------------------------------------------------------------
+		// Function: onDeleteImagePress
+		// Parameter: oEvt
+		// Description: To delete uploaded image from backend .
+		//Table: PHOTO
+		//------------------------------------------------------------------
+		onDeleteImagePress: function(oEvent) {
+			try {
+				var obj = oEvent.getSource().getBindingContext("appModel").getObject();
+				var sPath = "/DefectPhotosSvc(" +
+					"DOCID=" + obj.DOCID +
+					",JOBID=A)";
+				this.getView().byId("photoUpload").setBusy(true);
+				var oPrmMark = {};
+				oPrmMark.error = function() {
+					this.getView().byId("photoUpload").setBusy(false);
+				}.bind(this);
+				oPrmMark.success = function() {
+					this.getView().byId("photoUpload").setBusy(false);
+					this.getView().byId("iImageTicket").setSrc(null);
+					this._fnPhotoUploadGet(this.docRefId);
+				}.bind(this);
 
+				ajaxutil.fnDelete(sPath, oPrmMark);
+			} catch (e) {
+				Log.error("Exception in onDeleteImagePress function");
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnDeleteUnusedDocs
+		// Parameter: oEvt
+		// Description: To delete All uploaded image from backend .
+		//Table: PHOTO
+		//------------------------------------------------------------------
+		_fnDeleteUnusedDocs: function() {
+			try {
+				if (this.docRefId) {
+					var sPath = "/DefectPhotosSvc(" +
+						"DOCID=" + this.docRefId +
+						",JOBID=P)";
+					var oPrmMark = {};
+					oPrmMark.error = function() {};
+					oPrmMark.success = function(oData) {}.bind(this);
+					ajaxutil.fnDelete(sPath, oPrmMark);
+				}
+			} catch (e) {
+				Log.error("Exception in _fnDeleteUnusedDocs function");
+			}
+		},
+
+		/* Function: onCreateJob
+		 * Parameter: oEvent
+		 * Description: To Create new Job.
+		 */
+		onCreateJob: function(oEvent) {
+			try {
+				var that = this,
+					sjobid = "",
+					oPayload, oModel;
+				var dDate = new Date();
+				var oParameter = {};
+				oModel = that.getModel("appModel");
+				if (!this.handleChange()) {
+					return;
+				}
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
+				oPayload = this.getView().getModel("oViewCreateModel").getData();
+
+				if (oPayload.jobty === "D") {
+					oPayload.DOCREFID = this.docRefId;
+				}
+				if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === "T" || oModel.getProperty(
+						"/sRJobIdFlag") ===
+					undefined) {
+					oPayload.jobid = sjobid.concat("JOB_", dDate.getFullYear(), dDate.getMonth(), dDate.getDate(), dDate.getHours(), dDate.getMinutes(),
+						dDate.getSeconds());
+					oPayload.endda = formatter.defaultOdataDateFormat(oPayload.credt);
+					oPayload.begda = formatter.defaultOdataDateFormat(oPayload.credt);
+					oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
+					oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
+					if (oPayload.jobty === "S") {
+						oPayload.symbol = "3";
+					}
+					oPayload.jstat = "C";
+					if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === "T") {
+						oPayload.rjobid = oModel.getProperty("/sRJobId");
+					}
+
+					oParameter.error = function(response) {};
+
+					oParameter.success = function(oData) {
+						if (oData.results[0].mark !== "") {
+							that._fnCreateMark(oData.results[0].jobid);
+						}
+						if (oData.results[0].prime !== "") {
+							that._fnDefectWorkCenterCreate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime);
+						}
+						that.getView().byId("defectId").setVisible(false);
+						that.getView().byId("scheduledId").setVisible(false);
+						that.getView().byId("unscheduledId").setVisible(false);
+						var ViewGlobalModel = this.getModel("oViewCreateModel");
+						ViewGlobalModel.setData(null);
+						if (oModel.getProperty("/sRJobIdFlag") === "T") {
+							/*that.onNavBack();*/
+							window.history.go(-1);
+						} else {
+							this.getRouter().navTo("CosDefectsSummary", {
+								"JobId": oData.results[0].jobid,
+								"Flag": "Y"
+							}, true);
+						}
+						this.getView().byId("topId").setVisible(false);
+
+					}.bind(this);
+					oParameter.activity = 1;
+					ajaxutil.fnCreate("/DefectJobSvc", oParameter, [oPayload], "ZRM_COS_JB", this);
+
+				} else {
+					that._fnUpdateJob(oPayload);
+				}
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:onCreateJob function");
+				this.handleException(e);
+			}
+		},
+		/* Function: onESJobCreate
+		 * Parameter: oEvent
+		 * Description: To Create new Job.
+		 */
+
+		onESJobCreate: function() {
+			try {
+				var that = this,
+					oPayload, oJobModel = this.getView().getModel("oViewCreateModel"),
+					oPrmTD = {};
+				FieldValidations.resetErrorStates(this);
+				if (FieldValidations.validateFields(this)) {
+					return;
+				}
+				if (oJobModel.getData().jduid === "JDU_10" && parseInt(oJobModel.getData().INTERVAL, 10) === 0) {
+					if (!oJobModel.getData().jduvl) {
+						this.getView().byId("DP2").setValueState("Error");
+						return;
+					}
+				}
+				if (oJobModel.getProperty("/sRJobIdFlag") !== "N") {
+					oPayload = AvMetInitialRecord.createInitialBlankRecord("SCHJob")[0];
+					try {
+						oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));
+					} catch (e) {
+						oPayload.CREDT = oPayload.CREDT;
+					}
+
+					/*	oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));*/
+					oPayload.CRETM = oJobModel.getProperty("/cretm");
+					oPayload.J_FLAG = "N";
+					oPayload.FLAG = "ES";
+					oPayload.SYMBOL = "0";
+					oPayload.CTYPE = "AIRCRAFT";
+					oPayload.TAILID = this.getTailId();
+					oPayload.AIRID = this.getAircraftId();
+					oPayload.MODID = this.getModelId();
+					oPayload.JOBDESC = oJobModel.getProperty("/jobdesc");
+					oPayload.JOBTY = "ZA";
+					if (oJobModel.getProperty("/jduid") === 'JDU_10') {
+						if (oJobModel.getProperty("/jduvl") !== "") {
+							oPayload.SERVDT = oJobModel.getProperty("/jduvl");
+						}
+					} else {
+						oPayload.SERVDUE = oJobModel.getProperty("/jduvl");
+						oPayload.SERVDT = null;
+					}
+					oPayload.UMKEY = oJobModel.getProperty("/jduid");
+					oPayload.PRIME = oJobModel.getProperty("/prime");
+					oPrmTD.error = function() {};
+					oPrmTD.success = function(oData) {
+						this.getRouter().navTo("Cosjobs", {
+							State: "SCH"
+						}, true);
+					}.bind(this);
+					oPrmTD.activity = 1;
+					ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_SCH", this);
+				} else {
+					oPayload = this.getView().getModel("oViewCreateModel").getData();
+					that._fnUpdateJob(oPayload);
+				}
+			} catch (e) {
+				Log.error("Exception in onESJobCreate function");
+			}
+		},
+
+		//-------------------------------------------------------------
+		// Function: onUpdateJob
+		// Parameter: oEvent
+		// Description: This will get called, when to Update created Job.
+		//Table: JOBS
+		//-------------------------------------------------------------
+		_fnUpdateJob: function(oPayload) {
+			try {
+				var that = this,
+					sjobid = "",
+					oModel;
+				var dDate = new Date();
+				oModel = that.getView().getModel("appModel");
+				var oParameter = {};
+				var oldWrkctr = oPayload.LASTWC;
+				delete oPayload.LASTWC;
+				oPayload.endda = formatter.defaultOdataDateFormat(oPayload.credt);
+				oPayload.begda = formatter.defaultOdataDateFormat(oPayload.credt);
+				oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
+				oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
+
+				oParameter.error = function(response) {};
+				oParameter.success = function(oData) {
+					if (oData.results[0].mark !== "") {
+						that._fnUpdateMark(oData.results[0].jobid);
+					}
+					if (oData.results[0].prime !== "" && oModel.getProperty("/PrimeStatus")) {
+						if (oModel.getProperty("/isWrctr")) {
+							that._fnDefectWorkCenterUpdate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime, oldWrkctr);
+						} else {
+							that._fnDefectWorkCenterCreate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime);
+						}
+					}
+					that.getView().byId("defectId").setVisible(false);
+					that.getView().byId("scheduledId").setVisible(false);
+					that.getView().byId("unscheduledId").setVisible(false);
+					var ViewGlobalModel = this.getModel("oViewCreateModel");
+					ViewGlobalModel.setData(null);
+					this.getRouter().navTo("CosDefectsSummary", {
+						"JobId": oData.results[0].jobid,
+						"Flag": "Y"
+					}, true);
+					this.getView().byId("topId").setVisible(false);
+				}.bind(this);
+				oParameter.activity = 2;
+				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_COS_JB", this);
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnUpdateJob function");
+				this.handleException(e);
+			}
+		},
+
+		/* Function: onScheduledJobDescChange
+		 * Parameter: oEvent
+		 * Description: This will get called, when to change job description.
+		 */
+		onScheduledJobDescChange: function(oEvent) {
+			try {
+				var sValue = oEvent.getParameter("value"),
+					oCreateJobLocalModel = this.getView().getModel("CreateJobLocalModel").getData();
+				oCreateJobLocalModel.CreateJob.ScheJobDesc = sValue;
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:onScheduledJobDescChange function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnCreateMark
+		// Parameter: oEvent
+		// Description: This will get called, when to store mark details in backend.
+		// Table: MARKS
+		//------------------------------------------------------------------
+		_fnCreateMark: function(sjobid) {
+			try {
+				var oPrmMark = {},
+					oModel,
+					that = this,
+					oPayload;
+				oModel = that.getModel("appModel").getData();
+
+				switch (oModel.SelectedKey) {
+					case "DEA_T":
+						oPayload = oModel.Top;
+						break;
+					case "DEA_F":
+						oPayload = oModel.Front;
+						break;
+					case "DEA_l":
+						oPayload = oModel.Left;
+						break;
+					case "DEA_R":
+						oPayload = oModel.Right;
+						break;
+				}
+				for (var i = 0; i < oPayload.length; i++) {
+					oPayload[i].jobid = sjobid;
+				}
+				oPrmMark.error = function() {};
+				oPrmMark.success = function(oData) {
+					var oCanvas = document.getElementById("myCanvasTopDefect");
+					if (oModel.XCor !== "") {
+						that.removeCoordinates(oModel.XCor, oModel.YCor, oCanvas);
+					}
+				}.bind(this);
+				ajaxutil.fnCreate("/DefectMarkSvc", oPrmMark, oPayload);
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnCreateMark function");
+				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnUpdateMark
+		// Parameter: oEvent
+		// Description: This will get called, when to update mark details in backend.
+		// Table: MARKS
+		//------------------------------------------------------------------
+
+		_fnUpdateMark: function(sjobid) {
+			try {
+				var oPrmMark = {},
+					oModel,
+					that = this,
+					oPayload;
+				oModel = that.getModel("appModel").getData();
+
+				switch (oModel.SelectedKey) {
+					case "DEA_T":
+						oPayload = oModel.Top;
+						break;
+					case "DEA_F":
+						oPayload = oModel.Front;
+						break;
+					case "DEA_l":
+						oPayload = oModel.Left;
+						break;
+					case "DEA_R":
+						oPayload = oModel.Right;
+						break;
+				}
+				for (var i = 0; i < oPayload.length; i++) {
+					oPayload[i].jobid = sjobid;
+				}
+				oPrmMark.error = function() {};
+				oPrmMark.success = function(oData) {
+					var oCanvas = document.getElementById("myCanvasTopDefect");
+					if (oModel.XCor !== "") {
+						that.removeCoordinates(oModel.XCor, oModel.YCor, oCanvas);
+					}
+				}.bind(this);
+				ajaxutil.fnUpdate("/DefectMarkSvc", oPrmMark, oPayload);
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnUpdateMark function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnGetMark
+		// Parameter: oEvent
+		// Description: This will get called, when to get mark from backend.
+		// Table: MARKS
+		//------------------------------------------------------------------
+		_fnGetMark: function(sjobid, sTailId, sDeaId) {
+			try {
+				var oPrmMark = {},
+					oModel, oCanvas,
+					that = this,
+					oPayload;
+				oModel = that.getModel("appModel").getData();
+				oPrmMark.filter = "jobid eq " + sjobid + " and tailid eq " + sTailId;
+				oPrmMark.error = function() {};
+				oPrmMark.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						switch (sDeaId) {
+							case "DEA_T":
+								oModel.Top.push(oData.results[0]);
+								break;
+							case "DEA_F":
+								oModel.Front.push(oData.results[0]);
+								break;
+							case "DEA_l":
+								oModel.Left.push(oData.results[0]);
+								break;
+							case "DEA_R":
+								oModel.Right.push(oData.results[0]);
+								break;
+						}
+						that.drawCoordinates(oData.results[0].xaxis, oData.results[0].yaxis);
+					}
+
+				}.bind(this);
+				ajaxutil.fnRead("/DefectMarkSvc", oPrmMark);
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnGetMark function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnPhotoUploadGet
+		// Parameter: oEvent
+		// Description: This will get called, when to upload defect images to backend.
+		// Table: PHOTOS
+		//------------------------------------------------------------------
+		_fnPhotoUploadGet: function(sDOCREFID) {
+			try {
+				var oPrmPhoto = {},
+					oAppModel = this.getView().getModel("appModel"),
+					sDefectImageSrc = oAppModel.getProperty("/DefectImageSrc");
+				oAppModel.updateBindings(true);
+				oPrmPhoto.filter = "DOCREFID eq " + sDOCREFID;
+				oPrmPhoto.error = function() {};
+				oPrmPhoto.success = function(oData) {
+					oAppModel.setProperty("/DefectImageSrc", []);
+					oAppModel.setProperty("/DefectImageSrc", oData.results);
+				}.bind(this);
+
+				ajaxutil.fnRead("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnPhotoUploadGet function");
+				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnJobDueGet
+		// Parameter: oEvent
+		// Description: General Method: This will get called, when to get Job due data from backend.
+		// Table: DDREF, DDVAL
+		//------------------------------------------------------------------
+
+		_fnJobDueGet: function() {
+			try {
+				var that = this,
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq JDU";
+				oPrmJobDue.error = function() {};
+				oPrmJobDue.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "JobDueSet");
+				}.bind(this);
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnJobDueGet function");
+				this.handleException(e);
+			}
+		},
+		/* Function: _fnGetUtilisation
+		 * Parameter:sAir
+		 * Description: Function to hold min value for utilisation
+		 */
+		_fnGetUtilisation: function(sAir) {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq JDU";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisation function");
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnWorkCenterGet
+		// Parameter: sAirId
+		// Description: General Method: This will get called, when to get workcenter data from backend.
+		// Table: WRCTR
+		//------------------------------------------------------------------
+		_fnWorkCenterGet: function(sAirId) {
+			try {
+				var that = this,
+					oPrmWorkCen = {};
+				oPrmWorkCen.filter = "REFID eq " + sAirId;
+				oPrmWorkCen.error = function() {};
+				oPrmWorkCen.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.setModel(oModel, "WorkCenterSet");
+				}.bind(this);
+				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnWorkCenterGet function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnDefectWorkCenterCreate
+		// Parameter: sJobId, sTailId, sWorkCenter
+		// Description: Private Method: This will get called, when to create workcenter data from backend.
+		// Table: WRCTR
+		//------------------------------------------------------------------
+		_fnDefectWorkCenterCreate: function(sJobId, sTailId, sWorkCenter) {
+			try {
+				var that = this,
+					oPayload,
+					oPrmWorkCenter = {};
+				oPayload = {
+						"jobid": sJobId,
+						"tailid": sTailId,
+						"wrctr": sWorkCenter,
+						"isprime": "",
+						"wrctrtx": "",
+						"count": null,
+						"PrimeCount": null
+					},
+
+					oPrmWorkCenter.error = function() {};
+				oPrmWorkCenter.success = function(oData) {
+
+				}.bind(this);
+
+				ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload]);
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterCreate function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnDefectWorkCenterUpdate
+		// Parameter: sJobId, sTailId, sWorkCenter, sOldWorkCenter
+		// Description: Private Method: This will get called, when to update workcenter data from backend.
+		// Table: WRCTR
+		//------------------------------------------------------------------
+		_fnDefectWorkCenterUpdate: function(sJobId, sTailId, sWorkCenter, sOldWorkCenter) {
+			try {
+				var that = this,
+					oPayload,
+					oPrmWorkCenter = {};
+				oPayload = {
+						"jobid": sJobId,
+						"tailid": sTailId,
+						"wrctr": sWorkCenter,
+						"isprime": "X",
+						"wrctrtx": sOldWorkCenter ? sOldWorkCenter : "",
+						"count": null,
+						"PrimeCount": null
+					},
+
+					oPrmWorkCenter.error = function() {};
+				oPrmWorkCenter.success = function(oData) {
+
+				}.bind(this);
+
+				ajaxutil.fnUpdate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload]);
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterUpdate function");
+				this.handleException(e);
+			}
+		},
+		//------------------------------------------------------------------
+		// Function: _fnJobDetailsGet
+		// Parameter: sJobId, sAirId
+		// Description: Private Method: This will get called, when to get Job details which is need to be edit.
+		// Table: JOB
+		//------------------------------------------------------------------
+		_fnJobDetailsGet: function(sJobId, sAirId) {
+			try {
+				var that = this,
+					oViewModel = this.getView().getModel("appModel"),
+					oPrmJobDue = {};
+				oViewModel.setProperty("/isEnabledNatureJob", false);
+				oPrmJobDue.filter = "jobid eq " + sJobId;
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					oViewModel.setProperty("/editMode", true);
+					var oModel = this.getView().getModel("oViewCreateModel");
+					this.getModel("appModel").setProperty("/backDt", oData.results[0].credt);
+					this.getModel("appModel").setProperty("/backTm", oData.results[0].cretm);
+					this.removeCoordinates();
+					if (oData.results.length !== 0) {
+						try {
+							oViewModel.setProperty("/creDt", oData.results[0].credt);
+							oData.results[0].credt = new Date(oData.results[0].credt);
+						} catch (e) {
+							oData.results[0].credt = oData.results[0].credt;
+						}
+						try {
+							oViewModel.setProperty("/cretm", oData.results[0].cretm);
+							oData.results[0].cretm = formatter.defaultTimeFormatDisplay(oData.results[0].cretm);
+						} catch (e) {
+							oData.results[0].cretm = oData.results[0].cretm;
+						}
+						oViewModel.setProperty("/oFlagEdit", false);
+						//
+						that.onSelectionNatureofJobChange(null, oData.results[0].deaid);
+						if (oData.results[0].jduid === "JDU_10") {
+							oData.results[0].jduvl = new Date(oData.results[0].jduvl);
+
+						}
+						if (oData.results[0].mark !== "") {
+							that._fnGetMark(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].deaid);
+						}
+						if (oData.results[0].DOCREFID) {
+							this.docRefId = oData.results[0].DOCREFID;
+							that._fnPhotoUploadGet(oData.results[0].DOCREFID);
+						} else {
+							oViewModel.setProperty("/DefectImageSrc", []);
+						}
+						if (oData.results[0].prime !== "" || oData.results[0].prime !== null) {
+							oViewModel.setProperty("/isWrctr", true);
+							that._fnTaskStatusGet(sJobId, oData.results[0].prime);
+						} else {
+							oViewModel.setProperty("/isWrctr", false);
+						}
+						oData.results[0].LASTWC = oData.results[0].prime;
+						oModel.setData(oData.results[0]);
+						oModel.updateBindings(true);
+
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnJobDetailsGet function");
+				this.handleException(e);
+			}
+		},
+		/* Function: _fnGetDateValidation
+		 * Parameter:
+		 * Description: Function to retreive min allowed date/time
+		 */
+		_fnGetDateValidation: function() {
+			try {
+				var oPrmTaskDue = {};
+				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq I";
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("appModel").setProperty("/backDt", oData.results[0].VDATE);
+						this.getModel("appModel").setProperty("/backTm", oData.results[0].VTIME);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetDateValidation function");
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: _fnTaskStatusGet
+		// Parameter: sJobId
+		// Description: This will get called, when to get Outstanding and Pending Supervisor tasks count.
+		//Table: TASK
+		//------------------------------------------------------------------
+		_fnTaskStatusGet: function(sJobId, sPrime) {
+			try {
+				var that = this,
+					oModel = this.getView().getModel("appModel"),
+					oPrmTaskDue = {};
+				oPrmTaskDue.filter = "JOBID eq " + sJobId + " and wrctr eq " + sPrime;
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData.results[0].COUNT !== "0") {
+						oModel.setProperty("/PrimeStatus", false);
+						oModel.updateBindings(true);
+					} else {
+						oModel.setProperty("/PrimeStatus", true);
+						oModel.updateBindings(true);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/GetJobTaskstatSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnTaskStatusGet function");
+			}
+		},
+
+		//*************************************************************************************************************
+		//           3. Private Methods
+		//*************************************************************************************************************
+		/* Function: _fnRenderImage
+		 * Parameter: sImagePath, sSelectedKey, oCanvas
+		 * Description: To render images in to canvas on segment button selections.
+		 */
+
+		_fnRenderImage: function(sImagePath, oCanvas) {
+			try {
+				var that = this,
+					oAppModel,
+					oModel = this.getView().getModel("appModel").getData(),
+					oCanvas;
+				oCanvas = document.getElementById("myCanvasTopDefect");
+				var ctx = oCanvas.getContext("2d");
+				oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
+				oCanvas.style.backgroundRepeat = "no-repeat";
+				oCanvas.style.backgroundSize = "100%";
+				oCanvas.addEventListener('click', canvasClicked, true);
+				document.getElementById("myCanvasTopDefect").innerHTML.reload;
+
+				function canvasClicked(e) {
+					that.getPointPosition(e, oCanvas);
+					oCanvas.removeEventListener('click', canvasClicked, true);
+				}
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:_fnRenderImage function");
+				this.handleException(e);
+			}
+		},
+
+		/* Function: drawCoordinates
+		 * Parameter: x, y, oCanvas
+		 * Description: To draw coordinates on canvas image.
+		 */
+
+		drawCoordinates: function(x, y, oCanvas) {
+			try {
+				var oCanvas = document.getElementById("myCanvasTopDefect");
+				var ctx = oCanvas.getContext("2d");
+				var grd = ctx.createLinearGradient(0, 0, 170, 0);
+				grd.addColorStop(1, "red");
+				ctx.fillStyle = "red"; // Red color
+				ctx.strokeStyle = "black";
+				ctx.font = "15px Arial";
+				ctx.beginPath();
+				ctx.arc(Number(x), Number(y), 10, 0, 2 * Math.PI);
+				ctx.fill();
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:drawCoordinates function");
+				this.handleException(e);
+			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: drawTextAlongArc
+		// Parameter: context, str, centerX, centerY, radius, angle
+		//Description: This will get called, when to draw text into canvas mark.
+		//------------------------------------------------------------------
+		drawTextAlongArc: function(context, str, centerX, centerY, radius, angle) {
+			try {
+				var len = str.length,
+					s;
+				context.save();
+				context.translate(centerX, centerY);
+				context.rotate(-1 * angle / 2);
+				context.rotate(-1 * (angle / len) / 2);
+				for (var n = 0; n < len; n++) {
+					context.rotate(angle / len);
+					context.save();
+					context.translate(0, -1 * radius);
+					s = str[n];
+					context.fillText(s, 0, 0);
+					context.restore();
+				}
+				context.restore();
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:drawTextAlongArc function");
+				this.handleException(e);
+			}
+		},
+
+		/* Function: removeCoordinates
+		 * Parameter: x, y, oCanvas
+		 * Description: To remove drawn coordinates on canvas image.
+		 */
+
+		removeCoordinates: function(x, y, oCanvas) {
+			try {
+				var oCanvas = document.getElementById("myCanvasTopDefect");
+				if (oCanvas !== null) {
+					var ctx = oCanvas.getContext('2d');
+					ctx.clearRect(0, 0, oCanvas.width, oCanvas.height);
+				}
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:removeCoordinates function");
+				this.handleException(e);
+			}
+		},
+		// Function: onRefersh
+		// Parameter: 
+		// Description: This will get called, when to remove drawn coordinates on canvas image.
+		//------------------------------------------------------------------
+		onRefersh: function() {
+			try {
+				var oModel = this.getView().getModel("oViewCreateModel"),
+					oCanvas = document.getElementById("myCanvasTopDefect"),
+					oAppModel = this.getView().getModel("appModel"),
+					sImagePath, sRootPath;
+				var that = this;
+				this.removeCoordinates(oAppModel.getProperty("/XCor"), oAppModel.getProperty("/YCor"), oCanvas);
+				this._fnRestMarkArea();
+				if (oCanvas) {
+					var image = oCanvas.style.backgroundImage;
+					image = image.split("\"");
+					if (image[1]) {
+						setTimeout(function demo() {
+							that._fnRenderImage(image[1], oCanvas);
+						}, 500);
+					}
+				}
+				sRootPath = jQuery.sap.getModulePath("avmet.ah");
+			} catch (e) {
+				Log.error("Exception in CosCreateJob:onRefersh function");
+				this.handleException(e);
+			}
+		},
+		/* Function: handleChangeSche
+		 * Parameter:
+		 * Description: Function to save date value for utilitsation
+		 */
 		handleChangeSche: function(oEvent) {
-			var oSrc = oEvent.getSource(),
-				oAppModel = this.getView().getModel("oViewCreateModel"),
-				sKey = oAppModel.getProperty("/UMKEY"),
-				sInt = oAppModel.getProperty("/INTERVAL");
-			oSrc.setValueState("None");
-			oAppModel.setProperty("/jduvl", oSrc.getDateValue());
-			var iPrec = formatter.JobDueDecimalPrecision(sKey);
+			try {
+				var oSrc = oEvent.getSource(),
+					oAppModel = this.getView().getModel("oViewCreateModel"),
+					sKey = oAppModel.getProperty("/UMKEY"),
+					sInt = oAppModel.getProperty("/INTERVAL");
+				oSrc.setValueState("None");
+				oAppModel.setProperty("/jduvl", oSrc.getDateValue());
+				var iPrec = formatter.JobDueDecimalPrecision(sKey);
+			} catch (e) {
+				Log.error("Exception in handleChangeSche function");
+			}
 			/*if (parseFloat(sInt, [10]) > 0) {
 				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
 				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
 			}*/
 		},
-
+		/* Function: handleChange
+		 * Parameter:
+		 * Description: Function to validate date/time
+		 */
 		handleChange: function() {
-			var aData = this.getModel("appModel").getData();
-			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
+			try {
+				var aData = this.getModel("appModel").getData();
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
+			} catch (e) {
+				Log.error("Exception in handleChange function");
+			}
 		},
-
+		/* Function: onTypeMissmatch
+		 * Parameter:oEvent
+		 * Description: Function to validate file type
+		 */
 		onTypeMissmatch: function(oEvent) {
-			sap.m.MessageBox.error("Selected file type not allowed");
+			try {
+				sap.m.MessageBox.error("Selected file type not allowed");
+			} catch (e) {
+				Log.error("Exception in handleChange function");
+			}
 		},
-
+		/* Function: onFileSizeExceed
+		 * Parameter:oEvent
+		 * Description: Function to validate file size
+		 */
 		onFileSizeExceed: function() {
-			sap.m.MessageBox.error("File size exceeded maximum allowed file size 5 MB");
+			try {
+				sap.m.MessageBox.error("File size exceeded maximum allowed file size 5 MB");
+			} catch (e) {
+				Log.error("Exception in handleChange function");
+			}
 		},
 
 		//------------------------------------------------------------------
@@ -343,7 +1174,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		/* Function: _fnRestMarkArea
+		 * Parameter: 
+		 * Description: To sreset marjed defect area.
+		 */
 		_fnRestMarkArea: function() {
 			try {
 				var oAppModel = this.getView().getModel("appModel").getData();
@@ -420,7 +1254,10 @@ sap.ui.define([
 				Log.error("Exception in onAddDefectImage function");
 			}
 		},
-
+		/* Function: onUploadedImagePress
+		 * Parameter: oEvent
+		 * Description: To upload image for defected area..
+		 */
 		onUploadedImagePress: function(oEvent) {
 			try {
 				var obj = oEvent.getSource().getBindingContext("appModel").getObject();
@@ -433,7 +1270,7 @@ sap.ui.define([
 
 		/* Function: onDueSelectChange
 		 * Parameter: oEvent
-		 * Description: To  sheduled defect on change of due type.
+		 * Description: To sheduled defect on change of due type.
 		 */
 		onDueSelectChange: function(oEvent) {
 			try {
@@ -464,20 +1301,31 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		/* Function: onStepChangeSchedule
+		 * Parameter:
+		 * Description: Function to handle event for step input 
+		 */
 		onStepChangeSchedule: function(oEvent) {
-			this.onStepChange(oEvent);
-			var oSrc = oEvent.getSource(),
-				oAppModel = this.getView().getModel("oViewCreateModel"),
-				sKey = oAppModel.getProperty("/jduid"),
-				sInt = oAppModel.getProperty("/INTERVAL");
-			oSrc.setValueState("None");
-			var iPrec = formatter.JobDueDecimalPrecision(sKey);
-			/*if (parseFloat(sInt, [10]) > 0) {
-				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
-				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
-			}*/
+			try {
+				this.onStepChange(oEvent);
+				var oSrc = oEvent.getSource(),
+					oAppModel = this.getView().getModel("oViewCreateModel"),
+					sKey = oAppModel.getProperty("/jduid"),
+					sInt = oAppModel.getProperty("/INTERVAL");
+				oSrc.setValueState("None");
+				var iPrec = formatter.JobDueDecimalPrecision(sKey);
+				/*if (parseFloat(sInt, [10]) > 0) {
+					oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+					sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
+				}*/
+			} catch (e) {
+				Log.error("Exception in onStepChangeSchedule function");
+			}
 		},
+		/* Function: onIntervalChange
+		 * Parameter:
+		 * Description: Function to handle event for interval input 
+		 */
 
 		onIntervalChange: function(oEvent) {
 			try {
@@ -493,25 +1341,25 @@ sap.ui.define([
 					sVal = 0;
 				}
 				oAppModel.setProperty("/INTERVAL", parseFloat(sVal, [10]).toFixed(iPrec));
-			/*	if (sKey !== "JDU_10") {
-					if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
-						var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
-						var val = parseFloat(minVal, [10]).toFixed(iPrec);
-						if (sDue !== val) {
-							oAppModel.setProperty("/jduvl", val);
+				/*	if (sKey !== "JDU_10") {
+						if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
+							var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);
+							var val = parseFloat(minVal, [10]).toFixed(iPrec);
+							if (sDue !== val) {
+								oAppModel.setProperty("/jduvl", val);
+								bFlag = true;
+							}
+						}
+					} else if (sKey === "JDU_10") {
+						if (sDue && sDue !== "") {
+							oAppModel.setProperty("/jduvl", null);
 							bFlag = true;
 						}
 					}
-				} else if (sKey === "JDU_10") {
-					if (sDue && sDue !== "") {
-						oAppModel.setProperty("/jduvl", null);
-						bFlag = true;
-					}
-				}
 
-				if (bFlag) {
-					sap.m.MessageBox.warning("As you are changing interval, Job Due By value has been reset");
-				}*/
+					if (bFlag) {
+						sap.m.MessageBox.warning("As you are changing interval, Job Due By value has been reset");
+					}*/
 
 			} catch (e) {
 				Log.error("Exception in onIntervalChange function");
@@ -558,19 +1406,6 @@ sap.ui.define([
 			}
 		},
 
-		/* Function: onWorkCenterChange
-		 * Parameter: oEvent
-		 * Description: To select Work center.
-		 */
-		// onWorkCenterChange: function(sValue, oEvent) {
-		// 	try {
-		// 		var sSelectText = oEvent.getSource().getSelectedKey();
-		// 	} catch (e) {
-		// 		Log.error("Exception in CosCreateJob:onWorkCenterChange function");
-		// 		this.handleException(e);
-		// 	}
-		// },
-
 		/* Function: onAddMinusPress
 		 * Parameter: sValue, oEvent
 		 * Description: To add and remove count added for Air frame Hours and TAC in scheduled Job due.
@@ -603,735 +1438,6 @@ sap.ui.define([
 				this.getView().getModel("CreateJobLocalModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onAddMinusPress function");
-				this.handleException(e);
-			}
-		},
-
-		onDeleteImagePress: function(oEvent) {
-			try {
-				var obj = oEvent.getSource().getBindingContext("appModel").getObject();
-				var sPath = "/DefectPhotosSvc(" +
-					"DOCID=" + obj.DOCID +
-					",JOBID=A)";
-				this.getView().byId("photoUpload").setBusy(true);
-				var oPrmMark = {};
-				oPrmMark.error = function() {
-					this.getView().byId("photoUpload").setBusy(false);
-				}.bind(this);
-				oPrmMark.success = function() {
-					this.getView().byId("photoUpload").setBusy(false);
-					this.getView().byId("iImageTicket").setSrc(null);
-					this._fnPhotoUploadGet(this.docRefId);
-				}.bind(this);
-
-				ajaxutil.fnDelete(sPath, oPrmMark);
-			} catch (e) {
-				Log.error("Exception in onDeleteImagePress function");
-			}
-		},
-
-		//------------------------------------------------------------------
-		// Function: _fnDeleteUnusedDocs
-		// Parameter: oEvt
-		// Description: To delete All uploaded image from backend .
-		//Table: PHOTO
-		//------------------------------------------------------------------
-		_fnDeleteUnusedDocs: function() {
-			try {
-				if (this.docRefId) {
-					var sPath = "/DefectPhotosSvc(" +
-						"DOCID=" + this.docRefId +
-						",JOBID=P)";
-					var oPrmMark = {};
-					oPrmMark.error = function() {};
-					oPrmMark.success = function(oData) {}.bind(this);
-					ajaxutil.fnDelete(sPath, oPrmMark);
-				}
-			} catch (e) {
-				Log.error("Exception in _fnDeleteUnusedDocs function");
-			}
-		},
-
-		/* Function: onCreateJob
-		 * Parameter: oEvent
-		 * Description: To Create new Job.
-		 */
-		onCreateJob: function(oEvent) {
-			try {
-				var that = this,
-					sjobid = "",
-					oPayload, oModel;
-				var dDate = new Date();
-				var oParameter = {};
-				oModel = that.getModel("appModel");
-				if (!this.handleChange()) {
-					return;
-				}
-				FieldValidations.resetErrorStates(this);
-				if (FieldValidations.validateFields(this)) {
-					return;
-				}
-				oPayload = this.getView().getModel("oViewCreateModel").getData();
-
-				if (oPayload.jobty === "D") {
-					oPayload.DOCREFID = this.docRefId;
-				}
-				if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === "T" || oModel.getProperty("/sRJobIdFlag") ===
-					undefined) {
-					oPayload.jobid = sjobid.concat("JOB_", dDate.getFullYear(), dDate.getMonth(), dDate.getDate(), dDate.getHours(), dDate.getMinutes(),
-						dDate.getSeconds());
-					oPayload.endda = formatter.defaultOdataDateFormat(oPayload.credt);
-					oPayload.begda = formatter.defaultOdataDateFormat(oPayload.credt);
-					oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
-					oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
-					if (oPayload.jobty === "S") {
-						oPayload.symbol = "3";
-					}
-					oPayload.jstat = "C";
-					if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === "T") {
-						oPayload.rjobid = oModel.getProperty("/sRJobId");
-					}
-
-					oParameter.error = function(response) {};
-
-					oParameter.success = function(oData) {
-						if (oData.results[0].mark !== "") {
-							that._fnCreateMark(oData.results[0].jobid);
-						}
-						if (oData.results[0].prime !== "") {
-							that._fnDefectWorkCenterCreate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime);
-						}
-						that.getView().byId("defectId").setVisible(false);
-						that.getView().byId("scheduledId").setVisible(false);
-						that.getView().byId("unscheduledId").setVisible(false);
-						var ViewGlobalModel = this.getModel("oViewCreateModel");
-						ViewGlobalModel.setData(null);
-						if (oModel.getProperty("/sRJobIdFlag") === "T") {
-							/*that.onNavBack();*/
-							window.history.go(-1);
-						} else {
-							this.getRouter().navTo("CosDefectsSummary", {
-								"JobId": oData.results[0].jobid,
-								"Flag": "Y"
-							}, true);
-						}
-						this.getView().byId("topId").setVisible(false);
-
-					}.bind(this);
-					oParameter.activity = 1;
-					ajaxutil.fnCreate("/DefectJobSvc", oParameter, [oPayload], "ZRM_COS_JB", this);
-
-				} else {
-					that._fnUpdateJob(oPayload);
-				}
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:onCreateJob function");
-				this.handleException(e);
-			}
-		},
-		/* Function: onESJobCreate
-		 * Parameter: oEvent
-		 * Description: To Create new Job.
-		 */
-
-		onESJobCreate: function() {
-			try {
-				var that = this,
-					oPayload, oJobModel = this.getView().getModel("oViewCreateModel"),
-					oPrmTD = {};
-				FieldValidations.resetErrorStates(this);
-				if (FieldValidations.validateFields(this)) {
-					return;
-				}
-				if (oJobModel.getData().jduid === "JDU_10" && parseInt(oJobModel.getData().INTERVAL, 10) === 0) {
-					if (!oJobModel.getData().jduvl) {
-						this.getView().byId("DP2").setValueState("Error");
-						return;
-					}
-				}
-				if (oJobModel.getProperty("/sRJobIdFlag") !== "N") {
-					oPayload = AvMetInitialRecord.createInitialBlankRecord("SCHJob")[0];
-					try {
-						oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));
-					} catch (e) {
-						oPayload.CREDT = oPayload.CREDT;
-					}
-
-				/*	oPayload.CREDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/credt"));*/
-					oPayload.CRETM = oJobModel.getProperty("/cretm");
-					oPayload.J_FLAG = "N";
-					oPayload.FLAG = "ES";
-					oPayload.SYMBOL = "0";
-					oPayload.CTYPE = "AIRCRAFT";
-					oPayload.TAILID = this.getTailId();
-					oPayload.AIRID = this.getAircraftId();
-					oPayload.MODID = this.getModelId();
-					oPayload.JOBDESC = oJobModel.getProperty("/jobdesc");
-					oPayload.JOBTY = "ZA";
-					if (oJobModel.getProperty("/jduid") === 'JDU_10') {
-						if (oJobModel.getProperty("/jduvl") !== "") {
-							oPayload.SERVDT = oJobModel.getProperty("/jduvl");
-						}
-					} else {
-						oPayload.SERVDUE = oJobModel.getProperty("/jduvl");
-						oPayload.SERVDT = null;
-					}
-					oPayload.UMKEY = oJobModel.getProperty("/jduid");
-					oPayload.PRIME = oJobModel.getProperty("/prime");
-					oPrmTD.error = function() {};
-					oPrmTD.success = function(oData) {
-						this.getRouter().navTo("Cosjobs", {
-							State: "SCH"
-						},true);
-					}.bind(this);
-					oPrmTD.activity = 1;
-					ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_SCH", this);
-				} else {
-					oPayload = this.getView().getModel("oViewCreateModel").getData();
-					that._fnUpdateJob(oPayload);
-				}
-			} catch (e) {
-				Log.error("Exception in onESJobCreate function");
-			}
-		},
-
-		/* Function: onUpdateJob
-		 * Parameter: oEvent
-		 * Description: To Create new Job.
-		 */
-		_fnUpdateJob: function(oPayload) {
-			try {
-				var that = this,
-					sjobid = "",
-					oModel;
-				var dDate = new Date();
-				oModel = that.getView().getModel("appModel");
-				var oParameter = {};
-				var oldWrkctr = oPayload.LASTWC;
-				delete oPayload.LASTWC;
-				oPayload.endda = formatter.defaultOdataDateFormat(oPayload.credt);
-				oPayload.begda = formatter.defaultOdataDateFormat(oPayload.credt);
-				oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
-				oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
-
-				oParameter.error = function(response) {};
-				oParameter.success = function(oData) {
-					if (oData.results[0].mark !== "") {
-						that._fnUpdateMark(oData.results[0].jobid);
-					}
-					if (oData.results[0].prime !== "" && oModel.getProperty("/PrimeStatus")) {
-						if (oModel.getProperty("/isWrctr")) {
-							that._fnDefectWorkCenterUpdate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime, oldWrkctr);
-						} else {
-							that._fnDefectWorkCenterCreate(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].prime);
-						}
-					}
-					that.getView().byId("defectId").setVisible(false);
-					that.getView().byId("scheduledId").setVisible(false);
-					that.getView().byId("unscheduledId").setVisible(false);
-					var ViewGlobalModel = this.getModel("oViewCreateModel");
-					ViewGlobalModel.setData(null);
-					this.getRouter().navTo("CosDefectsSummary", {
-						"JobId": oData.results[0].jobid,
-						"Flag": "Y"
-					},true);
-					this.getView().byId("topId").setVisible(false);
-				}.bind(this);
-				oParameter.activity = 2;
-				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_COS_JB", this);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnUpdateJob function");
-				this.handleException(e);
-			}
-		},
-
-		/* Function: onCreateJob
-		 * Parameter: oEvent
-		 * Description: To Create new Job.
-		 */
-		onScheduledJobDescChange: function(oEvent) {
-			try {
-				var sValue = oEvent.getParameter("value"),
-					oCreateJobLocalModel = this.getView().getModel("CreateJobLocalModel").getData();
-				oCreateJobLocalModel.CreateJob.ScheJobDesc = sValue;
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:onScheduledJobDescChange function");
-				this.handleException(e);
-			}
-		},
-
-		//*************************************************************************************************************
-		//           2. Database/Ajax/OData Calls
-		//*************************************************************************************************************
-		_fnCreateMark: function(sjobid) {
-			try {
-				var oPrmMark = {},
-					oModel,
-					that = this,
-					oPayload;
-				oModel = that.getModel("appModel").getData();
-
-				switch (oModel.SelectedKey) {
-					case "DEA_T":
-						oPayload = oModel.Top;
-						break;
-					case "DEA_F":
-						oPayload = oModel.Front;
-						break;
-					case "DEA_l":
-						oPayload = oModel.Left;
-						break;
-					case "DEA_R":
-						oPayload = oModel.Right;
-						break;
-				}
-				for (var i = 0; i < oPayload.length; i++) {
-					oPayload[i].jobid = sjobid;
-				}
-				oPrmMark.error = function() {};
-				oPrmMark.success = function(oData) {
-					var oCanvas = document.getElementById("myCanvasTopDefect");
-					if (oModel.XCor !== "") {
-						that.removeCoordinates(oModel.XCor, oModel.YCor, oCanvas);
-					}
-				}.bind(this);
-				ajaxutil.fnCreate("/DefectMarkSvc", oPrmMark, oPayload);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnCreateMark function");
-				this.handleException(e);
-			}
-		},
-
-		_fnUpdateMark: function(sjobid) {
-			try {
-				var oPrmMark = {},
-					oModel,
-					that = this,
-					oPayload;
-				oModel = that.getModel("appModel").getData();
-
-				switch (oModel.SelectedKey) {
-					case "DEA_T":
-						oPayload = oModel.Top;
-						break;
-					case "DEA_F":
-						oPayload = oModel.Front;
-						break;
-					case "DEA_l":
-						oPayload = oModel.Left;
-						break;
-					case "DEA_R":
-						oPayload = oModel.Right;
-						break;
-				}
-				for (var i = 0; i < oPayload.length; i++) {
-					oPayload[i].jobid = sjobid;
-				}
-				oPrmMark.error = function() {};
-				oPrmMark.success = function(oData) {
-					var oCanvas = document.getElementById("myCanvasTopDefect");
-					if (oModel.XCor !== "") {
-						that.removeCoordinates(oModel.XCor, oModel.YCor, oCanvas);
-					}
-				}.bind(this);
-				ajaxutil.fnUpdate("/DefectMarkSvc", oPrmMark, oPayload);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnUpdateMark function");
-				this.handleException(e);
-			}
-		},
-
-		_fnGetMark: function(sjobid, sTailId, sDeaId) {
-			try {
-				var oPrmMark = {},
-					oModel, oCanvas,
-					that = this,
-					oPayload;
-				oModel = that.getModel("appModel").getData();
-				oPrmMark.filter = "jobid eq " + sjobid + " and tailid eq " + sTailId;
-				oPrmMark.error = function() {};
-				oPrmMark.success = function(oData) {
-					if (oData && oData.results.length > 0) {
-						switch (sDeaId) {
-							case "DEA_T":
-								oModel.Top.push(oData.results[0]);
-								break;
-							case "DEA_F":
-								oModel.Front.push(oData.results[0]);
-								break;
-							case "DEA_l":
-								oModel.Left.push(oData.results[0]);
-								break;
-							case "DEA_R":
-								oModel.Right.push(oData.results[0]);
-								break;
-						}
-						that.drawCoordinates(oData.results[0].xaxis, oData.results[0].yaxis);
-					}
-
-				}.bind(this);
-				ajaxutil.fnRead("/DefectMarkSvc", oPrmMark);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnGetMark function");
-				this.handleException(e);
-			}
-		},
-
-		_fnPhotoUploadGet: function(sDOCREFID) {
-			try {
-				var oPrmPhoto = {},
-					oAppModel = this.getView().getModel("appModel"),
-					sDefectImageSrc = oAppModel.getProperty("/DefectImageSrc");
-				oAppModel.updateBindings(true);
-				oPrmPhoto.filter = "DOCREFID eq " + sDOCREFID;
-				oPrmPhoto.error = function() {};
-				oPrmPhoto.success = function(oData) {
-					oAppModel.setProperty("/DefectImageSrc", []);
-					oAppModel.setProperty("/DefectImageSrc", oData.results);
-				}.bind(this);
-
-				ajaxutil.fnRead("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnPhotoUploadGet function");
-				this.handleException(e);
-			}
-		},
-
-		_fnJobDueGet: function() {
-			try {
-				var that = this,
-					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq JDU";
-				oPrmJobDue.error = function() {};
-				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.getView().setModel(oModel, "JobDueSet");
-				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnJobDueGet function");
-				this.handleException(e);
-			}
-		},
-		_fnGetUtilisation: function(sAir) {
-			try {
-				var oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq JDU";
-				oPrmJobDue.error = function() {};
-
-				oPrmJobDue.success = function(oData) {
-					if (oData && oData.results.length > 0) {
-						this.oObject = {};
-						for (var i in oData.results) {
-							this.oObject[oData.results[i].JDUID] = oData.results[i];
-						}
-					}
-				}.bind(this);
-
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in _fnGetUtilisation function");
-			}
-		},
-		_fnWorkCenterGet: function(sAirId) {
-			try {
-				var that = this,
-					oPrmWorkCen = {};
-				oPrmWorkCen.filter = "REFID eq " + sAirId;
-				oPrmWorkCen.error = function() {};
-				oPrmWorkCen.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					oModel.setData(oData.results);
-					that.setModel(oModel, "WorkCenterSet");
-				}.bind(this);
-				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnWorkCenterGet function");
-				this.handleException(e);
-			}
-		},
-
-		_fnDefectWorkCenterCreate: function(sJobId, sTailId, sWorkCenter) {
-			try {
-				var that = this,
-					oPayload,
-					oPrmWorkCenter = {};
-				oPayload = {
-						"jobid": sJobId,
-						"tailid": sTailId,
-						"wrctr": sWorkCenter,
-						"isprime": "",
-						"wrctrtx": "",
-						"count": null,
-						"PrimeCount": null
-					},
-
-					oPrmWorkCenter.error = function() {};
-				oPrmWorkCenter.success = function(oData) {
-
-				}.bind(this);
-
-				ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload]);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterCreate function");
-				this.handleException(e);
-			}
-		},
-
-		_fnDefectWorkCenterUpdate: function(sJobId, sTailId, sWorkCenter, sOldWorkCenter) {
-			try {
-				var that = this,
-					oPayload,
-					oPrmWorkCenter = {};
-				oPayload = {
-						"jobid": sJobId,
-						"tailid": sTailId,
-						"wrctr": sWorkCenter,
-						"isprime": "X",
-						"wrctrtx": sOldWorkCenter ? sOldWorkCenter : "",
-						"count": null,
-						"PrimeCount": null
-					},
-
-					oPrmWorkCenter.error = function() {};
-				oPrmWorkCenter.success = function(oData) {
-
-				}.bind(this);
-
-				ajaxutil.fnUpdate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload]);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterUpdate function");
-				this.handleException(e);
-			}
-		},
-
-		_fnJobDetailsGet: function(sJobId, sAirId) {
-			try {
-				var that = this,
-					oViewModel = this.getView().getModel("appModel"),
-					oPrmJobDue = {};
-				oViewModel.setProperty("/isEnabledNatureJob", false);
-				oPrmJobDue.filter = "jobid eq " + sJobId;
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					oViewModel.setProperty("/editMode", true);
-					var oModel = this.getView().getModel("oViewCreateModel");
-					this.getModel("appModel").setProperty("/backDt", oData.results[0].credt);
-					this.getModel("appModel").setProperty("/backTm", oData.results[0].cretm);
-					this.removeCoordinates();
-					if (oData.results.length !== 0) {
-						try {
-							oViewModel.setProperty("/creDt", oData.results[0].credt);
-							oData.results[0].credt = new Date(oData.results[0].credt);
-						} catch (e) {
-							oData.results[0].credt = oData.results[0].credt;
-						}
-						try {
-							oViewModel.setProperty("/cretm", oData.results[0].cretm);
-							oData.results[0].cretm = formatter.defaultTimeFormatDisplay(oData.results[0].cretm);
-						} catch (e) {
-							oData.results[0].cretm = oData.results[0].cretm;
-						}
-						oViewModel.setProperty("/oFlagEdit", false);
-						//
-						that.onSelectionNatureofJobChange(null, oData.results[0].deaid);
-						if (oData.results[0].jduid === "JDU_10") {
-							oData.results[0].jduvl = new Date(oData.results[0].jduvl);
-
-						}
-						if (oData.results[0].mark !== "") {
-							that._fnGetMark(oData.results[0].jobid, oData.results[0].tailid, oData.results[0].deaid);
-						}
-						if (oData.results[0].DOCREFID) {
-							this.docRefId = oData.results[0].DOCREFID;
-							that._fnPhotoUploadGet(oData.results[0].DOCREFID);
-						} else {
-							oViewModel.setProperty("/DefectImageSrc", []);
-						}
-						if (oData.results[0].prime !== "" || oData.results[0].prime !== null) {
-							oViewModel.setProperty("/isWrctr", true);
-							that._fnTaskStatusGet(sJobId, oData.results[0].prime);
-						} else {
-							oViewModel.setProperty("/isWrctr", false);
-						}
-						oData.results[0].LASTWC = oData.results[0].prime;
-						oModel.setData(oData.results[0]);
-						oModel.updateBindings(true);
-
-					}
-				}.bind(this);
-				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnJobDetailsGet function");
-				this.handleException(e);
-			}
-		},
-
-		_fnGetDateValidation: function() {
-			try {
-				var oPrmTaskDue = {};
-				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq I";
-				oPrmTaskDue.error = function() {};
-				oPrmTaskDue.success = function(oData) {
-					if (oData && oData.results.length > 0) {
-						this.getModel("appModel").setProperty("/backDt", oData.results[0].VDATE);
-						this.getModel("appModel").setProperty("/backTm", oData.results[0].VTIME);
-					}
-				}.bind(this);
-				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
-			} catch (e) {
-				Log.error("Exception in _fnGetDateValidation function");
-			}
-		},
-
-		//------------------------------------------------------------------
-		// Function: _fnTaskStatusGet
-		// Parameter: sJobId
-		// Description: This will get called, when to get Outstanding and Pending Supervisor tasks count.
-		//Table: TASK
-		//------------------------------------------------------------------
-		_fnTaskStatusGet: function(sJobId, sPrime) {
-			try {
-				var that = this,
-					oModel = this.getView().getModel("appModel"),
-					oPrmTaskDue = {};
-				oPrmTaskDue.filter = "JOBID eq " + sJobId + " and wrctr eq " + sPrime;
-				oPrmTaskDue.error = function() {};
-				oPrmTaskDue.success = function(oData) {
-					if (oData.results[0].COUNT !== "0") {
-						oModel.setProperty("/PrimeStatus", false);
-						oModel.updateBindings(true);
-					} else {
-						oModel.setProperty("/PrimeStatus", true);
-						oModel.updateBindings(true);
-					}
-				}.bind(this);
-				ajaxutil.fnRead("/GetJobTaskstatSvc", oPrmTaskDue);
-			} catch (e) {
-				Log.error("Exception in _fnTaskStatusGet function");
-			}
-		},
-
-		//*************************************************************************************************************
-		//           3. Private Methods
-		//*************************************************************************************************************
-		/* Function: _fnRenderImage
-		 * Parameter: sImagePath, sSelectedKey, oCanvas
-		 * Description: To render images in to canvas on segment button selections.
-		 */
-
-		_fnRenderImage: function(sImagePath, oCanvas) {
-			try {
-				var that = this,
-					oAppModel,
-					oModel = this.getView().getModel("appModel").getData(),
-					oCanvas;
-				oCanvas = document.getElementById("myCanvasTopDefect");
-				var ctx = oCanvas.getContext("2d");
-				oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
-				oCanvas.style.backgroundRepeat = "no-repeat";
-				oCanvas.style.backgroundSize = "100%";
-				oCanvas.addEventListener('click', canvasClicked, true);
-				document.getElementById("myCanvasTopDefect").innerHTML.reload;
-
-				function canvasClicked(e) {
-					that.getPointPosition(e, oCanvas);
-					oCanvas.removeEventListener('click', canvasClicked, true);
-				}
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnRenderImage function");
-				this.handleException(e);
-			}
-		},
-
-		/* Function: drawCoordinates
-		 * Parameter: x, y, oCanvas
-		 * Description: To draw coordinates on canvas image.
-		 */
-
-		drawCoordinates: function(x, y, oCanvas) {
-			try {
-				var oCanvas = document.getElementById("myCanvasTopDefect");
-				var ctx = oCanvas.getContext("2d");
-				var grd = ctx.createLinearGradient(0, 0, 170, 0);
-				grd.addColorStop(1, "red");
-				ctx.fillStyle = "red"; // Red color
-				ctx.strokeStyle = "black";
-				ctx.font = "15px Arial";
-				ctx.beginPath();
-				ctx.arc(Number(x), Number(y), 10, 0, 2 * Math.PI);
-				ctx.fill();
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:drawCoordinates function");
-				this.handleException(e);
-			}
-		},
-		drawTextAlongArc: function(context, str, centerX, centerY, radius, angle) {
-			try {
-				var len = str.length,
-					s;
-				context.save();
-				context.translate(centerX, centerY);
-				context.rotate(-1 * angle / 2);
-				context.rotate(-1 * (angle / len) / 2);
-				for (var n = 0; n < len; n++) {
-					context.rotate(angle / len);
-					context.save();
-					context.translate(0, -1 * radius);
-					s = str[n];
-					context.fillText(s, 0, 0);
-					context.restore();
-				}
-				context.restore();
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:drawTextAlongArc function");
-				this.handleException(e);
-			}
-		},
-
-		/* Function: removeCoordinates
-		 * Parameter: x, y, oCanvas
-		 * Description: To remove drawn coordinates on canvas image.
-		 */
-
-		removeCoordinates: function(x, y, oCanvas) {
-			try {
-				var oCanvas = document.getElementById("myCanvasTopDefect");
-				if (oCanvas !== null) {
-					var ctx = oCanvas.getContext('2d');
-					ctx.clearRect(0, 0, oCanvas.width, oCanvas.height);
-				}
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:removeCoordinates function");
-				this.handleException(e);
-			}
-		},
-
-		onRefersh: function() {
-			try {
-				var oModel = this.getView().getModel("oViewCreateModel"),
-					oCanvas = document.getElementById("myCanvasTopDefect"),
-					oAppModel = this.getView().getModel("appModel"),
-					sImagePath, sRootPath;
-				var that = this;
-				this.removeCoordinates(oAppModel.getProperty("/XCor"), oAppModel.getProperty("/YCor"), oCanvas);
-				this._fnRestMarkArea();
-				if (oCanvas) {
-					var image = oCanvas.style.backgroundImage;
-					image = image.split("\"");
-					if (image[1]) {
-						setTimeout(function demo() {
-							that._fnRenderImage(image[1], oCanvas);
-						}, 500);
-					}
-				}
-				sRootPath = jQuery.sap.getModulePath("avmet.ah");
-			} catch (e) {
-				Log.error("Exception in CosCreateJob:onRefersh function");
 				this.handleException(e);
 			}
 		},
@@ -1403,7 +1509,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		/* Function: _fnSetInitialModel
+		 * Parameter:
+		 * Description: function to intialize local model
+		 */
 		_fnSetInitialModel: function() {
 			var oTempData = AvMetInitialRecord.createInitialBlankRecord("CREATEJOB");
 			this.getModel("oViewCreateModel").setData(oTempData[0]);
