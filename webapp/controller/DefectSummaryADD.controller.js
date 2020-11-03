@@ -18,7 +18,7 @@ sap.ui.define([
 		// ***************************************************************************
 		onInit: function () {
 			var oModel = new JSONModel({
-				"JobId": "1234567",
+				"JobId": "1234567"
 			});
 			this.getView().setModel(oModel, "oDefectSummaryModel");
 			var RectificationWrkCntr = [{

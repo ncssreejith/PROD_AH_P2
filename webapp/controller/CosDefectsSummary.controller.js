@@ -3570,6 +3570,9 @@ sap.ui.define([
 							that._fnPhotoUploadGet(oData.results[0].DOCREFID);
 						} else {
 							oViewModel.setProperty("/DefectImageSrc", []);
+							if (oData.results[0].mark !== '1') {
+								this.getModel("PhotoModel").setProperty("/photoSet", []);
+							}
 						}
 
 						oModel.setData(oData.results[0]);
