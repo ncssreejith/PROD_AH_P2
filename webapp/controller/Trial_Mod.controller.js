@@ -21,18 +21,22 @@ sap.ui.define([
 		//                 1. UI Events  
 		// ***************************************************************************
 		onInit: function() {
-			// var model = this.setModel(new JSONModel(), "oViewModel");
-			// this.getView().setModel(model, "oViewModel");
-			this.setModel(new JSONModel(), "trialModel");
+			try {
+				this.setModel(new JSONModel(), "trialModel");
 
-			this.getRouter().getRoute("Trial_Mod").attachPatternMatched(this._onObjectMatched, this);
+				this.getRouter().getRoute("Trial_Mod").attachPatternMatched(this._onObjectMatched, this);
+			} catch (e) {
+				Log.error("Exception in Trial_Mod:onInit function");
+				this.handleException(e);
+			}
 
 		},
 		onDeModClick: function(oEvent) {
 			try {
 				this.fnUpdateDeMod(oEvent);
 			} catch (e) {
-				Log.error("Exception in onDeModClick function");
+				Log.error("Exception in Trial_Mod:onDeModClick function");
+				this.handleException(e);
 			}
 		},
 
@@ -44,7 +48,7 @@ sap.ui.define([
 					payload.pddval2 = formatter.defaultOdataDateFormat(oModel.getProperty("/UtilVal"));
 				} else {
 					payload.pddval1 = oModel.getProperty("/UtilVal");
-					var iPrecision = formatter.JobDueDecimalPrecision(oModel.getProperty("/JDUID"));                       
+					var iPrecision = formatter.JobDueDecimalPrecision(oModel.getProperty("/JDUID"));
 					payload.pddval1 = parseFloat(payload.pddval1, [10]).toFixed(iPrecision);
 				}
 				payload.PAST_COUNT = parseInt(payload.PAST_COUNT, 10) + 1;
@@ -58,7 +62,7 @@ sap.ui.define([
 				oParameter.activity = 2;
 				ajaxutil.fnUpdate("/TRAILMONSvc", oParameter, [payload], "ZRM_T_MOD", this);
 			} catch (e) {
-				Log.error("Exception in CosCreateJob:_fnUpdateJob function");
+				Log.error("Exception in Trial_Mod:onRaiseTrailMod function");
 				this.handleException(e);
 			}
 
@@ -95,48 +99,63 @@ sap.ui.define([
 		},
 
 		onDueSelectChange: function(oEvent) {
-			var oSrc = oEvent.getSource(),
-				sKey = oSrc.getSelectedKey(),
-				aKey = this.getResourceBundle("i18n").getText("jobDueKey");
-			var bFlag = aKey.search(sKey) !== -1 ? true : false;
-			this.getModel("trialModel").setProperty("/isVisInput", bFlag);
+			try {
+				var oSrc = oEvent.getSource(),
+					sKey = oSrc.getSelectedKey(),
+					aKey = this.getResourceBundle("i18n").getText("jobDueKey");
+				var bFlag = aKey.search(sKey) !== -1 ? true : false;
+				this.getModel("trialModel").setProperty("/isVisInput", bFlag);
+			} catch (e) {
+				Log.error("Exception in Trial_Mod:onDueSelectChange function");
+				this.handleException(e);
+			}
 		},
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
 		fnLoadTrialMod: function() {
-			var sPath = "/TRAILMONSvc/"; // + this.getTailId();
-			var oParameter = {};
-			oParameter.filter = "tailid eq " + this.getTailId(); // + " and tailid eq " + this.getTailId() + " and trial eq " + "X";
-			oParameter.error = function() {};
-			oParameter.success = function(oData) {
-				var oTrial = oData.results;
-				this.getModel("trialModel").setProperty("/", oTrial);
-				this.getModel("trialModel").refresh(true);
-			}.bind(this);
-			ajaxutil.fnRead(sPath, oParameter);
+			try {
+				var sPath = "/TRAILMONSvc/"; // + this.getTailId();
+				var oParameter = {};
+				oParameter.filter = "tailid eq " + this.getTailId(); // + " and tailid eq " + this.getTailId() + " and trial eq " + "X";
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					var oTrial = oData.results;
+					this.getModel("trialModel").setProperty("/", oTrial);
+					this.getModel("trialModel").refresh(true);
+				}.bind(this);
+				ajaxutil.fnRead(sPath, oParameter);
+			} catch (e) {
+				Log.error("Exception in Trial_Mod:fnLoadTrialMod function");
+				this.handleException(e);
+			}
 		},
 
 		fnUpdateDeMod: function(oEvent) {
-			var sPath = "/TRAILMONSvc"; //ApprovalNavSvc
-			var oData = [];
-			var oParameter = {};
-			oParameter.activity = 5;
-			var oItem = oEvent.getSource().getBindingContext("trialModel").getObject();
+			try {
+				var sPath = "/TRAILMONSvc"; //ApprovalNavSvc
+				var oData = [];
+				var oParameter = {};
+				oParameter.activity = 5;
+				var oItem = oEvent.getSource().getBindingContext("trialModel").getObject();
 
-			var oPayload = {};
-			oPayload = oItem;
-			oPayload.jstat = "S";
-			oData.push(oPayload);
+				var oPayload = {};
+				oPayload = oItem;
+				oPayload.jstat = "S";
+				oData.push(oPayload);
 
-			oParameter.error = function() {};
-			oParameter.success = function(oRespond) {
-				this.fnLoadTrialMod();
-				// var oTrial = oRespond.results;
-				// this.getModel("trialModel").setProperty("/", oTrial);
-				// this.getModel("trialModel").refresh(true);
-			}.bind(this);
-			ajaxutil.fnUpdate(sPath, oParameter, oData, "ZRM_T_MOD", this);
+				oParameter.error = function() {};
+				oParameter.success = function(oRespond) {
+					this.fnLoadTrialMod();
+					// var oTrial = oRespond.results;
+					// this.getModel("trialModel").setProperty("/", oTrial);
+					// this.getModel("trialModel").refresh(true);
+				}.bind(this);
+				ajaxutil.fnUpdate(sPath, oParameter, oData, "ZRM_T_MOD", this);
+			} catch (e) {
+				Log.error("Exception in Trial_Mod:fnUpdateDeMod function");
+				this.handleException(e);
+			}
 		},
 		// ***************************************************************************
 		//                 3.  Specific Methods  

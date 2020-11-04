@@ -35,7 +35,7 @@ sap.ui.define([
 	 *        2.13 _fnUtilization2Get
 	 *        2.14 _fnUtilizationGet
 	 *        2.14 onSignOff
-     *     3. Private calls
+	 *     3. Private calls
 	 *        3.1 _onObjectMatched
 	 *        3.2 handleChange
 	 *        3.3 onSuggestTechOrder
@@ -152,6 +152,18 @@ sap.ui.define([
 				Log.error("Exception in CosCloseTask:handleChange function");
 				this.handleException(e);
 			}
+		},
+
+		//------------------------------------------------------------------
+		// Function: handleChange
+		// Parameter: oEvent
+		// Description: This will get called, to handle change in date on view.
+		//------------------------------------------------------------------
+		handleChangeUtil: function(fragId) {
+			var aData = this.getModel("TaskModel").getObject(this.oObjectPath);
+			var sPastText = fragId === "idAddTaskADDDialog" ? "errorADDexpiryDatePast" : "errorLimitExpiryDatePast";
+			return formatter.validDateTimeChecker(this, "DP2", "TP2", sPastText, "", aData.credtm, aData.creuzt, false, this.getView()
+				.createId(fragId));
 		},
 
 		// ***************************************************************************
@@ -348,7 +360,7 @@ sap.ui.define([
 							obj.ITMNO = null;
 							obj.LATIS = null;
 							obj.LATRE = null;
-							obj.SERNR = null;
+							obj.SERNR = oData[i].sernrs;
 							obj.LTIREID = null;
 							obj.TIREDESC = null;
 							obj.REFID = null;
@@ -1287,11 +1299,14 @@ sap.ui.define([
 		//------------------------------------------------------------------
 		onCreateLimitationPress: function(sFragId) {
 			try {
-				var sFragTempId;
+				var sFragTempId,
+					fragId;
 				if (sFragId === "ADD") {
 					sFragTempId = this._oAddADD;
+					fragId = "idAddTaskADDDialog";
 				} else {
 					sFragTempId = this._oAddLim;
+					fragId = "idWorkCenterDialog";
 				}
 				FieldValidations.resetErrorStates(this);
 				if (FieldValidations.validateFields(this, sFragTempId, true)) {
@@ -1302,7 +1317,9 @@ sap.ui.define([
 				var oParameter = {};
 				var oPayLoad = {};
 				oPayLoad = this.getModel("oViewGlobalModel").getData();
-
+				if (oPayLoad.OPPR !== "U" && !this.handleChangeUtil(fragId)) {
+					return;
+				}
 				if ((oPayLoad.LDESC !== null) && (oPayLoad.CPRID !== null)) {
 					oPayLoad.CAPTY = "B";
 					oPayLoad.FLAG_ADD = "B";
@@ -1861,7 +1878,7 @@ sap.ui.define([
 				var that = this,
 					oSelectedIndex,
 					oModel = this.getView().getModel("ViewModel");
-					
+
 				oSelectedIndex = that.getFragmentControl("idVTResultStatus", "rbVIStatus").getSelectedIndex();
 				if (oSelectedIndex === 1) {
 					that.getRouter().navTo("RouteCreateTask", {

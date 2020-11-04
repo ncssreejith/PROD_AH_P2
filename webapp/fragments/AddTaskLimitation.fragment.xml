@@ -51,14 +51,14 @@
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewLimitModel>/bDateSection}">
 				<VBox>
 					<Label design="Bold" text="Expiry Date" width="150px"/>
-					<DatePicker
+					<DatePicker id="DP2" change="handleChangeUtil('idWorkCenterDialog')"
 						value="{path: 'oViewGlobalModel>/EXPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-						width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}" minDate="{oViewLimitModel>/DatePrev}"/>
+						width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}"/>
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin">
 					<Label design="Bold" text="Time" width="150px"/>
-					<TimePicker width="200px" value="23:59" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime"
-						required="{oViewLimitModel>/bDateSection}"/>
+					<TimePicker id="TP2" change="handleChangeUtil('idWorkCenterDialog')" sswidth="200px" value="23:59" valueFormat="HH:mm" displayFormat="HH:mm"
+						fieldGroupIds="fgTime" required="{oViewLimitModel>/bDateSection}"/>
 				</VBox>
 			</HBox>
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewLimitModel>/bUtilisationSection}">
