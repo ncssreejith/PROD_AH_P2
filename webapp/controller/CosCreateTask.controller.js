@@ -1294,7 +1294,7 @@ sap.ui.define([
 						/*that.getRouter().navTo("CTCloseTask", {
 							"srvtid": oModel.getProperty("/ssrvid")
 						}, true);*/
-						that.onNavBack();
+						//that.onNavBack();
 						window.history.go(-1);
 					} else {
 						that.getRouter().navTo("CosDefectsSummary", {

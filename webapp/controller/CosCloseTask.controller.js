@@ -1560,7 +1560,7 @@ sap.ui.define([
 					this._fnTasksGet(oTempJB);
 				}
 				this.landTyre = {};
-				this._fnTasksGet(oTempJB);
+				//this._fnTasksGet(oTempJB);
 				this._fnReasonforADDGet();
 				this._fnUtilizationGet();
 				this._fnUtilization2Get();
@@ -1861,6 +1861,7 @@ sap.ui.define([
 				var that = this,
 					oSelectedIndex,
 					oModel = this.getView().getModel("ViewModel");
+					
 				oSelectedIndex = that.getFragmentControl("idVTResultStatus", "rbVIStatus").getSelectedIndex();
 				if (oSelectedIndex === 1) {
 					that.getRouter().navTo("RouteCreateTask", {
@@ -1881,6 +1882,7 @@ sap.ui.define([
 						"RJobId": "T"
 					});
 				}
+				this.onCloseVIStatus();
 			} catch (e) {
 				Log.error("Exception in onCloseVIStatus function");
 			}
