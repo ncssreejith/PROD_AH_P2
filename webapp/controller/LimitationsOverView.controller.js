@@ -29,7 +29,16 @@ sap.ui.define([
 	 *        2.10 _fnGetUtilisationDefaultVal
 	 *     3. Private calls
 	 *        3.1 _onObjectMatched
-	 *        3.2 fnSetReason
+	 *        3.2 onMangeAdd
+	 *        3.3 onOpenMangeLimitaionDialog
+	 *        3.4 onCloseMangeLimitaionDialog
+	 *        3.5 onSelectionDefectAreaChange
+	 *        3.6 _fnRenderImage
+	 *        3.7 drawCoordinates
+	 *        3.8 onUpdateADD
+	 *        3.9 onSaveRemark 
+	 *        3.10 onGetRemarkDialog
+	 *        3.11 onCloseGetRemarkDialog
 	 *   Note :
 	 *************************************************************************** */
 	return BaseController.extend("avmet.ah.controller.LimitationsOverView", {

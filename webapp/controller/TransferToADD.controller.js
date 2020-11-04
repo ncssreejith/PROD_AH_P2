@@ -17,10 +17,29 @@ sap.ui.define([
 	 *        1.1 onInit
 	 *        1.2 onSignOffPress
 	 *     2. Backend Calls
-	 *        2.1 fnLogById
+	 *        2.1 _fnReasonforADDGet
+	 *        2.1 _fnUtilizationGet
+	 *        2.1 _fnGetUtilisationDefaultValue
+	 *        2.1 _fnADDCountGet
+	 *        2.1 _fnPerioOfDeferCBGet
+	 *        2.1 _fnADDCapDataGet
+	 *        2.1 _fnReasonforADDGet
 	 *     3. Private calls
 	 *        3.1 _onObjectMatched
-	 *        3.2 fnSetReason
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 *        3.2 handleChange
+	 
 	 *   Note :
 	 *************************************************************************** */
 	return BaseController.extend("avmet.ah.controller.TransferToADD", {
@@ -28,6 +47,11 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 1. UI Events  
 		// ***************************************************************************
+		//-------------------------------------------------------------
+		//   Function: onInit
+		//   Parameter: NA 
+		//   Description: Internal method to initialize View dataUtil .
+		//-------------------------------------------------------------
 		onInit: function() {
 			try {
 
@@ -43,6 +67,312 @@ sap.ui.define([
 			}
 		},
 
+		// ***************************************************************************
+		//                 2. Backend calls  
+		// ***************************************************************************	
+		/* Function: _fnReasonforADDGet
+		 * Parameter:
+		 * Description: This is called populate reason drop down
+		 */
+		_fnReasonforADDGet: function() {
+			try {
+
+				var that = this,
+					oModel = this.getView().getModel("oViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "refid eq " + oModel.getProperty("/sAirId") + " and ddid eq CPR_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData !== undefined && oData.results.length > 0) {
+						that.getView().getModel("ReasonforADDModel").setData(oData.results);
+						that.getView().getModel("ReasonforADDModel").updateBindings(true);
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:_fnReasonforADDGet function");
+				this.handleException(e);
+			}
+		},
+		/* Function: _fnUtilizationGet
+		 * Parameter:
+		 * Description: This is called to populate utilisation drop down
+		 */
+		_fnUtilizationGet: function() {
+			try {
+
+				var that = this,
+					oModel = this.getView().getModel("oViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "refid eq " + oModel.getProperty("/sAirId") + " and ddid eq UTIL1_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData !== undefined && oData.results.length > 0) {
+						that.getView().getModel("UtilizationCBModel").setData(oData.results);
+						that.getView().getModel("UtilizationCBModel").updateBindings(true);
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:_fnUtilizationGet function");
+				this.handleException(e);
+			}
+		},
+		/* Function: _fnGetUtilisationDefaultValue
+		 * Parameter: sAir
+		 * Description: This is called to get default values for utilisation
+		 */
+		_fnGetUtilisationDefaultValue: function(sAir) {
+			try {
+				var oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.oObject = {};
+						for (var i in oData.results) {
+							this.oObject[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisationDefaultValue function");
+			}
+		},
+		/* Function: _fnADDCountGet
+		 * Parameter:
+		 * Description: This is called to get ADD count
+		 */
+		_fnADDCountGet: function() {
+			try {
+				var that = this,
+					sCount,
+					oModel = this.getView().getModel("oViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "TAILID eq " + this.getTailId();
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData !== undefined && oData.results.length > 0) {
+						sCount = oData.results[0].COUNT;
+					} else {
+						sCount = "0";
+					}
+					this.getView().getModel("oViewModel").setProperty("/ADDCount", sCount);
+				}.bind(this);
+
+				ajaxutil.fnRead("/GetAddCountSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
+				this.handleException(e);
+			}
+		},
+		/* Function: _fnUtilization2Get
+		 * Parameter:
+		 * Description: This is called to populate drop down
+		 */
+		_fnUtilization2Get: function() {
+			try {
+
+				var that = this,
+					oModel = this.getView().getModel("oViewModel"),
+					oPrmJobDue = {};
+				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/sAirId") + " and ddid eq UTIL2_";*/
+				oPrmJobDue.filter = "ddid eq UTIL2_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData !== undefined && oData.results.length > 0) {
+						that.getView().getModel("Utilization2CBModel").setData(oData.results);
+						that.getView().getModel("Utilization2CBModel").updateBindings(true);
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
+				this.handleException(e);
+			}
+		},
+		/* Function: _fnPerioOfDeferCBGet
+		 * Parameter:
+		 * Description: This is called to populate period of defer drop down
+		 */
+		_fnPerioOfDeferCBGet: function() {
+			try {
+
+				var that = this,
+					oModel = this.getView().getModel("oViewModel"),
+					oPrmJobDue = {};
+				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/sAirId") + " and ddid eq 118_";*/
+				oPrmJobDue.filter = "ddid eq 118_";
+				oPrmJobDue.error = function() {
+
+				};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData !== undefined && oData.results.length > 0) {
+						that.getView().getModel("PerioOfDeferCBModel").setData(oData.results);
+						that.getView().getModel("PerioOfDeferCBModel").updateBindings(true);
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:_fnPerioOfDeferCBGet function");
+				this.handleException(e);
+			}
+		},
+
+		/* Function: _fnADDCapDataGet
+		 * Parameter: sCapId
+		 * Description: This is called to get ADD data
+		 */
+		_fnADDCapDataGet: function(sCapId) {
+			try {
+
+				var that = this,
+					oModel = this.getView().getModel("oViewModel"),
+					oPrmJobDue = {};
+				oPrmJobDue.filter = "CAPID eq " + sCapId;
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData !== undefined && oData.results.length > 0) {
+						this.getModel("oViewGlobalModel").setData(oData.results[0]);
+						this.getModel("oViewGlobalModel").updateBindings(true);
+					}
+				}.bind(this);
+
+				ajaxutil.fnRead("/ADDSvc", oPrmJobDue);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:_fnADDCapDataGet function");
+				this.handleException(e);
+			}
+		},
+		/* Function: _fnGetDateValidation
+		 * Parameter: sJobId
+		 * Description: This is called to get min Date/Time value
+		 */
+		_fnGetDateValidation: function(sJobId) {
+			try {
+				var oPrmTaskDue = {};
+				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+				oPrmTaskDue.error = function() {};
+				oPrmTaskDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("oViewModel").setProperty("/backDt", oData.results[0].VDATE);
+						this.getModel("oViewModel").setProperty("/backTm", oData.results[0].VTIME);
+					}
+				}.bind(this);
+				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+			} catch (e) {
+				Log.error("Exception in _fnGetDateValidation function");
+			}
+		},
+
+		// ***************************************************************************
+		//                 3. Private Methods   
+		// ***************************************************************************
+		/* Function: _onObjectMatched
+		 * Parameter:
+		 * Description: This will called to handle route matched.
+		 */
+		_onObjectMatched: function(oEvent) {
+			try {
+				var oADDTransferModel = dataUtil.getDataSet("ADDTransferModel");
+				var sJobId = oEvent.getParameters("").arguments.JobId;
+				var sTailId = this.getTailId();
+				var sAirId = this.getAircraftId();
+				var sJobDesc = oADDTransferModel[0].JobDesc;
+				var sFndId = oEvent.getParameters("").arguments.FndId;
+				var sFndBy = oEvent.getParameters("").arguments.FndBy;
+				var oTempData = AvMetInitialRecord.createInitialBlankRecord("ADDLimit");
+				var oViewModel = this.getView().getModel("oViewGlobalModel");
+				oViewModel.setData(oTempData[0]);
+				oViewModel.setProperty("/CAPTM", new Date().getHours() + ":" + new Date().getMinutes());
+				oViewModel.setProperty("/CAPDT", new Date());
+				oViewModel.setProperty("/JOBID", sJobId);
+				oViewModel.setProperty("/TAILID", sTailId);
+				oViewModel.setProperty("/FNDURING", sFndId);
+				oViewModel.setProperty("/FNDBY", sFndBy);
+				oViewModel.setProperty("/JOBDESC", sJobDesc);
+				oViewModel.updateBindings(true);
+				var PrevDate = new Date();
+				var oModel = dataUtil.createNewJsonModel();
+				oModel.setData({
+					"sJobId": sJobId,
+					"sTailId": sTailId,
+					"sAirId": sAirId,
+					"sJobDesc": sJobDesc,
+					"sFndId": sFndId,
+					"sFndBy": sFndBy,
+					"sAddReason": "noKey",
+					"bDateSection": false,
+					"bUtilisationSection": false,
+					"bLimitationSection": false,
+					"bPrdOfDefermentDesc": false,
+					"bDemandNo": false,
+					"bOtherReason": false,
+					"bPeriodofDeferment": false,
+					"sUtilKey": "",
+					"bAirFrameAndTAC": false,
+					"bScheduleService": false,
+					"bPhaseService": false,
+					"bLimitation": false,
+					"bAddLimitationBtn": true,
+					"sSlectedKey": "",
+					"bDate": false,
+					"DatePrev": PrevDate,
+					"ADDCount": "",
+					"ADDRemark": ""
+				});
+				this.getView().setModel(oModel, "oViewModel");
+				var oModelSS = dataUtil.createNewJsonModel();
+				oModelSS.setData({
+					"key": "150",
+					"Text": "150 hrly servicing"
+				}, {
+					"key": "200",
+					"Text": "200 hrly servicing"
+				}, {
+					"key": "250",
+					"Text": "250 hrly servicing"
+				});
+				this.getView().setModel(oModelSS, "ScheSerModel");
+				this._fnADDCountGet();
+
+				this._fnReasonforADDGet();
+				this._fnUtilizationGet();
+				this._fnUtilization2Get();
+				this._fnGetUtilisationDefaultValue(sAirId);
+				this._fnPerioOfDeferCBGet();
+				this._fnGetDateValidation(sJobId);
+			} catch (e) {
+				Log.error("Exception in TrasnferToADD:_onObjectMatched function");
+				this.handleException(e);
+			}
+		},
+
+		/* Function: handleChange
+		 * Parameter:
+		 * Description: This is called handle date/time validation
+		 */
 		handleChange: function() {
 			try {
 				var prevDt = this.getModel("oViewModel").getProperty("/backDt");
@@ -53,7 +383,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		/* Function: handleChangeExpiry
+		 * Parameter:
+		 * Description: This is called handle date/time validation
+		 */
 		handleChangeExpiry: function() {
 			try {
 				var prevDt = this.getModel("oViewModel").getProperty("/backDt");
@@ -64,9 +397,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+		/* Function: onReasonForADDChange
+		 * Parameter: oEvent
+		 * Description: This is called when reason for ADD is changed
+		 */
 		onReasonForADDChange: function(oEvent) {
 			try {
 
@@ -96,9 +430,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+		/* Function: onPrdOfDefermentChange
+		 * Parameter: oEvent
+		 * Description: This is called handle period of deferment change
+		 */
 		onPrdOfDefermentChange: function(oEvent) {
 			try {
 
@@ -118,9 +453,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+		/* Function: onReasonTypeChange
+		 * Parameter: oEvent
+		 * Description: This is called when reason type change
+		 */
 		onReasonTypeChange: function(oEvent) {
 			try {
 
@@ -161,9 +497,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+		/* Function: onUilisationChange
+		 * Parameter: oEvent
+		 * Description: This is called when utilisation drop down change
+		 */
 		onUilisationChange: function(oEvent) {
 			try {
 
@@ -205,9 +542,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+		/* Function: onAddLimitaionPress
+		 * Parameter:
+		 * Description: This is called when add limitation press
+		 */
 		onAddLimitaionPress: function() {
 			try {
 
@@ -220,9 +558,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+		/* Function: onRemoveLimitaionPress
+		 * Parameter:
+		 * Description: This is called when remove limitation press
+		 */
 		onRemoveLimitaionPress: function() {
 			try {
 
@@ -236,9 +575,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+		/* Function: onNavToDefectSummaryADD
+		 * Parameter:
+		 * Description: This is called to navigate defect summary ADD
+		 */
 		onNavToDefectSummaryADD: function() {
 			try {
 				this.getOwnerComponent().getRouter().navTo("RouteDefectSummaryADD");
@@ -247,9 +587,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+		/* Function: onSubmitTransferJobAdd
+		 * Parameter:
+		 * Description: This is called when submit ADD record
+		 */
 		onSubmitTransferJobAdd: function() {
 			try {
 				FieldValidations.resetErrorStates(this);
@@ -334,323 +675,8 @@ sap.ui.define([
 			}
 		},
 
-		// ***************************************************************************
-		//                 2. Backend calls  
-		// ***************************************************************************	
-
-		_fnReasonforADDGet: function() {
-			try {
-
-				var that = this,
-					oModel = this.getView().getModel("oViewModel"),
-					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + oModel.getProperty("/sAirId") + " and ddid eq CPR_";
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					if (oData !== undefined && oData.results.length > 0) {
-						that.getView().getModel("ReasonforADDModel").setData(oData.results);
-						that.getView().getModel("ReasonforADDModel").updateBindings(true);
-					}
-				}.bind(this);
-
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in TrasnferToADD:_fnReasonforADDGet function");
-				this.handleException(e);
-			}
-		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
-		_fnUtilizationGet: function() {
-			try {
-
-				var that = this,
-					oModel = this.getView().getModel("oViewModel"),
-					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + oModel.getProperty("/sAirId") + " and ddid eq UTIL1_";
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					if (oData !== undefined && oData.results.length > 0) {
-						that.getView().getModel("UtilizationCBModel").setData(oData.results);
-						that.getView().getModel("UtilizationCBModel").updateBindings(true);
-					}
-				}.bind(this);
-
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in TrasnferToADD:_fnUtilizationGet function");
-				this.handleException(e);
-			}
-		},
-		_fnGetUtilisationDefaultValue: function(sAir) {
-			try {
-				var oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
-				oPrmJobDue.error = function() {};
-
-				oPrmJobDue.success = function(oData) {
-					if (oData && oData.results.length > 0) {
-						this.oObject = {};
-						for (var i in oData.results) {
-							this.oObject[oData.results[i].JDUID] = oData.results[i];
-						}
-					}
-				}.bind(this);
-
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in _fnGetUtilisationDefaultValue function");
-			}
-		},
-
-		_fnADDCountGet: function() {
-			try {
-				var that = this,
-					sCount,
-					oModel = this.getView().getModel("oViewModel"),
-					oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId();
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					if (oData !== undefined && oData.results.length > 0) {
-						sCount = oData.results[0].COUNT;
-					} else {
-						sCount = "0";
-					}
-					this.getView().getModel("oViewModel").setProperty("/ADDCount", sCount);
-				}.bind(this);
-
-				ajaxutil.fnRead("/GetAddCountSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
-				this.handleException(e);
-			}
-		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
-		_fnUtilization2Get: function() {
-			try {
-
-				var that = this,
-					oModel = this.getView().getModel("oViewModel"),
-					oPrmJobDue = {};
-				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/sAirId") + " and ddid eq UTIL2_";*/
-				oPrmJobDue.filter = "ddid eq UTIL2_";
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					if (oData !== undefined && oData.results.length > 0) {
-						that.getView().getModel("Utilization2CBModel").setData(oData.results);
-						that.getView().getModel("Utilization2CBModel").updateBindings(true);
-					}
-				}.bind(this);
-
-				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
-				this.handleException(e);
-			}
-		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
-		_fnPerioOfDeferCBGet: function() {
-			try {
-
-				var that = this,
-					oModel = this.getView().getModel("oViewModel"),
-					oPrmJobDue = {};
-				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/sAirId") + " and ddid eq 118_";*/
-				oPrmJobDue.filter = "ddid eq 118_";
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					if (oData !== undefined && oData.results.length > 0) {
-						that.getView().getModel("PerioOfDeferCBModel").setData(oData.results);
-						that.getView().getModel("PerioOfDeferCBModel").updateBindings(true);
-					}
-				}.bind(this);
-
-				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in TrasnferToADD:_fnPerioOfDeferCBGet function");
-				this.handleException(e);
-			}
-		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
-		/*	_fnADDCountGet: function(sJobId, sTailId, sJobDesc, sFndId, sFndBy) {
-				try {
-
-					var that = this,
-						oModel = this.getView().getModel("oViewModel"),
-						oPrmJobDue = {};
-					oPrmJobDue.filter = "JOBID eq " + sJobId;
-					oPrmJobDue.error = function() {
-
-					};
-					oPrmJobDue.success = function(oData) {
-						if (oData.results[0].COUNT === null || oData.results[0].COUNT === "0") {
-							var oTempData = AvMetInitialRecord.createInitialBlankRecord("ADDLimit");
-							this.getModel("oViewGlobalModel").setData(oTempData[0]);
-							this.getModel("oViewGlobalModel").setProperty("/CAPTM", new Date().getHours() + ":" + new Date().getMinutes());
-							this.getModel("oViewGlobalModel").setProperty("/CAPDT", new Date());
-							this.getModel("oViewGlobalModel").setProperty("/JOBID", sJobId);
-							this.getModel("oViewGlobalModel").setProperty("/TAILID", sTailId);
-							this.getModel("oViewGlobalModel").setProperty("/FNDURING", sFndId);
-							this.getModel("oViewGlobalModel").setProperty("/FNDBY", sFndBy);
-							this.getModel("oViewGlobalModel").setProperty("/JOBDESC", sJobDesc);
-							this.getModel("oViewGlobalModel").updateBindings(true);
-						} else {
-							this._fnADDCapDataGet();
-							this.getModel("oViewGlobalModel").setData(oData.results[0]);
-							this.getModel("oViewGlobalModel").updateBindings(true);
-						}
-					}.bind(this);
-
-					ajaxutil.fnRead("/ADDSvc", oPrmJobDue);
-				} catch (e) {
-					Log.error("Exception in xxxxx function");
-				}
-			},*/
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
-		_fnADDCapDataGet: function(sCapId) {
-			try {
-
-				var that = this,
-					oModel = this.getView().getModel("oViewModel"),
-					oPrmJobDue = {};
-				oPrmJobDue.filter = "CAPID eq " + sCapId;
-				oPrmJobDue.error = function() {};
-
-				oPrmJobDue.success = function(oData) {
-					if (oData !== undefined && oData.results.length > 0) {
-						this.getModel("oViewGlobalModel").setData(oData.results[0]);
-						this.getModel("oViewGlobalModel").updateBindings(true);
-					}
-				}.bind(this);
-
-				ajaxutil.fnRead("/ADDSvc", oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in TrasnferToADD:_fnADDCapDataGet function");
-				this.handleException(e);
-			}
-		},
-
-		_fnGetDateValidation: function(sJobId) {
-			try {
-				var oPrmTaskDue = {};
-				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
-				oPrmTaskDue.error = function() {};
-				oPrmTaskDue.success = function(oData) {
-					if (oData && oData.results.length > 0) {
-						this.getModel("oViewModel").setProperty("/backDt", oData.results[0].VDATE);
-						this.getModel("oViewModel").setProperty("/backTm", oData.results[0].VTIME);
-					}
-				}.bind(this);
-				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
-			} catch (e) {
-				Log.error("Exception in _fnGetDateValidation function");
-			}
-		},
-
-		// ***************************************************************************
-		//                 3. Private Methods   
-		// ***************************************************************************
-		_onObjectMatched: function(oEvent) {
-			try {
-				var oADDTransferModel = dataUtil.getDataSet("ADDTransferModel");
-				var sJobId = oEvent.getParameters("").arguments.JobId;
-				var sTailId = this.getTailId();
-				var sAirId = this.getAircraftId();
-				var sJobDesc = oADDTransferModel[0].JobDesc;
-				var sFndId = oEvent.getParameters("").arguments.FndId;
-				var sFndBy = oEvent.getParameters("").arguments.FndBy;
-				var oTempData = AvMetInitialRecord.createInitialBlankRecord("ADDLimit");
-				var oViewModel = this.getView().getModel("oViewGlobalModel");
-				oViewModel.setData(oTempData[0]);
-				oViewModel.setProperty("/CAPTM", new Date().getHours() + ":" + new Date().getMinutes());
-				oViewModel.setProperty("/CAPDT", new Date());
-				oViewModel.setProperty("/JOBID", sJobId);
-				oViewModel.setProperty("/TAILID", sTailId);
-				oViewModel.setProperty("/FNDURING", sFndId);
-				oViewModel.setProperty("/FNDBY", sFndBy);
-				oViewModel.setProperty("/JOBDESC", sJobDesc);
-				oViewModel.updateBindings(true);
-				var PrevDate = new Date();
-				var oModel = dataUtil.createNewJsonModel();
-				oModel.setData({
-					"sJobId": sJobId,
-					"sTailId": sTailId,
-					"sAirId": sAirId,
-					"sJobDesc": sJobDesc,
-					"sFndId": sFndId,
-					"sFndBy": sFndBy,
-					"sAddReason": "noKey",
-					"bDateSection": false,
-					"bUtilisationSection": false,
-					"bLimitationSection": false,
-					"bPrdOfDefermentDesc": false,
-					"bDemandNo": false,
-					"bOtherReason": false,
-					"bPeriodofDeferment": false,
-					"sUtilKey": "",
-					"bAirFrameAndTAC": false,
-					"bScheduleService": false,
-					"bPhaseService": false,
-					"bLimitation": false,
-					"bAddLimitationBtn": true,
-					"sSlectedKey": "",
-					"bDate": false,
-					"DatePrev": PrevDate,
-					"ADDCount": "",
-					"ADDRemark": ""
-				});
-				this.getView().setModel(oModel, "oViewModel");
-				var oModelSS = dataUtil.createNewJsonModel();
-				oModelSS.setData({
-					"key": "150",
-					"Text": "150 hrly servicing"
-				}, {
-					"key": "200",
-					"Text": "200 hrly servicing"
-				}, {
-					"key": "250",
-					"Text": "250 hrly servicing"
-				});
-				this.getView().setModel(oModelSS, "ScheSerModel");
-				this._fnADDCountGet();
-
-				this._fnReasonforADDGet();
-				this._fnUtilizationGet();
-				this._fnUtilization2Get();
-				this._fnGetUtilisationDefaultValue(sAirId);
-				this._fnPerioOfDeferCBGet();
-				this._fnGetDateValidation(sJobId);
-			} catch (e) {
-				Log.error("Exception in TrasnferToADD:_onObjectMatched function");
-				this.handleException(e);
-			}
-		},
 		//-------------------------------------------------------------------------------------
+		//  Function: onGetRemarkDialog
 		//  Private method: This will get called,to open Limitation dialog.
 		// Table: 
 		//--------------------------------------------------------------------------------------
@@ -672,6 +698,7 @@ sap.ui.define([
 			}
 		},
 		//-------------------------------------------------------------------------------------
+		//  Function: onCloseGetRemarkDialog
 		//  Private method: This will get called,to close Limitation dialog.
 		// Table: 
 		//--------------------------------------------------------------------------------------
@@ -686,6 +713,10 @@ sap.ui.define([
 				Log.error("Exception in onCloseAddLimDialog function");
 			}
 		},
+		/* Function: onSubmitADD
+		 * Parameter:
+		 * Description: This is called when ADD is submitted
+		 */
 		onSubmitADD: function() {
 			try {
 				var sCount = this.getView().getModel("oViewModel").getProperty("/ADDCount");
@@ -700,7 +731,10 @@ sap.ui.define([
 				Log.error("Exception in onSubmitADD function");
 			}
 		},
-
+		/* Function: onSaveRemark
+		 * Parameter:
+		 * Description: This is called to save remarks
+		 */
 		onSaveRemark: function() {
 			this.onCloseGetRemarkDialog();
 			this.onSubmitTransferJobAdd();
