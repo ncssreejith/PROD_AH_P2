@@ -1660,6 +1660,10 @@ sap.ui.define([
 								this.getModel("PhotoModel").setProperty("/photoSet", []);
 							}
 						}
+						if (oData.results[0].jstat === "X") {
+							oViewModel.setProperty("/JobStatus", false);
+							oViewModel.refresh(true);
+						}
 
 						oModel.setData(oData.results[0]);
 						that.getView().setModel(oModel, "JobModel");
