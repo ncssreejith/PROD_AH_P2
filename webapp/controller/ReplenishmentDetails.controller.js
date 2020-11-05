@@ -99,6 +99,19 @@ sap.ui.define([
 		onLiveChange: function(oEvent) {
 			this.cvutil.onLiveChange(oEvent);
 		},
+		/** 
+		 * On undo sign off
+		 * @param oEvent
+		 */
+		onUndoSignoff: function(oEvent) {
+			try {
+				var oObject = oEvent.getSource().getBindingContext("oRepDetailsModel").getObject();
+				this.fnUndoSignOff(oObject);
+			} catch (e) {
+				Log.error("Exception in onUndoSignoff function");
+				this.handleException(e);
+			}
+		},
 		onFuelTableUpdateFinish: function(oEvent) {
 			try {
 				this._fnUpdateTotlaAmount(oEvent.getSource());
@@ -123,12 +136,12 @@ sap.ui.define([
 			if (sTtlAmt > this.formatter.integerUnit(oContext.getObject().max)) {
 				sMsg1 = "Orignal amount + Serviced amount can not exceed total amount";
 			}
-			oItems.getCells()[1].setValueState(sMsg1 === "" ? "None" : "Error");
 			oItems.getCells()[2].setValueState(sMsg1 === "" ? "None" : "Error");
-			oItems.getCells()[1].setValueStateText(sMsg1);
+			oItems.getCells()[3].setValueState(sMsg1 === "" ? "None" : "Error");
 			oItems.getCells()[2].setValueStateText(sMsg1);
-			oItems.getCells()[2].setTooltip(sMsg1);
-			oItems.getCells()[2].setTooltip(sMsg1);
+			oItems.getCells()[3].setValueStateText(sMsg1);
+			oItems.getCells()[3].setTooltip(sMsg1);
+			oItems.getCells()[3].setTooltip(sMsg1);
 			this.getModel("oRepDetailsModel").refresh();
 
 		},
@@ -160,7 +173,12 @@ sap.ui.define([
 			this.getModel("oRepDetailsModel").setProperty("/orgamt", orgamt);
 			this.getModel("oRepDetailsModel").refresh();
 		},
-
+		onSelItem: function(oEvent) {
+			var sSel = oEvent.getSource().getSelected();
+			var sPath = oEvent.getSource().getBindingContext("oRepDetailsModel").getPath();
+			this.getModel("oRepDetailsModel").setProperty(sPath + "/tstat", sSel ? 1 : 0);
+			this.getModel("oRepDetailsModel").refresh();
+		},
 		onListSelect: function(oEvent, sKey) {
 			try {
 				var sSelectedKey,
@@ -180,24 +198,65 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		/** 
+		 * Undo signoff
+		 * @param oObject
+		 * @returns
+		 */
+		fnUndoSignOff: function(oObject) {
+			try {
+				// if (this.cvutil.validateForm(this.getView())) {
+				// 	return;
+				// }
+				oObject.tstat = 0;
+				delete oObject.selected;
+				var oParameter = {};
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					this._getRepTiles();
+				}.bind(this);
+				oParameter.activity = 4;
+				ajaxutil.fnUpdate("/ReplenishmentSvc", oParameter, [oObject], "ZRM_FS_RP", this);
 
+			} catch (e) {
+				Log.error("Exception in fnUndoSignOff function");
+				this.handleException(e);
+			}
+		},
 		onPressSignOffConfirm: function(oEvent) {
 			try {
 				if (this.cvutil.validateForm(this.getView())) {
 					return;
 				}
+				var aFinalPayload = [];
+				var bSelected = false;
+				
 				var aPayloads = this.getModel("oRepDetailsModel").getProperty("/srv");
 				this._fnCheckLessThan10Hours(aPayloads);
+				
+				aPayloads.forEach(function(oPayload) {
+
+					if (oPayload.tstat === 1) {
+						bSelected = true;
+					}
+					aFinalPayload.push(oPayload);
+				});
+				if (!bSelected) {
+					sap.m.MessageToast.show("Select at least one for sign off first");
+					return;
+				}
+				
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					this.getRouter().navTo("UpdateFlightServicing", {
-						srvid: this.getModel("oRepDetailsModel").getProperty(
-						"/srvtid") 
-					}, true);
+					this._getRepTiles();
+					// this.getRouter().navTo("UpdateFlightServicing", {
+					// 	srvid: this.getModel("oRepDetailsModel").getProperty(
+					// 	"/srvtid") 
+					// }, true);
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/ReplshmentSvc", oParameter, aPayloads, "ZRM_FS_RP", this);
+				ajaxutil.fnCreate("/ReplenishmentSvc", oParameter, aPayloads, "ZRM_FS_RP", this);
 
 			} catch (e) {
 				Log.error("Exception in onPressSignOffConfirm function");
@@ -292,7 +351,7 @@ sap.ui.define([
 					}, "viewModel");
 					// this._getFuelExtTanks();
 				}.bind(this);
-				ajaxutil.fnRead("/ReplshmentSvc", oParameter);
+				ajaxutil.fnRead("/ReplenishmentSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRepTiles function");
 				this.handleException(e);

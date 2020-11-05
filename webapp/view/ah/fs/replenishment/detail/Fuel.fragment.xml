@@ -9,6 +9,9 @@
 			</OverflowToolbar>
 		</headerToolbar>
 		<columns>
+			<Column minScreenWidth="Tablet" width="10%" demandPopin="true" hAlign="Center">
+				<Label text="" design="Bold" wrapping="true"/>
+			</Column>
 			<Column hAlign="Left" width="20%" class="CERTableTextColor">
 				<Label text="Position" design="Bold"/>
 				<footer>
@@ -33,21 +36,34 @@
 					<Text text="{oRepDetailsModel>/ttlamt} / {oRepDetailsModel>/total}"/>
 				</footer>
 			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="20%">
+			<!--	<Label text="Tradesman" design="Bold" wrapping="true"/>-->
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="15%"></Column>
 		</columns>
 		<items>
 			<ColumnListItem class="tableTextColor">
 				<cells>
+					<CheckBox select="onSelItem" selected="{= ${oRepDetailsModel>tstat}===1}"
+						editable="{path : 'oRepDetailsModel>/srvid', formatter : '.formatter.srvIdExistEnable'}"
+						enabled="{parts:['oRepDetailsModel>tsign','oRepDetailsModel>engid','oRepDetailsModel>resid'],formatter:'.formatter.fnEnginEnableChk'}"/>
 					<Text text="{oRepDetailsModel>resdescription}"/>
 					<StepInput width="100%" textAlign="Center" enabled="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE'}" value="{oRepDetailsModel>orgamt}" labelFor="adsfasdf" change="onFuleChange" validationMode="LiveChange" min="0"
 					max="{= ${oRepDetailsModel>max}-${oRepDetailsModel>srvamt}}"
+					editable="{= ${oRepDetailsModel>tsign}===''}"
 					fieldGroupIds="fgStep"  />
 					<StepInput width="100%" textAlign="Center" value="{oRepDetailsModel>srvamt}" change="onFuleChange" validationMode="LiveChange" min="0"
 					enabled="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE' &amp;&amp; ${oRepDetailsModel>srvamt} !== 0}"
+					editable="{= ${oRepDetailsModel>tsign}===''}"
 					max="{parts:['oRepDetailsModel>/srvtid','oRepDetailsModel>max','oRepDetailsModel>orgamt'],formatter:'.formatter.fnFuelMaxAmt'}"
 					fieldGroupIds="fgStep"  />
 					<!--max="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE'?(${oRepDetailsModel>max}-${oRepDetailsModel>orgamt}):${oRepDetailsModel>orgamt}}"-->
 					<StepInput editable="false" textAlign="Center" fieldGroupIds="fgStep" value="{oRepDetailsModel>totamt}" description=" / {oRepDetailsModel>max}"  min="0"
-						max="{path: 'oRepDetailsModel>max', formatter : '.formatter.FormatMaxValue'}"  />
+					/>
+					<Text visible="{= ${oRepDetailsModel>tsign}!==''}" text="{oRepDetailsModel>tsign}"/>
+					<!--visible="{= !${oRepDetailsModel>tstat} === 1 }"-->
+					<Button text="Undo Sign Off" press="onUndoSignoff" enabled="{path : 'oRepDetailsModel>/srvid', formatter : '.formatter.srvIdExistEnable'}"
+						visible="{= ${oRepDetailsModel>tsign} !== '' }"/>	
 				</cells>
 			</ColumnListItem>
 		</items>

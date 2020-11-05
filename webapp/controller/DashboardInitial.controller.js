@@ -41,9 +41,11 @@ sap.ui.define([
 		onAfterRendering: function() {
 			var that = this;
 			// Retrieve backend posting messages of dashboard status every 30 secs.
-			this._LoadMessageInterval = setInterval(function() {
-				that._fnJobGetScheduled();
-			}, 30000);
+			if (!this._LoadMessageInterval) {
+				this._LoadMessageInterval = setInterval(function() {
+					that._fnJobGetScheduled();
+				}, 30000);
+			}
 		},
 		/** 
 		 * Exit clean up.

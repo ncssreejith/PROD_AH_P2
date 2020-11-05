@@ -23,7 +23,7 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<Button type="Default" text="Back" press="onNavBack"/>
-				<Button type="Emphasized" text="Sign Off" press="onPressSignOffConfirm"/>
+				<Button type="Emphasized" text="Sign Off" press="onPressSignOffConfirm" visible="{= ${oRepDetailsModel>/srv/0/APPRCOUNT}===0}"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>

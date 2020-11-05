@@ -913,6 +913,34 @@ sap.ui.define([
 			sDiff = Math.abs(sCurrentDate - new Date(sDate)) / 36e5;
 			return (sDiff < 10); // + " hrs";
 		},
+		fnEnginEnableChk: function(sSign, sEngId, sResId) {
+			// var sFlag = false;
+			if (sSign) {
+				return false;
+			}
+			if (!sEngId && sResId === "RES_119") {
+				return false;
+			}
+			return true;
+		},
+		serviceIdExist: function(srvId) {
+			if (srvId === "" || srvId === null || srvId === undefined) {
+				return false;
+			}
+			return true;
+		},
+		serviceIdNotExist: function(srvId) {
+			if (srvId === "" || srvId === null || srvId === undefined) {
+				return true;
+			}
+			return false;
+		},
+		srvIdExistEnable: function(srvId) {
+			if (srvId === "" || srvId === null || srvId === undefined) {
+				return true;
+			}
+			return false;
+		},
 		FuelMCState1: function(sValue, iMax) {
 			// if(this.getId() && document.querySelector("#"+this.getId()+" > div > div > div")){
 			// 	document.querySelector("#"+this.getId()+" > div > div > div").textContent="";

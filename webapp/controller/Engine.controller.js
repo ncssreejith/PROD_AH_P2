@@ -517,7 +517,7 @@ sap.ui.define([
 				var oEngineModel = this.getView().getModel("oEngineModel");
 				var oParameter = {};
 				// oParameter.filter = "SN eq " + sSerialNo;
-				oParameter.filter = "CTYPE eq ENGINE and tailid eq " + this.getTailId() + " and SN eq" + sSerialNo;
+				oParameter.filter = "CTYPE eq ENGINE and tailid eq " + this.getTailId() + " and SN eq " + sSerialNo;
 				// oEngineModel.getProperty("/headerDetails/SERIAL");
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {

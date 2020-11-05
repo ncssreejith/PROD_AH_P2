@@ -9,6 +9,9 @@
 			</OverflowToolbar>
 		</headerToolbar>
 		<columns>
+			<Column minScreenWidth="Tablet" width="10%" demandPopin="true" hAlign="Center">
+				<Label text="" design="Bold" wrapping="true"/>
+			</Column>
 			<Column hAlign="Left" width="20%">
 				<Label text="Type" design="Bold"/>
 			</Column>
@@ -16,15 +19,22 @@
 				<Label text="Serviced Amount (L)" design="Bold" wrapping="true"/>
 			</Column>
 			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left"></Column>
+			<Column minScreenWidth="Tablet" width="25%" demandPopin="true" hAlign="Center"></Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="15%"></Column>
 		</columns>
 		<items>
 			<ColumnListItem class="tableTextColor">
 				<cells>
+					<CheckBox select="onSelItem" selected="{= ${oRepDetailsModel>tstat}===1}"
+						editable="{path : 'oRepDetailsModel>/srvid', formatter : '.formatter.srvIdExistEnable'}"
+						enabled="{parts:['oRepDetailsModel>tsign','oRepDetailsModel>engid','oRepDetailsModel>resid'],formatter:'.formatter.fnEnginEnableChk'}"/>
 					<Text text="{oRepDetailsModel>resdescription}"/>
 					<StepInput  value="{oRepDetailsModel>srvamt}" textAlign="Center" step="{path : 'oRepDetailsModel>resdescription', formatter : '.formatter.formatStepOil'}"
 						displayValuePrecision="{path : 'oRepDetailsModel>resdescription', formatter : '.formatter.formatDecimalOil' }" validationMode="onLiveChange"
 						min="0" change="onOilChange" max="{path:'oRepDetailsModel>max',formatter:'.formatter.formatMaxValue'}"
-						description="/ {oRepDetailsModel>max}" fieldGroupIds="fgStep" />
+						description="/ {oRepDetailsModel>max}" fieldGroupIds="fgStep" 
+						
+						editable="{parts:['oRepDetailsModel>tsign','oRepDetailsModel>engid','oRepDetailsModel>resid'],formatter:'.formatter.fnEnginEnableChk'}"/>
 						<HBox>
 							<!--{path:'oRepDetailsModel>upddate',formatter:'avmet.ah.model.formatter.fnDateDiff'}-->
 					<Text  text="{parts:['oRepDetailsModel>hrsince', 'avmetModel>/airutil/COL_13'],formatter:'avmet.ah.model.formatter.fnEngHrsDiff'}"
@@ -37,6 +47,13 @@
 						showCloseButton="false"
 						class="sapUiMediumMarginBegin">
 					</MessageStrip></HBox>
+					<VBox>
+						<MessageStrip text="Engine not installed" type="Error" showIcon="true" showCloseButton="false" class="sapUiTinyMargin"
+							visible="{= ( !${oRepDetailsModel>engid} &amp;&amp; ${oRepDetailsModel>resid} === 'RES_119' &amp;&amp; ${oRepDetailsModel>tsign} === '' ) }"/>
+						<Text visible="{= ${oRepDetailsModel>tsign}!==''}" text="{oRepDetailsModel>tsign}"/>
+					</VBox>
+					<Button text="Undo Sign Off" press="onUndoSignoff" enabled="{path : 'oRepDetailsModel>/srvid', formatter : '.formatter.srvIdExistEnable'}"
+						visible="{= ${oRepDetailsModel>tsign}!=='' }"/>
 				</cells>
 			</ColumnListItem>
 		</items>

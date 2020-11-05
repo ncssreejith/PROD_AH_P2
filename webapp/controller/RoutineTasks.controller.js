@@ -242,7 +242,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-					this._getRTLeadTasks();
+					// this._getRTLeadTasks();
 				}.bind(this);
 				ajaxutil.fnRead("/RT2Svc", oParameter);
 			} catch (e) {
@@ -279,7 +279,7 @@ sap.ui.define([
 					}, "viewModel");
 					this._fnActivate();
 				}.bind(this);
-				ajaxutil.fnRead("/RT3Svc", oParameter);
+				ajaxutil.fnRead("/RT2Svc", oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRTLeadTasks function");
 				this.handleException(e);

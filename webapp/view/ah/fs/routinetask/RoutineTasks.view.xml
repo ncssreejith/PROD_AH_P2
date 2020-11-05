@@ -38,20 +38,3 @@
 	</Page>
 </mvc:View>
 
-
-
-	<!--	<Wizard id="wizard" showNextButton="false"
-				complete="wizardCompletedHandler">
-				<WizardStep  nextStep="TeamLeadSign" validated="true" title="Tradesman Sign Off" activate="test1">
-					<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.RTTradesmanSignOff" type="XML"/>
-				</WizardStep>
-				<WizardStep  nextStep="TFOACheck" validated="true" title="Team Lead Sign Off" activate="test2" >
-					<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.TeamLeadSignOff" type="XML"/>
-				</WizardStep>
-				<WizardStep  validated="true" title="TFOA Check" activate="test3">
-					<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.TOAFCheck" type="XML"/>
-				</WizardStep>
-				<WizardStep validated="true" title="Tools Check" activate="test4">
-					<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.ToolsCheck" type="XML"/>
-				</WizardStep>
-			</Wizard>-->
