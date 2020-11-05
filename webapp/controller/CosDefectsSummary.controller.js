@@ -1669,7 +1669,7 @@ sap.ui.define([
 						that.getView().setModel(oModel, "JobModel");
 						this._fnEditRectButtonVisibility();
 					}
-					//that._fnTailStatusGet(that.getTailId());
+					that._fnTailStatusGet(that.getTailId());
 					oViewModel.refresh(true);
 					oSummaryModel.refresh(true);
 					that.fnLoadSrv1Dashboard();
@@ -5005,7 +5005,7 @@ sap.ui.define([
 				Log.error("Exception in CosDefectsSummary:_handleRouteMatched function");
 				this.handleException(e);
 			}
-		},
+		}
 
 	});
 });
