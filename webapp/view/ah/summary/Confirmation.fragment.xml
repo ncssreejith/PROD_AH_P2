@@ -67,6 +67,18 @@
 										<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')"/>
 									</HBox>
 								</Column>
+								<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+									<HBox>
+										<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+										<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SG1USR')"/>
+									</HBox>
+								</Column>
+								<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+									<HBox>
+										<Label text="{i18n>lbSuperviosr}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+										<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SG2USR')"/>
+									</HBox>
+								</Column>
 							</columns>
 							<items >
 								<ColumnListItem unread="true" type="{LocalModel>type}">
@@ -75,6 +87,8 @@
 										<Text text="{parts:[{path:'LocalModel>wrctr'},{path:'CreatedWorkCenterModel>/'}], formatter:'.formatter.taskWorkCenterText'}"/>
 										<Text text="{LocalModel>tdesc}"/>
 										<Text text="{LocalModel>ftdesc}"/>
+										<Text text="{LocalModel>SG1USR}"/>
+										<Text text="{LocalModel>SG2USR}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
