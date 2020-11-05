@@ -1880,7 +1880,7 @@ sap.ui.define([
 		// Description: This will get called, when to update Job statis FAIR to database.
 		//Table: JOB, TAIL
 		//------------------------------------------------------------------
-		_fnUpdateFAIRJob: function(oFlag) {
+		_fnUpdateFAIRJob: function(oFlag, sText) {
 			try {
 				var that = this,
 					oObjectId,
@@ -1905,6 +1905,7 @@ sap.ui.define([
 						oPayload.factby = null;
 						oPayload.factdtm = null;
 						oPayload.factuzt = null;
+						oPayload.FAIRNR = sText;
 						break;
 					case "U":
 						oPayload.fstatflag = "U";
@@ -2721,7 +2722,8 @@ sap.ui.define([
 							}, true);
 							break;
 						case "Declare FAIR":
-							that._fnUpdateFAIRJob("A");
+							that._fnOpenFAIRNum();
+							//that._fnUpdateFAIRJob("A");
 							break;
 						case "Undo FAIR":
 							that._fnUpdateFAIRJob("U");
@@ -2748,6 +2750,63 @@ sap.ui.define([
 			}
 
 		},
+		
+		/* Function: _fnOpenFAIRNum
+		 * Parameter: 
+		 * Description: Function to open fragment to update fair no
+		 */
+		_fnOpenFAIRNum: function() {
+			try {
+				if (!this._oFairNum) {
+					this._oFairNum = sap.ui.xmlfragment(this.createId("idFairNum"),
+						"avmet.ah.fragments.AddFAIRNum",
+						this);
+					this.getView().addDependent(this._oFairNum);
+				}
+				this._oFairNum.open(this);
+			} catch (e) {
+				Log.error("Exception in _fnOpenFAIRNum function");
+			}
+
+		},
+
+		/* Function: onFairNumCancel
+		 * Parameter: 
+		 * Description: Function to close fragment for FAIR no
+		 */
+		onFairNumCancel: function() {
+			try {
+				if (this._oFairNum) {
+					this._oFairNum.close(this);
+					this._oFairNum.destroy();
+					delete this._oFairNum;
+				}
+			} catch (e) {
+				Log.error("Exception in onFairNumCancel function");
+			}
+		},
+
+		/* Function: onFairNumUpdate
+		 * Parameter: 
+		 * Description: Function to update fair no
+		 */
+		onFairNumUpdate: function() {
+			try {
+				var oInput = this.getView().byId(sap.ui.core.Fragment.createId("idFairNum", "ipFairNumber"));
+				var sText = oInput.getValue();
+				if (!sText || sText.length === 0) {
+					oInput.setValueState("Error");
+					oInput.setValueStateText("Fill in the mandatory field");
+				} else {
+					oInput.setValueState("None");
+					this._fnUpdateFAIRJob("A", sText);
+					this.onFairNumCancel();
+				}
+			} catch (e) {
+				Log.error("Exception in onFairNumUpdate function");
+			}
+		},
+		
 		/* Function: onRaiseScheduleConcession
 		 * Parameter: 
 		 * Description: Function call when user click raise schedule concession add in managed job

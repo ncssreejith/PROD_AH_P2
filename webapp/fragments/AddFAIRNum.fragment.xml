@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog showHeader="false" contentHeight="auto" contentWidth="30%">
+		<VBox class="sapUiSmallMargin">
+			<Label text="Enter Fair Number" design="Bold" wrapping="true" class="sapUiTinyMarginTop sapUiTinyMarginEnd" width="13rem"></Label>
+			<Input id="ipFairNumber" required="true" maxLength="20" fieldGroupIds="fgInput"></Input>
+		</VBox>
+		<buttons>
+			<Button text="Cancel" press="onFairNumCancel" type="Reject"/>
+			<Button text="Update" press="onFairNumUpdate" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
