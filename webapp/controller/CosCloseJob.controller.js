@@ -907,6 +907,16 @@ sap.ui.define([
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TUserJobModel");
+					var aResults = oData.results;
+					var sTrads = "";
+					for (var i in aResults) {
+						if (parseInt(i,10) === 0){
+							sTrads = aResults[i].usrid;
+						} else {
+							sTrads = sTrads + ", " + aResults[i].usrid;            
+						}
+					}
+					that.getModel("TUserJobModel").setProperty("/sTrads",sTrads);
 				}.bind(this);
 				ajaxutil.fnRead("/CreTuserSvc", oPrmTD);
 			} catch (e) {

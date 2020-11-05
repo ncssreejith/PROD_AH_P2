@@ -19,9 +19,10 @@
 						</VBox>
 						<HBox class="sapUiTinyMargin" wrap="Wrap">
 							<Label text="Tradesman :" design="Bold" class="sapUiTinyMargin"/>
-							<FlexBox items="{TUserJobModel>/}" renderType="Bare" class="sapUiTinyMargin">
-								<Text text="{TUserJobModel>usrid}, " design="Bold" class="sapUiTinyMarginBegin"/>
-							</FlexBox>
+							<!--<FlexBox items="{TUserJobModel>/}" renderType="Bare" class="sapUiTinyMargin">-->
+							<!--	<Text text="{TUserJobModel>usrid} ," design="Bold" class="sapUiTinyMarginBegin"/>-->
+							<!--</FlexBox>-->
+								<Text text="{TUserJobModel>/sTrads}" design="Bold" class="sapUiTinyMarginBegin sapUiTinyMarginTop"/>
 						</HBox>
 						<layoutData>
 							<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
