@@ -279,9 +279,10 @@
 										</HBox>
 										<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTop">
 											<Label text="Others :" design="Bold" class="sapUiSmallMarginBegin sapUiTinyMaginBottom"/>
-											<FlexBox items="{TUserModel>/}" renderType="Bare">
-												<Label text="{TUserModel>usrid} ;" design="Bold" class="sapUiTinyMarginBegin"/>
-											</FlexBox>
+											<!--<FlexBox items="{TUserModel>/}" renderType="Bare">-->
+											<!--	<Label text="{TUserModel>usrid} ;" design="Bold" class="sapUiTinyMarginBegin"/>-->
+											<!--</FlexBox>-->
+											<Label text="{TUserModel>/sTrads}" design="Bold" class="sapUiTinyMarginBegin"/>
 										</HBox>
 									</HBox>
 									<MessageStrip class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" type="Warning" showIcon="true" text='Pending Supervisor Sign Off'>
