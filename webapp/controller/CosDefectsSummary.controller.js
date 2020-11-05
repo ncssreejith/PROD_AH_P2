@@ -1661,7 +1661,7 @@ sap.ui.define([
 							}
 						}
 						if (oData.results[0].jstat === "X") {
-							oViewModel.setProperty("/JobStatus", false);
+							oViewModel.setProperty("/sFlag", "N");
 							oViewModel.refresh(true);
 						}
 
@@ -2750,7 +2750,7 @@ sap.ui.define([
 			}
 
 		},
-		
+
 		/* Function: _fnOpenFAIRNum
 		 * Parameter: 
 		 * Description: Function to open fragment to update fair no
@@ -2806,7 +2806,7 @@ sap.ui.define([
 				Log.error("Exception in onFairNumUpdate function");
 			}
 		},
-		
+
 		/* Function: onRaiseScheduleConcession
 		 * Parameter: 
 		 * Description: Function call when user click raise schedule concession add in managed job

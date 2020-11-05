@@ -48,7 +48,7 @@
 						<l:content>-->
 							<FlexBox>
 								<items>
-									<Text text="{JobModel>/jobdesc}" width="26%" wrapping="true">
+									<Text text="{JobModel>/jobdesc}" wrapping="true">
 										<layoutData>
 											<FlexItemData growFactor="1" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
 										</layoutData>
@@ -93,7 +93,7 @@
 													<TimePicker id="TP1" required="true" fieldGroupIds="fgTime" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/etrtm}" width="5.4rem"
 														valueFormat="HH:mm" displayFormat="HH:mm" change="handleChangeEtr"
 														enabled="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}" editable="{LocalModel>/FairEditFlag}"/>
-													<Button type="Transparent" icon="sap-icon://save" press="_fnUpdateJob"/>
+													<Button type="Transparent" icon="sap-icon://save" press="_fnUpdateJob" visible="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}"/>
 												</HBox>
 											</HBox>
 											<HBox visible="{=${JobModel>/fstat}!=='' &amp;&amp; ${JobModel>/fstat}!==undefined ? true :false}" class="sapUiTinyMarginTop">

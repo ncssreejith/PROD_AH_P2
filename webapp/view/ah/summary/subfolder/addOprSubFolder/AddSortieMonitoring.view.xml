@@ -12,13 +12,13 @@
 					<VBox>
 						<VBox>
 							<Label text="{i18n>lbDate}" design="Bold"/>
-							<DatePicker valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
+							<DatePicker id="DP1" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
 								value="{path: 'SortieMonitoringModel>/header/ddt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 								width="13rem" placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 						</VBox>
 						<VBox>
 							<Label text="{i18n>lbTime}" design="Bold"/>
-							<TimePicker value="{SortieMonitoringModel>/header/tme}" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgTime"
+							<TimePicker id="TP1" value="{SortieMonitoringModel>/header/tme}" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgTime"
 								width="13rem" valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" placeholder="Creation time..."/>
 						</VBox>
 						<layoutData>
