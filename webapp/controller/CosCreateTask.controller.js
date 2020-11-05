@@ -90,7 +90,7 @@ sap.ui.define([
 				that.getRouter().getRoute("RouteCreateTask").attachPatternMatched(that._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onInit function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -280,7 +280,7 @@ sap.ui.define([
 				that._fnCreateTask(oPayLoad);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSubmit function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -303,7 +303,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetTaskRefSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -331,7 +331,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetMainTaskDropDown function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -359,7 +359,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskDropDown function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -387,7 +387,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskDescDropDown function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -414,7 +414,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskTT310DropDown function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -441,7 +441,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskTT311DropDown function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -459,7 +459,7 @@ sap.ui.define([
 				this.getOwnerComponent().getRouter().navTo("RouteDefectSummaryADD", {}, true);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onNavToDefectSummaryADD function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -504,7 +504,7 @@ sap.ui.define([
 				oCreateTaskModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onTaskTypeChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -551,7 +551,7 @@ sap.ui.define([
 				//oCreateTaskModel.setProperty("/sSymbol", "0");
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_ResetTaskType function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -567,7 +567,7 @@ sap.ui.define([
 				//	oCreateTaskModel.setProperty("/sSymbol", sSelectedKey);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSegmentOtherSelected function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -609,7 +609,7 @@ sap.ui.define([
 				oCreateTaskModel.setProperty("/sTaskText", oEvent.getSource().getSelectedItem().getText());
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onRemoveInstallTaskChange function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onSelectionTaskTypeChange
@@ -627,7 +627,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onRemoveInstallTaskChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -659,7 +659,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onTypeDescChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -686,7 +686,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onOpenForAccessChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -716,7 +716,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onRemoveForAccessChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -744,11 +744,11 @@ sap.ui.define([
 					oCreateTaskModel.setProperty("/sTaskType", "");
 					this._ResetTaskType();
 				} catch (e) {
-					this.handleException(e);
+						Log.error("Exception in CosCreateTask:onAddTaskPress inner function");
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onAddTaskPress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -772,7 +772,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onCancelCreateTaskPress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -938,7 +938,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onCreateTaskPress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1009,7 +1009,7 @@ sap.ui.define([
 					that._oDialog = that.createoDialog(that, "ADDCreateTask", "CreateTask");
 					that._oDialog.open();
 				} catch (e) {
-					this.handleException(e);
+					Log.error("Exception in CosCreateTask:onEditTaskPress inner function");
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onEditTaskPress function");

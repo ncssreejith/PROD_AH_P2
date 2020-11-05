@@ -91,7 +91,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetSerNoSvc", oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:getSerialNoPress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -114,7 +114,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:_fnWorkCenterGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -171,7 +171,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetrTaskSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:fnLoadTask function");
-				this.handleException(e);
+				
 			}
 		},
 		// ***************************************************************************
@@ -196,7 +196,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onTemplateChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -211,7 +211,7 @@ sap.ui.define([
 				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:handleChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -224,7 +224,7 @@ sap.ui.define([
 				this.fnLoadTask("TM");
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onTemplateApply function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -382,7 +382,7 @@ sap.ui.define([
 				ajaxutil.fnCreate("/TaskSvc", oParameter, oPayloads, "ZRM_COS_TP", this);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onApplySelection function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -416,7 +416,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onSerialNumPress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -433,7 +433,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onSerialNumClose function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -452,7 +452,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onTypePartChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -471,7 +471,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onTypeSRChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -496,7 +496,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onWorkCenterChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -513,7 +513,7 @@ sap.ui.define([
 				this.getModel("applTmplModel").refresh();
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onWorkCenterTempChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -557,7 +557,7 @@ sap.ui.define([
 				that.onSerialNumClose();
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onSerialNumUpdatePress function");
-				this.handleException(e);
+				
 			}
 		},
 		// ***************************************************************************
@@ -624,7 +624,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:_onObjectMatched function");
-				this.handleException(e);
+				
 			}
 		}
 

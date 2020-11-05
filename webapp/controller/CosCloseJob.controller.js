@@ -49,7 +49,7 @@ sap.ui.define([
 				this.getRouter().getRoute("CosCloseJob").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onInit function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -65,7 +65,7 @@ sap.ui.define([
 				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCloseJobPast", "errorCloseJobFuture", aData.backDt, aData.backTm);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:handleChange function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -104,7 +104,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/TaskSvc", oPrmTask);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onWorkCenterSelect function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -132,7 +132,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/TaskSvc", oPrmTask);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onRectificationSelectTask function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -180,7 +180,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onUpdateTask function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -300,7 +300,7 @@ sap.ui.define([
 				ajaxutil.fnUpdate("/DefectJobSvc", oPrmTask, [oPayload], sObject, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onSignOff function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -358,7 +358,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnJobDetailsGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -380,7 +380,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetJobTaskstatSvc", oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnTaskStatusGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -404,7 +404,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnWorkCenterGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -430,7 +430,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnGetUtilisation function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -454,7 +454,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/DefectWorkcenterSvc", oPrmWorkCenter);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnCreatedWorkCenterGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -477,7 +477,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDueGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -510,7 +510,7 @@ sap.ui.define([
 				ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:ESJobCreate function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -528,7 +528,7 @@ sap.ui.define([
 				oModel.setProperty("/selectedIcon", this.selectedTab);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onIconSelected function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -607,7 +607,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onSelectTaskList function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -647,7 +647,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnValidateTime function");
-				this.handleException(e);
+				
 			}
 
 		},
@@ -684,7 +684,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnValidateCreationDateTime function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -730,7 +730,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onProceed function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -759,7 +759,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onBack function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -785,7 +785,7 @@ sap.ui.define([
 				this.byId("pageCloseId").scrollTo(0);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnBackBtnPress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -813,7 +813,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onDueSelectChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -841,7 +841,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onDueSelectChangeES function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -865,7 +865,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onUpdateFinishedTB function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -887,7 +887,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnGetDateValidation function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -922,7 +922,7 @@ sap.ui.define([
 			} catch (e) {
 
 				Log.error("Exception in CosCloseJob:_fnMultiTradmanJobGet function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -985,7 +985,7 @@ sap.ui.define([
 				this._fnGetDateValidation(sJobId);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_onObjectMatched function");
-				this.handleException(e);
+				
 			}
 		}
 

@@ -299,7 +299,7 @@ sap.ui.define([
 				oViewLimitModel.setProperty("/bAddLimitationBtn", false);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onAddLimitaionPress function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -311,7 +311,7 @@ sap.ui.define([
 				this.getModel("CapExtendSet").setProperty("/LDESC", null);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onRemoveLimitaionPress function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -549,7 +549,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -992,7 +992,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetAddCountSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
-				this.handleException(e);
+				
 			}
 		},
 

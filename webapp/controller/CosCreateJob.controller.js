@@ -74,7 +74,7 @@ sap.ui.define([
 				this.getRouter().getRoute("CosCreateJob").attachPatternMatched(this._handleRouteMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onInit function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onAfterRendering
@@ -213,7 +213,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onCreateJob function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onESJobCreate
@@ -330,7 +330,7 @@ sap.ui.define([
 				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnUpdateJob function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -345,7 +345,7 @@ sap.ui.define([
 				oCreateJobLocalModel.CreateJob.ScheJobDesc = sValue;
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onScheduledJobDescChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -389,7 +389,7 @@ sap.ui.define([
 				ajaxutil.fnCreate("/DefectMarkSvc", oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnCreateMark function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -435,7 +435,7 @@ sap.ui.define([
 				ajaxutil.fnUpdate("/DefectMarkSvc", oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnUpdateMark function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -476,7 +476,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/DefectMarkSvc", oPrmMark);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnGetMark function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -501,7 +501,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnPhotoUploadGet function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -526,7 +526,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDueGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnGetUtilisation
@@ -573,7 +573,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnWorkCenterGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -605,7 +605,7 @@ sap.ui.define([
 				ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterCreate function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -637,7 +637,7 @@ sap.ui.define([
 				ajaxutil.fnUpdate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterUpdate function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -707,7 +707,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDetailsGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnGetDateValidation
@@ -787,7 +787,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnRenderImage function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -810,7 +810,7 @@ sap.ui.define([
 				ctx.fill();
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:drawCoordinates function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -838,7 +838,7 @@ sap.ui.define([
 				context.restore();
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:drawTextAlongArc function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -856,7 +856,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:removeCoordinates function");
-				this.handleException(e);
+				
 			}
 		},
 		// Function: onRefersh
@@ -884,7 +884,7 @@ sap.ui.define([
 				sRootPath = jQuery.sap.getModulePath("avmet.ah");
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onRefersh function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: handleChangeSche
@@ -1030,7 +1030,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:getPointPosition function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1051,7 +1051,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:handleLiveChangeRemarks function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1100,7 +1100,7 @@ sap.ui.define([
 				FieldValidations.resetErrorStates(this);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onSelectionNatureofJobChange function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1171,7 +1171,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onSelectionDefectAreaChange function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnRestMarkArea
@@ -1188,7 +1188,7 @@ sap.ui.define([
 				this.getView().getModel("appModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnRestMarkArea function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1298,7 +1298,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onDueSelectChange function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onStepChangeSchedule
@@ -1382,7 +1382,7 @@ sap.ui.define([
 				this.getView().getModel("oViewCreateModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onSymbolChange function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1402,7 +1402,7 @@ sap.ui.define([
 				this.getView().getModel("oViewCreateModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onFoundDuringChange function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1438,7 +1438,7 @@ sap.ui.define([
 				this.getView().getModel("CreateJobLocalModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onAddMinusPress function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1506,7 +1506,7 @@ sap.ui.define([
 				this._fnFoundDuringGet();
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_handleRouteMatched function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnSetInitialModel

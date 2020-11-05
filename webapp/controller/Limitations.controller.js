@@ -57,7 +57,7 @@ sap.ui.define([
 				this.getRouter().getRoute("Limitations").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in Limitations:onInit function");
-				this.handleException(e);
+				
 			}
 		},
 		//-------------------------------------------------------------
@@ -163,7 +163,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetAddLimitationsSvc", oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnADDGet function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -191,7 +191,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetAddLimitationsSvc", oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnLimitationsGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnLimitationsCompleteGet
@@ -216,7 +216,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetAddLimitationsSvc", oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnLimitationsCompleteGet function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -246,7 +246,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in Limitations:onADDPress function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onLimitationPress
@@ -271,7 +271,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in Limitations:onLimitationPress function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onCompletePress
@@ -296,7 +296,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in Limitations:onCompletePress function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onAddFlyingRequirements
@@ -358,7 +358,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in Limitations:drawCoordinates function");
-				this.handleException(e);
+				
 			}
 
 		},
@@ -424,7 +424,7 @@ sap.ui.define([
 				}, 500);
 			} catch (e) {
 				Log.error("Exception in Limitations:onSelectionDefectAreaChange function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: resetCanvas
@@ -480,7 +480,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in Limitations:_onObjectMatched function");
-				this.handleException(e);
+				
 			}
 		}
 	});

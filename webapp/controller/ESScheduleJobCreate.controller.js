@@ -96,7 +96,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in ESScheduleJobCreate:_fnJobDueGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnGetUtilisation

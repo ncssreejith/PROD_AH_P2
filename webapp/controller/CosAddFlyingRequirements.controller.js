@@ -29,7 +29,7 @@ sap.ui.define([
 				this.getRouter().getRoute("CosAddFlyingRequirements").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onInit function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -57,7 +57,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:handleLiveChangeFlyingRequirements function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -101,7 +101,7 @@ sap.ui.define([
 				this.getView().getModel("FlyingRequirementsModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onAddFlyingRequirements function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -117,7 +117,7 @@ sap.ui.define([
 				this.getView().getModel("FlyingRequirementsModel").refresh(true);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onDeletePress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -133,7 +133,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:handleChange function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -225,7 +225,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/FlyingRequirementSvc", oPrmFR);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:_fnFlyingRequirementsGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -281,7 +281,7 @@ sap.ui.define([
 				ajaxutil.fnCreate("/FlyingRequirementSvc", oPrmFL, oPayload, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onSubmitFlyingRequirements function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------

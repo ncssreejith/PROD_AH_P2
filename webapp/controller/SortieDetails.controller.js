@@ -33,7 +33,7 @@ sap.ui.define([
 				this.getRouter().getRoute("SortieDetails").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:onInit function");
-				this.handleException(e);
+				
 			}
 
 		},
@@ -42,7 +42,7 @@ sap.ui.define([
 				this.getRouter().navTo("SortieMonitoring");
 			} catch (e) {
 				Log.error("Exception in SortieDetails:onNavBackSortie function");
-				this.handleException(e);
+				
 			}
 		},
 		// ***************************************************************************
@@ -64,7 +64,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetSortiAISvc", oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:_fnSortieMonitoringHeaderGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//-------------------------------------------------------------
@@ -86,7 +86,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetSortiAISvc", oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:_fnSortieMonitoringDetailsGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//-------------------------------------------------------------
@@ -100,7 +100,7 @@ sap.ui.define([
 				this._fnSortieMonitoringDetailsGet(sJobId, sSORNO);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:_onObjectMatched function");
-				this.handleException(e);
+				
 			}
 		}
 

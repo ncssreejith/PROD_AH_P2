@@ -49,7 +49,7 @@ sap.ui.define([
 				that.getView().setModel(new JSONModel(oSortiData), "SortieMonitoringModel");
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:onInit function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -78,7 +78,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:handleLiveChangeSorteiMonitoring function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -100,7 +100,7 @@ sap.ui.define([
 				that.getModel("SortieMonitoringModel").refresh();
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:onAddSorteiMonitoring function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -117,7 +117,7 @@ sap.ui.define([
 				that.getView().getModel("SortieMonitoringModel").refresh(true);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:onDeletePress function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -160,7 +160,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:onSortiesNoChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -176,7 +176,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:handleChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -194,7 +194,7 @@ sap.ui.define([
 				that.fnCreateSorti();
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:onSubmitSortieMonitoring function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -218,7 +218,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/SortieMonSvc", oPrmFR);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_fnSortieMonitoringGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -244,7 +244,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmFND);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_fnMonitoredForGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -295,7 +295,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmFND);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_fnGetOperationType function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -360,7 +360,7 @@ sap.ui.define([
 				FieldValidations.resetErrorStates(this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_onObjectMatched function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -444,7 +444,7 @@ sap.ui.define([
 				ajaxutil.fnCreate("/SortieMonSvc", oParameter, oPayloads, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:fnCreateSorti function");
-				this.handleException(e);
+				
 			}
 		}
 	});

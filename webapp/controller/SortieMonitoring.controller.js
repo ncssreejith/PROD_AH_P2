@@ -36,7 +36,7 @@ sap.ui.define([
 				this.getRouter().getRoute("SortieMonitoring").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in SortieMonitoring:onInit function");
-				this.handleException(e);
+				
 			}
 
 		},
@@ -52,7 +52,7 @@ sap.ui.define([
 				});
 			} catch (e) {
 				Log.error("Exception in SortieMonitoring:onClickSortieDetails function");
-				this.handleException(e);
+				
 			}
 		},
 		// ***************************************************************************
@@ -81,7 +81,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetSortiAISvc", oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieMonitoring:_fnSortieMonitoringMasterGet function");
-				this.handleException(e);
+				
 			}
 		},
 		// ***************************************************************************
@@ -92,7 +92,7 @@ sap.ui.define([
 				this._fnSortieMonitoringMasterGet();
 			} catch (e) {
 				Log.error("Exception in SortieMonitoring:_onObjectMatched function");
-				this.handleException(e);
+				
 			}
 		}
 

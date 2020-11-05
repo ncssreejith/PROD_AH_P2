@@ -120,7 +120,7 @@ sap.ui.define([
 				});
 				this.getView().setModel(oLocalModel, "LocalModel");
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onInit function");
 			}
 		},
 
@@ -147,7 +147,7 @@ sap.ui.define([
 				ajaxutil.fnDelete(sPath, oParameter, "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in _fnDeleteScheduleJob function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnGetUtilisation

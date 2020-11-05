@@ -66,7 +66,7 @@ sap.ui.define([
 				this.getRouter().getRoute("LimitationsOverView").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onInit function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -102,7 +102,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/ADDOVERVIEWSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnCAPDataGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: CAPDataUpdate
@@ -145,7 +145,7 @@ sap.ui.define([
 				ajaxutil.fnUpdate("/ADDOVERVIEWSvc", oPrmJobDue, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:CAPDataUpdate function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onStartRect
@@ -199,7 +199,7 @@ sap.ui.define([
 				ajaxutil.fnUpdate("/StartRectificSvc", oParameter, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onStartRect function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: Parameter_fnADDCapDataGet
@@ -249,7 +249,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/ADDOVERVIEWSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnADDCapDataGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnGetMark
@@ -293,7 +293,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/DefectMarkSvc", oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnGetMark function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnADDCapDataMultipleGet
@@ -322,7 +322,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/ADDOVERVIEWSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnADDCapDataMultipleGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnReasonforADDGet
@@ -350,7 +350,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnReasonforADDGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnPerioOfDeferCBGet
@@ -380,7 +380,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnPerioOfDeferCBGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnUtilizationGet
@@ -409,7 +409,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnUtilizationGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnUtilization2Get
@@ -438,7 +438,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnGetUtilisationDefaultVal
@@ -499,7 +499,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onMangeAdd function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onOpenMangeLimitaionDialog
@@ -530,7 +530,7 @@ sap.ui.define([
 				this._fnUtilization2Get();
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onOpenMangeLimitaionDialog function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onCloseMangeLimitaionDialog
@@ -547,7 +547,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onCloseMangeLimitaionDialog function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -585,7 +585,7 @@ sap.ui.define([
 				}, 500);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onSelectionDefectAreaChange function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -609,7 +609,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnRenderImage function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -636,7 +636,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:drawCoordinates function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onUpdateADD
@@ -751,7 +751,7 @@ sap.ui.define([
 				//this._fnADDCapDataMultipleGet("E", sJob, sCAP);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_onObjectMatched function");
-				this.handleException(e);
+				
 			}
 		}
 	});

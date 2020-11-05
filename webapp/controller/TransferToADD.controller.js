@@ -63,7 +63,7 @@ sap.ui.define([
 				this.getRouter().getRoute("RouteTransferToADD").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onInit function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -95,7 +95,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnReasonforADDGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnUtilizationGet
@@ -123,7 +123,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilizationGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnGetUtilisationDefaultValue
@@ -177,7 +177,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetAddCountSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnUtilization2Get
@@ -206,7 +206,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnPerioOfDeferCBGet
@@ -235,7 +235,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnPerioOfDeferCBGet function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -262,7 +262,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/ADDSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCapDataGet function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: _fnGetDateValidation
@@ -365,7 +365,7 @@ sap.ui.define([
 				this._fnGetDateValidation(sJobId);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_onObjectMatched function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -380,7 +380,7 @@ sap.ui.define([
 				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateADDpast", "errorCreateADDfuture", prevDt, prevTime);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onInit function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: handleChangeExpiry
@@ -394,7 +394,7 @@ sap.ui.define([
 				return formatter.validDateTimeChecker(this, "DP2", "TP2", "errorADDexpiryDatePast", "", prevDt, prevTime, false);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onInit function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onReasonForADDChange
@@ -427,7 +427,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onReasonForADDChange function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onPrdOfDefermentChange
@@ -450,7 +450,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onPrdOfDefermentChange function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onReasonTypeChange
@@ -494,7 +494,7 @@ sap.ui.define([
 				//oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onReasonTypeChange function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onUilisationChange
@@ -539,7 +539,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onUilisationChange function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onAddLimitaionPress
@@ -555,7 +555,7 @@ sap.ui.define([
 				oViewModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onAddLimitaionPress function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onRemoveLimitaionPress
@@ -572,7 +572,7 @@ sap.ui.define([
 				oViewModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onRemoveLimitaionPress function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onNavToDefectSummaryADD
@@ -584,7 +584,7 @@ sap.ui.define([
 				this.getOwnerComponent().getRouter().navTo("RouteDefectSummaryADD");
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onNavToDefectSummaryADD function");
-				this.handleException(e);
+				
 			}
 		},
 		/* Function: onSubmitTransferJobAdd
@@ -671,7 +671,7 @@ sap.ui.define([
 				ajaxutil.fnCreate("/ADDSvc", oParameter, [oPayLoad], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onSubmitTransferJobAdd function");
-				this.handleException(e);
+				
 			}
 		},
 

@@ -93,7 +93,7 @@ sap.ui.define([
 				this.getRouter().getRoute("CosCloseTask").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onInit function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -109,7 +109,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onExit function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -123,7 +123,7 @@ sap.ui.define([
 				this._fnTasksGet(oViewModel.getProperty("/TaskId"));
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onRefresh function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -150,7 +150,7 @@ sap.ui.define([
 				return formatter.validDateTimeChecker(this, dpId, tpId, "errorCloseTaskPast", "errorCloseTaskFuture", prevDt, prevTime);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:handleChange function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -189,7 +189,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetTaskRefSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -223,7 +223,7 @@ sap.ui.define([
 				ajaxutil.fnCreate("/CreTuserSvc", oPrmTD, oPayLoad);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnMultiTradmanCreate function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -307,7 +307,7 @@ sap.ui.define([
 				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, oPayload, sObject, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onSignOff function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -329,7 +329,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnUpdateLimitations function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -406,7 +406,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetAddCountSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnADDCountGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -446,7 +446,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetSerNoSvc", oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:getSerialNoPress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -474,7 +474,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnUtilizationGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -501,7 +501,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnGetUtilisationDefaultVal function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -528,7 +528,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnReasonforADDGet function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -553,7 +553,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnUtilization2Get function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -581,7 +581,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnPerioOfDeferCBGet function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -616,7 +616,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnTasksADDGet function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -695,7 +695,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnTasksGet function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -718,7 +718,7 @@ sap.ui.define([
 				ajaxutil.fnRead("/LandingTyreSvc", oPrmTask, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnCheckLandingTyre function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -742,7 +742,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onSegmentedButtonSelection function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -764,7 +764,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onIconSelected function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -826,7 +826,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onProceed function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -845,7 +845,7 @@ sap.ui.define([
 				this.getView().getModel("ViewModel").setProperty("/tradesManTable", oModel);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onAddTradesMan function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -878,7 +878,7 @@ sap.ui.define([
 				that._fnMultiTradmanCreate(oTempPay);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnCreateMultiTradesmenPayload function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -895,7 +895,7 @@ sap.ui.define([
 				this.getView().getModel("ViewModel").refresh(true);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onDeleteTradesMan function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -919,7 +919,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onIconTabSelection function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -936,7 +936,7 @@ sap.ui.define([
 				oModel.setProperty("/backBtn", false);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onBack function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -959,7 +959,7 @@ sap.ui.define([
 				oModel.setProperty("/DEFPD", sSelectedKey);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onPrdOfDefermentChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -990,7 +990,7 @@ sap.ui.define([
 				oModel.setProperty("/CPRID", sSelectedKey);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onReasonForADDChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1076,7 +1076,7 @@ sap.ui.define([
 				oModel.setProperty("/UTIL1", sSelectedKey);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onUilisationChange function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1091,7 +1091,7 @@ sap.ui.define([
 				oViewLimitModel.setProperty("/bAddLimitationBtn", false);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onAddLimitaionPress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1107,7 +1107,7 @@ sap.ui.define([
 				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", "");
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onRemoveLimitaionPress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1123,7 +1123,7 @@ sap.ui.define([
 				oModel.refresh();
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onEnterToTheErrorPress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1165,7 +1165,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onAddLimitaionDialog function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1186,7 +1186,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onCloseAddLimDialog function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1221,7 +1221,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onAddADDDialog function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1245,7 +1245,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onCloseADDDialog function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1261,7 +1261,7 @@ sap.ui.define([
 				this.handleChange(oEvent);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onTimeChange function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1289,7 +1289,7 @@ sap.ui.define([
 				this.getModel("oViewGlobalModel").setProperty("/FLAG_JT", "T");
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnCreateLimitation function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1391,7 +1391,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onCreateLimitationPress function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1414,7 +1414,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onTypeChangeOther function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1435,7 +1435,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onTypeChangeOPS function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1586,7 +1586,7 @@ sap.ui.define([
 				//that._fnInitialLoad();
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_onObjectMatched function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1628,7 +1628,7 @@ sap.ui.define([
 				this.byId("pageCloseTaskId").scrollTo(0);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnCreateTempTaskModel function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1645,7 +1645,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnCheckTaskType function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1674,7 +1674,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnGetLandingTyre function");
-				this.handleException(e);
+				
 			}
 		},
 
@@ -1708,7 +1708,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnOpenLandingTyreBox function");
-				this.handleException(e);
+				
 			}
 
 		},
@@ -1726,7 +1726,7 @@ sap.ui.define([
 				this.getModel("LandingTyreModel").setProperty(sPath + "/LNDPIN", sText);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onLandingTyreValChange function");
-				this.handleException(e);
+				
 			}
 
 		},
@@ -1751,7 +1751,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onLandingTyreUpdate function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1783,7 +1783,7 @@ sap.ui.define([
 				oModel.refresh(true);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnInitialLoad function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
@@ -1797,7 +1797,7 @@ sap.ui.define([
 				this.getView().getModel("ViewModel").setProperty("/bLiveChnage", false);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onChangeData function");
-				this.handleException(e);
+				
 			}
 		},
 		//------------------------------------------------------------------
