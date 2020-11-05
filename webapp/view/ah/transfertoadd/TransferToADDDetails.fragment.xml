@@ -32,13 +32,13 @@
 					<VBox class="bgColorWhiteWithRightBorder sapUiSmallMarginBegin sapUiSmallMarginTopBottom" width="30%">
 						<VBox>
 							<Label design="Bold" text="Expiry Date" width="150px"/>
-							<DatePicker id="DP2" change="handleChangeExpiry"
+							<DatePicker id="DP1" change="handleChange"
 								value="{path: 'oViewGlobalModel>/EXPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
 								width="200px" fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}"/>
 						</VBox>
-						<VBox class="sapUiSmallMarginBegin">
+						<VBox class="sapUiSmallMarginTop">
 							<Label design="Bold" text="Time" width="150px"/>
-							<TimePicker id="TP2" change="handleChangeExpiry" width="200px" value="{oViewGlobalModel>/EXPTM}" valueFormat="HH:mm" displayFormat="HH:mm"
+							<TimePicker id="TP1" change="handleChange" width="200px" value="{oViewGlobalModel>/EXPTM}" valueFormat="HH:mm" displayFormat="HH:mm"
 								fieldGroupIds="fgTime" required="{oViewModel>/bDateSection}"/>
 						</VBox>
 					</VBox>
@@ -101,13 +101,13 @@
 						<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewModel>/bDateSection}">
 							<VBox>
 								<Label design="Bold" text="Expiry Date" width="150px"/>
-								<DatePicker
+								<DatePicker id="DP2" change="handleChangeExpiry"
 									value="{path: 'oViewGlobalModel>/EXPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 									width="200px" fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}" minDate="{oViewModel>/DatePrev}"/>
 							</VBox>
 							<VBox class="sapUiSmallMarginBegin">
 								<Label design="Bold" text="Time" width="150px"/>
-								<TimePicker width="200px" value="{oViewGlobalModel>/EXPTM}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime"
+								<TimePicker id="TP2" change="handleChangeExpiry" width="200px" value="{oViewGlobalModel>/EXPTM}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime"
 									required="{oViewModel>/bDateSection}"/>
 							</VBox>
 						</HBox>
@@ -136,7 +136,7 @@
 									selectedKey="{oViewGlobalModel>/UTIL2}" required="{oViewModel>/bPhaseService}" visible="{oViewModel>/bPhaseService}">
 									<core:Item text="{Utilization2CBModel>description}" key="{Utilization2CBModel>ddid}"/>
 								</Select>
-								<DatePicker
+								<DatePicker 
 									value="{path: 'oViewGlobalModel>/UTILDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: false, pattern:'dd/MM/yyyy'}}"
 									width="200px" fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}" visible="{oViewModel>/bDate}"/>
 								<!--<Input value="52345" editable="false" visible="{oViewModel>/bDate}" fieldGroupIds="fgInput" required="{oViewModel>/bPhaseService}"/>-->
