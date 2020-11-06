@@ -51,7 +51,7 @@ sap.ui.define([
 		},
 
 		fnLoginUser: function() {
-			var sPath = this.getResourceBundle().getText("AUTHORIZATIONSVC");
+			var sPath = this.getModel("i18n").getResourceBundle().getText("AUTHORIZATIONSVC");
 			var oParameter = {};
 			oParameter.error = function(xhrx) {
 				MessageBox.error("Invalid login credentials", {
