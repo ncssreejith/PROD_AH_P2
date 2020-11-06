@@ -311,7 +311,7 @@ sap.ui.define([
 					this.onSendOthers();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/PilotAH4flySvc", oParameter, [oPayloads], "ZRM_PFR_P", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4FLYSVC"), oParameter, [oPayloads], "ZRM_PFR_P", this);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateFlyRecords function");
 				this.handleException(e);
@@ -329,7 +329,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 				}.bind(this);
-				ajaxutil.fnUpdate("/AlarmingSvc", oParameter, [oPayloads]);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("ALARMINGSVC"), oParameter, [oPayloads]);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateAlarming function");
 				this.handleException(e);
@@ -345,7 +345,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {};
-				ajaxutil.fnCreate("/AH4TimingsSvc", oParameter, oPayloads);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("AH4TIMINGSSVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateTimming function");
 				this.handleException(e);
@@ -372,7 +372,7 @@ sap.ui.define([
 						this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 					}
 				}.bind(this);
-				ajaxutil.fnCreate("/ReplenishmentSvc", oParameter, oPayloads);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnUpdateTanks function");
 				this.handleException(e);
@@ -390,7 +390,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {};
-				ajaxutil.fnUpdate("/PilotSortiF16Svc", oParameter, oPayloads);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("PILOTSORTIF16SVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateAirMon function");
 				this.handleException(e);
@@ -408,7 +408,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {};
-				ajaxutil.fnUpdate("/AH4StatusSvc", oParameter, oPayloads);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateFlyReq function");
 				this.handleException(e);
@@ -427,7 +427,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {};
-				ajaxutil.fnCreate("/PilotDefectF16Svc", oParameter, oPayloads);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTDEFECTF16SVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateDefect function");
 				this.handleException(e);
@@ -442,7 +442,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {};
-				ajaxutil.fnCreate("/PilotAH4PowerSvc", oParameter, oPayloads);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4POWERSVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateEngine function");
 				this.handleException(e);
@@ -462,7 +462,7 @@ sap.ui.define([
 					}
 					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 				}.bind(this);
-				ajaxutil.fnCreate("/PilotAH4ManoeuvringSvc", oParameter, [oPayloads]);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4MANOEUVRINGSVC"), oParameter, [oPayloads]);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateMano function");
 				this.handleException(e);
@@ -538,7 +538,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/arming", oArming);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AlarmingSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ALARMINGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadArming function");
 				this.handleException(e);
@@ -558,7 +558,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/toper", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAmResults function");
 				this.handleException(e);
@@ -578,7 +578,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/amResult", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAmResults function");
 				this.handleException(e);
@@ -608,7 +608,7 @@ sap.ui.define([
 						.chkrn);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/PilotAH4PowerSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTAH4POWERSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAmResults function");
 				this.handleException(e);
@@ -654,7 +654,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/EHSERSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngPowerCheck function");
 				this.handleException(e);
@@ -744,7 +744,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/flyResult", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadflyResults function");
 				this.handleException(e);
@@ -765,7 +765,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/airMon", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/PilotSortiF16Svc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTSORTIF16SVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAirMon function");
 				this.handleException(e);
@@ -786,7 +786,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/flyReq", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AH4StatusSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadFlyReq function");
 				this.handleException(e);
@@ -805,7 +805,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/ADDAndLIMIT", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/PilotAddLmtCtSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTADDLMTCTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAddLimitCount function");
 				this.handleException(e);
@@ -833,7 +833,7 @@ sap.ui.define([
 						busy: false
 					}, "viewModel");
 				}.bind(this);
-				ajaxutil.fnRead("/ReplRoleSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLROLESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadFuleTanksFromRole function");
 				this.handleException(e);

@@ -183,7 +183,7 @@ sap.ui.define([
 				}.bind(this);
 				oParameter.activity = sAct;
 				 oParameter.title = "Tradesman undosign off";
-				ajaxutil.fnCreate("/RoleChangeSvc", oParameter, oPayloads, sObj, this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, oPayloads, sObj, this);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -220,7 +220,7 @@ sap.ui.define([
 				sTitle =sTitle+(this.formatter.rcSignChange(tSign,selKey)?"Sign off":"Undo Sign off");
 				oParameter.activity = sAct;
 				oParameter.title = sTitle;
-				ajaxutil.fnCreate("/RoleChangeSvc", oParameter, oPayloads, sObj, this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, oPayloads, sObj, this);
 			} catch (e) {
 				Log.error("Exception in onStationSignOff function");
 			}
@@ -269,7 +269,7 @@ sap.ui.define([
 					}
 					this.getModel("rcModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/RoleChangeSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -285,7 +285,7 @@ sap.ui.define([
 					oStn.selADP = this.fnAttachAdapter(oData.results);
 					this.getModel("rcModel").refresh();
 				}.bind(this, oStn);
-				ajaxutil.fnRead("/RoleChangeSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadAdapter function");
 			}

@@ -304,7 +304,7 @@ sap.ui.define([
 						this.getModel("avmetModel").refresh();
 					}
 				}.bind(this);
-				avmet.ah.util.ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
 			} catch (e) {
 				this.fnRestoreHistory();
 				Log.error("Exception in fnLoadSrv1Dashboard function");
@@ -329,7 +329,7 @@ sap.ui.define([
 
 				}.bind(this);
 				this.getModel("avmetModel").setProperty("/runningChange", []);
-				ajaxutil.fnRead("/PilotInvolvedlSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadRunningChange function");
 			}
@@ -751,7 +751,7 @@ sap.ui.define([
 
 				oPrmCAPStatus.success = function(oData) {}.bind(this);
 
-				ajaxutil.fnRead("/CheckCapStatusSvc", oPrmCAPStatus);
+				ajaxutil.fnRead(this.getResourceBundle().getText("CHECKCAPSTATUSSVC"), oPrmCAPStatus);
 			} catch (e) {
 				Log.error("Exception in fnCheckCapStatus function");
 			}
@@ -884,7 +884,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.setModel(oModel, "FoundDuringSet");
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmFND);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
 			} catch (e) {
 				Log.error("Exception in _fnFoundDuringGet function");
 			}
@@ -898,7 +898,7 @@ sap.ui.define([
 
 				oPrmLimGet.success = function(oData) {}.bind(this);
 
-				ajaxutil.fnRead("/CheckAddLimitationsSvc", oPrmLimGet);
+				ajaxutil.fnRead(this.getResourceBundle().getText("CHECKADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnADDGet function");
 				this.handleException(e);
@@ -914,7 +914,7 @@ sap.ui.define([
 				oPrmLimGet.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
 				oPrmLimGet.error = function() {};
 				oPrmLimGet.success = function(oData) {}.bind(this);
-				ajaxutil.fnRead("/CheckAddLimitationsSvc", oPrmLimGet);
+				ajaxutil.fnRead(this.getResourceBundle().getText("CHECKADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnLimitationsGet function");
 				this.handleException(e);
@@ -940,11 +940,11 @@ sap.ui.define([
 					if (oData.results.length) {
 						// Populate Profile UserId/Name
 
-						this.getModel("oProfileModel").setProperty("/userId", oData.results[0].plantuser);
-						this.getModel("oProfileModel").setProperty("/userName", oData.results[0].namefirst + " " + oData.results[0].namelast);
+						that.getModel("oProfileModel").setProperty("/userId", oData.results[0].plantuser);
+						that.getModel("oProfileModel").setProperty("/userName", oData.results[0].namefirst + " " + oData.results[0].namelast);
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/EmpPinPwdSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("EMPPINPWDSVC"), oParameter);
 
 			} catch (e) {
 				Log.error("Exception in UserRole:_getSystemRoles function");
@@ -1084,7 +1084,7 @@ sap.ui.define([
 				that.getView().getModel("oProfileModel").refresh();
 				MessageBox.show("Changes are saved");
 			};
-			ajaxutil.fnUpdate("/EmpPinPwdSvc", oParameter, [userDetail], "ZRM_E_REPL", this);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("EMPPINPWDSVC"), oParameter, [userDetail], "ZRM_E_REPL", this);
 		},
 
 		onCancel: function(oEvent) {

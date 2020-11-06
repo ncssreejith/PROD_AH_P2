@@ -237,7 +237,7 @@ sap.ui.define([
 				});
 
 			}.bind(this);
-			ajaxutil.fnRead("/ADDOVERVIEWSvc", oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("REPLROLESVC"), oPrmJobDue);
 		},
 		onSerialNoPress: function(oEvent) {
 			try {
@@ -251,7 +251,7 @@ sap.ui.define([
 					this.getModel("paModel").refresh();
 					this.openDialog("SerialNosDialog", ".fragments.pilot.");
 				}.bind(this);
-				ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSERNRSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -276,7 +276,7 @@ sap.ui.define([
 						this.fnGetAllData();
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/PilotAcceptanceSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTACCEPTANCESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -308,7 +308,7 @@ sap.ui.define([
 					this.getModel("paModel").refresh();
 					this._fnNavToDetail("/masterList/0");
 				}.bind(this);
-				ajaxutil.fnRead("/SortieMonsvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -328,7 +328,7 @@ sap.ui.define([
 					this._getCreatedTasks();
 					this._getFuelExtTanks();
 				}.bind(this);
-				ajaxutil.fnRead("/ReplenishmentSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -374,7 +374,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/repl/fuel", oFules);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/ReplRoleSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLROLESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -390,7 +390,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/ft", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/FTSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("FTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -407,7 +407,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/ct", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/GetFSTaskSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -423,7 +423,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/rt", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/RT2Svc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("RT2SVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -442,7 +442,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/flyReq", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AH4StatusSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -461,7 +461,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/dueJobs", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/GetSerLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getDueSoonJobDetails function");
 				this.handleException(e);
@@ -489,7 +489,7 @@ sap.ui.define([
 					this.getModel("paModel").refresh();
 				}.bind(this);
 
-				ajaxutil.fnRead("/DefectJobSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -507,7 +507,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/pastDef", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/FSDefectJobSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("FSDEFECTJOBSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPastMonthDefects function");
 				this.handleException(e);
@@ -527,7 +527,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/appr", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/ApprovalSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -546,7 +546,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/addLimit", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/GetAddLimitationsPDSICSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -566,7 +566,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/add", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/GetAddLimitationsPDSICSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -584,7 +584,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/trailMod", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/TRAILMONSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TRAILMONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -604,7 +604,7 @@ sap.ui.define([
 					this.getModel("paModel").refresh();
 					// this._fnNavToDetail("/masterList/0");
 				}.bind(this);
-				ajaxutil.fnRead("/WeaponSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -619,7 +619,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					this.getView().setModel(oModel, "SortiDetails");
 				}.bind(this);
-				ajaxutil.fnRead("/GetSortiAISvc", oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -676,7 +676,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/PilotAcceptanceSvc", oParameter, [oSignOffPayload], "ZRM_FS_PA", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTACCEPTANCESVC"), oParameter, [oSignOffPayload], "ZRM_FS_PA", this);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -697,7 +697,7 @@ sap.ui.define([
 					this.closeDialog("PARejectDefectDialog");
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate("/PilotDefectF16Svc", oParameter, oPayloads);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTDEFECTF16SVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateDefect function");
 				this.handleException(e);
