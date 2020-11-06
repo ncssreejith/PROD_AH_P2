@@ -4,13 +4,12 @@
 			<VBox justifyContent="Center">
 				<IconTabBar id="idIconTabBar" select="onTabChangeSel" selectedKey="{rcModel>/selTab}">
 					<items>
-						<IconTabFilter text="Tradesman" key="rc1">
+						<IconTabFilter text="Tradesman" key="rc1" enabled="{= ${rcModel>/EditTab} === 'rc1' || ${rcModel>/EditTab} === undefined }">
 							<VBox>
 								<HBox class="sapUiTinyMarginBottom" visible="{parts:['rcModel>/selTab','rcModel>/selStn/tsign'],formatter:'.formatter.fsRCUnSignOff'}"
 									width="100%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">
 									<HBox class="topSignOff sapUiSmallMargin" width="95%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">
-										<Link class="sapUiTinyMarginTop" text="{rcModel>/selStn/tsign} sign off for {rcModel>/selStn/L_TXT}: Undo SignOff"
-											press="onStationUndoSignOff"/>
+										<Label class="sapUiTinyMarginTop" text="{rcModel>/selStn/tsign} sign off for {rcModel>/selStn/L_TXT}"/>
 									</HBox>
 								</HBox>
 								<HBox class="wcVBox">
@@ -19,13 +18,13 @@
 								</HBox>
 							</VBox>
 						</IconTabFilter>
-						<IconTabFilter text="Supervisor" key="rc2">
+						<IconTabFilter text="Supervisor" key="rc2" enabled="{= ${rcModel>/EditTab} === 'rc2' || ${rcModel>/EditTab} === undefined }">
 							<VBox>
-								<HBox class="sapUiTinyMarginBottom" visible="{parts:['rcModel>/selTab','rcModel>tsign'],formatter:'.formatter.fsRCUnSignOff'}" width="100%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">
-									<HBox class="topSignOff sapUiSmallMargin" width="95%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">
-										<Link class="sapUiTinyMarginTop" text="Supervisor sign off for  {rcModel>/selStn/L_TXT}" press="onStationSignOff"/>
-									</HBox>
-								</HBox>
+								<!--<HBox class="sapUiTinyMarginBottom" visible="{parts:['rcModel>/selTab','rcModel>tsign'],formatter:'.formatter.fsRCUnSignOff'}" width="100%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">-->
+								<!--	<HBox class="topSignOff sapUiSmallMargin" width="95%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">-->
+								<!--		<Link class="sapUiTinyMarginTop" text="Supervisor sign off for  {rcModel>/selStn/L_TXT}" press="onStationSignOff"/>-->
+								<!--	</HBox>-->
+								<!--</HBox>-->
 								<HBox class="wcVBox">
 									<core:Fragment fragmentName="avmet.ah.view.ah.fs.rolechange.RCStationAdapter" type="XML"/>
 									<core:Fragment fragmentName="avmet.ah.view.ah.fs.rolechange.RCGraph" type="XML"/>
@@ -40,8 +39,9 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<Button text="Back" press="onNavBack"/>
-				<Button text="{parts:['rcModel>/tsign','rcModel>/selTab'],formatter:'.formatter.rcSignBtn'}"
-					visible="{= !(!${rcModel>/tsign} &amp;&amp; ${rcModel>/selTab}==='rc2')}" type="Emphasized" press="onStationSignOff"/>
+				<!--{parts:['rcModel>/tsign','rcModel>/selTab'],formatter:'.formatter.rcSignBtn'}-->
+				<Button text="Sign off"
+					visible="{= !(${rcModel>/stns/0/APRNO} === 0 &amp;&amp; ${rcModel>/selTab}==='rc2')}" type="Emphasized" press="onStationSignOff"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>

@@ -27,11 +27,12 @@ sap.ui.define([
 				this.getRouter().getRoute("RoleChangeStations").attachPatternMatched(this._onObjectMatched, this);
 				this.getView().setModel(new JSONModel({
 					mode: 1,
-					tsign:false,
+					tsign: false,
 					selTab: "rc1",
 					selStn: {},
 					srvid: "",
-					stns: []
+					stns: [],
+					chngTab: ""
 				}), "rcModel");
 			} catch (e) {
 				Log.error("Exception in onInit function");
@@ -50,10 +51,17 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-		
-		onChkBxSel:function(oEvent){
+
+		onChkBxSel: function(oEvent) {
 			var sContext = oEvent.getSource().getBindingContext("rcModel");
-			this.getModel("rcModel").setProperty(sContext.getPath()+"/tstat",oEvent.getSource().getSelected()?1:0);    
+			if (!this.fnChkEdit()) {
+				this.getModel("rcModel").setProperty(sContext.getPath() + "/tstat", oEvent.getSource().getSelected() ? 0 : 1);
+				oEvent.getSource().setSelected(!oEvent.getSource().getSelected());
+				this.getModel("rcModel").refresh();
+				return;
+			}
+			this.getModel("rcModel").setProperty(sContext.getPath() + "/tstat", oEvent.getSource().getSelected() ? 1 : 0);
+			this.getModel("rcModel").setProperty("/chngTab", this.getModel("rcModel").getProperty("/selTab"));
 		},
 		//-------------------------------------------------------------
 		// 
@@ -93,12 +101,12 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-		
-		onTabChangeSel:function(oEvent){
+
+		onTabChangeSel: function(oEvent) {
 			// var selKey = oEvent.getSource().getSelectedKey();
 			// var tSign = this.getModel("rcModel").getProperty("/tsign");
 			// if(){
-				
+
 			// }
 		},
 		onCloseSLNo: function(oEvent) {
@@ -108,6 +116,8 @@ sap.ui.define([
 			if (!this.fnChkEdit()) {
 				return;
 			}
+			this.getModel("rcModel").setProperty("/selStn/tstat", 1);
+			this.getModel("rcModel").setProperty("/chngTab", this.getModel("rcModel").getProperty("/selTab"));
 			var sContext = this.closeDialog("SLNo").getBindingContext("rcModel");
 			this.getModel("rcModel").setProperty(sContext.getPath() + "/SERNR", sContext.getProperty("SGUSR"));
 			var sAdps = this.getModel("rcModel").getProperty("/selStn/selADP");
@@ -140,6 +150,8 @@ sap.ui.define([
 			if (!this.fnChkEdit()) {
 				return;
 			}
+			this.getModel("rcModel").setProperty("/chngTab", this.getModel("rcModel").getProperty("/selTab"));
+			this.getModel("rcModel").setProperty("/selStn/tstat", 1);
 			var sADPCount = this.getModel("rcModel").getProperty("/selStn/selADP").length;
 			this.getModel("rcModel").getProperty("/selStn/selADP").splice(sStart, sADPCount);
 			this.getModel("rcModel").refresh();
@@ -149,18 +161,34 @@ sap.ui.define([
 			if (this.getModel("rcModel").getProperty("/mode") === 0) {
 				sFlag = false;
 			}
-		
-			var selKey = this.getModel("rcModel").getProperty("/selTab");
-			var ttSign = this.getModel("rcModel").getProperty("/tsign");
-			var tSign = this.getModel("rcModel").getProperty("/selStn/tsign");
-			tSign = tSign===null ? true:false;
-			if(selKey==="rc1" && ttSign){
-				tSign = false;
-			}
-			if(this.formatter.rcSignChange(tSign,selKey)){
+			var sAprNo = this.getModel("rcModel").getProperty("/stns/0/APRNO");
+			var selTab = this.getModel("rcModel").getProperty("/selTab");
+			var chngTab = this.getModel("rcModel").getProperty("/chngTab");
+
+			if ((selTab !== chngTab) && chngTab !== "") {
 				sap.m.MessageBox.error("Changes are not allowed");
 				sFlag = false;
 			}
+
+			// var selKey = this.getModel("rcModel").getProperty("/selTab");
+			// if( this.editMode === undefined){
+			// 	this.editMode = selKey;
+			// 	this.getModel("rcModel").setProperty("/EditTab", selKey);
+			// }
+
+			// if(this.editMode !== selKey){
+			// 	sFlag = false;
+			// }
+			// var ttSign = this.getModel("rcModel").getProperty("/tsign");
+			// var tSign = this.getModel("rcModel").getProperty("/selStn/tsign");
+			// tSign = tSign===null ? true:false;
+			// if(selKey==="rc1" && ttSign){
+			// 	tSign = false;
+			// }
+			// if(this.formatter.rcSignChange(tSign,selKey)){
+			// 	sap.m.MessageBox.error("Changes are not allowed");
+			// 	sFlag = false;
+			// }
 			return sFlag;
 		},
 		//SAME = UPDATE EXISTING ONE WIH SERIAL NUMBER 
@@ -171,10 +199,10 @@ sap.ui.define([
 		// 
 		//-------------------------------------------------------------
 
-
 		onStationUndoSignOff: function(oEvent) {
 			try {
-				var sAct = "4",sObj = "ZRM_FS_RCT";
+				var sAct = "4",
+					sObj = "ZRM_FS_RCT";
 				var oPayloads = this.fnRoleChanegSinglePayload();
 				var oParameter = {};
 				oParameter.error = function() {};
@@ -182,27 +210,30 @@ sap.ui.define([
 					this._getStations();
 				}.bind(this);
 				oParameter.activity = sAct;
-				 oParameter.title = "Tradesman undosign off";
-				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, oPayloads, sObj, this);
+				oParameter.title = "Tradesman undosign off";
+				ajaxutil.fnCreate("/RoleChangeSvc", oParameter, oPayloads, sObj, this);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
 		},
-		
+
 		onStationSignOff: function(oEvent) {
 			try {
-				var tSign= this.getModel("rcModel").getProperty("/tsign");
-				var selKey= this.getModel("rcModel").getProperty("/selTab");
-				var oPayloads = this.fnRoleChanegPayload();
-				// var oPayloads = this.fnRoleChanegSinglePayload();
-				if(oPayloads.length===0){
-					// sap.m.MessageBox.error("Please select at least one station");
+				if (!this.fnChkEdit()) {
 					return;
 				}
+				var tSign = this.getModel("rcModel").getProperty("/tsign");
+				var selKey = this.getModel("rcModel").getProperty("/selTab");
+				var oPayloads = this.fnRoleChanegPayload();
+				// var oPayloads = this.fnRoleChanegSinglePayload();
+				// if (oPayloads.length === 0) {
+				// 	// sap.m.MessageBox.error("Please select at least one station");
+				// 	return;
+				// }
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					if (this.fnGetApproNo()>0) {
+					if (this.fnGetApproNo() > 0) {
 						this.onNavBack();
 						return;
 					}
@@ -212,15 +243,16 @@ sap.ui.define([
 				var sAct = "4",
 					sObj = "ZRM_FS_RCT",
 					sTitle = "Tradesman ";
-				if(this.fnGetApproNo()>0){
+				if (this.fnGetApproNo() > 0) {
 					sAct = "4";
 					sObj = "ZRM_S_REDX";
 					sTitle = "Supervisor ";
 				}
-				sTitle =sTitle+(this.formatter.rcSignChange(tSign,selKey)?"Sign off":"Undo Sign off");
+				// this.formatter.rcSignChange(tSign,selKey)?"Sign off":"Undo Sign off"
+				sTitle = sTitle + ("Sign off");
 				oParameter.activity = sAct;
 				oParameter.title = sTitle;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, oPayloads, sObj, this);
+				ajaxutil.fnCreate("/RoleChangeSvc", oParameter, oPayloads, sObj, this);
 			} catch (e) {
 				Log.error("Exception in onStationSignOff function");
 			}
@@ -231,10 +263,12 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		_onObjectMatched: function(oEvent) {
 			try {
+				//init edit mode
+				this.editMode = null;
 				this.getModel("rcModel").setProperty("/mode", oEvent.getParameters().arguments.mode === undefined ? 1 : 0);
 				this.getModel("rcModel").setProperty("/srvid", oEvent.getParameter("arguments").srvid);
 				this.getModel("rcModel").setProperty("/stns", []);
-				this.getModel("rcModel").setProperty("/tsign",false);
+				this.getModel("rcModel").setProperty("/tsign", false);
 				this.getModel("rcModel").setProperty("/selStn", {});
 				this.getModel("rcModel").refresh();
 				this._getStations();
@@ -252,24 +286,23 @@ sap.ui.define([
 				oParameter.filter = "airid eq " + this.getAircraftId() + " and" + " tailid eq " + this.getTailId();
 				oParameter.success = function(oData) {
 					var sTab = "rt1";
-					// oData.results[0].tstat = 1;
-					// oData.results[1].tstat = 1;
-					// oData.results[0].tsign = "Rahul";
+					this.editMode = null;
 					this.getModel("rcModel").setProperty("/stns", oData.results);
 					this.getModel("rcModel").setProperty("/selStn", oData.results.length > 0 ? oData.results[0] : {});
 					sTab = oData.results.length > 0 ? (oData.results[0].APRNO === 1 ? "rc2" : "rc1") : "rc1";
 					this.getModel("rcModel").setProperty("/selTab", sTab);
+					this.getModel("rcModel").setProperty("/chngTab", "");
 					this.getModel("rcModel").setProperty("/selStn/selADP", []);
-					
+
 					for (var i = 0; oData.results.length > i; i++) {
 						this.fnLoadAdapter(oData.results[i]);
-						if(oData.results[i].tstat===1){
+						if (oData.results[i].tstat === 1) {
 							this.getModel("rcModel").setProperty("/tsign", true);
 						}
 					}
 					this.getModel("rcModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				ajaxutil.fnRead("/RoleChangeSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -285,7 +318,7 @@ sap.ui.define([
 					oStn.selADP = this.fnAttachAdapter(oData.results);
 					this.getModel("rcModel").refresh();
 				}.bind(this, oStn);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				ajaxutil.fnRead("/RoleChangeSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadAdapter function");
 			}
@@ -328,31 +361,33 @@ sap.ui.define([
 		//-------------------------------------------------------------
 
 		fnRoleChanegPayload: function() {
-			var oPayloads = [],sSelect = false;
+			var oPayloads = [],
+				sSelect = false;
 			this.getModel("rcModel").getProperty("/stns").forEach(function(stn) {
-				if(stn.tstat===1){
-					sSelect = true;	
-				}
-				if(stn.tstat===1 && stn.selADP.length===0){
-					oPayloads.push(this.fnPayload(stn,undefined,stn.tstat));
+				// if (stn.tstat === 1) {
+				// 	sSelect = true;
+				// }
+				// stn.tstat===1 && 
+				if (stn.selADP.length === 0) {
+					oPayloads.push(this.fnPayload(stn, undefined, stn.tstat));
 				}
 				stn.selADP.forEach(function(adp) {
-					if(stn.tstat===1){
-					oPayloads.push(this.fnPayload(stn, adp,stn.tstat));
-					}
+					// if(stn.tstat===1){
+					oPayloads.push(this.fnPayload(stn, adp, stn.tstat));
+					// }
 				}.bind(this));
 			}.bind(this));
-			if(!sSelect){
-				sap.m.MessageBox.error("Please select at least one station"); 
-			}
+			// if (!sSelect) {
+			// 	sap.m.MessageBox.error("Please select at least one station");
+			// }
 			// else if(oPayloads.length === 0 ) {
-				// var oPayload = this.getModel("rcModel").getProperty("/stns/0");
-				// oPayload.ADPFLAG = "X";
-				// oPayload.tstat = "1";
-				// oPayload.APRNO = oPayload.APRNO > 1 ? 0 : oPayload.APRNO;
-				// delete oPayload.adapters;
-				// delete oPayload.selADP;
-				// oPayloads.push(oPayload);
+			// var oPayload = this.getModel("rcModel").getProperty("/stns/0");
+			// oPayload.ADPFLAG = "X";
+			// oPayload.tstat = "1";
+			// oPayload.APRNO = oPayload.APRNO > 1 ? 0 : oPayload.APRNO;
+			// delete oPayload.adapters;
+			// delete oPayload.selADP;
+			// oPayloads.push(oPayload);
 			// }
 			return oPayloads;
 		},
@@ -361,9 +396,9 @@ sap.ui.define([
 			var oPayloads = [];
 			var sStation = this.getModel("rcModel").getProperty("/selStn");
 
-			if(sStation.selADP && sStation.selADP.length>0){
+			if (sStation.selADP && sStation.selADP.length > 0) {
 				// if(){
-					oPayloads.push(this.fnPayload(sStation, sStation.selADP[0],0));
+				oPayloads.push(this.fnPayload(sStation, sStation.selADP[0], 0));
 				// }
 
 			}
@@ -379,31 +414,31 @@ sap.ui.define([
 			return oPayloads;
 		},
 
-		fnPayload: function(stn, adp,tstat) {
-			var selKey = this.getModel("rcModel").getProperty("/selTab");
-			var sStat = this.getModel("rcModel").getProperty("/tsign");
-			
+		fnPayload: function(stn, adp, tstat) {
+			// var selKey = this.getModel("rcModel").getProperty("/selTab");
+			// var sStat = this.getModel("rcModel").getProperty("/tsign");
+
 			var oPayload = {};
-			oPayload.ADPID = adp===undefined?'':adp.ADPID;
-			oPayload.ADPDESC =adp===undefined?'': adp.ADPDESC;
-			oPayload.ADPFLAG = adp===undefined?"P":null;
+			oPayload.ADPID = adp === undefined ? '' : adp.ADPID;
+			oPayload.ADPDESC = adp === undefined ? '' : adp.ADPDESC;
+			oPayload.ADPFLAG = adp === undefined ? "P" : null;
 			oPayload.AIRID = stn.AIRID;
-			oPayload.APRNO =this.fnGetApproNo();
+			oPayload.APRNO = this.fnGetApproNo();
 			oPayload.DDID = stn.DDID;
 			oPayload.HCFLAG = "2";
 			oPayload.ICART = null;
 			oPayload.ISSER = null;
 			oPayload.L_TXT = stn.L_TXT;
 			oPayload.MAX = null;
-			oPayload.NUM1 = adp===undefined?'':adp.NUM1;
+			oPayload.NUM1 = adp === undefined ? '' : adp.NUM1;
 			oPayload.PADPDESC = null;
 			oPayload.PADPID = null;
 			oPayload.POT = null;
 			oPayload.POTDESC = null;
 			oPayload.QTYADD = null;
 			oPayload.ROLEID = stn.ROLEID;
-			oPayload.SEQID = adp===undefined?'':adp.SEQID;
-			oPayload.SERNR = adp===undefined?'':adp.SERNR;
+			oPayload.SEQID = adp === undefined ? '' : adp.SEQID;
+			oPayload.SERNR = adp === undefined ? '' : adp.SERNR;
 			oPayload.SGTIME = null;
 			oPayload.SGUSR = null;
 			oPayload.STNSID = stn.SUBID;
@@ -414,20 +449,23 @@ sap.ui.define([
 			oPayload.begda = null;
 			oPayload.endda = stn.endda;
 			oPayload.tailid = stn.tailid;
-			oPayload.tstat = this.formatter.rcSignChange(sStat,selKey)?1:0;
+			oPayload.tstat = stn.tstat; //this.formatter.rcSignChange(sStat,selKey)?1:0;
 			oPayload.tsign = "";
 			return oPayload;
 		},
-		
-		fnGetApproNo:function(){
-			var selKey = this.getModel("rcModel").getProperty("/selTab");
-			var sStat = this.getModel("rcModel").getProperty("/tsign");
-			var isUndo = this.formatter.rcSignChange(sStat,selKey);
-			var sApprNo = sStat?1:0;
-			if(!isUndo){
-				sApprNo = 0;
+		fnGetApproNo: function() {
+				var selKey = this.getModel("rcModel").getProperty("/selTab");
+				return this.formatter.rcSignAPPR(selKey);
 			}
-			return sApprNo;
-		}
+			// fnGetApproNo:function(){
+			// 	var selKey = this.getModel("rcModel").getProperty("/selTab");
+			// 	var sStat = this.getModel("rcModel").getProperty("/tsign");
+			// 	var isUndo = this.formatter.rcSignChange(sStat,selKey);
+			// 	var sApprNo = sStat?1:0;
+			// 	if(!isUndo){
+			// 		sApprNo = 0;
+			// 	}
+			// 	return sApprNo;
+			// }
 	});
 });

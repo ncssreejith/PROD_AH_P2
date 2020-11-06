@@ -1025,6 +1025,15 @@ sap.ui.define([
 			}
 			return false;
 		},
+		rcSignAPPR: function( ttab) {
+			if (ttab === "rc1") {
+				return 0;
+			}
+			if (ttab === "rc2") {
+				return 1;
+			}
+			return 0;
+		},
 
 		fnfinalWcSignOffTxt: function(oSrvtId) {
 			switch (oSrvtId) {

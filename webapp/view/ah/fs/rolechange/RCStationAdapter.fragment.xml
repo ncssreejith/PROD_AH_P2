@@ -5,8 +5,8 @@
 				mode="SingleSelectMaster" selectionChange="onStnChange" updateFinished=".onUpdateFinished">
 				<CustomListItem selected="{= (${rcModel>/selStn/SUBID}===${rcModel>SUBID} &amp;&amp; ${rcModel>/selStn/DDID}===${rcModel>DDID})}">
 					<HBox height="2.7rem" alignItems="Center" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
-						<CheckBox select="onChkBxSel" visible="{= ${rcModel>/selTab}==='rc1'}" editable="{= !${rcModel>/tsign}}"
-							selected="{parts:['rcModel>/selTab','rcModel>tsign'],formatter:'.formatter.fsRCUnSignOff'}"/>
+						<CheckBox select="onChkBxSel" visible="{= ${rcModel>/selTab}==='rc1'}"
+							selected="{= ${rcModel>tstat}===1}"/>
 						<Text height="100%" text="{rcModel>L_TXT}"/>
 						<core:Icon class="sapUiMediumMarginBegin" height="100%" visible="{= ${rcModel>tsign}===1}" src="sap-icon://accept" color='#00ff00'/>
 					</HBox>
