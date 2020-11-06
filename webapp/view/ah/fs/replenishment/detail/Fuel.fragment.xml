@@ -48,7 +48,7 @@
 						editable="{path : 'oRepDetailsModel>/srvid', formatter : '.formatter.srvIdExistEnable'}"
 						enabled="{parts:['oRepDetailsModel>tsign','oRepDetailsModel>engid','oRepDetailsModel>resid'],formatter:'.formatter.fnEnginEnableChk'}"/>
 					<Text text="{oRepDetailsModel>resdescription}"/>
-					<StepInput width="100%" textAlign="Center" enabled="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE'}" value="{oRepDetailsModel>orgamt}" labelFor="adsfasdf" change="onFuleChange" validationMode="LiveChange" min="0"
+					<StepInput width="100%" textAlign="Center" enabled="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE'}" value="{oRepDetailsModel>orgamt}" change="onFuleChange" validationMode="LiveChange" min="0"
 					max="{= ${oRepDetailsModel>max}-${oRepDetailsModel>srvamt}}"
 					editable="{= ${oRepDetailsModel>tsign}===''}"
 					fieldGroupIds="fgStep"  />

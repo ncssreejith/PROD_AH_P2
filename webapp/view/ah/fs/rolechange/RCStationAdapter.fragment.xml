@@ -1,12 +1,14 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:cc="avmet.f16.control">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<HBox width="16%">
 		<ScrollContainer height="28rem" width="100%" vertical="true" focusable="true">
 			<List width="12rem" growing="true" growingScrollToLoad="true" growingThreshold="15" items="{ path:'rcModel>/stns'}"
 				mode="SingleSelectMaster" selectionChange="onStnChange" updateFinished=".onUpdateFinished">
-				<CustomListItem
-					selected="{= (${rcModel>/selStn/SUBID}===${rcModel>SUBID} &amp;&amp; ${rcModel>/selStn/DDID}===${rcModel>DDID})}">
-					<HBox height="2.7rem" alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+				<CustomListItem selected="{= (${rcModel>/selStn/SUBID}===${rcModel>SUBID} &amp;&amp; ${rcModel>/selStn/DDID}===${rcModel>DDID})}">
+					<HBox height="2.7rem" alignItems="Center" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+						<CheckBox select="onChkBxSel" visible="{= ${rcModel>/selTab}==='rc1'}" editable="{= !${rcModel>/tsign}}"
+							selected="{parts:['rcModel>/selTab','rcModel>tsign'],formatter:'.formatter.fsRCUnSignOff'}"/>
 						<Text height="100%" text="{rcModel>L_TXT}"/>
+						<core:Icon class="sapUiMediumMarginBegin" height="100%" visible="{= ${rcModel>tsign}===1}" src="sap-icon://accept" color='#00ff00'/>
 					</HBox>
 				</CustomListItem>
 			</List>
@@ -14,14 +16,13 @@
 	</HBox>
 	<HBox class="sapUiSmallMarginBegin" width="16%">
 		<ScrollContainer height="28rem" width="100%" vertical="true" focusable="true">
-			<List width="12rem" mode="SingleSelectMaster" selectionChange="onAdapterClk"
-				items="{ path: 'rcModel>/selStn/adapters', sorter: { path: 'POTDESC', descending: false, group: true }, groupHeaderFactory: '.getGroupHeader' }">
-				<CustomListItem
-					selected="{= (${rcModel>/selStn/selADP/selWpn/WESID}===${rcModel>WESID} &amp;&amp; ${rcModel>/selStn/selADP/selWpn/WEMID}===${rcModel>WEMID})}">
+			<List width="12rem" mode="SingleSelectMaster" selectionChange="onAdapterClk" rememberSelections="false"
+				items="{ path: 'rcModel>/selStn/adapters', sorter: [{path: 'POTDESC',group:true},{path: 'SEQID',group:false},{path: 'NUM1',group:false}],templateShareable: false, groupHeaderFactory: '.getGroupHeader' }">
+				<CustomListItem selected="{= ${rcModel>/selStn/selADP/ADPID}===${rcModel>ADPID}}">
 					<HBox height="2.7rem" alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
 						<Text height="100%" text="{rcModel>ADPDESC}"/>
 						<core:Icon src="sap-icon://attachment-photo"
-							visible="{= (${rcModel>/selStn/selADP/selWpn/WESID}===${rcModel>WESID} &amp;&amp; ${rcModel>/selStn/selADP/selWpn/WEMID}===${rcModel>WEMID})? true:false}"/>
+							visible="{= (${rcModel>/selStn/selADP/ADPID}===${rcModel>ADPID} &amp;&amp; ${rcModel>/selStn/selADP/ADPID}===${rcModel>ADPID})? true:false}"/>
 					</HBox>
 				</CustomListItem>
 			</List>

@@ -21,7 +21,7 @@
 								<FlexBox wrap="Wrap"
 									items="{path:'paModel>stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'}]}">
 									<items>
-										<cc:Station1 title="{= (${paModel>WEDESC}===null || ${paModel>WEDESC}==='')? ${paModel>ADPDESC}:${paModel>WEDESC}}"
+										<cc:Station1 title="{= (${paModel>WESDESC}===null || ${paModel>WESDESC}==='')? ${paModel>ADPDESC}:${paModel>WESDESC}}"
 											subTitle="{paModel>LTXT}" footerLeftInfo="{parts:['paModel>TOTQTY','paModel>SERNR'],formatter:'.formatter.wcQuanty'}"  footerRightInfo="{= (${paModel>ISSER}==='X' || ${paModel>SERNR}!==null)?'View S/N':''}"
 											class=" sapUiTinyMargin" fireSerialPress="onSerialNoPress">
 											<core:Icon src="sap-icon://write-new-document" color="#0a6cd6"/>

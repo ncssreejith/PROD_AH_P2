@@ -244,7 +244,7 @@ sap.ui.define([
 				var oStation = oEvent.getParameter("oSource").getParent().getBindingContext("paModel").getObject();
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID +
-					" and ADPID eq " + oStation.ADPID;
+					" and ADPID eq " + oStation.ADPID + " and adpflag eq S";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("paModel").setProperty("/srnos", oData.results);
@@ -328,7 +328,7 @@ sap.ui.define([
 					this._getCreatedTasks();
 					this._getFuelExtTanks();
 				}.bind(this);
-				ajaxutil.fnRead("/ReplshmentSvc", oParameter);
+				ajaxutil.fnRead("/ReplenishmentSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}

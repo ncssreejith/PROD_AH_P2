@@ -95,37 +95,38 @@ sap.ui.define([
 		// ***************************************************************************	
 		onSignOffClk: function(oEvent) {
 			try {
-				var oStn = this.getModel("oWCModel").getProperty("/stns/0");
-				var oPayloads = {
-					"AIRID": null,
-					"ROLEID": null,
-					"SUBID": null,
-					"STNMID": oStn.APPRCOUNT,
-					"L_TXT": null,
-					"WEMID": oStn.APPRCOUNT,
-					"WESID": oStn.APPRCOUNT,
-					"ADPID": oStn.APPRCOUNT,
-					"ADPDESC": null,
-					"WEMDESC": null,
-					"WESDESC": null,
-					"STNSID": oStn.APPRCOUNT,
-					"CONTOR": null,
-					"ISSER": null,
-					"TAILID": this.getTailId(),
-					"SRVID": null,
-					"NUM1": null,
-					"SRVTID": this.getModel("oWCModel").getProperty("/srvtid"),
-					"SERNR": this.getModel("oWCModel").getProperty("/stns/0/SERNR"),
-					"endda": null,
-					"begda": null,
-					"TOTQTY": this.getModel("oWCModel").getProperty("/stns/0/SERNR"),
-					"CONECT": null,
-					"HCFLAG": null,
-					"STEPID": this.getModel("oWCModel").getProperty("/stepid"),
-					"EXPAND": null,
-					"TLSERNR": oStn.TLSERNR,
-					"APPRCOUNT": oStn.APPRCOUNT
-				};
+				// var oStn = this.getModel("oWCModel").getProperty("/stns/0");
+				var oPayloads = this.getModel("oWCModel").getProperty("/stns");
+				// var oPayloads = {
+				// 	"AIRID": null,
+				// 	"ROLEID": null,
+				// 	"SUBID": null,
+				// 	"STNMID": oStn.APPRCOUNT,
+				// 	"L_TXT": null,
+				// 	"WEMID": oStn.APPRCOUNT,
+				// 	"WESID": oStn.APPRCOUNT,
+				// 	"ADPID": oStn.APPRCOUNT,
+				// 	"ADPDESC": null,
+				// 	"WEMDESC": null,
+				// 	"WESDESC": null,
+				// 	"STNSID": oStn.APPRCOUNT,
+				// 	"CONTOR": null,
+				// 	"ISSER": null,
+				// 	"TAILID": this.getTailId(),
+				// 	"SRVID": null,
+				// 	"NUM1": null,
+				// 	"SRVTID": this.getModel("oWCModel").getProperty("/srvtid"),
+				// 	"SERNR": this.getModel("oWCModel").getProperty("/stns/0/SERNR"),
+				// 	"endda": null,
+				// 	"begda": null,
+				// 	"TOTQTY": this.getModel("oWCModel").getProperty("/stns/0/SERNR"),
+				// 	"CONECT": null,
+				// 	"HCFLAG": null,
+				// 	"STEPID": this.getModel("oWCModel").getProperty("/stepid"),
+				// 	"EXPAND": null,
+				// 	"TLSERNR": oStn.TLSERNR,
+				// 	"APPRCOUNT": oStn.APPRCOUNT
+				// };
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -133,7 +134,7 @@ sap.ui.define([
 					this.fnLoadStation();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/WeaponConfigSvc", oParameter, [oPayloads], "ZRM_FS_WCS", this);
+				ajaxutil.fnCreate("/WeaponSvc", oParameter, oPayloads, "ZRM_FS_WCS", this);
 			} catch (e) {
 				Log.error("Exception in WeaponConfig:onSignOffClk function");
 				this.handleException(e);
@@ -171,7 +172,13 @@ sap.ui.define([
 					" and airid eq " + this.getAircraftId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					// oData.results[0].APPRCOUNT = 1;
+					if (oData.results && oData.results.length) { //translate gun null too COLD
+						oData.results.forEach(function(oStn) {
+							if (oStn.STNSID === "STNS_102" && oStn.HCFLAG === null) {
+								oStn.HCFLAG = "C";
+							}
+						});
+					}
 					this.getModel("oWCModel").setProperty("/stns", oData.results);
 					this.getModel("oWCModel").refresh();
 					// this.updateModel({busy:false} ,"oViewModel");
@@ -224,7 +231,7 @@ sap.ui.define([
 			try {
 				var oStation = oEvent.getParameter("oSource").getParent().getBindingContext("oWCModel").getObject();
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID+" and ADPID eq "+oStation.ADPID;
+				oParameter.filter = "adpflag eq S AND tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID+" and ADPID eq "+oStation.ADPID;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oWCModel").setProperty("/srnos", oData.results);

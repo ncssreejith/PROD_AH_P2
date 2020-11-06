@@ -50,28 +50,57 @@ sap.ui.define([
 
 		onAddRoutineTask: function() {
 			try {
-				var oObj = {
-					"DDDESC": "",
-					"REFID": "AIR_10",
-					"RTASKID": "",
-					"DONE": "",
-					"NA": null,
-					"TAIL_ID": this.getTailId(),
-					"SRVID": "",
-					"SRVTID": this.getModel("rtModel").getProperty("/srvtid"),
-					"TASKID": "",
-					"APR_NO": this.getModel("rtModel").getProperty("/tasks/0/APR_NO"),
-					"LOGIN_USER": "",
-					"TRADE_USER": "",
-					"TIME_S": null,
-					"LEADFLAG": "",
-					"TLCDT": null,
-					"TLCTM": null,
-					"TLQTY": null,
-					"PUBQTY": null,
-					"TMPID": "",
-					"stepid": this.getModel("rtModel").getProperty("/stepid")
-				};
+				// var oObj = {
+				// 	"DDDESC": "",
+				// 	"REFID": "AIR_10",
+				// 	"RTASKID": "",
+				// 	"DONE": "",
+				// 	"NA": null,
+				// 	"TAIL_ID": this.getTailId(),
+				// 	"SRVID": "",
+				// 	"SRVTID": this.getModel("rtModel").getProperty("/srvtid"),
+				// 	"TASKID": "",
+				// 	"APR_NO": this.getModel("rtModel").getProperty("/tasks/0/APR_NO"),
+				// 	"LOGIN_USER": "",
+				// 	"TRADE_USER": "",
+				// 	"TIME_S": null,
+				// 	"LEADFLAG": "",
+				// 	"TLCDT": null,
+				// 	"TLCTM": null,
+				// 	"TLQTY": null,
+				// 	"PUBQTY": null,
+				// 	"TMPID": "",
+				// 	"stepid": this.getModel("rtModel").getProperty("/stepid")
+				// };
+				var oObj = JSON.parse(JSON.stringify( this.getModel("rtModel").getProperty("/tasks")[0]));
+				oObj.stepid = this.getModel("rtModel").getProperty("/stepid");
+				oObj.engid = null;
+				oObj.DDDESC = "";
+				oObj.REFID = "AIR_11";
+				oObj.RTASKID = "";
+				oObj.DONE = "";
+				oObj.NA = null;
+				oObj.TAIL_ID = this.getTailId();
+				oObj.SRVID = "";
+				oObj.SRVTID = this.getModel("rtModel").getProperty("/srvtid");
+				oObj.TASKID = "";
+				oObj.APR_NO =  this.getModel("rtModel").getProperty("/tasks/0/APR_NO");
+				oObj.LOGIN_USER = "";
+				oObj.TRADE_USER = "";
+				oObj.TIME_S = null;
+				oObj.LEADFLAG = "";
+				oObj.TLCDT = null;
+				oObj.TLCTM = null;
+				oObj.TLQTY = null;
+				oObj.TRADE_USER = null;
+				oObj.PUBQTY = null;
+				oObj.TMPID = "";
+				oObj.SOAPID = null;
+				oObj.SOAPFLAG = null;
+				oObj.tstat = 1; // by default item need to sign off
+				oObj.tsign = "";
+				oObj.stepid = this.getModel("rtModel").getProperty("/stepid");
+				oObj.SERNR = null;
 				this.getModel("rtModel").getProperty("/tasks").push(oObj);
 				this.getModel("rtModel").refresh();
 			} catch (e) {
@@ -127,43 +156,131 @@ sap.ui.define([
 				this.fnShowMessage("E", oData, null, function(oEvent) {});
 			}
 		},
+		onSelItem: function(oEvent) {
+			var sSel = oEvent.getSource().getSelected();
+			var sPath = oEvent.getSource().getBindingContext("rtModel").getPath();
+			this.getModel("rtModel").setProperty(sPath + "/tstat", sSel ? 1 : 0);
+			this.getModel("rtModel").refresh();
+		},
+		/** 
+		 * On undo sign off
+		 * @param oEvent
+		 */
+		onUndoSignoff: function(oEvent) {
+			try {
+				var oObject = oEvent.getSource().getBindingContext("rtModel").getObject();
+				this.fnUndoSignOff(oObject);
+			} catch (e) {
+				Log.error("Exception in onUndoSignoff function");
+				this.handleException(e);
+			}
+		},
 		onSignOffClick: function() {
 			try {
 
-				if (this.formatter.integerUnit(this.getModel("rtModel").getProperty("/tasks/0/APR_NO")) === 0) {
-					var isNotVaild = true;
-					this.getModel("rtModel").getProperty("/tasks").forEach(function(oItem) {
-						if (oItem.DONE === "" || oItem.DONE === null) {
-							isNotVaild = false;
-						}
-					});
-					if (!isNotVaild) {
-						var oData = {
-							messages: ["Please review every record."]
-						};
-						this.fnShowMessage("E", oData, null, function(oEvent) {});
-						return;
-					}
-					this.onSignOff();
-				} else {
-					this._SignOffR3();
-				}
+				// if (this.formatter.integerUnit(this.getModel("rtModel").getProperty("/tasks/0/APR_NO")) === 0) {
+				// 	var isNotVaild = true;
+				// 	this.getModel("rtModel").getProperty("/tasks").forEach(function(oItem) {
+				// 		if (oItem.DONE === "" || oItem.DONE === null) {
+				// 			isNotVaild = false;
+				// 		}
+				// 	});
+				// 	if (!isNotVaild) {
+				// 		var oData = {
+				// 			messages: ["Please review every record."]
+				// 		};
+				// 		this.fnShowMessage("E", oData, null, function(oEvent) {});
+				// 		return;
+				// 	}
+				// 	this.onSignOff();
+				// } else {
+				// 	this._SignOffR3();
+				// }
 
+				var sMsg = "";
+				var oTaskData = this.getModel("rtModel").getProperty("/tasks");
+				for (var i = 0; i < oTaskData.length; i++) {
+					//Rahul Code changes 30/10/2020: to check table selection logic
+					 //&& (oTaskData[i].DONE === "" || oTaskData[i].DONE === null)
+					if ((oTaskData[i].tsign === "" && oTaskData[i].tstat === 0)) {
+						sMsg = "";
+					} else {
+						if ((oTaskData[i].tsign === "" && oTaskData[i].tstat !== 1)) {
+							sMsg = "Please select at least one record";
+							this._fnErrorMessage(sMsg);
+							return;
+						}
+						if (oTaskData[i].DONE === "" || oTaskData[i].DONE === null) {
+							sMsg = "Please review the record";
+							this._fnErrorMessage(sMsg);
+							return;
+						}
+						if (oTaskData[i].DDDESC === "" || oTaskData[i].DDDESC === null) {
+							sMsg = "Please enter task details.";
+							this._fnErrorMessage(sMsg);
+							return;
+						}
+					}
+				}
+				this.onSignOff();
 			} catch (e) {
 				Log.error("Exception in onSignOffClick function");
 				this.handleException(e);
 			}
 		},
-		onSignOff: function() {
+		/** 
+		 * Undo signoff
+		 * @param oObject
+		 * @returns
+		 */
+		fnUndoSignOff: function(oObject) {
 			try {
-				var oPayloads = this.getModel("rtModel").getProperty("/tasks");
+				var aFinalPayload = [];
+				var oCopy = JSON.parse(JSON.stringify(oObject));
+				oCopy.tstat = 0;
+				delete oCopy.selected;
+				aFinalPayload.push(oCopy);
+
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/RT2Svc", oParameter, oPayloads, "ZRM_FS_RTT", this);
+				ajaxutil.fnUpdate("/RT2Svc", oParameter, aFinalPayload, "ZRM_FS_RTT", this);
+
+			} catch (e) {
+				Log.error("Exception in fnUndoSignOff function");
+				this.handleException(e);
+			}
+		},
+		onSignOff: function() {
+			try {
+				var aFinalPayload = [];
+				var bSelected = false;
+				var aPayloads = this.getModel("rtModel").getProperty("/tasks");
+				
+				aPayloads.forEach(function(oPayload) {
+					var oCopy = JSON.parse(JSON.stringify(oPayload));
+					if (oCopy.tstat === 1) {
+						bSelected = true;
+						oCopy.tstat = 1;
+					}
+					delete oCopy.selected;
+					aFinalPayload.push(oCopy);
+				});
+				if (!bSelected) {
+					sap.m.MessageToast.show("Select at least one for sign off first");
+					return;
+				}
+				
+				var oParameter = {};
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					this._getRTTasks();
+				}.bind(this);
+				oParameter.activity = 4;
+				ajaxutil.fnCreate("/RT2Svc", oParameter, aFinalPayload, "ZRM_FS_RTT", this);
 			} catch (e) {
 				Log.error("Exception in onSignOff function");
 				this.handleException(e);
@@ -182,7 +299,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/RT3Svc", oParameter, [sPayload], "ZRM_FS_RTT", this);
+				ajaxutil.fnCreate("/RT2Svc", oParameter, [sPayload], "ZRM_FS_RTT", this);
 			} catch (e) {
 				Log.error("Exception in _SignOffPost function");
 				this.handleException(e);
@@ -214,7 +331,14 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		//Rahul Code changes 30/10/2020: show error message
+		_fnErrorMessage: function(sMsg) {
+			var oData = {
+				messages: [sMsg]
+			};
+			this.fnShowMessage("E", oData, null, function(oEvent) {});
 
+		},
 		_getRTTasks: function() {
 			try {
 				var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ? 
@@ -310,9 +434,3 @@ sap.ui.define([
 		}
 	});
 });
-
-// 	oWizard.getSteps()[0]._activate();
-// 	oWizard.getSteps()[1]._activate();
-// 	oWizard.getSteps()[2]._activate();
-// 	oWizard.getSteps()[3]._activate();
-// 	oWizard.goToStep(oWizard.getSteps()[0], true);

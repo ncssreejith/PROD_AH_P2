@@ -51,7 +51,10 @@ sap.ui.define([
 				margin: 0,
 				filename: 'WDNS Coefficients Records - Aircraft OFP.pdf',
 				html2canvas: {
-					scale: 2
+					scale: 1.8
+				},
+				pagebreak: {
+					mode: 'avoid-all'
 				},
 				jsPDF: {
 					orientation: 'landscape',

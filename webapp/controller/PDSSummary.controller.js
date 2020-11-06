@@ -290,7 +290,7 @@ sap.ui.define([
 				var oStation = oEvent.getParameter("oSource").getParent().getBindingContext("pdsSummaryModel").getObject();
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID +
-					" and ADPID eq " + oStation.ADPID;
+					" and ADPID eq " + oStation.ADPID + " and adpflag eq S";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty("/srnos", oData.results);
@@ -358,7 +358,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead("/SortieMonsvc", oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getSortie function");
 			}
 		},
 		_getReplenishmentDetails: function() {
@@ -374,15 +374,18 @@ sap.ui.define([
 					this._getRTTasks();
 					this._getTasks();
 					this._getCreatedTasks();
-					this._getFuelExtTanks();
+					// this._getFuelExtTanks();
 				}.bind(this);
-				ajaxutil.fnRead("/ReplshmentSvc", oParameter);
+				ajaxutil.fnRead("/ReplenishmentSvc", oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getReplenishmentDetails function");
 			}
 		},
 		fnSetReplData: function(oData) {
 			var sIndex = this._fnGetIndexById("T6_FLC");
+			if(sIndex < 0){
+				return;
+			}
 			this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/count", "");
 			this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data", {});
 			this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/reviewd", oData.results.length > 0 ? false : true);
@@ -840,7 +843,8 @@ sap.ui.define([
 					visct: null,
 					couts: null,
 					cpend: null,
-					CFLAG: null
+					CFLAG: null,
+					NPASIGN: this.getModel("pdsSummaryModel").getProperty("/confirm/pasign") ? "" : "X"
 				};
 				var oParameter = {};
 				oParameter.error = function() {};

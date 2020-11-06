@@ -761,15 +761,7 @@ sap.ui.define([
 			return sTxt;
 		},
 
-		wcQuanty: function(TOTQTY, SERNR) {
-			if (TOTQTY) {
-				return "Qty " + TOTQTY;
-			}
-			if (SERNR) {
-				return "Qty " + 1;
-			}
-			return "Qty " + 0;
-		},
+
 		jdsDueInFormat: function(duein, uom) {
 			if (!duein || !uom) {
 				return 0;
@@ -954,7 +946,119 @@ sap.ui.define([
 				return "Good";
 			}
 		},
+		fsWCSignOff: function(tstat) {
+			if (tstat === "" || tstat === null) {
+				return true;
+			}
+			return false;
+		},
+		fsRCSignOff: function(selTab, tsign) {
+			if (selTab === "rc1") {
+				if (tsign === "" || tsign === null) {
+					return true;
+				}
+				return false;
+			}
+			if (selTab === "rc2") {
+				if (tsign === "" || tsign === null) {
+					return false;
+				}
+				return true;
+			}
+			return true;
+		},
+		fsRCUnSignOff: function(selTab, tsign) {
+			if (selTab === "rc2") {
+				if (tsign === "" || tsign === null) {
+					return true;
+				}
+				return false;
+			}
+			if (selTab === "rc1") {
+				if (tsign === "" || tsign === null) {
+					return false;
+				}
+				return true;
+			}
+			return true;
+		},
+		fsWCUnSignOff: function(tstat) {
+			if (tstat === "" || tstat === null) {
+				return false;
+			}
+			return true;
+		},
 
+		wcQuanty: function(TOTQTY, SERNR) {
+			if (TOTQTY !== null || TOTQTY !== undefined || TOTQTY >= 0) {
+				return "Qty " + TOTQTY;
+			}
+			if (SERNR) {
+				return "Qty " + 1;
+			}
+			return "Qty " + 0;
+		},
+		//Rahul Code changes 30/10/2020: to check table check box selection logic
+		fnRTTaskEnableChk: function(sSign, sEngId, sResId) {
+			// var sFlag = false;
+			if (sSign) {
+				return false;
+			}
+			if (!sEngId && sResId === "RTASK_9004") {
+				return true;
+			}
+			return false;
+		},
+		rcSignBtn: function(tsgn, ttab) {
+			if (tsgn && ttab === "rc1") {
+				return "Undo SignOff";
+			}
+			return "Sign off";
+		},
+
+		rcSignChange: function(tsgn, ttab) {
+			if (!tsgn && ttab === "rc1") {
+				return true;
+			}
+			if (tsgn && ttab === "rc2") {
+				return true;
+			}
+			return false;
+		},
+
+		fnfinalWcSignOffTxt: function(oSrvtId) {
+			switch (oSrvtId) {
+				case "SRVT_AF":
+				case "SRVT_BPO":
+					return false;
+				default:
+					return true;
+			}
+		},
+		wcViewSNVisible: function(sPot, sQty, sAdp, sWesId) {
+			if (sWesId) {
+				if (sQty > 0) {
+					return "View S/N";
+				}
+				return "";
+			}
+			if (sAdp) {
+				return "View S/N";
+			}
+			return "";
+		},
+		wcQty: function(sPot, sQty, sAdp, sWesId) {
+			if (sWesId) {
+				if (sQty > 0) {
+					return "Qty " + sQty;
+				}
+				return "Qty 0";
+			}
+			if (sAdp) {
+				return "Qty 1";
+			}
+			return "Qty 0";
+		},
 		ADDLimitColorByDay: function(sValue) {
 			this.removeStyleClass("vboxOrangebgColorr");
 			this.removeStyleClass("vbox6BgColor");
@@ -1310,6 +1414,12 @@ sap.ui.define([
 		srvLbl: function(srvId) {
 			var sSrvTitle = "";
 			switch (srvId) {
+				case "SRVT_ARM":
+					sSrvTitle = "ARM";
+					break;
+				case "SRVT_DARM":
+					sSrvTitle = "DARM";
+					break;	
 				case "SRVT_AF":
 					sSrvTitle = "AF";
 					break;
@@ -1627,6 +1737,17 @@ sap.ui.define([
 					return false;
 				default:
 					return true;
+			}
+		},
+		checkFairStatus: function(aState) {
+			switch (aState) {
+				case "AST_FAIR":
+				case "AST_FAIR0":
+				case "AST_FAIR1":
+				case "AST_FAIR2":
+					return true;
+				default:
+					return false;
 			}
 		},
 

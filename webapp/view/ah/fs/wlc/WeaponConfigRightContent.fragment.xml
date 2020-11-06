@@ -4,11 +4,15 @@
 		<l:Grid>
 			<FlexBox wrap="Wrap" items="{path:'oWCModel>/stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'}]}">
 				<items>
-					<cc:Station1 title="{= (${oWCModel>WEDESC}===null || ${oWCModel>WEDESC}==='')? ${oWCModel>ADPDESC}:${oWCModel>WEDESC}}"
-						subTitle="{oWCModel>LTXT}" footerLeftInfo="{parts:['oWCModel>TOTQTY','oWCModel>SERNR'],formatter:'.formatter.wcQuanty'}" footerRightInfo="{= (${oWCModel>ISSER}==='X' || ${oWCModel>SERNR}!==null)?'View S/N':''}" class=" sapUiTinyMargin" press="onStationPress"
+					<cc:Station1 title="{= (${oWCModel>WESDESC}===null || ${oWCModel>WESDESC}==='')? ${oWCModel>ADPDESC}:${oWCModel>WESDESC}}"
+						subTitle="{oWCModel>LTXT}"
+						footerLeftInfo="{parts:['oWCModel>POT','oWCModel>TOTQTY','oWCModel>ADPID','oWCModel>WESID'],formatter:'.formatter.wcQty'}"
+						footerRightInfo="{parts:['oWCModel>POT','oWCModel>TOTQTY','oWCModel>ADPID','oWCModel>WESID'],formatter:'.formatter.wcViewSNVisible'}" 
+						class=" sapUiTinyMargin" press="onStationPress"
 						fireSerialPress="onSerialNoPress">
 						<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" />
-						<core:Icon src="sap-icon://broken-link" visible="{= ${oWCModel>CONECT}!=='N'}" color="{path:'oWCModel>CONECT',formatter:'.formatter.wcStationColor'}" size="3rem"/>
+						<core:Icon src="sap-icon://broken-link" visible="{= ${oWCModel>CONECT}!=='N'}"
+						color="{path:'oWCModel>CONECT',formatter:'.formatter.wcStationColor'}" size="3rem"/>
 					</cc:Station1>
 				</items>
 				<layoutData>

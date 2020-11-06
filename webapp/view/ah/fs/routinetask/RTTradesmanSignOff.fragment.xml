@@ -1,26 +1,35 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 		<Table class="sapUiResponsivePadding sapUiTinyMarginTop CERTable tableHFont" items="{path:'rtModel>/tasks', sorter : {
             path : 'RTASKID',
-            descending : 'true'
+            descending : true
          }}">
 			<columns>
-				<Column hAlign="Left" >
+				<Column hAlign="Left" width="5%">
+					<Label text="" design="Bold" wrapping="true"/>
+				</Column>
+				<Column hAlign="Left" width="10%" >
 					<Label text="S/N" design="Bold" class="fontWhite"/>
 				</Column>
 				<Column hAlign="Left" width="35%" >
 					<Label text="Task" design="Bold" class="fontWhite"/>
 				</Column>
-				<Column minScreenWidth="Tablet" width="25%" demandPopin="true" hAlign="Left">
+				<Column minScreenWidth="Tablet" width="20%" demandPopin="true" hAlign="Left">
 					<Label text="Status" design="Bold" wrapping="true"/>
 				</Column>
-				<Column minScreenWidth="Tablet" width="20%" demandPopin="true" hAlign="Left">
+				<Column minScreenWidth="Tablet" width="15%" demandPopin="true" hAlign="Left">
 					<Label text="Tradesman" design="Bold" wrapping="true"/>
 				</Column>
-				<Column minScreenWidth="Tablet" width="10%" demandPopin="true" hAlign="Left"/>
+				<Column minScreenWidth="Tablet" width="5%" demandPopin="true" hAlign="Left"/>
+				<Column hAlign="Left" width="10%">
+					<Label text="" design="Bold" wrapping="true"/>
+				</Column>
 			</columns>
 			<items>
 				<ColumnListItem>
 					<cells>
+							<!--	Rahul Code changes 30/10/2020: to check table selected logic "{= ${rtModel>TSTAT}===1}"-->
+						<CheckBox select="onSelItem" selected="{= ${rtModel>tstat}===1}"
+							enabled="{= ${rtModel>tsign}===''}"/>
 						<Text text="{path:'rtModel>DDDESC',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
 						<VBox>
 							<Text text="{rtModel>DDDESC}" visible="{= (${rtModel>RTASKID} || ${rtModel>/tasks/0/APR_NO}>0)?true:false}"/>
@@ -36,8 +45,14 @@
 								<SegmentedButtonItem text="" key="noKey" visible="false" />
 							</items>
 						</SegmentedButton>
-						<Text text="{rtModel>TRADE_USER}"/>
-						<Button icon="sap-icon://sys-cancel" type="Reject" visible="{= (${rtModel>RTASKID} || ${rtModel>/tasks/0/APR_NO}>0)?false:true}" press="onDeleteTaskPress"/>
+						<Text text="{rtModel>tsign}"/>
+						<!--	Rahul Code changes 30/10/2020: to check table visible logic "{= ${rtModel>tsign} === ''}"-->
+						<Button icon="sap-icon://sys-cancel" type="Reject" visible="{= ${rtModel>tsign} === '' &amp;&amp; ${rtModel>RTASKID} === '' }"
+							enabled="{path : 'rtModel>/srvclsd', formatter : '.formatter.srvIdExistEnable'}" press="onDeleteTaskPress"/>
+						<HBox visible="{= (${rtModel>tsign}!=='')}">
+							<Button text="Undo Sign Off" enabled="{path : 'rtModel>/srvclsd', formatter : '.formatter.srvIdExistEnable'}" press="onUndoSignoff"/>
+						</HBox>
+						<!--<Button icon="sap-icon://sys-cancel" type="Reject" visible="{= (${rtModel>RTASKID} || ${rtModel>/tasks/0/APR_NO}>0)?false:true}" press="onDeleteTaskPress"/>-->
 					</cells>
 				</ColumnListItem>
 			</items>

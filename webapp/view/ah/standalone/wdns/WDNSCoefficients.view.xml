@@ -7,7 +7,7 @@
 					<Button text="Print" icon="sap-icon://print" press="onPrint"/>
 					<Button text="View Past Record" type="Transparent" class="sapUiTinyMarginBeginEnd" press="onViewPastRecord"></Button>
 					<Button text="Update Record" type="Emphasized" press="onUpdateRecord"
-						enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"/>
+					enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"/>
 				</HBox>
 				<HBox>
 					<VBox width="auto">

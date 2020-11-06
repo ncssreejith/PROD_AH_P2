@@ -372,7 +372,7 @@ sap.ui.define([
 						this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 					}
 				}.bind(this);
-				ajaxutil.fnCreate("/ReplshmentSvc", oParameter, oPayloads);
+				ajaxutil.fnCreate("/ReplenishmentSvc", oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnUpdateTanks function");
 				this.handleException(e);
@@ -483,6 +483,7 @@ sap.ui.define([
 
 		_onObjectMatched: function(oEvent) {
 			try {
+
 				// this.setRef(this);
 				if (this.getOwnerComponent().getModel("oPilotUpdatesViewModel")) {
 					var oModel = this.getOwnerComponent().getModel("oPilotUpdatesViewModel");
@@ -850,14 +851,14 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-				};
+				}.bind(this);
 				oParameter.success = function(oData) {
 					var oTanks = this.getModel("oPilotUpdatesViewModel").getProperty("/fuleTanks");
 					var tTotal = oTanks.concat(oData.results);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/fuleTanks", tTotal);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/ReplshmentSvc", oParameter);
+				ajaxutil.fnRead("/ReplenishmentSvc", oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadFuleTankFromRepl function");
 				this.handleException(e);

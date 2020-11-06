@@ -6,7 +6,8 @@
 				<Button text="Print" icon="sap-icon://print" press="onPrint"/>
 				<Button text="View Past records" press="onPastRecords" class="sapUiTinyMarginBeginEnd"/>
 				<Button text="Update Records" type="Emphasized" press="onUpdateRecords"
-				enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"/>
+				enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"
+				/>
 			</Toolbar>
 			<VBox width="100%" class="sapUiSmallMarginTop" >
 				<!--<Table class="OFPBlue sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBeginEnd CERTable tableHFont"-->
