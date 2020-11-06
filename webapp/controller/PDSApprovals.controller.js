@@ -79,7 +79,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "ApprovalListModel");
 			}.bind(this);
 
-			ajaxutil.fnRead("/ApprovalSvc", oPrmAppr);
+			ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oPrmAppr);
 		},
 
 		//on Approve Request
@@ -149,7 +149,7 @@ sap.ui.define([
 				that.onOpenDialogApp();
 			}.bind(this);
 
-			ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload]);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload]);
 
 		},
 
@@ -183,7 +183,7 @@ sap.ui.define([
 				that.onOpenDialogApp();
 			}.bind(this);
 
-			ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload]);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload]);
 
 		},
 
@@ -201,7 +201,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "ApprovalDetailstModel");
 			}.bind(this);
 
-			ajaxutil.fnRead("/ApprovalNavSvc", oPrmAppr);
+			ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
 		},
 
 		onOpenDialogApp: function() {
@@ -259,7 +259,7 @@ sap.ui.define([
 				that.getView().byId("MasterId").setVisible(true);
 			}.bind(this);
 
-			ajaxutil.fnRead("/WeBalmSvc", oPrmWBM);
+			ajaxutil.fnRead(this.getResourceBundle().getText("WEBALMSVC"), oPrmWBM);
 		},
 
 		// ***************************************************************************

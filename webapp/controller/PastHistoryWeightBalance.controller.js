@@ -45,7 +45,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "WeightBalanceSet");
 			};
 
-			ajaxutil.fnRead("/WEBALPASTRECSvc", oPrmWBM);
+			ajaxutil.fnRead(this.getResourceBundle().getText("WEBALPASTRECSVC"), oPrmWBM);
 		},
 
 		// ***************************************************************************

@@ -51,7 +51,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnUpdate("/PilotDefectF16Svc", oParameter, oPayload, "ZRM_AC_U", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("PILOTDEFECTF16SVC"), oParameter, oPayload, "ZRM_AC_U", this);
 				this._fnDecodeFair(oPayload);
 			} catch (e) {
 				Log.error("Exception in ReleaseForRectification:onSignOffPress function");
@@ -69,7 +69,7 @@ sap.ui.define([
 		//-------------------------------------------------------------		
 		fnGetRect: function() {
 			try {
-				var sPath = "/PilotDefectF16Svc";
+				var sPath = this.getResourceBundle().getText("PILOTDEFECTF16SVC");
 				// + this.getModel("oRectModel").getProperty("/logid") + "/" + this.getTailId() + "/TABA_102";
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and SRVTID eq " + this.getModel("avmetModel").getProperty(

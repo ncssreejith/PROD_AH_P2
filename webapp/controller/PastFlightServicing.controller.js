@@ -172,7 +172,7 @@ sap.ui.define([
 						this._getTaskServicing(oItem);
 					}.bind(this));
 				}.bind(this);
-				ajaxutil.fnRead("/MainTaskSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 				// this.fnLoadSrv1Dashboard();
 				// //this.setBasicDetails(oEvent);
 				// var oPastFlightModel = this.getView().getModel("oPastFlightModel");
@@ -187,7 +187,7 @@ sap.ui.define([
 				// 		this._getTaskServicing(oItem);
 				// 	}.bind(this));
 				// }.bind(this);
-				// ajaxutil.fnRead("/GetServiceDtlSvc", oParameter);
+				// ajaxutil.fnRead(this.getResourceBundle().getText("GETSERVICEDTLSVC"), oParameter);
 				// // this.fnLoadSrv1Dashboard();
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
@@ -259,7 +259,7 @@ sap.ui.define([
 					oPastFlightModel.setProperty("/aTasks", aTasks);
 					oPastFlightModel.refresh();
 				}.bind(this, oItem);
-				ajaxutil.fnRead("/MainTaskSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTaskServicing function");
 				this.handleException(e);

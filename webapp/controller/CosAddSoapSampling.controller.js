@@ -138,7 +138,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					this.getView().setModel(oModel, "ReasonSOAPModel");
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDVALSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in CosAddSoapSampling:_fnReasonSOAPGet function");
 				this.handleException(e);
@@ -152,7 +152,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					this.getRouter().navTo("CosEngine");
 				}.bind(this);
-				ajaxutil.fnCreate("/EngSoapSvc", oParameter, [oPayload], "SOAPADD", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter, [oPayload], "SOAPADD", this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoapSampling:_fnReasonSOAPCreate function");
 				this.handleException(e);

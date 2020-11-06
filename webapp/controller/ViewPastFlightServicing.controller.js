@@ -75,7 +75,7 @@ sap.ui.define([
 						that.getView().setModel(oModel, "ViewPastFlightServicingModel");
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/GetServiceDtlSvc", oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERVICEDTLSVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in ViewPastFlightServicing:_fnGetViewPastFlightServicing function");
 				this.handleException(e);

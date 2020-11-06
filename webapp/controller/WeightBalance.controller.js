@@ -86,7 +86,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead("/WeBalSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALSVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in WeightBalance:_fnWeightBalanceItemGet function");
 				this.handleException(e);
@@ -141,7 +141,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/WeBalHSvc", oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in WeightBalance:_fnGetWeightBalHeaderSet function");
 				this.handleException(e);
@@ -179,7 +179,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetWBHFromIDSvc", oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWBHFROMIDSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in WeightBalance:_fnGetWeightPastRecord function");
 				this.handleException(e);
@@ -203,7 +203,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/WeBalISvc", oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in WeightBalance:_fnGetWeightBalanceItemSet function");
 				this.handleException(e);

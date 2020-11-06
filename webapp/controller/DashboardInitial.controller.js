@@ -630,7 +630,7 @@ sap.ui.define([
 					//this.getOwnerComponent().getRouter().navTo("DashboardInitial");
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/declareSafeSvc", oParameter, oPayloadWeapExp, "ZRM_PFR_WE", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("DECLARESAFESVC"), oParameter, oPayloadWeapExp, "ZRM_PFR_WE", this);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onACSignOffConfirm function");
 				this.handleException(e);
@@ -682,7 +682,7 @@ sap.ui.define([
 						// this.fnCreateTableFromData();
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in fnLoadSrv1Dashboard function");
 				this.handleException(e);
@@ -755,7 +755,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/GetSchDueSoonSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSCHDUESOONSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadSCLDashboard function");
 				this.handleException(e);
@@ -790,7 +790,7 @@ sap.ui.define([
 					this.fnLoadSCLDashboard(true);
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetSerLogSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				this.Log.error("Exception in fnTriggerScheduledJobs function");
 			}
@@ -816,7 +816,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/EngineDisSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnGetEngine function");
 				this.handleException(e);
@@ -838,7 +838,7 @@ sap.ui.define([
 				// 	this.fnProcessFuel(oData);
 				// 	// this.fnProcessFuel({results: []});
 				// }.bind(this);
-				// ajaxutil.fnRead("/DashboardCountsSvc", oParameter);
+				// ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId();
 				oParameter.error = function() {
@@ -850,7 +850,7 @@ sap.ui.define([
 					this.fnProcessArrayFuel(oData);
 					// this.fnProcessFuel({results: []});
 				}.bind(this);
-				ajaxutil.fnRead("/DashboardfuelSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDFUELSVC"), oParameter);
 
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadFLDashboard function");
@@ -982,7 +982,7 @@ sap.ui.define([
 					this._setRadialChartText("capMicroChartId", "", "", 0, 0);
 					this.getModel("dashboardModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/Dashboard1Svc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARD1SVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadCAPDashboard function");
 				this.handleException(e);
@@ -1080,7 +1080,7 @@ sap.ui.define([
 					this.getModel("dashboardModel").refresh();
 
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftRoleSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTROLESVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadROLDashboard function");
 				this.handleException(e);
@@ -1096,7 +1096,7 @@ sap.ui.define([
 					this.getModel("dashboardModel").setProperty("/location", oData.results);
 					this.getModel("dashboardModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/airtranscurrsvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRTRANSCURRSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadLocation function");
 				this.handleException(e);
@@ -1114,7 +1114,7 @@ sap.ui.define([
 					this.getModel("avmetModel").setProperty("/airutil", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("avmetModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadUtilization function");
 				this.handleException(e);
@@ -1136,7 +1136,7 @@ sap.ui.define([
 					this.getView().getModel("dashboardModel").refresh();
 					this.fnLoadSrv1Dashboard();
 				}.bind(this);
-				ajaxutil.fnUpdate("/AirtailSvc", oParameter, [oPayload], "ZRM_S_LOC", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("AIRTAILSVC"), oParameter, [oPayload], "ZRM_S_LOC", this);
 				//Reset data
 				this.getView().getModel("dashboardModel").setProperty("/editLoc", false);
 				this.getView().getModel("dashboardModel").refresh();

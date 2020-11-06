@@ -95,7 +95,7 @@ sap.ui.define([
 				oPrmWB.success = function(oData) {
 					this.getView().getModel("FileUploadModel").setProperty("/TableNameSet", oData.results);
 				}.bind(this);
-				ajaxutil.fnRead("/FileSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("FILESVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in FileUpload:_fnGetTableDD function");
 				this.handleException(e);
@@ -125,7 +125,7 @@ sap.ui.define([
 						"\n Error Records: " + oData.results[0].TOT_ER_REC);
 				}.bind(this);
 				oPrmWBMCreate.activity = 4;
-				ajaxutil.fnCreate("/FileSvc", oPrmWBMCreate, oPayload, "ZRM_S_UPLD", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("FILESVC"), oPrmWBMCreate, oPayload, "ZRM_S_UPLD", this);
 			} catch (e) {
 				Log.error("Exception in FileUpload:_postFile function");
 				this.handleException(e);
@@ -156,7 +156,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnCreate("/FileSvc", oPrmWBMCreate, oPayload);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("FILESVC"), oPrmWBMCreate, oPayload);
 			} catch (e) {
 				Log.error("Exception in FileUpload:_postFile function");
 				this.handleException(e);

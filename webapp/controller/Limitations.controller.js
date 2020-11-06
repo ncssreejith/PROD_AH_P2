@@ -160,7 +160,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "ADDLimSet");
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetAddLimitationsSvc", oPrmLimGet);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnADDGet function");
 				
@@ -188,7 +188,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "LimitationsSet");
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetAddLimitationsSvc", oPrmLimGet);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnLimitationsGet function");
 				
@@ -213,7 +213,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetAddLimitationsSvc", oPrmLimGet);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnLimitationsCompleteGet function");
 				

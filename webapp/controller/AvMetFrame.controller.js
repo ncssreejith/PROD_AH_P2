@@ -218,7 +218,7 @@ sap.ui.define([
 					this.fnLoadSrv1Dashboard();
 					this.getModel("avmetModel").refresh();
 				}.bind(this);
-				ajaxutil.fnCreate("/voidFlightSvc", oParameter, [oPayload], "ZRM_FS_VS", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_VS", this);
 			} catch (e) {
 				Log.error("Exception in ReleaseForRectification:onSignOffPress function");
 				this.handleException(e);
@@ -327,7 +327,7 @@ sap.ui.define([
 				oModel.setProperty("/UnlockAVMET", true);
 				var sASTID = this.getModel("avmetModel").getProperty("/dash/astid");
 				var sAuthObj = (sASTID === "AST_FFF") ? "ZRM_FFF_UL" : "ZRM_RFF_UL";
-				ajaxutil.fnCreate("/TailLockSvc", oParameter, [oPayload], sAuthObj, this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("TAILLOCKSVC"), oParameter, [oPayload], sAuthObj, this);
 			} catch (e) {
 				Log.error("Exception in onSignOffPress function");
 			}
@@ -366,7 +366,7 @@ sap.ui.define([
 				oModel.setProperty("/UnlockAVMET", true);
 				var sASTID = this.getModel("avmetModel").getProperty("/dash/astid");
 				var sAuthObj = (sASTID === "AST_FFF") ? "ZRM_FS_FFF" : "ZRM_FAIR_R";
-				ajaxutil.fnCreate("/TailLockSvc", oParameter, [oPayload], sAuthObj, this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("TAILLOCKSVC"), oParameter, [oPayload], sAuthObj, this);
 			} catch (e) {
 				Log.error("Exception in onSignOffPress function");
 			}
@@ -412,7 +412,7 @@ sap.ui.define([
 					this.getModel("avmetModel").setProperty("/airutil", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("avmetModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadUtilization function");
 				this.handleException(e);

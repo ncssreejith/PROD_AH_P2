@@ -851,7 +851,7 @@ sap.ui.define([
 					}, 100);
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/RoleChangeSvc", oParameter, plStations, "ZRM_FS_RCT", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, plStations, "ZRM_FS_RCT", this);
 			} catch (e) {
 				Log.error("Exception in onStationSignOff function");
 				this.handleException(e);
@@ -883,7 +883,7 @@ sap.ui.define([
 					oModel.setProperty("/tabSelected", "Tradesman");
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/GetRoleSvc", oParameter, plStations, "ZRM_FS_RCS", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("GETROLESVC"), oParameter, plStations, "ZRM_FS_RCS", this);
 			} catch (e) {
 				Log.error("Exception in onSecondSignOff function");
 				this.handleException(e);
@@ -1258,7 +1258,7 @@ sap.ui.define([
 					}
 
 				}.bind(this);
-				ajaxutil.fnRead("/GetRoleSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETROLESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _fnGetRoleChange function");
 				this.handleException(e);
@@ -1364,7 +1364,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/RoleChangeSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getAdaptors function");
 				this.handleException(e);
@@ -1526,7 +1526,7 @@ sap.ui.define([
 						that._fnOpentab(oData.results[0].HCFLAG);
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/RoleChangeSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getStations function");
 				this.handleException(e);
@@ -1603,7 +1603,7 @@ sap.ui.define([
 			oParameter.success = function(oData) {
 				that._navToDashboard();
 			}.bind(this);
-			ajaxutil.fnUpdate("/RoleChangeSvc", oParameter, oPayloadPUT,"S_RL",this);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, oPayloadPUT,"S_RL",this);
 		},*/
 
 		_navToDashboard: function() {

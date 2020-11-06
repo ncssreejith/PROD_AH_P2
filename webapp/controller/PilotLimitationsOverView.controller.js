@@ -117,7 +117,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutil.fnRead("/ADDOVERVIEWSvc", oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 		},
 
 		CAPDataUpdate: function() {
@@ -141,7 +141,7 @@ sap.ui.define([
 				this.onCloseMangeLimitaionDialog();
 			}.bind(this);
 
-			ajaxutil.fnUpdate("/ADDOVERVIEWSvc", oPrmJobDue, [oPayload]);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue, [oPayload]);
 		},
 
 		onStartRect: function(sValue) {
@@ -178,7 +178,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutil.fnUpdate("/StartRectificSvc", oParameter, [oPayload]);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("STARTRECTIFICSVC"), oParameter, [oPayload]);
 
 		},
 		_fnADDCapDataGet: function(sFlag, sJobId, sCapId) {
@@ -197,7 +197,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutil.fnRead("/ADDOVERVIEWSvc", oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 		},
 
 		_fnADDCapDataMultipleGet: function(sFlag, sJobId, sCapId) {
@@ -216,7 +216,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutil.fnRead("/ADDOVERVIEWSvc", oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 		},
 
 		_fnReasonforADDGet: function(sAirId) {
@@ -233,7 +233,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "ReasonforADDModel");
 			}.bind(this);
 
-			ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 		},
 
 		_fnPerioOfDeferCBGet: function(sAirId) {
@@ -251,7 +251,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "PerioOfDeferCBModel");
 			}.bind(this);
 
-			ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 		},
 		_fnUtilizationGet: function(sAirId) {
 			var that = this,
@@ -268,7 +268,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "UtilizationCBModel");
 			}.bind(this);
 
-			ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 		}
 
 	});

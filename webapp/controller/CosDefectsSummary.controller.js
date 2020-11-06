@@ -141,7 +141,7 @@ sap.ui.define([
 					PendingSupCount: 0,
 					CompleteCount: 0,
 					FairEditFlag: true,
-					FairEditBtnFlag:true,
+					FairEditBtnFlag: true,
 					TableFlag: "",
 					sFlag: "",
 					sWcKey: "",
@@ -225,7 +225,7 @@ sap.ui.define([
 				that._fnWorkCenterGet(sAirId);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onInit function");
-				
+
 			}
 		},
 		/* Function: onItemSelectOutstanding
@@ -260,7 +260,7 @@ sap.ui.define([
 					}
 				};
 
-				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGet function");
 			}
@@ -286,18 +286,18 @@ sap.ui.define([
 					var aResults = oData.results;
 					var sTrads = "";
 					for (var i in aResults) {
-						if (parseInt(i,10) === 0){
+						if (parseInt(i, 10) === 0) {
 							sTrads = aResults[i].usrid;
 						} else {
-							sTrads = sTrads + ", " + aResults[i].usrid;            
+							sTrads = sTrads + ", " + aResults[i].usrid;
 						}
 					}
-					that.getModel("TUserModel").setProperty("/sTrads",sTrads);
+					that.getModel("TUserModel").setProperty("/sTrads", sTrads);
 				}.bind(this);
-				ajaxutil.fnRead("/CreTuserSvc", oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("CRETUSERSVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnMultiTradmanGet function");
-				
+
 			}
 		},
 		/* Function: _fnJobDueGet
@@ -318,7 +318,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDueGet function");
 			}
@@ -363,7 +363,7 @@ sap.ui.define([
 					});
 				}.bind(this);
 				oPrmSchJob.activity = 2;
-				ajaxutil.fnUpdate("/RaiseSchSvc", oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("RAISESCHSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcessionPress function");
 			}
@@ -420,7 +420,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -451,7 +451,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -477,10 +477,10 @@ sap.ui.define([
 					that.getView().setModel(oModel, "Utilization2CBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnUtilization2Get function");
-				
+
 			}
 		},
 
@@ -501,7 +501,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TUserJobModel");
 				}.bind(this);
-				ajaxutil.fnRead("/CreTuserSvc", oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("CRETUSERSVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in _fnMultiTradmanJobGet function");
 			}
@@ -566,7 +566,7 @@ sap.ui.define([
 					}.bind(this);
 					oPrmTask.activity = 4;
 					oPrmTask.title = "Supervisor Sign Off";
-					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "dummy", this);
+					ajaxutil.fnUpdate(this.getResourceBundle().getText("TASKSVC"), oPrmTask, oPayload, "dummy", this);
 				} else {
 					MessageBox.error(
 						"Please select task for Sign-off.", {
@@ -577,7 +577,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onUndoSignOff function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -602,7 +602,7 @@ sap.ui.define([
 					this._fnGetTaskDescDropDown();
 				}.bind(this);
 
-				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in _fnGetTaskDropDown function");
 			}
@@ -628,7 +628,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TaskDescModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in _fnGetTaskDescDropDown function");
 			}
@@ -654,7 +654,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TT310Model");
 				}.bind(this);
 
-				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in _fnGetTaskTT310DropDown function");
 			}
@@ -680,7 +680,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TT311Model");
 				}.bind(this);
 
-				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in _fnGetTaskTT311DropDown function");
 			}
@@ -745,7 +745,7 @@ sap.ui.define([
 					}.bind(this);
 					oPrmTask.activity = 4;
 					oPrmTask.title = "Supervisor Sign Off";
-					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload, "dummy", this);
+					ajaxutil.fnUpdate(this.getResourceBundle().getText("TASKSVC"), oPrmTask, oPayload, "dummy", this);
 				} else {
 					MessageBox.error(
 						"Please select task for Sign-off.", {
@@ -756,7 +756,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onSignOffTask function");
-				
+
 			}
 		},
 
@@ -785,10 +785,10 @@ sap.ui.define([
 						oModel.updateBindings(true);
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/GetJobTaskstatSvc", oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTaskStatusGet function");
-				
+
 			}
 		},
 
@@ -823,7 +823,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetSerNoSvc", oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in getSerialNoPress function");
 			}
@@ -859,7 +859,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetSerNoSvc", oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in getSerialNoPress function");
 			}
@@ -885,7 +885,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisationDefaultVal function");
 			}
@@ -907,7 +907,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "UtilizationCBModel");
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnUtilizationGet function");
 			}
@@ -932,10 +932,10 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TaskMainListModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/TaskTypeSvc", oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetMainTaskDropDown function");
-				
+
 			}
 		},
 		/* Function: _fnReasonforADDGet
@@ -956,7 +956,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "ReasonforADDModel");
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnReasonforADDGet function");
 			}
@@ -981,7 +981,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "PerioOfDeferCBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnPerioOfDeferCBGet function");
 			}
@@ -1006,7 +1006,7 @@ sap.ui.define([
 				oPrmJobDue.success = function(oData) {
 					that.onPendingSupDetailsPress(oData.results[0]);
 				}.bind(this);
-				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnTasksGet function");
 			}
@@ -1031,7 +1031,7 @@ sap.ui.define([
 				oPrmJobDue.success = function(oData) {
 					that.onCompleteDetailsPress(oData.results[0]);
 				}.bind(this);
-				ajaxutil.fnRead("/GetSelTaskSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnTasksGet function");
 			}
@@ -1043,32 +1043,32 @@ sap.ui.define([
 		// Description: This will get called, when to get Outstanding and Pending Supervisor tasks count.
 		//Table: TASK
 		//------------------------------------------------------------------
-	/*	_fnTailStatusGet: function(sTailId) {
-			try {
-				var that = this,
-					oSummaryModel, oLocalModel = this.getView().getModel("LocalModel"),
-					oPrmTaskDue = {};
-				oPrmTaskDue.filter = "TAILID eq " + sTailId;
-				oPrmTaskDue.error = function() {};
-				oPrmTaskDue.success = function(oData) {
-					try {
-						var bTailStatus = this._fnCheckStatus(oData.results[0].ASTID);
-						if (bTailStatus) {
-							oSummaryModel = that.getView().getModel("SummaryModel");
-							oSummaryModel.setProperty("/FAIRStatusText", 'ACTIVATED');
-							oLocalModel.setProperty("/FairEditFlag", false);
-						} else {
-							oLocalModel.setProperty("/FairEditFlag", true);
+		/*	_fnTailStatusGet: function(sTailId) {
+				try {
+					var that = this,
+						oSummaryModel, oLocalModel = this.getView().getModel("LocalModel"),
+						oPrmTaskDue = {};
+					oPrmTaskDue.filter = "TAILID eq " + sTailId;
+					oPrmTaskDue.error = function() {};
+					oPrmTaskDue.success = function(oData) {
+						try {
+							var bTailStatus = this._fnCheckStatus(oData.results[0].ASTID);
+							if (bTailStatus) {
+								oSummaryModel = that.getView().getModel("SummaryModel");
+								oSummaryModel.setProperty("/FAIRStatusText", 'ACTIVATED');
+								oLocalModel.setProperty("/FairEditFlag", false);
+							} else {
+								oLocalModel.setProperty("/FairEditFlag", true);
+							}
+						} catch (e) {
+							Log.error("Exception in oGBAppModel FAIR STATUS function");
 						}
-					} catch (e) {
-						Log.error("Exception in oGBAppModel FAIR STATUS function");
-					}
-				}.bind(this);
-				ajaxutil.fnRead("/GetTailStatusSvc", oPrmTaskDue);
-			} catch (e) {
-				Log.error("Exception in _fnTailStatusGet function");
-			}
-		},*/
+					}.bind(this);
+					ajaxutil.fnRead(this.getResourceBundle().getText("GETTAILSTATUSSVC"), oPrmTaskDue);
+				} catch (e) {
+					Log.error("Exception in _fnTailStatusGet function");
+				}
+			},*/
 		_fnTailStatusGet: function(sTailId) {
 			try {
 				var that = this,
@@ -1099,7 +1099,7 @@ sap.ui.define([
 								oSummaryModel.setProperty("/FAIRStatus", "Error");
 							} else if (oJobModel.getProperty("/fstat") === "" || oJobModel.getProperty("/fstat") === null) {
 								//oViewModel.setProperty("/FairEditFlag", false);
-									oLocalModel.setProperty("/FairEditBtnFlag", false);
+								oLocalModel.setProperty("/FairEditBtnFlag", false);
 							}
 						} else {
 							oLocalModel.setProperty("/FairEditFlag", true);
@@ -1108,7 +1108,7 @@ sap.ui.define([
 						Log.error("Exception in oGBAppModel FAIR STATUS function");
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/GetTailStatusSvc", oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETTAILSTATUSSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnTailStatusGet function");
 			}
@@ -1194,7 +1194,7 @@ sap.ui.define([
 				sObject = "dummy";
 				oPrmTask.activity = "4";
 				oPrmTask.title = "Supervisor Sign Off";
-				ajaxutil.fnUpdate("/GetSelTaskSvc", oPrmTask, [oPayload], sObject, this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmTask, [oPayload], sObject, this);
 			} catch (e) {
 				Log.error("Exception in onSignOff function");
 			}
@@ -1238,10 +1238,10 @@ sap.ui.define([
 					this._fnTaskCount();
 				}.bind(this);
 
-				ajaxutil.fnRead("/TaskSvc", oPrmTask);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTasksOutStandingGet function");
-				
+
 			}
 		},
 
@@ -1326,7 +1326,7 @@ sap.ui.define([
 					sObject = "ZRM_COS_TT";
 					oPrmTask.activity = "4";
 					oPrmTask.title = "Tradesman Sign Off";
-					ajaxutil.fnUpdate("/Task1Svc", oPrmTask, [oPayload], sObject, this);
+					ajaxutil.fnUpdate(this.getResourceBundle().getText("TASK1SVC"), oPrmTask, [oPayload], sObject, this);
 				}
 			} catch (e) {
 				Log.error("Exception in onUpdateTaskPress function");
@@ -1363,10 +1363,10 @@ sap.ui.define([
 					this._fnTaskCount();
 				}.bind(this);
 
-				ajaxutil.fnRead("/TaskSvc", oPrmTask);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTasksPendingSupGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -1399,10 +1399,10 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TaskCompleteModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/TaskSvc", oPrmTask);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTasksCompleteGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -1431,10 +1431,10 @@ sap.ui.define([
 					this._fnTaskCount();
 				}.bind(this);
 
-				ajaxutil.fnRead("/FlyingRequirementSvc", oPrmFR);
+				ajaxutil.fnRead(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmFR);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnFlyingRequirementsGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -1462,10 +1462,10 @@ sap.ui.define([
 					that.onFlyingRequirementClose();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnUpdate("/FlyingRequirementSvc", oParameter, [oPayload], "dummy", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oParameter, [oPayload], "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onFlyingRequirementUpdate function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -1479,7 +1479,7 @@ sap.ui.define([
 				var that = this,
 					oPrmFR = {},
 					oModel = this.getView().getModel("LocalModel");
-				var sPath = "/FlyingRequirementSvc(" +
+				var sPath = this.getResourceBundle().getText("FLYINGREQUIREMENTSVC") + "(" +
 					"JOBID=" + oObj.JOBID + ",TAILID=" + oObj.TAILID + ",FR_NO=" + oObj.FR_NO + ")";
 				oPrmFR.error = function() {};
 				oPrmFR.success = function(oData) {
@@ -1525,10 +1525,10 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead("/SortieMonSvc", oPrmFR);
+				ajaxutil.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oPrmFR);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnSortieMonitoringGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -1559,10 +1559,10 @@ sap.ui.define([
 					that.onSortieMonitoringClose();
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutil.fnUpdate("/SortieMonSvc", oParameter, [oPayload], "dummy", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter, [oPayload], "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onSortieMonitoringUpdate function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -1576,7 +1576,7 @@ sap.ui.define([
 				var that = this,
 					oPrmSORT = {},
 					oModel = this.getView().getModel("LocalModel");
-				var sPath = "/SortieMonSvc(" +
+				var sPath = this.getResourceBundle().getText("SORTIEMONSVC") + "(" +
 					"JOBID=" + oObj.JOBID + ",TAILID=" + oObj.TAILID + ",SORNO=" + oObj.SORNO + ")";
 				oPrmSORT.error = function() {};
 				oPrmSORT.success = function(oData) {
@@ -1611,10 +1611,10 @@ sap.ui.define([
 					that.getView().setModel(oModel, "MonitoredForSet");
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmFND);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnMonitoredForGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -1638,10 +1638,10 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OperationSet");
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmFND);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnOperationTypeGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -1687,7 +1687,7 @@ sap.ui.define([
 							oViewModel.setProperty("/FairEditFlag", false);
 							oSummaryModel.setProperty("/FAIRStatusText", "ACTIVATED");
 							oSummaryModel.setProperty("/FAIRStatus", "Error");
-							
+
 						} else if (oData.results[0].fstat === 'R') {
 							oViewModel.setProperty("/FairEditFlag", true);
 							oSummaryModel.setProperty("/FAIRStatus", "Error");
@@ -1732,10 +1732,10 @@ sap.ui.define([
 					that._fnTaskStatusGet(sJobId);
 				}.bind(this);
 
-				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnJobDetailsGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -1759,10 +1759,10 @@ sap.ui.define([
 					that.getView().setModel(oModel, "WorkCenterSet");
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnWorkCenterGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -1797,10 +1797,10 @@ sap.ui.define([
 					}
 
 				}.bind(this);
-				ajaxutil.fnRead("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnPhotoUploadGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -1826,10 +1826,10 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnCreate("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc, "PHOTO", that);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc, "PHOTO", that);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnPhotoUploadCreate function");
-				
+
 			}
 		},
 
@@ -1869,7 +1869,7 @@ sap.ui.define([
 					oObject = "ZRM_COS_JB";
 					oParameter.activity = 2;
 				}
-				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], oObject, this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], oObject, this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateJob function");
 			}
@@ -1889,7 +1889,7 @@ sap.ui.define([
 						this.getModel("LocalModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}
@@ -1927,7 +1927,7 @@ sap.ui.define([
 			}.bind(this);
 			sObject = "ZRM_COS_JS";
 			oPrmTask.activity = 6;
-			ajaxutil.fnUpdate("/DefectJobSvc", oPrmTask, [oPayload], sObject, this);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmTask, [oPayload], sObject, this);
 		},
 
 		//------------------------------------------------------------------
@@ -2013,7 +2013,7 @@ sap.ui.define([
 					oParameter.activity = "1";
 				}
 
-				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], oObjectId, this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], oObjectId, this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateFAIRJob function");
 			}
@@ -2061,10 +2061,10 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead("/DefectWorkcenterSvc", oPrmWorkCenter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnCreatedWorkCenterGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -2104,13 +2104,13 @@ sap.ui.define([
 				}.bind(this);
 				if (sState) {
 					oPrmWorkCenter.activity = 1;
-					ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload]);
+					ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
 				} else {
-					ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload], "dummy", this);
+					ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload], "dummy", this);
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnDefectWorkCenterCreate function");
-				
+
 			}
 		},
 
@@ -2128,7 +2128,7 @@ sap.ui.define([
 				oPrmTask.success = function(oData) {
 					this.getView().getModel("LocalModel").setProperty("/selectedTask", oData.results);
 				}.bind(this);
-				ajaxutil.fnRead("/TaskSvc", oPrmTask);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in onWorkCenterSelect function");
 			}
@@ -2150,7 +2150,7 @@ sap.ui.define([
 				bTaskFlag = this._fnCheckWCTaskCount(sWorkCenterKey);
 				if (bTaskFlag) {
 					/*oPrmWorkCenter.filter="jobid eq "+sJobId+" and taild eq "+sTailId;*/
-					var sPath = "/DefectWorkcenterSvc(" +
+					var sPath = this.getResourceBundle().getText("DEFECTWORKCENTERSVC") + "(" +
 						"JOBID=" + oModel.getProperty("/sJobId") + ",WRCTR=" + sWorkCenterKey + ")";
 					oPrmWorkCenter.error = function() {};
 					oPrmWorkCenter.success = function(oData) {
@@ -2205,7 +2205,7 @@ sap.ui.define([
 					that.onCloseAddWorkCenterDialog();
 				}.bind(this);
 				oPrmWorkCenter.activity = 2;
-				ajaxutil.fnUpdate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in _fnDefectWorkCenterUpdate function");
 			}
@@ -2250,10 +2250,10 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead("/DefectMarkSvc", oPrmMark, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnGetMark function");
-				
+
 			}
 		},
 
@@ -2296,7 +2296,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/ToolCheckValSvc", oPrmTask);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TOOLCHECKVALSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in _fnToolCheck function");
 			}
@@ -2317,10 +2317,10 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TechRefSugg");
 				}.bind(this);
-				ajaxutil.fnRead("/GetTaskRefSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETTASKREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
-				
+
 			}
 		},
 
@@ -2446,7 +2446,7 @@ sap.ui.define([
 				that._oQuickView.open(that._bKeyboard, oButton, eDock.BeginTop, eDock.BeginFront, oButton);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onOpenQuickView function");
-				
+
 			}
 
 		},
@@ -2465,7 +2465,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onCloseDialog function");
-				
+
 			}
 		},
 		/* Function: onFilterChange
@@ -2524,7 +2524,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onRemoveInstallTaskChange function");
-				
+
 			}
 		},
 		/* Function: onSearchTable
@@ -2802,7 +2802,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:handleMenuItemPress function");
-				
+
 			}
 
 		},
@@ -3017,7 +3017,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onCloseAddWorkCenterDialog function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3033,7 +3033,7 @@ sap.ui.define([
 				that.getFragmentControl("idWorkCenterDialog", "confirmWCId").setVisible(false);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onCloseConfirmDialog function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3057,7 +3057,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onEditFlyingRequirement function");
-				
+
 			}
 		},
 
@@ -3078,7 +3078,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onFlyingRequirementClose function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3105,7 +3105,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onEditSortieMonitoring function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3125,7 +3125,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onSortieMonitoringClose function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3171,7 +3171,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onAddWorkcenterSubmitPress function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3226,7 +3226,7 @@ sap.ui.define([
 				that.getView().getModel("LocalModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onAEFMMenuPress function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3240,7 +3240,7 @@ sap.ui.define([
 				this.getFragmentControl("idWorkCenterDialog", "ComboWCId").setSelectedKey(oEvent.getSource().getSelectedKey());
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onWorkCenterChange function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3258,7 +3258,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onCloseAEMFDialog function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3319,7 +3319,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:handlePressWorkCenterFragmentOpenMenu function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3337,7 +3337,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onCloseWorkCenterMenu function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3357,7 +3357,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:getWorkcenterKey function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3432,7 +3432,7 @@ sap.ui.define([
 				that.onCloseWorkCenterMenu();
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:handleWorkCenterMenuItemPress function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3513,7 +3513,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onSummaryIconTabBarSelect function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3535,7 +3535,7 @@ sap.ui.define([
 				});
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onAddFlyingRequirements function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3561,7 +3561,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onCloseJobPress function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3583,7 +3583,7 @@ sap.ui.define([
 				});
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onAddSortieMonitoring function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3609,7 +3609,7 @@ sap.ui.define([
 				});
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onAddCreateTask function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3659,7 +3659,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onWoorkCenTblUpdateFinished function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3683,7 +3683,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onWorkCenterSelect function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3711,7 +3711,7 @@ sap.ui.define([
 				that._oOSDetails.open(that);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onAllOutStandingDetailsPress function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -3731,7 +3731,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onAllOutStandingDetailsClose function");
-				
+
 			}
 		},
 
@@ -3800,7 +3800,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:handleLiveChangeFlyingRequirements function");
-				
+
 			}
 		},
 
@@ -4049,7 +4049,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in fnJobEditCheck function");
-				
+
 			}
 		},
 
@@ -4301,7 +4301,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onCloseTask function");
-				
+
 			}
 		},
 
@@ -4380,7 +4380,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onAddDefectImage function");
-				
+
 			}
 		},
 
@@ -4422,7 +4422,7 @@ sap.ui.define([
 				}, 300);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:onSelectionDefectAreaChange function");
-				
+
 			}
 		},
 
@@ -4485,7 +4485,7 @@ sap.ui.define([
 				oModel.setProperty("/TaskCount", otbOutStanding + otbComplete + otbPendingApprovale);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTaskCount function");
-				
+
 			}
 		},
 
@@ -4614,7 +4614,7 @@ sap.ui.define([
 				return oFlag;
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnValidateWorkCenterRecord function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -4642,7 +4642,7 @@ sap.ui.define([
 				that.getView().byId("summaryHBId").invalidate();
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnResetWorkCenterPrimeStatus function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -4665,7 +4665,7 @@ sap.ui.define([
 				return oflag;
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnGetWorkCenterPrimeStatus function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -4690,7 +4690,7 @@ sap.ui.define([
 				oBindingOutstanding.filter(filterObj);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTableOutstandingFilter function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -4713,7 +4713,7 @@ sap.ui.define([
 				oBindingCompleted.filter(filterObj);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTableCompletedFilter function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -4736,7 +4736,7 @@ sap.ui.define([
 				oBindingPending.filter(filterObj);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTablePendingFilter function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -4818,7 +4818,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnApplyFilter function");
-				
+
 			}
 		},
 		/* Function: removeCoordinates
@@ -4994,7 +4994,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in _fnEditRectButtonVisibility function");
-				
+
 			}
 		},
 		/* Function: _fnJobEditCheck
@@ -5024,7 +5024,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in fnJobEditCheck function");
-				
+
 			}
 		},
 
@@ -5118,7 +5118,7 @@ sap.ui.define([
 				);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_handleRouteMatched function");
-				
+
 			}
 		}
 

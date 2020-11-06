@@ -78,7 +78,7 @@ sap.ui.define([
 						that.getView().setModel(oModel, "SortiMaster");
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/GetSortiAISvc", oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieMonitoring:_fnSortieMonitoringMasterGet function");
 				

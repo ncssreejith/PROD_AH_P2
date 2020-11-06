@@ -50,7 +50,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "FRAllModel");
 				}.bind(this);
-				ajaxutil.fnRead("/GetflyreqSvc", oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in _fnFlyingRequirementsMasterGet function");
 			}
@@ -64,7 +64,7 @@ sap.ui.define([
 				var that = this,
 					oPrmFR = {},
 					oModel = this.getView().getModel("LocalModel");
-				var sPath = "/FlyingRequirementSvc(" +
+				var sPath = this.getResourceBundle().getText("FLYINGREQUIREMENTSVC") + "(" +
 					"JOBID=" + oObj.JOBID + ",TAILID=" + oObj.TAILID + ",FR_NO=" + oObj.FR_NO + ")";
 				oPrmFR.error = function() {};
 				oPrmFR.success = function(oData) {
@@ -95,7 +95,7 @@ sap.ui.define([
 					that.onFlyingRequirementClose();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnUpdate("/FlyingRequirementSvc", oParameter, [oPayload], "dummy", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oParameter, [oPayload], "dummy", this);
 			} catch (e) {
 				Log.error("Exception in onFlyingRequirementUpdate function");
 			}

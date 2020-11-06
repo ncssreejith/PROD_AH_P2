@@ -183,7 +183,7 @@ sap.ui.define([
 		 */
 		fnLoadHeader: function() {
 			try {
-				var sPath = "/airtranscurrsvc/" + this.getTailId();
+				var sPath = this.getResourceBundle().getText("AIRTRANSCURRSVC") + "/" + this.getTailId();
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -211,7 +211,7 @@ sap.ui.define([
 
 		fnLoadCheckList: function() {
 			try {
-				var sPath = "/ATCheckListSvc";
+				var sPath = this.getResourceBundle().getText("ATCHECKLISTSVC");
 				var oParameter = {};
 				oParameter.filter = "airid eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
 				oParameter.error = function() {
@@ -233,7 +233,7 @@ sap.ui.define([
 		},
 		fnLoadSquadranList: function() {
 			try {
-				var sPath = "/airtranssvc";
+				var sPath = this.getResourceBundle().getText("AIRTRANSSVC");
 				var oParameter = {};
 				oParameter.error = function() {
 
@@ -325,7 +325,7 @@ sap.ui.define([
 				}.bind(this);
 
 				if (oData) {
-					ajaxutil.fnCreate("/ATCheckListSvc", oParameter, oData, "ZRM_TR_AC", this);
+					ajaxutil.fnCreate(this.getResourceBundle().getText("ATCHECKLISTSVC"), oParameter, oData, "ZRM_TR_AC", this);
 				}
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:fnSubmitResponse function");
@@ -341,7 +341,7 @@ sap.ui.define([
 					this.getModel("atckModel").setProperty("/location", oData.results);
 					this.getModel("atckModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/airtranscurrsvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRTRANSCURRSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:fnLoadLocation function");
 				this.handleException(e);
@@ -356,7 +356,7 @@ sap.ui.define([
 					this.getModel("atckModel").setProperty("/sqn", oData.results);
 					this.getModel("atckModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/airtranscurrsvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRTRANSCURRSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:fnLoadSqn function");
 				this.handleException(e);

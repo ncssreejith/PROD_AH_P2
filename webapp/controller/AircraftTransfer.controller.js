@@ -89,7 +89,7 @@ sap.ui.define([
 		 */
 		fnLoadCurrentDetails: function() {
 			try {
-				var sPath = "/airtranscurrsvc(tailid=" + this.getTailId() + ")";
+				var sPath = this.getResourceBundle().getText("AIRTRANSCURRSVC") + "(tailid=" + this.getTailId() + ")";
 				var oParameter = {};
 				oParameter.error = function() {
 
@@ -109,7 +109,7 @@ sap.ui.define([
 		 */
 		fnLoadHistory: function() {
 			try {
-				var sPath = "/AirTranssvc(tailid=" + this.getTailId() + ")";
+				var sPath = this.getResourceBundle().getText("AIRTRANSSVC") + "(tailid=" + this.getTailId() + ")";
 				var oParameter = {};
 				oParameter.error = function() {
 

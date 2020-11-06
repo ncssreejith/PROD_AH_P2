@@ -92,7 +92,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnReasonforADDGet function");
 				
@@ -120,7 +120,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilizationGet function");
 				
@@ -145,7 +145,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisationDefaultValue function");
 			}
@@ -174,7 +174,7 @@ sap.ui.define([
 					this.getView().getModel("oViewModel").setProperty("/ADDCount", sCount);
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetAddCountSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
 				
@@ -203,7 +203,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
 				
@@ -232,7 +232,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnPerioOfDeferCBGet function");
 				
@@ -259,7 +259,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/ADDSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ADDSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCapDataGet function");
 				
@@ -280,7 +280,7 @@ sap.ui.define([
 						this.getModel("oViewModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}
@@ -668,7 +668,7 @@ sap.ui.define([
 					ViewGlobalModel.setData(null);
 				}.bind(this);
 				oParameter.activity = 1;
-				ajaxutil.fnCreate("/ADDSvc", oParameter, [oPayLoad], "ZRM_ADDL", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("ADDSVC"), oParameter, [oPayLoad], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onSubmitTransferJobAdd function");
 				

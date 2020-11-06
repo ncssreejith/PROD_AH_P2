@@ -100,7 +100,7 @@ sap.ui.define([
 					this.getModel("oWDNSModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblUpHarmonic"), "oWDNSModel", "harmo", "oWDNSDataModel");
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in UpdateWDNSView:fnLoadHarmClm function");
 				this.handleException(e);
@@ -123,7 +123,7 @@ sap.ui.define([
 					this.getModel("oWDNSDataModel").setProperty("/harmo", oData.results);
 					this.getModel("oWDNSDataModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in UpdateWDNSView:fnLoadHarmData function");
 				this.handleException(e);
@@ -236,7 +236,7 @@ sap.ui.define([
 		 */
 		fnSubmitSignOff: function(oModel, oDataModel) {
 			try {
-				var sPath = "/AircraftLogSvc";
+				var sPath = this.getResourceBundle().getText("AIRCRAFTLOGSVC");
 				var oData = [];
 				var oParameter = {};
 				oParameter.activity = 2;

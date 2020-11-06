@@ -49,7 +49,7 @@ sap.ui.define([
 		// 		oInitialModel.setProperty("/AirIDs", result);
 		// 	}.bind(this);
 
-		// 	ajaxutil.fnRead("/AirmodelSvc", oParameter);
+		// 	ajaxutil.fnRead(this.getResourceBundle().getText("AIRMODELSVC"), oParameter);
 
 		//  },
 
@@ -128,7 +128,7 @@ sap.ui.define([
 		// 		oInitialModel.setProperty("/TailIDs", oData.results);
 		// 	}.bind(this);
 
-		// 	ajaxutil.fnRead("/AirtailSvc", oParameter);
+		// 	ajaxutil.fnRead(this.getResourceBundle().getText("AIRTAILSVC"), oParameter);
 		// 	//oInitialModel.setProperty("/airID", airID);
 		// },
 		// onTailIDChange: function(oEvent) {
@@ -156,7 +156,7 @@ sap.ui.define([
 				
 			}.bind(this);
 
-			ajaxutil.fnRead("/GetEsOperatorSvc", oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("GETESOPERATORSVC"), oParameter);
 		},
 		onclickDownload: function() {
 			var aCols, aJobs, oSettings, oSheet;

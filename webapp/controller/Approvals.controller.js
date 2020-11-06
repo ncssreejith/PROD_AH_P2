@@ -177,7 +177,7 @@ sap.ui.define([
 				oAppModel.setProperty("/UM", sDue);
 				oAppModel.updateBindings(true);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onUilisationChange function");
 			}
 		},
 		//-------------------------------------------------------------
@@ -229,7 +229,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "ApprovalListModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/ApprovalSvc", oPrmAppr);
+				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oPrmAppr);
 			} catch (e) {
 				Log.error("Exception in _fnApprovalRequestGet function");
 			}
@@ -250,7 +250,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisationDefaultValue function");
 			}
@@ -447,7 +447,7 @@ sap.ui.define([
 					that.onOpenDialogApp();
 				}.bind(this);
 				oParameter.activity = 5;
-				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], "ZRM_WNB", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], "ZRM_WNB", this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateWB function");
 			}
@@ -517,7 +517,7 @@ sap.ui.define([
 					that.onOpenDialogApp();
 				}.bind(this);
 				oParameter.activity = 5;
-				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], "ZRM_AC_O", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], "ZRM_AC_O", this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateLP function");
 			}
@@ -546,7 +546,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
 				
@@ -596,7 +596,7 @@ sap.ui.define([
 					oObject = "ZRM_ADDL";
 				}
 				oParameter.activity = 5;
-				ajaxutil.fnUpdate("/ApprovalNavSvc", oParameter, [oPayload], oObject, this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], oObject, this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateADD function");
 			}
@@ -624,7 +624,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/ApprovalNavSvc", oPrmAppr);
+				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
 			} catch (e) {
 				Log.error("Exception in _fnApprovalDetailsRequestGet function");
 			}
@@ -694,14 +694,14 @@ sap.ui.define([
 					this.getView().byId("MasterId").setVisible(true);
 				}.bind(this);
 
-				ajaxutil.fnRead("/ApprovalNavSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnTrialModGet function");
 			}
 		},
 		fnUpdateDeMod: function() {
 			try {
-				var sPath = "/ApprovalNavSvc"; //ApprovalNavSvc
+				var sPath = this.getResourceBundle().getText("APPROVALNAVSVC"); //ApprovalNavSvc
 				var oParameter = {};
 				var oPayload = this.getModel("trialModel").getProperty("/");
 				oPayload.flag = "TM";
@@ -747,7 +747,7 @@ sap.ui.define([
 					this._fnGetWeightBalanceItemSet(oData.results[0].WABID);
 				}.bind(this);
 
-				ajaxutil.fnRead("/WeBalHSvc", oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnWeightBalanceGet function");
 			}
@@ -768,7 +768,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "WeightBalanceSet");
 				}.bind(this);
 
-				ajaxutil.fnRead("/WeBalISvc", oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetWeightBalanceItemSet function");
 			}
@@ -795,7 +795,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewHeaderGet function");
 			}
@@ -817,7 +817,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OverViewItemModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewItemGet function");
 			}
@@ -839,7 +839,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OverViewItemTankModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewItemTankGet function");
 			}
@@ -861,7 +861,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OverViewItemOILModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewItemOilGet function");
 			}
@@ -897,7 +897,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead("/EDITLIMITATIONSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnCAPDataGet function");
 			}
@@ -935,7 +935,7 @@ sap.ui.define([
 					that._fnApprovalDetailsRequestGet(that.Obj.id);
 				}.bind(this);
 				oPrmJobDue.activity = 2;
-				ajaxutil.fnUpdate("/EDITLIMITATIONSvc", oPrmJobDue, [oPayload], "ZRM_ADDL", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in CAPDataUpdate function");
 			}
@@ -962,7 +962,7 @@ sap.ui.define([
 
 				}.bind(this);
 				oPrmJobDue.activity = 2;
-				ajaxutil.fnUpdate("/EDITLIMITATIONSvc", oPrmJobDue, [oPayload], "ZRM_ADDL", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in CAPDataCancel function");
 			}
@@ -989,7 +989,7 @@ sap.ui.define([
 					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetAddCountSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
 				
@@ -1012,7 +1012,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "ReasonforADDModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnReasonforADDGet function");
 			}
@@ -1035,7 +1035,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "PerioOfDeferCBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDVALSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnPerioOfDeferCBGet function");
 			}
@@ -1054,7 +1054,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "UtilizationCBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnUtilizationGet function");
 			}
@@ -1071,7 +1071,7 @@ sap.ui.define([
 						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}
@@ -1184,7 +1184,7 @@ sap.ui.define([
 				}
 
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _InitializeLimDialogModel function");
 			}
 		}
 

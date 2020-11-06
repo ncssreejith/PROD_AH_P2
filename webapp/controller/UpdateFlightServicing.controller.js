@@ -188,7 +188,7 @@ sap.ui.define([
 						this._getTaskServicing(oItem);
 					}.bind(this));
 				}.bind(this);
-				ajaxutil.fnRead("/MainTaskSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 				this.fnLoadSrv1Dashboard();
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
@@ -264,7 +264,7 @@ sap.ui.define([
 					oUpdateFlightModel.setProperty("/aTasks", aTasks);
 					oUpdateFlightModel.refresh();
 				}.bind(this, oItem);
-				ajaxutil.fnRead("/MainTaskSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTaskServicing function");
 				this.handleException(e);

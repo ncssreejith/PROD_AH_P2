@@ -98,7 +98,7 @@ sap.ui.define([
 		 */
 		fnSubmitDeleteJobSignOff: function(oObject) {
 			try {
-				var sPath = "/DelESJobsSvc";
+				var sPath = this.getResourceBundle().getText("DELESJOBSSVC");
 				var oData = [];
 				var oParameter = {};
 				oParameter.activity = 2;
@@ -126,7 +126,7 @@ sap.ui.define([
 		 */
 		fnSubmitETFSignOff: function(oObject) {
 			try {
-				var sPath = "/EHSERSvc";
+				var sPath = this.getResourceBundle().getText("EHSERSVC");
 				var oData = [];
 				var oParameter = {};
 				oParameter.activity = 2;
@@ -399,7 +399,7 @@ sap.ui.define([
 
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/EngineDisSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getHeader function");
 				this.handleException(e);
@@ -453,7 +453,7 @@ sap.ui.define([
 						// this._setData();
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/EHSERSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngPowerCheck function");
 				this.handleException(e);
@@ -497,7 +497,7 @@ sap.ui.define([
 					}
 
 				}.bind(this);
-				ajaxutil.fnRead("/EngSoapSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngineOilRepl function");
 				this.handleException(e);
@@ -553,8 +553,8 @@ sap.ui.define([
 					}
 					// oEngineModel.setProperty("/EngineSchedule", oData.results);
 				}.bind(this);
-				// ajaxutil.fnRead("/DelESJobsSvc", oParameter);
-				ajaxutil.fnRead("/GetSerLogSvc", oParameter);
+				// ajaxutil.fnRead(this.getResourceBundle().getText("DELESJOBSSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngScheule function");
 				this.handleException(e);
@@ -594,7 +594,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/EHSERSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngCyclicLife function");
 				this.handleException(e);

@@ -158,7 +158,7 @@ sap.ui.define([
 					this.getModel("oOFPModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblOFP"), "oOFPModel", "ofp", "oOFPDataModel");
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in OFPView:fnLoadOFPClm function");
 				this.handleException(e);
@@ -170,7 +170,7 @@ sap.ui.define([
 		fnLoadOFPData: function() {
 			try {
 				var oParameter = {};
-				var sPath = "/AircraftLogSvc";
+				var sPath = this.getResourceBundle().getText("AIRCRAFTLOGSVC");
 				var sLogid = this.getModel("oOFPModel").getProperty("/logid");
 				// var sLogidPath = sLogid ? " and logid eq " + sLogid : "";
 				if (sLogid) {

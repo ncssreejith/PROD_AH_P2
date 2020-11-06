@@ -54,7 +54,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate("/AircraftLogSvc", oParameter, [oPayload], "ZRM_AC_U", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter, [oPayload], "ZRM_AC_U", this);
 			} catch (e) {
 				Log.error("Exception in AddEquipRunningLog:onSignOffPress function");
 				this.handleException(e);
@@ -71,7 +71,8 @@ sap.ui.define([
 		//-------------------------------------------------------------		
 		fnLogById: function() {
 			try {
-				var sPath = "/AircraftLogSvc(logid=" + this.getModel("oAircraftAddModel").getProperty("/logid") + ",tailid=" + this.getTailId() + ",tabid=TABA_102)";
+				var sPath = this.getResourceBundle().getText("AIRCRAFTLOGSVC") + "(logid=" + this.getModel("oAircraftAddModel").getProperty(
+					"/logid") + ",tailid=" + this.getTailId() + ",tabid=TABA_102)";
 				// var sPath = "/AircraftLogSvc/" + this.getModel("oAircraftAddModel").getProperty("/logid") + "/" + this.getTailId() + "/TABA_102";
 				var oParameter = {};
 				oParameter.error = function() {
@@ -194,8 +195,8 @@ sap.ui.define([
 						}
 						break;
 					case "5":
-							sReasonTxt = "Others";
-						break;	
+						sReasonTxt = "Others";
+						break;
 				}
 				this.getModel("oAircraftAddModel").setProperty("/record/COL_18", sReasonTxt);
 				this.getModel("oAircraftAddModel").refresh();

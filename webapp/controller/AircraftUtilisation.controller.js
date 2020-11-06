@@ -117,7 +117,7 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblEquip"), "oAircraftUtilModel", "equip", "oAircraftDataUtilModel");
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadEquipClm function");
 				this.handleException(e);
@@ -139,7 +139,7 @@ sap.ui.define([
 					}
 					this.getModel("oAircraftDataUtilModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadEquipData function");
 				this.handleException(e);
@@ -157,7 +157,7 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblFlying"), "oAircraftUtilModel", "flying", "oAircraftDataUtilModel");
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadFlyingClm function");
 				this.handleException(e);
@@ -173,7 +173,7 @@ sap.ui.define([
 					this.getModel("oAircraftDataUtilModel").setProperty("/flying", oData.results);
 					this.getModel("oAircraftDataUtilModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadFlyingData function");
 				this.handleException(e);
@@ -191,7 +191,7 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblMano"), "oAircraftUtilModel", "mano", "oAircraftDataUtilModel");
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadManoClm function");
 				this.handleException(e);
@@ -207,7 +207,7 @@ sap.ui.define([
 					this.getModel("oAircraftDataUtilModel").setProperty("/mano", oData.results);
 					this.getModel("oAircraftDataUtilModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadManoData function");
 				this.handleException(e);
@@ -245,7 +245,7 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").setProperty("/engine", oData.results);
 					this.getModel("oAircraftUtilModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftUtilizationSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTUTILIZATIONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadEngineLong function");
 				this.handleException(e);

@@ -47,7 +47,7 @@ sap.ui.define([
 				that.getView().setModel(oDDT2Model, "TT2Model");
 				this.getRouter().getRoute("ESScheduleJobCreate").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onInit function");
 			}
 
 		},
@@ -93,7 +93,7 @@ sap.ui.define([
 					oModel.setData(aJobDue);
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in ESScheduleJobCreate:_fnJobDueGet function");
 				
@@ -118,7 +118,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -161,7 +161,7 @@ sap.ui.define([
 
 					// }
 				}.bind(this);
-				ajaxutil.fnRead("/EngineDisSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in getEngineHeader function");
 			}
@@ -185,7 +185,7 @@ sap.ui.define([
 					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in _fnWorkCenterGet function");
 			}
@@ -287,7 +287,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmTD.activity = 1;
-				ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in ESJobCreate function");
 			}

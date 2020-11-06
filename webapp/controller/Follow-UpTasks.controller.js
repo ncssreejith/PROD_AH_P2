@@ -255,14 +255,14 @@ sap.ui.define([
 					that._getTasks();
 				}.bind(this);
 				oParameter.filter = "tailid eq " + this.getTailId() + " and stepid eq S_FT";
-				ajaxutil.fnUpdate("/FTSvc", oParameter, oPayloadPut, "S_FT", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("FTSVC"), oParameter, oPayloadPut, "S_FT", this);
 
 				/*oParameter.error = function() {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and stepid eq S_FT";
 				oParameter.success = function(oData) {
 					that._putRTDetails(oPayloadPost);
 				}.bind(this);
-				ajaxutil.fnCreate("/FTSvc", oParameter, oPayloadPost);*/
+				ajaxutil.fnCreate(this.getResourceBundle().getText("FTSVC"), oParameter, oPayloadPost);*/
 
 				// var FLCDetails = dataUtil.getDataSet("FLCDetails"),
 				// 	oTaskModel,
@@ -313,7 +313,7 @@ sap.ui.define([
 				that._getTasks();
 			}.bind(this);
 			oParameter.filter = "tailid eq TAIL_1015 and stepid eq S_FT";
-			ajaxutil.fnUpdate("/FTSvc", oParameter, oPayloadPut);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("FTSVC"), oParameter, oPayloadPut);
 		},*/
 
 		// onPressRTaskBack: function() {
@@ -417,7 +417,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					that._getTasks();
 				}.bind(this);*/
-				//ajaxutil.fnCreate("/FT1Svc", oParameter, [oPayload]);
+				//ajaxutil.fnCreate(this.getResourceBundle().getText("FT1SVC"), oParameter, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
 				this.handleException(e);
@@ -458,7 +458,7 @@ sap.ui.define([
 						oFollowUpModel.refresh();
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/FTSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("FTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTasks function");
 				this.handleException(e);

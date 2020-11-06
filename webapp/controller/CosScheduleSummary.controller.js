@@ -133,7 +133,7 @@ sap.ui.define([
 		 */
 		_fnDeleteScheduleJob: function() {
 			try {
-				var sPath = "/GetSerLogSvc(" +
+				var sPath = this.getResourceBundle().getText("GETSERLOGSVC") + "(" +
 					"ESJOBID=" + this.getModel("LocalModel").getProperty("/ESJobId") +
 					")";
 				var oParameter = {};
@@ -147,7 +147,7 @@ sap.ui.define([
 				ajaxutil.fnDelete(sPath, oParameter, "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in _fnDeleteScheduleJob function");
-				
+
 			}
 		},
 		/* Function: _fnGetUtilisation
@@ -194,7 +194,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -220,7 +220,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "UtilizationCBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnUtilizationGet function");
 			}
@@ -261,7 +261,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetSerLogSvc", oPrmSummary);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmSummary);
 			} catch (e) {
 				Log.error("Exception in _fnSumamryDetailsGet function");
 			}
@@ -352,7 +352,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmSchJob.activity = 2;
-				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcessionPress function");
 			}
@@ -396,7 +396,7 @@ sap.ui.define([
 
 				}.bind(this);
 				oPrmSchJob.activity = 2;
-				ajaxutil.fnUpdate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in onUpdateWorkCenterPress function");
 			}
@@ -418,7 +418,7 @@ sap.ui.define([
 						this.getRouter().navTo("Cosjobs", true);
 					}.bind(this);
 					oPrmSchJob.activity = 1;
-					ajaxutil.fnCreate("/GetSerLogSvc", oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
+					ajaxutil.fnCreate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
 				} else {
 					MessageBox.error(
 						"Please add workcenter to start schedule job.", {
@@ -452,7 +452,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
 
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDueGet function");
 			}
@@ -479,7 +479,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "WorkCenterSet");
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in _fnWorkCenterGet function");
 			}
@@ -846,7 +846,7 @@ sap.ui.define([
 				Log.error("Exception in handlePressWorkCenterFragmentOpenMenu function");
 			}
 		},
-			/* Function: onCloseWorkCenterMenu
+		/* Function: onCloseWorkCenterMenu
 		 * Parameter:
 		 * Description: Function to close work center dialog
 		 */
@@ -1177,8 +1177,6 @@ sap.ui.define([
 				Log.error("Exception in _handleRouteMatched function");
 			}
 		}
-
-		
 
 	});
 });

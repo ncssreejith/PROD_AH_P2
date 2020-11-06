@@ -76,7 +76,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate("/EngSoapSvc", oParameter, [oPayload], "ZRM_E_REPL", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter, [oPayload], "ZRM_E_REPL", this);
 			} catch (e) {
 				Log.error("Exception in AddEngOilLog:onSignOffPress function");
 				this.handleException(e);
@@ -99,7 +99,7 @@ sap.ui.define([
 						oModel.refresh();
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _fnReasonSOAPGet function");
 			}

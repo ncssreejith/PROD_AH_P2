@@ -290,7 +290,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutil.fnRead("/WeBalSvc", oPrmWB);
+			ajaxutil.fnRead(this.getResourceBundle().getText("WEBALSVC"), oPrmWB);
 		},
 
 		_fnWeightBalanceGet: function(sTailId, sType) {
@@ -319,7 +319,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutil.fnRead("/WeBalHSvc", oPrmWBM);
+			ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
 		},
 
 		onSelectionChange: function(oEvent) {
@@ -354,7 +354,7 @@ sap.ui.define([
 
 					this.getOwnerComponent().getRouter().navTo("DashboardInitial");
 				}.bind(this);
-				ajaxutil.fnCreate("/WeBalISvc", oPrmWBMCreate, oPayload);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("WEBALISVC"), oPrmWBMCreate, oPayload);
 			} else {
 				this.getRouter().navTo("DashboardInitial");
 			}
@@ -388,7 +388,7 @@ sap.ui.define([
 			oAutoModel[0].MOD = "C";
 			oPayload.push(oAutoModel[0]);
 			oPrmWBMUpdate.activity = 4;
-			ajaxutil.fnCreate("/WeBalHSvc", oPrmWBMUpdate, oPayload, "ZRM_WNB", this);
+			ajaxutil.fnCreate(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBMUpdate, oPayload, "ZRM_WNB", this);
 		},
 
 		// ***************************************************************************

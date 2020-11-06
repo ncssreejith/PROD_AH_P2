@@ -61,7 +61,7 @@ sap.ui.define([
 						that.getView().setModel(oModel, "SortiHeader");
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/GetSortiAISvc", oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:_fnSortieMonitoringHeaderGet function");
 				
@@ -83,7 +83,7 @@ sap.ui.define([
 						that.getView().setModel(oModel, "SortiDetails");
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/GetSortiAISvc", oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:_fnSortieMonitoringDetailsGet function");
 				

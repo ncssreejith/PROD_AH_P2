@@ -21,7 +21,7 @@ sap.ui.define([
 			try {
 				this.getRouter().getRoute("CosAddTMDE").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onInit function");
 			}
 		},
 		// ***************************************************************************
@@ -53,7 +53,7 @@ sap.ui.define([
 				});
 				this.getView().getModel("TMDEModel").updateBindings(true);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in addNewTMDE function");
 			}
 		},
 		//2.to delete the row from table
@@ -64,7 +64,7 @@ sap.ui.define([
 				oModel.splice(sPath, 1);
 				this.getView().getModel("TMDEModel").refresh(true);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onTMDEDelete function");
 			}
 		},
 		onUoMSelect: function(oEvent) {
@@ -79,7 +79,7 @@ sap.ui.define([
 				}
 				FieldValidations.resetErrorStates(this);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onUoMSelect function");
 			}
 		},
 
@@ -98,7 +98,7 @@ sap.ui.define([
 					FieldValidations.resetErrorStates(this);
 				}
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onTorqueSetChange function");
 			}
 		},
 
@@ -120,7 +120,7 @@ sap.ui.define([
 				dataUtil.setDataSet("createJobModel", oCreateJob);
 				this.getRouter().navTo("CosDefectsSummary");
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onSubmitTMDE function");
 			}
 		},
 
@@ -165,7 +165,7 @@ sap.ui.define([
 
 				that.getView().setModel(oViewModel, "ViewModel");
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _onObjectMatched function");
 			}
 		}
 	});

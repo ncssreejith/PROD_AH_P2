@@ -106,7 +106,7 @@ sap.ui.define([
 					this.getModel("oPastModel").setProperty("/past", oData.results);
 					this.getModel("oPastModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadPastData function");
 			}

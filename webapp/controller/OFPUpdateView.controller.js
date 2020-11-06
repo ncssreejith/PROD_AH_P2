@@ -83,7 +83,7 @@ sap.ui.define([
 					this.getModel("oOFPModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblUpOFP"), "oOFPModel", "ofp", "oOFPDataModel");
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in OFPUpdateView:fnLoadOFPClm function");
 				this.handleException(e);
@@ -100,7 +100,7 @@ sap.ui.define([
 					this.getModel("oOFPDataModel").setProperty("/ofp", oData.results);
 					this.getModel("oOFPDataModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in OFPUpdateView:fnLoadOFPData function");
 				this.handleException(e);
@@ -182,7 +182,7 @@ sap.ui.define([
 		 */
 		fnSubmitSignOff: function(tblRef, oModel, sClmPath, oDataModel) {
 			try {
-				var sPath = "/AircraftLogSvc";
+				var sPath = this.getResourceBundle().getText("AIRCRAFTLOGSVC");
 				var oData = [];
 				var oParameter = {};
 				oParameter.activity = 2;

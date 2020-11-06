@@ -101,7 +101,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					oModel.updateBindings(true);
 				}.bind(this);
-				ajaxutil.fnRead("/TaskSvc", oPrmTask);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onWorkCenterSelect function");
 				
@@ -129,7 +129,7 @@ sap.ui.define([
 					this.getView().getModel("ViewModel").setProperty("/selectedTask", oData.results);
 					this.getView().getModel("ViewModel").setProperty("/oldSelectedTask", oData.results);
 				}.bind(this);
-				ajaxutil.fnRead("/TaskSvc", oPrmTask);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onRectificationSelectTask function");
 				
@@ -176,7 +176,7 @@ sap.ui.define([
 					oPrmTask.success = function(oData) {
 
 					}.bind(this);
-					ajaxutil.fnUpdate("/TaskSvc", oPrmTask, oPayload);
+					ajaxutil.fnUpdate(this.getResourceBundle().getText("TASKSVC"), oPrmTask, oPayload);
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onUpdateTask function");
@@ -297,7 +297,7 @@ sap.ui.define([
 					}
 				}
 				oPrmTask.activity = 6;
-				ajaxutil.fnUpdate("/DefectJobSvc", oPrmTask, [oPayload], sObject, this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmTask, [oPayload], sObject, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onSignOff function");
 				
@@ -355,7 +355,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModel");
 
 				}.bind(this);
-				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnJobDetailsGet function");
 				
@@ -377,7 +377,7 @@ sap.ui.define([
 					oModel.setProperty("/TaskStatus", oData.results[0].COUNT);
 					oModel.updateBindings(true);
 				}.bind(this);
-				ajaxutil.fnRead("/GetJobTaskstatSvc", oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnTaskStatusGet function");
 				
@@ -401,7 +401,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
-				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnWorkCenterGet function");
 				
@@ -427,7 +427,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnGetUtilisation function");
 				
@@ -451,7 +451,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "CreatedWorkCenterModel");
 				}.bind(this);
-				ajaxutil.fnRead("/DefectWorkcenterSvc", oPrmWorkCenter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnCreatedWorkCenterGet function");
 				
@@ -474,7 +474,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDueGet function");
 				
@@ -507,7 +507,7 @@ sap.ui.define([
 					}, true);
 				}.bind(this);
 				oPrmTD.activity = 1;
-				ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:ESJobCreate function");
 				
@@ -884,7 +884,7 @@ sap.ui.define([
 						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnGetDateValidation function");
 				
@@ -918,7 +918,7 @@ sap.ui.define([
 					}
 					that.getModel("TUserJobModel").setProperty("/sTrads",sTrads);
 				}.bind(this);
-				ajaxutil.fnRead("/CreTuserSvc", oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("CRETUSERSVC"), oPrmTD);
 			} catch (e) {
 
 				Log.error("Exception in CosCloseJob:_fnMultiTradmanJobGet function");

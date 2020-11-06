@@ -477,7 +477,7 @@ sap.ui.define([
 					this.getModel("oRoleChangeModel").refresh();
 
 				}.bind(this);
-				ajaxutil.fnRead("/Dashboard1Svc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARD1SVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:fnLoadDrop function");
 				this.handleException(e);
@@ -596,7 +596,7 @@ sap.ui.define([
 					//this._signOffPUT();
 					that._navToDashboard();
 				}.bind(this);
-				ajaxutil.fnCreate("/RoleChangeSvc", oParameter, aPayload, "S_RL", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, aPayload, "S_RL", this);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:onStationSignOff function");
 				this.handleException(e);
@@ -1011,7 +1011,7 @@ sap.ui.define([
 						that._checkSelectedAdaptors();
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/RoleChangeSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:_getAdaptors function");
 				this.handleException(e);
@@ -1107,7 +1107,7 @@ sap.ui.define([
 						that._setFirstItemSelected();
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/RoleChangeSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:_getStations function");
 				this.handleException(e);
@@ -1139,7 +1139,7 @@ sap.ui.define([
 					oRoleChange.refresh(true);
 					that._setFirstItemSelected();
 				}.bind(this);
-				ajaxutil.fnRead("/RoleViewsvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ROLEVIEWSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:_getDrop function");
 				this.handleException(e);
@@ -1209,7 +1209,7 @@ sap.ui.define([
 			oParameter.success = function(oData) {
 				that._navToDashboard();
 			}.bind(this);
-			ajaxutil.fnUpdate("/RoleChangeSvc", oParameter, oPayloadPUT,"S_RL",this);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, oPayloadPUT,"S_RL",this);
 		},*/
 
 		_navToDashboard: function() {

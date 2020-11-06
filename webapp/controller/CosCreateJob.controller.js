@@ -74,7 +74,7 @@ sap.ui.define([
 				this.getRouter().getRoute("CosCreateJob").attachPatternMatched(this._handleRouteMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onInit function");
-				
+
 			}
 		},
 		/* Function: onAfterRendering
@@ -96,7 +96,7 @@ sap.ui.define([
 		onDeleteImagePress: function(oEvent) {
 			try {
 				var obj = oEvent.getSource().getBindingContext("appModel").getObject();
-				var sPath = "/DefectPhotosSvc(" +
+				var sPath = this.getResourceBundle().getText("DEFECTPHOTOSSVC") + "(" +
 					"DOCID=" + obj.DOCID +
 					",JOBID=A)";
 				this.getView().byId("photoUpload").setBusy(true);
@@ -125,7 +125,7 @@ sap.ui.define([
 		_fnDeleteUnusedDocs: function() {
 			try {
 				if (this.docRefId) {
-					var sPath = "/DefectPhotosSvc(" +
+					var sPath = this.getResourceBundle().getText("DEFECTPHOTOSSVC") + "(" +
 						"DOCID=" + this.docRefId +
 						",JOBID=P)";
 					var oPrmMark = {};
@@ -206,14 +206,14 @@ sap.ui.define([
 
 					}.bind(this);
 					oParameter.activity = 1;
-					ajaxutil.fnCreate("/DefectJobSvc", oParameter, [oPayload], "ZRM_COS_JB", this);
+					ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], "ZRM_COS_JB", this);
 
 				} else {
 					that._fnUpdateJob(oPayload);
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onCreateJob function");
-				
+
 			}
 		},
 		/* Function: onESJobCreate
@@ -272,7 +272,7 @@ sap.ui.define([
 						}, true);
 					}.bind(this);
 					oPrmTD.activity = 1;
-					ajaxutil.fnCreate("/GetSerLogSvc", oPrmTD, [oPayload], "ZRM_SCH", this);
+					ajaxutil.fnCreate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_SCH", this);
 				} else {
 					oPayload = this.getView().getModel("oViewCreateModel").getData();
 					that._fnUpdateJob(oPayload);
@@ -327,10 +327,10 @@ sap.ui.define([
 					this.getView().byId("topId").setVisible(false);
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnUpdateJob function");
-				
+
 			}
 		},
 
@@ -345,7 +345,7 @@ sap.ui.define([
 				oCreateJobLocalModel.CreateJob.ScheJobDesc = sValue;
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onScheduledJobDescChange function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -386,10 +386,10 @@ sap.ui.define([
 						that.removeCoordinates(oModel.XCor, oModel.YCor, oCanvas);
 					}
 				}.bind(this);
-				ajaxutil.fnCreate("/DefectMarkSvc", oPrmMark, oPayload);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnCreateMark function");
-				
+
 			}
 		},
 
@@ -432,10 +432,10 @@ sap.ui.define([
 						that.removeCoordinates(oModel.XCor, oModel.YCor, oCanvas);
 					}
 				}.bind(this);
-				ajaxutil.fnUpdate("/DefectMarkSvc", oPrmMark, oPayload);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnUpdateMark function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -473,10 +473,10 @@ sap.ui.define([
 					}
 
 				}.bind(this);
-				ajaxutil.fnRead("/DefectMarkSvc", oPrmMark);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnGetMark function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -498,10 +498,10 @@ sap.ui.define([
 					oAppModel.setProperty("/DefectImageSrc", oData.results);
 				}.bind(this);
 
-				ajaxutil.fnRead("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnPhotoUploadGet function");
-				
+
 			}
 		},
 
@@ -523,10 +523,10 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
-				ajaxutil.fnRead("/MasterDDREFSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDueGet function");
-				
+
 			}
 		},
 		/* Function: _fnGetUtilisation
@@ -548,7 +548,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/UtilisationDueSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -570,10 +570,10 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
-				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnWorkCenterGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -602,10 +602,10 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnCreate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload]);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterCreate function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -634,10 +634,10 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnUpdate("/DefectWorkcenterSvc", oPrmWorkCenter, [oPayload]);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterUpdate function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -704,10 +704,10 @@ sap.ui.define([
 
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDetailsGet function");
-				
+
 			}
 		},
 		/* Function: _fnGetDateValidation
@@ -725,7 +725,7 @@ sap.ui.define([
 						this.getModel("appModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/JobsDateValidSvc", oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}
@@ -753,7 +753,7 @@ sap.ui.define([
 						oModel.updateBindings(true);
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/GetJobTaskstatSvc", oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnTaskStatusGet function");
 			}
@@ -787,7 +787,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnRenderImage function");
-				
+
 			}
 		},
 
@@ -810,7 +810,7 @@ sap.ui.define([
 				ctx.fill();
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:drawCoordinates function");
-				
+
 			}
 		},
 
@@ -838,7 +838,7 @@ sap.ui.define([
 				context.restore();
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:drawTextAlongArc function");
-				
+
 			}
 		},
 
@@ -856,7 +856,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:removeCoordinates function");
-				
+
 			}
 		},
 		// Function: onRefersh
@@ -884,7 +884,7 @@ sap.ui.define([
 				sRootPath = jQuery.sap.getModulePath("avmet.ah");
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onRefersh function");
-				
+
 			}
 		},
 		/* Function: handleChangeSche
@@ -1030,7 +1030,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:getPointPosition function");
-				
+
 			}
 		},
 
@@ -1051,7 +1051,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:handleLiveChangeRemarks function");
-				
+
 			}
 		},
 
@@ -1100,7 +1100,7 @@ sap.ui.define([
 				FieldValidations.resetErrorStates(this);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onSelectionNatureofJobChange function");
-				
+
 			}
 		},
 
@@ -1171,7 +1171,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onSelectionDefectAreaChange function");
-				
+
 			}
 		},
 		/* Function: _fnRestMarkArea
@@ -1188,7 +1188,7 @@ sap.ui.define([
 				this.getView().getModel("appModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnRestMarkArea function");
-				
+
 			}
 		},
 
@@ -1234,7 +1234,7 @@ sap.ui.define([
 								that.docRefId = oData.results[0].DOCREFID;
 								that._fnPhotoUploadGet(that.docRefId);
 							}.bind(this);
-							ajaxutil.fnCreate("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
+							ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
 						} else {
 							that.onTypeMissmatch();
 							that.getView().byId("photoUpload").setBusy(false);
@@ -1298,7 +1298,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onDueSelectChange function");
-				
+
 			}
 		},
 		/* Function: onStepChangeSchedule
@@ -1382,7 +1382,7 @@ sap.ui.define([
 				this.getView().getModel("oViewCreateModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onSymbolChange function");
-				
+
 			}
 		},
 
@@ -1402,7 +1402,7 @@ sap.ui.define([
 				this.getView().getModel("oViewCreateModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onFoundDuringChange function");
-				
+
 			}
 		},
 
@@ -1438,7 +1438,7 @@ sap.ui.define([
 				this.getView().getModel("CreateJobLocalModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:onAddMinusPress function");
-				
+
 			}
 		},
 
@@ -1453,6 +1453,7 @@ sap.ui.define([
 					sAirId;
 				this.getView().setModel(dataUtil.createNewJsonModel(), "oViewCreateModel");
 				sTailId = this.getTailId();
+				this.getResourceModel = this.getModel("i18n").getResourceBundle();
 				sAirId = this.getAircraftId();
 				sSqnId = this.getSqunId();
 				sModId = this.getModelId();
@@ -1506,7 +1507,7 @@ sap.ui.define([
 				this._fnFoundDuringGet();
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_handleRouteMatched function");
-				
+
 			}
 		},
 		/* Function: _fnSetInitialModel

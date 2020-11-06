@@ -89,7 +89,7 @@ sap.ui.define([
 					this.getView().getModel("oWDNSModel").refresh();
 					// this.fnLoadTails();
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftUtilizationSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTUTILIZATIONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in WDNSView:fnLoadEngineLong function");
 				this.handleException(e);

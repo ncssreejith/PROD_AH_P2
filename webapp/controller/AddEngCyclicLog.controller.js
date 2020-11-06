@@ -56,7 +56,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate("/EHSERSvc", oParameter, aPayload, "ZRM_E_CYCL", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("EHSERSVC"), oParameter, aPayload, "ZRM_E_CYCL", this);
 			} catch (e) {
 				Log.error("Exception in AddEngCyclicLog:onSignOffPress function");
 				this.handleException(e);
@@ -112,7 +112,7 @@ sap.ui.define([
 						oEngineModel.setProperty("/", oObject);
 					}
 				}.bind(this);
-				ajaxutil.fnRead("/EHSERSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngCyclicLife function");
 				this.handleException(e);

@@ -76,7 +76,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetAuditLogSvc", oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetAudLog function");
 			}
@@ -98,7 +98,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetAuditLogSvc", oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetAudLog function");
 			}
@@ -119,7 +119,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetLatestsvc", oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETLATESTSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetAudLog function");
 			}
@@ -148,7 +148,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetAuditLogSvc", oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetAudLog function");
 			}
@@ -166,7 +166,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "ObjectSugg");
 				}.bind(this);
-				ajaxutil.fnRead("/GetAuditLogSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
 				this.handleException(e);
@@ -222,7 +222,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetAuditLogSvc", oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 
 			} catch (e) {
 				Log.error("Exception in _fnGetAudLog function");

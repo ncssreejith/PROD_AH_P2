@@ -144,7 +144,7 @@ sap.ui.define([
 					that._fnJobDetailsGetUnScheduled();
 				}.bind(this);
 
-				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetAll function");
 			}
@@ -176,7 +176,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelD");
 				}.bind(this);
 
-				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetDefect function");
 			}
@@ -208,7 +208,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelS");
 				}.bind(this);
 
-				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetScheduled function");
 			}
@@ -240,7 +240,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelU");
 				}.bind(this);
 
-				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetUnScheduled function");
 			}
@@ -274,7 +274,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelC");
 				}.bind(this);
 
-				ajaxutil.fnRead("/DefectJobSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetUnCompleted function");
 			}
@@ -312,7 +312,7 @@ sap.ui.define([
 					that._fnJobGetMODSTIScheduled();
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetSerLogSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetScheduled function");
 			}
@@ -345,7 +345,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelAIR");
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetSerLogSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetAircraftScheduled function");
 			}
@@ -378,7 +378,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelCOM");
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetSerLogSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetCompScheduled function");
 			}
@@ -412,7 +412,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelENG");
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetSerLogSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetENGScheduled function");
 			}
@@ -445,7 +445,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelMODSTI");
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetSerLogSvc", oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetMODSTIScheduled function");
 			}

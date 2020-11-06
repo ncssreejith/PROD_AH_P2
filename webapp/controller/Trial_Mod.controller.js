@@ -60,7 +60,7 @@ sap.ui.define([
 					this.fnLoadTrialMod();
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutil.fnUpdate("/TRAILMONSvc", oParameter, [payload], "ZRM_T_MOD", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("TRAILMONSVC"), oParameter, [payload], "ZRM_T_MOD", this);
 			} catch (e) {
 				Log.error("Exception in Trial_Mod:onRaiseTrailMod function");
 				this.handleException(e);
@@ -115,7 +115,7 @@ sap.ui.define([
 		// ***************************************************************************	
 		fnLoadTrialMod: function() {
 			try {
-				var sPath = "/TRAILMONSvc/"; // + this.getTailId();
+				var sPath = this.getResourceBundle().getText("TRAILMONSVC") + "/"; // + this.getTailId();
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId(); // + " and tailid eq " + this.getTailId() + " and trial eq " + "X";
 				oParameter.error = function() {};
@@ -133,7 +133,7 @@ sap.ui.define([
 
 		fnUpdateDeMod: function(oEvent) {
 			try {
-				var sPath = "/TRAILMONSvc"; //ApprovalNavSvc
+				var sPath = this.getResourceBundle().getText("APPROVALNAVSVC"); //ApprovalNavSvc
 				var oData = [];
 				var oParameter = {};
 				oParameter.activity = 5;

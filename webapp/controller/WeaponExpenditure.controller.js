@@ -116,7 +116,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/WeapexpSvc", oParameter, oPayloads, "ZRM_PFR_WE", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("WEAPEXPSVC"), oParameter, oPayloads, "ZRM_PFR_WE", this);
 			} catch (e) {
 				Log.error("Exception in onACSignOffConfirm function");
 				this.handleException(e);
@@ -156,7 +156,7 @@ sap.ui.define([
 					this.getModel("oWeaponExpModel").setProperty("/stations", oData.results);
 					this.getModel("oWeaponExpModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/WeapexpSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPEXPSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getWeaponExp function");
 				this.handleException(e);
@@ -178,7 +178,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/declareSafeSvc", oParameter, oPayloadWeapExp, "ZRM_PFR_WE", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("DECLARESAFESVC"), oParameter, oPayloadWeapExp, "ZRM_PFR_WE", this);
 			} catch (e) {
 				Log.error("Exception in createEmptyPayload function");
 				this.handleException(e);

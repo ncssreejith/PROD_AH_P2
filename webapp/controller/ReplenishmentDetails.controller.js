@@ -216,7 +216,7 @@ sap.ui.define([
 					this._getRepTiles();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnUpdate("/ReplenishmentSvc", oParameter, [oObject], "ZRM_FS_RP", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, [oObject], "ZRM_FS_RP", this);
 
 			} catch (e) {
 				Log.error("Exception in fnUndoSignOff function");
@@ -256,7 +256,7 @@ sap.ui.define([
 					// }, true);
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/ReplenishmentSvc", oParameter, aPayloads, "ZRM_FS_RP", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, aPayloads, "ZRM_FS_RP", this);
 
 			} catch (e) {
 				Log.error("Exception in onPressSignOffConfirm function");
@@ -292,7 +292,7 @@ sap.ui.define([
 					this.getModel("oRepDetailsModel").setProperty("/TyrePressure", oData.results);
 					this.getModel("oRepDetailsModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewHeaderGet function");
 				this.handleException(e);
@@ -351,7 +351,7 @@ sap.ui.define([
 					}, "viewModel");
 					// this._getFuelExtTanks();
 				}.bind(this);
-				ajaxutil.fnRead("/ReplenishmentSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRepTiles function");
 				this.handleException(e);
@@ -411,7 +411,7 @@ sap.ui.define([
 						busy: false
 					}, "viewModel");
 				}.bind(this);
-				ajaxutil.fnRead("/ReplRoleSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLROLESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getFuelExtTanks function");
 				this.handleException(e);

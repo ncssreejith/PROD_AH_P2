@@ -147,7 +147,7 @@ sap.ui.define([
 						this._getFlightServicing(oItem);
 					}.bind(this));
 				}.bind(this);
-				ajaxutil.fnRead("/MainSrvSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
 				this.handleException(e);
@@ -195,7 +195,7 @@ sap.ui.define([
 					//this.getModel("srvModel").getProperty("/srv").push(oItem);
 					this.getModel("oCreatFlightSerModel").refresh();
 				}.bind(this, oItem);
-				ajaxutil.fnRead("/MainSrvSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getFlightServicing function");
 				this.handleException(e);
@@ -217,7 +217,7 @@ sap.ui.define([
 				that._getFlightServicing();
 				that._getAdhocServicing();
 			}.bind(this);
-			ajaxutil.fnRead("/MainSrvSvc", oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
 		},
 
 		_getFlightServicing1: function() {
@@ -241,7 +241,7 @@ sap.ui.define([
 					oCreatFlightSerModel.setProperty("/FlightServicing", oData.results);
 				}
 			}.bind(this);
-			ajaxutil.fnRead("/MainSrvSvc", oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
 		},*/
 
 		/*_getAdhocServicing: function(oItem) {
@@ -262,7 +262,7 @@ sap.ui.define([
 					oCreatFlightSerModel.setProperty("/AdhocServicing", oItem.results);
 				}
 			}.bind(this);
-			ajaxutil.fnRead("/MainSrvSvc", oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
 		}*/
 
 	});

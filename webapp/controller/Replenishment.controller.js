@@ -110,7 +110,7 @@ sap.ui.define([
 					}, "viewModel");
 					// this._getFuelExtTanks();
 				}.bind(this);
-				ajaxutil.fnRead("/ReplenishmentSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRepTiles function");
 				this.handleException(e);
@@ -139,7 +139,7 @@ sap.ui.define([
 						busy: false
 					}, "viewModel");
 				}.bind(this);
-				ajaxutil.fnRead("/ReplRoleSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLROLESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getFuelExtTanks function");
 				this.handleException(e);

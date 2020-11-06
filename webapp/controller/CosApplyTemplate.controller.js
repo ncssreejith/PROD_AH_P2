@@ -88,7 +88,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/GetSerNoSvc", oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:getSerialNoPress function");
 				
@@ -111,7 +111,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
-				ajaxutil.fnRead("/GetWorkCenterSvc", oPrmWorkCen);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:_fnWorkCenterGet function");
 				
@@ -168,7 +168,7 @@ sap.ui.define([
 					this.handleBusyDialogClose();
 					// this.fnLoadTails();
 				}.bind(this);
-				ajaxutil.fnRead("/GetrTaskSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETRTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:fnLoadTask function");
 				
@@ -379,7 +379,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutil.fnCreate("/TaskSvc", oParameter, oPayloads, "ZRM_COS_TP", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("TASKSVC"), oParameter, oPayloads, "ZRM_COS_TP", this);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onApplySelection function");
 				

@@ -179,7 +179,7 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				this.fnLoadEnginDistinct();
 			}.bind(this);
-			ajaxutil.fnRead("/AirtailSvc", oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("AIRTAILSVC"), oParameter);
 		},
 
 		fnLoadModels: function() {
@@ -196,7 +196,7 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				this.fnLoadTails();
 			}.bind(this);
-			ajaxutil.fnRead("/AirmodelSvc", oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("AIRMODELSVC"), oParameter);
 		},
 
 		fnLoadSquadran: function() {
@@ -212,7 +212,7 @@ sap.ui.define([
 				// this.getModel("oAirSelectViewModel").setProperty("/sel/sqnid", oData.results.length > 0 ? oData.results[0].ddid : "");
 				this.fnLoadWorkCenter();
 			}.bind(this);
-			ajaxutil.fnRead("/MasterDDREFSvc", oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 		},
 		fnLoadWorkCenter: function() {
 			var sqnId = this.getModel("oAirSelectViewModel").getProperty("/sel/sqnid");
@@ -227,7 +227,7 @@ sap.ui.define([
 				// this.getModel("oAirSelectViewModel").setProperty("/sel/wcid", oData.results.length > 0 ? oData.results[0].wrctr : "");
 				// this.fnLoadTails();
 			}.bind(this);
-			ajaxutil.fnRead("/GetWorkCenterSvc", oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oParameter);
 		},
 		fnLoadEngin: function(sEngType) {
 			var selTailid = 
@@ -247,7 +247,7 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				// this.fnLoadTails();
 			}.bind(this);
-			ajaxutil.fnRead("/EngineSvc", oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ENGINESVC"), oParameter);
 		},
 		/** 
 		 * Search by sernr
@@ -267,7 +267,7 @@ sap.ui.define([
 					// this.fnLoadTails();
 				}.bind(this);
 				this.getModel("oAirSelectViewModel").setProperty("/engine", []);
-				ajaxutil.fnRead("/GetRSerNoSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETRSERNOSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadEnginBySernr function");
 			}
@@ -286,7 +286,7 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				// this.fnLoadTails();
 			}.bind(this);
-			ajaxutil.fnRead("/EngineDisSvc", oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 		}
 	});
 });

@@ -164,7 +164,7 @@ sap.ui.define([
 					this.getRouter().navTo("DashboardInitial");
 				}.bind(this);
 				oPrmTask.activity = 5;
-				ajaxutil.fnUpdate("/LeadPartiSvc", oPrmTask, oPayload, "ZRM_AC_O", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("LEADPARTISVC"), oPrmTask, oPayload, "ZRM_AC_O", this);
 			} catch (e) {
 				Log.error("Exception in AircraftOverview:onPresSignOff function");
 				this.handleException(e);
@@ -189,7 +189,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in AircraftOverview:_fnAirOverViewItemGet function");
 				this.handleException(e);
@@ -215,7 +215,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in AircraftOverview:_fnAirOverViewItemTankGet function");
 				this.handleException(e);
@@ -239,7 +239,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in AircraftOverview:_fnAirOverViewItemOilGet function");
 				this.handleException(e);
@@ -269,7 +269,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead("/LeadPartiSvc", oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in AircraftOverview:_fnAirOverViewHeaderGet function");
 				this.handleException(e);
