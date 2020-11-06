@@ -247,7 +247,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnUpdate("/RT2Svc", oParameter, aFinalPayload, "ZRM_FS_RTT", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("RT2SVC"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
 
 			} catch (e) {
 				Log.error("Exception in fnUndoSignOff function");
@@ -280,7 +280,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/RT2Svc", oParameter, aFinalPayload, "ZRM_FS_RTT", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("RT2SVC"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
 			} catch (e) {
 				Log.error("Exception in onSignOff function");
 				this.handleException(e);
@@ -299,7 +299,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/RT2Svc", oParameter, [sPayload], "ZRM_FS_RTT", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("RT2SVC"), oParameter, [sPayload], "ZRM_FS_RTT", this);
 			} catch (e) {
 				Log.error("Exception in _SignOffPost function");
 				this.handleException(e);
@@ -368,7 +368,7 @@ sap.ui.define([
 					}, "viewModel");
 					// this._getRTLeadTasks();
 				}.bind(this);
-				ajaxutil.fnRead("/RT2Svc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("RT2SVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRTTasks function");
 				this.handleException(e);
@@ -403,7 +403,7 @@ sap.ui.define([
 					}, "viewModel");
 					this._fnActivate();
 				}.bind(this);
-				ajaxutil.fnRead("/RT2Svc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("RT2SVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRTLeadTasks function");
 				this.handleException(e);

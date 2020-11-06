@@ -134,7 +134,7 @@ sap.ui.define([
 					this.fnLoadStation();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate("/WeaponSvc", oParameter, oPayloads, "ZRM_FS_WCS", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("WEAPONCONFIGSVC"), oParameter, [oPayloads], "ZRM_FS_WCS", this);
 			} catch (e) {
 				Log.error("Exception in WeaponConfig:onSignOffClk function");
 				this.handleException(e);
@@ -183,7 +183,7 @@ sap.ui.define([
 					this.getModel("oWCModel").refresh();
 					// this.updateModel({busy:false} ,"oViewModel");
 				}.bind(this);
-				ajaxutil.fnRead("/WeaponSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in WeaponConfig:fnLoadStation function");
 				this.handleException(e);
@@ -238,7 +238,7 @@ sap.ui.define([
 					this.getModel("oWCModel").refresh();
 					this.openDialog("SerialNosDialog", ".fragments.fs.wlc.");
 				}.bind(this);
-				ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSERNRSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in WeaponConfig:onSerialNoPress function");
 				this.handleException(e);

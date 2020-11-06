@@ -10,17 +10,24 @@ sap.ui.define([
 ], function(models, BaseController, ajaxutil, formatter, FieldValidations, JSONModel, MessageBox, Log) {
 	"use strict";
 	/* ***************************************************************************
-	 *   Control name:            
-	 *   Purpose : 
+	 *	 Developer : AMIT KUMAR	
+	 *   Control name: Station           
+	 *   Purpose : Attach and display weapon to stations
 	 *   Functions : 
 	 *   1.UI Events
 	 *		1.1 onInit
+	 *		1.2 onSignOffPress
+	 *	 2. Backend Calls
+	 *		2.1 fnLogById
+	 *	 3. Private calls
+	 *		3.1 _onObjectMatched
+	 *		3.2 fnSetReason
 	 *   Note : 
 	 *************************************************************************** */
 	return BaseController.extend("avmet.ah.controller.Station", {
-		// ***************************************************************************
-		//                 1. UI Events  
-		// ***************************************************************************
+		/* ================================================================================================= */
+		/* lifecycle methods                                           */
+		/* =========================================================================================================== */
 		formatter: formatter,
 		onInit: function() {
 			try {
@@ -40,9 +47,11 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+
+		/* =========================================================================================================== */
+		/* event handlers                                              */
+		/* ========================================================================================================== */
+
 		onSelectionChange: function(oEvent) {
 			try {
 				var oContext = oEvent.getSource().getSelectedItem().getBindingContext("configModel");
@@ -54,12 +63,11 @@ sap.ui.define([
 				this.getModel("configModel").setProperty("/selStn", oContext.getObject());
 				this.getModel("configModel").refresh(true);
 			} catch (e) {
-				Log.error("Exception in onSelectionChange function");
+				Log.error("Exception in Station:onSelectionChange function");
+				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+
 		onWeaponTileClk: function(oEvent) {
 			try {
 				if (this.getModel("configModel").getProperty("/selStn/selADP/selWpn/ICART") === "X") {
@@ -71,34 +79,26 @@ sap.ui.define([
 
 				this.getModel("configModel").refresh();
 			} catch (e) {
-				Log.error("Exception in onWeaponTileClk function");
+				Log.error("Exception in Station:onWeaponTileClk function");
+				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
 		onSerialNoPress: function(oEvent) {
 
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
 		onHotColdSelect: function(oEvent) {
 			try {
 				this.getModel("configModel").setProperty("/selStn/HCFLAG", oEvent.getSource().getSelectedIndex() === 0 ? "H" : "C");
 				this.getModel("configModel").setProperty("/selStn/TSTAT", 1);
 				this.getModel("configModel").refresh();
 			} catch (e) {
-				Log.error("Exception in onHotColdSelect function");
+				Log.error("Exception in Station:onHotColdSelect function");
+				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+
 		onUpdateFinished: function(oEvent) {},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+
 		onConnecterPress: function(oEvent) {
 			try {
 				if(!this.fnOnValidate()){
@@ -123,11 +123,10 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in onConnecterPress function");
 			}
+
 		},
 		//on click of missile list items
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+
 		onMissileSelectChange: function(oEvent) {
 			try {
 				if(!this.fnOnValidate()){
@@ -160,12 +159,10 @@ sap.ui.define([
 				var oDailog = this.openDialog("Munition", ".fragments.fs.wlc.wlcdetails.");
 				oDailog.setModel(new JSONModel(sSelWpn), "oMunitionDialogModel");
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in Station:onMissileSelectChange function");
+				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
 		// below code is to close the munition fragment
 		onCloseMunition: function(oEvent) {
 			try {
@@ -210,9 +207,6 @@ sap.ui.define([
 				Log.error("Exception in xxxxx function");
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
 		onSaveMunition: function(oEvent) {
 			try {
 				if (this.cvutil.validateForm(oEvent.getSource().getParent())) {
@@ -250,12 +244,10 @@ sap.ui.define([
 				oEvent.getSource().getModel("oMunitionDialogModel").setProperty("/srcount", sCount + 1);
 				oEvent.getSource().getModel("oMunitionDialogModel").refresh();
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in Station:onAddSNClk function");
+				this.handleException(e);
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
 		onDeleteSrnClk: function(oEvent) {
 			try {
 				var oSelObject = oEvent.getSource().getBindingContext("oMunitionDialogModel").getObject();
@@ -361,7 +353,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this, oSerialNumberPayload);
 				oParameter.activity = "4";
-				ajaxutil.fnCreate("/WeaponSvc", oParameter, oPayloads, "dummy", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("WEAPONSVC"), oParameter, oPayloads, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in onStationUndoSignOff function");
 			}
@@ -470,7 +462,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this, oSerialNumberPayload);
 				oParameter.activity = "4";
-				ajaxutil.fnCreate("/WeaponSvc", oParameter, oPayloads, "dummy", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("WEAPONCONFIGSVC"), oParameter, oPayloads, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in onStationToolChkSignOff function");
 			}
@@ -577,7 +569,7 @@ sap.ui.define([
 					}
 					this.getModel("configModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/WeaponSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -605,7 +597,7 @@ sap.ui.define([
 					}
 					this.getModel("configModel").refresh();
 				}.bind(this, sStation);
-				ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSERNRSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -639,7 +631,7 @@ sap.ui.define([
 					}
 					this.getModel("configModel").refresh();
 				}.bind(this, sStatation);
-				ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSERNRSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}
@@ -687,7 +679,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate("/WeaponSernrSvc", oParameter, oPayloads);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("WEAPONSERNRSVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in xxxxx function");
 			}

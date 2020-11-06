@@ -150,7 +150,7 @@ sap.ui.define([
 					this.getModel("oWDNSModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblHarmonisation"), "oWDNSModel", "horm", "oWDNSDataModel");
 				}.bind(this);
-				ajaxutil.fnRead("/AircraftLogSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in WDNSCoefficients:fnLoadHarmoClm function");
 				this.handleException(e);
@@ -162,7 +162,7 @@ sap.ui.define([
 		fnLoadHarmoData: function() {
 			try {
 				var oParameter = {};
-				var sPath = "/AircraftLogSvc";
+				var sPath = this.getResourceBundle().getText("AIRCRAFTLOGSVC");
 				var sLogid = this.getModel("oWDNSModel").getProperty("/logid");
 				var sLogidPath = sLogid ? " and logid eq " + sLogid : "";
 				if (sLogidPath) {
