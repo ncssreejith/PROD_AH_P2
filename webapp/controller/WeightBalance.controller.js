@@ -71,6 +71,7 @@ sap.ui.define([
 		_fnWeightBalanceItemGet: function(sTailId) {
 			try {
 				var that = this,
+					oModel = dataUtil.createNewJsonModel(),
 					oPrmWB = {};
 				oPrmWB.filter = "tailid eq '" + sTailId + "'";
 				oPrmWB.error = function() {
@@ -79,10 +80,13 @@ sap.ui.define([
 
 				oPrmWB.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel();
+
 						oModel.setData(oData.results);
-						that.getView().setModel(oModel, "WeightBalanceItemSet");
+
+					} else {
+						oModel.setData(null);
 					}
+					that.getView().setModel(oModel, "WeightBalanceItemSet");
 
 				}.bind(this);
 
@@ -96,22 +100,23 @@ sap.ui.define([
 		_fnGetWeightBalHeaderSet: function(sTailId) {
 			try {
 				var that = this,
+					oModel = dataUtil.createNewJsonModel(),
 					oPrmWBM = {};
 				if (that.getTailId()) {
 					oPrmWBM.filter = "tailid eq " + that.getTailId() + " and MOD eq A";
 				} else {
 					sap.m.MessageToast.show("Invalid parameter");
 				}
-				
+
 				oPrmWBM.error = function() {
 
 				};
 
 				oPrmWBM.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel();
+
 						oModel.setData(oData.results);
-						that.getView().setModel(oModel, "WeightBalanceHeaderSet");
+
 						var oAppModel = this.getView().getModel("appModel");
 						oAppModel.setProperty("/sUser", oData.results[0].SGUSR);
 						oAppModel.setProperty("/sDate", oData.results[0].SGDTM);
@@ -137,8 +142,10 @@ sap.ui.define([
 						}
 						this._fnGetWeightBalanceItemSet(oData.results[0].WABID);
 					} else {
-						sap.m.MessageToast.show("No Response from server");
+						oModel.setData(null);
+					/*	sap.m.MessageToast.show("No Response from server");*/
 					}
+					that.getView().setModel(oModel, "WeightBalanceHeaderSet");
 				}.bind(this);
 
 				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
@@ -188,7 +195,7 @@ sap.ui.define([
 
 		_fnGetWeightBalanceItemSet: function(sWABID) {
 			try {
-				var that = this,
+				var that = this,oModel = dataUtil.createNewJsonModel(),
 					oPrmWBM = {};
 				oPrmWBM.filter = "WABID eq " + sWABID;
 				oPrmWBM.error = function() {
@@ -197,10 +204,12 @@ sap.ui.define([
 
 				oPrmWBM.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel();
-						oModel.setData(oData.results);
-						that.getView().setModel(oModel, "WeightBalanceSet");
+							oModel.setData(oData.results);
+						
+					}else{
+						oModel.setData(null);
 					}
+					that.getView().setModel(oModel, "WeightBalanceSet");
 				}.bind(this);
 
 				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
@@ -239,7 +248,7 @@ sap.ui.define([
 				this.getView().setModel(oAppModel, "appModel");
 				this.getModel("appModel").setProperty("/isVisPastRecords", bFlag);
 				this.getModel("appModel").setProperty("/isEdit", bFlag);
-				
+
 				this.getModel("avmetModel").getProperty("/dash/astid");
 
 				var bPastRec = oEvent.getParameter("arguments").isPastHistory;
