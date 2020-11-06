@@ -285,6 +285,9 @@ sap.ui.define([
 					if (oData && oData.results.length && oData.results.length > 0) {
 						oData.results[0].txt3 = this.fnReplaceString(oData.results[0].txt3);
 						oData.results[0].txt2 = this.fnReplaceString(oData.results[0].txt2);
+						if(!this.getModel("avmetModel")){
+							return;
+						}
 						this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
 						var oDash = this.getModel("avmetModel").getProperty("/dash");
 						var oModel = this.getView().getModel("avmetModel");
@@ -292,7 +295,7 @@ sap.ui.define([
 						if (this.fnOverwriteStatus(oDash.astid)) {
 							oModel.setProperty("/dash/TBTN3", true);
 						}
-						oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
+						// oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
 						this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
 						this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
 						this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
@@ -697,7 +700,7 @@ sap.ui.define([
 		fnCheckRecLockStatus: function(sStatus) {
 			try {
 				switch (sStatus) {
-					// case "AST_FAIR":
+					case "AST_FAIR":
 					// case "AST_FAIR0":
 					// case "AST_RECT1":
 						// case "AST_FAIR1":

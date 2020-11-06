@@ -18,7 +18,7 @@
 				</List>
 			</VBox>
 			<VBox visible="true" class="flightinfoBlock2">
-				<HBox visible="{avmetModel>/UnlockRec}">
+				<HBox visible="{path:'avmetModel>/dash/astid', formatter:'.formatter.checkFairStatus'}">
 					<Button text="{i18n>muReleaseforRectification}" press="onReleaseForRectification" type="Emphasized"/>
 					<!--<Label text="{i18n>muReleaseforRectification}"/>-->
 					<!--<Switch state="{avmetModel>/UnlockRec}" customTextOn="Unlock" customTextOff="Lock" change="onFSUnlock">-->
@@ -35,7 +35,7 @@
 						</layoutData>
 					</Switch>
 				</HBox>
-				<HBox visible="{= ${avmetModel>/dash/PDSFLAG} === 'Y' ? true:false}">
+				<HBox visible="{= ${avmetModel>/dash/SRVID}!==null &amp;&amp; ${avmetModel>/dash/SRVID}!=='' ? true:false}">
 					<Button text="Void Flight Servicing" press="onVoidFSPress" type="Emphasized"/>
 				</HBox>
 				<!--<HBox-->

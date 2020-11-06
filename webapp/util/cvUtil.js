@@ -459,7 +459,7 @@ sap.ui.define([], function() {
 	}
 
 	function _fnValidateStep(oControl,reset){
-				var maxValue = oControl.getMax() ? oControl.getMax() : 0;
+				var maxValue = oControl.getMax() ? oControl.getMax() : 99999999999999;
 		var minValue = oControl.getMin() ? oControl.getMin() : 0;
 		var value = oControl.getValue(),
 			sLabel = "";//oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";

@@ -21,7 +21,7 @@
 								<FlexBox wrap="Wrap"
 									items="{path:'pdsSummaryModel>stns',filters:[{path:'STNMID',operator:'EQ',value1:'STNM_S'}]}">
 									<items>
-										<cc:Station1 title="{= (${pdsSummaryModel>WEDESC}===null || ${pdsSummaryModel>WEDESC}==='')? ${pdsSummaryModel>ADPDESC}:${pdsSummaryModel>WEDESC}}"
+										<cc:Station1 title="{= (${pdsSummaryModel>WESDESC}===null || ${pdsSummaryModel>WESDESC}==='')? ${pdsSummaryModel>ADPDESC}:${pdsSummaryModel>WESDESC}}"
 											subTitle="{pdsSummaryModel>LTXT}" footerLeftInfo="{parts:['pdsSummaryModel>TOTQTY','pdsSummaryModel>SERNR'],formatter:'.formatter.wcQuanty'}"  footerRightInfo="{= (${pdsSummaryModel>ISSER}==='X' || ${pdsSummaryModel>SERNR}!==null)?'View S/N':''}"
 											class=" sapUiTinyMargin" fireSerialPress="onSerialNoPress">
 											<core:Icon src="sap-icon://write-new-document" color="#0a6cd6"/>

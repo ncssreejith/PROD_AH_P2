@@ -1,22 +1,27 @@
-<mvc:View controllerName="avmet.ah.controller.Station" xmlns="sap.m" xmlns:semantic="sap.f.semantic" xmlns:mvc="sap.ui.core.mvc"
-	xmlns:si="sap.suite.ui.commons.statusindicator" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
-	<Page title="Weapon configuration details" showFooter="true" showNavButton="true" busy="{viewModel>/busy}"
-		busyIndicatorDelay="{viewModel>/delay}" navButtonPress="onNavBack">
+<mvc:View controllerName="avmet.ah.controller.Station" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:si="sap.suite.ui.commons.statusindicator" xmlns:core="sap.ui.core">
+	<Page title="Weapon configuration details ({path : 'configModel>/srvtid', formatter : '.formatter.srvLbl'})"
+		showFooter="{path : 'configModel>/srvid', formatter : '.formatter.serviceIdNotExist'}" showNavButton="true" navButtonPress="onNavBack">
 		<content>
+			<HBox visible="{parts:['configModel>/selStn/TSIGN'],formatter:'.formatter.fsWCUnSignOff'}" class="sapUiTinyMarginTop" height="2rem"
+				justifyContent="Center" alignContent="Center" alignItems="Center">
+				<HBox class="topSignOff sapUiSmallMargin" width="95%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">
+					<Label class="sapUiTinyMarginTop" text="{configModel>/selStn/TSIGN} signed off for {configModel>/selStn/L_TXT}"/>
+				</HBox>
+			</HBox>
 			<HBox justifyContent="Center">
-				<HBox class="sapUiMediumMarginTop wcVBox" width="94%" height="32rem">
+				<HBox class="sapUiSmallMarginTop wcVBox" width="100%" height="32rem">
 					<HBox width="16%">
 						<ScrollContainer height="28rem" width="100%" vertical="true" focusable="true">
-							<List width="12rem" growing="true" growingScrollToLoad="true" growingThreshold="10" items="{ path:'configModel>/stns'}"
+							<List width="12rem" growing="true" growingScrollToLoad="true" growingThreshold="15" items="{ path:'configModel>/stns'}"
 								mode="SingleSelectMaster" selectionChange="onSelectionChange" updateFinished=".onUpdateFinished">
-								<!--<StandardListItem type="Active" -->
-								<!--selected="{= (${configModel>/selStn/STNSID}===${configModel>STNSID} &amp;&amp; ${configModel>/selStn/STNMID}===${configModel>STNMID})}"-->
-								<!--title="{configModel>LTXT}"/>-->
 								<CustomListItem
 									selected="{= (${configModel>/selStn/STNSID}===${configModel>STNSID} &amp;&amp; ${configModel>/selStn/STNMID}===${configModel>STNMID})}">
-									<HBox height="2.7rem" alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
-										<Text height="100%" text="{configModel>LTXT}"/>
-										<!--<core:Icon src="sap-icon://attachment-photo" visible="{= (${configModel>/selStn/selADP/selWpn}===${configModel>selADP/selWpn/WESID} &amp;&amp; ${configModel>/selStn/selADP/selWpn/WEMID}===${configModel>selADP/selWpn/WEMID})? true:false}"/>-->
+									<HBox height="2.7rem" alignItems="Center" justifyContent="Start" class="sapUiTinyMarginBegin sapUiTinyMarginEnd">
+										<CheckBox select="onChkBxSel" selected="{= ${configModel>TSTAT}===1}"/>
+										<!--editable="{parts:['configModel>TSIGN'],formatter:'.formatter.fsWCSignOff'}"-->
+										<!--{parts:['rcModel>TSIGN'],formatter:'.formatter.fsWCUnSignOff'}-->
+										<Text height="100%" text="{configModel>L_TXT}"/>
 									</HBox>
 								</CustomListItem>
 							</List>
@@ -24,15 +29,10 @@
 					</HBox>
 					<HBox class="sapUiSmallMarginBegin" width="16%">
 						<ScrollContainer height="28rem" width="100%" vertical="true" focusable="true">
-							<List width="12rem" mode="SingleSelectMaster" selectionChange="onMissileSelectChange"
+							<List width="12rem" mode="SingleSelectMaster" selectionChange="onMissileSelectChange" rememberSelections="false"
 								items="{ path: 'configModel>/selStn/selADP/wpn', sorter: { path: 'WEMDESC', descending: false, group: true }, groupHeaderFactory: '.getGroupHeader' }">
-								<!--	<StandardListItem
-									type="{= (${configModel>/selStn/selADP/selWpn/WESID}===${configModel>WESID} &amp;&amp; ${configModel>/selStn/selADP/selWpn/WEMID}===${configModel>WEMID})? 'Detail':'Active'}"
-									selected="{= (${configModel>/selStn/selADP/selWpn/WESID}===${configModel>WESID} &amp;&amp; ${configModel>/selStn/selADP/selWpn/WEMID}===${configModel>WEMID})}"
-									title="{configModel>WESDESC}"/>-->
 								<CustomListItem
-								selected="{= (${configModel>/selStn/selADP/selWpn/WESID}===${configModel>WESID} &amp;&amp; ${configModel>/selStn/selADP/selWpn/WEMID}===${configModel>WEMID})}"
-								>
+									selected="{= (${configModel>/selStn/selADP/selWpn/WESID}===${configModel>WESID} &amp;&amp; ${configModel>/selStn/selADP/selWpn/WEMID}===${configModel>WEMID})}">
 									<HBox height="2.7rem" alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
 										<Text height="100%" text="{configModel>WESDESC}"/>
 										<core:Icon src="sap-icon://attachment-photo"
@@ -44,16 +44,12 @@
 					</HBox>
 					<FlexBox class="sapUiSmallMarginBegin wcCngVBox" visible="{= ${configModel>/selStn/STNMID}==='STNM_S'}" width="42%" justifyContent="Center">
 						<VBox justifyContent="Center" alignItems="Center">
-							<Label text="{configModel>/selStn/LTXT}" design="Bold"/>
-							<!--<VBox items="{configModel>/selStn/adapter}">-->
-							<!--	<GenericTile class="topTile txtAlginHeadeCenter" header="{configModel>ADPDESC}" subheader="S/N {configModel>SERNR}"  frameType="TwoByOne" ></GenericTile>-->
-							<!--</VBox>-->
-								<GenericTile class="topTile txtAlginHeadeCenter" header="{configModel>/selStn/adapter/1/ADPDESC}&#xA;{configModel>/selStn/adapter/1/SERNR}" frameType="TwoByOne"></GenericTile>
-							<GenericTile class="topTile txtAlginHeadeCenter sapUiSmallMarginTop" header="{configModel>/selStn/adapter/0/ADPDESC}&#xA;{configModel>/selStn/adapter/0/SERNR}" frameType="TwoByOne"></GenericTile>
-						
-							<!--<GenericTile class="topTile txtAlginHeadeCenter" header="{configModel>/selStn/adapter/1/ADPDESC}" frameType="TwoByOne"></GenericTile>-->
-							<!--<GenericTile class="topTile txtAlginHeadeCenter sapUiSmallMarginTop" header="{configModel>/selStn/adapter/0/ADPDESC}" frameType="TwoByOne"></GenericTile>-->
-							<si:StatusIndicator width="3rem" height="3rem" value="{= ${configModel>/selStn/selADP/selWpn/CONECT}==='C'?100:0}">
+							<Label text="{configModel>/selStn/L_TXT}" design="Bold"/>
+							<GenericTile class="topTile txtAlginHeadeCenter" header="{configModel>/selStn/adapter/1/ADPDESC}&#xA;{configModel>/selStn/adapter/1/SERNR}"
+								frameType="TwoByOne"></GenericTile>
+							<GenericTile class="topTile txtAlginHeadeCenter sapUiSmallMarginTop"
+								header="{configModel>/selStn/adapter/0/ADPDESC}&#xA;{configModel>/selStn/adapter/0/SERNR}" frameType="TwoByOne"></GenericTile>
+							<si:StatusIndicator width="3rem" height="3rem" value="{= ${configModel>/selStn/selADP/selWpn/CONECT}==='C' ? 100:0}">
 								<si:ShapeGroup>
 									<si:LibraryShape shapeId="arrow_up"/>
 								</si:ShapeGroup>
@@ -61,10 +57,9 @@
 									<si:PropertyThreshold id="ptUpArrowId" toValue="100"/>
 								</si:propertyThresholds>
 							</si:StatusIndicator>
-							<GenericTile class="middleTile txtAlginHeadeCenter" visible="{= ${configModel>/selStn/CONECT}!=='N'}" press="onConnecterPress"
-								header="{parts:['configModel>/selStn/selADP/selWpn/CONECT','configModel>/selStn/selADP/selWpn/ICART'],formatter:'.formatter.wConnect'}"
-								frameType="OneByOne"></GenericTile>
-							<si:StatusIndicator value="{= ${configModel>/selStn/selADP/selWpn/CONECT}==='C'?100:0}" width="3rem" height="3rem">
+							<GenericTile class="middleTile txtAlginHeadeCenter" visible="{= ${configModel>/selStn/selADP/selWpn/CONTOR}==='C'}" press="onConnecterPress"
+								header="{parts:['configModel>/selStn/selADP/selWpn/CONECT','configModel>/selStn/selADP/selWpn/ICART'],formatter:'.formatter.wConnect'}"></GenericTile>
+							<si:StatusIndicator value="{= ${configModel>/selStn/selADP/selWpn/CONECT}==='C' ? 100:0}" width="3rem" height="3rem">
 								<si:ShapeGroup>
 									<si:LibraryShape shapeId="arrow_down"/>
 								</si:ShapeGroup>
@@ -72,46 +67,48 @@
 									<si:PropertyThreshold id="ptDownArrowId" toValue="100"/>
 								</si:propertyThresholds>
 							</si:StatusIndicator>
-							<!--class="tileLayout"-->
-							<!--	<GenericTile class="downTile txtAlginHeadeCenter"
-								header="{configModel>/selStn/selADP/selWpn/WESDESC} {configModel>/selStn/selADP/selWpn/ADPDESC}" frameType="TwoByOne"
-								blocked="{= ${configModel>/selStn/selADP/selWpn/POT}==='T'?true:false}"
-								press="onWeaponTileClk"></GenericTile>-->
-							<GenericTile class="downTile txtRemoveHeader" press="onWeaponTileClk"
-								blocked="{= ${configModel>/selStn/selADP/selWpn/POT}==='T'?true:false}">
+							<GenericTile class="downTile txtRemoveHeader" press="onWeaponTileClk">
 								<TileContent>
 									<HBox width="100%" justifyContent="SpaceBetween">
 										<Label class="sapUiSmallMarginBegin" text="{configModel>/selStn/selADP/selWpn/WESDESC} {configModel>/selStn/selADP/selWpn/ADPDESC}"/>
 										<Label class="sapUiSmallMarginEnd"
-										text="{parts:['configModel>/selStn/selADP/selWpn/ISSER','configModel>/selStn/selADP/selWpn/srcount','configModel>/selStn/TOTQTY'],formatter:'.formatter.stnsQty'}"/>
+											text="{parts:['configModel>/selStn/selADP/selWpn/ISSER','configModel>/selStn/selADP/selWpn/srcount','configModel>/selStn/TOTQTY'],formatter:'.formatter.stnsQty'}"/>
 										<!--text="{= ${configModel>/selStn/selADP/selWpn/ISSER}==='X'?${configModel>/selStn/selADP/selWpn/srcount}:${configModel>/selStn/TOTQTY}}"/>-->
 									</HBox>
 								</TileContent>
 							</GenericTile>
-							<!--subheader="{configModel>/selStn/selADP/selWpn/WESDESC}"-->
 						</VBox>
 					</FlexBox>
 					<FlexBox class="sapUiSmallMarginBegin wcCngVBox" visible="{= ${configModel>/selStn/STNMID}==='STNM_O'}" width="42%" justifyContent="Center">
 						<VBox justifyContent="Center" alignItems="Center">
 							<VBox>
-								<HBox justifyContent="Center" alignContent="Center" alignItems="Center">
-									<StepInput value="{configModel>/selStn/TOTQTY}" min="0" max="{configModel>/selStn/MAX}" liveChange="onOtherCountChange"
-										change="onOtherCountChange" fieldGroupIds="fgStepInput" validationMode="LiveChange" required="false"/>
-									<!--<Input value="{configModel>/selStn/TOTQTY}" maxLength="{configModel>/selStn/MAX}" liveChange="onOtherCountChange"-->
-									<!--	change="onOtherCountChange" fieldGroupIds="fgInput"/>-->
-									<Label class="sapUiSmallMarginBegin" text="(Counter set {configModel>/selStn/MAX})"/>
-								</HBox>
-								<!--<RadioButtonGroup columns="1" selectedIndex="{= (${configModel>/selStn/HCFLAG}==='H')?0:1}"-->
-								<!--	visible="{= (${configModel>/selStn/STNMID}==='STNM_O' &amp;&amp; ${configModel>/selStn/STNSID}==='STNS_102')}" select="onHotColdSelect"-->
-								<!--	class="sapUiMediumMarginBottom">-->
-								<!--	<RadioButton text="Hot"/>-->
-								<!--	<RadioButton text="Cold"/>-->
-								<!--</RadioButtonGroup>-->
+								<VBox visible="{= ${configModel>/selStn/STNSID}==='STNS_102'}">
+									<Label text="Total Rounds Loaded({configModel>/selStn/MAX}):"/>
+									<!--max="{configModel>/selStn/MAX}" -->
+									<StepInput value="{configModel>/selStn/ttlrnd}" min="0" liveChange="onOtherCountChange1"
+										change="onOtherCountChange1" fieldGroupIds="fgStepInput" validationMode="LiveChange" required="false"
+										enabled="{path : 'configModel>/srvid', formatter : '.formatter.srvIdExistEnable'}"/>
+								</VBox>
+								<VBox class="sapUiSmallMarginTop">
+									<Label visible="{= ${configModel>/selStn/STNSID}!=='STNS_102'}" text="{configModel>/selStn/L_TXT} ({configModel>/selStn/MAX}):"/>
+									<Label visible="{= ${configModel>/selStn/STNSID}==='STNS_102'}" text="Counter Set:"/>
+									 <!--max="{configModel>/selStn/MAX}"-->
+									<StepInput value="{configModel>/selStn/TOTQTY}" min="0" liveChange="onOtherCountChange"
+										change="onOtherCountChange" fieldGroupIds="fgStepInput" validationMode="LiveChange" required="false"
+										enabled="{path : 'configModel>/srvid', formatter : '.formatter.srvIdExistEnable'}"/>
+								</VBox>
+								<RadioButtonGroup columns="1" selectedIndex="{= (${configModel>/selStn/HCFLAG}==='H')?0:1}"
+									visible="{= (${configModel>/selStn/STNMID}==='STNM_O' &amp;&amp; ${configModel>/selStn/STNSID}==='STNS_102')}" select="onHotColdSelect"
+									class="sapUiMediumMarginBottom" enabled="{path : 'configModel>/srvid', formatter : '.formatter.srvIdExistEnable'}">
+									<RadioButton text="Hot"/>
+									<RadioButton text="Cold"/>
+								</RadioButtonGroup>
 							</VBox>
 						</VBox>
 					</FlexBox>
 					<VBox class="sapUiSmallMarginBegin" width="20%">
-						<Image src="{path:'configModel>/selStn/STNSID',formatter:'.formatter.srvWeaponAHImage'}" height="28rem" width="17rem"/>
+						<Image src="{parts:['configModel>/selStn/STNSID','configModel>/selStn/STNMID'],formatter:'.formatter.srvWeaponImage'}" height="28rem"
+							width="17rem"/>
 					</VBox>
 				</HBox>
 			</HBox>
@@ -120,7 +117,8 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<Button text="Back" press="onNavBack"/>
-				<Button text="Sign off" type="Emphasized" enabled="{= ${configModel>/stns/0/APPRCOUNT}===0}" press="onStationSignOff"/>
+				<!--enabled="{= ${configModel>/stns/0/APPRCOUNT}===0}" -->
+				<Button text="Sign off" type="Emphasized" press="onStationSignOff" enabled="{= ${configModel>/stns/0/APPRCOUNT}===0 || ${configModel>/stns/0/APPRCOUNT}===1 || ${configModel>/stns/0/APPRCOUNT}===2 || ${configModel>/path}==='X'}" />
 			</OverflowToolbar>
 		</footer>
 	</Page>
