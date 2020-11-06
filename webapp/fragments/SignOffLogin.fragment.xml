@@ -5,9 +5,8 @@
 				<ToolbarSpacer/>
 				<Title class="sapUiMediumMarginBegin" text="{i18n>ttlSignOff}"/>
 				<ToolbarSpacer/>
-				<Button icon="sap-icon://decline" class="iconTxt"
-					press="closeSignOff"></Button>
-<!--					enabled="{= ${signOffModel>/soSel}==='NEW' || ${signOffModel>/soSel}==='PWD' || ${signOffModel>/soSel}==='FGR'}"-->
+				<Button icon="sap-icon://decline" class="iconTxt" press="closeSignOff"></Button>
+				<!--					enabled="{= ${signOffModel>/soSel}==='NEW' || ${signOffModel>/soSel}==='PWD' || ${signOffModel>/soSel}==='FGR'}"-->
 			</Toolbar>
 		</customHeader>
 		<content>
@@ -43,14 +42,14 @@
 		<buttons>
 			<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='NEW'}" type="Default" icon="sap-icon://key" text="{i18n>txtPasswordPin}"
 				press="onUserSelectNextBtnClk('PWD',$event)"/>
-		<!--	<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='NEW'}" type="Default" icon="sap-icon://touch" text="{i18n>txtFingerprint}"
-				press="onUserSelectNextBtnClk('FGR',$event)"/> -->
+			<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='NEW'}" type="Default" icon="sap-icon://touch" text="{i18n>txtFingerprint}"
+				press="onUserSelectNextBtnClk('FGR',$event)"/>
 			<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='PWD' || ${signOffModel>/uSel}==='PWDPRS'}"
 				enabled="{= ${signOffModel>/uSel}!=='PWDPRS'}" type="Default" text="{i18n>txtCancel}" press="onSubmitLoginClk('CNL',$event)"/>
 			<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='PWD' || ${signOffModel>/uSel}==='PWDPRS'}"
 				enabled="{= ${signOffModel>/uSel}!=='PWDPRS'}" type="Default" text="{i18n>txtSubmit}" press="onSubmitLoginClk('PWDPRS',$event)"/>
-		<!--	<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='FGR' || ${signOffModel>/uSel}==='FGRPRS'}"
-				enabled="{= ${signOffModel>/uSel}!=='FGRPRS'}" type="Default" text="{i18n>txtScan}" press="onSubmitLoginClk('FGRPRS',$event)"/> -->
+			<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='FGR' || ${signOffModel>/uSel}==='FGRPRS'}"
+				enabled="{= ${signOffModel>/uSel}!=='FGRPRS'}" type="Default" text="{i18n>txtScan}" press="onSubmitLoginClk('FGRPRS',$event)"/>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

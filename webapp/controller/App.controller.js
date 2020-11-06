@@ -14,7 +14,9 @@ sap.ui.define([
 		//                 1. UI Events  
 		// ***************************************************************************
 		onInit: function() {
-			
+			window.onbeforeunload = function() {
+				this._fnInvalidateSession();
+			};
 		}
 	});
 });

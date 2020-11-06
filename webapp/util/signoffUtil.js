@@ -123,7 +123,7 @@ sap.ui.define([
 					Log.error("Exception in onUserIdClk function");
 				}
 			},
-			onSignOffClk: function(sObjId,oParameters, currentContext, fnCallback) {
+			onSignOffClk: function(sObjId, oParameters, currentContext, fnCallback) {
 				try {
 					this.fnCallback = fnCallback;
 					this.ref = currentContext;
@@ -168,6 +168,7 @@ sap.ui.define([
 								username: myModel.getData().id,
 								password: myModel.getData().pwd,
 								objid: myModel.getProperty("/objid"),
+								bioid: "",
 								activity: myModel.getProperty("/activity")
 							};
 							this.fnCallback(oData);
@@ -176,15 +177,17 @@ sap.ui.define([
 
 						}
 					} else {
-
-						// DUMMY BLOCK - To Delete
 						myModel = this.SignOffLogin.getModel("signOffModel");
-						myModel.setProperty("/biometric", "css/img/ImageBiometricS.png");
 						myModel.setProperty("/uSel", sAction);
 						myModel.refresh();
-						//MessageToast.show("SignOff Success");
-
-						this.fnCallback();
+						var oData = {
+							username: myModel.getData().id,
+							password: "",
+							objid: myModel.getProperty("/objid"),
+							bioid: "X",
+							activity: myModel.getProperty("/activity")
+						};
+						this.fnCallback(oData);
 						//<<<<<-----------------------------------------------------------------------
 
 					}
