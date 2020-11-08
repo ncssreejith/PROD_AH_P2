@@ -7,9 +7,9 @@ sap.ui.define([
 	return {
 		// http://localhost:58983/AVMET/avmetDB/AircraftModelSvc
 		//fnBasePath: "/DBSRV17/avmet",
-		sessionTimeOutWin : null,
-		swnDialog : null,
-		fnBasePath: dataUtil.destination+"/sap/opu/odata/sap/AVMET_SRV",
+		sessionTimeOutWin: null,
+		swnDialog: null,
+		fnBasePath: dataUtil.destination + "/sap/opu/odata/sap/AVMET_SRV",
 		fnCreate: function(sPath, oParameters, oPayLoad, oObjectId, ref) {
 			try {
 				if (oObjectId) {
@@ -37,7 +37,7 @@ sap.ui.define([
 					oData.beforeSend = this.fnEncryptDetails.bind(this, user);
 				}
 				oData.type = "POST";
-				
+
 				oData.url = this.fnBasePath + "" + sPath + "" + oParameters.queryParam;
 				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
@@ -88,7 +88,7 @@ sap.ui.define([
 				}
 
 				oData.type = "PUT";
-				
+
 				oData.url = this.fnBasePath + "" + sPath + "" + oParameters.queryParam;
 				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
@@ -112,7 +112,7 @@ sap.ui.define([
 			}
 		},
 
-		fnDelete: function(sPath, oParameters, oObjectId, ref){
+		fnDelete: function(sPath, oParameters, oObjectId, ref) {
 			try {
 				if (oObjectId) {
 					var srvPayload = {};
@@ -129,7 +129,7 @@ sap.ui.define([
 			}
 		},
 
-		fnDeleteData: function(sPath, oParameters,user) {
+		fnDeleteData: function(sPath, oParameters, user) {
 			try {
 				var oData = {};
 				oParameters = this.fnCheckForParameters(oParameters);
@@ -137,7 +137,7 @@ sap.ui.define([
 					oData.beforeSend = this.fnEncryptDetails.bind(this, user);
 				}
 				oData.type = "DELETE";
-				
+
 				oData.url = this.fnBasePath + "" + sPath + "" + oParameters.queryParam;
 				oData.contentType = "application/json";
 				oData.error = function(hrex) {
@@ -164,13 +164,13 @@ sap.ui.define([
 				oParameters = this.fnCheckForParameters(oParameters);
 				$.ajax({
 					type: 'GET',
-					
+
 					url: this.fnBasePath + "" + sPath + "" + oParameters.queryParam,
-					error: function(hrex){
+					error: function(hrex) {
 						this.sessionTimeOutCheck(hrex);
 						oParameters.error(hrex);
-					}.bind(this),//oParameters.error.bind(this),
-					success: function(oData){
+					}.bind(this), //oParameters.error.bind(this),
+					success: function(oData) {
 						this.fnCloseChildWindow();
 						oParameters.success(oData);
 					}.bind(this)
@@ -206,12 +206,12 @@ sap.ui.define([
 					oParameters.queryParam = "?";
 					oParameters.queryParam = oParameters.queryParam + (oParameters.expand === undefined ? "" : "$expand=" + oParameters.expand);
 					oParameters.queryParam = oParameters.queryParam + (oParameters.filter === undefined ? "" : "$filter=" + oParameters.filter);
-					oParameters.queryParam = oParameters.queryParam+"&sessionid="+dataUtil.getDataSet("oUserSession").sessionid;
+					oParameters.queryParam = oParameters.queryParam + "&sessionid=" + dataUtil.getDataSet("oUserSession").sessionid;
 				}
 				if (!isQueryParam) {
 					oParameters.queryParam = "?";
-					oParameters.queryParam = oParameters.queryParam+"sessionid="+dataUtil.getDataSet("oUserSession").sessionid;
-					
+					oParameters.queryParam = oParameters.queryParam + "sessionid=" + dataUtil.getDataSet("oUserSession").sessionid;
+
 				}
 				return oParameters;
 			} catch (e) {
@@ -219,7 +219,7 @@ sap.ui.define([
 			}
 		},
 
-		fnEncryptDetails: function(user, xhr) {
+		/*	fnEncryptDetails: function(user, xhr) {
 			 try {
         		var act = user.activity === undefined ? "99" : user.activity;
                 var signAuth = dataUtil._encriptInfo(user.username+ ":" + user.password+":"+user.objid+":"+act);
@@ -227,50 +227,60 @@ sap.ui.define([
             } catch (e) {
                 Log.error("Exception in fnEncryptDetails function");
             }
+		},*/
+
+		//Rahul: 08/11/2020: Laksmi asked push changes added bioid
+		fnEncryptDetails: function(user, xhr) {
+			try {
+				var act = user.activity === undefined ? "99" : user.activity;
+				var bioid = user.bioid === undefined ? "" : user.bioid;
+				var signAuth = dataUtil._encriptInfo(user.username + ":" + user.password + ":" + user.objid + ":" + bioid + ":" + act);
+				xhr.setRequestHeader("signAuth", signAuth);
+			} catch (e) {
+				Log.error("Exception in fnEncryptDetails function");
+			}
 		},
-		
-		fnCloseChildWindow:function(){
-			if(this.sessionTimeOutWin !== null){
+
+		fnCloseChildWindow: function() {
+			if (this.sessionTimeOutWin !== null) {
 				this.sessionTimeOutWin.close();
 				this.sessionTimeOutWin = null;
 				this.swnDialog.close();
 				this.swnDialog = null;
 			}
 		},
-		sessionTimeOutCheck:function(hrex){
-			if(hrex.status===403 && this.swnDialog ===null){
+		sessionTimeOutCheck: function(hrex) {
+			if (hrex.status === 403 && this.swnDialog === null) {
 				this.fnOpenSessionTimeOutDialog(hrex);
 			}
 		},
-		fnOpenSessionTimeOutDialog:function(hrex){
-				var sLabel = new sap.m.Label({
-					wrapping:true,
-					text:"Session timeout please login again ", 
-					width:"100%" ,
-					design:"Bold",
-					textAlign:"Center"
-				});
-				var sButton = new sap.m.Button({
-					type:"Emphasized",
-					text:"OK", 
-					design:"Bold",
-					press:function(oEvent){
-						this.sessionTimeOutWin = window.open(hrex.getResponseHeader("Location"),"_blank");
-					}.bind(this)
-				});
-				this.swnDialog = new sap.m.Dialog({
-					 type:"Message",
-					  title:"Session timeout",
-					  draggable:true,
-					  content:[sLabel],
-					  endButton:sButton
-		});  
-		this.swnDialog.open();
-				
+		fnOpenSessionTimeOutDialog: function(hrex) {
+			var sLabel = new sap.m.Label({
+				wrapping: true,
+				text: "Session timeout please login again ",
+				width: "100%",
+				design: "Bold",
+				textAlign: "Center"
+			});
+			var sButton = new sap.m.Button({
+				type: "Emphasized",
+				text: "OK",
+				design: "Bold",
+				press: function(oEvent) {
+					this.sessionTimeOutWin = window.open(hrex.getResponseHeader("Location"), "_blank");
+				}.bind(this)
+			});
+			this.swnDialog = new sap.m.Dialog({
+				type: "Message",
+				title: "Session timeout",
+				draggable: true,
+				content: [sLabel],
+				endButton: sButton
+			});
+			this.swnDialog.open();
+
 		},
-		
-		
-		
+
 		fnCloseSignOffDialog: function() {
 			if (signoffUtil) {
 				signoffUtil.closeSignOff();
