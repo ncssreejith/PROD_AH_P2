@@ -42,10 +42,9 @@
 						<ColumnListItem>
 							<cells>
 								<Text text="{path:'oEngineModel>SPDT', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'oEngineModel>SPTM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-								<Text text="{oEngineModel>ENGHR}"/>
-								<!--<Text text="{parts: [{path:'oEngineModel>SPDT'}, {path:'oEngineModel>SPTM'}], formatter:'.formatter.fnDateTimeDiff'}"/>-->
-								<Text text="{oEngineModel>HRAT}"/>
-								<Text text="{oEngineModel>HRSINCE}"/>
+								<Text text="{path:'oEngineModel>ENGHR', formatter:'.formatter.decimal1Unit'}"/>
+								<Text text="{path:'oEngineModel>HRAT', formatter:'.formatter.decimal1Unit'}"/>
+								<Text text="{path:'oEngineModel>HRSINCE', formatter:'.formatter.decimal1Unit'}"/>
 								<Text text="{oEngineModel>DDDESC}"/>
 								<Text text="{oEngineModel>SRVAMT}"/>
 							</cells>

@@ -215,11 +215,130 @@ sap.ui.define([
 		},
 		fnCreateRow: function(tblRef, oModel, sClmPath, oDataModel) {
 			try {
+				var that = this;
 				var oCells = [];
 				this.getModel(oModel).getProperty("/" + sClmPath).forEach(function(oItem) {
-					var sText = new sap.m.Text({
-						text: "{" + oDataModel + ">" + oItem.colid + "}"
-					});
+					var sText;
+					var sTextProp = {};
+					sTextProp.path = oDataModel + ">" + oItem.colid;
+					if (sClmPath === "equip") {
+
+						switch (oItem.colid) {
+							case "COL_11":
+								sTextProp.path = oDataModel + ">" + "COL_11";
+								sTextProp.formatter = that.formatter.defaultDateTimeFormat;
+								sText = new sap.m.Text({
+									text: sTextProp
+								});
+								break;
+							case "COL_12":
+							case "COL_13":
+							case "COL_14":
+							case "COL_15":
+							case "COL_16":
+								sTextProp.formatter = that.formatter.decimal1Unit;
+								sText = new sap.m.Text({
+									text: sTextProp
+								});
+								break;
+							case "COL_17":
+								sTextProp.formatter = that.formatter.numberUnit;
+								sText = new sap.m.Text({
+									text: sTextProp
+								});
+								break;
+								// case "COL_16":
+								// case "COL_17":
+								// case "COL_18":
+								// 	sTextProp.formatter = that.formatter.integerUnit;
+								// 	sText = new sap.m.Text({
+								// 		text: sTextProp
+								// 	});
+								// 	break;
+							case "COL_EDIT":
+								sTextProp.path = oDataModel + ">" + "COL_11";
+								sTextProp.formatter = that.formatter.adtEditVisible;
+								sText = new sap.m.Button({
+									icon: "sap-icon://edit",
+									visible: sTextProp,
+									press: function(evt) {
+										if (evt.getSource().getParent().getParent().getItems().length > 0) {
+											that.onEditEquip(evt);
+										}
+									}
+								});
+								break;
+							default:
+								sText = new sap.m.Text({
+									text: "{" + oDataModel + ">" + oItem.colid + "}"
+								});
+								break;
+						}
+					} else if (sClmPath === "flying") { //Flying Log
+						if (oItem.colid === "COL_EDIT") {
+							sTextProp.path = oDataModel + ">" + "COL_11";
+							sTextProp.formatter = that.formatter.adtEditVisible;
+							sText = new sap.m.Button({
+								icon: "sap-icon://edit",
+								visible: sTextProp,
+								press: function(evt) {
+									if (evt.getSource().getParent().getParent().getItems().length > 0) {
+										that.onEditFlying(evt);
+									}
+								}
+							});
+						} else {
+							switch (oItem.colid) {
+								case "COL_11":
+									sTextProp.path = oDataModel + ">" + "COL_11";
+									sTextProp.formatter = that.formatter.defaultDateTimeFormat;
+									sText = new sap.m.Text({
+										text: sTextProp
+									});
+									break;
+
+								default:
+									sText = new sap.m.Text({
+										text: "{" + oDataModel + ">" + oItem.colid + "}"
+									});
+									break;
+							}
+						}
+					} else if (sClmPath === "mano") { //Manovuer Log
+						if (oItem.colid === "COL_EDIT") {
+							sTextProp.path = oDataModel + ">" + "COL_11";
+							sTextProp.formatter = that.formatter.adtEditVisible;
+							sText = new sap.m.Button({
+								icon: "sap-icon://edit",
+								visible: sTextProp,
+								press: function(evt) {
+									if (evt.getSource().getParent().getParent().getItems().length > 0) {
+										that.onEditFlying(evt);
+									}
+								}
+							});
+						} else {
+							switch (oItem.colid) {
+								case "COL_11":
+									sTextProp.path = oDataModel + ">" + "COL_11";
+									sTextProp.formatter = that.formatter.defaultDateTimeFormat;
+									sText = new sap.m.Text({
+										text: sTextProp
+									});
+									break;
+
+								default:
+									sText = new sap.m.Text({
+										text: "{" + oDataModel + ">" + oItem.colid + "}"
+									});
+									break;
+							}
+						}
+					}
+
+					// var sText = new sap.m.Text({
+					// 	text: "{" + oDataModel + ">" + oItem.colid + "}"
+					// });
 					oCells.push(sText);
 				});
 				if (oCells.length === 0) {

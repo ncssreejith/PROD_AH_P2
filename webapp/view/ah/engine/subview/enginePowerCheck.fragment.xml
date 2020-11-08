@@ -75,7 +75,7 @@
 								<Text text="{oEngineModel>TGTTAB}"/>
 								<Text text="{oEngineModel>TGTIND}"/>
 								<Text text="{oEngineModel>TGTDIFF}"/>
-								<Text text="{oEngineModel>NG}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
 								<Text text="{oEngineModel>NP}"/>
 								<Text text="{oEngineModel>ULIMIT}"/>
@@ -184,7 +184,7 @@
 								<Text text="{oEngineModel>TGTTAB}"/>
 								<Text text="{oEngineModel>TGTIND}"/>
 								<Text text="{oEngineModel>TGTDIFF}"/>
-								<Text text="{oEngineModel>NG}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
 								<Text text="{oEngineModel>NP}"/>
 								<Text text="{oEngineModel>ULIMIT}"/>
@@ -253,7 +253,7 @@
 								<Text text="{oEngineModel>BPRESS}"/>
 								<Text text="{oEngineModel>TGTTAB}"/>
 								<Text text="{oEngineModel>TGTIND}"/>
-								<Text text="{oEngineModel>NG}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
 								<Text text="{oEngineModel>NP}"/>
 								<Text text="{oEngineModel>NP}"/>

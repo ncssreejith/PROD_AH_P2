@@ -62,11 +62,11 @@ sap.ui.define([
 				// if (!this.handleChange()) {
 				// 	return;
 				// }
-				var oPayload = this.getModel("oAddEngCycLogModel").getProperty("/");
+				var oPayload = JSON.parse(JSON.stringify(this.getModel("oAddEngCycLogModel").getProperty("/")));
 				if (oPayload.OLREA === "125_F") {
 					oPayload.SFLAG = " ";
 				}
-				// delete oPayload.ReasonCodes;
+				delete oPayload.ReasonCodes;
 				oPayload.SPDT = formatter.defaultOdataDateFormat(new Date());
 				oPayload.SPTM = formatter.fnTimeFormat(new Date());
 				oPayload.BEGDA = formatter.defaultOdataDateFormat(new Date());
@@ -115,27 +115,52 @@ sap.ui.define([
 		//-------------------------------------------------------------		
 		_onObjectMatched: function(oEvent) {
 			try {
+
 				var utilData = {
-					"SOAPID": null,
-					"OLREA": "125_R", //"SOAP_4",
-					"ENGHR": null,
-					"HRSINCE": null,
-					"ENDDA": null,
-					"BEGDA": null,
-					"SPREPLE": "X",
-					"SOAP": "",
-					"SPDT": null,
-					"SPTM": null,
-					"DDDESC": null,
-					"HRAT": null,
-					"SSTAT": null,
-					"SFLAG": null,
-					"CREUSR": null,
-					"JOBID": null,
-					"JOBDESC": null,
-					"JDUID": null,
-					"JDUVL": null,
-					SRVAMT: 1
+					BEGDA: null,
+					CREUSR: null,
+					DDDESC: null,
+					ENDDA: null,
+					ENGHR: null,
+					ENGID: "ENG_10017",
+					HRAT: "40.00",
+					HRSINCE: null,
+					JDUID: null,
+					JDUVL: null,
+					JOBID: null,
+					OLREA: "125_R",
+					SFLAG: null,
+					SOAP: "",
+					SOAPID: null,
+					SPDT: null,
+					SPREPLE: "X",
+					SPTM: "16:00:00.000",
+					SRVAMT: 1,
+					SRVTID: null,
+					SSTAT: null,
+					STEPID: null,
+					TAILID: this.getTailId()
+
+					// "SOAPID": null,
+					// "OLREA": "125_R", //"SOAP_4",
+					// "ENGHR": null,
+					// "HRSINCE": null,
+					// "ENDDA": null,
+					// "BEGDA": null,
+					// "SPREPLE": "X",
+					// "SOAP": "",
+					// "SPDT": null,
+					// "SPTM": null,
+					// "DDDESC": null,
+					// "HRAT": null,
+					// "SSTAT": null,
+					// "SFLAG": null,
+					// "CREUSR": null,
+					// "JOBID": null,
+					// "JOBDESC": null,
+					// "JDUID": null,
+					// "JDUVL": null,
+					// SRVAMT: 1
 				};
 
 				this.getView().setModel(new JSONModel(utilData), "oAddEngCycLogModel");
