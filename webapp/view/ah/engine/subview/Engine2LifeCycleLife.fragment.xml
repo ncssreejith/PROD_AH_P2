@@ -46,7 +46,7 @@
 								<Text text="{= ${oEngineModel>LCF1} ? ${oEngineModel>LCF1} : '0'}"/>
 								<Text text="{= ${oEngineModel>LCF2} ? ${oEngineModel>LCF2} : '0'}"/>
 								<Text text="{= ${oEngineModel>INDEX1} ? ${oEngineModel>INDEX1} : '0'}"/>
-								<Text text="{= ${oEngineModel>ENGHR} ? ${oEngineModel>ENGHR} : '0'}"/>
+								<Text text="{path:'oEngineModel>ENGHR', formatter:'.formatter.decimal1Unit'}"/>
 								<Text text="{oEngineModel>CREUSR}"/>
 							</cells>
 						</ColumnListItem>
@@ -89,7 +89,7 @@
 								<Text text="{= ${oEngineModel>TLCF1} ? ${oEngineModel>TLCF1} : '0'}"/>
 								<Text text="{= ${oEngineModel>TLCF2} ? ${oEngineModel>TLCF2} : '0'}"/>
 								<Text text="{= ${oEngineModel>TINDEX} ? ${oEngineModel>TINDEX} : '0'}"/>
-								<Text text="{= ${oEngineModel>TENGHR} ? ${oEngineModel>TENGHR} : '0'}"/>
+								<Text text="{path:'oEngineModel>TENGHR', formatter:'.formatter.decimal1Unit'}"/>
 								<Text text="{oEngineModel>CREUSR}"/>
 							</cells>
 						</ColumnListItem>

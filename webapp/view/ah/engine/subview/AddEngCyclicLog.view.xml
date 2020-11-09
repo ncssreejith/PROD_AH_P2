@@ -21,7 +21,7 @@
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Title text="Engine Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<StepInput width="250px" min="{oAddEngCycLogModel>/minENGHR}" value="{oAddEngCycLogModel>/ENGHR}"/>
+							<StepInput width="250px" min="{oAddEngCycLogModel>/minENGHR}" displayValuePrecision="1" value="{oAddEngCycLogModel>/ENGHR}"/>
 						</HBox>
 					</VBox>
 					<VBox visible="{= !!${oAddEng2CycLogModel>/ENGID}}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd bgColorWhite" width="70%">

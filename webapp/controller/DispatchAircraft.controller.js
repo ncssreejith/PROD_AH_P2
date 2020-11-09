@@ -183,7 +183,7 @@ sap.ui.define([
 		 */
 		fnLoadHeader: function() {
 			try {
-				var sPath = this.getResourceBundle().getText("AIRTRANSCURRSVC") + "/" + this.getTailId();
+				var sPath = this.getResourceBundle().getText("AIRTRANSCURRSVC") + "(tailid=" + this.getTailId() + ")";
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -288,7 +288,7 @@ sap.ui.define([
 				if (oModel.getProperty("/Receive") && this.fnCheckResponse()) {
 					return; //Check fail
 				}
-				if (this.fnCheckValueState("fgCmbBox")) {
+				if (this.getModel("oViewModel").getProperty("/Receive") && this.fnCheckValueState("fgCmbBox")) {
 					sap.m.MessageToast.show("Fill in all required input first");
 					return;
 				}

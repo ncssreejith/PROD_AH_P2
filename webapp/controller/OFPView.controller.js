@@ -67,8 +67,8 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
-		onPrint : function (){
+
+		onPrint: function() {
 			var html = "<html><body><div  style='width:95%;'>";
 			html += "<div style='padding-left:3rem; padding-top:1rem;'> Aircraft OFP </div>";
 			html = "<div style='width:95%;'>" + this.generateHtml(this, html, "tblOFP") + "</div>";
@@ -90,7 +90,7 @@ sap.ui.define([
 				}
 			}).save();
 		},
-		
+
 		generateHtml: function(that, html, id) {
 			try {
 				html += "<div style='padding:15px; page-break-before: always;'>";
@@ -206,11 +206,26 @@ sap.ui.define([
 		},
 		fnCreateRow: function(tblRef, oModel, sClmPath, oDataModel) {
 			try {
+				var that = this;
 				var oCells = [];
 				this.getModel(oModel).getProperty("/" + sClmPath).forEach(function(oItem) {
-					var sText = new sap.m.Text({
-						text: "{" + oDataModel + ">" + oItem.colid + "}"
-					});
+					var sText;
+					var sTextProp = {};
+					sTextProp.path = oDataModel + ">" + oItem.colid;
+					switch (oItem.colid) {
+						case "COL_11":
+							sTextProp.path = oDataModel + ">" + "COL_11";
+							sTextProp.formatter = that.formatter.defaultDateTimeFormat;
+							sText = new sap.m.Text({
+								text: sTextProp
+							});
+							break;
+						default:
+							sText = new sap.m.Text({
+								text: "{" + oDataModel + ">" + oItem.colid + "}"
+							});
+							break;
+					}
 					oCells.push(sText);
 				});
 				if (oCells.length === 0) {

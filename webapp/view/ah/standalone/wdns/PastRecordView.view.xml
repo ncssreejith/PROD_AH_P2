@@ -20,7 +20,7 @@
 							<cells>
 								<Text text="{oPastModel>lgname}"/>
 								<Text text="{oPastModel>COL_10}"/>
-								<Text text="{oPastModel>COL_11}"/>
+								<Text text="{path:'oPastModel>COL_11', formatter:'.formatter.defaultDateTimeFormat'}"/>
 							</cells>
 						</ColumnListItem>
 					</items>

@@ -35,13 +35,39 @@ sap.ui.define([
 				// return "";
 			}
 			var fnDateFormatter = DateFormat.getDateInstance({
-				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy HH:mm"
+				pattern: sFormat !== undefined ? sFormat : "dd-MM-yyyy HH:mm"
 			});
 			if (dDate instanceof Date) {
 				var sDate = fnDateFormatter.format(dDate);
 				return sDate;
 			} else {
 				try {
+					return dDate;
+					// sDate = new Date(dDate);
+					// if (sDate.toDateString() === "Invalid Date") {
+					// 	return dDate;
+					// }
+					// sDate = fnDateFormatter.format(sDate);
+					// return sDate;
+				} catch (e) {
+					return dDate;
+				}
+			}
+		},
+		oDataDateTimeFormat: function(dDate, sFormat) {
+			if (!dDate) {
+				dDate = new Date();
+				// return "";
+			}
+			var fnDateFormatter = DateFormat.getDateInstance({
+				pattern: sFormat !== undefined ? sFormat : "dd-MM-yyyy HH:mm"
+			});
+			if (dDate instanceof Date) {
+				var sDate = fnDateFormatter.format(dDate);
+				return sDate;
+			} else {
+				try {
+					// return dDate;
 					sDate = new Date(dDate);
 					if (sDate.toDateString() === "Invalid Date") {
 						return dDate;
@@ -92,6 +118,21 @@ sap.ui.define([
 			try {
 				var fnDateFormatter = DateFormat.getDateInstance({
 					pattern: sFormat !== undefined ? sFormat : "yyyy-MM-dd"
+				});
+				var sDate = fnDateFormatter.format(dDate);
+				return sDate;
+			} catch (e) {
+				return dDate;
+			}
+
+		},
+		defaultOdataDateTimeFormat: function(dDate, sFormat) {
+			if (!dDate) {
+				return "";
+			}
+			try {
+				var fnDateFormatter = DateFormat.getDateInstance({
+					pattern: sFormat !== undefined ? sFormat : "yyyy-MM-dd HH:mm"
 				});
 				var sDate = fnDateFormatter.format(dDate);
 				return sDate;

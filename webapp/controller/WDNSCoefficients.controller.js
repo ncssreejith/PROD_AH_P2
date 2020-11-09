@@ -197,11 +197,29 @@ sap.ui.define([
 		 */
 		fnCreateRow: function(tblRef, oModel, sClmPath, oDataModel) {
 			try {
+				var that = this;
 				var oCells = [];
 				this.getModel(oModel).getProperty("/" + sClmPath).forEach(function(oItem) {
-					var sText = new sap.m.Text({
-						text: "{" + oDataModel + ">" + oItem.colid + "}"
-					});
+					var sText;
+					var sTextProp = {};
+					sTextProp.path = oDataModel + ">" + oItem.colid;
+					switch (oItem.colid) {
+							case "COL_11":
+								sTextProp.path = oDataModel + ">" + "COL_11";
+								sTextProp.formatter = that.formatter.defaultDateTimeFormat;
+								sText = new sap.m.Text({
+									text: sTextProp
+								});
+								break;
+					default:
+								sText = new sap.m.Text({
+									text: "{" + oDataModel + ">" + oItem.colid + "}"
+								});
+								break;
+						}			
+					// var sText = new sap.m.Text({
+					// 	text: "{" + oDataModel + ">" + oItem.colid + "}"
+					// });
 					oCells.push(sText);
 				});
 				if (oCells.length === 0) {
