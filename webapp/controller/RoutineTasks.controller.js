@@ -228,6 +228,28 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		onTeamLeadUndoSignOffClick: function() {
+			try {
+				var aFinalPayload = [];
+				var aPayloads = this.getModel("rtModel").getProperty("/tasks");
+				
+				aPayloads.forEach(function(oPayload) {
+					var oCopy = JSON.parse(JSON.stringify(oPayload));
+					aFinalPayload.push(oCopy);
+				});
+
+				var oParameter = {};
+				oParameter.error = function() {};
+				oParameter.success = function() {
+					this._getRTTasks();
+				}.bind(this);
+				oParameter.activity = 4;
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("RT2SVC"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
+			} catch (e) {
+				Log.error("Exception in onTeamLeadUndoSignOffClick function");
+				this.handleException(e);
+			}
+		},
 		/** 
 		 * Undo signoff
 		 * @param oObject
