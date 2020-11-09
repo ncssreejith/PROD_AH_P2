@@ -71,7 +71,7 @@ sap.ui.define([
 
 			if (oControl.getTitle() === "FAIR") {
 				oRM.write("<div class='StatusLeftRedDiv'>");
-			} else if (oControl.getTitle() === "Unserviceable") {
+			} else if (oControl.getTitle() === "Unserviceable" || oControl.getTitle() === "Role Change") {
 				oRM.write("<div class='StatusLeftYellowDiv'>");
 			} else if (oControl.getTitle() === "Flight Servicing") {
 				oRM.write("<div class='StatusLeftGreyDiv'>");

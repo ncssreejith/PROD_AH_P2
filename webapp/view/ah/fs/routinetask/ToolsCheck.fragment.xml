@@ -6,13 +6,13 @@
 				<VBox class="bgColorWhiteWithRightBorder sapUiSmallMarginBegin sapUiSmallMarginTopBottom" width="30%">
 					<VBox class="sapUiSmallMarginBeginEnd">
 						<Label design="Bold" text="Date" width="150px"/>
-						<DatePicker id="dpToolChkId" enabled="{rtModel>/sgEnable}" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" value="{path:'rtModel>/rtasks/TLCDT', formatter:'.formatter.defaultDateFormat'}"
+						<DatePicker id="dpToolChkId" enabled="{rtModel>/sgEnable}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" value="{rtModel>/tasks/0/TLCDT}"
 							width="200px" fieldGroupIds="fgDate" maxDate="{rtModel>/currentDate}" required="true"/>
 					</VBox>
 					<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
 						<Label design="Bold" text="Time" width="150px"/>
-						<TimePicker id="time" enabled="{rtModel>/sgEnable}" width="200px" value="{path:'rtModel>/rtasks/TLCTM', formatter:'.formatter.defaultTimeFormatDisplay'}"
-							valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true" change="onTimeChange"/>
+						<TimePicker id="time" enabled="{rtModel>/sgEnable}" width="200px" value="{rtModel>/tasks/0/TLCTM}"
+							valueFormat="HH:mm:ss.SSS" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true" change="onTimeChange"/>
 					</VBox>
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd bgColorWhite" width="70%">
@@ -30,7 +30,7 @@
 								</core:Icon>
 							</HBox>-->
 							<Label text="Tools quantity" design="Bold"/>
-							<StepInput enabled="{rtModel>/sgEnable}"  value="{rtModel>/rtasks/TLQTY}" min="1"/>
+							<StepInput enabled="{rtModel>/sgEnable}"  value="{rtModel>/tasks/0/TLQTY}" min="1"/>
 						</VBox>
 						<VBox class="sapUiTinyMarginBeginEnd">
 						<!--	<HBox>
@@ -42,7 +42,7 @@
 								</core:Icon>
 							</HBox>-->
 							<Label text="Publication quantity" design="Bold"/>
-							<StepInput enabled="{rtModel>/sgEnable}" value="{rtModel>/rtasks/PUBQTY}" min="1"/>
+							<StepInput enabled="{rtModel>/sgEnable}" value="{rtModel>/tasks/0/PUBQTY}" min="1"/>
 						</VBox>
 					</HBox>
 				</VBox>

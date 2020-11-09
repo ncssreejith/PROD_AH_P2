@@ -32,9 +32,11 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<Button text="Back" press="onNavBack" type="Transparent"/>
-				<Button text="Sign Off" type="Emphasized" press="onSignOffClick" enabled="{rtModel>/sgEnable}"/>
+				<Button text="Undo Sign Off" type="Emphasized" press="onTeamLeadUndoSignOffClick" enabled="{rtModel>/sgEnable}"
+				visible="{= ${rtModel>/tasks/0/APR_NO} === 2 &amp;&amp; ${rtModel>/selTab} === 'rt2'}"/>
+				<Button text="Sign Off" type="Emphasized" press="onSignOffClick" enabled="{rtModel>/sgEnable}"
+				visible="{parts:['rtModel>/selTab','rtModel>/tasks/0/APR_NO'],formatter:'.formatter.rtSignOffVisible'}"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>
 </mvc:View>
-

@@ -24,7 +24,7 @@
 							<Text text="{path:'rtModel>DDDESC',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
 							<Text text="{rtModel>DDDESC}"/>
 							<Text text="{parts : ['rtModel>DONE','rtModel>NA'], formatter:'.formatter.TradesmanStatusDisplay'}"/>
-							<Text text="{rtModel>TRADE_USER}"/>
+							<Text text="{rtModel>tsign}"/>
 						</cells>
 					</ColumnListItem>
 				</items>

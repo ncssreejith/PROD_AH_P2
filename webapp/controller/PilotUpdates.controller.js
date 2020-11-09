@@ -505,7 +505,7 @@ sap.ui.define([
 					this.fnReadEngine();
 					this.fnReadAddLimitCount();
 					this.fnReadFuleTankFromRepl();
-					this.fnReadFuleTanksFromRole();
+					// this.fnReadFuleTanksFromRole();
 				}
 
 			} catch (e) {
@@ -857,6 +857,9 @@ sap.ui.define([
 					var tTotal = oTanks.concat(oData.results);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/fuleTanks", tTotal);
 					this.getModel("oPilotUpdatesViewModel").refresh();
+					this.updateModel({
+						busy: false
+					}, "viewModel");
 				}.bind(this);
 				ajaxutil.fnRead("/ReplenishmentSvc", oParameter);
 			} catch (e) {

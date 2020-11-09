@@ -69,8 +69,10 @@
 							<Label text="ALQ144" width="250px" level="H2" class="sapUiSmallMarginTop"/>
 							<!--<Input width="250px" value="{oAircraftAddModel>/record/COL_17}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"-->
 							<!--required="{= ${oAircraftAddModel>/type} === '4'}" editable="{= ${oAircraftAddModel>/type} === '4'}"/>-->
-							<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_17}" value="{oAircraftAddModel>/record/COL_17}" displayValuePrecision="2"
-							required="{= ${oAircraftAddModel>/type} === '4' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '4' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal2,AddEquipRunningLog"/>
+							<!--<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_17}" value="{oAircraftAddModel>/record/COL_17}" displayValuePrecision="2"-->
+							<!--required="{= ${oAircraftAddModel>/type} === '4' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '4' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal2,AddEquipRunningLog"/>-->
+							<Input width="250px" value="{oAircraftAddModel>/record/COL_17}"
+							required="{= ${oAircraftAddModel>/type} === '4' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '4' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgInput,AddEquipRunningLog"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="Reason" width="250px" level="H2" class="sapUiSmallMarginTop"/>

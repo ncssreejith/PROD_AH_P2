@@ -37,7 +37,7 @@
 						</VBox>
 						<!--enabled="{= ${rtModel>APR_NO}==='0'}"-->
 						<SegmentedButton
-						enabled="{= ${rtModel>/tasks/0/APR_NO}===0 &amp;&amp; !${rtModel>/SRVID}}"
+						enabled="{= ${rtModel>tsign}===''}"
 							selectedKey="{= (${rtModel>DONE}===null || ${rtModel>DONE}==='')?'noKey':${rtModel>DONE}}" selectionChange="onRTStatusChange">
 							<items>
 								<SegmentedButtonItem text="Done" key="Y"/>
@@ -49,7 +49,7 @@
 						<!--	Rahul Code changes 30/10/2020: to check table visible logic "{= ${rtModel>tsign} === ''}"-->
 						<Button icon="sap-icon://sys-cancel" type="Reject" visible="{= ${rtModel>tsign} === '' &amp;&amp; ${rtModel>RTASKID} === '' }"
 							enabled="{path : 'rtModel>/srvclsd', formatter : '.formatter.srvIdExistEnable'}" press="onDeleteTaskPress"/>
-						<HBox visible="{= (${rtModel>tsign}!=='')}">
+						<HBox visible="{= (${rtModel>tsign}!=='' &amp;&amp; ${rtModel>/tasks/0/APR_NO}&lt;=1)}">
 							<Button text="Undo Sign Off" enabled="{path : 'rtModel>/srvclsd', formatter : '.formatter.srvIdExistEnable'}" press="onUndoSignoff"/>
 						</HBox>
 						<!--<Button icon="sap-icon://sys-cancel" type="Reject" visible="{= (${rtModel>RTASKID} || ${rtModel>/tasks/0/APR_NO}>0)?false:true}" press="onDeleteTaskPress"/>-->

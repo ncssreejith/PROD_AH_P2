@@ -768,7 +768,31 @@ sap.ui.define([
 		},
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
-
+		rtSignOffVisible: function(sTab, sApprno) {
+			switch (sTab) {
+				case 'rt1':
+					if (sApprno === 0) {
+						return true;
+					}
+					break;
+				case 'rt2':
+					if (sApprno === 1) {
+						return true;
+					}
+					break;
+				case 'rt3':
+					if (sApprno === 2) {
+						return true;
+					}
+					break;
+				case 'rt4':
+					if (sApprno === 3) {
+						return true;
+					}
+					break;
+			}
+			return false;
+		},
 		stnsQty: function(isSer, srCount, sTotQty) {
 			var sQty = 0;
 			if (isSer === "X") {
@@ -801,7 +825,6 @@ sap.ui.define([
 			}
 			return sTxt;
 		},
-
 
 		jdsDueInFormat: function(duein, uom) {
 			if (!duein || !uom) {
@@ -1066,7 +1089,7 @@ sap.ui.define([
 			}
 			return false;
 		},
-		rcSignAPPR: function( ttab) {
+		rcSignAPPR: function(ttab) {
 			if (ttab === "rc1") {
 				return 0;
 			}
@@ -1271,6 +1294,7 @@ sap.ui.define([
 				case "AST_US0":
 				case "AST_US1":
 				case "AST_US2":
+				case "AST_RC":	
 					this.removeStyleClass("redbtn");
 					this.removeStyleClass("greenbtn");
 					this.removeStyleClass("greybtn");
@@ -1469,7 +1493,7 @@ sap.ui.define([
 					break;
 				case "SRVT_DARM":
 					sSrvTitle = "DARM";
-					break;	
+					break;
 				case "SRVT_AF":
 					sSrvTitle = "AF";
 					break;
@@ -1872,13 +1896,13 @@ sap.ui.define([
 				creDt = oDatePicker.getDateValue(),
 				oTimePick = fragmentId ? sap.ui.core.Fragment.byId(fragmentId, idTime) : that.getView().byId(idTime),
 				creTm = oTimePick.getValue();
-				
-				if (!creDt) {
-					creDt = oDatePicker.getValue();
-					var splitDt = creDt.split("/");
-					creDt = new Date(splitDt[2],splitDt[1]-1,splitDt[0]);
-				}
-				var date = creDt.getDate(),
+
+			if (!creDt) {
+				creDt = oDatePicker.getValue();
+				var splitDt = creDt.split("/");
+				creDt = new Date(splitDt[2], splitDt[1] - 1, splitDt[0]);
+			}
+			var date = creDt.getDate(),
 				year = creDt.getFullYear(),
 				month = creDt.getMonth() + 1;
 			var dateString = '' + year + '-' + month + '-' + date;

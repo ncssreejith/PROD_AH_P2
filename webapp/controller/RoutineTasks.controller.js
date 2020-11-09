@@ -283,6 +283,7 @@ sap.ui.define([
 				var aPayloads = this.getModel("rtModel").getProperty("/tasks");
 				
 				aPayloads.forEach(function(oPayload) {
+					// this.fnInsertValues(oPayload);
 					var oCopy = JSON.parse(JSON.stringify(oPayload));
 					if (oCopy.tstat === 1) {
 						bSelected = true;
@@ -307,6 +308,12 @@ sap.ui.define([
 				Log.error("Exception in onSignOff function");
 				this.handleException(e);
 			}
+		},
+		fnInsertValues: function(oPayload){
+			// this.getModel("rtModel").setProperty("/rtasks/TLCDT", this.getModel("rtModel").getProperty("/currentDate"));
+			// 		oPayload this.getModel("rtModel").getProperty("/currentTime"));
+			// 		oPayloadthis.getModel("rtModel").setProperty("/rtasks/TLQTY", 1);
+			// 		this.getModel("rtModel").setProperty("/rtasks/PUBQTY", 1);
 		},
 
 		_SignOffR3: function() {
