@@ -2102,12 +2102,13 @@ sap.ui.define([
 					}
 					that.onCloseAddWorkCenterDialog();
 				}.bind(this);
-				if (sState) {
-					oPrmWorkCenter.activity = 1;
+				/*if (sState) {
+					//oPrmWorkCenter.activity = 1;
 					ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
 				} else {
-					ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload], "dummy", this);
-				}
+					
+				}*/
+				ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnDefectWorkCenterCreate function");
 
@@ -2160,8 +2161,8 @@ sap.ui.define([
 						that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 						that.onCloseAddWorkCenterDialog();
 					}.bind(this);
-					oPrmWorkCenter.activity = 7;
-					ajaxutil.fnDelete(sPath, oPrmWorkCenter, "ZRM_COS_JB", this);
+					//oPrmWorkCenter.activity = 7;
+					ajaxutil.fnDelete(sPath, oPrmWorkCenter);
 				} else {
 					MessageBox.error(
 						"There is record created under this work center, no deletion is allowed", {
