@@ -1839,11 +1839,11 @@ sap.ui.define([
 		// Description: This will get called, when to update Job details to database.
 		//Table: JOB
 		//------------------------------------------------------------------
-		_fnUpdateJob: function(oEvent) {
+		_fnUpdateJob: function(oFlag) {
 			try {
 				var that = this,
 					oObject,
-					oLocalModel, oFlag,
+					oLocalModel,
 					oPayload;
 				var dDate = new Date();
 				oLocalModel = that.getView().getModel("LocalModel");
@@ -1861,15 +1861,19 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					that._fnJobDetailsGet(oLocalModel.getProperty("/sJobId"), oLocalModel.getProperty("/sTailId"));
 				}.bind(this);
-
-				if (oPayload.fstat === "R") {
-					oObject = "ZRM_FAIR_R";
-					oParameter.activity = 4;
+				if (oFlag === "WRC") {
+					ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload]);
 				} else {
-					oObject = "ZRM_COS_JB";
-					oParameter.activity = 2;
+					if (oPayload.fstat === "R") {
+						oObject = "ZRM_FAIR_R";
+						oParameter.activity = 4;
+					} else {
+						oObject = "ZRM_COS_JB";
+						oParameter.activity = 2;
+					}
+					ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], oObject, this);
 				}
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], oObject, this);
+
 			} catch (e) {
 				Log.error("Exception in _fnUpdateJob function");
 			}
@@ -2096,7 +2100,7 @@ sap.ui.define([
 					oPrmWorkCenter.error = function() {};
 				oPrmWorkCenter.success = function(oData) {
 					if (sState) {
-						that._fnUpdateJob();
+						that._fnUpdateJob("WRC");
 					} else {
 						that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 					}
