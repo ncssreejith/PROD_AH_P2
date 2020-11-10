@@ -17,7 +17,7 @@ sap.ui.define([
 				this.getRouter().getRoute("PilotAccept").attachPatternMatched(this._onObjectMatched, this);
 				this.setModel(new JSONModel({}), "paModel");
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onInit function");
 			}
 		},
 
@@ -28,7 +28,7 @@ sap.ui.define([
 				var sPath = oEvent.getSource().getSelectedItem().getBindingContext("paModel").getPath();
 				this._fnNavToDetail(sPath);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onListItemPress function");
 			}
 		},
 		onJobDueUpdateFinished: function(oEvent) {
@@ -95,7 +95,7 @@ sap.ui.define([
 				this.getModel("paModel").setProperty("/enableSign", true);
 				this.getModel("paModel").refresh();
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onReviewedPress function");
 			}
 		},
 		onAddDefectPress: function(oEvent) {
@@ -160,7 +160,7 @@ sap.ui.define([
 				}
 				this.onPressSignOffConfirm(oEvent);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onPresSignOff function");
 			}
 		},
 
@@ -170,7 +170,7 @@ sap.ui.define([
 				var sContext = oEvent.getSource().getBindingContext("paModel");
 				this.fnLoadAddLimitationDetail(sContext);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onLimitationItemPress function");
 			}
 		},
 		onADDLimitationItemPress: function(oEvent) {
@@ -179,7 +179,7 @@ sap.ui.define([
 				var sContext = oEvent.getSource().getBindingContext("paModel");
 				this.fnLoadAddLimitationDetail(sContext);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onADDLimitationItemPress function");
 			}
 		},
 
@@ -218,7 +218,7 @@ sap.ui.define([
 				this.getModel("paModel").refresh();
 				this._getPDSLists();
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _onObjectMatched function");
 			}
 		},
 		onCancelLimitationDetail: function() {
@@ -253,14 +253,14 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSERNRSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onSerialNoPress function");
 			}
 		},
 		onSerialNoOkClose: function() {
 			try {
 				this.closeDialog("SerialNosDialog");
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onSerialNoOkClose function");
 			}
 		},
 		_getPDSLists: function() {
@@ -278,7 +278,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTACCEPTANCESVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getPDSLists function");
 			}
 		},
 		fnGetAllData: function() {
@@ -310,7 +310,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getSortie function");
 			}
 		},
 		_getReplenishmentDetails: function() {
@@ -330,7 +330,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getReplenishmentDetails function");
 			}
 		},
 		fnSetReplData: function(oData) {
@@ -376,7 +376,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("REPLROLESVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getFuelExtTanks function");
 			}
 		},
 		_getTasks: function() {
@@ -392,7 +392,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("FTSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getTasks function");
 			}
 		},
 		_getCreatedTasks: function() {
@@ -409,7 +409,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getCreatedTasks function");
 			}
 		},
 		_getRTTasks: function(sFilter, sTab) {
@@ -425,7 +425,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("RT2SVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getRTTasks function");
 			}
 		},
 		_getFLyReq: function() {
@@ -444,7 +444,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getFLyReq function");
 			}
 		},
 		_getJobDetails: function() {
@@ -491,7 +491,7 @@ sap.ui.define([
 
 				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getOutstandingJob function");
 			}
 		},
 		_getPastMonthDefects: function() {
@@ -529,7 +529,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getPendingApprovals function");
 			}
 		},
 		_fnLimitationsGet: function() {
@@ -548,7 +548,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _fnLimitationsGet function");
 			}
 		},
 		_fnADDGet: function() {
@@ -568,7 +568,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _fnADDGet function");
 			}
 		},
 		_getTrailMod: function() {
@@ -586,7 +586,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("TRAILMONSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getTrailMod function");
 			}
 		},
 		_getWeaponConfig: function() {
@@ -606,7 +606,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getWeaponConfig function");
 			}
 		},
 		_fnSortieMonitoringDetailsGet: function(sJobId, sSORNO) {
@@ -621,7 +621,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _fnSortieMonitoringDetailsGet function");
 			}
 		},
 
@@ -678,7 +678,7 @@ sap.ui.define([
 				oParameter.activity = 4;
 				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTACCEPTANCESVC"), oParameter, [oSignOffPayload], "ZRM_FS_PA", this);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onPressSignOffConfirm function");
 			}
 		},
 		fnCreateDefect: function() {

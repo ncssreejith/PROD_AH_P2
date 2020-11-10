@@ -48,7 +48,7 @@ sap.ui.define([
 				this.getModel("rcModel").setProperty("/selStn", oStn);
 				this.getModel("rcModel").refresh();
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onStnChange function");
 			}
 		},
 
@@ -98,7 +98,7 @@ sap.ui.define([
 					});
 				}
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onAdapterClk function");
 			}
 		},
 
@@ -213,7 +213,7 @@ sap.ui.define([
 				oParameter.title = "Tradesman undosign off";
 				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, oPayloads, sObj, this);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onStationUndoSignOff function");
 			}
 		},
 
@@ -304,7 +304,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _getStations function");
 			}
 		},
 		fnLoadAdapter: function(oStn) {

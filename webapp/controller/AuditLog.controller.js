@@ -17,7 +17,7 @@ sap.ui.define([
 				this.getRouter().getRoute("AuditLog").attachPatternMatched(this._handleRouteMatched, this);
 				this.getRouter().getRoute("HistoryLog").attachPatternMatched(this._handleHistoryRouteMatched, this);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onInit function");
 			}
 		},
 

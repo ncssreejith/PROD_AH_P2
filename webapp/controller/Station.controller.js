@@ -44,7 +44,7 @@ sap.ui.define([
 
 				this.getRouter().getRoute("Station").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onInit function");
 			}
 		},
 
@@ -177,7 +177,7 @@ sap.ui.define([
 				// this.getModel("configModel").setProperty("/selStn/selADP/selWpn/srno", oSrnNos);
 				this.getModel("configModel").refresh();
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onCloseMunition function");
 			}
 		},
 		onChkBxSel: function(oEvent) {
@@ -204,7 +204,7 @@ sap.ui.define([
 				}
 
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onOtherCountChange function");
 			}
 		},
 		onSaveMunition: function(oEvent) {
@@ -260,7 +260,7 @@ sap.ui.define([
 				// oMunitionDialogModel.getProperty("/serialNos").splice(sIndex,1);
 				// oMunitionDialogModel.refresh();
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onDeleteSrnClk function");
 			}
 		},
 		//-------------------------------------------------------------
@@ -525,7 +525,7 @@ sap.ui.define([
 				}.bind(this));
 				return oPayloads;
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onCreateMissile function");
 			}
 		},
 		//-------------------------------------------------------------
@@ -542,7 +542,7 @@ sap.ui.define([
 				this.getModel("configModel").refresh();
 				this.fnLoadStation();
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in _onObjectMatched function");
 			}
 		},
 		//-------------------------------------------------------------
@@ -571,7 +571,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in fnLoadStation function");
 			}
 		},
 		//-------------------------------------------------------------
@@ -599,7 +599,7 @@ sap.ui.define([
 				}.bind(this, sStation);
 				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSERNRSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in fnLoadAdapter function");
 			}
 		},
 
@@ -633,7 +633,7 @@ sap.ui.define([
 				}.bind(this, sStatation);
 				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSERNRSVC"), oParameter);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in fnLoadMissile function");
 			}
 		},
 
@@ -681,7 +681,7 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnCreate(this.getResourceBundle().getText("WEAPONSERNRSVC"), oParameter, oPayloads);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in fnCreateMissileSerialNumber function");
 			}
 		},
 		//-------------------------------------------------------------
@@ -692,7 +692,7 @@ sap.ui.define([
 				this.getView().byId("ptUpArrowId")._cssFillColor = (isConnected ? "Blue" : "Blue");
 				this.getView().byId("ptDownArrowId")._cssFillColor = (isConnected ? "Blue" : "Blue");
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in fnSetArrowColor function");
 			}
 		},
 
@@ -716,7 +716,7 @@ sap.ui.define([
 					sStns.adapter = sAdapterList;
 				}
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in fnCheckForImpulsCart function");
 			}
 		},
 
@@ -771,7 +771,7 @@ sap.ui.define([
 					this.onStationToolChkSignOff();
 				}
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in fnOpenCloseConfirmationDialog function");
 			}
 
 		},

@@ -103,7 +103,7 @@ sap.ui.define([
 				this.getOwnerComponent().setModel(oModel, "oPilotUpdatesViewModel");
 				this.getRouter().navTo("Limitations", true);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onViewAddLim function");
 			}
 		},
 
@@ -273,7 +273,7 @@ sap.ui.define([
 				this.getModel("oPilotUpdatesViewModel").getProperty("/defects").splice(oIndex, 1);
 				this.getModel("oPilotUpdatesViewModel").refresh(true);
 			} catch (e) {
-				Log.error("Exception in xxxxx function");
+				Log.error("Exception in onRemoveDefectPress function");
 			}
 		},
 
