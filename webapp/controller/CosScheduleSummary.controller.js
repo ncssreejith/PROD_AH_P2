@@ -395,8 +395,9 @@ sap.ui.define([
 					this._fnSumamryDetailsGet(that.getView().getModel("LocalModel").getProperty("/ESJobId"));
 
 				}.bind(this);
-				oPrmSchJob.activity = 2;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
+				/*oPrmSchJob.activity = 2;
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);*/
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in onUpdateWorkCenterPress function");
 			}
