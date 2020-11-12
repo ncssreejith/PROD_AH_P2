@@ -1104,6 +1104,8 @@ sap.ui.define([
 						} else {
 							oLocalModel.setProperty("/FairEditFlag", true);
 						}
+						oLocalModel.updateBindings(true);
+						oLocalModel.refresh(true);
 					} catch (e) {
 						Log.error("Exception in oGBAppModel FAIR STATUS function");
 					}
@@ -2165,8 +2167,8 @@ sap.ui.define([
 						that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 						that.onCloseAddWorkCenterDialog();
 					}.bind(this);
-					//oPrmWorkCenter.activity = 7;
-					ajaxutil.fnDelete(sPath, oPrmWorkCenter);
+					oPrmWorkCenter.activity = 7;
+					ajaxutil.fnDelete(sPath, oPrmWorkCenter,"dummy",this);
 				} else {
 					MessageBox.error(
 						"There is record created under this work center, no deletion is allowed", {
