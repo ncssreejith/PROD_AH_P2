@@ -104,6 +104,9 @@ sap.ui.define([
 					this.SignOffLogin.getModel("signOffModel").setProperty("/msg", sMsg);
 					this.SignOffLogin.getModel("signOffModel").setProperty("/msgStatus", "ERROR");
 					this.SignOffLogin.getModel("signOffModel").setProperty("/uSel", sAction);
+					if (sAction === "FGR") {
+						this._fnCheckFingerprintSignOff(this);
+					}
 					this.SignOffLogin.getModel("signOffModel").refresh();
 					this.signOffStatus(sMsg.slice(sMsg), "ERROR");
 					// this._setSignOffCustomError("ipPassword",sMsg);
@@ -111,6 +114,20 @@ sap.ui.define([
 				} catch (e) {
 					Log.error("Exception in onSignOffError function");
 				}
+			},
+			_fnCheckFingerprintSignOff: function(that) {
+				if (this.fingerErrorCount === undefined) {
+					this.fingerErrorCount = 0;
+					return false;
+				}
+				this.fingerErrorCount++;
+				if (this.fingerErrorCount >= 2) {
+					this.fingerErrorCount = 0;
+					that.SignOffLogin.getModel("signOffModel").setProperty("/uSel", "PWD");
+					that.SignOffLogin.getModel("signOffModel").refresh();
+					return false;
+				}
+				return true;
 			},
 			onUserIdClk: function() {
 				try {
