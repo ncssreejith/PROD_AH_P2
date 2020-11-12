@@ -654,7 +654,7 @@ sap.ui.define([
 				sStns.selADP.selWpn.cserialNos = sSerlNo;
 				this.getModel("configModel").refresh();
 			}.bind(this, sStation);
-			ajaxutil.fnRead("/WeaponSernrSvc", oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSERNRSVC"), oParameter);
 		},
 
 		fnCreateSerialNo: function(oData) {

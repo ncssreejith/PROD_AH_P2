@@ -902,6 +902,8 @@ sap.ui.define([
 				oPayload.flyReq = [];
 				oPayload.fuleTanks = [];
 				oPayload.toper = [];
+				oPayload.runningChange = "N";
+				oPayload.engPowerCheckRequired = "N";
 				oPayload.flyRecord = {
 					"srvid": null,
 					"tailid": this.getTailId(),

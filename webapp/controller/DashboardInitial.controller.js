@@ -64,11 +64,25 @@ sap.ui.define([
 		//1. On click of Create Flight Servicing Button, navigates to that view.
 		onCreateFlightService: function() {
 			try {
-				this.getRouter().navTo("CreateFlightService", {}, false);
+				if (this.getModel("avmetModel").getProperty("/dash/SRVID")) {
+					this.fnSetMenuVisible("", this.fnFindCreateFlightService);
+					this.getModel("menuModel").refresh();
+					this._fnErrorMessage("Flight Servicing is in progress. Not allow to create new Flight Servicing.");
+				} else {
+					this.getRouter().navTo("CreateFlightService", {}, false);
+				}
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onCreateFlightService function");
 				this.handleException(e);
 			}
+		},
+		//Rahul Code changes 30/10/2020: show error message
+		_fnErrorMessage: function(sMsg) {
+			var oData = {
+				messages: [sMsg]
+			};
+			this.fnShowMessage("E", oData, null, function(oEvent) {});
+
 		},
 		//2. On Click of Create Job button.
 		onPressCreateJob: function() {

@@ -241,12 +241,12 @@ sap.ui.define([
 									text: sTextProp
 								});
 								break;
-							case "COL_17":
-								sTextProp.formatter = that.formatter.numberUnit;
-								sText = new sap.m.Text({
-									text: sTextProp
-								});
-								break;
+							// case "COL_17":
+							// 	sTextProp.formatter = that.formatter.numberUnit;
+							// 	sText = new sap.m.Text({
+							// 		text: sTextProp
+							// 	});
+							// 	break;
 								// case "COL_16":
 								// case "COL_17":
 								// case "COL_18":

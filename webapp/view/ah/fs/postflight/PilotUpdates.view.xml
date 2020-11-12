@@ -18,7 +18,7 @@
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.engine.EnginePowerCheck" type="XML"/>
 					</IconTabFilter>
 					<!--<IconTabSeparator icon="sap-icon://arrow-right"/>-->
-					<IconTabFilter enabled="{= ${oPilotUpdatesViewModel>/armingReq}==='Y'?false:true}" id="manoeuvringId"  text="Manoeuvring flights records"
+					<IconTabFilter enabled="{= ${oPilotUpdatesViewModel>/armingReq}==='Y'?false:true}" id="manoeuvringId"  text="Running Change"
 						key="Manoeuvring">
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.manoeuvring.Manoeuvring" type="XML"/>
 					</IconTabFilter>

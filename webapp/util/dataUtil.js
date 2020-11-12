@@ -19,7 +19,7 @@ sap.ui.define([
 	return {
 			// destination 
 		destination: "/DBSRV17/avmetnf",
-		username:"amitkumar",
+		username:"techmeng",
 		pwd:"pass1234",
 		/* Function : getDataSet
 		 *  parameter : vDataSetName

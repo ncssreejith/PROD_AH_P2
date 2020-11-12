@@ -374,7 +374,6 @@ sap.ui.define([
 					this._getRTTasks();
 					this._getTasks();
 					this._getCreatedTasks();
-					// this._getFuelExtTanks();
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
@@ -410,26 +409,7 @@ sap.ui.define([
 			}.bind(this));
 			this.getModel("pdsSummaryModel").refresh();
 		},
-		_getFuelExtTanks: function() {
-			try {
 
-				var oParameter = {};
-				var filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty("/srvtid") +
-					" and TAILID eq " + this.getTailId() +
-					" and STEPID eq S_RE";
-				oParameter.error = function() {};
-				oParameter.filter = filter; //"REFID eq AIR_10 and SRVID eq  and TAILID eq TAIL_1015";
-				oParameter.success = function(oData) {
-					var sIndex = this._fnGetIndexById("T6_FLC");
-					var oFules = this.getModel("pdsSummaryModel").getProperty("/masterList/" + sIndex + "/data/repl/fuel").concat(oData.results);
-					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/repl/fuel", oFules);
-					this.getModel("pdsSummaryModel").refresh();
-				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("REPLROLESVC"), oParameter);
-			} catch (e) {
-				Log.error("Exception in _getFuelExtTanks function");
-			}
-		},
 		_getTasks: function() {
 			try {
 				var oParameter = {};
