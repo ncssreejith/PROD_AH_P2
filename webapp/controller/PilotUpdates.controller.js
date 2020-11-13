@@ -937,7 +937,12 @@ sap.ui.define([
 					"lnor": 0,
 					"lrun": 0,
 					"ltot": 0,
-					"apudur": 0
+					"apudur":0,
+					"stepid":oPayload.srvtid,
+					"srvtid":oPayload.stepid,
+					"rcreq":"",   // IF THEY RUNNING CHANGE SEL
+					"isfair":"", // IF ANY FAIR JOB DEFECT SELECT 
+					"astatid":"" // AST_S IF SERVICEABLE AST_US IF UNSERVICEABLE ,FAIL SORTI,FAIL FLY  
 				};
 				oPayload.timings = [{
 					"srvid": null,

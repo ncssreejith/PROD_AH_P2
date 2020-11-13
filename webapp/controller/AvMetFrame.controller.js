@@ -327,7 +327,7 @@ sap.ui.define([
 				oModel.setProperty("/UnlockAVMET", true);
 				var sASTID = this.getModel("avmetModel").getProperty("/dash/astid");
 				var sAuthObj = (sASTID === "AST_FFF") ? "ZRM_FFF_UL" : "ZRM_RFF_UL";
-				ajaxutil.fnCreate(this.getResourceBundle().getText("TAILLOCKSVC"), oParameter, [oPayload], sAuthObj, this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("TAILLOCKSVCHEL"), oParameter, [oPayload], sAuthObj, this);
 			} catch (e) {
 				Log.error("Exception in onSignOffPress function");
 			}
