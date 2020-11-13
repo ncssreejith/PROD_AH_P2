@@ -384,12 +384,14 @@ sap.ui.define([
 					this.fnShowMessage("E", {}, hrex, function(oEvent) {});
 				}.bind(this);
 				oParameter.success = function(oData) {
-					// oData.results[0].APR_NO = 0;
+					var sTab = "rt1";
 					var sCount = this.formatter.integerUnit((oData.results.length > 0 ? oData.results[0].APR_NO : 0));
 					this.getModel("rtModel").setProperty("/tasks", oData.results);
 					var sSRVID = this.getModel("rtModel").getProperty("/SRVID");
 					this.getModel("rtModel").setProperty("/sgEnable", (sCount < 4) && !sSRVID ? true : false);
-					// this.getModel("rtModel").setProperty("/tasks/0/APR_NO", sCount > 3 ? 3 : sCount);
+					this._fnActivate();
+					// sTab = oData.results.length > 0 ? (oData.results[0].APRNO === 1 ? "rt1" : "rt1") : "rt1";
+					// this.getModel("rcModel").setProperty("/selTab", sTab);
 					this.getModel("rtModel").refresh();
 
 					this.updateModel({

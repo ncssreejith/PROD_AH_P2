@@ -20,11 +20,11 @@
 						</IconTabFilter>
 						<IconTabFilter text="Supervisor" key="rc2" enabled="{= ${rcModel>/EditTab} === 'rc2' || ${rcModel>/EditTab} === undefined }">
 							<VBox>
-								<!--<HBox class="sapUiTinyMarginBottom" visible="{parts:['rcModel>/selTab','rcModel>tsign'],formatter:'.formatter.fsRCUnSignOff'}" width="100%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">-->
-								<!--	<HBox class="topSignOff sapUiSmallMargin" width="95%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">-->
-								<!--		<Link class="sapUiTinyMarginTop" text="Supervisor sign off for  {rcModel>/selStn/L_TXT}" press="onStationSignOff"/>-->
-								<!--	</HBox>-->
-								<!--</HBox>-->
+								<HBox class="sapUiTinyMarginBottom" visible="{parts:['rcModel>/selTab','rcModel>ssign'],formatter:'.formatter.fsRCUnSignOff'}" width="100%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">
+									<HBox class="topSignOff sapUiSmallMargin" width="95%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">
+										<Label class="sapUiTinyMarginTop" text="{rcModel>/selStn/ssign} sign off for  {rcModel>/selStn/L_TXT}"/>
+									</HBox>
+								</HBox>
 								<HBox class="wcVBox">
 									<core:Fragment fragmentName="avmet.ah.view.ah.fs.rolechange.RCStationAdapter" type="XML"/>
 									<core:Fragment fragmentName="avmet.ah.view.ah.fs.rolechange.RCGraph" type="XML"/>

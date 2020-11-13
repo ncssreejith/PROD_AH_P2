@@ -114,11 +114,11 @@ sap.ui.define([
 				if (key !== "") {
 					oModel.setProperty("/sReceiveTable", true);
 					oEvent.getSource().setValueState("None");
-					oEvent.getSource().setValueText("");
+					oEvent.getSource().setValueStateText("");
 				} else {
 					oModel.setProperty("/sReceiveTable", false);
 					oEvent.getSource().setValueState("Error");
-					oEvent.getSource().setValueText("Required field");
+					oEvent.getSource().setValueStateText("Required field");
 				}
 				// FieldValidations.validateFields(this);
 			} catch (e) {
@@ -133,7 +133,7 @@ sap.ui.define([
 				oModel.setProperty("/header/RSQN", sText);
 				if (sText === oModel.getProperty("/header/SQN")) {
 					oEvent.getSource().setValueState("Error");
-					oEvent.getSource().setValueText("Cannot transfer platform to dispatcher or empty");
+					oEvent.getSource().setValueStateText("Cannot transfer platform to dispatcher or empty");
 				}
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:onSelectionChangesqn function");

@@ -80,14 +80,14 @@
 				</HBox>
 				<Toolbar height="1rem"/>
 				<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.flyingrecord.FlyingRecordsTimings" type="XML"/>
-				<VBox class="sapUiLargeMarginBegin sapUiSmallMarginBottom" visible="{= ${oPilotUpdatesViewModel>/arming/armde}===''?false:true}">
-					<Label text="{= ${oPilotUpdatesViewModel>/arming/armde}==='A' ? 'Is arming required ?' : 'Is dearming required ?'}" design="Bold"/>
-					<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/armingReq}" selectionChange="onArmingDearmin" items="{postflightModel>/yn}" required="true" fieldGroupIds="fgSGBtn">
-						<items>
-							<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}"/>
-						</items>
-					</SegmentedButton>
-				</VBox>
+				<!--<VBox class="sapUiLargeMarginBegin sapUiSmallMarginBottom" visible="{= ${oPilotUpdatesViewModel>/arming/armde}===''?false:true}">-->
+				<!--	<Label text="{= ${oPilotUpdatesViewModel>/arming/armde}==='A' ? 'Is arming required ?' : 'Is dearming required ?'}" design="Bold"/>-->
+				<!--	<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/armingReq}" selectionChange="onArmingDearmin" items="{postflightModel>/yn}" required="true" fieldGroupIds="fgSGBtn">-->
+				<!--		<items>-->
+				<!--			<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}"/>-->
+				<!--		</items>-->
+				<!--	</SegmentedButton>-->
+				<!--</VBox>-->
 			</VBox>
 		</l:content>
 	</l:VerticalLayout>

@@ -256,7 +256,7 @@
 								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
 								<Text text="{oEngineModel>NP}"/>
-								<Text text="{oEngineModel>NP}"/>
+								<Text text=" "/>
 								<Text text="{oEngineModel>ASPEED}"/>
 								<HBox justifyContent="Center">
 									<Text text="{path:'oEngineModel>ETF'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>

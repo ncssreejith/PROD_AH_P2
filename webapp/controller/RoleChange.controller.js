@@ -68,7 +68,7 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		onAdapterClk: function(oEvent) {
 			try {
-				if (!this.fnChkEdit()) {
+				if (!this.fnChkEdit(oEvent.getSource().getSelectedItem().getBindingContext("rcModel"))) {
 					return;
 				}
 				var sContext = oEvent.getSource().getSelectedItem().getBindingContext("rcModel");
@@ -164,11 +164,23 @@ sap.ui.define([
 			var sAprNo = this.getModel("rcModel").getProperty("/stns/0/APRNO");
 			var selTab = this.getModel("rcModel").getProperty("/selTab");
 			var chngTab = this.getModel("rcModel").getProperty("/chngTab");
+			var oSelADP = this.getModel("rcModel").getProperty("/selStn");
 
 			if ((selTab !== chngTab) && chngTab !== "") {
 				sap.m.MessageBox.error("Changes are not allowed");
 				sFlag = false;
+				return sFlag;
 			}
+			
+			//Check if trademan signed off for supervisor to change
+			
+			oSelADP = oSelADP ? oSelADP : {};
+			if(sAprNo===1 && selTab==="rc2" && oSelADP &&  oSelADP.tstat !== 1){
+				sap.m.MessageBox.error("Changes are not allowed");
+				sFlag = false;
+				return sFlag;
+			}
+			
 
 			// var selKey = this.getModel("rcModel").getProperty("/selTab");
 			// if( this.editMode === undefined){
@@ -285,7 +297,7 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.filter = "airid eq " + this.getAircraftId() + " and" + " tailid eq " + this.getTailId();
 				oParameter.success = function(oData) {
-					var sTab = "rt1";
+					var sTab = "rc1";
 					this.editMode = null;
 					this.getModel("rcModel").setProperty("/stns", oData.results);
 					this.getModel("rcModel").setProperty("/selStn", oData.results.length > 0 ? oData.results[0] : {});
@@ -418,7 +430,7 @@ sap.ui.define([
 			// var selKey = this.getModel("rcModel").getProperty("/selTab");
 			// var sStat = this.getModel("rcModel").getProperty("/tsign");
 
-			var oPayload = {};
+			var oPayload = JSON.parse(JSON.stringify(stn));
 			oPayload.ADPID = adp === undefined ? '' : adp.ADPID;
 			oPayload.ADPDESC = adp === undefined ? '' : adp.ADPDESC;
 			oPayload.ADPFLAG = adp === undefined ? "P" : null;
@@ -451,6 +463,9 @@ sap.ui.define([
 			oPayload.tailid = stn.tailid;
 			oPayload.tstat = stn.tstat; //this.formatter.rcSignChange(sStat,selKey)?1:0;
 			oPayload.tsign = "";
+			
+			delete oPayload.adapters;
+			delete oPayload.selADP;
 			return oPayload;
 		},
 		fnGetApproNo: function() {

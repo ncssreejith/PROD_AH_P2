@@ -230,10 +230,10 @@ sap.ui.define([
 				}
 				var aFinalPayload = [];
 				var bSelected = false;
-				
+
 				var aPayloads = this.getModel("oRepDetailsModel").getProperty("/srv");
 				this._fnCheckLessThan10Hours(aPayloads);
-				
+
 				aPayloads.forEach(function(oPayload) {
 
 					if (oPayload.tstat === 1) {
@@ -245,7 +245,7 @@ sap.ui.define([
 					sap.m.MessageToast.show("Select at least one for sign off first");
 					return;
 				}
-				
+
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -390,6 +390,32 @@ sap.ui.define([
 				return true;
 			}
 			return (sDiff < 10);
+		},
+		/** 
+		 * Calculate engine hours diff
+		 * @param oItems
+		 * @returns
+		 */
+		fnEngineOil: function(oItems) {
+			switch (oItems.resid) {
+				case "RES_105":
+					if (!oItems.tsign && oItems.srvamt > 0) {
+						return true;
+					} else {
+						return false;
+					}
+					break;
+				case "RES_106":
+					if (!oItems.tsign && oItems.srvamt > 0) {
+						return true;
+					} else {
+						return false;
+					}
+					break;
+				default:
+					return false;
+			}
+			return false;
 		},
 		_getFuelExtTanks: function() {
 			try {

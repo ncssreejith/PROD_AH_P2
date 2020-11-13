@@ -300,18 +300,19 @@ sap.ui.define([
 		},
 		fnCreateFlyRecords: function() {
 			try {
-				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
-				if (oPayloads.length === 0) {
-					this.onSendOthers();
-					return;
-				}
-				var oParameter = {};
-				oParameter.error = function() {};
-				oParameter.success = function() {
-					this.onSendOthers();
-				}.bind(this);
-				oParameter.activity = 4;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4FLYSVC"), oParameter, [oPayloads], "ZRM_PFR_P", this);
+				this.fnCreateEngine();
+				// var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
+				// if (oPayloads.length === 0) {
+				// 	this.onSendOthers();
+				// 	return;
+				// }
+				// var oParameter = {};
+				// oParameter.error = function() {};
+				// oParameter.success = function() {
+				// 	this.onSendOthers();
+				// }.bind(this);
+				// oParameter.activity = 4;
+				// ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4FLYSVC"), oParameter, [oPayloads], "ZRM_PFR_P", this);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateFlyRecords function");
 				this.handleException(e);
@@ -435,23 +436,37 @@ sap.ui.define([
 		},
 		fnCreateEngine: function() {
 			try {
-				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/engines");
-				if (oPayloads.length === 0) {
-					return;
+				if (this.getModel("oPilotUpdatesViewModel").getProperty("/engPowerCheckRequired") === "Y") {
+					var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/engines");
+					if (oPayloads.length === 0) {
+						return;
+					}
+					var oParameter = {};
+					oParameter.error = function() {};
+					oParameter.success = function() {};
+					ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4POWERSVC"), oParameter, oPayloads);
 				}
-				var oParameter = {};
-				oParameter.error = function() {};
-				oParameter.success = function() {};
-				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4POWERSVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateEngine function");
 				this.handleException(e);
 			}
 		},
+		fnCheckEnginePayload: function(oPayload){
+			if(!oPayload.aspeed || !oPayload.temp || !oPayload.bpress || !oPayload.tgttab || !oPayload.tgtind || !oPayload.ng 
+			|| !oPayload.np || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed 
+			|| !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed ){
+				return true;
+			}
+			return false;
+		},
 		fnCreateMano: function() {
 			try {
 				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/mano");
 				if (oPayloads.length === 0) {
+					if (this.getOwnerComponent().getModel("oPilotUpdatesViewModel")) {
+						this.getOwnerComponent().getModel("oPilotUpdatesViewModel").setData(null);
+					}
+					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 					return;
 				}
 				var oParameter = {};
@@ -636,7 +651,7 @@ sap.ui.define([
 						});
 						var bFound = false;
 						oData.results.forEach(function(oItem) {
-							if (!bFound && oItem.CHKRN === "2") {
+							if (!bFound && oItem.chkrn === "2") {
 								oItem.Special = true;
 								bFound = true;
 								oItem.minValue = parseFloat(JSON.parse(JSON.stringify(
@@ -679,7 +694,7 @@ sap.ui.define([
 				var aUDashPoints = [];
 				//Loop
 				aEngPowerCheck.forEach(function(oItem) {
-					if (oItem.CHKRN === "3") { //Re-estabishment reset HIT
+					if (oItem.chkrn === "3") { //Re-estabishment reset HIT
 						aDataPoints = [];
 						aRedPoints = [];
 						aOutOfRangePoints = [];
@@ -689,7 +704,7 @@ sap.ui.define([
 						aUpperLimit = [];
 						return;
 					}
-					if (oItem.CHKRN !== "1") {
+					if (oItem.chkrn !== "1") {
 						return;
 					}
 					var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
@@ -697,7 +712,7 @@ sap.ui.define([
 					var iDiff = parseInt(oItem.TGTDIFF);
 					if (iDiff > iULimit) {
 						oItem.ULimitFlag = true;
-						if(iDiff <= (iULimit + 5)){
+						if (iDiff <= (iULimit + 5)) {
 							aRedPoints.push(iDiff);
 						} else {
 							aOutOfRangePoints.push(iDiff);
@@ -705,7 +720,7 @@ sap.ui.define([
 					}
 					if (iDiff < iLLimit) {
 						oItem.LLimitFlag = true;
-						if(iDiff >= (iLLimit - 5)){
+						if (iDiff >= (iLLimit - 5)) {
 							aRedPoints.push(iDiff);
 						} else {
 							aOutOfRangePoints.push(iDiff);
@@ -719,8 +734,8 @@ sap.ui.define([
 					aLowerLimit.push(oItem.LLIMIT);
 					aUpperLimit.push(oItem.ULIMIT);
 				});
-				
-				if(aRedPoints.length >= 3 || aOutOfRangePoints.length > 0){
+
+				if (aRedPoints.length >= 3 || aOutOfRangePoints.length > 0) {
 					return true; //Create defect
 				} else {
 					return false;
