@@ -9,7 +9,9 @@
 					<HBox class="sapUiSmallMargin" width="70%">
 						<VBox width="40%">
 							<Label text="{i18n>aircraftflightstatus}" design="Bold"/>
-							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/flyRecord/fstat}" width="50%" items="{postflightModel>/flystat}" required="true"
+							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/flyRecord/fstat}" 
+							enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFG'}"
+							width="50%" items="{postflightModel>/flystat}" required="true"
 								fieldGroupIds="fgSGBtn">
 								<items>
 									<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}"/>

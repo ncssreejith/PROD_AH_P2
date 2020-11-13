@@ -235,26 +235,25 @@ sap.ui.define([
 							case "COL_13":
 							case "COL_14":
 							case "COL_15":
-							case "COL_16":
 								sTextProp.formatter = that.formatter.decimal1Unit;
 								sText = new sap.m.Text({
 									text: sTextProp
 								});
 								break;
-							// case "COL_17":
-							// 	sTextProp.formatter = that.formatter.numberUnit;
-							// 	sText = new sap.m.Text({
-							// 		text: sTextProp
-							// 	});
-							// 	break;
-								// case "COL_16":
 								// case "COL_17":
-								// case "COL_18":
-								// 	sTextProp.formatter = that.formatter.integerUnit;
+								// 	sTextProp.formatter = that.formatter.numberUnit;
 								// 	sText = new sap.m.Text({
 								// 		text: sTextProp
 								// 	});
 								// 	break;
+								// case "COL_16":
+								// case "COL_17":
+							case "COL_16":
+								sTextProp.formatter = that.formatter.integerUnit;
+								sText = new sap.m.Text({
+									text: sTextProp
+								});
+								break;
 							case "COL_EDIT":
 								sTextProp.path = oDataModel + ">" + "COL_11";
 								sTextProp.formatter = that.formatter.adtEditVisible;

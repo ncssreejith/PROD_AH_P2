@@ -23,7 +23,7 @@
 			</ColumnListItem>
 			<ColumnListItem class="tableTextColor">
 				<cells>
-					<Text text="AF validity"/>
+					<Text text="WPT validity"/>
 					<Text text="{= ${avmetModel>/dash/afvalid} ? ${avmetModel>/dash/afvalid}: '--'}"/>
 				</cells>
 			</ColumnListItem>

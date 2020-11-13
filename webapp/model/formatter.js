@@ -1031,12 +1031,14 @@ sap.ui.define([
 			}
 			return true;
 		},
+		
+		//Teck Meng 13/11/2020 12:00 F16 Role change fixes issue no 25,26 
 		fsRCUnSignOff: function(selTab, tsign) {
 			if (selTab === "rc2") {
 				if (tsign === "" || tsign === null) {
-					return true;
+					return false;
 				}
-				return false;
+				return true;
 			}
 			if (selTab === "rc1") {
 				if (tsign === "" || tsign === null) {

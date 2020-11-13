@@ -62,8 +62,8 @@
 							<Label text="APU Start" width="250px" level="H2" class="sapUiSmallMarginTop"/>
 							<!--<Input width="250px" value="{oAircraftAddModel>/record/COL_16}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"-->
 							<!-- required="{= ${oAircraftAddModel>/type} === '2'}" editable="{= ${oAircraftAddModel>/type} === '2'}"/>-->
-							<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_16}" value="{oAircraftAddModel>/record/COL_16}" displayValuePrecision="1"
-							required="{= ${oAircraftAddModel>/type} === '2' || ${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '2' || ${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal2,AddEquipRunningLog"/>
+							<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_16}" value="{oAircraftAddModel>/record/COL_16}"
+							required="{= ${oAircraftAddModel>/type} === '2' || ${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '2' || ${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgNumber,AddEquipRunningLog"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="ALQ144" width="250px" level="H2" class="sapUiSmallMarginTop"/>

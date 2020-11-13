@@ -300,19 +300,19 @@ sap.ui.define([
 		},
 		fnCreateFlyRecords: function() {
 			try {
-				this.fnCreateEngine();
-				// var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
-				// if (oPayloads.length === 0) {
-				// 	this.onSendOthers();
-				// 	return;
-				// }
-				// var oParameter = {};
-				// oParameter.error = function() {};
-				// oParameter.success = function() {
-				// 	this.onSendOthers();
-				// }.bind(this);
-				// oParameter.activity = 4;
-				// ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4FLYSVC"), oParameter, [oPayloads], "ZRM_PFR_P", this);
+				// this.fnCreateEngine();
+				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
+				if (oPayloads.length === 0) {
+					this.onSendOthers();
+					return;
+				}
+				var oParameter = {};
+				oParameter.error = function() {};
+				oParameter.success = function() {
+					this.onSendOthers();
+				}.bind(this);
+				oParameter.activity = 4;
+				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4FLYSVC"), oParameter, [oPayloads], "ZRM_PFR_P", this);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateFlyRecords function");
 				this.handleException(e);
@@ -451,10 +451,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnCheckEnginePayload: function(oPayload){
-			if(!oPayload.aspeed || !oPayload.temp || !oPayload.bpress || !oPayload.tgttab || !oPayload.tgtind || !oPayload.ng 
-			|| !oPayload.np || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed 
-			|| !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed ){
+		fnCheckEnginePayload: function(oPayload) {
+			if (!oPayload.aspeed || !oPayload.temp || !oPayload.bpress || !oPayload.tgttab || !oPayload.tgtind || !oPayload.ng || !oPayload.np ||
+				!oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed ||
+				!oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed) {
 				return true;
 			}
 			return false;
@@ -506,6 +506,12 @@ sap.ui.define([
 				} else {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
+
+					var sSrvtid = this.getModel("avmetModel").getProperty("/dash/astid");
+					if (sSrvtid === "AST_FFG") {
+						this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/fstat", "N");
+					}
+
 					this.getModel("oPilotUpdatesViewModel").setData(this._fnCreateData());
 					this.getModel("oPilotUpdatesViewModel").refresh();
 					this.updateModel({

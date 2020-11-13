@@ -20,7 +20,7 @@
 						</IconTabFilter>
 						<IconTabFilter text="Supervisor" key="rc2" enabled="{= ${rcModel>/EditTab} === 'rc2' || ${rcModel>/EditTab} === undefined }">
 							<VBox>
-								<HBox class="sapUiTinyMarginBottom" visible="{parts:['rcModel>/selTab','rcModel>ssign'],formatter:'.formatter.fsRCUnSignOff'}" width="100%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">
+								<HBox class="sapUiTinyMarginBottom" visible="{parts:['rcModel>/selTab','rcModel>/selStn/ssign'],formatter:'.formatter.fsRCUnSignOff'}" width="100%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">
 									<HBox class="topSignOff sapUiSmallMargin" width="95%" height="2rem" justifyContent="Center" alignContent="Center" alignItems="Center">
 										<Label class="sapUiTinyMarginTop" text="{rcModel>/selStn/ssign} sign off for  {rcModel>/selStn/L_TXT}"/>
 									</HBox>

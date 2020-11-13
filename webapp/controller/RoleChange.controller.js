@@ -68,7 +68,7 @@ sap.ui.define([
 		//-------------------------------------------------------------
 		onAdapterClk: function(oEvent) {
 			try {
-				if (!this.fnChkEdit(oEvent.getSource().getSelectedItem().getBindingContext("rcModel"))) {
+				if (!this.fnChkEdit()) {
 					return;
 				}
 				var sContext = oEvent.getSource().getSelectedItem().getBindingContext("rcModel");
@@ -156,7 +156,7 @@ sap.ui.define([
 			this.getModel("rcModel").getProperty("/selStn/selADP").splice(sStart, sADPCount);
 			this.getModel("rcModel").refresh();
 		},
-		fnChkEdit: function() {
+		fnChkEdit: function(bSignoff) {
 			var sFlag = true;
 			if (this.getModel("rcModel").getProperty("/mode") === 0) {
 				sFlag = false;
@@ -175,7 +175,7 @@ sap.ui.define([
 			//Check if trademan signed off for supervisor to change
 			
 			oSelADP = oSelADP ? oSelADP : {};
-			if(sAprNo===1 && selTab==="rc2" && oSelADP &&  oSelADP.tstat !== 1){
+			if(!bSignoff && sAprNo===1 && selTab==="rc2" && oSelADP &&  oSelADP.tstat !== 1){
 				sap.m.MessageBox.error("Changes are not allowed");
 				sFlag = false;
 				return sFlag;
@@ -231,7 +231,7 @@ sap.ui.define([
 
 		onStationSignOff: function(oEvent) {
 			try {
-				if (!this.fnChkEdit()) {
+				if (!this.fnChkEdit(true)) {
 					return;
 				}
 				var tSign = this.getModel("rcModel").getProperty("/tsign");
@@ -462,7 +462,7 @@ sap.ui.define([
 			oPayload.endda = stn.endda;
 			oPayload.tailid = stn.tailid;
 			oPayload.tstat = stn.tstat; //this.formatter.rcSignChange(sStat,selKey)?1:0;
-			oPayload.tsign = "";
+			// oPayload.tsign = "";
 			
 			delete oPayload.adapters;
 			delete oPayload.selADP;
