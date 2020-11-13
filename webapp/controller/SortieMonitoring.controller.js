@@ -28,6 +28,11 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 1. UI Events  
 		// ***************************************************************************
+		//-------------------------------------------------------------
+		//   Function: onInit
+		//   Parameter: NA 
+		//   Description: Internal method to initialize View dataUtil .
+		//-------------------------------------------------------------
 		onInit: function() {
 			try {
 				// var that = this,
@@ -36,13 +41,14 @@ sap.ui.define([
 				this.getRouter().getRoute("SortieMonitoring").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in SortieMonitoring:onInit function");
-				
+
 			}
 
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+		/* Function: onClickSortieDetails
+		 * Parameter:
+		 * Description: This is called to navigate sortie detail screen
+		 */
 		onClickSortieDetails: function(oEvent) {
 			try {
 				var oObj = oEvent.getSource().getBindingContext("SortiMaster").getObject();
@@ -52,12 +58,16 @@ sap.ui.define([
 				});
 			} catch (e) {
 				Log.error("Exception in SortieMonitoring:onClickSortieDetails function");
-				
+
 			}
 		},
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
+		/* Function: _fnSortieMonitoringMasterGet
+		 * Parameter:
+		 * Description: This is called to retreive sortie items
+		 */
 		_fnSortieMonitoringMasterGet: function() {
 			try {
 				var that = this,
@@ -81,18 +91,22 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieMonitoring:_fnSortieMonitoringMasterGet function");
-				
+
 			}
 		},
 		// ***************************************************************************
 		//                 3. Private Methods   
-		// ***************************************************************************
+		// ***************************************************************************\
+		/* Function: _onObjectMatched
+		 * Parameter:
+		 * Description: This will called to handle route matched.
+		 */
 		_onObjectMatched: function(oEvent) {
 			try {
 				this._fnSortieMonitoringMasterGet();
 			} catch (e) {
 				Log.error("Exception in SortieMonitoring:_onObjectMatched function");
-				
+
 			}
 		}
 

@@ -28,26 +28,41 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 1. UI Events  
 		// ***************************************************************************
+		//-------------------------------------------------------------
+		//   Function: onInit
+		//   Parameter: NA 
+		//   Description: Internal method to initialize View dataUtil .
+		//-------------------------------------------------------------
 		onInit: function() {
 			try {
 				this.getRouter().getRoute("SortieDetails").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:onInit function");
-				
+
 			}
 
 		},
+		//-------------------------------------------------------------
+		//   Function: onNavBackSortie
+		//   Parameter: NA 
+		//   Description: This is called to navigate to show details of selected sortie .
+		//-------------------------------------------------------------
 		onNavBackSortie: function() {
 			try {
 				this.getRouter().navTo("SortieMonitoring");
 			} catch (e) {
 				Log.error("Exception in SortieDetails:onNavBackSortie function");
-				
+
 			}
 		},
 		// ***************************************************************************
 		//                 2.  Private Methods  
 		// ***************************************************************************
+		//-------------------------------------------------------------
+		//   Function: _fnSortieMonitoringHeaderGet
+		//   Parameter: sJobId, sSORNO 
+		//   Description: This is called to get sortie Header data.
+		//-------------------------------------------------------------
 		_fnSortieMonitoringHeaderGet: function(sJobId, sSORNO) {
 			try {
 				var that = this,
@@ -64,11 +79,13 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:_fnSortieMonitoringHeaderGet function");
-				
+
 			}
 		},
 		//-------------------------------------------------------------
-		// 
+		//   Function: _fnSortieMonitoringDetailsGet
+		//   Parameter: sJobId, sSORNO 
+		//   Description: This is called to get sortie details Item data.
 		//-------------------------------------------------------------
 		_fnSortieMonitoringDetailsGet: function(sJobId, sSORNO) {
 			try {
@@ -86,12 +103,13 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:_fnSortieMonitoringDetailsGet function");
-				
+
 			}
 		},
-		//-------------------------------------------------------------
-		// 
-		//-------------------------------------------------------------
+		/* Function: _onObjectMatched
+		 * Parameter:
+		 * Description: This will called to handle route matched.
+		 */
 		_onObjectMatched: function(oEvent) {
 			try {
 				var sJobId = oEvent.getParameters("").arguments.JobId;
@@ -100,7 +118,7 @@ sap.ui.define([
 				this._fnSortieMonitoringDetailsGet(sJobId, sSORNO);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:_onObjectMatched function");
-				
+
 			}
 		}
 
