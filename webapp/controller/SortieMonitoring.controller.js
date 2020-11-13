@@ -33,6 +33,7 @@ sap.ui.define([
 		//   Parameter: NA 
 		//   Description: Internal method to initialize View dataUtil .
 		//-------------------------------------------------------------
+		//Rahul: 13/11/2020: 11:55AM: Function Description added .
 		onInit: function() {
 			try {
 				// var that = this,
@@ -49,6 +50,7 @@ sap.ui.define([
 		 * Parameter:
 		 * Description: This is called to navigate sortie detail screen
 		 */
+		 	//Rahul: 13/11/2020: 11:55AM: Function Description added .
 		onClickSortieDetails: function(oEvent) {
 			try {
 				var oObj = oEvent.getSource().getBindingContext("SortiMaster").getObject();
@@ -68,6 +70,7 @@ sap.ui.define([
 		 * Parameter:
 		 * Description: This is called to retreive sortie items
 		 */
+		//Rahul: 13/11/2020: 11:55AM: Function Description added .
 		_fnSortieMonitoringMasterGet: function() {
 			try {
 				var that = this,
@@ -101,6 +104,7 @@ sap.ui.define([
 		 * Parameter:
 		 * Description: This will called to handle route matched.
 		 */
+		 	//Rahul: 13/11/2020: 11:55AM: Comment added .
 		_onObjectMatched: function(oEvent) {
 			try {
 				this._fnSortieMonitoringMasterGet();

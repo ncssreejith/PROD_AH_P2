@@ -28,11 +28,13 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 1. UI Events  
 		// ***************************************************************************
+
 		//-------------------------------------------------------------
 		//   Function: onInit
 		//   Parameter: NA 
 		//   Description: Internal method to initialize View dataUtil .
 		//-------------------------------------------------------------
+		//Rahul: 13/11/2020: 11:55AM: Function Description added .
 		onInit: function() {
 			try {
 				this.getRouter().getRoute("SortieDetails").attachPatternMatched(this._onObjectMatched, this);
@@ -42,11 +44,13 @@ sap.ui.define([
 			}
 
 		},
+
 		//-------------------------------------------------------------
 		//   Function: onNavBackSortie
 		//   Parameter: NA 
 		//   Description: This is called to navigate to show details of selected sortie .
 		//-------------------------------------------------------------
+		//Rahul: 13/11/2020: 11:55AM: Function Description added .
 		onNavBackSortie: function() {
 			try {
 				this.getRouter().navTo("SortieMonitoring");
@@ -58,11 +62,13 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 2.  Private Methods  
 		// ***************************************************************************
+
 		//-------------------------------------------------------------
 		//   Function: _fnSortieMonitoringHeaderGet
 		//   Parameter: sJobId, sSORNO 
 		//   Description: This is called to get sortie Header data.
 		//-------------------------------------------------------------
+		//Rahul: 13/11/2020: 11:55AM: Function Description added .
 		_fnSortieMonitoringHeaderGet: function(sJobId, sSORNO) {
 			try {
 				var that = this,
@@ -82,11 +88,13 @@ sap.ui.define([
 
 			}
 		},
+
 		//-------------------------------------------------------------
 		//   Function: _fnSortieMonitoringDetailsGet
 		//   Parameter: sJobId, sSORNO 
 		//   Description: This is called to get sortie details Item data.
 		//-------------------------------------------------------------
+		//Rahul: 13/11/2020: 11:55AM: Function Description added .
 		_fnSortieMonitoringDetailsGet: function(sJobId, sSORNO) {
 			try {
 				var that = this,
@@ -106,6 +114,7 @@ sap.ui.define([
 
 			}
 		},
+		//Rahul: 13/11/2020: 11:55AM: Function Description added .
 		/* Function: _onObjectMatched
 		 * Parameter:
 		 * Description: This will called to handle route matched.

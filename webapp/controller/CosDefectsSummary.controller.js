@@ -2114,7 +2114,9 @@ sap.ui.define([
 				} else {
 					
 				}*/
-				ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
+				//Rahul: 13/11/2020: 11:53AM: Code addedd to add Signoff dialog without authorization check.
+				oPrmWorkCenter.activity = 1;
+				ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload], "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnDefectWorkCenterCreate function");
 
@@ -2167,8 +2169,9 @@ sap.ui.define([
 						that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 						that.onCloseAddWorkCenterDialog();
 					}.bind(this);
+					//Rahul: 13/11/2020: 11:53AM: Code addedd to add Signoff dialog without authorization check.
 					oPrmWorkCenter.activity = 7;
-					ajaxutil.fnDelete(sPath, oPrmWorkCenter,"dummy",this);
+					ajaxutil.fnDelete(sPath, oPrmWorkCenter, "dummy", this);
 				} else {
 					MessageBox.error(
 						"There is record created under this work center, no deletion is allowed", {

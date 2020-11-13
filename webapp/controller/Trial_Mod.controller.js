@@ -133,7 +133,8 @@ sap.ui.define([
 
 		fnUpdateDeMod: function(oEvent) {
 			try {
-				var sPath = this.getResourceBundle().getText("APPROVALNAVSVC"); //ApprovalNavSvc
+				//Rahul: 13/11/2020: 11:55AM: Sergvice name was corrected to TRAILMONSVC from ApprovalNavSvc .
+				var sPath = this.getResourceBundle().getText("TRAILMONSVC"); //ApprovalNavSvc
 				var oData = [];
 				var oParameter = {};
 				oParameter.activity = 5;
