@@ -268,7 +268,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("paModel").getProperty(
-					"/srvtid");
+					"/srvtid")+ " and TAILID eq " + this.getTailId();
 				oParameter.success = function(oData) {
 					this.getModel("paModel").setProperty("/masterList", oData.results);
 					this.getModel("paModel").refresh();
@@ -276,7 +276,7 @@ sap.ui.define([
 						this.fnGetAllData();
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTACCEPTANCESVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTACCEPTANCESVCHEL"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPDSLists function");
 			}
@@ -627,45 +627,12 @@ sap.ui.define([
 
 		onPressSignOffConfirm: function(oEvent, sign) {
 			try {
-
-				var oSignOffPayload = {
-					refid: this.getAircraftId(),
-					ddid: "",
-					reftyp: "",
-					dftl: null,
-					value: null,
-					sgid: null,
-					tailid: this.getTailId(),
-					begda: null,
-					endda: null,
-					airid: null,
-					modid: null,
-					ddesc: "",
-					srvid: "",
-					srvtid: this.getModel("paModel").getProperty("/srvtid"),
-					stepid: this.getModel("paModel").getProperty("/stepid"),
-					tileid: null,
-					sgusr: "test",
-					sign: sign === undefined ? "X" : sign,
-					T1_SORTIE: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T1_SORTIE") + "/data/reviewd") ? 1 : 0,
-					T1_MCARD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T1_MCARD") + "/data/reviewd") ? 1 : 0,
-					T2_PAPR: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T2_PAPR") + "/data/reviewd") ? 1 : 0,
-					T3_LIMIT: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T3_LIMIT") + "/data/reviewd") ? 1 : 0,
-					T4_ADD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T4_ADD") + "/data/reviewd") ? 1 : 0,
-					T5_FREQ: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T5_FREQ") + "/data/reviewd") ? 1 : 0,
-					T6_FLC: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T6_FLC") + "/data/reviewd") ? 1 : 0,
-					T7_WCONF: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T7_WCONF") + "/data/reviewd") ? 1 : 0,
-					T8_OJOBS: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T8_OJOBS") + "/data/reviewd") ? 1 : 0,
-					T9_JDUE: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T9_JDUE") + "/data/reviewd") ? 1 : 0,
-					T10_PASTD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T10_PASTD") + "/data/reviewd") ? 1 : 0,
-					T11_TMOD: this.getModel("paModel").getProperty("/masterList/" + this._fnGetIndexById("T11_TMOD") + "/data/reviewd") ? 1 : 0,
-					visrt: null,
-					visft: null,
-					visct: null,
-					couts: null,
-					cpend: null,
-					CFLAG: null
-				};
+				var oPayloads = this.getModel("paModel").getProperty("/masterList");
+				oPayloads.forEach(function(oItem){
+					oItem.value=oItem.data.reviewd?1:0;
+					oItem.pfreq=""; // X FOR POST FLIGHT DONE  '' FOR NOT REQ
+					delete oItem.data;
+				});
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -676,7 +643,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTACCEPTANCESVC"), oParameter, [oSignOffPayload], "ZRM_FS_PA", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTACCEPTANCESVCHEL"), oParameter, oPayloads, "ZRM_FS_PA", this);
 			} catch (e) {
 				Log.error("Exception in onPressSignOffConfirm function");
 			}
