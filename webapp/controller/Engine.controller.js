@@ -250,19 +250,19 @@ sap.ui.define([
 			try {
 				//Check engine hours since last top up
 				if (this.fnDateEngineHrsDiff("1")) {
-					sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
-						actions: [sap.m.MessageBox.Action.OK],
-						emphasizedAction: sap.m.MessageBox.Action.OK,
-						onClose: function(sAction) {
-							if (sAction === "OK") {
+					// sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
+					// 	actions: [sap.m.MessageBox.Action.OK],
+					// 	emphasizedAction: sap.m.MessageBox.Action.OK,
+					// 	onClose: function(sAction) {
+					// 		if (sAction === "OK") {
 								this.getRouter().navTo("AddEngOilLog", {
 									engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
 									tailid: this.getTailId(),
 									SFLAG: "X"
 								});
-							}
-						}.bind(this)
-					});
+					// 		}
+					// 	}.bind(this)
+					// });
 				} else {
 					this.getRouter().navTo("AddEngOilLog", {
 						engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
@@ -297,19 +297,19 @@ sap.ui.define([
 			try {
 				//Check engine hours since last top up
 				if (this.fnDateEngineHrsDiff("2")) {
-					sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
-						actions: [sap.m.MessageBox.Action.OK],
-						emphasizedAction: sap.m.MessageBox.Action.OK,
-						onClose: function(sAction) {
-							if (sAction === "OK") {
+				// 	sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
+				// 		actions: [sap.m.MessageBox.Action.OK],
+				// 		emphasizedAction: sap.m.MessageBox.Action.OK,
+				// 		onClose: function(sAction) {
+				// 			if (sAction === "OK") {
 								this.getRouter().navTo("AddEngOilLog", {
 									engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
 									tailid: this.getTailId(),
 									SFLAG: "X"
 								});
-							}
-						}.bind(this)
-					});
+					// 		}
+					// 	}.bind(this)
+					// });
 				} else {
 					this.getRouter().navTo("AddEngOilLog", {
 						engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),

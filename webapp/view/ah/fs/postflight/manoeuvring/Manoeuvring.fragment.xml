@@ -26,6 +26,7 @@
 					<VBox class="sapUiSmallMargin" width="100%">
 						<Label text="Is Running Change Required?" design="Bold"/>
 						<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/runningChange}" items="{postflightModel>/yn}" required="true"
+						enabled="{= ${oPilotUpdatesViewModel>/srvable} === 'AST_S'}"
 							fieldGroupIds="fgCmbBox">
 							<items>
 								<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}" width="60%"/>

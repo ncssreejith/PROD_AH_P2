@@ -10,7 +10,7 @@
 						<VBox width="40%">
 							<Label text="{i18n>aircraftflightstatus}" design="Bold"/>
 							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/flyRecord/fstat}" 
-							enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFG'}"
+							enabled="{= ${avmetModel>/dash/astid} !== 'AST_GN'}"
 							width="50%" items="{postflightModel>/flystat}" required="true"
 								fieldGroupIds="fgSGBtn">
 								<items>

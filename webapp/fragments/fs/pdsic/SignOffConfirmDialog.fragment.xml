@@ -3,6 +3,8 @@
 		<VBox class="sapUiSmallMarginBeginEnd sapUiLargeMarginBottom sapUiSmallMarginTop">
 			<HBox justifyContent="Center">
 				<Label text="{pdsSummaryModel>outjob}" visible="{= ${pdsSummaryModel>outjob}===''?false:true}" design="Bold"  width="100%" />
+				<Label text="{pdsSummaryModel>addMsg}" visible="{= ${pdsSummaryModel>addMsg}===''?false:true}" design="Bold"  width="100%" />
+				<Label text="{pdsSummaryModel>limitMsg}" visible="{= ${pdsSummaryModel>limitMsg}===''?false:true}" design="Bold"  width="100%" />
 			</HBox>
 			<HBox>
 				<CheckBox selected="{pdsSummaryModel>chk1}"/>

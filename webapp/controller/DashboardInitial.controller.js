@@ -176,6 +176,7 @@ sap.ui.define([
 						break;
 					case "AST_RFF":
 					case "AST_RFF0":
+					case "AST_GN":
 						if (aRunningChanges && aRunningChanges.length && aRunningChanges.length > 0) {
 							this.fnCheckPilotDone(aRunningChanges);
 							this.fnOpenPilotUpdate(oEvent);
