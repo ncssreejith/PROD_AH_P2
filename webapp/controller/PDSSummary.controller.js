@@ -119,8 +119,34 @@ sap.ui.define([
 			var oJobCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T8_OJOBS") + "/count");
 			if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && parseInt(oJobCount) > 0) {
 				sFlag = false;
-				// MessageToast.show("There is " + parseInt(oJobCount) + " outstanding jobs");
+				if (parseInt(oJobCount) > 1) {
+					var sMsg = "There is " + parseInt(oJobCount) + " outstanding jobs you can not do Fit-for-Flight or Fit-for-Check Flight";
+				} else {
+					sMsg = "There is " + parseInt(oJobCount) + " outstanding job you can't do Fit-for-Flight or Fit-for-Check Flight";
+				}
+				this.getModel("pdsSummaryModel").setProperty("/confirm/outjob", sMsg);
+			} else {
+				this.getModel("pdsSummaryModel").setProperty("/confirm/outjob", "");
 			}
+
+			var aADDCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T2_PAPPR") + "/data/appr");
+			var oADDCount = aADDCount.find(this.fnFindADD);
+			if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && oADDCount) {
+				sFlag = false;
+				this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg",
+					"There is outstanding ADD/Limitation you can't do Fit-for-Flight or Fit-for-Check Flight");
+			} else {
+				this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg", "");
+			}
+
+			// var oLIMITCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T3_LIMIT") + "/count");
+			// if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && parseInt(oLIMITCount) > 0) {
+			// 	sFlag = false;
+			// 	this.getModel("pdsSummaryModel").setProperty("/confirm/limitMsg",
+			// 		"There is " + parseInt(oLIMITCount) + " outstanding Limitations you can't do Fit-for-Flight or Fit-for-Check Flight");
+			// } else {
+			// 	this.getModel("pdsSummaryModel").setProperty("/confirm/limitMsg", "");
+			// }
 
 			this.getModel("pdsSummaryModel").setProperty("/confirm/selDesc", selItem.description);
 			this.getModel("pdsSummaryModel").setProperty("/confirm/sgEnable", sFlag);
@@ -178,6 +204,7 @@ sap.ui.define([
 
 				var selDDID = this.getModel("pdsSummaryModel").getProperty("/confirm/selDDID");
 				var sBFValid = this.getModel("avmetModel").getProperty("/dash/bfvalid");
+
 				var sMsg = "";
 				if ((selDDID === "AST_FFC" || selDDID === "AST_FFF") && parseInt(oJobCount) > 0) {
 					sFlag = false;
@@ -187,7 +214,23 @@ sap.ui.define([
 						sMsg = "There is " + parseInt(oJobCount) + " outstanding job you can't do Fit-for-Flight or Fit-for-Check Flight";
 					}
 				}
-				if(sBFValid === null){
+
+				var aADDCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T2_PAPPR") + "/data/appr");
+				var oADDCount = aADDCount.find(this.fnFindADD);
+				if ((selDDID === "AST_FFC" || selDDID === "AST_FFF") && oADDCount) {
+					sFlag = false;
+					this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg",
+						"There is outstanding ADD/Limitation you can't do Fit-for-Flight or Fit-for-Check Flight");
+				}
+
+				// var oLIMITCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T3_LIMIT") + "/count");
+				// if ((selDDID === "AST_FFC" || selDDID === "AST_FFF") && parseInt(oLIMITCount) > 0) {
+				// 	sFlag = false;
+				// 	this.getModel("pdsSummaryModel").setProperty("/confirm/limitMsg",
+				// 		"There is " + parseInt(oLIMITCount) + " outstanding Limitations you can't do Fit-for-Flight or Fit-for-Check Flight");
+				// }
+
+				if (sBFValid === null) {
 					// sMsg += " Not within BF validity";
 				}
 				this.getModel("pdsSummaryModel").setProperty("/confirm/outjob", sMsg);
@@ -203,6 +246,7 @@ sap.ui.define([
 				Log.error("Exception in onPresSignOff function");
 			}
 		},
+
 		onPressSignOffClose: function() {
 			this.closeDialog("SignOffConfirmDialog");
 		},
@@ -386,7 +430,7 @@ sap.ui.define([
 		},
 		fnSetReplData: function(oData) {
 			var sIndex = this._fnGetIndexById("T6_FLC");
-			if(sIndex < 0){
+			if (sIndex < 0) {
 				return;
 			}
 			this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/count", "");
@@ -637,14 +681,14 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/reviewd", oData.results.length > 0 ? false : true);
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/stns", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
-					
+
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("WEAPONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getWeaponConfig function");
 			}
 		},
-		
+
 		_getSignOffOptions: function() {
 			try {
 				var oParameter = {};
@@ -920,7 +964,9 @@ sap.ui.define([
 				}
 			});
 		},
-
+		fnFindADD: function(oADD) {
+			return oADD.text === "Acceptable Deferred Defects";
+		},
 		fnRemovePerFromRadial: function(oEvent) {
 			oEvent.getSource().onAfterRendering = function(oEvt) {
 				oEvt.srcControl.getItems().forEach(function(oItem) {
