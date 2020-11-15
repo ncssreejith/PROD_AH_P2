@@ -8,12 +8,16 @@
 				<CheckBox selected="{pdsSummaryModel>chk1}"/>
 				<Text text="All tools accounted for." class="sapUiSmallMarginTop"/>
 			</HBox>
+			<HBox visible="{pdsSummaryModel>pareqvisible}">
+				<CheckBox selected="{pdsSummaryModel>pasign}"/>
+				<Text text="Does the pilot to sign Pilot Acceptance again?" class="sapUiSmallMarginTop"
+					wrapping="true"/>
+			</HBox>
 			<HBox>
 				<CheckBox selected="{pdsSummaryModel>chk2}"/>
 				<Text text="I certify that aircraft is found “satis”. Aircraft {pdsSummaryModel>selDesc}" class="sapUiSmallMarginTop"
 					wrapping="true"/>
 			</HBox>
-			 
 			<HBox class="sapUiLargeMarginBegin" >
 				<ComboBox items="{pdsSummaryModel>signOffOption}" selectedKey="{pdsSummaryModel>selDDID}" change="onSignOffOptionChange">
 					<core:Item key="{pdsSummaryModel>ddid}" text="{pdsSummaryModel>description}"/>
@@ -25,7 +29,6 @@
 			<Button text="Close" press="onPressSignOffClose" type="Default"/>
 		</beginButton>
 		<endButton>
-			<!--enabled="{= ${pdsSummaryModel>chk1} &amp;&amp;${pdsSummaryModel>chk2} &amp;&amp; &{pdsSummaryModel>sgEnable}}-->
 			<Button text="Sign off" press="onPressSignOffConfirm" type="Emphasized"
 				enabled="{= ${pdsSummaryModel>chk1} &amp;&amp;${pdsSummaryModel>chk2} &amp;&amp; ${pdsSummaryModel>sgEnable}}"/>
 		</endButton>

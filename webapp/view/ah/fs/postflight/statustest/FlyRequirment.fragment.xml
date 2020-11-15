@@ -20,7 +20,7 @@
 				<cells>
 					<Text text="{path:'oPilotUpdatesViewModel>fr_no',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
 					<Text text="{oPilotUpdatesViewModel>frdesc}"/>
-					<SegmentedButton selectedKey="{oPilotUpdatesViewModel>frrid}" items="{oPilotUpdatesViewModel>/flyResult}" required="true"
+					<SegmentedButton selectedKey="{oPilotUpdatesViewModel>frrid}" selectionChange="onFlySelChange" items="{oPilotUpdatesViewModel>/flyResult}" required="true"
 						fieldGroupIds="fgSGBtn">
 						<items>
 							<SegmentedButtonItem text="{oPilotUpdatesViewModel>description}" key="{oPilotUpdatesViewModel>ddid}"/>

@@ -252,7 +252,56 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		
+		onFlySelChange:function(oEvent){
+			var isFlyFail = false;
+			oEvent.getSource().getParent().getParent().getItems().forEach(function(oItem){
+				if(oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("frrid")==="FRR_F"){
+					isFlyFail = true;
+				}	
+			});
+			this.getModel("oPilotUpdatesViewModel").setProperty("/isFlyFail",isFlyFail);
+			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
+			this.getModel("oPilotUpdatesViewModel").refresh();
+		},
+		onSortiSelChange:function(oEvent){
+			var isSortiFail = false;
+			oEvent.getSource().getParent().getParent().getItems().forEach(function(oItem){
+				if(oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("frrid")==="PILOT_F"){
+					isSortiFail = true;
+				}	
+			});
+			this.getModel("oPilotUpdatesViewModel").setProperty("/isSortiFail",isSortiFail);
+			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
+			this.getModel("oPilotUpdatesViewModel").refresh();
+		},
+		
+		onFairChange:function(oEvent){
+			var isFair = false;
+			oEvent.getSource().getParent().getParent().getParent().getParent().getItems().forEach(function(oItem){
+				if(oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("fair")==="Y"){
+					isFair = true;
+				}	
+			});
+			this.getModel("oPilotUpdatesViewModel").setProperty("/isFair",isFair);
+			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
+			this.getModel("oPilotUpdatesViewModel").refresh();
+		},
+			
+		onAircraftStatusChange:function(oEvent){
+			// var isFair = false;
+			// oEvent.getSource().getParent().getParent().getParent().getParent().getItems().forEach(function(oItem){
+			// 	if(oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("fair")==="Y"){
+			// 		isFair = true;
+			// 	}	
+			// });
+			// this.getModel("oPilotUpdatesViewModel").setProperty("/srvable",isFair);
+			// this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
+			// this.getModel("oPilotUpdatesViewModel").refresh();
+			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
+			this.getModel("oPilotUpdatesViewModel").refresh();
+		},
+		
 		fnTblInAndIndTgt: function(oEvent) {
 			try {
 				var oObj = oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getObject();
@@ -302,10 +351,7 @@ sap.ui.define([
 			try {
 				// this.fnCreateEngine();
 				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
-				if (oPayloads.length === 0) {
-					this.onSendOthers();
-					return;
-				}
+				oPayloads.astatid = this.fnGetAircraftStatus();
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {
@@ -904,6 +950,22 @@ sap.ui.define([
 				oItem.frrid = (oItem.frrid === "" || oItem.frrid === null) ? sStat : oItem.frrid;
 			});
 		},
+		
+		fnGetAircraftStatus:function(){
+			var sAstId = "AST_S",rc="Y";
+			var isFly = this.getModel("oPilotUpdatesViewModel").getProperty("/isFlyFail");
+			var isSorti = this.getModel("oPilotUpdatesViewModel").getProperty("/isSortiFail");
+			var astId = this.getModel("oPilotUpdatesViewModel").getProperty("/srvable");
+			if(isFly || isSorti || astId==="AST_US"){
+				sAstId = "AST_US";
+				rc = "N";
+				this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/rcreq",rc);
+			}
+			
+			this.getModel("oPilotUpdatesViewModel").refresh();
+			return sAstId;	
+		},
+		
 		_fnCreateData: function() {
 			try {
 				var currentTime = new Date();
@@ -923,6 +985,9 @@ sap.ui.define([
 				oPayload.flyReq = [];
 				oPayload.fuleTanks = [];
 				oPayload.toper = [];
+				oPayload.isFlyFail = false;
+				oPayload.isSortiFail = false;
+				oPayload.isFair = false;
 				oPayload.runningChange = "N";
 				oPayload.engPowerCheckRequired = "N";
 				oPayload.flyRecord = {
@@ -938,11 +1003,11 @@ sap.ui.define([
 					"lrun": 0,
 					"ltot": 0,
 					"apudur":0,
-					"stepid":oPayload.srvtid,
-					"srvtid":oPayload.stepid,
-					"rcreq":"",   // IF THEY RUNNING CHANGE SEL
-					"isfair":"", // IF ANY FAIR JOB DEFECT SELECT 
-					"astatid":"" // AST_S IF SERVICEABLE AST_US IF UNSERVICEABLE ,FAIL SORTI,FAIL FLY  
+					"stepid":oPayload.stepid,
+					"srvtid":oPayload.srvtid,
+					"rcreq":"N",   // IF THEY RUNNING CHANGE SEL
+					"isfair":"N", // IF ANY FAIR JOB DEFECT SELECT 
+					"astatid":"AST_S" // AST_S IF SERVICEABLE AST_US IF UNSERVICEABLE ,FAIL SORTI,FAIL FLY  
 				};
 				oPayload.timings = [{
 					"srvid": null,
@@ -1037,8 +1102,8 @@ sap.ui.define([
 				Log.error("Exception in PilotUpdate:_fnCreateData function");
 				this.handleException(e);
 			}
-
 			return oPayload;
 		}
+		
 	});
 });

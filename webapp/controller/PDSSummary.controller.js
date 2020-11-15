@@ -31,6 +31,8 @@ sap.ui.define([
 						"chk1": false,
 						"chk2": false,
 						"sgEnable": true,
+						"pasign":true,
+						"pareqvisible":false ,
 						"outjob": ""
 					},
 					"defectArea": [{
@@ -314,11 +316,13 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty(
-					"/srvtid");
+					"/srvtid") + " and TAILID eq " + this.getTailId();
 				oParameter.success = function(oData) {
+					var sPaSign = oData.results.length>0?oData.results[0]:[];
 					this.getModel("pdsSummaryModel").setProperty("/masterList", oData.results);
+					this.getModel("pdsSummaryModel").setProperty("/confirm/pareqvisible",sPaSign.NPASIGN==="X");
 					this.getModel("pdsSummaryModel").refresh();
-					if (oData.results.length >= 0) {
+					if (oData.results.length > 0) {
 						this.fnGetAllData();
 					}
 				}.bind(this);
@@ -824,7 +828,7 @@ sap.ui.define([
 					couts: null,
 					cpend: null,
 					CFLAG: null,
-					NPASIGN: this.getModel("pdsSummaryModel").getProperty("/confirm/pasign") ? "" : "X"
+					NPASIGN: this.getModel("pdsSummaryModel").getProperty("/confirm/pasign") ? "X" : ""
 				};
 				var oParameter = {};
 				oParameter.error = function() {};

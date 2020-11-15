@@ -24,7 +24,7 @@
 							<Text text="{path:'oPilotUpdatesViewModel>sorno',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
 							<Text text="{oPilotUpdatesViewModel>remcnt}/{oPilotUpdatesViewModel>sorcnt}"/>
 							<Text text="{oPilotUpdatesViewModel>sordesc}"/>
-							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>frrid}" items="{oPilotUpdatesViewModel>/amResult}" required="true" fieldGroupIds="fgSGBtn">
+							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>frrid}" items="{oPilotUpdatesViewModel>/amResult}" selectionChange="onSortiSelChange" required="true" fieldGroupIds="fgSGBtn">
 								<items>
 									<SegmentedButtonItem text="{oPilotUpdatesViewModel>description}" key="{oPilotUpdatesViewModel>ddid}"/>
 								</items>
