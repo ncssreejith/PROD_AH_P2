@@ -1830,11 +1830,14 @@ sap.ui.define([
 				case "AST_FAIR0":
 				case "AST_FAIR1":
 				case "AST_FAIR2":
+				case "AST_REC":
+				case "AST_GN":
 					return false;
 				default:
 					return true;
 			}
 		},
+
 		checkFairStatus: function(aState) {
 			switch (aState) {
 				case "AST_FAIR":
@@ -1929,7 +1932,11 @@ sap.ui.define([
 				month = creDt.getMonth() + 1;
 			var dateString = '' + year + '-' + month + '-' + date;
 			var timeString = creTm + ':00';
-			var crDtTime = new Date(dateString + ' ' + timeString);
+			//Rahul: COS: 16/11/2020: 11:26Am: Code added for date concatination.
+			//var crDtTime = new Date(dateString + ' ' + timeString);
+			var datec = dateString + 'T' + timeString;
+			var crDtTime = new Date(datec);
+			////////////// Rahul: COS: 16/11/2020: 11:26Am: /////////////////////////////
 			var minDate = "";
 			if (prevDate) {
 				var dateParts = prevDate.split("-");

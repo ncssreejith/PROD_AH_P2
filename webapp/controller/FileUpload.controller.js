@@ -35,11 +35,12 @@ sap.ui.define([
 					return false;
 				}
 				sPath = sPath.split("/")[sPath.split("/").length - 1];
-
-				if (!sPath.match("^[a-zA-Z0-9]{1,200}\\.[a-zA-Z0-9]{1,10}$")) {
+                 //Rahul 16/11/2020 : 11:09AM: Cose commented ///////////
+			/*	if (!sPath.match("^[a-zA-Z0-9]{1,200}\\.[a-zA-Z0-9]{1,10}$")) {
 					MessageBox.error("Invalid file name");
 					return false;
-				}
+				}*/
+				////////////////////////////////////////////////////////
 				return true;
 			} catch (e) {
 				Log.error("Exception in FileUpload:fnFileValidate function");
