@@ -592,6 +592,20 @@ sap.ui.define([
 		_fnInvalidateSession: function() {
 
 			try {
+				//	var that = this,
+				//		oPrmWB = {};
+				//	oPrmWB.filter = "";
+				//	oPrmWB.error = function() {
+				//		dataUtil.setDataSet("oUserSession", null);
+				//		sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
+				//	};
+				//	oPrmWB.success = function(oData) {
+				///		dataUtil.setDataSet("oUserSession", null);
+				//		sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
+				//	}.bind(this);
+
+				//	ajaxutil.fnDeleteData("/GetRemoveUsrdtlSvc", oPrmWB, {});
+
 				$.ajax({
 					type: 'GET',
 					url: "/ws_authenticate",
@@ -602,12 +616,12 @@ sap.ui.define([
 					error: function(xhrx) {
 						dataUtil.setDataSet("oUserSession", null);
 						dataUtil.setDataSet("AirCraftSelectionGBModel", null);
-						sap.m.URLHelper.redirect("/avmet/login.html", false);
+						sap.m.URLHelper.redirect(xhrx.getResponseHeader("Location"), false);
 					},
-					success: function() {
+					success: function(oData, status, xhrx) {
 						dataUtil.setDataSet("oUserSession", null);
 						dataUtil.setDataSet("AirCraftSelectionGBModel", null);
-						sap.m.URLHelper.redirect("/avmet/login.html", false);
+						sap.m.URLHelper.redirect(xhrx.getResponseHeader("Location"), false);
 					}
 				});
 			} catch (e) {

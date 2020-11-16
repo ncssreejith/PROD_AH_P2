@@ -26,7 +26,7 @@
 				<cells>
 					<Text text="{pdsSummaryModel>DDDESC}" wrapping="true"/>
 					<Text text="{parts : ['pdsSummaryModel>DONE','pdsSummaryModel>NA'], formatter:'.formatter.TradesmanStatusDisplay'}"/>
-					<Text text="{pdsSummaryModel>TRADE_USER}"/>
+					<Text text="{pdsSummaryModel>tsign}"/>
 				</cells>
 			</ColumnListItem>
 		</items>

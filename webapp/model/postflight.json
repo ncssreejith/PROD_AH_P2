@@ -53,6 +53,13 @@
 		"text": "Engine 2",
 		"key": "engine2"
 	}],
+	"reasonHIT": [{
+		"text": "HIT",
+		"key":"1"
+	}, {
+		"text": "Re-establishment",
+		"key":"3"
+	}],
 	"reasonCheck": [{
 		"text": "HIT",
 		"key":"1"

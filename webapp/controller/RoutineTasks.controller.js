@@ -133,6 +133,7 @@ sap.ui.define([
 				var sPath = oEvent.getSource().getBindingContext("rtModel").getPath();
 				this.getModel("rtModel").setProperty(sPath + "/DONE", oEvent.getSource().getSelectedKey());
 				this.getModel("rtModel").setProperty("/isChange", true);
+				this.getModel("rtModel").setProperty(sPath + "/tstat", 1);
 				this.getModel("rtModel").refresh();
 			} catch (e) {
 				Log.error("Exception in onRTStatusChange function");

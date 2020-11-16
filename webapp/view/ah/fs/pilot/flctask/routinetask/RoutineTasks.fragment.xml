@@ -26,7 +26,7 @@
 				<cells>
 					<Text text="{paModel>DDDESC}" wrapping="true"/>
 					<Text text="{parts : ['paModel>DONE','paModel>NA'], formatter:'.formatter.TradesmanStatusDisplay'}"/>
-					<Text text="{paModel>TRADE_USER}"/>
+					<Text text="{paModel>tsign}"/>
 				</cells>
 			</ColumnListItem>
 		</items>

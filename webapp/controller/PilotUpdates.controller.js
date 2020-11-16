@@ -50,7 +50,7 @@ sap.ui.define([
 		onAfterRendering: function(oEvent) {
 			try {
 				this.getView().byId("engindId").bindElement({
-					path: "/engines/0",
+					path: "/engines/0/1",
 					model: "oPilotUpdatesViewModel"
 				});
 			} catch (e) {
@@ -133,16 +133,43 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		onEngineHITChange: function() {
+			try {
+				var sIndex = this.getModel("oPilotUpdatesViewModel").getProperty("/HIT");
+				if (sIndex === "1") {
+					this.getModel("oPilotUpdatesViewModel").setProperty("/chkrn", "1");
+				} else {
+					this.getModel("oPilotUpdatesViewModel").setProperty("/chkrn", "3");
+				}
+			} catch (e) {
+				Log.error("Exception in PilotUpdate:onEnginChange function");
+				this.handleException(e);
+			}
+		},
 		onEnginChange: function() {
 			try {
+				// var sIndex = this.getModel("oPilotUpdatesViewModel").getProperty("/eng") === "engine1" ? "0" : "1";
+				// this.getView().byId("engindId").bindElement({
+				// 	path: "/engines/" + sIndex,
+				// 	model: "oPilotUpdatesViewModel"
+				// });
+				this.onEngineReasonChange();
+			} catch (e) {
+				Log.error("Exception in PilotUpdate:onEnginChange function");
+				this.handleException(e);
+			}
+		},
+		onEngineReasonChange: function() {
+			try {
 				var sIndex = this.getModel("oPilotUpdatesViewModel").getProperty("/eng") === "engine1" ? "0" : "1";
+				var sChkrn = this.getModel("oPilotUpdatesViewModel").getProperty("/chkrn");
+				// var sChkrn = this.getModel("oPilotUpdatesViewModel").getProperty("/engines/"+sIndex + "/chkrn");
 				this.getView().byId("engindId").bindElement({
-					path: "/engines/" + sIndex,
+					path: "/engines/" + sIndex + "/" + sChkrn,
 					model: "oPilotUpdatesViewModel"
 				});
 			} catch (e) {
-				Log.error("Exception in PilotUpdate:onEnginChange function");
+				Log.error("Exception in PilotUpdate:onEngineReasonChange function");
 				this.handleException(e);
 			}
 		},
@@ -252,56 +279,78 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
-		onFlySelChange:function(oEvent){
+
+		onFlySelChange: function(oEvent) {
 			var isFlyFail = false;
-			oEvent.getSource().getParent().getParent().getItems().forEach(function(oItem){
-				if(oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("frrid")==="FRR_F"){
+			oEvent.getSource().getParent().getParent().getItems().forEach(function(oItem) {
+				if (oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("frrid") === "FRR_F") {
 					isFlyFail = true;
-				}	
+				}
 			});
-			this.getModel("oPilotUpdatesViewModel").setProperty("/isFlyFail",isFlyFail);
-			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
+			this.getModel("oPilotUpdatesViewModel").setProperty("/isFlyFail", isFlyFail);
+			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid", this.fnGetAircraftStatus());
 			this.getModel("oPilotUpdatesViewModel").refresh();
 		},
-		onSortiSelChange:function(oEvent){
+		onSortiSelChange: function(oEvent) {
 			var isSortiFail = false;
-			oEvent.getSource().getParent().getParent().getItems().forEach(function(oItem){
-				if(oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("frrid")==="PILOT_F"){
+			oEvent.getSource().getParent().getParent().getItems().forEach(function(oItem) {
+				if (oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("frrid") === "PILOT_F") {
 					isSortiFail = true;
-				}	
+				}
 			});
-			this.getModel("oPilotUpdatesViewModel").setProperty("/isSortiFail",isSortiFail);
-			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
+			this.getModel("oPilotUpdatesViewModel").setProperty("/isSortiFail", isSortiFail);
+			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid", this.fnGetAircraftStatus());
 			this.getModel("oPilotUpdatesViewModel").refresh();
 		},
-		
-		onFairChange:function(oEvent){
+
+		onFairChange: function(oEvent) {
 			var isFair = false;
-			oEvent.getSource().getParent().getParent().getParent().getParent().getItems().forEach(function(oItem){
-				if(oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("fair")==="Y"){
+			oEvent.getSource().getParent().getParent().getParent().getParent().getItems().forEach(function(oItem) {
+				if (oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("fair") === "Y") {
 					isFair = true;
-				}	
+				}
 			});
-			this.getModel("oPilotUpdatesViewModel").setProperty("/isFair",isFair);
-			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
+			this.getModel("oPilotUpdatesViewModel").setProperty("/isFair", isFair);
+			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid", this.fnGetAircraftStatus());
 			this.getModel("oPilotUpdatesViewModel").refresh();
 		},
-			
-		onAircraftStatusChange:function(oEvent){
-			// var isFair = false;
-			// oEvent.getSource().getParent().getParent().getParent().getParent().getItems().forEach(function(oItem){
-			// 	if(oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("fair")==="Y"){
-			// 		isFair = true;
-			// 	}	
-			// });
-			// this.getModel("oPilotUpdatesViewModel").setProperty("/srvable",isFair);
-			// this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
-			// this.getModel("oPilotUpdatesViewModel").refresh();
-			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
-			this.getModel("oPilotUpdatesViewModel").refresh();
+
+		// onAircraftStatusChange:function(oEvent){
+		// var isFair = false;
+		// oEvent.getSource().getParent().getParent().getParent().getParent().getItems().forEach(function(oItem){
+		// 	if(oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("fair")==="Y"){
+		// 		isFair = true;
+		// 	}	
+		// });
+		// this.getModel("oPilotUpdatesViewModel").setProperty("/srvable",isFair);
+		// this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
+		// this.getModel("oPilotUpdatesViewModel").refresh();
+		// 	this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
+		// 	this.getModel("oPilotUpdatesViewModel").refresh();
+		// },
+
+		onEngineValuesChange: function(oEvent) {
+			var sChkrn = this.getModel("oPilotUpdatesViewModel").getProperty("/chkrn");
+			var sEngine = this.getModel("oPilotUpdatesViewModel").getProperty("/eng");
+			var sPowerCheck1 = this.getModel("oPilotUpdatesViewModel").getProperty("/PowerCheck1");
+			var sPowerCheck2 = this.getModel("oPilotUpdatesViewModel").getProperty("/PowerCheck2");
+
+			if (!sPowerCheck1 && sEngine === "engine1") {
+				sPowerCheck1 = sChkrn;
+			}
+			if (!sPowerCheck2 && sEngine === "engine2") {
+				sPowerCheck2 = sChkrn;
+			}
+
+			if (sChkrn === "1") {
+				if (sEngine === "engine1") {
+					this.getModel("oPilotUpdatesViewModel").setProperty("/PowerCheck1", sChkrn);
+				}
+				if (sEngine === "engine2") {
+					this.getModel("oPilotUpdatesViewModel").setProperty("/PowerCheck1", sChkrn);
+				}
+			}
 		},
-		
 		fnTblInAndIndTgt: function(oEvent) {
 			try {
 				var oObj = oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getObject();
@@ -325,7 +374,24 @@ sap.ui.define([
 				Log.error("Exception in onRemoveDefectPress function");
 			}
 		},
+		onAircraftStatusChange: function(oEvent) {
+			// var isFair = false;
+			// oEvent.getSource().getParent().getParent().getParent().getParent().getItems().forEach(function(oItem){
+			// 	if(oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("fair")==="Y"){
+			// 		isFair = true;
+			// 	}	
+			// });
+			// this.getModel("oPilotUpdatesViewModel").setProperty("/srvable",isFair);
+			// this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid",this.fnGetAircraftStatus());
+			// this.getModel("oPilotUpdatesViewModel").refresh();
+			this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/astatid", this.fnGetAircraftStatus());
+			this.getModel("oPilotUpdatesViewModel").refresh();
 
+			//Disable Running change on unservicable
+			if (oEvent.getSource().getSelectedKey() === "AST_US") {
+				this.getModel("oPilotUpdatesViewModel").setProperty("/runningChange", "N");
+			}
+		},
 		onSendOthers: function() {
 			try {
 				var isArmDeArmReq = this.getModel("oPilotUpdatesViewModel").getProperty("/armingReq");
@@ -349,9 +415,11 @@ sap.ui.define([
 		},
 		fnCreateFlyRecords: function() {
 			try {
+
 				// this.fnCreateEngine();
 				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
 				oPayloads.astatid = this.fnGetAircraftStatus();
+				oPayloads.isfair = this.getModel("oPilotUpdatesViewModel").getProperty("/isFair") ? "Y" : "N";
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {
@@ -359,6 +427,20 @@ sap.ui.define([
 				}.bind(this);
 				oParameter.activity = 4;
 				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4FLYSVC"), oParameter, [oPayloads], "ZRM_PFR_P", this);
+				// this.fnCreateEngine();
+				// var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
+				// if (oPayloads.length === 0) {
+				// 	this.onSendOthers();
+				// 	return;
+				// }
+				// var oParameter = {};
+				// oParameter.error = function() {};
+				// oParameter.success = function() {
+				// 	this.onSendOthers();
+				// }.bind(this);
+				// oParameter.activity = 4;
+				// ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4FLYSVC"), oParameter, [oPayloads], "ZRM_PFR_P", this);
+
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateFlyRecords function");
 				this.handleException(e);
@@ -463,8 +545,9 @@ sap.ui.define([
 		},
 		fnCreateDefect: function() {
 			try {
+				var astid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvable");
 				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/defects");
-				if (oPayloads.length === 0) {
+				if (astid === 'AST_S') {
 					return;
 				}
 				oPayloads.forEach(function(oItem) {
@@ -480,30 +563,64 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		/** 
+		 * Create engine entries
+		 * @returns
+		 */
 		fnCreateEngine: function() {
 			try {
 				if (this.getModel("oPilotUpdatesViewModel").getProperty("/engPowerCheckRequired") === "Y") {
 					var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/engines");
-					if (oPayloads.length === 0) {
+					var aPayloads = [];
+					aPayloads.push(oPayloads[0][1]);
+					aPayloads.push(oPayloads[0][2]);
+					aPayloads.push(oPayloads[0][3]);
+					aPayloads.push(oPayloads[1][1]);
+					aPayloads.push(oPayloads[1][2]);
+					aPayloads.push(oPayloads[1][3]);
+					var aFinalPayload = [];
+					if (aPayloads.length === 0) {
 						return;
 					}
+					aPayloads.forEach(function(oItem) {
+						if (this.fnCheckEnginePayload(oItem)) {
+							aFinalPayload.push(JSON.parse(JSON.stringify(oItem)));
+						}
+					}.bind(this));
 					var oParameter = {};
 					oParameter.error = function() {};
 					oParameter.success = function() {};
-					ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4POWERSVC"), oParameter, oPayloads);
+					ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4POWERSVC"), oParameter, aFinalPayload);
 				}
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateEngine function");
 				this.handleException(e);
 			}
 		},
+		/** 
+		 * Check for valid engine engine entry
+		 * @param oPayload
+		 * @returns
+		 */
 		fnCheckEnginePayload: function(oPayload) {
-			if (!oPayload.aspeed || !oPayload.temp || !oPayload.bpress || !oPayload.tgttab || !oPayload.tgtind || !oPayload.ng || !oPayload.np ||
-				!oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed ||
-				!oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed || !oPayload.aspeed) {
-				return true;
+			switch (oPayload.chkrn) {
+				case "1":
+					if (!oPayload.temp && !oPayload.bpress && !oPayload.tgttab && !oPayload.tgtind && !oPayload.ng && !oPayload.np) {
+						return false;
+					}
+					break;
+				case "2":
+					if (!oPayload.temp && !oPayload.bpress && !oPayload.tgtind && !oPayload.ng && !oPayload.np) {
+						return false;
+					}
+					break;
+				case "3":
+					if (!oPayload.temp && !oPayload.bpress && !oPayload.tgttab && !oPayload.tgtind && !oPayload.ng && !oPayload.np) {
+						return false;
+					}
+					break;
 			}
-			return false;
+			return true;
 		},
 		fnCreateMano: function() {
 			try {
@@ -552,13 +669,12 @@ sap.ui.define([
 				} else {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
+					this.getModel("oPilotUpdatesViewModel").setData(this._fnCreateData());
 
 					var sSrvtid = this.getModel("avmetModel").getProperty("/dash/astid");
-					if (sSrvtid === "AST_FFG") {
-						this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/fstat", "N");
+					if (sSrvtid === "AST_GN") {
+						this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/fstat", "NF");
 					}
-
-					this.getModel("oPilotUpdatesViewModel").setData(this._fnCreateData());
 					this.getModel("oPilotUpdatesViewModel").refresh();
 					this.updateModel({
 						busy: true
@@ -667,11 +783,41 @@ sap.ui.define([
 					if (oData.results.length > 1) {
 						this._getEngPowerCheck(oData.results[1].engid, oData.results[1].engno);
 					}
+					var aEngines = JSON.parse(JSON.stringify(oData.results));
+					aEngines[0] = {
+						"1": JSON.parse(JSON.stringify(oData.results[0])),
+						"2": JSON.parse(JSON.stringify(oData.results[0])),
+						"3": JSON.parse(JSON.stringify(oData.results[0]))
+					};
 
-					this.getModel("oPilotUpdatesViewModel").setProperty("/engines", oData.results);
+					aEngines[1] = {
+						"1": JSON.parse(JSON.stringify(oData.results[1])),
+						"2": JSON.parse(JSON.stringify(oData.results[1])),
+						"3": JSON.parse(JSON.stringify(oData.results[1]))
+					};
+
+					this.getModel("oPilotUpdatesViewModel").setProperty("/engines", aEngines);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/chkrn", oData.results[0].chkrn === null ? "1" : oData.results[0]
 						.chkrn);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/chkrn", oData.results[1].chkrn === null ? "1" : oData.results[1]
+						.chkrn);
+					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/1/chkrn", oData.results[0].chkrn === null ? "1" : oData.results[
+							0]
+						.chkrn);
+					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/2/chkrn", oData.results[0].chkrn === null ? "2" : oData.results[
+							0]
+						.chkrn);
+					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/3/chkrn", oData.results[0].chkrn === null ? "3" : oData.results[
+							0]
+						.chkrn);
+					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/1/chkrn", oData.results[1].chkrn === null ? "1" : oData.results[
+							1]
+						.chkrn);
+					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/2/chkrn", oData.results[1].chkrn === null ? "2" : oData.results[
+							1]
+						.chkrn);
+					this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/3/chkrn", oData.results[1].chkrn === null ? "3" : oData.results[
+							1]
 						.chkrn);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
@@ -928,7 +1074,7 @@ sap.ui.define([
 						busy: false
 					}, "viewModel");
 				}.bind(this);
-				ajaxutil.fnRead("/ReplenishmentSvc", oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("/REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadFuleTankFromRepl function");
 				this.handleException(e);
@@ -950,22 +1096,23 @@ sap.ui.define([
 				oItem.frrid = (oItem.frrid === "" || oItem.frrid === null) ? sStat : oItem.frrid;
 			});
 		},
-		
-		fnGetAircraftStatus:function(){
-			var sAstId = "AST_S",rc="Y";
+
+		fnGetAircraftStatus: function() {
+			var sAstId = "AST_S",
+				rc = "Y";
 			var isFly = this.getModel("oPilotUpdatesViewModel").getProperty("/isFlyFail");
 			var isSorti = this.getModel("oPilotUpdatesViewModel").getProperty("/isSortiFail");
 			var astId = this.getModel("oPilotUpdatesViewModel").getProperty("/srvable");
-			if(isFly || isSorti || astId==="AST_US"){
+			if (isFly || isSorti || astId === "AST_US") {
 				sAstId = "AST_US";
 				rc = "N";
-				this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/rcreq",rc);
+				this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/rcreq", rc);
 			}
-			
+
 			this.getModel("oPilotUpdatesViewModel").refresh();
-			return sAstId;	
+			return sAstId;
 		},
-		
+
 		_fnCreateData: function() {
 			try {
 				var currentTime = new Date();
@@ -990,6 +1137,8 @@ sap.ui.define([
 				oPayload.isFair = false;
 				oPayload.runningChange = "N";
 				oPayload.engPowerCheckRequired = "N";
+				oPayload.chkrn = "1";
+				oPayload.HIT = "1";
 				oPayload.flyRecord = {
 					"srvid": null,
 					"tailid": this.getTailId(),
@@ -1002,12 +1151,12 @@ sap.ui.define([
 					"lnor": 0,
 					"lrun": 0,
 					"ltot": 0,
-					"apudur":0,
-					"stepid":oPayload.stepid,
-					"srvtid":oPayload.srvtid,
-					"rcreq":"N",   // IF THEY RUNNING CHANGE SEL
-					"isfair":"N", // IF ANY FAIR JOB DEFECT SELECT 
-					"astatid":"AST_S" // AST_S IF SERVICEABLE AST_US IF UNSERVICEABLE ,FAIL SORTI,FAIL FLY  
+					"apudur": 0,
+					"stepid": oPayload.stepid,
+					"srvtid": oPayload.srvtid,
+					"rcreq": "N", // IF THEY RUNNING CHANGE SEL
+					"isfair": "N", // IF ANY FAIR JOB DEFECT SELECT 
+					"astatid": "AST_S" // AST_S IF SERVICEABLE AST_US IF UNSERVICEABLE ,FAIL SORTI,FAIL FLY  
 				};
 				oPayload.timings = [{
 					"srvid": null,
@@ -1104,6 +1253,6 @@ sap.ui.define([
 			}
 			return oPayload;
 		}
-		
+
 	});
 });

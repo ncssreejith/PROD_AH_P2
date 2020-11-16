@@ -10,8 +10,9 @@ sap.ui.define([
 ], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log) {
 	"use strict";
 	/* ***************************************************************************
+	//Teck Meng 13/11/2020 12:00 ah Role change fixes issue no 25,26 
 	 *   Control name: RoleChange       
-	 *   Purpose : 
+	 *   Purpose : Role Change
 	 *   Functions : 
 	 *   1.UI Events
 	 *		1.1 onInit
@@ -138,6 +139,10 @@ sap.ui.define([
 		},
 		onRemoveTile1Press: function(oEvent) {
 			this.fnRemoveAdapter(0);
+			// this.getModel("rcModel").setProperty("/selStn/ADPDESC","");
+			// this.getModel("rcModel").setProperty("/selStn/ADPID","");
+			// this.getModel("rcModel").setProperty("/selStn/SEQID","");
+			// this.getModel("rcModel").refresh();
 		},
 		onRemoveTile2Press: function(oEvent) {
 			this.fnRemoveAdapter(1);
@@ -156,6 +161,7 @@ sap.ui.define([
 			this.getModel("rcModel").getProperty("/selStn/selADP").splice(sStart, sADPCount);
 			this.getModel("rcModel").refresh();
 		},
+		//Teck Meng 13/11/2020 12:00 ah Role change fixes issue no 25,26 
 		fnChkEdit: function(bSignoff) {
 			var sFlag = true;
 			if (this.getModel("rcModel").getProperty("/mode") === 0) {
@@ -171,16 +177,15 @@ sap.ui.define([
 				sFlag = false;
 				return sFlag;
 			}
-			
+
 			//Check if trademan signed off for supervisor to change
-			
+			//Teck Meng 13/11/2020 12:00 ah Role change fixes issue no 25,26 
 			oSelADP = oSelADP ? oSelADP : {};
-			if(!bSignoff && sAprNo===1 && selTab==="rc2" && oSelADP &&  oSelADP.tstat !== 1){
+			if (!bSignoff && sAprNo === 1 && selTab === "rc2" && oSelADP && oSelADP.tstat !== 1) {
 				sap.m.MessageBox.error("Changes are not allowed");
 				sFlag = false;
 				return sFlag;
 			}
-			
 
 			// var selKey = this.getModel("rcModel").getProperty("/selTab");
 			// if( this.editMode === undefined){
@@ -223,7 +228,7 @@ sap.ui.define([
 				}.bind(this);
 				oParameter.activity = sAct;
 				oParameter.title = "Tradesman undosign off";
-				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, oPayloads, sObj, this);
+				ajaxutil.fnCreate("/ROLECHANGESVC", oParameter, oPayloads, sObj, this);
 			} catch (e) {
 				Log.error("Exception in onStationUndoSignOff function");
 			}
@@ -264,7 +269,7 @@ sap.ui.define([
 				sTitle = sTitle + ("Sign off");
 				oParameter.activity = sAct;
 				oParameter.title = sTitle;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, oPayloads, sObj, this);
+				ajaxutil.fnCreate("/ROLECHANGESVC", oParameter, oPayloads, sObj, this);
 			} catch (e) {
 				Log.error("Exception in onStationSignOff function");
 			}
@@ -314,7 +319,8 @@ sap.ui.define([
 					}
 					this.getModel("rcModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				//Teck Meng 13/11/2020 12:00 ah Role change fixes issue no 25,26 
+				ajaxutil.fnRead("/ROLECHANGESVC", oParameter);
 			} catch (e) {
 				Log.error("Exception in _getStations function");
 			}
@@ -330,7 +336,7 @@ sap.ui.define([
 					oStn.selADP = this.fnAttachAdapter(oData.results);
 					this.getModel("rcModel").refresh();
 				}.bind(this, oStn);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				ajaxutil.fnRead("/ROLECHANGESVC", oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadAdapter function");
 			}
@@ -374,18 +380,34 @@ sap.ui.define([
 
 		fnRoleChanegPayload: function() {
 			var oPayloads = [],
-				sSelect = false;
+				sSelect = false,
+				sPayload = {}; 
+			//Teck Meng 13/11/2020 12:00 ah Role change fixes issue no 25,26 
 			this.getModel("rcModel").getProperty("/stns").forEach(function(stn) {
 				// if (stn.tstat === 1) {
 				// 	sSelect = true;
 				// }
 				// stn.tstat===1 && 
+				//Teck Meng 16/11/2020 18:00 ah Role change fixes issue no 25,26 
 				if (stn.selADP.length === 0) {
 					oPayloads.push(this.fnPayload(stn, undefined, stn.tstat));
+					if (stn.NUM1 === "2" && stn.APRNO === 1) {
+						sPayload = this.fnPayload(stn, undefined, stn.tstat);
+						sPayload.NUM1 = 2;
+						oPayloads.push(sPayload);
+					}
+
 				}
+				//Teck Meng 16/11/2020 18:00 ah Role change fixes issue no 25,26 
 				stn.selADP.forEach(function(adp) {
 					// if(stn.tstat===1){
-					oPayloads.push(this.fnPayload(stn, adp, stn.tstat));
+						oPayloads.push(this.fnPayload(stn, adp, stn.tstat));
+					if (stn.NUM1 === "2" && stn.APRNO === 1 && stn.selADP.length===1) {
+						sPayload = this.fnPayload(stn, undefined, stn.tstat);
+						sPayload.NUM1 = 2;
+						oPayloads.push(sPayload);
+					}
+					
 					// }
 				}.bind(this));
 			}.bind(this));
@@ -429,7 +451,7 @@ sap.ui.define([
 		fnPayload: function(stn, adp, tstat) {
 			// var selKey = this.getModel("rcModel").getProperty("/selTab");
 			// var sStat = this.getModel("rcModel").getProperty("/tsign");
-
+			//Teck Meng 13/11/2020 12:00 ah Role change fixes issue no 25,26 
 			var oPayload = JSON.parse(JSON.stringify(stn));
 			oPayload.ADPID = adp === undefined ? '' : adp.ADPID;
 			oPayload.ADPDESC = adp === undefined ? '' : adp.ADPDESC;
@@ -463,7 +485,7 @@ sap.ui.define([
 			oPayload.tailid = stn.tailid;
 			oPayload.tstat = stn.tstat; //this.formatter.rcSignChange(sStat,selKey)?1:0;
 			// oPayload.tsign = "";
-			
+			//Teck Meng 13/11/2020 12:00 ah Role change fixes issue no 25,26 
 			delete oPayload.adapters;
 			delete oPayload.selADP;
 			return oPayload;

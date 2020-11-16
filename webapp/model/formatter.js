@@ -979,6 +979,26 @@ sap.ui.define([
 			}
 			return true;
 		},
+		fnEngineEnableHit: function(sReasonCheck, sHIT) {
+			switch (sReasonCheck) {
+				case "1":
+					if (sHIT === "1") {
+						return true;
+					}
+					break;
+				case "2":
+					if (sHIT === "2" || sHIT === "3") {
+						return true;
+					}
+					break;
+				case "3":
+					if (sHIT === "2" || sHIT === "3") {
+						return true;
+					}
+					break;
+			}
+			return false;
+		},
 		serviceIdExist: function(srvId) {
 			if (srvId === "" || srvId === null || srvId === undefined) {
 				return false;
@@ -1031,7 +1051,7 @@ sap.ui.define([
 			}
 			return true;
 		},
-		
+
 		//Teck Meng 13/11/2020 12:00 F16 Role change fixes issue no 25,26 
 		fsRCUnSignOff: function(selTab, tsign) {
 			if (selTab === "rc2") {
@@ -1296,7 +1316,7 @@ sap.ui.define([
 				case "AST_US0":
 				case "AST_US1":
 				case "AST_US2":
-				case "AST_RC":	
+				case "AST_RC":
 					this.removeStyleClass("redbtn");
 					this.removeStyleClass("greenbtn");
 					this.removeStyleClass("greybtn");

@@ -18,11 +18,22 @@
 					</items>
 				</SegmentedButton>
 			</VBox>
-			<VBox class="sapUiSmallMarginTop">
-				<Label text="{i18n>txtReasonForCheck}" design="Bold"/>
-				<SegmentedButton selectedKey="{oPilotUpdatesViewModel>chkrn}" items="{postflightModel>/reasonCheck}" required="true">
+			<VBox>
+				<Label text="Update HIT or Re-establishment" design="Bold"/>
+				<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/HIT}" items="{postflightModel>/reasonHIT}"
+					selectionChange="onEngineHITChange">
 					<items>
 						<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}" width="70%"/>
+					</items>
+				</SegmentedButton>
+			</VBox>
+			<VBox class="sapUiSmallMarginTop">
+				<Label text="{i18n>txtReasonForCheck}" design="Bold"/>
+				<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/chkrn}" items="{postflightModel>/reasonCheck}" required="true"
+					selectionChange="onEngineReasonChange">
+					<items>
+						<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}"
+							enabled="{parts: ['postflightModel>key', 'oPilotUpdatesViewModel>/HIT'], formatter: '.formatter.fnEngineEnableHit'}" width="70%"/>
 					</items>
 				</SegmentedButton>
 			</VBox>
@@ -34,7 +45,8 @@
 			<HBox class="sapUiSmallMarginTop" width="70%">
 				<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 					<Label text="Temperature (°C)" design="Bold"/>
-					<StepInput width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>temp}" fieldGroupIds="fgStepInput"/>
+					<StepInput width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>temp}" fieldGroupIds="fgStepInput"
+						change="onEngineValuesChange"/>
 				</VBox>
 				<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 					<Label text="Baro pressure " design="Bold"/>
