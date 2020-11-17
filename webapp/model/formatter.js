@@ -1934,7 +1934,7 @@ sap.ui.define([
 			var timeString = creTm + ':00';
 			//Rahul: COS: 16/11/2020: 11:26Am: Code added for date concatination.
 			//var crDtTime = new Date(dateString + ' ' + timeString);
-			var datec = dateString + 'T' + timeString;
+			var datec = dateString + ' ' + timeString; //Rahul: COS: 167/11/2020: 10:04Am: "T" removed
 			var crDtTime = new Date(datec);
 			////////////// Rahul: COS: 16/11/2020: 11:26Am: /////////////////////////////
 			var minDate = "";
@@ -1986,7 +1986,11 @@ sap.ui.define([
 				month = creDt.getMonth() + 1;
 			var dateString = '' + year + '-' + month + '-' + date;
 			var timeString = creTm + ':00';
-			var crDtTime = new Date(dateString + ' ' + timeString);
+			//Rahul: COS: 17/11/2020: 9:47Am: Code added for date concatination.
+			//var crDtTime = new Date(dateString + ' ' + timeString);
+			var datec = dateString + ' ' + timeString;
+			var crDtTime = new Date(datec);
+			////////////// Rahul: COS: 17/11/2020: 9:47Am: /////////////////////////////
 
 			var minDate = "";
 			if (prevDate) {
