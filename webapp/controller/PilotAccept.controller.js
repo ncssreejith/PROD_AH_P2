@@ -12,6 +12,9 @@ sap.ui.define([
 	return BaseController.extend("avmet.ah.controller.PilotAccept", {
 		formatter: formatter,
 
+		/** 
+		 * On Init of object //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 */
 		onInit: function() {
 			try {
 				this.getRouter().getRoute("PilotAccept").attachPatternMatched(this._onObjectMatched, this);
@@ -144,6 +147,11 @@ sap.ui.define([
 		onPARejctDefectDialogReject: function(oEvent) {
 			this.onPressSignOffConfirm(oEvent, "R");
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @param oEvent
+		 * @returns
+		 */
 		onPresSignOff: function(oEvent) {
 			try {
 				var sNextIndex = -1;
@@ -158,7 +166,7 @@ sap.ui.define([
 					this._fnNavToDetail("/masterList/" + sNextIndex);
 					return;
 				}
-				this.onPressSignOffPreflightDone(oEvent);
+				this.onPressSignOffPreflightDone(oEvent);//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 			} catch (e) {
 				Log.error("Exception in onPresSignOff function");
 			}
@@ -204,6 +212,11 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 4. Private Methods   
 		// ***************************************************************************
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 * @param oEvent
+		 */
 		_onObjectMatched: function(oEvent) {
 			try {
 
@@ -294,6 +307,10 @@ sap.ui.define([
 			this._getTrailMod();
 			this._getWeaponConfig();
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_getSortie: function() {
 			try {
 				var oParameter = {};
@@ -313,6 +330,10 @@ sap.ui.define([
 				Log.error("Exception in _getSortie function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_getReplenishmentDetails: function() {
 			try {
 				var oParameter = {};
@@ -333,6 +354,10 @@ sap.ui.define([
 				Log.error("Exception in _getReplenishmentDetails function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @param oData
+		 */
 		fnSetReplData: function(oData) {
 			var sIndex = this._fnGetIndexById("T6_FLC");
 			this.getModel("paModel").setProperty("/masterList/" + sIndex + "/count", "");
@@ -359,6 +384,10 @@ sap.ui.define([
 			}.bind(this));
 			this.getModel("paModel").refresh();
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_getFuelExtTanks: function() {
 			try {
 
@@ -379,6 +408,10 @@ sap.ui.define([
 				Log.error("Exception in _getFuelExtTanks function");
 			}
 		},
+		/** 
+		 * 
+		 * @constructor 
+		 */
 		_getTasks: function() {
 			try {
 				var oParameter = {};
@@ -412,6 +445,12 @@ sap.ui.define([
 				Log.error("Exception in _getCreatedTasks function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 * @param sFilter
+		 * @param sTab
+		 */
 		_getRTTasks: function(sFilter, sTab) {
 			try {
 				var oParameter = {};
@@ -428,6 +467,10 @@ sap.ui.define([
 				Log.error("Exception in _getRTTasks function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_getFLyReq: function() {
 			try {
 
@@ -447,6 +490,10 @@ sap.ui.define([
 				Log.error("Exception in _getFLyReq function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_getJobDetails: function() {
 			try {
 				var oParameter = {};
@@ -467,6 +514,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @param oData
+		 * @returns
+		 */
 		fnDueJob: function(oData) {
 			for (var i = oData.length - 1; i >= 0; i--) {
 				if ((parseInt(oData[i].DUEIN) > 5 && oData[i].UM === "DAYS") || (parseInt(oData[i].DUEIN) > 10 && oData[i].UM !== "DAYS")) {
@@ -475,6 +527,10 @@ sap.ui.define([
 			}
 			return oData;
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_getOutstandingJob: function() {
 			try {
 				var oParameter = {};
@@ -494,6 +550,10 @@ sap.ui.define([
 				Log.error("Exception in _getOutstandingJob function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_getPastMonthDefects: function() {
 			try {
 				var oParameter = {};
@@ -513,6 +573,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		/** 
+		 * Pending Approvals //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_getPendingApprovals: function() {
 			try {
 
@@ -532,6 +596,10 @@ sap.ui.define([
 				Log.error("Exception in _getPendingApprovals function");
 			}
 		},
+		/** 
+		 * Limitation //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_fnLimitationsGet: function() {
 			try {
 				var oPrmJobDue = {};
@@ -551,6 +619,10 @@ sap.ui.define([
 				Log.error("Exception in _fnLimitationsGet function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_fnADDGet: function() {
 			try {
 				var oPrmJobDue = {};
@@ -571,6 +643,10 @@ sap.ui.define([
 				Log.error("Exception in _fnADDGet function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_getTrailMod: function() {
 			try {
 				var oParameter = {};
@@ -589,6 +665,10 @@ sap.ui.define([
 				Log.error("Exception in _getTrailMod function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_getWeaponConfig: function() {
 			try {
 				var oParameter = {};
@@ -609,6 +689,13 @@ sap.ui.define([
 				Log.error("Exception in _getWeaponConfig function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * Sortie monitoring
+		 * @constructor 
+		 * @param sJobId
+		 * @param sSORNO
+		 */
 		_fnSortieMonitoringDetailsGet: function(sJobId, sSORNO) {
 			try {
 				var oPrmTD = {};
@@ -624,6 +711,11 @@ sap.ui.define([
 				Log.error("Exception in _fnSortieMonitoringDetailsGet function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @param oEvent
+		 * @param sign
+		 */
 		onPressSignOffPreflightDone: function(oEvent, sign) {
 			this.getModel("paModel").setProperty("/confirm/pfreq", false);
 			this.getModel("paModel").refresh();
@@ -635,16 +727,23 @@ sap.ui.define([
 			});
 		},
 
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 */
 		onPressSignOffClose: function() {
 			this.closeDialog("SignOffConfirmDialog");
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * Confirm signoff
+		 */
 		onPressSignOffConfirm: function() {
 			try {
-				var sAction = this.getModel("paModel").getProperty("/confirm/pfreq");
+				var sAction = this.getModel("paModel").getProperty("/confirm/pfreq");//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				var oPayloads = this.getModel("paModel").getProperty("/masterList");
 				oPayloads.forEach(function(oItem) {
 					oItem.value = oItem.data.reviewd ? 1 : 0;
-					oItem.pfreq = sAction ? "X" : ""; // X FOR POST FLIGHT DONE  '' FOR NOT REQ
+					oItem.pfreq = sAction ? "X" : ""; // X FOR POST FLIGHT DONE  '' FOR NOT REQ//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 					delete oItem.data;
 				});
 				var oParameter = {};
@@ -659,6 +758,10 @@ sap.ui.define([
 				Log.error("Exception in onPressSignOffConfirm function");
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @returns
+		 */
 		fnCreateDefect: function() {
 			try {
 				var oPayloads = this.getModel("paModel").getProperty("/defects");

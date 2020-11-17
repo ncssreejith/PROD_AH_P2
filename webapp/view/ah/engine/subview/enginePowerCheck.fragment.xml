@@ -14,7 +14,7 @@
 				<!--<HBox>-->
 				<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"
 					growing="true" growingThreshold="5" growingScrollToLoad="false"
-					items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}"
+					items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }], templateShareable: true}"
 					noDataText="{i18n>noDataHitTable}" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>
@@ -130,7 +130,7 @@
 				<!--</HBox>-->
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 					growingScrollToLoad="false"
-					items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }] ,sorter: [{ path: 'SRVID', descending: true}]}"
+					items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }] ,sorter: [{ path: 'SRVID', descending: true}], templateShareable: true}"
 					noDataText="No {i18n>txtRestablish} Records" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>
@@ -196,10 +196,12 @@
 						<FlexItemData growFactor="2" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
 					</layoutData>
 				</Table>
+				 <!--updateFinished="testUpdateFinished"-->
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 					growingScrollToLoad="false"
-					items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '2' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }]}"
+					items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters: [ { filters: [ { path: 'CHKRN', operator: 'EQ', value1: '2' }, { path: 'ENGNO', operator: 'EQ', value1: '1' } ], and: true } ]}"
 					noDataText="No ETF Records" showNoData="true">
+					<!--filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '2' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }],-->
 					<headerToolbar>
 						<OverflowToolbar>
 							<content>
@@ -241,8 +243,7 @@
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="ETF Check" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
-						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="15%">
-						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="15%"></Column>
 					</columns>
 					<items>
 						<ColumnListItem>
@@ -260,12 +261,12 @@
 								<Text text="{oEngineModel>ASPEED}"/>
 								<HBox justifyContent="Center">
 									<Text text="{path:'oEngineModel>ETF'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>
-									<StepInput min="{oEngineModel>minValue}" value="{oEngineModel>ETF}" visible="{= !!${oEngineModel>/headerDetails/ETFEDIT} &amp;&amp; !!${oEngineModel>Special} }"
-									displayValuePrecision="2"/>
+									<StepInput min="{oEngineModel>minValue}" value="{oEngineModel>ETF}"
+										visible="{= !!${oEngineModel>/headerDetails/ETFEDIT} &amp;&amp; !!${oEngineModel>Special} }" displayValuePrecision="2"/>
 								</HBox>
 								<Button text="{= !!${oEngineModel>/headerDetails/ETFEDIT} ? ${i18n>txtSignOff} : ${i18n>btnEdit} }" visible="{= !!${oEngineModel>Special} }"
-								enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"
-										icon="sap-icon://request" press="onETFEdit" type="Emphasized"/>
+									enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"
+									icon="sap-icon://request" press="onETFEdit" type="Emphasized"/>
 							</cells>
 						</ColumnListItem>
 					</items>

@@ -203,28 +203,20 @@ sap.ui.define([
 				Log.error("Exception in onReleaseForRectification function");
 			}
 		},
+		//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		onVoidFSPress: function() {
 			try {
 				this.onNewFSSignOffConfirm("C");
-				// var oPayload = {
-				// 	tailid: this.getTailId(),
-				// 	refid: this.getAircraftId()
-				// };
-
-				// var oParameter = {};
-				// oParameter.activity = 4;
-				// oParameter.error = function() {};
-				// oParameter.success = function() {
-				// 	this.fnLoadSrv1Dashboard();
-				// 	this.getModel("avmetModel").refresh();
-				// }.bind(this);
-				// ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_VS", this);
 			} catch (e) {
 				Log.error("Exception in ReleaseForRectification:onSignOffPress function");
 				this.handleException(e);
 			}
 		},
-
+		//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		/** 
+		 * 
+		 * @param sFsstatus
+		 */
 		onNewFSSignOffConfirm: function(sFsstatus) {
 			try {
 				var oPayload = {
@@ -249,7 +241,7 @@ sap.ui.define([
 			}
 		},
 		
-		
+		//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		/** 
 		 * On running pilot change
 		 */
@@ -265,6 +257,10 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @param oEvent
+		 */
 		onDetailsMenuClick: function(oEvent) {
 			var sText = oEvent.getSource().getText();
 			if (sText === "Aircraft Monitoring") {
@@ -294,6 +290,12 @@ sap.ui.define([
 			// } 
 			this.getRouter().navTo(sPattern);
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 * @param key
+		 * @returns
+		 */
 		_getRouterValue: function(key) {
 			if (key === "coscreatejob") {
 				return "CosCreateJob";
@@ -329,7 +331,7 @@ sap.ui.define([
 		//   2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
 
-		/** 
+		/** //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		 * AVMET unlock signoff
 		 */
 		fnUnlockSignOff: function() {
@@ -407,26 +409,53 @@ sap.ui.define([
 		//   4. Private Function   
 		// ***************************************************************************
 		//	4.1 First level Private functions
+		/** //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * 
+		 * @constructor 
+		 */
 		_onObjectMatched: function() {
 			this.fnLoadInitialData();
 			this._fnJobGetScheduled();
 		},
 
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 */
 		fnLoadInitialData: function() {
 			this.fnLoadSrv1Dashboard();
 			this.fnLoadUtilization();
 		},
 
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @param oMenu
+		 * @returns
+		 */
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @param oMenu
+		 * @returns
+		 */
 		fnFindRoleChangeStations: function(oMenu) {
 			return oMenu.pattern === "RoleChangeStations";
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @param oMenu
+		 * @returns
+		 */
 		fnFindCreateFlightService: function(oMenu) {
 			return oMenu.pattern === "CreateFlightService";
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @param oMenu
+		 * @returns
+		 */
 		fnFindCosjobs: function(oMenu) {
 			return oMenu.pattern === "Cosjobs";
 		},
-		/** 
+		/** //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		 * Load Air utilization data
 		 */
 		fnLoadUtilization: function() {

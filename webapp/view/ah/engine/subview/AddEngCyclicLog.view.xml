@@ -40,7 +40,9 @@
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Title text="Engine Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
+							<!--//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043-->
 							<StepInput width="250px" min="{oAddEng2CycLogModel>/minENGHR}" value="{oAddEng2CycLogModel>/ENGHR}" displayValuePrecision="1"/>
+							<!--//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043-->
 						</HBox>
 					</VBox>
 				</HBox>

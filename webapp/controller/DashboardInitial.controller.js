@@ -62,6 +62,9 @@ sap.ui.define([
 			clearInterval(this._LoadMessageInterval);
 		},
 		//1. On click of Create Flight Servicing Button, navigates to that view.
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 */
 		onCreateFlightService: function() {
 			try {
 				if (this.getModel("avmetModel").getProperty("/dash/SRVID")) {
@@ -260,10 +263,10 @@ sap.ui.define([
 							stepid: "S_WE"
 						});
 						break;
-					case "AST_FFF":
-					case "AST_FFF0":
-						this.createNewFlightServicing();
-						// this.onPilotChanges();
+					case "AST_FFF": //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+					case "AST_FFF0": //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+						this.createNewFlightServicing(); //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+						// this.onPilotChanges();//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 						break;
 				}
 			} catch (e) {
@@ -602,7 +605,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
+		/** 
+		 * Create New flight servicing 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 */
 		createNewFlightServicing: function() {
 			try {
 				if (!this._createNewFlightServicing) {
@@ -615,12 +622,19 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @param oEvent
+		 * @param sFsstatus
+		 */
 		onNewFSSignOffConfirm: function(oEvent, sFsstatus) {
 			try {
 				this._createNewFlightServicing.close();
 				this._createNewFlightServicing.destroy();
 				delete this._createNewFlightServicing;
-				
+				if (sFsstatus === "C") {//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+					return;//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				}//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				var oPayload = {
 					tailid: this.getTailId(),
 					refid: this.getAircraftId(),
@@ -643,7 +657,11 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_renderSafeNF: function() {
 			try {
 				if (!this._oDeclareSafe) {
@@ -657,6 +675,9 @@ sap.ui.define([
 			}
 		},
 
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 */
 		onACSignOffCancel: function() {
 			try {
 				this._oDeclareSafe.close();
@@ -668,6 +689,9 @@ sap.ui.define([
 			}
 		},
 
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 */
 		onACSignOffConfirm: function() {
 			try {
 				this._oDeclareSafe.close();
@@ -710,6 +734,9 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 */
 		fnLoadSrv1Dashboard: function() {
 			try {
 				var oParameter = {};
@@ -754,6 +781,10 @@ sap.ui.define([
 		// ***************************************************************************
 		//                 4. Private Methods   
 		// ***************************************************************************
+		/** 
+		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * @constructor 
+		 */
 		_onObjectMatched: function() {
 			try {
 				var oAppData = dataUtil.getDataSet(this.getOwnerComponent().appModel);
