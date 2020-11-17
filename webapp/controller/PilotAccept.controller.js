@@ -158,7 +158,7 @@ sap.ui.define([
 					this._fnNavToDetail("/masterList/" + sNextIndex);
 					return;
 				}
-				this.onPressSignOffConfirm(oEvent);
+				this.onPressSignOffPreflightDone(oEvent);
 			} catch (e) {
 				Log.error("Exception in onPresSignOff function");
 			}
@@ -268,7 +268,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("paModel").getProperty(
-					"/srvtid")+ " and TAILID eq " + this.getTailId();
+					"/srvtid") + " and TAILID eq " + this.getTailId();
 				oParameter.success = function(oData) {
 					this.getModel("paModel").setProperty("/masterList", oData.results);
 					this.getModel("paModel").refresh();
@@ -624,26 +624,37 @@ sap.ui.define([
 				Log.error("Exception in _fnSortieMonitoringDetailsGet function");
 			}
 		},
+		onPressSignOffPreflightDone: function(oEvent, sign) {
+			this.getModel("paModel").setProperty("/confirm/pfreq", false);
+			this.getModel("paModel").refresh();
 
-		onPressSignOffConfirm: function(oEvent, sign) {
+			var oDialog = this.openDialog("SignOffConfirmDialog", ".fragments.fs.pilot.");
+			oDialog.bindElement({
+				path: "/confirm",
+				model: "paModel"
+			});
+		},
+
+		onPressSignOffClose: function() {
+			this.closeDialog("SignOffConfirmDialog");
+		},
+		onPressSignOffConfirm: function() {
 			try {
+				var sAction = this.getModel("paModel").getProperty("/confirm/pfreq");
 				var oPayloads = this.getModel("paModel").getProperty("/masterList");
-				oPayloads.forEach(function(oItem){
-					oItem.value=oItem.data.reviewd?1:0;
-					oItem.pfreq=""; // X FOR POST FLIGHT DONE  '' FOR NOT REQ
+				oPayloads.forEach(function(oItem) {
+					oItem.value = oItem.data.reviewd ? 1 : 0;
+					oItem.pfreq = sAction ? "X" : ""; // X FOR POST FLIGHT DONE  '' FOR NOT REQ
 					delete oItem.data;
 				});
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					if (sign === "R") {
-						this.fnCreateDefect();
-						return;
-					}
 					this.onNavBack();
 				}.bind(this);
 				oParameter.activity = 4;
 				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTACCEPTANCESVCHEL"), oParameter, oPayloads, "ZRM_FS_PA", this);
+				this.closeDialog("SignOffConfirmDialog");
 			} catch (e) {
 				Log.error("Exception in onPressSignOffConfirm function");
 			}

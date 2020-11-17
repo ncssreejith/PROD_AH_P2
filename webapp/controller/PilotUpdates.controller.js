@@ -427,20 +427,6 @@ sap.ui.define([
 				}.bind(this);
 				oParameter.activity = 4;
 				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4FLYSVC"), oParameter, [oPayloads], "ZRM_PFR_P", this);
-				// this.fnCreateEngine();
-				// var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
-				// if (oPayloads.length === 0) {
-				// 	this.onSendOthers();
-				// 	return;
-				// }
-				// var oParameter = {};
-				// oParameter.error = function() {};
-				// oParameter.success = function() {
-				// 	this.onSendOthers();
-				// }.bind(this);
-				// oParameter.activity = 4;
-				// ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4FLYSVC"), oParameter, [oPayloads], "ZRM_PFR_P", this);
-
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateFlyRecords function");
 				this.handleException(e);
@@ -1074,7 +1060,7 @@ sap.ui.define([
 						busy: false
 					}, "viewModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("/REPLENISHMENTSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadFuleTankFromRepl function");
 				this.handleException(e);
@@ -1139,6 +1125,7 @@ sap.ui.define([
 				oPayload.engPowerCheckRequired = "N";
 				oPayload.chkrn = "1";
 				oPayload.HIT = "1";
+				oPayload.eng = "engine1";
 				oPayload.flyRecord = {
 					"srvid": null,
 					"tailid": this.getTailId(),

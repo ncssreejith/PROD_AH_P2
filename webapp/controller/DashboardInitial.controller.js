@@ -262,7 +262,8 @@ sap.ui.define([
 						break;
 					case "AST_FFF":
 					case "AST_FFF0":
-						this.onPilotChanges();
+						this.createNewFlightServicing();
+						// this.onPilotChanges();
 						break;
 				}
 			} catch (e) {
@@ -601,7 +602,48 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		
+		createNewFlightServicing: function() {
+			try {
+				if (!this._createNewFlightServicing) {
+					this._createNewFlightServicing = sap.ui.xmlfragment("avmet.ah.fragments.pilot.CreateNewFlightServicing", this);
+					this.getView().addDependent(this._createNewFlightServicing);
+				}
+				this._createNewFlightServicing.open();
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:createNewFlightServicing function");
+				this.handleException(e);
+			}
+		},
+		onNewFSSignOffConfirm: function(oEvent, sFsstatus) {
+			try {
+				this._createNewFlightServicing.close();
+				this._createNewFlightServicing.destroy();
+				delete this._createNewFlightServicing;
+				
+				var oPayload = {
+					tailid: this.getTailId(),
+					refid: this.getAircraftId(),
+					fsstatus: sFsstatus,
+					srvtid: this.getModel("avmetModel").getProperty("/dash/SRVTID"),
+					stepid: "S_CL"
+				};
 
+				var oParameter = {};
+				oParameter.activity = 4;
+				oParameter.error = function() {};
+				oParameter.success = function() {
+					this.fnLoadSrv1Dashboard();
+					this.getModel("avmetModel").refresh();
+					this.getRouter().navTo("CreateFlightService", {}, false);
+				}.bind(this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_VS", this);
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:onACSignOffConfirm function");
+				this.handleException(e);
+			}
+		},
+		
 		_renderSafeNF: function() {
 			try {
 				if (!this._oDeclareSafe) {

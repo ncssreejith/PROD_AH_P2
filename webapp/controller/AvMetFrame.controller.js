@@ -205,10 +205,34 @@ sap.ui.define([
 		},
 		onVoidFSPress: function() {
 			try {
+				this.onNewFSSignOffConfirm("C");
+				// var oPayload = {
+				// 	tailid: this.getTailId(),
+				// 	refid: this.getAircraftId()
+				// };
 
+				// var oParameter = {};
+				// oParameter.activity = 4;
+				// oParameter.error = function() {};
+				// oParameter.success = function() {
+				// 	this.fnLoadSrv1Dashboard();
+				// 	this.getModel("avmetModel").refresh();
+				// }.bind(this);
+				// ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_VS", this);
+			} catch (e) {
+				Log.error("Exception in ReleaseForRectification:onSignOffPress function");
+				this.handleException(e);
+			}
+		},
+
+		onNewFSSignOffConfirm: function(sFsstatus) {
+			try {
 				var oPayload = {
 					tailid: this.getTailId(),
-					refid: this.getAircraftId()
+					refid: this.getAircraftId(),
+					fsstatus: sFsstatus,
+					srvtid: this.getModel("avmetModel").getProperty("/dash/SRVTID"),
+					stepid: "S_CL"
 				};
 
 				var oParameter = {};
@@ -220,10 +244,12 @@ sap.ui.define([
 				}.bind(this);
 				ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_VS", this);
 			} catch (e) {
-				Log.error("Exception in ReleaseForRectification:onSignOffPress function");
+				this.Log.error("Exception in DashboardInitial:onACSignOffConfirm function");
 				this.handleException(e);
 			}
 		},
+		
+		
 		/** 
 		 * On running pilot change
 		 */
