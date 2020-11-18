@@ -1088,7 +1088,7 @@ sap.ui.define([
 							if (oJobModel.getProperty("/fstat") === 'A') {
 								oLocalModel.setProperty("/FairEditFlag", false);
 								oLocalModel.setProperty("/FairEditBtnFlag", true);
-								oSummaryModel.setProperty("/MenuSheduleVisible", false);
+								oSummaryModel.setProperty("/MenuScheduleVisible", false); //Rahul: 18/11/2020: 10:24 AM : Menu item visiblity check added.
 								oSummaryModel.setProperty("/FAIRStatusText", "ACTIVATED");
 								oSummaryModel.setProperty("/FAIRStatus", "Error");
 							} else if (oJobModel.getProperty("/fstat") === 'R' || oJobModel.getProperty("/fstat") === 'U') {
@@ -2423,30 +2423,43 @@ sap.ui.define([
 				if (sFlag === 'DF') {
 					if (oSummaryModel.getProperty("/FAIRStatusText") === 'ACTIVATED') {
 						oSummaryModel.setProperty("/MenuVisible", false);
-						oSummaryModel.setProperty("/MenuSheduleVisible", false);
+						oSummaryModel.setProperty("/MenuScheduleVisible", false); //Rahul: 18/11/2020: 10:24 AM : Menu item visiblity check added.
 						oSummaryModel.setProperty("/MenuActivateVisible", true);
 						oSummaryModel.setProperty("/MenuWorkCenterVisible", false);
 					} else {
 						oSummaryModel.setProperty("/MenuVisible", true);
-						oSummaryModel.setProperty("/MenuSheduleVisible", false);
+
 						if (oJobModel.getProperty("/jobty") === 'S') {
 							oSummaryModel.setProperty("/MenuVisibleEdit", false);
-							oSummaryModel.setProperty("/MenuSheduleVisible", true);
+							oSummaryModel.setProperty("/MenuScheduleVisible", true); //Rahul: 18/11/2020: 10:24 AM : Menu item visiblity check added.
 						} else {
+							oSummaryModel.setProperty("/MenuScheduleVisible", false); //Rahul: 18/11/2020: 10:24 AM : Menu item visiblity check added.
 							oSummaryModel.setProperty("/MenuVisibleEdit", true);
 						}
-						oSummaryModel.setProperty("/MenuScheduleVisible", false);
+						/*oSummaryModel.setProperty("/MenuScheduleVisible", false);*/ //Rahul: 18/11/2020: 10:24 AM : Menu item visiblity condition commented.
 						oSummaryModel.setProperty("/MenuActivateVisible", false);
 						oSummaryModel.setProperty("/MenuWorkCenterVisible", false);
 					}
 				} else if (sFlag === 'WC') {
-					oSummaryModel.setProperty("/MenuVisible", false);
-					oSummaryModel.setProperty("/MenuScheduleVisible", false);
-					oSummaryModel.setProperty("/MenuActivateVisible", false);
-					oSummaryModel.setProperty("/MenuWorkCenterVisible", true);
+					/*Rahul: 18/11/2020: 10:24 AM : Conditions added for no data.*/
+					if (this.getView().getModel("CreatedWorkCenterModel").getData().length > 1) {
+						oSummaryModel.setProperty("/MenuVisible", false);
+						oSummaryModel.setProperty("/MenuScheduleVisible", false); //Rahul: 18/11/2020: 10:24 AM : Menu item visiblity check added.
+						oSummaryModel.setProperty("/MenuActivateVisible", false);
+						oSummaryModel.setProperty("/MenuWorkCenterVisible", true);
+					} else {
+						that.onCloseDialog();
+						MessageBox.information(
+							"No workcenter present to edit.", {
+								icon: sap.m.MessageBox.Icon.information,
+								title: "Information",
+								styleClass: "sapUiSizeCompact"
+							});
+					}
+					/*End of the code change*/
 				} else {
 					oSummaryModel.setProperty("/MenuVisible", false);
-					oSummaryModel.setProperty("/MenuScheduleVisible", true);
+					oSummaryModel.setProperty("/MenuScheduleVisible", true); //Rahul: 18/11/2020: 10:24 AM : Menu item visiblity check added.
 					oSummaryModel.setProperty("/MenuActivateVisible", false);
 					oSummaryModel.setProperty("/MenuWorkCenterVisible", false);
 				}
@@ -3483,14 +3496,17 @@ sap.ui.define([
 					sJobId, sWrctr, oModelLocal,
 					sSelectedtxt, sSelectedKey,
 					oModel;
+				// Rahul: 18/11/2020: 11:03: Model initialized before to get model data.	
+				oModelLocal = that.getView().getModel("JobModel");
+				oModel = that.getView().getModel("LocalModel");
+				// code change end
 				try {
 					sSelectedKey = oEvent.getParameter("selectedItem").getKey();
 					sSelectedtxt = oEvent.getParameter("selectedItem").getText();
 				} catch (e) {
 					sSelectedKey = oEvent;
+					sSelectedtxt = oModel.getProperty("/WorkCenterTitle"); // Rahul: 18/11/2020: 11:03: Code added for setting WC title
 				}
-				oModelLocal = that.getView().getModel("JobModel");
-				oModel = that.getView().getModel("LocalModel");
 				sJobId = oModel.getProperty("/sJobId");
 				if (sSelectedKey === "Summary") {
 					oModel.setProperty("/SummaryFlag", true);
@@ -3682,9 +3698,11 @@ sap.ui.define([
 			try {
 				var that = this,
 					oTitle = oEvent.getSource().getTitle(),
+					oModelLocal = that.getView().getModel("LocalModel"), // Rahul: 18/11/2020: 11:03: Code added for get local model
 					oKey = oEvent.getSource().getBindingContext("CreatedWorkCenterModel").getObject("wrctr"),
 					oIconTabBar = that.getView().byId("itbDefectSummary"),
 					oModel = that.getView().getModel("CreatedWorkCenterModel").getData();
+				oModelLocal.setProperty("/WorkCenterTitle", oTitle); // Rahul: 18/11/2020: 11:03: Code added for setting WC title
 				for (var i = 0; i < oModel.length; i++) {
 					if (oModel[i].wrctrtx === oTitle) {
 						oIconTabBar.setSelectedKey(oKey);
