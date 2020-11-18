@@ -16,8 +16,9 @@
 				</VBox>
 				<VBox>
 					<Label text="{i18n>lbTime}" design="Bold"/>
+					<!--Rahul: 18/11/2020: 05:30PM new function added : handleChangeTm-->
 					<TimePicker id="TP1" required="true" fieldGroupIds="fgTime" valueStateText="{i18n>ERROR_GENERIC}" value="{oViewCreateModel>/cretm}"
-						width="13rem" valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" placeholder="New job creation time"/>
+						width="13rem" valueFormat="HH:mm" displayFormat="HH:mm" change="handleChangeTm" placeholder="New job creation time"/>
 				</VBox>
 				<layoutData>
 					<l:SplitterLayoutData size="25%"/>

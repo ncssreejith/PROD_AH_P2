@@ -171,6 +171,7 @@ sap.ui.define([
 					oPayload.begda = formatter.defaultOdataDateFormat(oPayload.credt);
 					oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
 					oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
+					oPayload.credt = formatter.defaultOdataDateFormat(oPayload.credt); //Rahul: 18/11/2020: 05:23PM: CREDT Added
 					if (oPayload.jobty === "S") {
 						oPayload.symbol = "3";
 					}
@@ -302,6 +303,7 @@ sap.ui.define([
 				oPayload.begda = formatter.defaultOdataDateFormat(oPayload.credt);
 				oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
 				oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
+				oPayload.credt = formatter.defaultOdataDateFormat(oPayload.credt); //Rahul: 18/11/2020: 05:23PM: CREDT Added
 
 				oParameter.error = function(response) {};
 				oParameter.success = function(oData) {
@@ -912,14 +914,37 @@ sap.ui.define([
 		 * Parameter:
 		 * Description: Function to validate date/time
 		 */
-		handleChange: function() {
+		handleChange: function(oEvent) {
 			try {
-				var aData = this.getModel("appModel").getData();
+				var aData = this.getModel("appModel").getData(),
+					/*Rahul: 18/11/2020: 05:25PM : Date code change : Start*/
+					dValue,
+					oAppModel = this.getView().getModel("oViewCreateModel");
+				if (oEvent != undefined) {
+					dValue = this.getView().byId("DP1").getDateValue();
+					oAppModel.setProperty("/credt", dValue);
+				}
+				/*Rahul: 18/11/2020: 05:25PM : Date code change : END*/
 				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
 			} catch (e) {
 				Log.error("Exception in handleChange function");
 			}
 		},
+		/* Function: handleChangeTm
+		 * Parameter:
+		 * Description: Function to validate time
+		 */
+		 /*Rahul: 18/11/2020: 05:25PM : Date code change : Start*/
+		handleChangeTm: function(oEvent) {
+			try {
+				var aData = this.getModel("appModel").getData();
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
+			} catch (e) {
+				Log.error("Exception in handleChangeTm function");
+			}
+		},
+		/*Rahul: 18/11/2020: 05:25PM : Date code change : END*/
+
 		/* Function: onTypeMissmatch
 		 * Parameter:oEvent
 		 * Description: Function to validate file type
@@ -928,7 +953,7 @@ sap.ui.define([
 			try {
 				sap.m.MessageBox.error("Selected file type not allowed");
 			} catch (e) {
-				Log.error("Exception in handleChange function");
+				Log.error("Exception in onTypeMissmatch function"); // 18/11/2020: 04:25PM: Function name corrected
 			}
 		},
 		/* Function: onFileSizeExceed
@@ -939,7 +964,7 @@ sap.ui.define([
 			try {
 				sap.m.MessageBox.error("File size exceeded maximum allowed file size 5 MB");
 			} catch (e) {
-				Log.error("Exception in handleChange function");
+				Log.error("Exception in onFileSizeExceed function"); // 18/11/2020: 04:25PM: Function name corrected
 			}
 		},
 

@@ -2450,7 +2450,7 @@ sap.ui.define([
 					} else {
 						that.onCloseDialog();
 						MessageBox.information(
-							"No workcenter present to edit.", {
+							"There are no workcenter present to edit.", {
 								icon: sap.m.MessageBox.Icon.information,
 								title: "Information",
 								styleClass: "sapUiSizeCompact"
