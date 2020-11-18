@@ -38,7 +38,7 @@ sap.ui.define([
 				// this.getModel("oWDNSModel").getProperty("/logid");
 				// var sPilot = this.getModel("oWDNSModel").getProperty("/pilot");
 				this.getRouter().navTo("UpdateWDNSView",{
-					tabid: "",
+					tabid: "TABW_116",//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 					pilot: "GUNDH"
 				});
 				// this.getRouter().navTo("WDNSCoefficients",{
@@ -57,7 +57,7 @@ sap.ui.define([
 		onPressAFERecords: function() {
 			try {
 				this.getRouter().navTo("UpdateWDNSView",{
-					tabid: "",
+					tabid: "TABW_115",//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 					pilot: "AFE"
 				});
 				// this.getRouter().navTo("WDNSCoefficients",{

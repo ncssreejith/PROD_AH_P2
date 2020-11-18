@@ -16,11 +16,16 @@
 						key="rt2">
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.TeamLeadSignOff" type="XML"/>
 					</IconTabFilter>
+					<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 					<IconTabFilter enabled="{= ${rtModel>/tasks/0/APR_NO} >= 2}"  text="TFOA Check"
+					visible="{path : 'rtModel>/srvtid', formatter : '.formatter.srvTOFACheck'}"
 						key="rt3">
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.TOAFCheck" type="XML"/>
 					</IconTabFilter>
-					<IconTabFilter enabled="{= ${rtModel>/tasks/0/APR_NO} >= 3}"  text="Tools Check"
+					<!--{= ${rtModel>/tasks/0/APR_NO}>= 3}"-->
+					<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+					<IconTabFilter enabled="{parts:['i18n>rt4','rtModel>/tasks/0/APR_NO','rtModel>/srvtid'],formatter:'.formatter.rtTabEnable'}" 
+					text="Tools Check"
 						key="rt4">
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.routinetask.ToolsCheck" type="XML"/>
 					</IconTabFilter>
@@ -35,7 +40,7 @@
 				<Button text="Undo Sign Off" type="Emphasized" press="onTeamLeadUndoSignOffClick" enabled="{rtModel>/sgEnable}"
 				visible="{= ${rtModel>/tasks/0/APR_NO} === 2 &amp;&amp; ${rtModel>/selTab} === 'rt2'}"/>
 				<Button text="Sign Off" type="Emphasized" press="onSignOffClick" enabled="{rtModel>/sgEnable}"
-				visible="{parts:['rtModel>/selTab','rtModel>/tasks/0/APR_NO'],formatter:'.formatter.rtSignOffVisible'}"/>
+				visible="{parts:['rtModel>/selTab','rtModel>/tasks/0/APR_NO','rtModel>/srvtid'],formatter:'.formatter.rtSignOffVisible'}"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>

@@ -72,7 +72,7 @@ sap.ui.define([
 				// 	"TMPID": "",
 				// 	"stepid": this.getModel("rtModel").getProperty("/stepid")
 				// };
-				var oObj = JSON.parse(JSON.stringify( this.getModel("rtModel").getProperty("/tasks")[0]));
+				var oObj = JSON.parse(JSON.stringify(this.getModel("rtModel").getProperty("/tasks")[0]));
 				oObj.stepid = this.getModel("rtModel").getProperty("/stepid");
 				oObj.engid = null;
 				oObj.DDDESC = "";
@@ -84,7 +84,7 @@ sap.ui.define([
 				oObj.SRVID = "";
 				oObj.SRVTID = this.getModel("rtModel").getProperty("/srvtid");
 				oObj.TASKID = "";
-				oObj.APR_NO =  this.getModel("rtModel").getProperty("/tasks/0/APR_NO");
+				oObj.APR_NO = this.getModel("rtModel").getProperty("/tasks/0/APR_NO");
 				oObj.LOGIN_USER = "";
 				oObj.TRADE_USER = "";
 				oObj.TIME_S = null;
@@ -233,7 +233,7 @@ sap.ui.define([
 			try {
 				var aFinalPayload = [];
 				var aPayloads = this.getModel("rtModel").getProperty("/tasks");
-				
+
 				aPayloads.forEach(function(oPayload) {
 					var oCopy = JSON.parse(JSON.stringify(oPayload));
 					aFinalPayload.push(oCopy);
@@ -282,7 +282,7 @@ sap.ui.define([
 				var aFinalPayload = [];
 				var bSelected = false;
 				var aPayloads = this.getModel("rtModel").getProperty("/tasks");
-				
+
 				aPayloads.forEach(function(oPayload) {
 					// this.fnInsertValues(oPayload);
 					var oCopy = JSON.parse(JSON.stringify(oPayload));
@@ -297,7 +297,7 @@ sap.ui.define([
 					sap.m.MessageToast.show("Select at least one for sign off first");
 					return;
 				}
-				
+
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -310,7 +310,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnInsertValues: function(oPayload){
+		fnInsertValues: function(oPayload) {
 			// this.getModel("rtModel").setProperty("/rtasks/TLCDT", this.getModel("rtModel").getProperty("/currentDate"));
 			// 		oPayload this.getModel("rtModel").getProperty("/currentTime"));
 			// 		oPayloadthis.getModel("rtModel").setProperty("/rtasks/TLQTY", 1);
@@ -371,13 +371,12 @@ sap.ui.define([
 		},
 		_getRTTasks: function() {
 			try {
-				var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ? 
-				 (" and SRVID eq " + this.getModel("rtModel").getProperty("/SRVID") )
-				 : "";
+				var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ?
+					(" and SRVID eq " + this.getModel("rtModel").getProperty("/SRVID")) : "";
 				var oParameter = {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("rtModel").getProperty("/srvtid") +
 					" and TAIL_ID eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") + sSrvIdFilter;
-					// + " and srvid eq " + this.getModel("rtModel").getProperty("/SRVID");
+				// + " and srvid eq " + this.getModel("rtModel").getProperty("/SRVID");
 				oParameter.error = function(hrex) {
 					this.updateModel({
 						busy: false
@@ -409,9 +408,8 @@ sap.ui.define([
 
 		_getRTLeadTasks: function() {
 			try {
-				var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ? 
-				 (" and SRVID eq " + this.getModel("rtModel").getProperty("/SRVID") )
-				 : "";
+				var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ?
+					(" and SRVID eq " + this.getModel("rtModel").getProperty("/SRVID")) : "";
 				var oParameter = {};
 				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("rtModel").getProperty("/srvtid") +
 					" and TAIL_ID eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") +
@@ -446,12 +444,16 @@ sap.ui.define([
 			try {
 				var sStep = this.getModel("rtModel").getProperty("/tasks/0/APR_NO");
 				var sKey = "rt1";
-				switch(sStep){
+				switch (sStep) {
 					case 1:
 						sKey = "rt2";
 						break;
-					case 2:
-						sKey = "rt3";
+					case 2: //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+						if (!formatter.srvTOFACheck(this.getModel("rtModel").getProperty("/srvtid"))) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							sKey = "rt4"; //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+						} else { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							sKey = "rt3"; //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+						} //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 						break;
 					case 3:
 						sKey = "rt4";

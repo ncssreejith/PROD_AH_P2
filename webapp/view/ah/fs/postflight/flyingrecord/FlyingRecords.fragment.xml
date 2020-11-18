@@ -75,7 +75,8 @@
 						<l:Grid class="sapUiNoMarginBegin" defaultSpan="XL4 L4 M4 S6" content="{oPilotUpdatesViewModel>/fuleTanks}" hSpacing="0">
 							<VBox width="14rem">
 								<Label text="{oPilotUpdatesViewModel>resdescription}" design="Bold"/>
-								<Input  value="{oPilotUpdatesViewModel>orgamt}" required="true" fieldGroupIds="fgInput"/>
+								<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+								<Input value="{oPilotUpdatesViewModel>totamt}" required="true" fieldGroupIds="fgInput"/>
 							</VBox>
 						</l:Grid>
 					</HBox>

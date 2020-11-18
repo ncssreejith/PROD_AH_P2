@@ -37,10 +37,12 @@
 						editable="{parts:['oRepDetailsModel>tsign','oRepDetailsModel>engid','oRepDetailsModel>resid'],formatter:'.formatter.fnEnginEnableChk'}"/>
 						<HBox>
 							<!--{path:'oRepDetailsModel>upddate',formatter:'avmet.ah.model.formatter.fnDateDiff'}-->
-					<Text  text="{parts:['oRepDetailsModel>hrsince', 'avmetModel>/airutil/COL_13'],formatter:'avmet.ah.model.formatter.fnEngHrsDiff'}"
+							<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+					<Text  text="{parts:['oRepDetailsModel>hrsince', 'avmetModel>/airutil/COL_13', 'avmetModel>/airutil/COL_14'],formatter:'avmet.ah.model.formatter.fnEngHrsDiff'}"
 						wrapping="true" ></Text>
+						<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 						<MessageStrip
-						visible="{parts:['oRepDetailsModel>hrsince', 'avmetModel>/airutil/COL_13'],formatter:'avmet.ah.model.formatter.fnDateEngineHrsInfoDiff'}"
+						visible="{parts:['oRepDetailsModel>hrsince', 'avmetModel>/airutil/COL_13', 'avmetModel>/airutil/COL_14'],formatter:'avmet.ah.model.formatter.fnDateEngineHrsInfoDiff'}"
 						text="Last top up is less than 10hrs"
 						type="Warning"
 						showIcon="true"

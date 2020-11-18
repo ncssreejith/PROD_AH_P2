@@ -50,6 +50,7 @@ sap.ui.define([
 				var router = sap.ui.core.UIComponent.getRouterFor(this);
 				switch (oItem.tabid) {
 					case "TABW_115":
+					case "TABW_116":	//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 						router.navTo("WDNSCoefficients", {
 							tabid: oItem.tabid,
 							logid: oItem.logid

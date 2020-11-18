@@ -768,8 +768,9 @@ sap.ui.define([
 		},
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
-		rtSignOffVisible: function(sTab, sApprno) {
-			switch (sTab) {
+		//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		rtTabEnable: function(sTab, sApprno, sSRVTID) {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			switch (sTab) {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 				case 'rt1':
 					if (sApprno === 0) {
 						return true;
@@ -786,13 +787,47 @@ sap.ui.define([
 					}
 					break;
 				case 'rt4':
-					if (sApprno === 3) {
+					if (sApprno >= 3 && this.formatter.srvTOFACheck(sSRVTID)) {
+						return true;
+					}
+					if(!this.formatter.srvTOFACheck(sSRVTID) && sApprno >= 2 ){
 						return true;
 					}
 					break;
 			}
-			return false;
-		},
+			return false;//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		},//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		rtSignOffVisible: function(sTab, sApprno, sSRVTID) {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			switch (sTab) {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+				case 'rt1':
+					if (sApprno === 0) {
+						return true;
+					}
+					break;
+				case 'rt2':
+					if (sApprno === 1) {
+						return true;
+					}
+					break;
+				case 'rt3':
+					if (sApprno === 2) {
+						return true;
+					}
+					break;
+				case 'rt4':
+					if (sApprno === 3 && this.formatter.srvTOFACheck(sSRVTID)) {
+						return true;
+					}
+					if(!this.formatter.srvTOFACheck(sSRVTID) && sApprno === 2 ){
+						return true;
+					}
+					break;
+			}
+			return false;//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		},//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 		stnsQty: function(isSer, srCount, sTotQty) {
 			var sQty = 0;
 			if (isSer === "X") {
@@ -892,7 +927,8 @@ sap.ui.define([
 			sDiff = Math.abs(sCurrentDate - new Date(oDate)) / 36e5;
 			return "Top up " + parseFloat(sDiff).toFixed(2) + "hrs ago";
 		},
-		fnEngHrsDiff: function(sHrsince, sEngineHrs) {
+		//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+		fnEngHrsDiff: function(sHrsince, sEngineHrs1, sEngineHrs2) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 			var sBindInfo = this.getBindingInfo("footerRightInfo") ? "footerRightInfo" : "text";
 
 			var sModel = this.getBindingInfo(sBindInfo).parts[0].model;
@@ -900,8 +936,10 @@ sap.ui.define([
 
 			switch (resId) {
 				case "RES_105":
+					var sDiff = parseFloat(sEngineHrs1) - parseFloat(sHrsince); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 					break;
 				case "RES_106":
+					sDiff = parseFloat(sEngineHrs2) - parseFloat(sHrsince); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 					break;
 					// case "RES_107": //Issue 826
 					// 	break;
@@ -910,26 +948,29 @@ sap.ui.define([
 				default:
 					return "";
 			}
-			var sDiff = parseFloat(sEngineHrs) - parseFloat(sHrsince);
+			//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 			if (!sDiff) {
 				return "";
 			}
 			return "Top up " + parseFloat(sDiff).toFixed(1) + " engine hours ago";
 		},
-		fnDateEngineHrsInfoDiff: function(sHrsince, sEngineHrs) {
+		//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+		fnDateEngineHrsInfoDiff: function(sHrsince, sEngineHrs1, sEngineHrs2) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 			var sBindInfo = this.getBindingInfo("footerRightInfo") ? "footerRightInfo" : "visible";
 
 			var sModel = this.getBindingInfo(sBindInfo).parts[0].model;
 			var resId = this.getBindingContext(sModel).getProperty("resid");
 			switch (resId) {
-				case "RES_105":
+				case "RES_105": //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+					var sDiff = parseFloat(sEngineHrs1) - parseFloat(sHrsince); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 					break;
-				case "RES_106":
+				case "RES_106": //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+					sDiff = parseFloat(sEngineHrs2) - parseFloat(sHrsince); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 					break;
 				default:
 					return false;
 			}
-			var sDiff = parseFloat(sEngineHrs) - parseFloat(sHrsince);
+			//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 			if (!sDiff) {
 				return false;
 			}
@@ -1595,7 +1636,54 @@ sap.ui.define([
 			}
 			return sSrvTitle;
 		},
-
+		/** //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		 * Routine tasks stepid TOFA valid check
+		 * @param srvId
+		 * @returns
+		 */
+		srvPostFlightFlownCheck: function(srvId) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			switch (srvId) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+				case "SRVT_AF":
+					return false;
+				case "SRVT_ARM":
+					return false;
+				case "SRVT_PMSN":
+					return false;
+				case "SRVT_PTC":
+					return false;
+				case "SRVT_WPT":
+					return false;
+				case "SRVT_DARM":
+					return false;
+				default:
+					return true;
+			} //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			return true;
+		}, //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		/** //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		 * Routine tasks stepid TOFA valid check
+		 * @param srvId
+		 * @returns
+		 */
+		srvTOFACheck: function(srvId) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			switch (srvId) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+				case "SRVT_AF":
+					return false;
+				case "SRVT_ARM":
+					return false;
+				case "SRVT_PMSN":
+					return false;
+				case "SRVT_PTC":
+					return false;
+				case "SRVT_WPT":
+					return false;
+				case "SRVT_DARM":
+					return false;
+				default:
+					return true;
+			} //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			return true;
+		}, //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 		serialNumber: function(oItem) {
 			var srNo = parseInt(this.getId().split("-")[this.getId().split("-").length - 1], 0) + 1;
 			// var oModel = this.getBindingInfo("text").parts[0].model;

@@ -11,7 +11,18 @@
 				</HBox>
 				<HBox>
 					<VBox width="auto">
-						<Table id="tblHarmonisation" columns="{oWDNSModel>/horm}" class="TableHeaderBGColor">
+						<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+						<Table id="tblDH" columns="{oWDNSModel>/dh}" class="TableHeaderBGColor"
+						visible="{= !!${oWDNSModel>/dh/length}}">
+							<columns>
+								<Column hAlign="Center">
+									<Label text="{oWDNSModel>coltxt}" wrapping="true" design="Bold"/>
+								</Column>
+							</columns>
+						</Table>
+						<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+						<Table id="tblHarmonisation" columns="{oWDNSModel>/horm}" class="TableHeaderBGColor"
+						visible="{= !!${oWDNSModel>/horm/length}}">
 							<columns>
 								<Column hAlign="Center">
 									<Label text="{oWDNSModel>coltxt}" wrapping="true" design="Bold"/>

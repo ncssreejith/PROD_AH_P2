@@ -33,8 +33,9 @@
 						</SegmentedButton>
 					</VBox>
 				</HBox>
+				<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 				<Title wrapping="true" class="sapUiLargeMargin"
-					text="I certify that the ejection canopy are rendered SAFE, all flight details are entered in the flying log and all defects, if any, are entered in the change of serviceability log."/></VBox>
+					text="I certify that the ejection canopy are rendered SAFE, all flight details are entered in the post flight records and all defects, if any, are created."/></VBox>
 		</HBox>
 		<VBox visible="{= ${oPilotUpdatesViewModel>/mano/manoe}==='Y'?true:false}">
 			<Toolbar height="7px"/>

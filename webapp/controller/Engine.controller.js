@@ -448,6 +448,8 @@ sap.ui.define([
 								oEngineModel.setProperty("/EngPowerCheck2", oData.results);
 								this._setData(iEngine);
 							}
+							//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							oEngineModel.refresh();
 						}
 						// oEngineModel.setProperty("/EngPowerCheck", oData.results);
 						// this._setData();
@@ -651,14 +653,16 @@ sap.ui.define([
 				var aLDashPoints = [];
 				var aUDashPoints = [];
 				//Loop
-				var aCopyPowerCheck = aEngPowerCheck; //JSON.parse(JSON.stringify(aEngPowerCheck));
-				aCopyPowerCheck.sort(function(a, b) {
-					return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]);
-				});
+				var aCopyPowerCheck = aEngPowerCheck;//JSON.parse(JSON.stringify(aEngPowerCheck));//aEngPowerCheck; //
+				//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				// aCopyPowerCheck.sort(function(a, b) {
+				// 	return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]);
+				// });
 				aCopyPowerCheck.forEach(function(oItem) {
 					if (oItem.CHKRN !== "1") {
 						return;
 					}
+					
 					var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
 					var iLLimit = parseInt(oItem.LLIMIT ? oItem.LLIMIT : 0) + 5;
 					var iDiff = parseInt(oItem.TGTDIFF);
@@ -884,6 +888,7 @@ sap.ui.define([
 				return "Print";
 			}
 		},
+
 		generateHtml: function(that, html, id) {
 			try {
 				html += "<div style='padding:15px; page-break-before: always;'>";

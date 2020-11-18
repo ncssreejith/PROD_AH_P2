@@ -31,8 +31,8 @@ sap.ui.define([
 						"chk1": false,
 						"chk2": false,
 						"sgEnable": true,
-						"pasign":true,
-						"pareqvisible":false ,
+						"pasign": true,
+						"pareqvisible": false,
 						"outjob": ""
 					},
 					"defectArea": [{
@@ -128,16 +128,18 @@ sap.ui.define([
 			} else {
 				this.getModel("pdsSummaryModel").setProperty("/confirm/outjob", "");
 			}
-
+			//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 			var aADDCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T2_PAPPR") + "/data/appr");
-			var oADDCount = aADDCount.find(this.fnFindADD);
-			if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && oADDCount) {
-				sFlag = false;
-				this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg",
-					"There is outstanding ADD/Limitation you can't do Fit-for-Flight or Fit-for-Check Flight");
-			} else {
-				this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg", "");
-			}
+			if (aADDCount && aADDCount.length && aADDCount.length > 0) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+				var oADDCount = aADDCount.find(this.fnFindADD);
+				if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && oADDCount) {
+					sFlag = false;
+					this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg",
+						"There is outstanding ADD/Limitation you can't do Fit-for-Flight or Fit-for-Check Flight");
+				} else {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+					this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg", "");
+				}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 
 			// var oLIMITCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T3_LIMIT") + "/count");
 			// if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && parseInt(oLIMITCount) > 0) {
@@ -214,14 +216,16 @@ sap.ui.define([
 						sMsg = "There is " + parseInt(oJobCount) + " outstanding job you can't do Fit-for-Flight or Fit-for-Check Flight";
 					}
 				}
-
+				//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 				var aADDCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T2_PAPPR") + "/data/appr");
-				var oADDCount = aADDCount.find(this.fnFindADD);
-				if ((selDDID === "AST_FFC" || selDDID === "AST_FFF") && oADDCount) {
-					sFlag = false;
-					this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg",
-						"There is outstanding ADD/Limitation you can't do Fit-for-Flight or Fit-for-Check Flight");
-				}
+				if (aADDCount && aADDCount.length && aADDCount.length > 0) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+					var oADDCount = aADDCount.find(this.fnFindADD);
+					if ((selDDID === "AST_FFC" || selDDID === "AST_FFF") && oADDCount) {
+						sFlag = false;
+						this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg",
+							"There is outstanding ADD/Limitation you can't do Fit-for-Flight or Fit-for-Check Flight");
+					}
+				}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 
 				// var oLIMITCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T3_LIMIT") + "/count");
 				// if ((selDDID === "AST_FFC" || selDDID === "AST_FFF") && parseInt(oLIMITCount) > 0) {
@@ -362,9 +366,9 @@ sap.ui.define([
 				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty(
 					"/srvtid") + " and TAILID eq " + this.getTailId();
 				oParameter.success = function(oData) {
-					var sPaSign = oData.results.length>0?oData.results[0]:[];
+					var sPaSign = oData.results.length > 0 ? oData.results[0] : [];
 					this.getModel("pdsSummaryModel").setProperty("/masterList", oData.results);
-					this.getModel("pdsSummaryModel").setProperty("/confirm/pareqvisible",sPaSign.NPASIGN==="X");
+					this.getModel("pdsSummaryModel").setProperty("/confirm/pareqvisible", sPaSign.NPASIGN === "X");
 					this.getModel("pdsSummaryModel").refresh();
 					if (oData.results.length > 0) {
 						this.fnGetAllData();

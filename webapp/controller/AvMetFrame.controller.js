@@ -233,6 +233,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.fnLoadSrv1Dashboard();
 					this.getModel("avmetModel").refresh();
+					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 				}.bind(this);
 				ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_VS", this);
 			} catch (e) {

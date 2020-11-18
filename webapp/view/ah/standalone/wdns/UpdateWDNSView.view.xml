@@ -4,7 +4,18 @@
 			<VBox class="sapUiSmallMargin">
 				<HBox>
 					<VBox width="auto">
-						<Table id="tblUpHarmonic" columns="{oWDNSModel>/harmo}" class="TableHeaderBGColor">
+						<!--Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043-->
+						<Table id="tblDH" columns="{oWDNSModel>/dh}" class="TableHeaderBGColor" noDataText=" "
+						 visible="{= !!${oWDNSModel>/dh/length}}">
+							<columns>
+								<Column hAlign="Center">
+									<Label text="{oWDNSModel>coltxt}" wrapping="true" design="Bold"/>
+								</Column>
+							</columns>
+						</Table>
+						<!--Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043-->
+						<Table id="tblUpHarmonic" columns="{oWDNSModel>/harmo}" class="TableHeaderBGColor" noDataText=" "
+						 visible="{= !!${oWDNSModel>/harmo/length}}">
 							<columns>
 								<Column hAlign="Center">
 									<Label text="{oWDNSModel>coltxt}" wrapping="true" design="Bold"/>

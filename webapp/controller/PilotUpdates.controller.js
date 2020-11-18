@@ -113,7 +113,7 @@ sap.ui.define([
 				Log.error("Exception in onViewAddLim function");
 			}
 		},
-		
+
 		/** 
 		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		 * @param oEvent
@@ -540,7 +540,7 @@ sap.ui.define([
 			}
 		},
 		/** 
-		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 		 * @returns
 		 */
 		fnUpdateTanks: function() {
@@ -657,11 +657,33 @@ sap.ui.define([
 					if (aPayloads.length === 0) {
 						return;
 					}
+					//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+					var sEngine1 = false;
+					var sEngine2 = false;
 					aPayloads.forEach(function(oItem) {
 						if (this.fnCheckEnginePayload(oItem)) {
+							//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							if (oItem.ENGNO === "1") {
+								sEngine1 = true;
+							}
+							//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							if (oItem.ENGNO === "2") {
+								sEngine2 = true;
+							}
+							//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 							aFinalPayload.push(JSON.parse(JSON.stringify(oItem)));
 						}
 					}.bind(this));
+					//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+					if (sEngine1) {
+						if (this.fnCheckHIT("1")) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+						}
+					}
+					//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+					if (sEngine2) {
+						if (this.fnCheckHIT("2")) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+						}
+					}
 					var oParameter = {};
 					oParameter.error = function() {};
 					oParameter.success = function() {};
@@ -1263,12 +1285,12 @@ sap.ui.define([
 				oPayload.toper = [];
 				oPayload.isFlyFail = false;
 				oPayload.isSortiFail = false;
-				oPayload.isFair = false;//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
-				oPayload.runningChange = "N";//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
-				oPayload.engPowerCheckRequired = "N";//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
-				oPayload.chkrn = "1";//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
-				oPayload.HIT = "1";//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
-				oPayload.eng = "engine1";//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				oPayload.isFair = false; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				oPayload.runningChange = "N"; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				oPayload.engPowerCheckRequired = "N"; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				oPayload.chkrn = "1"; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				oPayload.HIT = "1"; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				oPayload.eng = "engine1"; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				oPayload.flyRecord = {
 					"srvid": null,
 					"tailid": this.getTailId(),

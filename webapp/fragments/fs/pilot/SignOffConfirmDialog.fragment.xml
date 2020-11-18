@@ -3,7 +3,8 @@
 		<VBox class="sapUiSmallMarginBeginEnd sapUiLargeMarginBottom sapUiSmallMarginTop">
 			<HBox>
 				<CheckBox selected="{paModel>pfreq}"/>
-				<Text text="Is preflight done?" class="sapUiSmallMarginTop"
+				<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+				<Text text="For Pre-flight only" class="sapUiSmallMarginTop"
 					wrapping="true"/>
 			</HBox>
 		</VBox>

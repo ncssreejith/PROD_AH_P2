@@ -90,20 +90,42 @@ sap.ui.define([
 				var utilData = {};
 				utilData.selIndex = 0;
 				utilData.hartabId = "TABW_115";
+				//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				utilData.dhtabId = "TABW_116";
+				
 				utilData.horm = [];
+				utilData.dh = []; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				this.getView().setModel(new JSONModel(utilData), "oWDNSModel");
 
 				var oData = {};
 				oData.horm = [];
+				oData.dh = [];//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				this.getView().setModel(new JSONModel(oData), "oWDNSDataModel");
 
 				this.getModel("oWDNSModel").setProperty("/tabid", oEvent.getParameter("arguments").tabid);
 				this.getModel("oWDNSModel").setProperty("/logid", oEvent.getParameter("arguments").logid);
 				// this.getModel("oWDNSModel").setProperty("/pilot", oEvent.getParameter("arguments").pilot);
 				this.getModel("oWDNSModel").refresh();
+				//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				var sTabid = this.getModel("oWDNSModel").getProperty("/tabid");
+				switch (sTabid) {
+					case "TABW_115":
+						this.fnLoadHarmoClm();
+						this.fnLoadHarmoData();
+						break;
+					case "TABW_116":
+						this.fnLoadDHClm();
+						this.fnLoadDHData();
+						break;
+					default:
+						this.getModel("oWDNSModel").setProperty("/tabid", "ALL");
+						this.fnLoadDHClm();
+						this.fnLoadDHData();
+						this.fnLoadHarmoClm();
+						this.fnLoadHarmoData();
+				}
+				//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 
-				this.fnLoadHarmoClm();
-				this.fnLoadHarmoData();
 			} catch (e) {
 				Log.error("Exception in WDNSCoefficients:_onObjectMatched function");
 				this.handleException(e);
@@ -182,6 +204,53 @@ sap.ui.define([
 				ajaxutil.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in WDNSCoefficients:fnLoadHarmoData function");
+				this.handleException(e);
+			}
+		},
+		/** //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * Load harmonic columns
+		 */
+		fnLoadDHClm: function() {
+			try {
+				var oParameter = {};
+				oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty("/dhtabId") +
+					" and otype eq C";
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					this.getModel("oWDNSModel").setProperty("/dh", oData.results);
+					this.getModel("oWDNSModel").refresh();
+					this.fnCreateRow(this.getView().byId("tblDH"), "oWDNSModel", "dh", "oWDNSDataModel");
+				}.bind(this);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+			} catch (e) {
+				Log.error("Exception in WDNSCoefficients:fnLoadDHClm function");
+				this.handleException(e);
+			}
+		},
+		/** //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+		 * Load harmonic data
+		 */
+		fnLoadDHData: function() {
+			try {
+				var oParameter = {};
+				var sPath = this.getResourceBundle().getText("AIRCRAFTLOGSVC");
+				var sLogid = this.getModel("oWDNSModel").getProperty("/logid");
+				var sLogidPath = sLogid ? " and logid eq " + sLogid : "";
+				if (sLogidPath) {
+					sPath = sPath + "(logid=" + sLogid + ",tailid=" + this.getTailId() + ",tabid=" + this.getModel(
+						"oWDNSModel").getProperty("/dhtabId") + ")";
+				} else {
+					oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
+						"/dhtabId") + " and otype eq D";
+				}
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					this.getModel("oWDNSDataModel").setProperty("/dh", oData.results);
+					this.getModel("oWDNSDataModel").refresh();
+				}.bind(this);
+				ajaxutil.fnRead(sPath, oParameter);
+			} catch (e) {
+				Log.error("Exception in WDNSCoefficients:fnLoadDHData function");
 				this.handleException(e);
 			}
 		},
