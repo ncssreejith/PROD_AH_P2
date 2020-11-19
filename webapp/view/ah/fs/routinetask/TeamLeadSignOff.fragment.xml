@@ -1,8 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Table class="sapUiResponsivePadding sapUiTinyMarginTop CERTable tableHFont" items="{path:'rtModel>/tasks', sorter : {
-            path : 'RTASKID',
-            descending : 'true'
-         }}">
+	<Table class="sapUiResponsivePadding sapUiTinyMarginTop CERTable tableHFont" items="{path:'rtModel>/tasks'}">
+		<!--, sorter : {-->
+  <!--          path : 'RTASKID',-->
+  <!--          descending : 'true'-->
+  <!--       }-->
 		<columns>
 			<Column hAlign="Center" class="CERTableTextColor">
 				<Label text="S/N" design="Bold"/>

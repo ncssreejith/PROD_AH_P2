@@ -262,7 +262,7 @@ sap.ui.define([
 					sTitle = "Tradesman ";
 				if (this.fnGetApproNo() > 0) {
 					sAct = "4";
-					sObj = "ZRM_S_REDX";
+					sObj = "ZRM_FS_WCS";//Teck Meng change on 19/11/2020 13:00 AH Issue 1044,1043 Authorisation change for Supervisor signoff
 					sTitle = "Supervisor ";
 				}
 				// this.formatter.rcSignChange(tSign,selKey)?"Sign off":"Undo Sign off"

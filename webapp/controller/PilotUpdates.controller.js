@@ -658,32 +658,25 @@ sap.ui.define([
 						return;
 					}
 					//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-					var sEngine1 = false;
-					var sEngine2 = false;
 					aPayloads.forEach(function(oItem) {
-						if (this.fnCheckEnginePayload(oItem)) {
+						if (this.fnCheckEnginePayload(oItem)) {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 							//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-							if (oItem.ENGNO === "1") {
-								sEngine1 = true;
-							}
+							if (oItem.ENGNO === "1") {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+								if (oItem.chkrn === "1" && this.fnCheckHIT("1") ) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+									oItem.xstat = "X";//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+								}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 							//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-							if (oItem.ENGNO === "2") {
-								sEngine2 = true;
-							}
-							//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							if (oItem.ENGNO === "2") {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+								if (oItem.chkrn === "1" && this.fnCheckHIT("2")) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+									oItem.xstat = "X";//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+								}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							}//Teck Meng change on 19/11/2020 13:00 AH Issue 1044,1043
+							//Teck Meng change on 19/11/2020 13:00 AH Issue 1044,1043
 							aFinalPayload.push(JSON.parse(JSON.stringify(oItem)));
 						}
 					}.bind(this));
-					//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-					if (sEngine1) {
-						if (this.fnCheckHIT("1")) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-						}
-					}
-					//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-					if (sEngine2) {
-						if (this.fnCheckHIT("2")) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-						}
-					}
+
 					var oParameter = {};
 					oParameter.error = function() {};
 					oParameter.success = function() {};
