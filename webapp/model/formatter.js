@@ -769,8 +769,8 @@ sap.ui.define([
 
 		///////////////////////////////////////////////////AMIT KUMAR //////////////////////////////////////////////
 		//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-		rtTabEnable: function(sTab, sApprno, sSRVTID) {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-			switch (sTab) {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		rtTabEnable: function(sTab, sApprno, sSRVTID) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			switch (sTab) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 				case 'rt1':
 					if (sApprno === 0) {
 						return true;
@@ -790,17 +790,17 @@ sap.ui.define([
 					if (sApprno >= 3 && this.formatter.srvTOFACheck(sSRVTID)) {
 						return true;
 					}
-					if(!this.formatter.srvTOFACheck(sSRVTID) && sApprno >= 2 ){
+					if (!this.formatter.srvTOFACheck(sSRVTID) && sApprno >= 2) {
 						return true;
 					}
 					break;
 			}
-			return false;//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-		},//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			return false; //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		}, //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 		//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 		//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-		rtSignOffVisible: function(sTab, sApprno, sSRVTID) {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-			switch (sTab) {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		rtSignOffVisible: function(sTab, sApprno, sSRVTID) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			switch (sTab) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 				case 'rt1':
 					if (sApprno === 0) {
 						return true;
@@ -820,13 +820,13 @@ sap.ui.define([
 					if (sApprno === 3 && this.formatter.srvTOFACheck(sSRVTID)) {
 						return true;
 					}
-					if(!this.formatter.srvTOFACheck(sSRVTID) && sApprno === 2 ){
+					if (!this.formatter.srvTOFACheck(sSRVTID) && sApprno === 2) {
 						return true;
 					}
 					break;
 			}
-			return false;//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-		},//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			return false; //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+		}, //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 		//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 		stnsQty: function(isSer, srCount, sTotQty) {
 			var sQty = 0;
@@ -2019,7 +2019,6 @@ sap.ui.define([
 				return sValue;
 			}
 		},
-
 		validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime, futureCheck, fragmentId) {
 			var maxDt = new Date(),
 				oDatePicker = fragmentId ? sap.ui.core.Fragment.byId(fragmentId, idDate) : that.getView().byId(idDate),
@@ -2039,9 +2038,17 @@ sap.ui.define([
 			var timeString = creTm + ':00';
 			//Rahul: COS: 16/11/2020: 11:26Am: Code added for date concatination.
 			//var crDtTime = new Date(dateString + ' ' + timeString);
-			var datec = dateString + ' ' + timeString; //Rahul: COS: 167/11/2020: 10:04Am: "T" removed
-			var crDtTime = new Date(datec);
+			var datec, crDtTime; //Rahul: COS: 20/11/2020: 09:16Am: Veriable declaration changed.
+			datec = dateString + 'T' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
+			crDtTime = new Date(datec);
+			// Rahul: COS: 20/11/2020: 09:16Am: new if condition added.
+			if (!isNaN(crDtTime.getDate()) === false) {
+				datec = dateString + ' ' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
+				crDtTime = new Date(datec);
+			}
+			// Rahul: COS: 20/11/2020: 09:16Am: new if condition End.
 			////////////// Rahul: COS: 16/11/2020: 11:26Am: /////////////////////////////
+
 			var minDate = "";
 			if (prevDate) {
 				var dateParts = prevDate.split("-");
@@ -2055,7 +2062,9 @@ sap.ui.define([
 				minDate.setMinutes(minDate.getMinutes() - 1);
 				minDate.setSeconds(0);
 			}
+
 			futureCheck = futureCheck !== null && futureCheck !== undefined ? futureCheck : true;
+
 			if (crDtTime.getTime() <= maxDt.getTime()) {
 				if (crDtTime.getTime() >= minDate.getTime()) {
 					oDatePicker.setValueState("None");
@@ -2091,12 +2100,18 @@ sap.ui.define([
 				month = creDt.getMonth() + 1;
 			var dateString = '' + year + '-' + month + '-' + date;
 			var timeString = creTm + ':00';
-			//Rahul: COS: 17/11/2020: 9:47Am: Code added for date concatination.
+			//Rahul: COS: 16/11/2020: 11:26Am: Code added for date concatination.
 			//var crDtTime = new Date(dateString + ' ' + timeString);
-			var datec = dateString + ' ' + timeString;
-			var crDtTime = new Date(datec);
-			////////////// Rahul: COS: 17/11/2020: 9:47Am: /////////////////////////////
-
+			var datec, crDtTime; //Rahul: COS: 20/11/2020: 09:16Am: Veriable declaration changed.
+			datec = dateString + 'T' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
+			crDtTime = new Date(datec);
+			// Rahul: COS: 20/11/2020: 09:16Am: new if condition added.
+			if (!isNaN(crDtTime.getDate()) === false) {
+				datec = dateString + ' ' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
+				crDtTime = new Date(datec);
+			}
+			// Rahul: COS: 20/11/2020: 09:16Am: new if condition End.
+			////////////// Rahul: COS: 16/11/2020: 11:26Am: /////////////////////////////
 			var minDate = "";
 			if (prevDate) {
 				var dateParts = prevDate.split("-");
