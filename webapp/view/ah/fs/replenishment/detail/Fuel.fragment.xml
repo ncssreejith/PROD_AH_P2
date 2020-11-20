@@ -59,7 +59,8 @@
 					fieldGroupIds="fgStep"  />
 					<!--max="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE'?(${oRepDetailsModel>max}-${oRepDetailsModel>orgamt}):${oRepDetailsModel>orgamt}}"-->
 					<StepInput editable="false" textAlign="Center" fieldGroupIds="fgStep" value="{oRepDetailsModel>totamt}" description=" / {oRepDetailsModel>max}"  min="0"
-					/>
+					max="{= parseFloat(${oRepDetailsModel>max})}"/>
+					<!--//Teck Meng change on 20/11/2020 13:00 AH Issue 1044,1043-->
 					<Text visible="{= ${oRepDetailsModel>tsign}!==''}" text="{oRepDetailsModel>tsign}"/>
 					<!--visible="{= !${oRepDetailsModel>tstat} === 1 }"-->
 					<Button text="Undo Sign Off" press="onUndoSignoff" enabled="{path : 'oRepDetailsModel>/srvid', formatter : '.formatter.srvIdExistEnable'}"

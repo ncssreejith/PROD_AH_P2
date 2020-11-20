@@ -547,7 +547,13 @@
 				"target": [
 					"entityeditor"
 				]
-			}],
+			}, {
+					"pattern": "ESoperator",
+					"name": "ESoperator",
+					"target": [
+						"ESoperator"
+					]
+				}],
 			"targets": {
 				"TargetHome": {
 					"viewType": "XML",
@@ -1197,6 +1203,16 @@
 					"clearControlAggregation": false,
 					"viewId": "entityeditor",
 					"viewName": "entityeditor/EntityEditor"
+				},
+				"ESoperator": {
+					"controlId": "nvMainContainerId",
+					"controlAggregation": "pages",
+					"parent": "TargetHome",
+					"viewType": "XML",
+					"viewName": "ESOperator",
+					"viewId": "ESoperator",
+					"viewLevel": 2,
+					"title": "ES Operator"
 				}
 			}
 		}

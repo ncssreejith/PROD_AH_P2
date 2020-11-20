@@ -71,12 +71,12 @@
 						<ct:HeaderCard title="Fuel leftover amounts (lbs)"/>
 					</VBox>
 					<!--content="{oPilotUpdatesViewModel>/flyRecord/fuleTanks}"-->
-					<HBox class="sapUiSmallMarginTop" width="70%">
+					<HBox id="FuelLeft" class="sapUiSmallMarginTop" width="70%">
 						<l:Grid class="sapUiNoMarginBegin" defaultSpan="XL4 L4 M4 S6" content="{oPilotUpdatesViewModel>/fuleTanks}" hSpacing="0">
 							<VBox width="14rem">
 								<Label text="{oPilotUpdatesViewModel>resdescription}" design="Bold"/>
 								<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
-								<Input value="{oPilotUpdatesViewModel>totamt}" required="true" fieldGroupIds="fgInput"/>
+								<StepInput value="{oPilotUpdatesViewModel>totamt}" required="true" fieldGroupIds="fgStep" max="{path:'oPilotUpdatesViewModel>max',formatter:'.formatter.formatMaxValue'}" min="0"/>
 							</VBox>
 						</l:Grid>
 					</HBox>

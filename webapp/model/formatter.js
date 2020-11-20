@@ -1696,14 +1696,30 @@ sap.ui.define([
 
 		formatMaxValue: function(oMax) {
 			if (!oMax) {
-				oMax = 0;
+				oMax = 0.00; //Change by Teck Meng 20/11/2020 10:15
 			}
-			oMax = parseInt(oMax, 0);
+			oMax = parseFloat(oMax, 0); //Change by Teck Meng 20/11/2020 10:15
 			if (isNaN(oMax)) {
-				return 0;
+				return 0.00; //Change by Teck Meng 20/11/2020 10:15
 			}
 			return oMax;
 		},
+		
+		/** 
+		 *  //Change by Teck Meng 20/11/2020 10:15
+		 * @param oMax
+		 * @returns
+		 */
+		formatOilValue: function(fValue) { //Change by Teck Meng 20/11/2020 10:15
+			if (!fValue || fValue === "0" || fValue === "0.00") { //Change by Teck Meng 20/11/2020 10:15
+				fValue = "-";
+			}
+			fValue = parseFloat(fValue);
+			if (isNaN(fValue)) {
+				return "-";
+			}
+			return fValue; //Change by Teck Meng 20/11/2020 10:15
+		}, //Change by Teck Meng 20/11/2020 10:15
 		percentAge: function(oState, sState1) {
 			var sPercentAge = 0;
 			if (oState === undefined || oState === null || oState === 0) {
@@ -1850,6 +1866,7 @@ sap.ui.define([
 			if (sValue === "Eng Oil #2") {
 				return 2;
 			}
+			return 2;//Teck Meng change on 20/11/2020 13:00 AH Issue
 		},
 
 		formatStepOil: function(sValue) {

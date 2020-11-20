@@ -235,7 +235,8 @@ sap.ui.define([
 					this.getModel("avmetModel").refresh();
 					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_VS", this);
+				//Teck Meng change on 20/11/2020 13:00 AH Issue REUAT 40. As discussed with Ninuk
+				ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_FFF", this);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onACSignOffConfirm function");
 				this.handleException(e);

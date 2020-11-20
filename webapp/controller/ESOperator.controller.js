@@ -17,7 +17,8 @@ sap.ui.define([
 
 		onInit: function() {
 			this.getView().setModel(new JSONModel({}), "oGlobalModel");
-			this.onclickGo();
+			this.getRouter().getRoute("ESoperator").attachPatternMatched(this._handleRouteMatched, this); //Change by Teck Meng 20/11/2020 10:15
+			// this.onclickGo(); //Change by Teck Meng 20/11/2020 10:15
 			//	document.addEventListener("scroll", this._checkSeesion(), true); 
 		},
 
@@ -152,7 +153,7 @@ sap.ui.define([
 				if (oData && oData.results && oData.results.length > 0) {
 					oGlobalModel.setProperty("/Jobs", oData.results);
 				}
-				
+				this.getView().getModel("oGlobalModel").refresh(); //Change by Teck Meng 20/11/2020 10:15
 				
 			}.bind(this);
 
@@ -317,7 +318,12 @@ sap.ui.define([
 				property: "JobSupervisor",
 				width: "25"
 			}];
-		}
+		},
+
+		_handleRouteMatched: function() { //Change by Teck Meng 20/11/2020 10:15
+			this.onclickGo(); //Change by Teck Meng 20/11/2020 10:15
+			this.getView().getModel("oGlobalModel").refresh(); //Change by Teck Meng 20/11/2020 10:15
+		} //Change by Teck Meng 20/11/2020 10:15
 
 	});
 });
