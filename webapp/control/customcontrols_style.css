@@ -951,7 +951,8 @@ Description : This control used to add new work center in Rectifications area in
     height: 70px;
     float: left;
 }
-
+/*Rahul: 19/11/2020: 05:08PM Custome control allignment code Commented*/
+/*
 .RectificationCountDiv {
     width: 180px;
     height: 35px;
@@ -979,7 +980,36 @@ Description : This control used to add new work center in Rectifications area in
     padding-right: 15px;
     font-size: 12px;
 }
-
+*/
+/*Rahul: 19/11/2020: 05:08PM Custome control allignment code Commented End*/
+/*Rahul: 19/11/2020: 05:08PM Custome control allignment changes Start*/
+.RectificationCountDiv {
+    width: 120px;
+    height: 35px;
+    float: left;
+}
+/*Rahul: 19/11/2020: 05:08PM Custome control allignment  changes End*/
+/*Rahul: 19/11/2020: 05:08PM Custome control allignment changes Start*/
+.RectificationCount {   
+    padding-right: 15px;
+	padding-left: 15px;
+    font-size: 30px;
+}
+/*Rahul: 19/11/2020: 05:08PM Custome control allignment  changes End*/
+/*Rahul: 19/11/2020: 05:08PM Custome control allignment changes Start*/
+.RectificationFooterDiv {
+    width: 120px; 
+    height: 30px;
+    float: left;
+}
+/*Rahul: 19/11/2020: 05:08PM Custome control allignment  changes End*/
+/*Rahul: 19/11/2020: 05:08PM Custome control allignment changes Start*/
+.RectificationFooter {
+   padding-right: 15px;
+ 	padding-left: 15px;
+    font-size: 12px;
+}
+/*Rahul: 19/11/2020: 05:08PM Custome control allignment  changes End*/
 
 /*---------------------------------------------------------------------------------------
  #8 : RectificationTileAdd 
