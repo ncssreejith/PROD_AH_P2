@@ -47,6 +47,7 @@ sap.ui.define([
 				}
 				var oPayload = this.getModel("oAircraftAddModel").getProperty("/record");
 				oPayload.COL_11 = this.formatter.defaultDateTimeFormat(oPayload.Date);
+				oPayload.refid = this.getAircraftId();
 				delete oPayload.time;
 				var oParameter = {};
 				oParameter.activity = 4;

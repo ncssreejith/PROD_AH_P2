@@ -3,7 +3,7 @@
 		<content>
 			<RadioButtonGroup class="sapUiSmallMargin" buttons="{path:'avmetModel>/runningChange'}">
 				<buttons>
-					<RadioButton text="Pilot name: {avmetModel>PILOTNAME}" enabled="{= ${avmetModel>PILOTFLAG} === 'N' }"/>
+					<RadioButton text="Pilot name: {avmetModel>PILOTNAME}" />
 				</buttons>
 			</RadioButtonGroup>
 		</content>
@@ -11,7 +11,7 @@
 			<Button text="Cancel" type="Transparent" press="onRunningChangeCancel"/>
 		</beginButton>
 		<endButton>
-			<Button text="Pilot Update" type="Emphasized" press="onRunningChangePress" enabled="{= !${avmetModel>/runningChangeDone}}"/>
+			<Button text="Pilot Update" type="Emphasized" press="onRunningChangePress" />
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>
