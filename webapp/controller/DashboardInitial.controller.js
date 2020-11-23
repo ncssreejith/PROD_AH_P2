@@ -1,7 +1,7 @@
 sap.ui.define([
 	"avmet/ah/controller/BaseController",
 	"sap/m/MessageToast",
-	"avmet/ah/model/dataUtil",
+	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"sap/ui/model/json/JSONModel",
 	"avmet/ah/model/formatter",
 	"avmet/ah/util/ajaxutil"
