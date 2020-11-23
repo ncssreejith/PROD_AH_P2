@@ -18,8 +18,8 @@ sap.ui.define([
 	 ******************************************************************************************************************* */
 	return {
 			// destination 
-		destination: "/DBSRV17/avmetnf",
-		username:"techmeng",
+		destination: "/DBSRV17/avmetdb",
+		username:"USER_AH_01",
 		pwd:"pass1234",
 		/* Function : getDataSet
 		 *  parameter : vDataSetName
@@ -77,6 +77,48 @@ sap.ui.define([
 			}
 
 		},
+		
+				/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT file upload issue Start*/
+		_fileMimeVerification: function(src) {
+			//var src = e.target.result;
+			var bFlag = false;
+			var byteString = src.split(',')[1];
+			if (byteString) {
+				var raw = atob(byteString);
+				var result = '';
+				for (var i in raw) {
+					if (i <= 7) {
+						var hex = raw.charCodeAt(i).toString(16);
+						result += (hex.length === 2 ? hex : '0' + hex);
+					} else {
+						break;
+					}
+				}
+				var header = result.substring(0, 8);
+				switch (header) {
+					case "89504e47":
+						bFlag = true;
+						break;
+					case "47494638":
+						bFlag = true;
+						break;
+					case "ffd8ffe0":
+					case "ffd8ffe1":
+					case "ffd8ffe2":
+					case "ffd8ffe3":
+					case "ffd8ffe8":
+						bFlag = true;
+						break;
+					default:
+						bFlag = false; // Or you can use the blob.type as fallback
+						break;
+				}
+			} else {
+				bFlag = false;
+			}
+			return bFlag;
+		},
+		/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT file upload issue End*/
 
 		_decryptInfo: function(info) {
 			try {

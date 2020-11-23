@@ -1222,8 +1222,9 @@ sap.ui.define([
 		 * Description: To show upoaded photo of defect on screen.
 		 */
 
-		onAddDefectImage: function(oEvt) {
+			onAddDefectImage: function(oEvt) {
 			try {
+				/* Rahul Code Changed : 23/11/2020 : 10:47AM: changed for VAPT file upload issue Start*/
 				var oFiles = oEvt.getParameter("files"),
 					oPrmPhoto = {},
 					that = this,
@@ -1233,6 +1234,80 @@ sap.ui.define([
 				oModel.setProperty("/photo", 1);
 				if (oFiles && oFiles[0]) {
 					this.getView().byId("photoUpload").setBusy(true);
+					
+					
+					var resize_width = 600;//without px
+
+				  //get the image selected
+				  //var item = document.querySelector('#uploader').files[0];
+
+				  //create a FileReader
+				  var reader = new FileReader();
+
+				  //image turned to base64-encoded Data URI.
+				  reader.readAsDataURL(oFiles[0]);
+				  reader.name = oFiles[0].name;//get the image's name
+				  reader.size = oFiles[0].size; //get the image's size
+				  reader.onload = function(event) {
+					var img = new Image();//create a image
+					img.src = event.target.result;//result is base64-encoded Data URI
+					img.name = event.target.name;//set name (optional)
+					img.size = event.target.size;//set size (optional)
+					img.onload = function(e) {
+					  var elem = document.createElement('canvas');//create a canvas
+
+					  //scale the image to 600 (width) and keep aspect ratio
+					  var scaleFactor = resize_width / e.target.width;
+					  elem.width = resize_width;
+					  elem.height = e.target.height * scaleFactor;
+
+					  //draw in canvas
+					  var ctx = elem.getContext('2d');
+					  ctx.drawImage(e.target, 0, 0, elem.width, elem.height);
+
+					  //get the base64-encoded Data URI from the resize image
+					  var srcEncoded = ctx.canvas.toDataURL(e.target, 'image/jpeg', 0);
+
+					  //var src = e.target.result;
+						var bFlag = dataUtil._fileMimeVerification(srcEncoded);
+						var bFlag = true;
+						if (bFlag) {
+							sDefectImageSrc.push({
+								"docid": "",
+								"jobid": "",
+								"tailid": oAppModel.getProperty("/sTailId"),
+								"fname": "test.png",//oFiles[0].name,
+								"dvalue": srcEncoded,
+								"flag": "",
+								"rawbase": "",
+								"DOCREFID": that.docRefId === undefined ? "" : that.docRefId
+							});
+							oPrmPhoto.filter = "";
+							oPrmPhoto.error = function(Response) {
+								that.getView().byId("photoUpload").setBusy(false);
+							};
+							oPrmPhoto.success = function(oData) {
+								that.getView().byId("photoUpload").setBusy(false);
+								that.docRefId = oData.results[0].DOCREFID;
+								that._fnPhotoUploadGet(that.docRefId);
+							}.bind(this);
+							ajaxutil.fnCreate("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
+						} else {
+							that.onTypeMissmatch();
+							that.getView().byId("photoUpload").setBusy(false);
+							if (that.docRefId) {
+								that.getView().byId("photoUpload").setBusy(false);
+								that._fnPhotoUploadGet(that.docRefId);
+							} else {
+								oAppModel.setProperty("/DefectImageSrc", []);
+								oAppModel.refresh(true);
+							}
+						}
+						that.getView().byId("photoUpload").setBusy(false);
+
+					};
+				  }; 					
+					/* Old Code commented : 23/11/2020: changed for VAPT file upload issue Start
 					var fileReader = new FileReader();
 					fileReader.readAsDataURL(oFiles[0]);
 					var bFlag = false;
@@ -1259,7 +1334,7 @@ sap.ui.define([
 								that.docRefId = oData.results[0].DOCREFID;
 								that._fnPhotoUploadGet(that.docRefId);
 							}.bind(this);
-							ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
+							ajaxutil.fnCreate("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
 						} else {
 							that.onTypeMissmatch();
 							that.getView().byId("photoUpload").setBusy(false);
@@ -1272,13 +1347,15 @@ sap.ui.define([
 							}
 						}
 						that.getView().byId("photoUpload").setBusy(false);
-					};
+					}; Old Code commented : 23/11/2020: changed for VAPT file upload issue End */
+
 				}
 			} catch (e) {
 				this.getView().byId("photoUpload").setBusy(false);
 				Log.error("Exception in onAddDefectImage function");
 			}
 		},
+			/* Rahul Code Changed : 23/11/2020 : 10:47AM: changed for VAPT file upload issue End*/
 		/* Function: onUploadedImagePress
 		 * Parameter: oEvent
 		 * Description: To upload image for defected area..
