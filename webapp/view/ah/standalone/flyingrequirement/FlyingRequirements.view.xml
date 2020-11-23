@@ -5,15 +5,20 @@
 				<Toolbar>
 					<ToolbarSpacer/>
 					<SearchField placeholder="Search" width="15rem"/>
+					<!--Teck Meng change on 23/11/2020 10:00 start-->
 					<Button text="{i18n>btnAddFlyingRequirements}" type="Default" press="onAddFlyingRequirements"
-					enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}" class="sapUiSmallMarginEnd"/>
+					enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"
+					class="sapUiSmallMarginEnd"/>
+					<!--Teck Meng change on 23/11/2020 10:00 end-->
 				</Toolbar>
 				<VBox backgroundDesign="Solid" alignContent="Center" visible="{=${FRAllModel>/}.length === 0 ? true:false}" alignItems="Center"
 					class="vboxAlign" width="100%">
 					<items>
 						<Title text="{i18n>txtNoTextFLR}" level="H1" titleStyle="H3"/>
+						<!--Teck Meng change on 23/11/2020 10:00 start-->
 						<Button text="{i18n>btnAddFlyingRequirements}" type="Default" press="onAddFlyingRequirements"
-						visible="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}" enabled="{LocalModel>/FairEditFlag}"/>
+						visible="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}" enabled="{LocalModel>/FairEditFlag}"/>
+						<!--Teck Meng change on 23/11/2020 10:00 end-->
 					</items>
 				</VBox>
 				<VBox visible="{=${FRAllModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center" width="100%">

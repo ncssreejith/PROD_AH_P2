@@ -24,7 +24,9 @@
 						</SegmentedButton>
 					</VBox>
 					<VBox class="sapUiSmallMargin" width="100%">
-						<Label text="Is Running Change Required?" design="Bold"/>
+						<!--Teck Meng change on 23/11/2020 10:00 start-->
+						<Label text="Is this Thru Flight?" design="Bold"/>
+						<!--Teck Meng change on 23/11/2020 10:00 end-->
 						<SegmentedButton enabled="{= ${oPilotUpdatesViewModel>/flyRecord/astatid}==='AST_S'}" selectedKey="{oPilotUpdatesViewModel>/flyRecord/rcreq}" items="{postflightModel>/yn}" required="true"
 							fieldGroupIds="fgCmbBox">
 							<items>

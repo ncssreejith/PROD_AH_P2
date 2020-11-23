@@ -7,15 +7,15 @@
 					<Link text="view table" press="onPowerCheckPress"/>
 					<!--<Label text="HIT Chart" design="Bold"/>-->
 					<lab:LineChartJS datasets="{engine2Chart>/lineChart/datasets}" labels="{engine2Chart>/lineChart/labels}"
-					options="{engine2Chart>/lineChart/options}"
-						titleDisplay="true" titleText="HIT Chart" onLegendItemClick="onLegendItemClick" onLegendItemHover="onLegendItemHover"
-						onClick="onClick" onHover="onHover" tooltipEnabled="true" onAnimationProgress="onAnimationProgress"
+						options="{engine2Chart>/lineChart/options}" titleDisplay="true" titleText="HIT Chart" onLegendItemClick="onLegendItemClick"
+						onLegendItemHover="onLegendItemHover" onClick="onClick" onHover="onHover" tooltipEnabled="true" onAnimationProgress="onAnimationProgress"
 						onAnimationComplete="onAnimationComplete" showLines="true" spanGaps="true"></lab:LineChartJS>
 				</VBox>
 				<HBox>
-					<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
-						growingScrollToLoad="false" items="{ path: 'oEngineModel>/EngPowerCheck2',sorter: [{ path: 'SRVID', descending: true}]
-						,filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="{i18n>noDataHitTable}" showNoData="true">
+					<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"
+						growing="true" growingThreshold="5" growingScrollToLoad="false"
+						items="{ path: 'oEngineModel>/EngPowerCheck2',sorter: [{ path: 'SRVID', descending: true}] ,filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}"
+						noDataText="{i18n>noDataHitTable}" showNoData="true">
 						<headerToolbar>
 							<OverflowToolbar>
 								<content>
@@ -70,14 +70,20 @@
 							<ColumnListItem>
 								<cells>
 									<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
-									<Text text="{oEngineModel>TEMP}"/>
-									<Text text="{oEngineModel>BPRESS}"/>
+									<!--Teck Meng change on 23/11/2020 10:00 start-->
+									<Text text="{path:'oEngineModel>oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
+									<!--Teck Meng change on 23/11/2020 10:00 end-->
+									<!--Teck Meng change on 23/11/2020 10:00 start-->
+									<Text text="{path:'oEngineModel>oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
+									<!--Teck Meng change on 23/11/2020 10:00 end-->
 									<Text text="{oEngineModel>TGTTAB}"/>
 									<Text text="{oEngineModel>TGTIND}"/>
 									<Text text="{oEngineModel>TGTDIFF}"/>
 									<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 									<Text text="{oEngineModel>TQACT}"/>
-									<Text text="{oEngineModel>NP}"/>
+									<!--Teck Meng change on 23/11/2020 10:00 start-->
+									<Text text="{path:'oEngineModel>oEngineModel>NP', formatter:'.formatter.integerUnit'}"/>
+									<!--Teck Meng change on 23/11/2020 10:00 end-->
 									<Text text="{oEngineModel>ULIMIT}"/>
 									<HBox>
 										<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= !!${oEngineModel>ULimitFlag}}">
@@ -113,8 +119,9 @@
 					</Table>
 				</HBox>
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
-					growingScrollToLoad="false" items="{ path: 'oEngineModel>/EngPowerCheck2',sorter: [{ path: 'SRVID', descending: true}]
-					, filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="No {i18n>txtRestablish} Records" showNoData="true">
+					growingScrollToLoad="false"
+					items="{ path: 'oEngineModel>/EngPowerCheck2',sorter: [{ path: 'SRVID', descending: true}] , filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}"
+					noDataText="No {i18n>txtRestablish} Records" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>
 							<content>
@@ -162,14 +169,20 @@
 							<cells>
 								<!--<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>-->
 								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
-								<Text text="{oEngineModel>TEMP}"/>
-								<Text text="{oEngineModel>BPRESS}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>TGTTAB}"/>
 								<Text text="{oEngineModel>TGTIND}"/>
 								<Text text="{oEngineModel>TGTDIFF}"/>
 								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
-								<Text text="{oEngineModel>NP}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>NP', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>ULIMIT}"/>
 								<Text text="{oEngineModel>LLIMIT}"/>
 							</cells>
@@ -180,8 +193,9 @@
 					</layoutData>
 				</Table>
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
-					growingScrollToLoad="false" items="{ path: 'oEngineModel>/EngPowerCheck2',sorter: [{ path: 'SRVID', descending: true}]
-					, filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '2' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}" noDataText="No ETF Records" showNoData="true">
+					growingScrollToLoad="false"
+					items="{ path: 'oEngineModel>/EngPowerCheck2',sorter: [{ path: 'SRVID', descending: true}] , filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '2' },{ path : 'ENGNO', operator : 'EQ', value1 : '2' }]}"
+					noDataText="No ETF Records" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>
 							<content>
@@ -199,9 +213,11 @@
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="Ambient Baro Pressure(FT)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
-						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="Table TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
-						</Column>
+						<!--Teck Meng change on 23/11/2020 10:00 start-->
+						<!--<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">-->
+						<!--	<Label text="Table TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>-->
+						<!--</Column>-->
+						<!--Teck Meng change on 23/11/2020 10:00 end-->
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="IND TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
@@ -223,31 +239,40 @@
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="ETF Check" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
-						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="15%">
-						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="15%"></Column>
 					</columns>
 					<items>
 						<ColumnListItem>
 							<cells>
 								<!--<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>-->
 								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
-								<Text text="{oEngineModel>TEMP}"/>
-								<Text text="{oEngineModel>BPRESS}"/>
-								<Text text="{oEngineModel>TGTTAB}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
+								
+								<!--<Text text="{oEngineModel>TGTTAB}"/>-->
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>TGTIND}"/>
 								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
-								<Text text="{oEngineModel>NP}"/>
-								<Text text="{oEngineModel>NP}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>NP', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
+								<!--<Text text=" "/>-->
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>TGTTAB', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>ASPEED}"/>
 								<HBox justifyContent="Center">
 									<Text text="{path:'oEngineModel>ETF'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>
-									<StepInput min="{oEngineModel>minValue}" value="{oEngineModel>ETF}" visible="{= !!${oEngineModel>/headerDetails/ETFEDIT} &amp;&amp; !!${oEngineModel>Special} }"
-									displayValuePrecision="2"/>
+									<StepInput min="{oEngineModel>minValue}" value="{oEngineModel>ETF}"
+										visible="{= !!${oEngineModel>/headerDetails/ETFEDIT} &amp;&amp; !!${oEngineModel>Special} }" displayValuePrecision="2"/>
 								</HBox>
 								<Button text="{= !!${oEngineModel>/headerDetails/ETFEDIT} ? ${i18n>txtSignOff} : ${i18n>btnEdit} }" visible="{= !!${oEngineModel>Special} }"
-										enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"
-										icon="sap-icon://request" press="onETFEdit" type="Emphasized"/>
+									enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"
+									icon="sap-icon://request" press="onETFEdit" type="Emphasized"/>
 							</cells>
 						</ColumnListItem>
 					</items>

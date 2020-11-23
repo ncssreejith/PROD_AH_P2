@@ -70,14 +70,20 @@
 						<ColumnListItem>
 							<cells>
 								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
-								<Text text="{oEngineModel>TEMP}"/>
-								<Text text="{oEngineModel>BPRESS}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>TGTTAB}"/>
 								<Text text="{oEngineModel>TGTIND}"/>
 								<Text text="{oEngineModel>TGTDIFF}"/>
 								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
-								<Text text="{oEngineModel>NP}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>NP', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>ULIMIT}"/>
 								<HBox>
 									<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= !!${oEngineModel>ULimitFlag}}">
@@ -179,14 +185,20 @@
 							<cells>
 								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
 								<!--<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>-->
-								<Text text="{oEngineModel>TEMP}"/>
-								<Text text="{oEngineModel>BPRESS}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>TGTTAB}"/>
 								<Text text="{oEngineModel>TGTIND}"/>
 								<Text text="{oEngineModel>TGTDIFF}"/>
 								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
-								<Text text="{oEngineModel>NP}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>NP', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>ULIMIT}"/>
 								<Text text="{oEngineModel>LLIMIT}"/>
 							</cells>
@@ -196,7 +208,7 @@
 						<FlexItemData growFactor="2" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
 					</layoutData>
 				</Table>
-				 <!--updateFinished="testUpdateFinished"-->
+				<!--updateFinished="testUpdateFinished"-->
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 					growingScrollToLoad="false"
 					items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters: [ { filters: [ { path: 'CHKRN', operator: 'EQ', value1: '2' }, { path: 'ENGNO', operator: 'EQ', value1: '1' } ], and: true } ]}"
@@ -219,9 +231,11 @@
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="10%">
 							<Label text="Ambient Baro Pressure(FT)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
-						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="Table TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
-						</Column>
+						<!--Teck Meng change on 23/11/2020 10:00 start-->
+						<!--<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">-->
+						<!--	<Label text="Table TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>-->
+						<!--</Column>-->
+						<!--Teck Meng change on 23/11/2020 10:00 end-->
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="IND TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
@@ -250,14 +264,24 @@
 							<cells>
 								<!--<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>-->
 								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
-								<Text text="{oEngineModel>TEMP}"/>
-								<Text text="{oEngineModel>BPRESS}"/>
-								<Text text="{oEngineModel>TGTTAB}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
+								
+								<!--<Text text="{oEngineModel>TGTTAB}"/>-->
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>TGTIND}"/>
 								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
-								<Text text="{oEngineModel>NP}"/>
-								<Text text=" "/>
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>NP', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
+								<!--<Text text=" "/>-->
+								<!--Teck Meng change on 23/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>TGTTAB', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>ASPEED}"/>
 								<HBox justifyContent="Center">
 									<Text text="{path:'oEngineModel>ETF'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>

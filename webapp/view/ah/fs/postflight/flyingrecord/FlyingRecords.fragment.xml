@@ -9,16 +9,14 @@
 					<HBox class="sapUiSmallMargin" width="70%">
 						<VBox width="40%">
 							<Label text="{i18n>aircraftflightstatus}" design="Bold"/>
-							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/flyRecord/fstat}" 
-							enabled="{= ${avmetModel>/dash/astid} !== 'AST_GN'}"
-							width="50%" items="{postflightModel>/flystat}" required="true"
-								fieldGroupIds="fgSGBtn">
+							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/flyRecord/fstat}" enabled="{= ${avmetModel>/dash/astid} !== 'AST_GN'}" width="50%"
+								items="{postflightModel>/flystat}" required="true" fieldGroupIds="fgSGBtn">
 								<items>
 									<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}"/>
 								</items>
 							</SegmentedButton>
 						</VBox>
-						<VBox width="60%"  visible="{= ${oPilotUpdatesViewModel>/flyRecord/fstat}==='F'?true:false}">
+						<VBox width="60%" visible="{= ${oPilotUpdatesViewModel>/flyRecord/fstat}==='F'?true:false}">
 							<Label text="{i18n>typeOfOperation}" design="Bold"/>
 							<Select selectedKey="{oPilotUpdatesViewModel>/flyRecord/oprty}" items="{oPilotUpdatesViewModel>/toper}" width="40%">
 								<core:Item text="{oPilotUpdatesViewModel>description}" key="{oPilotUpdatesViewModel>ddid}"/>
@@ -37,13 +35,19 @@
 					<HBox class="sapUiSmallMarginTop" width="70%">
 						<VBox width="40%">
 							<Label text="Normal" design="Bold"/>
+							<!--Teck Meng change on 23/11/2020 10:00 start-->
 							<StepInput min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/flyRecord/lnor}" id="normalId" fieldGroupIds="fgStepInput"
-								required="{path : 'oPilotUpdatesViewModel>/flyRecord/fstat',formatter:'.formatter.ManageFRVisibility'}"/>
+								required="{path : 'oPilotUpdatesViewModel>/flyRecord/fstat',formatter:'.formatter.ManageFRVisibility'}"
+								enabled="{= ${oPilotUpdatesViewModel>/flyRecord/oprty} !== 'TOP_5'}"/>
+							<!--Teck Meng change on 23/11/2020 10:00 end-->
 						</VBox>
 						<VBox width="40%">
 							<Label text="Running" design="Bold"/>
+							<!--Teck Meng change on 23/11/2020 10:00 start-->
 							<StepInput min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>/flyRecord/lrun}" id="runningId" fieldGroupIds="fgStepInput"
-								required="{path : 'oPilotUpdatesViewModel>/flyRecord/fstat',formatter:'.formatter.ManageFRVisibility'}"/>
+								required="{path : 'oPilotUpdatesViewModel>/flyRecord/fstat',formatter:'.formatter.ManageFRVisibility'}"
+								enabled="{= ${oPilotUpdatesViewModel>/flyRecord/oprty} !== 'TOP_5'}"/>
+							<!--Teck Meng change on 23/11/2020 10:00 end-->
 						</VBox>
 					</HBox>
 				</HBox>
@@ -76,7 +80,8 @@
 							<VBox width="14rem">
 								<Label text="{oPilotUpdatesViewModel>resdescription}" design="Bold"/>
 								<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
-								<StepInput value="{oPilotUpdatesViewModel>totamt}" required="true" fieldGroupIds="fgStep" max="{path:'oPilotUpdatesViewModel>max',formatter:'.formatter.formatMaxValue'}" min="0"/>
+								<StepInput value="{oPilotUpdatesViewModel>totamt}" required="true" fieldGroupIds="fgStep"
+									max="{path:'oPilotUpdatesViewModel>max',formatter:'.formatter.formatMaxValue'}" min="0"/>
 							</VBox>
 						</l:Grid>
 					</HBox>

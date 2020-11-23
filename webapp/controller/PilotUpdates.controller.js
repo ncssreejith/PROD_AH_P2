@@ -494,6 +494,7 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function() {
 					this.onSendOthers();
+					this.navBack(); //Changed on 23/11/2020 15:00
 				}.bind(this);
 				oParameter.activity = 4;
 				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4FLYSVC"), oParameter, [oPayloads], "ZRM_PFR_P", this);
@@ -778,6 +779,8 @@ sap.ui.define([
 					var sSrvtid = this.getModel("avmetModel").getProperty("/dash/astid");
 					if (sSrvtid === "AST_GN") {
 						this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/fstat", "NF");
+						this.getModel("oPilotUpdatesViewModel").setProperty("/flyRecord/oprty", "TOP_5");//<!--Teck Meng change on 23/11/2020 10:00 -->
+						this.getModel("oPilotUpdatesViewModel").refresh();
 					}
 					this.getModel("oPilotUpdatesViewModel").refresh();
 					this.updateModel({

@@ -18,8 +18,10 @@
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.engine.EnginePowerCheck" type="XML"/>
 					</IconTabFilter>
 					<!--<IconTabSeparator icon="sap-icon://arrow-right"/>-->
-					<IconTabFilter enabled="{= ${oPilotUpdatesViewModel>/armingReq}==='Y'?false:true}" id="manoeuvringId"  text="Running Change"
+					<!--Teck Meng change on 23/11/2020 10:00 start-->
+					<IconTabFilter enabled="{= ${oPilotUpdatesViewModel>/armingReq}==='Y'?false:true}" id="manoeuvringId"  text="Others"
 						key="Manoeuvring">
+						<!--Teck Meng change on 23/11/2020 10:00 end-->
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.manoeuvring.Manoeuvring" type="XML"/>
 					</IconTabFilter>
 				</items>
