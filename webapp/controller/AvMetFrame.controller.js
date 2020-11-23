@@ -1,6 +1,6 @@
 sap.ui.define([
 	"./BaseController",
-	"../model/dataUtil",
+	"../util/dataUtil",
 	"sap/ui/core/Fragment",
 	"sap/ui/core/Popup",
 	"avmet/ah/model/formatter",

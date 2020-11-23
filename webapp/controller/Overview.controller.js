@@ -1,6 +1,6 @@
 sap.ui.define([
 	"./BaseController",
-	"../model/dataUtil"
+	"../util/dataUtil"
 ], function (BaseController,dataUtil) {
 	"use strict";
 	/* ***************************************************************************

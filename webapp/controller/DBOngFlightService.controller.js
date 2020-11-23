@@ -1,7 +1,7 @@
 sap.ui.define([
 	"./BaseController",
 	"sap/m/MessageToast",
-	"../model/dataUtil",
+	"../util/dataUtil",
 	"sap/ui/model/json/JSONModel"
 ], function (BaseController, MessageToast, dataUtil, JSONModel) {
 	"use strict";

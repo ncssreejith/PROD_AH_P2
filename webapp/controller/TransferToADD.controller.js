@@ -1,6 +1,6 @@
 sap.ui.define([
 	"./BaseController",
-	"../model/dataUtil",
+	"../util/dataUtil",
 	"../model/FieldValidations",
 	"../util/ajaxutil",
 	"../model/formatter",

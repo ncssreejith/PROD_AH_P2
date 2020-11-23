@@ -1,7 +1,9 @@
+/*global CryptoJS*/
 sap.ui.define([
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/Device"
-], function(JSONModel, Device) {
+	"sap/ui/Device",
+	"../util/crypto"
+], function(JSONModel, Device,crypto) {
 	"use strict";
 	/* *******************************************************************************************************************
 	 *   This file is for Managing Database/Ajax/OData Calls               
@@ -18,13 +20,15 @@ sap.ui.define([
 	 ******************************************************************************************************************* */
 	return {
 			// destination 
-		destination: "/DBSRV17/avmetdb",
-		username:"USER_AH_01",
-		pwd:"pass1234",
+		destination: "",
+		username:"",
+		pwd:"",
 		/* Function : getDataSet
 		 *  parameter : vDataSetName
 		 *  To get the data from local storage
 		 */
+		/*	Rahul: 23/11/2020: 10:42AM: changed dataUtil file location to util and changed in all controllers
+		 added crypto.js file for AES encription */ 
 		getDataSet: function(vDataSetName) {
 			if (this._storage === undefined) {
 				this._storage = new jQuery.sap.storage.Storage(jQuery.sap.storage.Type.local);
@@ -64,6 +68,54 @@ sap.ui.define([
 		fnGetUIEncriptionKey: function(info) {
 			return '8Cnh7Ks5Mp'; // Later will replace with service call
 		},
+		/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT Password HASH START*/
+		_AESHexEncript: function(value) {
+			var pwhash = CryptoJS.SHA1(CryptoJS.enc.Utf8.parse(this.fnGetUIEncriptionKey()));
+            var key = CryptoJS.enc.Hex.parse(pwhash.toString(CryptoJS.enc.Hex).substr(0, 32));
+            
+            var encrypted = CryptoJS.AES.encrypt(value, key, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+
+			return encrypted.ciphertext.toString(CryptoJS.enc.Hex);
+		},
+		_AESBase64Encript: function(value) {
+			var pwhash = CryptoJS.SHA1(CryptoJS.enc.Utf8.parse(this.fnGetUIEncriptionKey()));
+            var key = CryptoJS.enc.Base64.parse(pwhash.toString(CryptoJS.enc.Base64).substr(0, 32));
+            
+            var encrypted = CryptoJS.AES.encrypt(value, key, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+
+			return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+		},
+		_AESHexDecript: function(value) {
+			var ciphertext = CryptoJS.enc.Hex.parse(value);
+			var pwhash = CryptoJS.SHA1(CryptoJS.enc.Utf8.parse(this.fnGetUIEncriptionKey()));
+			var key = CryptoJS.enc.Hex.parse(pwhash.toString(CryptoJS.enc.Hex).substr(0, 32));
+			var decrypted = CryptoJS.AES.decrypt({
+				ciphertext: ciphertext
+			}, key, {
+				mode: CryptoJS.mode.ECB,
+				padding: CryptoJS.pad.Pkcs7
+			});
+			return decrypted.toString(CryptoJS.enc.Utf8);
+		},
+		_AESBase64Decript: function(value) {
+			var ciphertext = CryptoJS.enc.Base64.parse(value);
+			var pwhash = CryptoJS.SHA1(CryptoJS.enc.Utf8.parse(this.fnGetUIEncriptionKey()));
+			var key = CryptoJS.enc.Base64.parse(pwhash.toString(CryptoJS.enc.Base64).substr(0, 32));
+			var decrypted = CryptoJS.AES.decrypt({
+				ciphertext: ciphertext
+			}, key, {
+				mode: CryptoJS.mode.ECB,
+				padding: CryptoJS.pad.Pkcs7
+			});
+			return decrypted.toString(CryptoJS.enc.Utf8);
+		},
+		/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT Password HASH END*/
 		_encriptInfo: function(info) {
 			try {
 				//	
@@ -77,8 +129,21 @@ sap.ui.define([
 			}
 
 		},
-		
-				/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT file upload issue Start*/
+		_decryptInfo: function(info) {
+			try {
+				if (info) {
+					info = atob(info);
+					info = info.replace(this.fnGetUIEncriptionKey(), '');
+					info = atob(info);
+					return JSON.parse(info);
+				}
+				return null;
+			} catch (e) {
+				return info;
+			}
+
+		},
+		/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT file upload issue Start*/
 		_fileMimeVerification: function(src) {
 			//var src = e.target.result;
 			var bFlag = false;
@@ -117,23 +182,9 @@ sap.ui.define([
 				bFlag = false;
 			}
 			return bFlag;
-		},
+		}
 		/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT file upload issue End*/
 
-		_decryptInfo: function(info) {
-			try {
-				if (info) {
-					info = atob(info);
-					info = info.replace(this.fnGetUIEncriptionKey(), '');
-					info = atob(info);
-					return JSON.parse(info);
-				}
-				return null;
-			} catch (e) {
-				return info;
-			}
-
-		}
 
 	};
 });

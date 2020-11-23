@@ -4,7 +4,7 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../util/ajaxutil",
 	"../model/formatter",
-	"../model/dataUtil",
+	"../util/dataUtil",
 	"sap/m/MessageBox",
 	"sap/base/Log"
 ], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log) {

@@ -1,7 +1,7 @@
 sap.ui.define([
 	"./BaseController",
 	"sap/m/MessageToast",
-	"../model/dataUtil",
+	"../util/dataUtil",
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log"

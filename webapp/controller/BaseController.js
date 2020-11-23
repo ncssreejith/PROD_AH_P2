@@ -4,7 +4,7 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageToast",
 	"sap/ui/core/Fragment",
-	"../model/dataUtil",
+	"../util/dataUtil",
 	"sap/base/Log",
 	"../util/html2pdfbundle",
 	"avmet/ah/util/ajaxutil",

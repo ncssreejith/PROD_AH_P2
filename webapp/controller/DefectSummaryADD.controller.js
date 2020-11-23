@@ -1,6 +1,6 @@
 sap.ui.define([
 	"./BaseController",
-	"../model/dataUtil",
+	"../util/dataUtil",
 	"sap/ui/core/Fragment",
 	"sap/ui/model/json/JSONModel"
 ], function (BaseController, dataUtil, Fragment, JSONModel) {
