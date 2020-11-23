@@ -2039,11 +2039,11 @@ sap.ui.define([
 			//Rahul: COS: 16/11/2020: 11:26Am: Code added for date concatination.
 			//var crDtTime = new Date(dateString + ' ' + timeString);
 			var datec, crDtTime; //Rahul: COS: 20/11/2020: 09:16Am: Veriable declaration changed.
-			datec = dateString + 'T' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
+			datec = dateString + ' ' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" removed
 			crDtTime = new Date(datec);
 			// Rahul: COS: 20/11/2020: 09:16Am: new if condition added.
 			if (!isNaN(crDtTime.getDate()) === false) {
-				datec = dateString + ' ' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
+				datec = dateString + 'T' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
 				crDtTime = new Date(datec);
 			}
 			// Rahul: COS: 20/11/2020: 09:16Am: new if condition End.
@@ -2103,11 +2103,11 @@ sap.ui.define([
 			//Rahul: COS: 16/11/2020: 11:26Am: Code added for date concatination.
 			//var crDtTime = new Date(dateString + ' ' + timeString);
 			var datec, crDtTime; //Rahul: COS: 20/11/2020: 09:16Am: Veriable declaration changed.
-			datec = dateString + 'T' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
+			datec = dateString + ' ' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" removed
 			crDtTime = new Date(datec);
 			// Rahul: COS: 20/11/2020: 09:16Am: new if condition added.
 			if (!isNaN(crDtTime.getDate()) === false) {
-				datec = dateString + ' ' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
+				datec = dateString + 'T' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
 				crDtTime = new Date(datec);
 			}
 			// Rahul: COS: 20/11/2020: 09:16Am: new if condition End.
