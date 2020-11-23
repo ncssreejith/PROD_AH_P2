@@ -2019,7 +2019,7 @@ sap.ui.define([
 				return sValue;
 			}
 		},
-		validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime, futureCheck, fragmentId) {
+	validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime, futureCheck, fragmentId) {
 			var maxDt = new Date(),
 				oDatePicker = fragmentId ? sap.ui.core.Fragment.byId(fragmentId, idDate) : that.getView().byId(idDate),
 				creDt = oDatePicker.getDateValue(),
@@ -2044,7 +2044,9 @@ sap.ui.define([
 			// Rahul: COS: 20/11/2020: 09:16Am: new if condition added.
 			if (!isNaN(crDtTime.getDate()) === false) {
 				datec = dateString + 'T' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
-				crDtTime = new Date(datec);
+				crDtTime = new Date(dateString);
+				var TempCreTime = timeString.split(":");
+				crDtTime.setHours(TempCreTime[0], TempCreTime[1], "00");
 			}
 			// Rahul: COS: 20/11/2020: 09:16Am: new if condition End.
 			////////////// Rahul: COS: 16/11/2020: 11:26Am: /////////////////////////////
@@ -2108,7 +2110,9 @@ sap.ui.define([
 			// Rahul: COS: 20/11/2020: 09:16Am: new if condition added.
 			if (!isNaN(crDtTime.getDate()) === false) {
 				datec = dateString + 'T' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
-				crDtTime = new Date(datec);
+		    	crDtTime = new Date(dateString);
+				var TempCreTime = timeString.split(":");
+				crDtTime.setHours(TempCreTime[0], TempCreTime[1], "00");
 			}
 			// Rahul: COS: 20/11/2020: 09:16Am: new if condition End.
 			////////////// Rahul: COS: 16/11/2020: 11:26Am: /////////////////////////////

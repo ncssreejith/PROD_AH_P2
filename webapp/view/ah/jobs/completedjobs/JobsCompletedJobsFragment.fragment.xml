@@ -16,43 +16,43 @@
 				</OverflowToolbar>
 			</headerToolbar>
 			<columns>
-				<Column width="7rem" hAlign="Center" class="CERTableTextColor">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="9rem" hAlign="Center" class="CERTableTextColor">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="Creation Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'createTimeVal')"/>
 					</HBox>
 				</Column>
-				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="{i18n>lbJobNo}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobid')"/>
 					</HBox>
 				</Column>
-				<Column width="12rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="14rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="{i18n>lbJobDescription}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobdesc')"/>
 					</HBox>
 				</Column>
-				<Column width="7rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="9rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="Closure Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'closeTimeVal')"/>
 					</HBox>
 				</Column>
-				<Column width="12rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="14rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="{i18n>lbRectificationSummary}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'recttxt')"/>
 					</HBox>
 				</Column>
-				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="{i18n>lbJobType}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobty')"/>
 					</HBox>
 				</Column>
-				<Column width="7rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="9rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="{i18n>lbPrimeWorkCenter}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ptext')"/>
