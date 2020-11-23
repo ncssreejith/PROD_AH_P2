@@ -4467,10 +4467,12 @@ sap.ui.define([
 				oCanvas.style.backgroundImage = "url('" + sImagePath + "')";
 				oCanvas.style.backgroundRepeat = "no-repeat";
 				oCanvas.style.backgroundSize = "100%";
-				var aCord = this.getModel("PhotoModel").getProperty("/Coordinates");
+				//Rahul: Code commented: 23/11/2020: 07:47PM Start
+			/*	var aCord = this.getModel("PhotoModel").getProperty("/Coordinates");
 				if (aCord) {
 					this.drawCoordinates("", aCord);
-				}
+				}*/
+					//Rahul: Code commented: 23/11/2020: 07:47PM End
 			} catch (e) {
 				Log.error("Exception in _fnRenderImage function");
 			}
