@@ -2,7 +2,7 @@
 	xmlns:f="sap.f">
 	<!--	<Panel class="sapUiResponsivePadding">-->
 	<VBox backgroundDesign="Solid" class="sapUiSmallMargin vboxBackgrounds">
-		<l:Splitter height="90%" class="sapUiResponsiveMargin">
+		<l:Splitter height="95%" class="sapUiResponsiveMargin">
 			<VBox>
 				<VBox>
 					<Label text="{i18n>lbDate}" design="Bold"/>
