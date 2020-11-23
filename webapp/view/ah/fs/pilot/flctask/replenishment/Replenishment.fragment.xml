@@ -23,8 +23,12 @@
 		<grid:CSSGrid class="sapUiTinyMarginBegin sapUiTinyMarginTop"
 						items="{path:'paModel>repl/oil',filters:[{path:'remid',operator:'EQ',value1:'REM_O'}]}" gridTemplateColumns="220px 220px 220px 220px"
 						gridTemplateRows="130px" gridGap="0rem">
-						<cs:Others title="{paModel>resdescription}" count="{= (${paModel>srvamt}==='0.00' || ${paModel>srvamt}==='0')?'-':${paModel>srvamt}}" 
-						footerRightInfo="{path:'paModel>upddate',formatter:'avmet.ah.model.formatter.fnDateDiff'}" footerLeftInfo="Max {paModel>max}" press="onReplBtnClk">
+			<!--Changed by Teck Meng 20/11/2020 10:15{= (${paModel>srvamt}==='0.00' || ${paModel>srvamt}==='0')?'-':${paModel>srvamt}}-->
+						<cs:Others title="{paModel>resdescription}" count="{path:'paModel>srvamt',formatter:'.formatter.formatOilValue'}" 
+						footerRightInfo="{path:'paModel>upddate',formatter:'avmet.ah.model.formatter.fnDateDiff'}" 
+						footerLeftInfo="Max {path:'paModel>max',formatter:'.formatter.formatMaxValue'}" 
+						press="onReplBtnClk">
+							<!--Changed by Teck Meng 20/11/2020 10:15 -->
 							<core:Icon src="sap-icon://write-new-document" color="#0a6cd6" press="onIconPress"/>
 						</cs:Others>
 					</grid:CSSGrid>

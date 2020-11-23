@@ -416,6 +416,13 @@ sap.ui.define([
 		 * @param oEvent
 		 */
 		onSignOffPress: function(oEvent) {
+			if (this.cvutil.validateForm(this.getView())) {//Teck Meng change on 20/11/2020 14:00
+				this.getModel("oPilotUpdatesViewModel").setProperty("/selTab", "FlyingRecords");//Teck Meng change on 20/11/2020 14:00
+				this.getView().byId("idIconTabBar").setSelectedKey("FlyingRecords");//Teck Meng change on 20/11/2020 14:00
+				this.getView().byId("FuelLeft").focus(true);//Teck Meng change on 20/11/2020 14:00
+				sap.m.MessageToast.show("Fuel amount not valid");//Teck Meng change on 20/11/2020 14:00
+				return false;//Teck Meng change on 20/11/2020 14:00
+			}//Teck Meng change on 20/11/2020 14:00
 			this.fnCreateFlyRecords();
 		},
 
@@ -480,8 +487,6 @@ sap.ui.define([
 		 */
 		fnCreateFlyRecords: function() {
 			try {
-
-				// this.fnCreateEngine();
 				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
 				oPayloads.astatid = this.fnGetAircraftStatus();
 				oPayloads.isfair = this.getModel("oPilotUpdatesViewModel").getProperty("/isFair") ? "Y" : "N";
@@ -659,19 +664,19 @@ sap.ui.define([
 					}
 					//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 					aPayloads.forEach(function(oItem) {
-						if (this.fnCheckEnginePayload(oItem)) {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+						if (this.fnCheckEnginePayload(oItem)) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 							//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-							if (oItem.ENGNO === "1") {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-								if (oItem.chkrn === "1" && this.fnCheckHIT("1") ) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-									oItem.xstat = "X";//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-								}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-							}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							if (oItem.ENGNO === "1") { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+								if (oItem.chkrn === "1" && this.fnCheckHIT("1")) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+									oItem.xstat = "X"; //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+								} //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							} //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 							//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-							if (oItem.ENGNO === "2") {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							if (oItem.ENGNO === "2") { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 								if (oItem.chkrn === "1" && this.fnCheckHIT("2")) { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-									oItem.xstat = "X";//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-								}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-							}//Teck Meng change on 19/11/2020 13:00 AH Issue 1044,1043
+									oItem.xstat = "X"; //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+								} //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+							} //Teck Meng change on 19/11/2020 13:00 AH Issue 1044,1043
 							//Teck Meng change on 19/11/2020 13:00 AH Issue 1044,1043
 							aFinalPayload.push(JSON.parse(JSON.stringify(oItem)));
 						}
