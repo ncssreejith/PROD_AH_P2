@@ -1864,7 +1864,7 @@ sap.ui.define([
 					that._fnJobDetailsGet(oLocalModel.getProperty("/sJobId"), oLocalModel.getProperty("/sTailId"));
 				}.bind(this);
 				if (oFlag === "WRC") {
-					ajaxutil.fnUpdate("/DefectJobSvc", oParameter, [oPayload]);
+					ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload]); //Rahul 23.11.2020 :05:39PM: Service name changed to i18n Property
 				} else {
 					if (oPayload.fstat === "R") {
 						oObject = "ZRM_FAIR_R";
