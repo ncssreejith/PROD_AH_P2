@@ -936,11 +936,13 @@ sap.ui.define([
 
 			switch (resId) {
 				case "RES_105":
-					var sDiff = parseFloat(sEngineHrs1) - parseFloat(sHrsince); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
-					break;
+					// var sDiff = parseFloat(sEngineHrs1) - parseFloat(sHrsince); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
+					var sDiff = sHrsince;//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
+					break;//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
 				case "RES_106":
-					sDiff = parseFloat(sEngineHrs2) - parseFloat(sHrsince); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
-					break;
+					// sDiff = parseFloat(sEngineHrs2) - parseFloat(sHrsince); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
+					sDiff = sHrsince;//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
+					break;//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
 					// case "RES_107": //Issue 826
 					// 	break;
 					// case "RES_108":

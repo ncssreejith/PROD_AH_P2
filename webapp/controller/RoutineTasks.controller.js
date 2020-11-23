@@ -283,6 +283,25 @@ sap.ui.define([
 				var bSelected = false;
 				var aPayloads = this.getModel("rtModel").getProperty("/tasks");
 
+				var sStep = this.getModel("rtModel").getProperty("/tasks/0/APR_NO"); //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+				switch (sStep) { //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+					case 1: //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+						var sKey = "ZRM_FS_RTT"; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+						break; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+					case 2: //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+						if (!formatter.srvTOFACheck(this.getModel("rtModel").getProperty("/srvtid"))) { //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+							sKey = "ZRM_FS_RTT"; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+						} else { //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+							sKey = "ZRM_FS_TFOA"; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+						} //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+						break; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+					case 3: //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+						sKey = "ZRM_FS_RTT"; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+						break; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+					default: //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+						sKey = "ZRM_FS_RTT"; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+				} //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+
 				aPayloads.forEach(function(oPayload) {
 					// this.fnInsertValues(oPayload);
 					var oCopy = JSON.parse(JSON.stringify(oPayload));
@@ -304,7 +323,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("RT2SVC"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("RT2SVC"), oParameter, aFinalPayload, sKey, this); //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
 			} catch (e) {
 				Log.error("Exception in onSignOff function");
 				this.handleException(e);
