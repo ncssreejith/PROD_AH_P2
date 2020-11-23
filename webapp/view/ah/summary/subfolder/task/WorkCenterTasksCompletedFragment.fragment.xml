@@ -22,49 +22,49 @@
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
-					<Column width="6%" hAlign="Center" class="textColor">
+					<Column width="5rem" hAlign="Center" class="textColor"><!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 						<HBox>
 							<Label text="Type" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'taskTypeText')"/>
 						</HBox>
 					</Column>
-					<Column width="10%" hAlign="Start" minScreenWidth="Tablet" demandPopin="true">
+					<Column width="9rem" hAlign="Start" minScreenWidth="Tablet" demandPopin="true"><!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 						<HBox>
 							<Label text="{i18n>lblTaskDesc}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'tdesc')"/>
 						</HBox>
 					</Column>
-					<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 						<HBox>
 							<Label text="Creation Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'createTimeVal')"/>
 						</HBox>
 					</Column>
-					<Column width="9%" minScreenWidth="Tablet" demandPopin="true" hAlign="Start">
+					<Column width="9rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Start"><!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 						<HBox>
 							<Label text="{i18n>lbFollowupTask}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ftdesc')"/>
 						</HBox>
 					</Column>
-					<Column width="8%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 						<HBox>
 							<Label text="Closure Date/Time" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'closeTimeVal')"/>
 						</HBox>
 					</Column>
-					<Column width="13%" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<Column width="9rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 						<HBox>
 							<Label text="{i18n>lblLimitations}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'LDESC')"/>
 						</HBox>
 					</Column>
-					<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Column width="7rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true"><!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 						<HBox>
 							<Label text="{i18n>lbTradesman}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SG1USR','SG1UZT')"/>
 						</HBox>
 					</Column>
-					<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<Column width="7rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true"><!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 						<HBox>
 							<Label text="{i18n>lbSuperviosr}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 							<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'SG2USR','SG2UZT')"/>
