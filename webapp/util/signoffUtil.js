@@ -74,6 +74,7 @@ sap.ui.define([
 
 			fnInitData: function() {
 				try {
+					this.fingerErrorCount = 0; //Rahul: 24/11/2020: 06:24PM: need to Initialize fingerErrorCount to 0
 					return {
 						"uSel": "NEW",
 						"id": "",
@@ -85,7 +86,6 @@ sap.ui.define([
 						"srv": "",
 						"msgStatus": "NONE",
 						"msg": ""
-
 					};
 				} catch (e) {
 					Log.error("Exception in fnInitData function");
@@ -116,12 +116,14 @@ sap.ui.define([
 				}
 			},
 			_fnCheckFingerprintSignOff: function(that) {
-				if (this.fingerErrorCount === undefined) {
+				//Rahul: 24/11/2020: Code commented
+				/*if (this.fingerErrorCount === undefined) {
 					this.fingerErrorCount = 0;
 					return false;
-				}
+				}*/
 				this.fingerErrorCount++;
-				if (this.fingerErrorCount >= 2) {
+				if (this.fingerErrorCount > 2) {
+					//Rahul: 24/11/2020: Code Changed: this.fingerErrorCount >= 2 to this.fingerErrorCount > 2
 					this.fingerErrorCount = 0;
 					that.SignOffLogin.getModel("signOffModel").setProperty("/uSel", "PWD");
 					that.SignOffLogin.getModel("signOffModel").refresh();
@@ -180,6 +182,7 @@ sap.ui.define([
 							// DUMMY BLOCK - To Delete
 							myModel = this.SignOffLogin.getModel("signOffModel");
 							myModel.setProperty("/uSel", sAction);
+							this.fingerErrorCount = 0; //Rahul: 24/11/2020: 06:24PM: need to reset fingerErrorCount to 0
 							myModel.refresh();
 							var oData = {
 								username: myModel.getData().id,
