@@ -955,7 +955,8 @@ sap.ui.define([
 						// Populate Profile UserId/Name
 
 						this.getModel("oProfileModel").setProperty("/userId", oData.results[0].plantuser);
-						this.getModel("oProfileModel").setProperty("/userName", oData.results[0].namefirst + " " + oData.results[0].namelast);
+						//Rahul: 24/11/2020: 07:07PM: oData.results[0].TITLE + ". " code added
+						this.getModel("oProfileModel").setProperty("/userName", oData.results[0].TITLE + ". "+oData.results[0].namefirst + " " + oData.results[0].namelast);
 					}
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("EMPPINPWDSVC"), oParameter);
