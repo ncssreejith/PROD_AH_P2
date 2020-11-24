@@ -173,7 +173,7 @@ sap.ui.define([
 					case "AST_FFF":
 					case "AST_FFF0":
 					case "AST_PF":
-					case "AST_RCG":
+					//case "AST_RCG":  //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
 						this.getRouter().navTo("PilotAccept", {
 							srvtid: sSrvtId ? sSrvtId : " ",
 							stepid: "S_PA"
@@ -182,6 +182,7 @@ sap.ui.define([
 					case "AST_RFF":
 					case "AST_RFF0":
 					case "AST_GN":
+					case "AST_RCG": //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
 						if (aRunningChanges && aRunningChanges.length && aRunningChanges.length > 0) {
 							this.fnCheckPilotDone(aRunningChanges);
 							this.fnOpenPilotUpdate(oEvent);
@@ -252,6 +253,7 @@ sap.ui.define([
 				switch (aState) {
 					case "AST_RFF":
 					case "AST_RFF0":
+					case "AST_RCG": //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
 						this.getRouter().navTo("PilotAccept", {
 							srvtid: sSrvtId ? sSrvtId : " ",
 							stepid: "S_PA"

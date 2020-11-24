@@ -78,7 +78,8 @@ sap.ui.define([
 			var sPath = oEvent.getSource().getBindingContext("oRepDetailsModel").getPath();
 			var sOldValue = this.getModel("oRepDetailsModel").getProperty(sPath + "/sgusr");
 			var sValue = oEvent.getSource().getValue();
-			if (sValue === parseInt(sOldValue)) {
+			// if (sValue === parseInt(sOldValue)) {//Teck Meng 23/11/2020 15:00
+			if (sValue === parseFloat(sOldValue)) {//Teck Meng 23/11/2020 15:00
 				sChange = "";
 				this.getModel("oRepDetailsModel").setProperty(sPath + "/sgusr", sValue);
 			}
