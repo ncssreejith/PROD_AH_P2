@@ -21,7 +21,9 @@
 									<content>
 										<Toolbar class="sapUiSmallMarginTop DashBoardGenericToolBar">
 											<Avatar displaySize="XS" backgroundColor="Placeholder" src="sap-icon://suitcase"></Avatar>
-											<Label text="Outstanding jobs" wrapping="true" class="sapUiTinyMarginTop sapUiSmallMarginBegin DashBoardBlackFont"></Label>
+											<!--Rahul : 24/11/2020: AvMET UI Clean Up:Point(4) changed to Jobs from jobs : Start-->
+											<Label text="Outstanding Jobs" wrapping="true" class="sapUiTinyMarginTop sapUiSmallMarginBegin DashBoardBlackFont"></Label>
+											<!--Rahul : 24/11/2020: AvMET UI Clean Up:Point(4) changed to Jobs from jobs : End-->
 											<Label text="{avmetModel>/dash/couts}" class="sapUiLargeMarginBegin DashBoardFontsizeXXLarge"></Label>
 										</Toolbar>
 									</content>
@@ -69,18 +71,15 @@
 						<HBox wrap="Wrap" justifyContent="Center">
 							<ct:DashboardTile3 select="onViewClick" fontColor="black" class="sapUiTinyMargin" title="Schedules"
 								leftNumeric="{dashboardModel>/scl/LV_COUNT}" leftHeading="Jobs Due Soon" leftSubHeading="(5 Days or 10h)" buttonText="View">
-								<mc:RadialMicroChart id="scheduleMicroChartId" size="L" valueColor="{path : 'dashboardModel>/scl/LV_COLOR'}"
-									class="customChartFont"></mc:RadialMicroChart>
+								<mc:RadialMicroChart id="scheduleMicroChartId" size="L" valueColor="{path : 'dashboardModel>/scl/LV_COLOR'}" class="customChartFont"></mc:RadialMicroChart>
 								<SegmentedButton selectedKey="{dashboardModel>/scl/Index}" selectionChange="onScheduleSegBtnChange" width="100%" class="sapUiSizeCompact">
 									<items>
-										<SegmentedButtonItem key="Hrs" text="Hrs" icon="{dashboardModel>/scl/HrsAlert}" width="30%"
-											ariaDescribedBy="rejectButtonDescription">
+										<SegmentedButtonItem key="Hrs" text="Hrs" icon="{dashboardModel>/scl/HrsAlert}" width="30%" ariaDescribedBy="rejectButtonDescription">
 											<customData>
 												<core:CustomData writeToDom="'true'"/>
 											</customData>
 										</SegmentedButtonItem>
-										<SegmentedButtonItem text="Days" key="Days" icon="{dashboardModel>/scl/DaysAlert}"
-											ariaDescribedBy="rejectButtonDescription"/>
+										<SegmentedButtonItem text="Days" key="Days" icon="{dashboardModel>/scl/DaysAlert}" ariaDescribedBy="rejectButtonDescription"/>
 										<SegmentedButtonItem text="Eng" key="TAC" icon="{dashboardModel>/scl/TACAlert}"/>
 									</items>
 								</SegmentedButton>
@@ -105,7 +104,8 @@
 									valueColor="{path : 'dashboardModel>/fl/COLOR', formatter : '.formatter.DBFuelPercentage'}" class="customChartFont numFontColor"></mc:RadialMicroChart>
 								<mc:RadialMicroChart id="fuelMicroChartId" size="L"
 									valueColor="{path : 'dashboardModel>/fl/COLOR', formatter : '.formatter.DBFuelPercentage'}" class="numFontColor"></mc:RadialMicroChart>
-								<SegmentedButton selectedKey="{dashboardModel>/fl/key}" items="{dashboardModel>/fl/list}" selectionChange="onFuelSegBtnChange" width="80%" class="sapUiSizeCompact fontSizeSmall">
+								<SegmentedButton selectedKey="{dashboardModel>/fl/key}" items="{dashboardModel>/fl/list}" selectionChange="onFuelSegBtnChange" width="80%"
+									class="sapUiSizeCompact fontSizeSmall">
 									<items>
 										<SegmentedButtonItem text="{dashboardModel>REDESC}" key="{dashboardModel>key}" width="67px"/>
 									</items>
@@ -138,10 +138,12 @@
 					<VBox class="sapUiTinyMarginTop quickInfoWidth">
 						<core:Fragment fragmentName="avmet.ah.fragments.dashboard.QuickInfo" type="XML"/>
 						<core:Fragment fragmentName="avmet.ah.fragments.dashboard.AircraftUtil" type="XML"/>
-						<VBox class="DashBoardRefreshVBox sapUiTinyMarginTop sapUiTinyMarginBegin" width="98%">
+						<!--Rahul : 24/11/2020: AvMET UI Clean Up:Point(2) code commented : Start-->
+						<!--<VBox class="DashBoardRefreshVBox sapUiTinyMarginTop sapUiTinyMarginBegin" width="98%">
 							<ObjectStatus class="sapUiTinyMargin" text="Last Synced: {path: 'avmetModel>/airutil/COL_11',formatter:'.formatter.defaultDateTimeFormat'}"
 								icon="sap-icon://synchronize" state="Indication05"/>
-						</VBox>
+						</VBox>-->
+						<!--Rahul : 24/11/2020: AvMET UI Clean Up:Point(2) code commented : End-->
 					</VBox>
 				</HBox>
 			</ScrollContainer>

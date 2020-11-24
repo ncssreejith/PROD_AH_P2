@@ -20,7 +20,9 @@
 					text="{parts:['avmetModel>/dash/astid','avmetModel>/dash/astat'],formatter:'avmet.ah.model.formatter.statusColor'}" type="Transparent"
 					press="onAircraftInfoPress"/>
 				<HBox visible="{= ${avmetModel>/airSel/tailid} !=='NA'}">
-					<Avatar src="sap-icon://employee" displaySize="XS" class="avatarSM"/>
+					<!--Rahul : 24/11/2020: AvMET UI Clean Up:Point(6) Removed blue user profile icon in top bar : Start-->
+					<!--<Avatar src="sap-icon://employee" displaySize="XS" class="avatarSM"/>-->
+					<!--Rahul : 24/11/2020: AvMET UI Clean Up:Point(6) Removed blue user profile icon in top bar : End-->
 					<MenuButton text="{avmetModel>/dash/sqnidtxt}" activeIcon="sap-icon://attachment" buttonMode="Regular" type="Transparent"
 						defaultAction="onActionEvt" useDefaultActionOnly="true">
 						<menu>

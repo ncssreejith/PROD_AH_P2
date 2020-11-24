@@ -55,7 +55,7 @@
 				<ColumnListItem vAlign="Middle" type="Navigation" press="onDefectsAllPress">
 					<cells>
 						<VBox>
-							<Text text="{path:'JobModelAll>credtm', formatter:'.formatter.TableDateFormatDisplay'}"/>
+							<Text text="{path:'JobModelAll>credtm', formatter:'.formatter.defaultDateFormatDisplay'}"/>    <!--Rahul: 24/11/2020: 03:30PM: Formatter changed TableDateFormatDisplay to defaultDateFormatDisplay -->
 							<Text text="{path:'JobModelAll>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
 						</VBox>
 						<Text text="{JobModelAll>jobid}"/>

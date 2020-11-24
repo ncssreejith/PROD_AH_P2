@@ -30,7 +30,14 @@ sap.ui.define([
 			oData.airutil = {};
 			oData.ispopOpen = false;
 			this.getView().setModel(new JSONModel(oData), "avmetModel");
+			/*Rahul : 24/11/2020: AvMET UI Clean Up:Point(3) Application information, code Added  : Start*/
+			this.getView().setModel(new JSONModel(oData), "avmetVersionModel");
+			this.fnGetAppVersion();
+			/*Rahul : 24/11/2020: AvMET UI Clean Up:Point(3) Application information, code Added  : End*/
 			this.fnLoadInitialData();
+			// Fill Profile Info
+			this.getView().setModel(new JSONModel(), "oProfileModel");
+			this.onProfileModelLoad();
 		},
 		onAfterRendering: function() {
 			var that = this;
@@ -233,7 +240,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.fnLoadSrv1Dashboard();
 					this.getModel("avmetModel").refresh();
-					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ ); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 				}.bind(this);
 				//Teck Meng change on 20/11/2020 13:00 AH Issue REUAT 40. As discussed with Ninuk
 				ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_FFF", this);
@@ -242,7 +249,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		/** 
 		 * On running pilot change
@@ -474,8 +481,31 @@ sap.ui.define([
 				this.Log.error("Exception in DashboardInitial:fnLoadUtilization function");
 				this.handleException(e);
 			}
-		}
-
-		//	4.2 Second level Private functions
+		},
+		/**Rahul : 24/11/2020: AvMET UI Clean Up:Point(3) Application information, code Added  : Start
+		 *
+		 * Load Application version data
+		 */
+		fnGetAppVersion: function() {
+				try {
+					var oParameter = {};
+					oParameter.error = function() {};
+					oParameter.success = function(oData) {
+						if (oData && oData.results.length > 0) {
+							this.getModel("avmetVersionModel").setData(oData.results[0]);
+							this.getModel("avmetVersionModel").refresh();
+						} else {
+							this.getModel("avmetVersionModel").setData(null);
+							this.getModel("avmetVersionModel").refresh();
+						}
+					}.bind(this);
+					ajaxutil.fnRead(this.getResourceBundle().getText("GETAPPVERSIONSVC"), oParameter);
+				} catch (e) {
+					this.Log.error("Exception in DashboardInitial:fnGetAppVersion function");
+					this.handleException(e);
+				}
+			}
+			/*Rahul : 24/11/2020: AvMET UI Clean Up:Point(3) Application information, code Added  : End*/
+			//	4.2 Second level Private functions
 	});
 });

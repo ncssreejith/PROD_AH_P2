@@ -940,7 +940,7 @@ sap.ui.define([
 		// ***************************************************************************	
 		// Change Pin
 
-		onProfileModelLoad: function(oEvent) {
+	onProfileModelLoad: function(oEvent) {
 			//var oProfileModel = this.getModel("oProfileModel");
 
 			try {
@@ -954,20 +954,16 @@ sap.ui.define([
 					if (oData.results.length) {
 						// Populate Profile UserId/Name
 
-						that.getModel("oProfileModel").setProperty("/userId", oData.results[0].plantuser);
-						that.getModel("oProfileModel").setProperty("/userName", oData.results[0].namefirst + " " + oData.results[0].namelast);
+						this.getModel("oProfileModel").setProperty("/userId", oData.results[0].plantuser);
+						this.getModel("oProfileModel").setProperty("/userName", oData.results[0].namefirst + " " + oData.results[0].namelast);
 					}
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("EMPPINPWDSVC"), oParameter);
 
 			} catch (e) {
-				Log.error("Exception in UserRole:_getSystemRoles function");
+				Log.error("Exception in onProfileModelLoad function");
 				this.handleException(e);
 			}
-
-			//	var sessionData = dataUtil.getDataSet("oUserSession");
-			//	this.getModel("oProfileModel").setProperty("/userId", "UserId");
-			//	this.getModel("oProfileModel").setProperty("/userName", "UserName");
 		},
 
 		onChangePinPress: function(oEvent) {
