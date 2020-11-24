@@ -118,12 +118,13 @@
 					</VBox>
 				</HBox>
 				<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>/chkrn}==='2'?true:false}">
-					<!--Teck Meng change on 23/11/2020 10:00 start-->
+					<!--Teck Meng change on 24/11/2020 10:00 start-->
 					<!--<VBox class="sapUiSmallMarginBeginEnd" width="33%">-->
 					<!--	<Label text="ETF" design="Bold"/>-->
 					<!--	<StepInput width="150px" min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>eft}" id="eftId" fieldGroupIds="fgStepInput"-->
 					<!--		required="true"/>-->
 					<!--</VBox>-->
+					<!--Teck Meng change on 24/11/2020 10:00 end-->
 					<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 						<Label text="TTV" design="Bold"/>
 						<StepInput width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgttab}" fieldGroupIds="fgStepInput" required="true"/>

@@ -266,7 +266,10 @@
 								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>ASPEED}"/>
 								<HBox justifyContent="Center">
-									<Text text="{path:'oEngineModel>ETF'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>
+									<!--Teck Meng change on 24/11/2020 15:00 start-->
+									<!--<Text text="{path:'oEngineModel>ETF'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>-->
+									<Text text="{path:'oEngineModel>ETF', formatter:'.formatter.numberUnit'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>
+									<!--Teck Meng change on 24/11/2020 15:00 end-->
 									<StepInput min="{oEngineModel>minValue}" value="{oEngineModel>ETF}"
 										visible="{= !!${oEngineModel>/headerDetails/ETFEDIT} &amp;&amp; !!${oEngineModel>Special} }" displayValuePrecision="2"/>
 								</HBox>

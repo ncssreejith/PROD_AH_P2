@@ -136,10 +136,13 @@ sap.ui.define([
 					sFlag = false;
 					this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg",
 						"There is outstanding ADD/Limitation you can't do Fit-for-Flight or Fit-for-Check Flight");
-				} else {//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+				} else { //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 					this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg", "");
-				}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
-			}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+				} //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			} //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+			else { //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+				this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg", "");
+			} //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
 
 			// var oLIMITCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T3_LIMIT") + "/count");
 			// if ((selItem.ddid === "AST_FFC" || selItem.ddid === "AST_FFF") && parseInt(oLIMITCount) > 0) {
@@ -225,7 +228,10 @@ sap.ui.define([
 						this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg",
 							"There is outstanding ADD/Limitation you can't do Fit-for-Flight or Fit-for-Check Flight");
 					}
-				}//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+				} //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+				else { //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+					this.getModel("pdsSummaryModel").setProperty("/confirm/addMsg", "");
+				} //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
 
 				// var oLIMITCount = this.getModel("pdsSummaryModel").getProperty("/masterList/" + this._fnGetIndexById("T3_LIMIT") + "/count");
 				// if ((selDDID === "AST_FFC" || selDDID === "AST_FFF") && parseInt(oLIMITCount) > 0) {
