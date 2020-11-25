@@ -222,7 +222,7 @@ sap.ui.define([
 		/*	fnEncryptDetails: function(user, xhr) {
 			 try {
         		var act = user.activity === undefined ? "99" : user.activity;
-                var signAuth = dataUtil._encriptInfo(user.username+ ":" + user.password+":"+user.objid+":"+act);
+                var signAuth = dataUtil._AESHexEncript(user.username+ ":" + user.password+":"+user.objid+":"+act);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
                 xhr.setRequestHeader("signAuth",signAuth);
             } catch (e) {
                 Log.error("Exception in fnEncryptDetails function");
@@ -234,7 +234,7 @@ sap.ui.define([
 			try {
 				var act = user.activity === undefined ? "99" : user.activity;
 				var bioid = user.bioid === undefined ? "" : user.bioid;
-				var signAuth = dataUtil._encriptInfo(user.username + ":" + user.password + ":" + user.objid + ":" + bioid + ":" + act);
+				var signAuth = dataUtil._AESHexEncript(user.username + ":" + user.password + ":" + user.objid + ":" + bioid + ":" + act);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
 				xhr.setRequestHeader("signAuth", signAuth);
 			} catch (e) {
 				Log.error("Exception in fnEncryptDetails function");

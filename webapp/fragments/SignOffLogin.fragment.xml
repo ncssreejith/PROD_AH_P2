@@ -41,8 +41,8 @@
 		</content>
 		<buttons>
 			<!--Rahul : 24/11/2020: AvMET UI Clean Up:Point(7) Application information, code commented to complete this point  : Start-->
-			<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='NEW'}" type="Default" icon="sap-icon://key" text="{i18n>txtPasswordPin}"
-				press="onUserSelectNextBtnClk('PWD',$event)"/>
+			<!--<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='NEW'}" type="Default" icon="sap-icon://key" text="{i18n>txtPasswordPin}"
+				press="onUserSelectNextBtnClk('PWD',$event)"/>-->
 			<!--Rahul : 24/11/2020: AvMET UI Clean Up:Point(7) Application information, code Added  : END-->
 			<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='NEW'}" type="Default" icon="sap-icon://touch" text="{i18n>txtFingerprint}"
 				press="onUserSelectNextBtnClk('FGR',$event)"/>

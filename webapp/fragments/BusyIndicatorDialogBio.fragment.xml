@@ -1,0 +1,4 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<!--<Label text="Please wait, "></Label>-->
+	<BusyDialog id="BusyDialog" text="{BusyModel>/Text}" />
+</core:FragmentDefinition>

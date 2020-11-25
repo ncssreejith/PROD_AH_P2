@@ -1069,11 +1069,11 @@ sap.ui.define([
 			var that = this;
 
 			var aChangedUser = that.getView().getModel("oProfileModel").getData(); //oEvent.getSource().getBindingContext("oProfileModel").getObject();
-			aChangedUser.newPin = dataUtil._encriptInfo(aChangedUser.newPin);
-			aChangedUser.oldPin = dataUtil._encriptInfo(aChangedUser.oldPin);
+			aChangedUser.newPin = dataUtil._AESHexEncript(aChangedUser.newPin);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
+			aChangedUser.oldPin = dataUtil._AESHexEncript(aChangedUser.oldPin);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
 			if (aChangedUser.newPwd !== "" || aChangedUser.newPwd !== undefined) {
-				aChangedUser.newPwd = dataUtil._encriptInfo(aChangedUser.newPwd);
-				aChangedUser.oldPwd = dataUtil._encriptInfo(aChangedUser.oldPwd);
+				aChangedUser.newPwd = dataUtil._AESHexEncript(aChangedUser.newPwd);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
+				aChangedUser.oldPwd = dataUtil._AESHexEncript(aChangedUser.oldPwd);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
 			} else {
 				aChangedUser.newPwd = "";
 				aChangedUser.oldPwd = "";

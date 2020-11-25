@@ -92,7 +92,7 @@ sap.ui.define([
 					type: 'GET',
 					url: dataUtil.destination+"/ws_authenticate",
 					headers: {
-						"Authorization": "Basic " + dataUtil._encriptInfo(sPass),
+						"Authorization": "Basic " + dataUtil._AESHexEncript(sPass),  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
 						"state": "new"
 					},
 					error: function(xhrx) {

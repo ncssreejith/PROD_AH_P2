@@ -197,6 +197,9 @@ sap.ui.define([
 
 						}
 					} else {
+          //Lakshmi -25.11.2020-added for busy indicator-start
+						this.handleBusyDialogOpenBio("Place finger on reader and hold.");			
+						//Lakshmi -25.11.2020-added for busy indicator-end
 						myModel = this.SignOffLogin.getModel("signOffModel");
 						myModel.setProperty("/uSel", sAction);
 						myModel.refresh();
@@ -208,19 +211,43 @@ sap.ui.define([
 							activity: myModel.getProperty("/activity")
 						};
 						this.fnCallback(oData);
+            //Lakshmi -25.11.2020-added for busy indicator-start
+						this.handleBusyDialogClose();
+            //Lakshmi -25.11.2020-added for busy indicator-end
 						//<<<<<-----------------------------------------------------------------------
 
 					}
 				} catch (e) {
 					Log.error("Exception in onSubmitLoginClk function");
+          //Lakshmi -25.11.2020-added for busy indicator-start
+					this.handleBusyDialogClose();
+          //Lakshmi -25.11.2020-added for busy indicator-end
 				}
 			},
+      //Lakshmi -25.11.2020-added for busy indicator-start
+			handleBusyDialogOpenBio: function() {
+			if (!this._oBusyFrag) {
+				this._oBusyFrag = sap.ui.xmlfragment("BusyIndiId",
+					"avmet.ah.fragments.BusyIndicatorDialogBio",
+					this);
+				this._oBusyFrag.open();
+			}
+		},
+		handleBusyDialogClose: function() {
+			this._oBusyFrag.close(this);
+			this._oBusyFrag.destroy();
+			delete this._oBusyFrag;
+
+		},
+    //Lakshmi -25.11.2020-added for busy indicator-end
 			//-----------------------------------------------------------------------------
 			//                            Validation Sections Starts [SignOff]
 			//-----------------------------------------------------------------------------
 			_validateSignOffUserinfo: function() {
-				return (this.SignOffLogin.getModel("signOffModel").getProperty("/id").length < 6) ? this._setSignOffError("ipUserID") : false;
-			},
+      //Lakshmi -25.11.2020-added for user id validation-start
+				return (this.SignOffLogin.getModel("signOffModel").getProperty("/id").length < 4) ? this._setSignOffError("ipUserID") : false;
+			//Lakshmi -25.11.2020-added for user id validation-end
+      },
 			_validateSignPin: function() {
 				return (this.SignOffLogin.getModel("signOffModel").getProperty("/pwd").length < 3) ? this._setSignOffError("ipPassword") : false;
 			},

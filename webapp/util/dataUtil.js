@@ -3,7 +3,7 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/Device",
 	"../util/crypto"
-], function(JSONModel, Device,crypto) {
+], function(JSONModel, Device, crypto) {
 	"use strict";
 	/* *******************************************************************************************************************
 	 *   This file is for Managing Database/Ajax/OData Calls               
@@ -19,16 +19,16 @@ sap.ui.define([
 	 *						 This will help us to find JSON model usage in entire application 
 	 ******************************************************************************************************************* */
 	return {
-			// destination 
-		destination: "",
-		username:"",
-		pwd:"",
+		// destination 
+		destination: "/DBSRV17/AvMET",
+		username: "user_ah_01",
+		pwd: "pass1234",
 		/* Function : getDataSet
 		 *  parameter : vDataSetName
 		 *  To get the data from local storage
 		 */
 		/*	Rahul: 23/11/2020: 10:42AM: changed dataUtil file location to util and changed in all controllers
-		 added crypto.js file for AES encription */ 
+		 added crypto.js file for AES encription */
 		getDataSet: function(vDataSetName) {
 			if (this._storage === undefined) {
 				this._storage = new jQuery.sap.storage.Storage(jQuery.sap.storage.Type.local);
@@ -44,7 +44,7 @@ sap.ui.define([
 		 */
 		setDataSet: function(vDataSetName, oDataSet) {
 			this._storage = new jQuery.sap.storage.Storage(jQuery.sap.storage.Type.local);
-			this._storage.put(vDataSetName, this._encriptInfo(oDataSet));
+			this._storage.put(vDataSetName, this._AESHexEncript(oDataSet));  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
 			return true;
 		},
 		/* Function : getJsonModel
@@ -71,23 +71,23 @@ sap.ui.define([
 		/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT Password HASH START*/
 		_AESHexEncript: function(value) {
 			var pwhash = CryptoJS.SHA1(CryptoJS.enc.Utf8.parse(this.fnGetUIEncriptionKey()));
-            var key = CryptoJS.enc.Hex.parse(pwhash.toString(CryptoJS.enc.Hex).substr(0, 32));
-            
-            var encrypted = CryptoJS.AES.encrypt(value, key, {
-                mode: CryptoJS.mode.ECB,
-                padding: CryptoJS.pad.Pkcs7
-            });
+			var key = CryptoJS.enc.Hex.parse(pwhash.toString(CryptoJS.enc.Hex).substr(0, 32));
+
+			var encrypted = CryptoJS.AES.encrypt(value, key, {
+				mode: CryptoJS.mode.ECB,
+				padding: CryptoJS.pad.Pkcs7
+			});
 
 			return encrypted.ciphertext.toString(CryptoJS.enc.Hex);
 		},
 		_AESBase64Encript: function(value) {
 			var pwhash = CryptoJS.SHA1(CryptoJS.enc.Utf8.parse(this.fnGetUIEncriptionKey()));
-            var key = CryptoJS.enc.Base64.parse(pwhash.toString(CryptoJS.enc.Base64).substr(0, 32));
-            
-            var encrypted = CryptoJS.AES.encrypt(value, key, {
-                mode: CryptoJS.mode.ECB,
-                padding: CryptoJS.pad.Pkcs7
-            });
+			var key = CryptoJS.enc.Base64.parse(pwhash.toString(CryptoJS.enc.Base64).substr(0, 32));
+
+			var encrypted = CryptoJS.AES.encrypt(value, key, {
+				mode: CryptoJS.mode.ECB,
+				padding: CryptoJS.pad.Pkcs7
+			});
 
 			return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
 		},
@@ -145,46 +145,45 @@ sap.ui.define([
 		},
 		/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT file upload issue Start*/
 		_fileMimeVerification: function(src) {
-			//var src = e.target.result;
-			var bFlag = false;
-			var byteString = src.split(',')[1];
-			if (byteString) {
-				var raw = atob(byteString);
-				var result = '';
-				for (var i in raw) {
-					if (i <= 7) {
-						var hex = raw.charCodeAt(i).toString(16);
-						result += (hex.length === 2 ? hex : '0' + hex);
-					} else {
-						break;
+				//var src = e.target.result;
+				var bFlag = false;
+				var byteString = src.split(',')[1];
+				if (byteString) {
+					var raw = atob(byteString);
+					var result = '';
+					for (var i in raw) {
+						if (i <= 7) {
+							var hex = raw.charCodeAt(i).toString(16);
+							result += (hex.length === 2 ? hex : '0' + hex);
+						} else {
+							break;
+						}
 					}
+					var header = result.substring(0, 8);
+					switch (header) {
+						case "89504e47":
+							bFlag = true;
+							break;
+						case "47494638":
+							bFlag = true;
+							break;
+						case "ffd8ffe0":
+						case "ffd8ffe1":
+						case "ffd8ffe2":
+						case "ffd8ffe3":
+						case "ffd8ffe8":
+							bFlag = true;
+							break;
+						default:
+							bFlag = false; // Or you can use the blob.type as fallback
+							break;
+					}
+				} else {
+					bFlag = false;
 				}
-				var header = result.substring(0, 8);
-				switch (header) {
-					case "89504e47":
-						bFlag = true;
-						break;
-					case "47494638":
-						bFlag = true;
-						break;
-					case "ffd8ffe0":
-					case "ffd8ffe1":
-					case "ffd8ffe2":
-					case "ffd8ffe3":
-					case "ffd8ffe8":
-						bFlag = true;
-						break;
-					default:
-						bFlag = false; // Or you can use the blob.type as fallback
-						break;
-				}
-			} else {
-				bFlag = false;
+				return bFlag;
 			}
-			return bFlag;
-		}
-		/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT file upload issue End*/
-
+			/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT file upload issue End*/
 
 	};
 });
