@@ -34,7 +34,9 @@
 							<cells>
 								<Text
 									text="{path:'pdsSummaryModel>FR_DT', formatter:'.formatter.defaultDateFormatDisplay'} {path:'pdsSummaryModel>FR_TM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-								<Text text="{pdsSummaryModel>frdesc}"/>
+								<!--//Change by Teck Meng on 25/11/2020 11:30 start-->	
+								<Text text="{pdsSummaryModel>FRDESC}"/>
+								<!--//Change by Teck Meng on 25/11/2020 11:30 end-->
 							</cells>
 						</ColumnListItem>
 					</items>

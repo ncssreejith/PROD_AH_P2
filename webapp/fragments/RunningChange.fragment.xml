@@ -1,9 +1,14 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<Dialog showHeader="false">
 		<content>
-			<RadioButtonGroup class="sapUiSmallMargin" buttons="{path:'avmetModel>/runningChange'}">
+			<!--Teck Meng change on 25/11/2020 15:00 start-->
+			<RadioButtonGroup class="sapUiSmallMargin" buttons="{path:'avmetModel>/runningChange'}"
+			select="onRunningChangePressIndex">
+				<!--Teck Meng change on 25/11/2020 15:00 end-->
 				<buttons>
-					<RadioButton text="Pilot name: {avmetModel>PILOTNAME}" />
+					<!--Teck Meng change on 25/11/2020 15:00 start-->
+					<RadioButton text="Pilot name: {avmetModel>PILOTNAME} Updated on: {path: 'avmetModel>patime',formatter:'.formatter.defaultDateTimeFormat'}" />
+					<!--Teck Meng change on 25/11/2020 15:00 end-->
 				</buttons>
 			</RadioButtonGroup>
 		</content>

@@ -19,14 +19,17 @@
 			<ColumnListItem>
 				<cells>
 					<Text text="{path:'oPilotUpdatesViewModel>fr_no',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
-					<Text text="{oPilotUpdatesViewModel>frdesc}"/>
-					<SegmentedButton selectedKey="{oPilotUpdatesViewModel>frrid}" selectionChange="onFlySelChange" items="{oPilotUpdatesViewModel>/flyResult}" required="true"
+					<!--//Change by Teck Meng on 25/11/2020 11:30 start-->	
+					<Text text="{oPilotUpdatesViewModel>FRDESC}"/>
+						
+					<SegmentedButton selectedKey="{oPilotUpdatesViewModel>FRRID}" selectionChange="onFlySelChange" items="{oPilotUpdatesViewModel>/flyResult}" required="true"
 						fieldGroupIds="fgSGBtn">
 						<items>
 							<SegmentedButtonItem text="{oPilotUpdatesViewModel>description}" key="{oPilotUpdatesViewModel>ddid}"/>
 						</items>
 					</SegmentedButton>
-					<Input value="{oPilotUpdatesViewModel>reason}" visible="{= (${oPilotUpdatesViewModel>frrid}==='FRR_P' || ${oPilotUpdatesViewModel>frrid}===null)?false:true}"/>
+					<Input value="{oPilotUpdatesViewModel>REASON}" visible="{= (${oPilotUpdatesViewModel>FRRID}==='FRR_P' || ${oPilotUpdatesViewModel>FRRID}===null)?false:true}"/>
+					<!--//Change by Teck Meng on 25/11/2020 11:30 end-->
 				</cells>
 			</ColumnListItem>
 		</items>

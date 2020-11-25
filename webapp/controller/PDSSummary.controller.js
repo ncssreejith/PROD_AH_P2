@@ -522,7 +522,7 @@ sap.ui.define([
 
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "tailid eq " + this.getTailId();
+				oParameter.filter = "ftype eq S and tailid eq " + this.getTailId(); //Change by Teck Meng on 25/11/2020 11:30
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T5_FREQ");
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/count", oData.results.length);
@@ -531,7 +531,8 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/flyReq", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);
+				// ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);//Change by Teck Meng on 25/11/2020 11:30
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter);//Change by Teck Meng on 25/11/2020 11:30
 			} catch (e) {
 				Log.error("Exception in _getFLyReq function");
 			}

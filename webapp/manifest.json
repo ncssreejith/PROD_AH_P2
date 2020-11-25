@@ -432,7 +432,7 @@
 					"PilotAccept"
 				]
 			}, {
-				"pattern": "PilotUpdates/{srvtid}/{stepid}",
+				"pattern": "PilotUpdates/{srvtid}/{stepid}/:num1:",
 				"name": "PilotUpdates",
 				"target": [
 					"PilotUpdates"

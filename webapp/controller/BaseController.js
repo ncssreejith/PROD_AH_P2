@@ -291,7 +291,8 @@ sap.ui.define([
 						this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
 						var oDash = this.getModel("avmetModel").getProperty("/dash");
 						var oModel = this.getView().getModel("avmetModel");
-						oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
+						// oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid)); // Change by Teck Meng 25/11/2020 10:15
+						oModel.setProperty("/UnlockAVMET", oDash.alock === 1); // Change by Teck Meng 25/11/2020 10:15
 						if (this.fnOverwriteStatus(oDash.astid)) {
 							oModel.setProperty("/dash/TBTN3", true);
 						}

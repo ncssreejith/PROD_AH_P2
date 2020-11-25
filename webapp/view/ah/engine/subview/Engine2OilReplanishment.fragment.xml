@@ -46,7 +46,9 @@
 								<Text text="{path:'oEngineModel>HRAT', formatter:'.formatter.decimal1Unit'}"/>
 								<Text text="{path:'oEngineModel>HRSINCE', formatter:'.formatter.decimal1Unit'}"/>
 								<Text text="{oEngineModel>DDDESC}"/>
-								<Text text="{oEngineModel>SRVAMT}"/>
+								<!--Teck Meng change on 25/11/2020 15:00 start-->
+								<Text text="{path:'oEngineModel>SRVAMT', formatter:'.formatter.numberUnit'}"/>
+								<!--Teck Meng change on 25/11/2020 15:00 end-->
 							</cells>
 						</ColumnListItem>
 					</items>

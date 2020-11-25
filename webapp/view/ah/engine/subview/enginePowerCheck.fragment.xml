@@ -295,8 +295,10 @@
 									<!--Teck Meng change on 24/11/2020 15:00 start-->
 									<Text text="{path:'oEngineModel>ETF', formatter:'.formatter.numberUnit'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>
 									<!--Teck Meng change on 24/11/2020 15:00 end-->
-									<StepInput min="{oEngineModel>minValue}" value="{oEngineModel>ETF}"
+									<!--Teck Meng change on 25/11/2020 15:00 start-->
+									<StepInput min="0" value="{oEngineModel>ETF}"
 										visible="{= !!${oEngineModel>/headerDetails/ETFEDIT} &amp;&amp; !!${oEngineModel>Special} }" displayValuePrecision="2"/>
+										<!--Teck Meng change on 25/11/2020 15:00 end-->
 								</HBox>
 								<Button text="{= !!${oEngineModel>/headerDetails/ETFEDIT} ? ${i18n>txtSignOff} : ${i18n>btnEdit} }" visible="{= !!${oEngineModel>Special} }"
 									enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"

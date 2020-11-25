@@ -428,7 +428,7 @@ sap.ui.define([
 						// oData.results.forEach(function(oItem) {
 						// 	oItem.ID = that.fnDateTime(oItem.SPDT, oItem.SPTM); //, 
 						// });
-						oData.results.sort(function(b, a) {
+						oData.results.sort(function(a, b) { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 							return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]);
 						});
 						var bFound = false;

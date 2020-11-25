@@ -173,6 +173,7 @@ sap.ui.define([
 					case "AST_FFF":
 					case "AST_FFF0":
 					case "AST_PF":
+					case "AST_THR":  //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 					//case "AST_RCG":  //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
 						this.getRouter().navTo("PilotAccept", {
 							srvtid: sSrvtId ? sSrvtId : " ",
@@ -327,12 +328,14 @@ sap.ui.define([
 		/** 
 		 * On running pilot change
 		 */
-		onRunningChangePress: function() {
+		onRunningChangePress: function(oEvent) {
 			try {
+				var sNum1 = oEvent.getSource().getParent().getContent()[0].getSelectedButton().getBindingContext("avmetModel").getObject().num1; //Teck Meng 25/11/2020 16:50
 				var sSrvtId = this.getModel("avmetModel").getProperty("/dash/SRVTID");
 				this.getRouter().navTo("PilotUpdates", {
 					srvtid: sSrvtId ? sSrvtId : " ",
-					stepid: "S_PF"
+					stepid: "S_PF",
+					num1: sNum1 ? sNum1 : " " //Teck Meng 25/11/2020 16:50
 				});
 
 			} catch (e) {
@@ -751,7 +754,8 @@ sap.ui.define([
 						this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
 						var oModel = this.getView().getModel("avmetModel");
 						var oDash = oModel.getProperty("/dash");
-						oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid));
+						// oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid)); // Change by Teck Meng 25/11/2020 10:15
+						oModel.setProperty("/UnlockAVMET", oDash.alock === 1); // Change by Teck Meng 25/11/2020 10:15
 						if (this.fnOverwriteStatus(oDash.astid)) {
 							oModel.setProperty("/dash/TBTN3", true);
 						}

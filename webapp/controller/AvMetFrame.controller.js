@@ -68,6 +68,7 @@ sap.ui.define([
 		 */
 		_fnJobGetScheduled: function() {
 			try {
+				this.fnLoadSrv1Dashboard(); // Change by Teck Meng 25/11/2020 09:45 
 				this.fnLoadRunningChange();
 			} catch (e) {
 				this.Log.error("Exception in _fnJobGetScheduled function");
