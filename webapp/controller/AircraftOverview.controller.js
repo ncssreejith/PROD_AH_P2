@@ -163,7 +163,7 @@ sap.ui.define([
 					that.getModel("appModel").setProperty("/isSignOff", false);
 					this.getRouter().navTo("DashboardInitial");
 				}.bind(this);
-				oPrmTask.activity = 5;
+				oPrmTask.activity = 4; //Rahul: 25/11/2020 : 16:27 Code Added
 				ajaxutil.fnUpdate(this.getResourceBundle().getText("LEADPARTISVC"), oPrmTask, oPayload, "ZRM_AC_O", this);
 			} catch (e) {
 				Log.error("Exception in AircraftOverview:onPresSignOff function");
