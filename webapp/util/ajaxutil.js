@@ -206,11 +206,11 @@ sap.ui.define([
 					oParameters.queryParam = "?";
 					oParameters.queryParam = oParameters.queryParam + (oParameters.expand === undefined ? "" : "$expand=" + oParameters.expand);
 					oParameters.queryParam = oParameters.queryParam + (oParameters.filter === undefined ? "" : "$filter=" + oParameters.filter);
-					oParameters.queryParam = oParameters.queryParam + "&sessionid=" + dataUtil.getDataSet("oUserSession").sessionid;
+					//oParameters.queryParam = oParameters.queryParam + "&sessionid=" + dataUtil.getDataSet("oUserSession").sessionid; Sreejith: Code commented 25/11/2020: for Session cookie
 				}
 				if (!isQueryParam) {
 					oParameters.queryParam = "?";
-					oParameters.queryParam = oParameters.queryParam + "sessionid=" + dataUtil.getDataSet("oUserSession").sessionid;
+					//oParameters.queryParam = oParameters.queryParam + "sessionid=" + dataUtil.getDataSet("oUserSession").sessionid; Sreejith: Code commented 25/11/2020: for Session cookie
 
 				}
 				return oParameters;
