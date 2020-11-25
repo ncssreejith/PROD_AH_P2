@@ -328,7 +328,7 @@ sap.ui.define([
 		/** 
 		 * On running pilot change
 		 */
-		onRunningChangePress: function(oEvent) {
+		onRunningChangePress: function(oEvent) { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 			try {
 				var sNum1 = oEvent.getSource().getParent().getContent()[0].getSelectedButton().getBindingContext("avmetModel").getObject().num1; //Teck Meng 25/11/2020 16:50
 				var sSrvtId = this.getModel("avmetModel").getProperty("/dash/SRVTID");

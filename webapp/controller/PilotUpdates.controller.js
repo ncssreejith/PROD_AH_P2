@@ -998,7 +998,7 @@ sap.ui.define([
 			}
 		},
 		//2.Check for defect in the HIT chart 
-		fnCheckHIT: function(iEngine, oPayload) {
+		fnCheckHIT: function(iEngine, oPayload) { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 			// try {
 			var oEngineModel = this.getView().getModel("oPilotUpdatesViewModel");
 			var aEngPowerCheck = {};
@@ -1027,7 +1027,7 @@ sap.ui.define([
 			var aUDashPoints = [];
 			//Loop
 			aEngPowerCheck.forEach(function(oItem) {
-				if (oItem.CHKRN === "3") { //Re-estabishment reset HIT
+				if (oItem.CHKRN === "3") { //Re-estabishment reset HIT //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 					aDataPoints = [];
 					aRedPoints = [];
 					aOutOfRangePoints = [];
@@ -1037,7 +1037,7 @@ sap.ui.define([
 					aUpperLimit = [];
 					return;
 				}
-				if (oItem.CHKRN !== "1") {
+				if (oItem.CHKRN !== "1") { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 					return;
 				}
 				var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
