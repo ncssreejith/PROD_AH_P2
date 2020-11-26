@@ -48,10 +48,12 @@
 						editable="{path : 'oRepDetailsModel>/srvid', formatter : '.formatter.srvIdExistEnable'}"
 						enabled="{parts:['oRepDetailsModel>tsign','oRepDetailsModel>engid','oRepDetailsModel>resid'],formatter:'.formatter.fnEnginEnableChk'}"/>
 					<Text text="{oRepDetailsModel>resdescription}"/>
-					<StepInput width="100%" textAlign="Center" enabled="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE' &amp;&amp; ${oRepDetailsModel>/srvtid}!=='SRVT_RE'}" value="{oRepDetailsModel>orgamt}" change="onFuleChange" validationMode="LiveChange" min="0"
+					<!--//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043 start-->
+					<StepInput width="100%" textAlign="Center" enabled="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE' &amp;&amp; ${oRepDetailsModel>/srvtid}!=='SRVT_RE'}" value="{oRepDetailsModel>orgamt}" change="onFuleChange" validationMode="FocusOut" min="0"
 					max="{= ${oRepDetailsModel>max}-${oRepDetailsModel>srvamt}}"
 					editable="{= ${oRepDetailsModel>tsign}===''}"
 					fieldGroupIds="fgStep"  />
+					<!--//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043 end-->
 					<!--//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043 start-->
 					<StepInput width="100%" textAlign="Center" value="{oRepDetailsModel>srvamt}" change="onFuleChange" validationMode="FocusOut" min="0"
 					enabled="{=  ${oRepDetailsModel>srvamt} !== 0}"
