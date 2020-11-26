@@ -802,6 +802,7 @@ sap.ui.define([
 				this._fnADDGet();
 				this._fnLimitationsGet();
 				this.fnLoadSrv1Dashboard();
+				this.fnLoadRunningChange(); //Teck Meng 26/11/2020 11:30
 				this.fnGetEngine();
 				this.fnLoadSCLDashboard();
 				this.fnLoadFLDashboard();
@@ -809,7 +810,7 @@ sap.ui.define([
 				this.fnLoadROLDashboard();
 				this.fnLoadLocation();
 				this.fnLoadUtilization();
-				this.fnLoadRunningChange();
+				// this.fnLoadRunningChange(); //Teck Meng 26/11/2020 11:30
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:_onObjectMatched function");
 				this.handleException(e);

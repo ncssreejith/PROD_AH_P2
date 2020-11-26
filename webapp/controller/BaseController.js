@@ -347,10 +347,12 @@ sap.ui.define([
 		 */
 		fnRestoreHistory: function() {
 			if (this.aHistory) {
+				var that = this;//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 				var oDash = this.getModel("avmetModel").getProperty("/dash");
 				this.aHistory.forEach(function(oHistory, i) {
 					if (oHistory && oHistory.startsWith && oHistory.startsWith("CreateFlightService") && oDash.TBTN2 !== "X") {
-						this.aHistory.splice(i, 1);
+						that.aHistory.splice(i, 1);//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						// this.aHistory.splice(i, 1);//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 					}
 				});
 				sap.ui.core.routing.History.getInstance().aHistory = this.aHistory;
