@@ -173,8 +173,8 @@ sap.ui.define([
 					case "AST_FFF":
 					case "AST_FFF0":
 					case "AST_PF":
-					case "AST_THR":  //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
-					//case "AST_RCG":  //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
+					case "AST_THR": //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
+						//case "AST_RCG":  //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
 						this.getRouter().navTo("PilotAccept", {
 							srvtid: sSrvtId ? sSrvtId : " ",
 							stepid: "S_PA"
@@ -184,15 +184,17 @@ sap.ui.define([
 					case "AST_RFF0":
 					case "AST_GN":
 					case "AST_RCG": //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
-						if (aRunningChanges && aRunningChanges.length && aRunningChanges.length > 0) {
-							this.fnCheckPilotDone(aRunningChanges);
-							this.fnOpenPilotUpdate(oEvent);
-						} else {
-							this.getRouter().navTo("PilotUpdates", {
-								srvtid: sSrvtId ? sSrvtId : " ",
-								stepid: "S_PF"
-							});
-						}
+						this.fnGetRunningChanges(); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+
+						// if (aRunningChanges && aRunningChanges.length && aRunningChanges.length > 0) { //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						// 	this.fnCheckPilotDone(aRunningChanges); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						// 	this.fnOpenPilotUpdate(oEvent); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						// } else { //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						// 	this.getRouter().navTo("PilotUpdates", { //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						// 		srvtid: sSrvtId ? sSrvtId : " ", //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						// 		stepid: "S_PF" //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						// 	}); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						// } //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 						break;
 					case "AST_US":
 					case "AST_WE":
@@ -277,6 +279,49 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+		//Teck Meng 26/11/2020 14:00 start-------------
+		/** 
+		 * Get RunningChanges then open dialog
+		 */
+		fnGetRunningChanges: function() {
+			try {
+				var oParameter = {};
+				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					if (oData && oData.results && oData.results.length) {
+						var aRunningChanges = oData.results.length > 0 ? oData.results : [];
+						this.getModel("avmetModel").setProperty("/runningChange", aRunningChanges);
+						this.getModel("avmetModel").refresh();
+						var sSrvtId = this.getModel("avmetModel").getProperty("/dash/SRVTID");
+						
+						if (aRunningChanges && aRunningChanges.length && aRunningChanges.length > 0) { //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+							this.fnCheckPilotDone(aRunningChanges); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+							this.fnOpenPilotUpdate(); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						} else { //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+							this.getRouter().navTo("PilotUpdates", { //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+								srvtid: sSrvtId ? sSrvtId : " ", //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+								stepid: "S_PF" //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+							}); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						} //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+
+					} else {
+						this.getModel("avmetModel").setProperty("/runningChange", []);
+						this.getRouter().navTo("PilotUpdates", { //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+							srvtid: sSrvtId ? sSrvtId : " ", //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+							stepid: "S_PF" //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						}); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+					}
+
+				}.bind(this);
+				this.getModel("avmetModel").setProperty("/runningChange", []);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:fnGetRunningChanges function");
+				this.handleException(e);
+			}
+		},
+		//Teck Meng 26/11/2020 14:00 end-------------
 		/** 
 		 * Check has all Pilots updated
 		 * @param aRunningChanges
@@ -637,9 +682,9 @@ sap.ui.define([
 				this._createNewFlightServicing.close();
 				this._createNewFlightServicing.destroy();
 				delete this._createNewFlightServicing;
-				if (sFsstatus === "C") {//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
-					return;//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
-				}//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				if (sFsstatus === "C") { //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+					return; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				} //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				var oPayload = {
 					tailid: this.getTailId(),
 					refid: this.getAircraftId(),
