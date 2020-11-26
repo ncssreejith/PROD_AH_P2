@@ -140,7 +140,7 @@
 					"CosApplyTemplate"
 				]
 			}, {
-				"pattern": "AddEngCyclicLog/:engid:/:tailid:/:last:/:eng2id:",
+				"pattern": "AddEngCyclicLog/:engid:/:tailid:/:last:/:eng2id:/:stepid:",
 				"name": "AddEngCyclicLog",
 				"target": [
 					"AddEngCyclicLog"

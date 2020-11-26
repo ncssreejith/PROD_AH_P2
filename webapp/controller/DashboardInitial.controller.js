@@ -229,7 +229,8 @@ sap.ui.define([
 							engid: this.getModel("avmetModel").getProperty("/Engine/ENGID"),
 							tailid: this.getTailId(),
 							last: " ",
-							eng2id: this.getModel("avmetModel").getProperty("/Engine2/ENGID")
+							eng2id: this.getModel("avmetModel").getProperty("/Engine2/ENGID"),
+							stepid: "S_CL"//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 						}); //nav cyclic log
 						break;
 					case "AST_S2":
