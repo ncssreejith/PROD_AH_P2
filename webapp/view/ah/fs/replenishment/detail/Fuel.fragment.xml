@@ -52,11 +52,13 @@
 					max="{= ${oRepDetailsModel>max}-${oRepDetailsModel>srvamt}}"
 					editable="{= ${oRepDetailsModel>tsign}===''}"
 					fieldGroupIds="fgStep"  />
-					<StepInput width="100%" textAlign="Center" value="{oRepDetailsModel>srvamt}" change="onFuleChange" validationMode="LiveChange" min="0"
+					<!--//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043 start-->
+					<StepInput width="100%" textAlign="Center" value="{oRepDetailsModel>srvamt}" change="onFuleChange" validationMode="FocusOut" min="0"
 					enabled="{=  ${oRepDetailsModel>srvamt} !== 0}"
 					editable="{= ${oRepDetailsModel>tsign}===''}"
 					max="{parts:['oRepDetailsModel>/srvtid','oRepDetailsModel>max','oRepDetailsModel>orgamt'],formatter:'.formatter.fnFuelMaxAmt'}"
 					fieldGroupIds="fgStep"  />
+					<!--//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043 end-->
 					<!--//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
 					<!--max="{= ${oRepDetailsModel>/srvtid}!=='SRVT_DE'?(${oRepDetailsModel>max}-${oRepDetailsModel>orgamt}):${oRepDetailsModel>orgamt}}"-->
 					<StepInput editable="false" textAlign="Center" fieldGroupIds="fgStep" value="{oRepDetailsModel>totamt}" description=" / {oRepDetailsModel>max}"  min="0"
