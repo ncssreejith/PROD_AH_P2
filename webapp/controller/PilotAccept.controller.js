@@ -250,7 +250,8 @@ sap.ui.define([
 				});
 
 			}.bind(this);
-			ajaxutil.fnRead(this.getResourceBundle().getText("REPLROLESVC"), oPrmJobDue);
+			// ajaxutil.fnRead(this.getResourceBundle().getText("REPLROLESVC"), oPrmJobDue); //Teck Meng 27/11/2020 09:30
+			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue); //Teck Meng 27/11/2020 09:30
 		},
 		onSerialNoPress: function(oEvent) {
 			try {
@@ -741,7 +742,8 @@ sap.ui.define([
 		onPressSignOffConfirm: function() {
 			try {
 				var sAction = this.getModel("paModel").getProperty("/confirm/pfreq");//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
-				var oPayloads = this.getModel("paModel").getProperty("/masterList");
+				// var oPayloads = this.getModel("paModel").getProperty("/masterList");//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+				var oPayloads = JSON.parse(JSON.stringify(this.getModel("paModel").getProperty("/masterList")));//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 				oPayloads.forEach(function(oItem) {
 					oItem.value = oItem.data.reviewd ? 1 : 0;
 					oItem.pfreq = sAction ? "X" : ""; // X FOR POST FLIGHT DONE  '' FOR NOT REQ//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043

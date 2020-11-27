@@ -495,7 +495,7 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function() {
 					this.onSendOthers();
-					this.navBack(); //Changed on 23/11/2020 15:00
+					this.onNavBack(); //Changed on 23/11/2020 15:00//Teck Meng Changed on 27/11/2020 15:00
 				}.bind(this);
 				oParameter.activity = 4;
 				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4FLYSVC"), oParameter, [oPayloads], "ZRM_PFR_P", this);
@@ -605,7 +605,8 @@ sap.ui.define([
 		 */
 		fnCreateFlyReq: function() {
 			try {
-				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyReq");
+				// var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyReq");//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+				var oPayloads = JSON.parse(JSON.stringify(this.getModel("oPilotUpdatesViewModel").getProperty("/flyReq")));//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 				if (oPayloads.length === 0) {
 					return;
 				}
