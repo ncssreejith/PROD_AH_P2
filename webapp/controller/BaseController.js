@@ -1085,6 +1085,7 @@ sap.ui.define([
 				plantuser: aChangedUser.userId,
 				namefirst: "",
 				namelast: "",
+				TITLE: "",//LAKSHMI: 26/11/2020 : 02:47 PM: Changed FOR RESOLVING ERROR
 				oldpin: aChangedUser.oldPin,
 				pin: aChangedUser.newPin,
 				oldpwd: aChangedUser.oldPwd,
@@ -1092,7 +1093,14 @@ sap.ui.define([
 			};
 			var oParameter = {};
 			oParameter.error = function(error) {
+			//Rahul: 26/11/2020 : 02:47 PM: Changed FOR Display ERROR-Start
+				try{
+					var oErrorMes=JSON.parse(error.responseText).sortmessage.replace("RAISERROR executed: ","");
+					MessageBox.error(oErrorMes);
+				}catch(e){
 				MessageBox.error(error.responseText);
+				}
+			//Rahul: 26/11/2020 : 02:47 PM: Changed FOR Display ERROR-End	
 			};
 			oParameter.success = function() {
 				that.getView().getModel("oProfileModel").refresh();

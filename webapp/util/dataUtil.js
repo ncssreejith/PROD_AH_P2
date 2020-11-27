@@ -20,9 +20,13 @@ sap.ui.define([
 	 ******************************************************************************************************************* */
 	return {
 		// destination 
+		//Rahul: 25/11/2020: 06:53 removed destination and Username and PWD
+		/*destination: "",
+		username: "",
+		pwd: "",*/
 		destination: "/DBSRV17/AvMET",
-		username: "user_ah_01",
-		pwd: "pass1234",
+        username:"user_ah_01",
+        pwd:"pass1234",
 		/* Function : getDataSet
 		 *  parameter : vDataSetName
 		 *  To get the data from local storage
@@ -44,7 +48,8 @@ sap.ui.define([
 		 */
 		setDataSet: function(vDataSetName, oDataSet) {
 			this._storage = new jQuery.sap.storage.Storage(jQuery.sap.storage.Type.local);
-			this._storage.put(vDataSetName, this._AESHexEncript(oDataSet));  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
+			this._storage.put(vDataSetName, this._encriptInfo(oDataSet)); //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
+			//Sreejith: 25/11/2020 : 08:27 AM: Changed_AESHexEncript to _encriptInfo
 			return true;
 		},
 		/* Function : getJsonModel
@@ -66,7 +71,9 @@ sap.ui.define([
 		},
 
 		fnGetUIEncriptionKey: function(info) {
-			return '8Cnh7Ks5Mp'; // Later will replace with service call
+			//Rahul: 25/11/2020: 07:17PM : EncriptionKey Changes (Sreejith)
+			/*return 'Yq3t6w9z$C&F)J@';*/ // Later will replace with service call
+			return '8Cnh7Ks5Mp';
 		},
 		/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT Password HASH START*/
 		_AESHexEncript: function(value) {
