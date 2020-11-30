@@ -17,16 +17,17 @@ sap.ui.define([
 		init: function() {
 			UIComponent.prototype.init.apply(this, arguments);
 			this.setModel(models.createDeviceModel(), "device");
-			//this._fnSessionChk();
-			this._fnUserPinLogin();
+			this._fnSessionChk(); 	//Sreejith: 30/11/2020: Code Uncommented as session logic changed by sreejith
+			//this._fnUserPinLogin(); //Sreejith: 30/11/2020: Code Uncommented as not required
 		},
 
 	_fnSessionChk: function() {
 			try {
 				var sPath = dataUtil.destination+"/ws_authenticate";
-				if(dataUtil.getDataSet("oUserSession")){
+				//Sreejith: 30/11/2020: Code commented as session logic changed by sreejith
+				/*if(dataUtil.getDataSet("oUserSession")){
 					sPath = sPath+"?sessionid="+dataUtil.getDataSet("oUserSession").sessionid;
-				}
+				}*/
 				var that = this;
 				$.ajax({
 					type: 'GET',

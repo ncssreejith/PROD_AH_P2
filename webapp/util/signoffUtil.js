@@ -104,9 +104,11 @@ sap.ui.define([
 					this.SignOffLogin.getModel("signOffModel").setProperty("/msg", sMsg);
 					this.SignOffLogin.getModel("signOffModel").setProperty("/msgStatus", "ERROR");
 					this.SignOffLogin.getModel("signOffModel").setProperty("/uSel", sAction);
+					//Rahul: 24/11/2020 at 16.38
 					if (sAction === "FGR") {
 						this._fnCheckFingerprintSignOff(this);
 					}
+					//Rahul: 24/11/2020 at 16.38
 					this.SignOffLogin.getModel("signOffModel").refresh();
 					this.signOffStatus(sMsg.slice(sMsg), "ERROR");
 					// this._setSignOffCustomError("ipPassword",sMsg);
@@ -124,10 +126,10 @@ sap.ui.define([
 				this.fingerErrorCount++;
 				if (this.fingerErrorCount > 2) {
 					//Rahul: 24/11/2020: Code Changed: this.fingerErrorCount >= 2 to this.fingerErrorCount > 2
-					this.fingerErrorCount = 0;
+					this.fingerErrorCount = 0;					
 					that.SignOffLogin.getModel("signOffModel").setProperty("/uSel", "PWD");
-					that.SignOffLogin.getModel("signOffModel").setProperty("/msg", "Biometric authentication failed, Login with pin."); //Rahul: 26/11/2020 11:25am: Message added for dialog.
 					that.SignOffLogin.getModel("signOffModel").refresh();
+					that.SignOffLogin.getModel("signOffModel").setProperty("/msg","Biometric authentication failed, Login with pin."); //Rahul: 26/11/2020 11:25am: Message added for dialog.
 					return false;
 				}
 				return true;
@@ -189,7 +191,7 @@ sap.ui.define([
 								username: myModel.getData().id,
 								password: myModel.getData().pwd,
 								objid: myModel.getProperty("/objid"),
-								bioid: "",
+								bioid: "",  //Rahul: 24/11/2020: 06:24PM
 								activity: myModel.getProperty("/activity")
 							};
 							this.fnCallback(oData);
@@ -198,12 +200,13 @@ sap.ui.define([
 
 						}
 					} else {
-						//Lakshmi -25.11.2020-added for busy indicator-start
-						this.handleBusyDialogOpenBio("Place finger on reader and hold.");
+          //Lakshmi -25.11.2020-added for busy indicator-start
+						this.handleBusyDialogOpenBio("Place finger on reader and hold.");			
 						//Lakshmi -25.11.2020-added for busy indicator-end
 						myModel = this.SignOffLogin.getModel("signOffModel");
 						myModel.setProperty("/uSel", sAction);
 						myModel.refresh();
+						//Lakshmi -25.11.2020 at 16.42
 						var oData = {
 							username: myModel.getData().id,
 							password: "",
@@ -211,44 +214,45 @@ sap.ui.define([
 							bioid: "X",
 							activity: myModel.getProperty("/activity")
 						};
+						//Lakshmi -25.11.2020 at 16.42
 						this.fnCallback(oData);
-						//Lakshmi -25.11.2020-added for busy indicator-start
+            //Lakshmi -25.11.2020-added for busy indicator-start
 						this.handleBusyDialogClose();
-						//Lakshmi -25.11.2020-added for busy indicator-end
+            //Lakshmi -25.11.2020-added for busy indicator-end
 						//<<<<<-----------------------------------------------------------------------
 
 					}
 				} catch (e) {
 					Log.error("Exception in onSubmitLoginClk function");
-					//Lakshmi -25.11.2020-added for busy indicator-start
+          //Lakshmi -25.11.2020-added for busy indicator-start
 					this.handleBusyDialogClose();
-					//Lakshmi -25.11.2020-added for busy indicator-end
+          //Lakshmi -25.11.2020-added for busy indicator-end
 				}
 			},
-			//Lakshmi -25.11.2020-added for busy indicator-start
+      //Lakshmi -25.11.2020-added for busy indicator-start
 			handleBusyDialogOpenBio: function() {
-				if (!this._oBusyFrag) {
-					this._oBusyFrag = sap.ui.xmlfragment("BusyIndiId",
-						"avmet.ah.fragments.BusyIndicatorDialogBio",
-						this);
-					this._oBusyFrag.open();
-				}
-			},
-			handleBusyDialogClose: function() {
-				this._oBusyFrag.close(this);
-				this._oBusyFrag.destroy();
-				delete this._oBusyFrag;
+			if (!this._oBusyFrag) {
+				this._oBusyFrag = sap.ui.xmlfragment("BusyIndiId",
+					"avmet.ah.fragments.BusyIndicatorDialogBio",
+					this);
+				this._oBusyFrag.open();
+			}
+		},
+		handleBusyDialogClose: function() {
+			this._oBusyFrag.close(this);
+			this._oBusyFrag.destroy();
+			delete this._oBusyFrag;
 
-			},
-			//Lakshmi -25.11.2020-added for busy indicator-end
+		},
+    //Lakshmi -25.11.2020-added for busy indicator-end
 			//-----------------------------------------------------------------------------
 			//                            Validation Sections Starts [SignOff]
 			//-----------------------------------------------------------------------------
 			_validateSignOffUserinfo: function() {
-				//Lakshmi -25.11.2020-added for user id validation-start
+      //Lakshmi -25.11.2020-added for user id validation-start
 				return (this.SignOffLogin.getModel("signOffModel").getProperty("/id").length < 4) ? this._setSignOffError("ipUserID") : false;
-				//Lakshmi -25.11.2020-added for user id validation-end
-			},
+			//Lakshmi -25.11.2020-added for user id validation-end
+      },
 			_validateSignPin: function() {
 				return (this.SignOffLogin.getModel("signOffModel").getProperty("/pwd").length < 3) ? this._setSignOffError("ipPassword") : false;
 			},
