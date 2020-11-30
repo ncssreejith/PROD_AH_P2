@@ -392,7 +392,7 @@ sap.ui.define([
 
 		numberUnit: function(sValue) {
 			if (!sValue) {
-				return "";
+				return "0"; //Teck Meng 27/11/2020 15:30
 			}
 			return parseFloat(sValue).toFixed(2);
 		},
@@ -1695,7 +1695,14 @@ sap.ui.define([
 
 			return srNo;
 		},
-
+		/** //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043 start ======================
+		 * visible if it is the first Item in table
+		 * @param oItem
+		 * @returns
+		 */
+		visibleIfFirstItem: function() {
+			return parseInt(this.getId().split("-")[this.getId().split("-").length - 1], 0) === 0;
+		},//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043 end ======================
 		formatMaxValue: function(oMax) {
 			if (!oMax) {
 				oMax = 0.00; //Change by Teck Meng 20/11/2020 10:15
@@ -1939,6 +1946,7 @@ sap.ui.define([
 				case "AST_FAIR2":
 				case "AST_REC":
 				case "AST_GN":
+				case "AST_RCG":	
 					return false;
 				default:
 					return true;
@@ -2225,7 +2233,38 @@ sap.ui.define([
 			} else {
 				return "Manual";
 			}
-		}
+		},
+		/** Teck Meng 30/11/2020 10:30 start
+		 * 
+		 * @param sVal
+		 * @param sFlown
+		 * @returns
+		 */
+		adtEditVisible: function(sVal, sFlown) {
+
+			var maxDt = new Date(),
+				creDt = new Date();
+
+			// Set DateTime 
+			var dateString = sVal.split(" "),
+				date = dateString[0],
+				time = dateString[1];
+
+			var dateParts = date.split("-");
+			var timeParts = time.split(":");
+			creDt.setFullYear(dateParts[0], dateParts[1] - 1, dateParts[2]); //(dateParts[0]);
+			creDt.setHours(timeParts[0]);
+			creDt.setMinutes(timeParts[1]);
+			creDt.setSeconds(0);
+
+			var diff = maxDt.getTime() - creDt.getTime();
+			var daysDifference = Math.floor(diff / 1000 / 60 / 60 / 24);
+			if (daysDifference >= 1 || (sFlown && sFlown.toUpperCase() === "NOT FLOWN")) {
+				return false;
+			} else {
+				return true;
+			}
+		} // Teck Meng 30/11/2020 10:30 end
 
 	};
 

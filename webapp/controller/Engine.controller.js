@@ -428,7 +428,8 @@ sap.ui.define([
 						// oData.results.forEach(function(oItem) {
 						// 	oItem.ID = that.fnDateTime(oItem.SPDT, oItem.SPTM); //, 
 						// });
-						oData.results.sort(function(a, b) { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
+						// oData.results.sort(function(a, b) { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043 //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+						oData.results.sort(function(b, a) { //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 							return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]);
 						});
 						var bFound = false;
@@ -440,6 +441,11 @@ sap.ui.define([
 									oItem.ETF ? oItem.ETF : 0)));
 							}
 						});
+						
+						oData.results.sort(function(a, b) { //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+							return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]);//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+						});//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+						
 						if (oData) {
 							if (iEngine === "1") {
 								oEngineModel.setProperty("/EngPowerCheck", oData.results);
@@ -666,12 +672,12 @@ sap.ui.define([
 					var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
 					var iLLimit = parseInt(oItem.LLIMIT ? oItem.LLIMIT : 0) + 5;
 					var iDiff = parseInt(oItem.TGTDIFF);
-					if (iDiff > iULimit) { // upper limit
+					if (iDiff > iULimit && iDiff < oItem.ULIMIT) { // upper limit Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 						oItem.ULimitFlag = true;
 						// aRedPoints.push(iDiff);
 						// aDataPoints.push(iDiff);
 					}
-					if (iDiff < iLLimit) { // lower limit
+					if (iDiff < iLLimit && iDiff > oItem.LLIMIT) { // lower limit Teck Meng change on 27/11/2020 13:00 AH Issue 1044,104
 						oItem.LLimitFlag = true;
 						// aRedPoints.push(iDiff);
 						// aDataPoints.push(iDiff);

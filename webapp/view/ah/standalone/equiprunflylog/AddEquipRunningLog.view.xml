@@ -40,30 +40,41 @@
 							<!--required="{= ${oAircraftAddModel>/type} === '0'}" editable="{= ${oAircraftAddModel>/type} === '0'}"-->
 							<!--/>-->
 							<!-- -->
-							<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_13}" value="{oAircraftAddModel>/record/COL_13}" displayValuePrecision="1"
-							required="{= ${oAircraftAddModel>/type} === '0' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '0' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal1,AddEquipRunningLog"/>
+							<!--{oAircraftAddModel>/record/minCOL_13}Teck Meng 27/11/2020 18:30 start-->
+							<StepInput width="250px" min="0" value="{oAircraftAddModel>/record/COL_13}" displayValuePrecision="1"
+							required="{= ${oAircraftAddModel>/type} === '0' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '0' || ${oAircraftAddModel>/type} === '5'}" 
+							fieldGroupIds="fgDecimal1,AddEquipRunningLog"/>
+							<!--Teck Meng 27/11/2020 18:30 end-->
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="#2 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
 							<!--<Input width="250px" value="{oAircraftAddModel>/record/COL_14}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"-->
 							<!-- required="{= ${oAircraftAddModel>/type} === '1'}" editable="{= ${oAircraftAddModel>/type} === '1'}"/>-->
-							<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_14}" value="{oAircraftAddModel>/record/COL_14}" displayValuePrecision="1"
-							required="{= ${oAircraftAddModel>/type} === '1' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '1' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal1,AddEquipRunningLog"/>
+							<!--{oAircraftAddModel>/record/minCOL_14}Teck Meng 27/11/2020 18:30 start-->
+							<StepInput width="250px" min="0" value="{oAircraftAddModel>/record/COL_14}" displayValuePrecision="1"
+							required="{= ${oAircraftAddModel>/type} === '1' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '1' || ${oAircraftAddModel>/type} === '5'}" 
+							fieldGroupIds="fgDecimal1,AddEquipRunningLog"/>
+							<!--Teck Meng 27/11/2020 18:30 end-->
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="APU Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
 							<!--<Input width="250px" value="{oAircraftAddModel>/record/COL_15}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"-->
 							<!-- required="{= ${oAircraftAddModel>/type} === '2'||${oAircraftAddModel>/type} === '3'}" editable="{= ${oAircraftAddModel>/type} === '2'||${oAircraftAddModel>/type} === '3'}"/>-->
-							<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_15}" value="{oAircraftAddModel>/record/COL_15}" displayValuePrecision="1"
+							<!--{oAircraftAddModel>/record/minCOL_15}Teck Meng 27/11/2020 18:30 start-->
+							<StepInput width="250px" min="0" value="{oAircraftAddModel>/record/COL_15}" displayValuePrecision="1"
 							required="{= ${oAircraftAddModel>/type} === '2'||${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" 
 							editable="{= ${oAircraftAddModel>/type} === '2'||${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal2,AddEquipRunningLog"/>
+							<!--Teck Meng 27/11/2020 18:30 start-->
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="APU Start" width="250px" level="H2" class="sapUiSmallMarginTop"/>
 							<!--<Input width="250px" value="{oAircraftAddModel>/record/COL_16}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"-->
-							<!-- required="{= ${oAircraftAddModel>/type} === '2'}" editable="{= ${oAircraftAddModel>/type} === '2'}"/>-->
-							<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_16}" value="{oAircraftAddModel>/record/COL_16}"
-							required="{= ${oAircraftAddModel>/type} === '2' || ${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '2' || ${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgNumber,AddEquipRunningLog"/>
+							<!-- required="{= ${oAircraftAddModel>/type} === '2'}" editable="{= ${oAircraftAddModel>/type} === '2'}"{oAircraftAddModel>/record/minCOL_16}/>-->
+							<!--Teck Meng 27/11/2020 18:30 start-->
+							<StepInput width="250px" min="0" value="{oAircraftAddModel>/record/COL_16}"
+							required="{= ${oAircraftAddModel>/type} === '2' || ${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '2' || ${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" 
+							fieldGroupIds="fgNumber,AddEquipRunningLog"/>
+							<!--Teck Meng 27/11/2020 18:30 end-->
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="ALQ144" width="250px" level="H2" class="sapUiSmallMarginTop"/>

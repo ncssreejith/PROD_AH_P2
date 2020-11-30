@@ -11,8 +11,10 @@
 							<content>
 								<Title level="H3" text="Engine Oil Replenishment"/>
 								<ToolbarSpacer/>
+								<!--Teck Meng change on 30/11/2020 15:00 start-->
 								<Button text="Add Replenishment Log" type="Emphasized" press="onAddEngOilLog" visible="{= ${avmetModel>/airSel/tailid} !=='NA'}"
-								enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"/>
+								enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"/>
+								<!--Teck Meng change on 30/11/2020 15:00 end-->
 								<!--<Link text="{i18n>liView}" press="handleLinkPress"/>-->
 							</content>
 						</OverflowToolbar>

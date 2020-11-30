@@ -18,7 +18,9 @@
 					</items>
 				</SegmentedButton>
 			</VBox>
-			<VBox>
+			<!--Teck Meng change on 27/11/2020 10:00 start-->
+			<VBox class="sapUiSmallMarginTop">
+			<!--Teck Meng change on 27/11/2020 10:00 end-->	
 				<!--Teck Meng change on 23/11/2020 10:00 start-->
 				<Label text="Update HIT or Re-establishment/ETF" design="Bold"/>
 				<!--Teck Meng change on 23/11/2020 10:00 end-->
@@ -73,13 +75,17 @@
 							required="true" change="fnTblInAndIndTgt"/>
 					</VBox>
 				</HBox>
-				<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?false:true}">
-					<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+				<!--Teck Meng change on 27/11/2020 10:00 start-->
+				<HBox class="sapUiSmallMarginTop">
+					<VBox class="sapUiSmallMarginBeginEnd" width="33%" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?false:true}">
+					<!--Teck Meng change on 27/11/2020 10:00 end-->	
 						<Label text="TGT Difference" design="Bold"/>
 						<StepInput editable="false" min="0" width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgtdiff}"
 							fieldGroupIds="fgStepInput" required="true"/>
 					</VBox>
-					<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+					<!--Teck Meng change on 27/11/2020 10:00 start-->
+					<VBox class="sapUiSmallMarginBeginEnd" width="33%" visible="{= ${oPilotUpdatesViewModel>chkrn}==='1'?true:false}">
+					<!--Teck Meng change on 27/11/2020 10:00 end-->	
 						<Label text="Strike Status" design="Bold"/>
 						<StepInput editable="false" min="0" width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>xstat}"
 							fieldGroupIds="fgStepInput" required="true"/>
@@ -113,8 +119,10 @@
 					</VBox>
 					<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 						<Label text="TQ ACT" design="Bold"/>
-						<StepInput width="150px" min="0" editable="false" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tqact}" id="tqactId"
+						<!--Teck Meng change on 27/11/2020 10:00 start-->
+						<StepInput width="150px" min="0" editable="{= ${oPilotUpdatesViewModel>/chkrn}==='2'?true:false}" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tqact}" id="tqactId"
 							fieldGroupIds="fgStepInput" required="true"/>
+							<!--Teck Meng change on 27/11/2020 10:00 end-->
 					</VBox>
 				</HBox>
 				<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>/chkrn}==='2'?true:false}">

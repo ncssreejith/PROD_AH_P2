@@ -76,9 +76,11 @@
 									<!--Teck Meng change on 23/11/2020 10:00 start-->
 									<Text text="{path:'oEngineModel>oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
 									<!--Teck Meng change on 23/11/2020 10:00 end-->
-									<Text text="{oEngineModel>TGTTAB}"/>
-									<Text text="{oEngineModel>TGTIND}"/>
-									<Text text="{oEngineModel>TGTDIFF}"/>
+									<!--Teck Meng change on 27/11/2020 10:00 start-->
+									<Text text="{path:'oEngineModel>oEngineModel>TGTTAB', formatter:'.formatter.integerUnit'}"/>
+									<Text text="{path:'oEngineModel>oEngineModel>TGTIND', formatter:'.formatter.integerUnit'}"/>
+									<Text text="{path:'oEngineModel>oEngineModel>TGTDIFF', formatter:'.formatter.integerUnit'}"/>
+									<!--Teck Meng change on 27/11/2020 10:00 end-->
 									<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 									<Text text="{oEngineModel>TQACT}"/>
 									<!--Teck Meng change on 23/11/2020 10:00 start-->
@@ -175,9 +177,11 @@
 								<!--Teck Meng change on 23/11/2020 10:00 start-->
 								<Text text="{path:'oEngineModel>oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
 								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<Text text="{oEngineModel>TGTTAB}"/>
-								<Text text="{oEngineModel>TGTIND}"/>
-								<Text text="{oEngineModel>TGTDIFF}"/>
+								<!--Teck Meng change on 27/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>TGTTAB', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>TGTIND', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>TGTDIFF', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 27/11/2020 10:00 end-->
 								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
 								<!--Teck Meng change on 23/11/2020 10:00 start-->
@@ -251,10 +255,11 @@
 								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<!--Teck Meng change on 23/11/2020 10:00 start-->
 								<Text text="{path:'oEngineModel>oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
-								
 								<!--<Text text="{oEngineModel>TGTTAB}"/>-->
 								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<Text text="{oEngineModel>TGTIND}"/>
+								<!--Teck Meng change on 27/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>TGTIND', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 27/11/2020 10:00 end-->
 								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
 								<!--Teck Meng change on 23/11/2020 10:00 start-->
@@ -264,16 +269,19 @@
 								<!--Teck Meng change on 23/11/2020 10:00 start-->
 								<Text text="{path:'oEngineModel>oEngineModel>TGTTAB', formatter:'.formatter.integerUnit'}"/>
 								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<Text text="{oEngineModel>ASPEED}"/>
+								<!--Teck Meng change on 27/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>ASPEED', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 27/11/2020 10:00 end-->
 								<HBox justifyContent="Center">
 									<!--Teck Meng change on 24/11/2020 15:00 start-->
 									<!--<Text text="{path:'oEngineModel>ETF'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>-->
-									<Text text="{path:'oEngineModel>ETF', formatter:'.formatter.numberUnit'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>
+									<Text text="{path:'oEngineModel>ETF', formatter:'.formatter.numberUnit'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }"
+										class="sapUiTinyMarginTopEnd"/>
 									<!--Teck Meng change on 24/11/2020 15:00 end-->
 									<!--Teck Meng change on 25/11/2020 15:00 start-->
-									<StepInput min="0" value="{oEngineModel>ETF}"
-										visible="{= !!${oEngineModel>/headerDetails/ETFEDIT} &amp;&amp; !!${oEngineModel>Special} }" displayValuePrecision="2"/>
-									<!--Teck Meng change on 25/11/2020 15:00 end-->	
+									<StepInput min="0" value="{oEngineModel>ETF}" visible="{= !!${oEngineModel>/headerDetails/ETFEDIT} &amp;&amp; !!${oEngineModel>Special} }"
+										displayValuePrecision="2"/>
+									<!--Teck Meng change on 25/11/2020 15:00 end-->
 								</HBox>
 								<Button text="{= !!${oEngineModel>/headerDetails/ETFEDIT} ? ${i18n>txtSignOff} : ${i18n>btnEdit} }" visible="{= !!${oEngineModel>Special} }"
 									enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"

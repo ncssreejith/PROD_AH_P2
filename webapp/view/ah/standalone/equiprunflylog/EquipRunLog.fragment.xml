@@ -3,8 +3,10 @@
 		<Toolbar>
 			<ToolbarSpacer/>
 			<!--addTaskBtn-->
+			<!--Teck Meng change on 30/11/2020 15:00 start-->
 			<Button icon="sap-icon://sys-add" text="Add Equip Running Log" press="onAddEquipRunLog"
-			enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"/>
+			enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"/>
+			<!--Teck Meng change on 30/11/2020 15:00 end-->
 		</Toolbar>
 		<Table id="tblEquip" columns="{oAircraftUtilModel>/equip}" class="TableHeaderBGColor">
 			<columns>

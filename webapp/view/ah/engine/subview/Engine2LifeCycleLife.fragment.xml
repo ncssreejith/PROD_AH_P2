@@ -11,11 +11,13 @@
 								<Title level="H3" text="Engine Indicator Value"/>
 								<ToolbarSpacer/>
 								<!--<Link text="View Past Records"/>-->
+								<!--Teck Meng change on 30/11/2020 15:00 start-->
 								<Button text="Reset Indicator Value" type="Transparent" press="onResetEng2CycLog"
-								enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"/>
+								enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"/>
 								<Button text="Add Engine Cyclic Log" type="Emphasized" press="onAddEng2CycLog" 
-								enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"
+								enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"
 								visible="{= ${avmetModel>/airSel/tailid} !=='NA'}"/>
+								<!--Teck Meng change on 30/11/2020 15:00 end-->
 							</content>
 						</OverflowToolbar>
 					</headerToolbar>

@@ -163,7 +163,8 @@ sap.ui.define([
 					"TIMEI": null,
 					"CREUSR": null,
 					"CREDTM": null,
-					"CREUZT": null
+					"CREUZT": null,
+					"SGUZT": null
 				};
 				var utilData2 = {
 					"FLAG": null,
@@ -200,7 +201,8 @@ sap.ui.define([
 					"TIMEI": null,
 					"CREUSR": null,
 					"CREDTM": null,
-					"CREUZT": null
+					"CREUZT": null,
+					"SGUZT": null
 				};
 				// utilData.type = 0;
 				// utilData.logid = 0;

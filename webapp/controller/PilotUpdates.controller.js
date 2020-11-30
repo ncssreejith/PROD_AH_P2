@@ -317,7 +317,7 @@ sap.ui.define([
 		onFlySelChange: function(oEvent) {
 			var isFlyFail = false;
 			oEvent.getSource().getParent().getParent().getItems().forEach(function(oItem) {
-				if (oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("frrid") === "FRR_F") {
+				if (oItem.getBindingContext("oPilotUpdatesViewModel").getProperty("FRRID") === "FRR_F") {//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 					isFlyFail = true;
 				}
 			});
@@ -490,7 +490,7 @@ sap.ui.define([
 				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
 				oPayloads.astatid = this.fnGetAircraftStatus();
 				oPayloads.isfair = this.getModel("oPilotUpdatesViewModel").getProperty("/isFair") ? "Y" : "N";
-				
+
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {
@@ -606,7 +606,7 @@ sap.ui.define([
 		fnCreateFlyReq: function() {
 			try {
 				// var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyReq");//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-				var oPayloads = JSON.parse(JSON.stringify(this.getModel("oPilotUpdatesViewModel").getProperty("/flyReq")));//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+				var oPayloads = JSON.parse(JSON.stringify(this.getModel("oPilotUpdatesViewModel").getProperty("/flyReq"))); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 				if (oPayloads.length === 0) {
 					return;
 				}
@@ -705,17 +705,17 @@ sap.ui.define([
 		 */
 		fnCheckEnginePayload: function(oPayload) {
 			switch (oPayload.chkrn) {
-				case "1":
+				case "1": //Hit
 					if (!oPayload.temp && !oPayload.bpress && !oPayload.tgttab && !oPayload.tgtind && !oPayload.ng && !oPayload.np) {
 						return false;
 					}
 					break;
-				case "2":
+				case "2": //ETF
 					if (!oPayload.temp && !oPayload.bpress && !oPayload.tgtind && !oPayload.ng && !oPayload.np) {
 						return false;
 					}
 					break;
-				case "3":
+				case "3": //Re-establish
 					if (!oPayload.temp && !oPayload.bpress && !oPayload.tgttab && !oPayload.tgtind && !oPayload.ng && !oPayload.np) {
 						return false;
 					}
@@ -779,7 +779,7 @@ sap.ui.define([
 				} else {
 					this.getModel("oPilotUpdatesViewModel").setProperty("/srvtid", oEvent.getParameter("arguments").srvtid);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);
-					this.getModel("oPilotUpdatesViewModel").setProperty("/num1", oEvent.getParameter("arguments").num1);//Teck Meng 25/11/2020 16:50
+					this.getModel("oPilotUpdatesViewModel").setProperty("/num1", oEvent.getParameter("arguments").num1); //Teck Meng 25/11/2020 16:50
 					this.getModel("oPilotUpdatesViewModel").setData(this._fnCreateData());
 
 					var sSrvtid = this.getModel("avmetModel").getProperty("/dash/astid");
@@ -984,10 +984,14 @@ sap.ui.define([
 						if (oData) {
 							if (iEngine === "1") {
 								oEngineModel.setProperty("/EngPowerCheck", oData.results);
-								// this.fnCheckHIT(iEngine);
+								this.fnCheckHIT(iEngine,
+									this.getModel("oPilotUpdatesViewModel").getProperty("/engines/0/1") //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+								);
 							} else {
 								oEngineModel.setProperty("/EngPowerCheck2", oData.results);
-								// this.fnCheckHIT(iEngine);
+								this.fnCheckHIT(iEngine,
+									this.getModel("oPilotUpdatesViewModel").getProperty("/engines/1/1") //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+								);
 							}
 						}
 					}
@@ -1001,6 +1005,7 @@ sap.ui.define([
 		//2.Check for defect in the HIT chart 
 		fnCheckHIT: function(iEngine, oPayload) { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 			// try {
+			oPayload.xstat = 0; //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 			var oEngineModel = this.getView().getModel("oPilotUpdatesViewModel");
 			var aEngPowerCheck = {};
 			if (iEngine === "1") {
@@ -1036,6 +1041,7 @@ sap.ui.define([
 					aUDashPoints = [];
 					aLowerLimit = [];
 					aUpperLimit = [];
+					oPayload.xstat = 0;
 					return;
 				}
 				if (oItem.CHKRN !== "1") { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
@@ -1048,6 +1054,7 @@ sap.ui.define([
 					oItem.ULimitFlag = true;
 					if (iDiff <= (iULimit + 5)) {
 						// aRedPoints.push(iDiff);//Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
+						oPayload.xstat++; //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 						aRedPoints.push(oItem.SRVID); //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 					} else {
 						if (oItem.SRVID === "SRV_999999999999999") { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
@@ -1060,6 +1067,7 @@ sap.ui.define([
 					oItem.LLimitFlag = true;
 					if (iDiff >= (iLLimit - 5)) {
 						// aRedPoints.push(iDiff);//Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
+						oPayload.xstat++; //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 						aRedPoints.push(oItem.SRVID); //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 					} else { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 						if (oItem.SRVID === "SRV_999999999999999") { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
@@ -1133,7 +1141,7 @@ sap.ui.define([
 					}, "viewModel");
 				}.bind(this);
 				oParameter.success = function(oData) {
-					this._fnMakeAllPass(oData, "PILOT_P");
+					this._fnMakeAllPass(oData, "PILOT_P", "SORTIE");//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 					this.getModel("oPilotUpdatesViewModel").setProperty("/airMon", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
@@ -1157,7 +1165,7 @@ sap.ui.define([
 					}, "viewModel");
 				}.bind(this);
 				oParameter.success = function(oData) {
-					this._fnMakeAllPass(oData, "FRR_P");
+					this._fnMakeAllPass(oData, "FRR_P", "FLY");//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 					this.getModel("oPilotUpdatesViewModel").setProperty("/flyReq", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
@@ -1269,9 +1277,13 @@ sap.ui.define([
 		 * @param oData
 		 * @param sStat
 		 */
-		_fnMakeAllPass: function(oData, sStat) {
+		_fnMakeAllPass: function(oData, sStat, sService) {//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 			oData.results.forEach(function(oItem) {
-				oItem.frrid = (oItem.frrid === "" || oItem.frrid === null) ? sStat : oItem.frrid;
+				if (sService === "FLY") {//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+					oItem.FRRID = (oItem.FRRID === "" || oItem.FRRID === null) ? sStat : oItem.FRRID;//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+				} else {//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+					oItem.frrid = (oItem.frrid === "" || oItem.frrid === null) ? sStat : oItem.frrid;//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+				}//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 			});
 		},
 
@@ -1345,7 +1357,7 @@ sap.ui.define([
 					"rcreq": "N", // IF THEY RUNNING CHANGE SEL
 					"isfair": "N", // IF ANY FAIR JOB DEFECT SELECT 
 					"astatid": "AST_S", // AST_S IF SERVICEABLE AST_US IF UNSERVICEABLE ,FAIL SORTI,FAIL FLY  
-					"num1": this.getModel("oPilotUpdatesViewModel").getProperty("/num1")  //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
+					"num1": this.getModel("oPilotUpdatesViewModel").getProperty("/num1") //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 				};
 				oPayload.timings = [{
 					"srvid": null,

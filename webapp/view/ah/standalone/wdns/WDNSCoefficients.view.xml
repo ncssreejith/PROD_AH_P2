@@ -6,8 +6,10 @@
 				<HBox justifyContent="End">
 					<Button text="Print" icon="sap-icon://print" press="onPrint"/>
 					<Button text="View Past Record" type="Transparent" class="sapUiTinyMarginBeginEnd" press="onViewPastRecord"></Button>
+					<!--Teck Meng change on 30/11/2020 15:00 start-->
 					<Button text="Update Record" type="Emphasized" press="onUpdateRecord"
 					enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"/>
+					<!--Teck Meng change on 30/11/2020 15:00 end-->
 				</HBox>
 				<HBox>
 					<VBox width="auto">
