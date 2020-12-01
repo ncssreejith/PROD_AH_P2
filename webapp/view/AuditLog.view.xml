@@ -43,7 +43,8 @@
 							<!--</fb:FilterGroupItem>-->
 							<fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="Period" labelTooltip="Period" visibleInFilterBar="true">
 								<fb:control>
-									<DateRangeSelection displayFormat="dd/MM/yyyy" value="{auditLogModel>/PeriodDate}" change="onDateSelection"/>
+									<!--Rahul: 01/12/2020: 11:08AM: id added for date range-->
+									<DateRangeSelection displayFormat="dd/MM/yyyy" id="drFilter" value="{auditLogModel>/PeriodDate}" change="onDateSelection"/>
 								</fb:control>
 							</fb:FilterGroupItem>
 							<fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="Search" labelTooltip="Search" visibleInFilterBar="true">
