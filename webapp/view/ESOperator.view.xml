@@ -8,6 +8,15 @@
 			</m:VBox>
 		</m:Toolbar>
 		<m:content>
+			<m:Vbox>
+				<m:HBox>
+					<m:Label text="Selection" wrapping="true" design="Bold" width="150px" class="sapUiSmallMarginBegin sapUiSmallMarginTop"></m:Label>
+					<m:ComboBox id="idSelectID" selectionChange="onselectionChange" class="sapUiContentPadding" width="150px" items="{oSelectModel>/Selections}" selectedKey="JOB"
+						showSecondaryValues="true">
+						<c:ListItem key="{oSelectModel>SelectKey}" text="{oSelectModel>SelectText}"/>
+					</m:ComboBox>
+				</m:HBox>
+			</m:Vbox>			
 			<!--<m:Vbox>-->
 			<!--	<m:HBox>-->
 			<!--		<m:Label text="Air ID" wrapping="true" design="Bold" width="50px" class="sapUiSmallMarginBegin sapUiSmallMarginTop"></m:Label>-->
@@ -23,8 +32,9 @@
 			<!--		<m:Button id="buttonGo" text="Go" press="onclickGo" class="sapUiLargeMarginBegin"/>-->
 			<!--	</m:HBox>-->
 			<!--</m:Vbox>-->
+			
 			<Table id="jobTable" rows="{oGlobalModel>/Jobs}" selectionMode="MultiToggle" visibleRowCount="11" ariaLabelledBy="Job"
-				class="sapUiSmallMarginBegin">
+				class="sapUiSmallMarginBegin" visible="{oInitialModel>/dispJob}">
 				<extension>
 					<m:OverflowToolbar>
 						<m:Title id="JobTable" level="H2" titleStyle="H2" text="Job Details" textAlign="Center"/>
@@ -209,6 +219,512 @@
 							<m:Text text="{oGlobalModel>JobSupervisor}" wrapping="false"/>
 						</template>
 					</Column>
+				</columns>
+			</Table>
+			<Table id="roleTable" rows="{oGlobalModel>/Services}" selectionMode="MultiToggle" visibleRowCount="11" ariaLabelledBy="Job"
+				class="sapUiSmallMarginBegin" visible="{oInitialModel>/dispRole}">
+				<extension>
+					<m:OverflowToolbar>
+						<m:Title id="tRoleTable" level="H2" titleStyle="H2" text="Role Details" textAlign="Center"/>
+						<m:ToolbarSpacer/>
+						<m:Label id="ipRoleSearchLabel" labelFor="roleSearchButton" text="" class="sapUiSmallMarginBegin sapUiSmallMarginTop"/>
+						<m:Input id="inputRoleSearchBtn" width="20%" liveChange="onFilterLiveChange" placeholder="search" tooltip="search"/>
+						<m:Button id="roleSearchButton" text="Download" press="onclickDownload"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="11rem">
+						<m:Label text="ROLE ID"/>
+						<template>
+							<m:Text text="{oGlobalModel>ROLEID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="7rem">
+						<m:Label text="Aircraft Tail"/>
+						<template>
+							<m:Text text="{oGlobalModel>TAILID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Station"/>
+						<template>
+							<m:Text text="{oGlobalModel>STNSID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Item Installed"/>
+						<template>
+							<m:Text text="{oGlobalModel>ADAPTOR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Serial Number"/>
+						<template>
+							<m:Text text="{oGlobalModel>SERNR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="10rem">
+						<m:Label text="Tradesman"/>
+						<template>
+							<m:Text text="{oGlobalModel>SGUSR}" wrapping="false"/>
+						</template>
+					</Column>		
+					<Column width="10rem">
+						<m:Label text="Supervisor"/>
+						<template>
+							<m:Text text="{oGlobalModel>RESGUSR}" wrapping="false"/>
+						</template>
+					</Column>	
+					<Column width="7rem">
+						<m:Label text="Date"/>
+						<template>
+							<m:Text text="{oGlobalModel>RESGDTM}" wrapping="false"/>
+						</template>
+					</Column>	
+					<Column width="8rem">
+						<m:Label text="Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>RESGUZT}" wrapping="false"/>
+						</template>
+					</Column>						
+				</columns>
+			</Table>
+			<Table id="srvTable" rows="{oGlobalModel>/Services}" selectionMode="MultiToggle" visibleRowCount="11" ariaLabelledBy="Job"
+				class="sapUiSmallMarginBegin" visible="{oInitialModel>/dispSrv}">
+				<extension>
+					<m:OverflowToolbar>
+						<m:Title id="tSrvTable" level="H2" titleStyle="H2" text="Services Details" textAlign="Center"/>
+						<m:ToolbarSpacer/>
+						<m:Label id="ipSrvSearchLabel" labelFor="inputSrvSearchBtn" text=""/>
+						<m:Input id="inputSrvSearchBtn" width="20%" liveChange="onFilterLiveChange" placeholder="search" tooltip="search"/>
+						<m:Button id="srvSearchButton" text="Download" press="onclickDownload"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="11rem">
+						<m:Label text="Service ID"/>
+						<template>
+							<m:Text text="{oGlobalModel>SRVID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Type of Flight Servicing"/>
+						<template>
+							<m:Text text="{oGlobalModel>SRVT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Aircraft Tail"/>
+						<template>
+							<m:Text text="{oGlobalModel>TAILID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Replenish"/>
+						<template>
+							<m:Text text="{oGlobalModel>RESID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Original Amount"/>
+						<template>
+							<m:Text text="{oGlobalModel>ORIGAMT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Defuel Amount"/>
+						<template>
+							<m:Text text="{oGlobalModel>DEFUEL}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Service Amount"/>
+						<template>
+							<m:Text text="{oGlobalModel>SRVAMT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Total Amount"/>
+						<template>
+							<m:Text text="{oGlobalModel>TOTAMT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Date"/>
+						<template>
+							<m:Text text="{oGlobalModel>RESGDTM}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>RESGUZT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Tradesman"/>
+						<template>
+							<m:Text text="{oGlobalModel>RESGUSR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Task ID"/>
+						<template>
+							<m:Text text="{oGlobalModel>TASKID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Task Description"/>
+						<template>
+							<m:Text text="{oGlobalModel>RTASKID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Follow Up Task Description"/>
+						<template>
+							<m:Text text="{oGlobalModel>FTDESC}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Task Date"/>
+						<template>
+							<m:Text text="{oGlobalModel>RTSGDTM}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Task Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>RTSGUZT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Task Tradesman"/>
+						<template>
+							<m:Text text="{oGlobalModel>RTSGUSR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Supervisor"/>
+						<template>
+							<m:Text text="{oGlobalModel>RTSG1USR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Station"/>
+						<template>
+							<m:Text text="{oGlobalModel>STATION}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Item Installed"/>
+						<template>
+							<m:Text text="{oGlobalModel>WESID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Serial Number"/>
+						<template>
+							<m:Text text="{oGlobalModel>WESNR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Weapon Config Date"/>
+						<template>
+							<m:Text text="{oGlobalModel>WESGDTM}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Weapon Config Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>WESGUZT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Weapon Config Tradesman"/>
+						<template>
+							<m:Text text="{oGlobalModel>WSUSER}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Weapon Config Supervisor"/>
+						<template>
+							<m:Text text="{oGlobalModel>WESG1USR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="FFF Date"/>
+						<template>
+							<m:Text text="{oGlobalModel>FFDATE}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="FFF Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>FFTIME}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="FFF"/>
+						<template>
+							<m:Text text="{oGlobalModel>FFUSER}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Pilot Accept Date"/>
+						<template>
+							<m:Text text="{oGlobalModel>PILOTDATE}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Pilot Accept Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>PILOTTIME}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Pilot Acceptance"/>
+						<template>
+							<m:Text text="{oGlobalModel>PILOT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Flight Status"/>
+						<template>
+							<m:Text text="{oGlobalModel>FSTAT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="TYPE OF OPERATION"/>
+						<template>
+							<m:Text text="{oGlobalModel>OPRTY}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Normal"/>
+						<template>
+							<m:Text text="{oGlobalModel>LNOR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Running"/>
+						<template>
+							<m:Text text="{oGlobalModel>LRUN}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Total"/>
+						<template>
+							<m:Text text="{oGlobalModel>LTOT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="APU Duration"/>
+						<template>
+							<m:Text text="{oGlobalModel>APUDUR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="APU Start"/>
+						<template>
+							<m:Text text="{oGlobalModel>APUSNO}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Engine Start Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>EGSTT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Engine End Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>EGSPT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Weight Off Wheel Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>WOFFW}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Weight on Wheel Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>WONW}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="F16-Post Flight Date"/>
+						<template>
+							<m:Text text="{oGlobalModel>PFDATE}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="F16-Post Flight Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>PFTIME}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Pilot Name"/>
+						<template>
+							<m:Text text="{oGlobalModel>PFUSER}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Engine Serial Number"/>
+						<template>
+							<m:Text text="{oGlobalModel>ESERNR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Engine Reason for Check"/>
+						<template>
+							<m:Text text="{oGlobalModel>CHKRN}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="AMBIENT TEMP"/>
+						<template>
+							<m:Text text="{oGlobalModel>TEMP}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="AMBIENT BARO PRESSURE"/>
+						<template>
+							<m:Text text="{oGlobalModel>BPRESS}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="TABLE TGT"/>
+						<template>
+							<m:Text text="{oGlobalModel>TGTTAB}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="IND TGT"/>
+						<template>
+							<m:Text text="{oGlobalModel>TGTIND}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="DIFF TGT"/>
+						<template>
+							<m:Text text="{oGlobalModel>TGTDIFF}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="NG"/>
+						<template>
+							<m:Text text="{oGlobalModel>NG}" wrapping="false"/>
+						</template>
+					</Column><Column width="11rem">
+						<m:Label text="TQ ACT"/>
+						<template>
+							<m:Text text="{oGlobalModel>TQACT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="NP"/>
+						<template>
+							<m:Text text="{oGlobalModel>NP}" wrapping="false"/>
+						</template>
+					</Column>	<Column width="11rem">
+						<m:Label text="Airspeed"/>
+						<template>
+							<m:Text text="{oGlobalModel>ASPEED}" wrapping="false"/>
+						</template>
+					</Column>
+				<Column width="11rem">
+						<m:Label text="ETF"/>
+						<template>
+							<m:Text text="{oGlobalModel>ETF}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="UPPER LIMIT"/>
+						<template>
+							<m:Text text="{oGlobalModel>ULIMIT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="WITHIN 5 UPPER LIMIT"/>
+						<template>
+							<m:Text text="{oGlobalModel>ULIMIT5}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="LOWER LIMIT"/>
+						<template>
+							<m:Text text="{oGlobalModel>LLIMIT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="WITHIN 5 LOWER LIMIT"/>
+						<template>
+							<m:Text text="{oGlobalModel>LLIMIT5}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="LOG ID"/>
+						<template>
+							<m:Text text="{oGlobalModel>LOGID}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Engine Serial Number"/>
+						<template>
+							<m:Text text="{oGlobalModel>ESERNR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="LCF1"/>
+						<template>
+							<m:Text text="{oGlobalModel>LCF1}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="LCF2"/>
+						<template>
+							<m:Text text="{oGlobalModel>LCF2}" wrapping="false"/>
+						</template>
+					</Column>	
+					<Column width="11rem">
+						<m:Label text="INDEX1"/>
+						<template>
+							<m:Text text="{oGlobalModel>INDEX1}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="ENGHR"/>
+						<template>
+							<m:Text text="{oGlobalModel>ENGHR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Total LCF1"/>
+						<template>
+							<m:Text text="{oGlobalModel>TLCF2}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Total LCF2"/>
+						<template>
+							<m:Text text="{oGlobalModel>TLCF2}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Total INDEX"/>
+						<template>
+							<m:Text text="{oGlobalModel>TINDEX}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Total ENGHR"/>
+						<template>
+							<m:Text text="{oGlobalModel>TENGHR}" wrapping="false"/>
+						</template>
+					</Column>					
 				</columns>
 			</Table>
 		</m:content>

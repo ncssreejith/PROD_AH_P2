@@ -21,9 +21,15 @@ sap.ui.define([
 		//                 1. UI Events  
 		// ***************************************************************************
 		onInit: function() {
-			var that = this;
+			var that = this,oAirId;
 			this.getView().setModel(new JSONModel({}), "oViewModel");
 			this.getRouter().getRoute("AircraftSelection").attachPatternMatched(this._onObjectMatched, this);
+			//Rahul: 01/12/2020: 03:20PM: User Seeion set to null as this.getOwnerComponent().appModel is undefined;
+			try {
+				oAirId = dataUtil.getDataSet(this.getOwnerComponent().appModel).login.airid;
+			} catch (e) {
+				dataUtil.setDataSet("oUserSession", null);
+			}
 			var oModel = new JSONModel({
 				models: [],
 				tails: [],
@@ -230,14 +236,14 @@ sap.ui.define([
 			ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oParameter);
 		},
 		fnLoadEngin: function(sEngType) {
-			var selTailid = 
-			// this.getModel("oAirSelectViewModel").getProperty("/sel/tailid")
-			// + " and 
-			"ENGTY eq " + sEngType;
+			var selTailid =
+				// this.getModel("oAirSelectViewModel").getProperty("/sel/tailid")
+				// + " and 
+				"ENGTY eq " + sEngType;
 			var oParameter = {};
-			oParameter.filter = 
-			// "tailid eq '" + 
-			selTailid;
+			oParameter.filter =
+				// "tailid eq '" + 
+				selTailid;
 			oParameter.error = function() {
 
 			};
@@ -274,7 +280,7 @@ sap.ui.define([
 		},
 		fnLoadEnginDistinct: function() {
 			var selTailid = this.getModel("oAirSelectViewModel").getProperty("/sel/tailid");
-			
+
 			var oParameter = {};
 			oParameter.filter = "tailid eq '" + selTailid + "'";
 			oParameter.error = function() {
