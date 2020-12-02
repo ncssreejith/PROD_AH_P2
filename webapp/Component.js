@@ -17,13 +17,13 @@ sap.ui.define([
 		init: function() {
 			UIComponent.prototype.init.apply(this, arguments);
 			this.setModel(models.createDeviceModel(), "device");
-			this._fnSessionChk(); 	//Sreejith: 30/11/2020: Code Uncommented as session logic changed by sreejith
+			this._fnSessionChk(); //Sreejith: 30/11/2020: Code Uncommented as session logic changed by sreejith
 			//this._fnUserPinLogin(); //Sreejith: 30/11/2020: Code Uncommented as not required
 		},
 
-	_fnSessionChk: function() {
+		_fnSessionChk: function() {
 			try {
-				var sPath = dataUtil.destination+"/ws_authenticate";
+				var sPath = dataUtil.destination + "/ws_authenticate";
 				//Sreejith: 30/11/2020: Code commented as session logic changed by sreejith
 				/*if(dataUtil.getDataSet("oUserSession")){
 					sPath = sPath+"?sessionid="+dataUtil.getDataSet("oUserSession").sessionid;
@@ -42,7 +42,7 @@ sap.ui.define([
 							that.fnLoginUser();
 							return "";
 						}
-					    sap.m.URLHelper.redirect(xhr.getResponseHeader("Location"), false);
+						sap.m.URLHelper.redirect(xhr.getResponseHeader("Location"), false);
 					}
 				});
 			} catch (e) {
@@ -87,13 +87,13 @@ sap.ui.define([
 
 		_fnUserPinLogin: function() {
 			try {
-				
-				var sPass = dataUtil.username+":"+dataUtil.pwd;
+
+				var sPass = dataUtil.username + ":" + dataUtil.pwd;
 				$.ajax({
 					type: 'GET',
-					url: dataUtil.destination+"/ws_authenticate",
+					url: dataUtil.destination + "/ws_authenticate",
 					headers: {
-						"Authorization": "Basic " + dataUtil._AESHexEncript(sPass),  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
+						"Authorization": "Basic " + dataUtil._AESHexEncript(sPass), //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
 						"state": "new"
 					},
 					error: function(xhrx) {
@@ -116,9 +116,11 @@ sap.ui.define([
 		},
 		_fnPlatformSelLogin: function(sPkey) {
 			try {
+				/*Rahul: 02/12/2020: 04:22PM : Sessionid removed as not required(Sreejith)*/
+				/*url: dataUtil.destination + "/ws_authenticate?sessionid=" + dataUtil.getDataSet("oUserSession").sessionid,*/
 				$.ajax({
 					type: 'GET',
-					url: dataUtil.destination+"/ws_authenticate?sessionid="+dataUtil.getDataSet("oUserSession").sessionid,
+					url: dataUtil.destination + "/ws_authenticate",
 					headers: {
 						"state": "selPtfm",
 						"ptfm": sPkey
