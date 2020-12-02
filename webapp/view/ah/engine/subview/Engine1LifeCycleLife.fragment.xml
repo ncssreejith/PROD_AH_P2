@@ -39,6 +39,10 @@
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="Updated By" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
+						<!--Teck Meng change on 30/11/2020 15:00 start-->
+						<!--<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">-->
+						<!--</Column>-->
+						<!--Teck Meng change on 30/11/2020 15:00 end-->
 					</columns>
 					<items>
 						<ColumnListItem>
@@ -49,6 +53,11 @@
 								<Text text="{= ${oEngineModel>INDEX1} ? ${oEngineModel>INDEX1} : '0'}"/>
 								<Text text="{path:'oEngineModel>ENGHR', formatter:'.formatter.decimal1Unit'}"/>
 								<Text text="{oEngineModel>CREUSR}"/>
+								<!--Teck Meng change on 30/11/2020 15:00 start-->
+								<!--<Button text="Edit" visible="{parts:['oEngineModel>CREDTM','oEngineModel>CREUZT'], formatter:'.formatter.engineCycLogtEditVisible'}"-->
+								<!--	enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"-->
+								<!--	icon="sap-icon://request" press="onPastCyclicLogEditPress" type="Emphasized"/>-->
+								<!--Teck Meng change on 30/11/2020 15:00 end-->	
 							</cells>
 						</ColumnListItem>
 					</items>

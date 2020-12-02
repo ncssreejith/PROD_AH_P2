@@ -420,7 +420,7 @@ sap.ui.define([
 								parseFloat(oItem.LV_HRS) : 0),
 							oItem.LV_HRS);
 						if (oItem.LV_HRS > 0) {
-							if (oItem.LV_THRS === 0) {
+							if (parseInt(oItem.LV_THRS) === 0) { //Teck Meng 02/12/2020 12:35
 								oItem.LV_COLOR = "Error";
 							} else {
 								oItem.LV_COLOR = "Critical";

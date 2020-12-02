@@ -1,7 +1,10 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control">
 	<VBox class="sapUiSmallMargin backgroundBlue">
 		<Label text="Is Engine Power Check Required?" design="Bold"/>
-		<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/engPowerCheckRequired}">
+		<!--Teck Meng change on 02/12/2020 10:00 start-->
+		<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/engPowerCheckRequired}"
+		enabled="{= ${oPilotUpdatesViewModel>/srvid} === undefined}">
+		<!--Teck Meng change on 02/12/2020 10:00 end-->	
 			<items>
 				<SegmentedButtonItem text="Yes" key="Y" width="70%"/>
 				<SegmentedButtonItem text="No" key="N" width="70%"/>
@@ -70,9 +73,11 @@
 							required="true" change="fnTblInAndIndTgt"/>
 					</VBox>
 					<VBox class="sapUiSmallMarginBeginEnd" width="33%">
-						<Label text="Ind. TGT" design="Bold"/>
+						<!--Teck Meng change on 02/12/2020 10:00 start-->
+						<Label text="{= ${oPilotUpdatesViewModel>chkrn}==='3'?'Avg TGT':'Ind. TGT'}" design="Bold"/>
 						<StepInput width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgtind}" id="indTGTId" fieldGroupIds="fgStepInput"
 							required="true" change="fnTblInAndIndTgt"/>
+							<!--Teck Meng change on 02/12/2020 10:00 end-->
 					</VBox>
 				</HBox>
 				<!--Teck Meng change on 27/11/2020 10:00 start-->
@@ -148,7 +153,7 @@
 					<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 						<Label text="NP" design="Bold"/>
 						<StepInput width="150px" min="0" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>np}" id="npId" fieldGroupIds="fgStepInput"
-							required="true"/>
+							enabled="true" required="false"/>
 					</VBox>
 				</HBox>
 			</VBox>

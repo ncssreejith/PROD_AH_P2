@@ -54,7 +54,27 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-
+		/** //Teck Meng 30/11/2020 16:45 start
+		 * onPastCyclicLogEditPress
+		 * @param oEvent
+		 */
+		onPastCyclicLogEditPress: function(oEvent) {
+			var oSource = oEvent.getSource();
+			var sSRVID = oSource.getBindingContext("oEngineModel").getObject().SRVID;
+			var sNUM = oSource.getBindingContext("oEngineModel").getObject().NUM;
+			try {
+				this.getRouter().navTo("AddEngCyclicLog", {
+					engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
+					tailid: this.getTailId(),
+					last: "X",
+					SRVID: sSRVID,
+					NUM: sNUM
+				});
+			} catch (e) {
+				Log.error("Exception in Engine:onPastCyclicLogEditPress function");
+				this.handleException(e);
+			}
+		}, //Teck Meng 30/11/2020 16:45 end
 		onDefectsDetailsPress: function(oEvent) {
 			var oSource = oEvent.getSource();
 			var sESJOBID = oSource.getBindingContext("oEngineModel").getObject().ESJOBID;
@@ -255,11 +275,11 @@ sap.ui.define([
 					// 	emphasizedAction: sap.m.MessageBox.Action.OK,
 					// 	onClose: function(sAction) {
 					// 		if (sAction === "OK") {
-								this.getRouter().navTo("AddEngOilLog", {
-									engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
-									tailid: this.getTailId(),
-									SFLAG: "X"
-								});
+					this.getRouter().navTo("AddEngOilLog", {
+						engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
+						tailid: this.getTailId(),
+						SFLAG: "X"
+					});
 					// 		}
 					// 	}.bind(this)
 					// });
@@ -297,16 +317,16 @@ sap.ui.define([
 			try {
 				//Check engine hours since last top up
 				if (this.fnDateEngineHrsDiff("2")) {
-				// 	sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
-				// 		actions: [sap.m.MessageBox.Action.OK],
-				// 		emphasizedAction: sap.m.MessageBox.Action.OK,
-				// 		onClose: function(sAction) {
-				// 			if (sAction === "OK") {
-								this.getRouter().navTo("AddEngOilLog", {
-									engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
-									tailid: this.getTailId(),
-									SFLAG: "X"
-								});
+					// 	sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
+					// 		actions: [sap.m.MessageBox.Action.OK],
+					// 		emphasizedAction: sap.m.MessageBox.Action.OK,
+					// 		onClose: function(sAction) {
+					// 			if (sAction === "OK") {
+					this.getRouter().navTo("AddEngOilLog", {
+						engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
+						tailid: this.getTailId(),
+						SFLAG: "X"
+					});
 					// 		}
 					// 	}.bind(this)
 					// });
@@ -441,11 +461,11 @@ sap.ui.define([
 									oItem.ETF ? oItem.ETF : 0)));
 							}
 						});
-						
+
 						oData.results.sort(function(a, b) { //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-							return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]);//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-						});//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-						
+							return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+						}); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+
 						if (oData) {
 							if (iEngine === "1") {
 								oEngineModel.setProperty("/EngPowerCheck", oData.results);
@@ -584,11 +604,11 @@ sap.ui.define([
 				oParameter.filter = "FLAG eq L and TAILID eq " + this.getTailId() + " and ENGID eq " + sEngID;
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length) {
-						
+
 						oData.results.sort(function(b, a) {
 							return parseInt(a.LOGID.split("_")[1]) - parseInt(b.LOGID.split("_")[1]);
 						});
-						
+
 						// oData.results.sort(function(a, b) {
 						// 	return b.LOGID - a.LOGID;
 						// });
@@ -628,7 +648,7 @@ sap.ui.define([
 					sDiff = parseFloat(sEngineHrs) - parseFloat(this.LastRepEngine1Hours);
 					break;
 				case "2":
-					sEngineHrs = this.LastEngine2Hours;//this.getModel("avmetModel").getProperty("/airutil/COL_14");
+					sEngineHrs = this.LastEngine2Hours; //this.getModel("avmetModel").getProperty("/airutil/COL_14");
 					if (this.LastRepEngine2Hours === "0" || !sEngineHrs) {
 						return false;
 					}
@@ -659,7 +679,7 @@ sap.ui.define([
 				var aLDashPoints = [];
 				var aUDashPoints = [];
 				//Loop
-				var aCopyPowerCheck = aEngPowerCheck;//JSON.parse(JSON.stringify(aEngPowerCheck));//aEngPowerCheck; //
+				var aCopyPowerCheck = aEngPowerCheck; //JSON.parse(JSON.stringify(aEngPowerCheck));//aEngPowerCheck; //
 				//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				// aCopyPowerCheck.sort(function(a, b) {
 				// 	return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]);
@@ -668,7 +688,7 @@ sap.ui.define([
 					if (oItem.CHKRN !== "1") {
 						return;
 					}
-					
+
 					var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
 					var iLLimit = parseInt(oItem.LLIMIT ? oItem.LLIMIT : 0) + 5;
 					var iDiff = parseInt(oItem.TGTDIFF);

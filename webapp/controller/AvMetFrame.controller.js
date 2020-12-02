@@ -189,7 +189,13 @@ sap.ui.define([
 		},
 		onAircraftUnlock: function() {
 			try {
-				this.fnUnlockSignOff();
+				//Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043 start
+				var sASTID = this.getModel("avmetModel").getProperty("/dash/astid");
+				if (sASTID === "AST_FAIR") {
+					this.getRouter().navTo("ReleaseForRectification");
+				} else { //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043 end
+					this.fnUnlockSignOff();
+				}
 			} catch (e) {
 				this.handleException(e);
 				Log.error("Exception in onAircraftUnlock function");
@@ -198,6 +204,7 @@ sap.ui.define([
 		onFSUnlock: function() {
 			try {
 				this.fnFSUnlockSignOff();
+
 			} catch (e) {
 				this.handleException(e);
 				Log.error("Exception in onFSUnlock function");

@@ -35,7 +35,7 @@ sap.ui.define([
 				// return "";
 			}
 			var fnDateFormatter = DateFormat.getDateInstance({
-				pattern: sFormat !== undefined ? sFormat : "dd-MM-yyyy HH:mm"
+				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy HH:mm" //Teck Meng 30/11/2020 17:40
 			});
 			if (dDate instanceof Date) {
 				var sDate = fnDateFormatter.format(dDate);
@@ -60,7 +60,7 @@ sap.ui.define([
 				// return "";
 			}
 			var fnDateFormatter = DateFormat.getDateInstance({
-				pattern: sFormat !== undefined ? sFormat : "dd-MM-yyyy HH:mm"
+				pattern: sFormat !== undefined ? sFormat : "dd/MM/yyyy HH:mm" //Teck Meng 30/11/2020 17:40
 			});
 			if (dDate instanceof Date) {
 				var sDate = fnDateFormatter.format(dDate);
@@ -937,12 +937,12 @@ sap.ui.define([
 			switch (resId) {
 				case "RES_105":
 					// var sDiff = parseFloat(sEngineHrs1) - parseFloat(sHrsince); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
-					var sDiff = sHrsince;//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
-					break;//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
+					var sDiff = sHrsince; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
+					break; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
 				case "RES_106":
 					// sDiff = parseFloat(sEngineHrs2) - parseFloat(sHrsince); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
-					sDiff = sHrsince;//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
-					break;//Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
+					sDiff = sHrsince; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
+					break; //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043-->
 					// case "RES_107": //Issue 826
 					// 	break;
 					// case "RES_108":
@@ -1702,7 +1702,7 @@ sap.ui.define([
 		 */
 		visibleIfFirstItem: function() {
 			return parseInt(this.getId().split("-")[this.getId().split("-").length - 1], 0) === 0;
-		},//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043 end ======================
+		}, //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043 end ======================
 		formatMaxValue: function(oMax) {
 			if (!oMax) {
 				oMax = 0.00; //Change by Teck Meng 20/11/2020 10:15
@@ -1713,7 +1713,7 @@ sap.ui.define([
 			}
 			return oMax;
 		},
-		
+
 		/** 
 		 *  //Change by Teck Meng 20/11/2020 10:15
 		 * @param oMax
@@ -1875,7 +1875,7 @@ sap.ui.define([
 			if (sValue === "Eng Oil #2") {
 				return 2;
 			}
-			return 2;//Teck Meng change on 20/11/2020 13:00 AH Issue
+			return 2; //Teck Meng change on 20/11/2020 13:00 AH Issue
 		},
 
 		formatStepOil: function(sValue) {
@@ -1946,14 +1946,23 @@ sap.ui.define([
 				case "AST_FAIR2":
 				case "AST_REC":
 				case "AST_GN":
-				case "AST_RCG":	
+				case "AST_RCG":
 					return false;
 				default:
 					return true;
 			}
 		},
 
-		checkFairStatus: function(aState) {
+		/**  //Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 start
+		 * Release for retification check
+		 * @param aState
+		 * @param sSrvid
+		 * @returns
+		 */ //Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 start
+		checkFairStatus: function(aState, sSrvid) { //Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 start
+			if (!sSrvid) { //Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 start
+				return false; //Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 start
+			} //Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 end
 			switch (aState) {
 				case "AST_FAIR":
 				case "AST_FAIR0":
@@ -2029,7 +2038,7 @@ sap.ui.define([
 				return sValue;
 			}
 		},
-	validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime, futureCheck, fragmentId) {
+		validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime, futureCheck, fragmentId) {
 			var maxDt = new Date(),
 				oDatePicker = fragmentId ? sap.ui.core.Fragment.byId(fragmentId, idDate) : that.getView().byId(idDate),
 				creDt = oDatePicker.getDateValue(),
@@ -2120,7 +2129,7 @@ sap.ui.define([
 			// Rahul: COS: 20/11/2020: 09:16Am: new if condition added.
 			if (!isNaN(crDtTime.getDate()) === false) {
 				datec = dateString + 'T' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
-		    	crDtTime = new Date(dateString);
+				crDtTime = new Date(dateString);
 				var TempCreTime = timeString.split(":");
 				crDtTime.setHours(TempCreTime[0], TempCreTime[1], "00");
 			}
@@ -2250,9 +2259,9 @@ sap.ui.define([
 				date = dateString[0],
 				time = dateString[1];
 
-			var dateParts = date.split("-");
+			var dateParts = date.split("/");
 			var timeParts = time.split(":");
-			creDt.setFullYear(dateParts[0], dateParts[1] - 1, dateParts[2]); //(dateParts[0]);
+			creDt.setFullYear(dateParts[2], dateParts[1] - 1, dateParts[0]); //(dateParts[0]);
 			creDt.setHours(timeParts[0]);
 			creDt.setMinutes(timeParts[1]);
 			creDt.setSeconds(0);
@@ -2264,7 +2273,38 @@ sap.ui.define([
 			} else {
 				return true;
 			}
-		} // Teck Meng 30/11/2020 10:30 end
+		}, // Teck Meng 30/11/2020 10:30 end
+		/** Teck Meng 30/11/2020 10:30 start
+		 * 
+		 * @param sVal
+		 * @param sFlown
+		 * @returns
+		 */
+		engineCycLogtEditVisible: function(sDate, sTime) {
+
+				var maxDt = new Date(),
+					creDt = new Date();
+
+				// Set DateTime 
+				// var dateString = sVal.split(" "),
+				var date = sDate,
+					time = sTime;
+
+				var dateParts = date.split("-");
+				var timeParts = time.split(":");
+				creDt.setFullYear(dateParts[0], dateParts[1] - 1, dateParts[2]); //(dateParts[0]);
+				creDt.setHours(timeParts[0]);
+				creDt.setMinutes(timeParts[1]);
+				creDt.setSeconds(0);
+
+				var diff = maxDt.getTime() - creDt.getTime();
+				var daysDifference = Math.floor(diff / 1000 / 60 / 60 / 24);
+				if (daysDifference >= 1) {
+					return false;
+				} else {
+					return true;
+				}
+			} // Teck Meng 30/11/2020 10:30 end
 
 	};
 

@@ -3,9 +3,11 @@
 	<VBox backgroundDesign="Solid" width="100%" alignItems="Center">
 		<FlexBox class="sapUiSmallMarginTopBottom">
 			<VBox>
+				<!--Teck Meng change on 01/12/2020 15:00 start-->
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"  growing="true" growingThreshold="5" growingScrollToLoad="false"
-					items="{ path: 'oEngineModel>/soapTableData2',sorter: [{ path: 'ID', descending: true},{ path: 'SOAPID', descending: true}], filters : [{ path : 'SOAP', operator : 'EQ', value1 : '' }]}"
+					items="{ path: 'oEngineModel>/soapTableData2',sorter: [{ path: 'ID', descending: true},{ path: 'SOAPID', descending: true}]}"
 					noDataText="No Engine Oil Replenishment" showNoData="true">
+					<!--Teck Meng change on 01/12/2020 15:00 end-->
 					<headerToolbar>
 						<OverflowToolbar>
 							<content>

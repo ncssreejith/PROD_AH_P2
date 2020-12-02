@@ -113,7 +113,9 @@ sap.ui.define([
 					" and otype eq C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					this.getModel("oAircraftUtilModel").setProperty("/equip", oData.results);
+					var columnList = this._addEditColumn(oData.results); // Add blank column for Edit button //Teck Meng 30/11/2020 17:30
+					this.getModel("oAircraftUtilModel").setProperty("/equip", columnList); //Teck Meng 30/11/2020 17:30
+					// this.getModel("oAircraftUtilModel").setProperty("/equip", oData.results); //Teck Meng 30/11/2020 17:30
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblEquip"), "oAircraftUtilModel", "equip", "oAircraftDataUtilModel");
 				}.bind(this);
@@ -153,7 +155,9 @@ sap.ui.define([
 					" and otype eq C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					this.getModel("oAircraftUtilModel").setProperty("/flying", oData.results);
+					var columnList = this._addEditColumn(oData.results); // Add blank column for Edit button //Teck Meng 30/11/2020 17:30
+					this.getModel("oAircraftUtilModel").setProperty("/flying", columnList); //Teck Meng 30/11/2020 17:30
+					// this.getModel("oAircraftUtilModel").setProperty("/flying", oData.results); //Teck Meng 30/11/2020 17:30
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblFlying"), "oAircraftUtilModel", "flying", "oAircraftDataUtilModel");
 				}.bind(this);
@@ -187,7 +191,9 @@ sap.ui.define([
 					" and otype eq C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					this.getModel("oAircraftUtilModel").setProperty("/mano", oData.results);
+					var columnList = this._addEditColumn(oData.results); // Add blank column for Edit button //Teck Meng 30/11/2020 17:30
+					this.getModel("oAircraftUtilModel").setProperty("/mano", columnList); //Teck Meng 30/11/2020 17:30
+					// this.getModel("oAircraftUtilModel").setProperty("/mano", oData.results); //Teck Meng 30/11/2020 17:30
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblMano"), "oAircraftUtilModel", "mano", "oAircraftDataUtilModel");
 				}.bind(this);
@@ -255,14 +261,17 @@ sap.ui.define([
 								});
 								break;
 							case "COL_EDIT":
-								sTextProp.path = oDataModel + ">" + "COL_11";
+								// sTextProp.path = oDataModel + ">" + "COL_11"; //Teck Meng 30/11/2020 17:30
+								sTextProp.parts = [oDataModel + ">" + "COL_11", //Teck Meng 30/11/2020 17:30
+									oDataModel + ">" + "COL_18"
+								]; //Teck Meng 30/11/2020 17:30
 								sTextProp.formatter = that.formatter.adtEditVisible;
 								sText = new sap.m.Button({
 									icon: "sap-icon://edit",
 									visible: sTextProp,
 									press: function(evt) {
 										if (evt.getSource().getParent().getParent().getItems().length > 0) {
-											that.onEditEquip(evt);
+											that.onEditEquip(evt); //Teck Meng 30/11/2020 17:30
 										}
 									}
 								});
@@ -282,7 +291,7 @@ sap.ui.define([
 								visible: sTextProp,
 								press: function(evt) {
 									if (evt.getSource().getParent().getParent().getItems().length > 0) {
-										that.onEditFlying(evt);
+										that.onEditEquip(evt); //Teck Meng 30/11/2020 17:30
 									}
 								}
 							});
@@ -312,7 +321,7 @@ sap.ui.define([
 								visible: sTextProp,
 								press: function(evt) {
 									if (evt.getSource().getParent().getParent().getItems().length > 0) {
-										that.onEditFlying(evt);
+										that.onEditEquip(evt); //Teck Meng 30/11/2020 17:30
 									}
 								}
 							});
@@ -368,7 +377,116 @@ sap.ui.define([
 				Log.error("Exception in AircraftUtilisation:fnLoadEngineLong function");
 				this.handleException(e);
 			}
-		}
+		},
+		//Teck Meng 30/11/2020 14:00 start-------------
+		onEditEquip: function(oEvent) {
+			var that = this;
+			var currDate = new Date();
+			var rowData = oEvent.getSource().getBindingContext("oAircraftDataUtilModel").getObject();
+			if (!rowData.SRVID) {
+				return;
+			}
+			this.fnGetRunningChanges(rowData.SRVID);
+		},
+		/** 
+		 * Get RunningChanges then open dialog
+		 */
+		fnGetRunningChanges: function(sSRVID) {
+			try {
+				var oParameter = {};
+				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId() + " and SRVID eq " + sSRVID;
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					if (oData && oData.results && oData.results.length) {
+						var aRunningChanges = oData.results.length > 0 ? oData.results : [];
+						this.getModel("oAircraftDataUtilModel").setProperty("/runningChange", aRunningChanges);
+						if (aRunningChanges && aRunningChanges.length && aRunningChanges.length > 0) { //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+							this.fnOpenPilotUpdate();
+						} else { //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+							sap.m.MessageToast.show("No post flight records"); //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+						}
+
+					} else { //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+						sap.m.MessageToast.show("No post flight records"); //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+					} //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+
+				}.bind(this);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
+			} catch (e) {
+				this.Log.error("Exception in DashboardInitial:fnGetRunningChanges function");
+				this.handleException(e);
+			}
+		},
+		
+		/** 
+		 * On pilot running changes
+		 */
+		fnOpenPilotUpdate: function() {
+			try {
+				// create popover
+				if (!this._oRunningChangeDialogInfo) {
+					this._oRunningChangeDialogInfo = sap.ui.core.Fragment.load({
+						name: "avmet.ah.fragments.EditRunningChange",
+						id: this.createId("EditRunningChangeid"),
+						controller: this
+					}).then(function(pPopover) {
+						this._oRunningChangeDialogInfo = pPopover;
+						this.getView().addDependent(this._oRunningChangeDialogInfo);
+						this._oRunningChangeDialogInfo.open();
+					}.bind(this));
+				} else {
+					this._oRunningChangeDialogInfo.open();
+				}
+			} catch (e) {
+				this.Log.error("Exception in fnOpenPilotUpdate function");
+			}
+		},
+		/** 
+		 * On running changes cancel
+		 */
+		onRunningChangeCancel: function() {
+			try {
+				this._oRunningChangeDialogInfo.close();
+				this._oRunningChangeDialogInfo.destroy();
+				delete this._oRunningChangeDialogInfo;
+			} catch (e) {
+				this.Log.error("Exception in onRunningChangeCancel function");
+			}
+		},
+		/** 
+		 * On running pilot change
+		 */
+		onRunningChangePress: function(oEvent) { 
+			try {
+				var sNum1 = oEvent.getSource().getParent().getContent()[0].getSelectedButton().getBindingContext("oAircraftDataUtilModel").getObject().num1; //Teck Meng 25/11/2020 16:50
+				var sSrvtId = oEvent.getSource().getParent().getContent()[0].getSelectedButton().getBindingContext("oAircraftDataUtilModel").getObject().srvtid; //Teck Meng 30/11/2020 16:50
+				var sSrvid = oEvent.getSource().getParent().getContent()[0].getSelectedButton().getBindingContext("oAircraftDataUtilModel").getObject().srvid; //Teck Meng 30/11/2020 16:50
+
+				this.getRouter().navTo("PilotUpdates", {
+					srvtid: sSrvtId ? sSrvtId : " ",
+					stepid: "S_PF",
+					num1: sNum1 ? sNum1 : " ", //Teck Meng 30/11/2020 16:50
+					srvid: sSrvid ? sSrvid : " " //Teck Meng 30/11/2020 16:50
+				});
+
+			} catch (e) {
+				this.Log.error("Exception in ReleaseForRectification:onRunningChangePress function");
+				this.handleException(e);
+			}
+		},//Teck Meng 30/11/2020 14:00 end-------------
+		/** //Teck Meng 30/11/2020 17:30 start
+		 * Add edit col
+		 * @constructor 
+		 * @param results
+		 * @returns
+		 */
+		_addEditColumn: function(results) {
+				var item = {};
+				item.colid = "COL_EDIT";
+				item.coltxt = "Edit";
+				results.push(item);
+				return results;
+			} //Teck Meng 30/11/2020 17:30 end
 
 	});
 });

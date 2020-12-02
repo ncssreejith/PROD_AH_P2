@@ -17,7 +17,10 @@
 				<HBox class="sapUiMediumMarginTop sapUiLargeMarginBegin">
 					<VBox class="sapUiSmallMargin" width="100%">
 						<Label text="Is this a aerobatic manoeuvring?" design="Bold"/>
-						<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/mano/manoe}" items="{postflightModel>/yn}" required="true" fieldGroupIds="fgCmbBox">
+						<!--Teck Meng change on 01/12/2020 10:00 start-->
+						<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/mano/manoe}" items="{postflightModel>/yn}" required="true" fieldGroupIds="fgCmbBox"
+						enabled="{= ${oPilotUpdatesViewModel>/srvid}===undefined}">
+							<!--Teck Meng change on 01/12/2020 10:00 end-->
 							<items>
 								<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}" width="60%"/>
 							</items>
@@ -27,8 +30,10 @@
 						<!--Teck Meng change on 23/11/2020 10:00 start-->
 						<Label text="Is this Thru Flight?" design="Bold"/>
 						<!--Teck Meng change on 23/11/2020 10:00 end-->
-						<SegmentedButton enabled="{= ${oPilotUpdatesViewModel>/flyRecord/astatid}==='AST_S'}" selectedKey="{oPilotUpdatesViewModel>/flyRecord/rcreq}" items="{postflightModel>/yn}" required="true"
+						<!--Teck Meng change on 01/12/2020 10:00 start-->
+						<SegmentedButton enabled="{= ${oPilotUpdatesViewModel>/flyRecord/astatid}==='AST_S' &amp;&amp; ${oPilotUpdatesViewModel>/srvid}===undefined}" selectedKey="{oPilotUpdatesViewModel>/flyRecord/rcreq}" items="{postflightModel>/yn}" required="true"
 							fieldGroupIds="fgCmbBox">
+							<!--Teck Meng change on 01/12/2020 10:00 end-->
 							<items>
 								<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}" width="60%"/>
 							</items>

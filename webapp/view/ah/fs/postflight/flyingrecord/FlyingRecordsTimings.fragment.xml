@@ -30,12 +30,15 @@
 							<TimePicker fieldGroupIds="fgTime" change="onTimingChange" value="{oPilotUpdatesViewModel>woffw}" valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>
 							<TimePicker fieldGroupIds="fgTime" change="onTimingChange" value="{oPilotUpdatesViewModel>wonw}"  valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>
 							<TimePicker fieldGroupIds="fgTime2" change="onTimingChange" value="{oPilotUpdatesViewModel>egspt}" valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>
-							<Button type="Transparent" icon="sap-icon://decline" press="onDeleteTimings" visible="{= ${oPilotUpdatesViewModel>num2}>1}"/>
+							<Button type="Transparent" icon="sap-icon://decline" press="onDeleteTimings" visible="{= ${oPilotUpdatesViewModel>num2}>1 &amp;&amp; ${oPilotUpdatesViewModel>/srvid}===undefined}"/>
 						</cells>
 					</ColumnListItem>
 				</items>
 			</Table>
-			<Button icon="sap-icon://sys-add" class="addTaskBtn" text="Add Sortie" press="onAddTimings" width="100%"/>
+			<!--Teck Meng change on 01/12/2020 10:00 start-->
+			<Button icon="sap-icon://sys-add" class="addTaskBtn" text="Add Sortie" press="onAddTimings" width="100%"
+			 visible="{= ${oPilotUpdatesViewModel>/srvid}===undefined?true:false}"/>
+			 <!--Teck Meng change on 01/12/2020 10:00 end-->
 		</l:content>
 	</l:VerticalLayout>
 </core:FragmentDefinition>

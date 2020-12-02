@@ -82,7 +82,9 @@
 								<Text text="{path:'oEngineModel>oEngineModel>TGTDIFF', formatter:'.formatter.integerUnit'}"/>
 								<!--Teck Meng change on 27/11/2020 10:00 end-->
 								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
-								<Text text="{oEngineModel>TQACT}"/>
+								<!--Teck Meng change on 30/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>TQACT', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 30/11/2020 10:00 end-->
 								<!--Teck Meng change on 23/11/2020 10:00 start-->
 								<Text text="{path:'oEngineModel>oEngineModel>NP', formatter:'.formatter.integerUnit'}"/>
 								<!--Teck Meng change on 23/11/2020 10:00 end-->
@@ -199,7 +201,9 @@
 								<Text text="{path:'oEngineModel>oEngineModel>TGTDIFF', formatter:'.formatter.integerUnit'}"/>
 								<!--Teck Meng change on 27/11/2020 10:00 end-->
 								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
-								<Text text="{oEngineModel>TQACT}"/>
+								<!--Teck Meng change on 30/11/2020 10:00 start-->
+								<Text text="{path:'oEngineModel>oEngineModel>TQACT', formatter:'.formatter.integerUnit'}"/>
+								<!--Teck Meng change on 30/11/2020 10:00 end-->
 								<!--Teck Meng change on 23/11/2020 10:00 start-->
 								<Text text="{path:'oEngineModel>oEngineModel>NP', formatter:'.formatter.integerUnit'}"/>
 								<!--Teck Meng change on 23/11/2020 10:00 end-->
@@ -241,7 +245,9 @@
 						<!--</Column>-->
 						<!--Teck Meng change on 23/11/2020 10:00 end-->
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="IND TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
+							<!--Teck Meng change on 02/12/2020 10:00 start-->
+							<Label text="AVG TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
+							<!--Teck Meng change on 02/12/2020 10:00 end-->
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="NG (%)" design="Bold" wrapping="true" class="whiteText"/>
@@ -309,9 +315,11 @@
 										<!--Teck Meng change on 25/11/2020 15:00 end-->
 								</HBox>
 								<!--{= !!${oEngineModel>Special} }-->
+								<!--Teck Meng change on 30/11/2020 15:00 start-->
 								<Button text="{= !!${oEngineModel>/headerDetails/ETFEDIT} ? ${i18n>txtSignOff} : ${i18n>btnEdit} }" visible="{= !!${oEngineModel>Special} }"
-									enabled="{= ${avmetModel>/dash/astid} !== 'AST_FFF' &amp;&amp; ${avmetModel>/dash/astid} !== 'AST_FFF0' ? true : false}"
+									enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"
 									icon="sap-icon://request" press="onETFEdit" type="Emphasized"/>
+									<!--Teck Meng change on 30/11/2020 15:00 end-->
 							</cells>
 						</ColumnListItem>
 					</items>

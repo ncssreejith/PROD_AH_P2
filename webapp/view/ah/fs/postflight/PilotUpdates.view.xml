@@ -8,10 +8,12 @@
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.flyingrecord.FlyingRecords" type="XML"/>
 					</IconTabFilter>
 					<!--<IconTabSeparator icon="sap-icon://arrow-right"/>-->
-					<IconTabFilter enabled="{= ${oPilotUpdatesViewModel>/armingReq}==='Y'?false:true}" id="statustestTab"  text="Status and tests"
+					<!--Teck Meng change on 01/12/2020 10:00 start-->
+					<IconTabFilter visible="{= ${oPilotUpdatesViewModel>/srvid}===undefined?true:false}" id="statustestTab"  text="Status and tests"
 						key="StatusTest">
 						<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.statustest.StatusTests" type="XML"/>
 					</IconTabFilter>
+					<!--Teck Meng change on 01/12/2020 10:00 end-->
 					<!--<IconTabSeparator icon="sap-icon://arrow-right"/>-->
 					<IconTabFilter enabled="{= ${oPilotUpdatesViewModel>/armingReq}==='Y'?false:true}" id="enginePowerCheckId"  text="Engine power check"
 						key="EnginePowerCheck">

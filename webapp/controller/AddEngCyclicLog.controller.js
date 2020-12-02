@@ -164,7 +164,7 @@ sap.ui.define([
 					"CREUSR": null,
 					"CREDTM": null,
 					"CREUZT": null,
-					"SGUZT": null
+					"SGUZT": null//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 				};
 				var utilData2 = {
 					"FLAG": null,
@@ -202,7 +202,7 @@ sap.ui.define([
 					"CREUSR": null,
 					"CREDTM": null,
 					"CREUZT": null,
-					"SGUZT": null
+					"SGUZT": null//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 				};
 				// utilData.type = 0;
 				// utilData.logid = 0;

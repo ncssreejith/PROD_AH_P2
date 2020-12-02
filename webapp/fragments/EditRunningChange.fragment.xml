@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<!--Teck Meng change on 30/11/2020 15:00 start-->
+	<Dialog showHeader="false">
+		<content>
+			<RadioButtonGroup class="sapUiSmallMargin" buttons="{path:'oAircraftDataUtilModel>/runningChange'}" select="onRunningChangePressIndex">
+				<buttons>
+					<RadioButton
+						text="Pilot name: {oAircraftDataUtilModel>PILOTNAME} Updated on: {path: 'oAircraftDataUtilModel>patime',formatter:'.formatter.defaultDateTimeFormat'}"/>
+				</buttons>
+			</RadioButtonGroup>
+		</content>
+		<beginButton>
+			<Button text="Cancel" type="Transparent" press="onRunningChangeCancel"/>
+		</beginButton>
+		<endButton>
+			<Button text="Pilot Update" type="Emphasized" press="onRunningChangePress"/>
+		</endButton>
+	</Dialog>
+	<!--Teck Meng change on 30/11/2020 15:00 end-->
+</core:FragmentDefinition>

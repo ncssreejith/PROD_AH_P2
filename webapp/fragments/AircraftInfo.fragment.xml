@@ -23,7 +23,9 @@
 				</List>
 			</VBox>
 			<VBox visible="true" class="flightinfoBlock2">
-				<HBox visible="{path:'avmetModel>/dash/astid', formatter:'.formatter.checkFairStatus'}">
+				<!--Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 start-->
+				<HBox visible="{parts:['avmetModel>/dash/astid','avmetModel>/dash/SRVID'], formatter:'.formatter.checkFairStatus'}">
+					<!--Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 end-->
 					<Button text="{i18n>muReleaseforRectification}" press="onReleaseForRectification" type="Emphasized"/>
 					<!--<Label text="{i18n>muReleaseforRectification}"/>-->
 					<!--<Switch state="{avmetModel>/UnlockRec}" customTextOn="Unlock" customTextOff="Lock" change="onFSUnlock">-->

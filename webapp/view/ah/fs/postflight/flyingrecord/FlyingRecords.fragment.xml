@@ -9,8 +9,10 @@
 					<HBox class="sapUiSmallMargin" width="70%">
 						<VBox width="40%">
 							<Label text="{i18n>aircraftflightstatus}" design="Bold"/>
-							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/flyRecord/fstat}" enabled="{= ${avmetModel>/dash/astid} !== 'AST_GN'}" width="50%"
+							<!--Teck Meng change on 01/12/2020 10:00 start-->
+							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/flyRecord/fstat}" enabled="{= ${avmetModel>/dash/astid} !== 'AST_GN' &amp;&amp; ${oPilotUpdatesViewModel>/srvid} === undefined}" width="50%"
 								items="{postflightModel>/flystat}" required="true" fieldGroupIds="fgSGBtn">
+								<!--Teck Meng change on 01/12/2020 10:00 end-->
 								<items>
 									<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}"/>
 								</items>
@@ -18,12 +20,16 @@
 						</VBox>
 						<VBox width="60%" visible="{= ${oPilotUpdatesViewModel>/flyRecord/fstat}==='F'?true:false}">
 							<Label text="{i18n>typeOfOperation}" design="Bold"/>
-							<Select selectedKey="{oPilotUpdatesViewModel>/flyRecord/oprty}" items="{oPilotUpdatesViewModel>/toper}" width="40%">
+							<!--Teck Meng change on 01/12/2020 10:00 start-->
+							<Select selectedKey="{oPilotUpdatesViewModel>/flyRecord/oprty}" items="{oPilotUpdatesViewModel>/toper}" width="40%"
+							enabled="{= ${oPilotUpdatesViewModel>/srvid}===undefined}">
 								<core:Item text="{oPilotUpdatesViewModel>description}" key="{oPilotUpdatesViewModel>ddid}"/>
 							</Select>
 							<Input width="40%" placeholder="Other" visible="{= ${oPilotUpdatesViewModel>/flyRecord/oprty} === 'other' ? true : false}"
+							enabled="{= ${oPilotUpdatesViewModel>/srvid}===undefined}"
 								value="{oPilotUpdatesViewModel>/flyRecord/Other}" required="{= ${oPilotUpdatesViewModel>/flyRecord/oprty} === 'other' ? true : false}"
 								fieldGroupIds="fgInput"/>
+								<!--Teck Meng change on 01/12/2020 10:00 end-->
 						</VBox>
 					</HBox>
 				</HBox>
@@ -70,7 +76,9 @@
 					</HBox>
 				</HBox>
 				<Toolbar height="1rem"/>
-				<HBox width="100%">
+				<!--Teck Meng change on 01/12/2020 10:00 start-->
+				<HBox width="100%" visible="{= ${oPilotUpdatesViewModel>/srvid}===undefined?true:false}">
+					<!--Teck Meng change on 01/12/2020 10:00 end-->
 					<VBox width="30%">
 						<ct:HeaderCard title="Fuel leftover amounts (lbs)"/>
 					</VBox>
@@ -82,8 +90,10 @@
 								<!--//Teck Meng change on 24/11/2020 13:00 AH Issue 1044,1043 end-->
 								<Label text="{oPilotUpdatesViewModel>resdescription}" design="Bold"/>
 								<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
-								<StepInput value="{oPilotUpdatesViewModel>totamt}" required="true" fieldGroupIds="fgStep"
+								<!--//Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 start-->
+								<StepInput value="{oPilotUpdatesViewModel>totamt}" required="{= ${oPilotUpdatesViewModel>/srvid} === undefined}" fieldGroupIds="fgStep"
 									max="{path:'oPilotUpdatesViewModel>max',formatter:'.formatter.formatMaxValue'}" min="0"/>
+									<!--//Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 end-->
 							</VBox>
 						</l:Grid>
 					</HBox>
