@@ -70,8 +70,8 @@ sap.ui.define([
 
 		fnGetUIEncriptionKey: function(info) {
 			//Rahul: 25/11/2020: 07:17PM : EncriptionKey Changes (Sreejith)
-			/*return 'Yq3t6w9z$C&F)J@';*/ // Later will replace with service call
-			return '8Cnh7Ks5Mp';
+			return 'Yq3t6w9z$C&F)J@'; // Later will replace with service call
+			/*return '8Cnh7Ks5Mp';*/
 		},
 		/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT Password HASH START*/
 		_AESHexEncript: function(value) {

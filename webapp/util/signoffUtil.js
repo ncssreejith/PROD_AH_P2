@@ -129,7 +129,7 @@ sap.ui.define([
 					this.fingerErrorCount = 0;					
 					that.SignOffLogin.getModel("signOffModel").setProperty("/uSel", "PWD");
 					that.SignOffLogin.getModel("signOffModel").refresh();
-					that.SignOffLogin.getModel("signOffModel").setProperty("/msg","Biometric authentication failed, Login with pin."); //Rahul: 26/11/2020 11:25am: Message added for dialog.
+					that.SignOffLogin.getModel("signOffModel").setProperty("/msg","Biometric authentication failed, Sign-off with pin."); //Rahul: 26/11/2020 11:25am: Message added for dialog.
 					return false;
 				}
 				return true;

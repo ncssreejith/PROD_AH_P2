@@ -1,0 +1,12 @@
+{
+	"Selections": [{
+		"SelectKey": "JOB",
+		"SelectText": "Job Data"
+	}, {
+		"SelectKey": "ROLE",
+		"SelectText": "Role Data"
+	}, {
+		"SelectKey": "SERVICE",
+		"SelectText": "Service Data"
+	}]
+}
