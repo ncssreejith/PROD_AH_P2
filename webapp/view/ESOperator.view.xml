@@ -11,12 +11,12 @@
 			<m:Vbox>
 				<m:HBox>
 					<m:Label text="Selection" wrapping="true" design="Bold" width="150px" class="sapUiSmallMarginBegin sapUiSmallMarginTop"></m:Label>
-					<m:ComboBox id="idSelectID" selectionChange="onselectionChange" class="sapUiContentPadding" width="150px" items="{oSelectModel>/Selections}" selectedKey="JOB"
-						showSecondaryValues="true">
+					<m:ComboBox id="idSelectID" selectionChange="onselectionChange" class="sapUiContentPadding" width="150px" items="{oSelectModel>/Selections}"
+						selectedKey="JOB" showSecondaryValues="true">
 						<c:ListItem key="{oSelectModel>SelectKey}" text="{oSelectModel>SelectText}"/>
 					</m:ComboBox>
 				</m:HBox>
-			</m:Vbox>			
+			</m:Vbox>
 			<!--<m:Vbox>-->
 			<!--	<m:HBox>-->
 			<!--		<m:Label text="Air ID" wrapping="true" design="Bold" width="50px" class="sapUiSmallMarginBegin sapUiSmallMarginTop"></m:Label>-->
@@ -32,7 +32,6 @@
 			<!--		<m:Button id="buttonGo" text="Go" press="onclickGo" class="sapUiLargeMarginBegin"/>-->
 			<!--	</m:HBox>-->
 			<!--</m:Vbox>-->
-			
 			<Table id="jobTable" rows="{oGlobalModel>/Jobs}" selectionMode="MultiToggle" visibleRowCount="11" ariaLabelledBy="Job"
 				class="sapUiSmallMarginBegin" visible="{oInitialModel>/dispJob}">
 				<extension>
@@ -268,25 +267,25 @@
 						<template>
 							<m:Text text="{oGlobalModel>SGUSR}" wrapping="false"/>
 						</template>
-					</Column>		
+					</Column>
 					<Column width="10rem">
 						<m:Label text="Supervisor"/>
 						<template>
 							<m:Text text="{oGlobalModel>RESGUSR}" wrapping="false"/>
 						</template>
-					</Column>	
+					</Column>
 					<Column width="7rem">
 						<m:Label text="Date"/>
 						<template>
 							<m:Text text="{oGlobalModel>RESGDTM}" wrapping="false"/>
 						</template>
-					</Column>	
+					</Column>
 					<Column width="8rem">
 						<m:Label text="Time"/>
 						<template>
 							<m:Text text="{oGlobalModel>RESGUZT}" wrapping="false"/>
 						</template>
-					</Column>						
+					</Column>
 				</columns>
 			</Table>
 			<Table id="srvTable" rows="{oGlobalModel>/Services}" selectionMode="MultiToggle" visibleRowCount="11" ariaLabelledBy="Job"
@@ -554,13 +553,15 @@
 						</template>
 					</Column>
 					<Column width="11rem">
-						<m:Label text="F16-Post Flight Date"/>
+						<!--Rahul: 03/12/2020 06.11PM: Replace F16-Post to AH-Post -->
+						<m:Label text="AH-Post Flight Date"/>
 						<template>
 							<m:Text text="{oGlobalModel>PFDATE}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column width="11rem">
-						<m:Label text="F16-Post Flight Time"/>
+						<!--Rahul: 03/12/2020 06.11PM: Replace F16-Post to AH-Post -->
+						<m:Label text="AH-Post Flight Time"/>
 						<template>
 							<m:Text text="{oGlobalModel>PFTIME}" wrapping="false"/>
 						</template>
@@ -618,7 +619,8 @@
 						<template>
 							<m:Text text="{oGlobalModel>NG}" wrapping="false"/>
 						</template>
-					</Column><Column width="11rem">
+					</Column>
+					<Column width="11rem">
 						<m:Label text="TQ ACT"/>
 						<template>
 							<m:Text text="{oGlobalModel>TQACT}" wrapping="false"/>
@@ -629,13 +631,14 @@
 						<template>
 							<m:Text text="{oGlobalModel>NP}" wrapping="false"/>
 						</template>
-					</Column>	<Column width="11rem">
+					</Column>
+					<Column width="11rem">
 						<m:Label text="Airspeed"/>
 						<template>
 							<m:Text text="{oGlobalModel>ASPEED}" wrapping="false"/>
 						</template>
 					</Column>
-				<Column width="11rem">
+					<Column width="11rem">
 						<m:Label text="ETF"/>
 						<template>
 							<m:Text text="{oGlobalModel>ETF}" wrapping="false"/>
@@ -688,7 +691,7 @@
 						<template>
 							<m:Text text="{oGlobalModel>LCF2}" wrapping="false"/>
 						</template>
-					</Column>	
+					</Column>
 					<Column width="11rem">
 						<m:Label text="INDEX1"/>
 						<template>
@@ -704,7 +707,7 @@
 					<Column width="11rem">
 						<m:Label text="Total LCF1"/>
 						<template>
-							<m:Text text="{oGlobalModel>TLCF2}" wrapping="false"/>
+							<m:Text text="{oGlobalModel>TLCF1}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column width="11rem">
@@ -724,7 +727,7 @@
 						<template>
 							<m:Text text="{oGlobalModel>TENGHR}" wrapping="false"/>
 						</template>
-					</Column>					
+					</Column>
 				</columns>
 			</Table>
 		</m:content>

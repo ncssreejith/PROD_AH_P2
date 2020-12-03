@@ -694,7 +694,8 @@ sap.ui.define([
 						} else {
 							oViewModel.setProperty("/DefectImageSrc", []);
 						}
-						if (oData.results[0].prime !== "" || oData.results[0].prime !== null) {
+						//Rahul: 03/12/2020 06.11PM: If condition replaced "||" to "&&"
+						if (oData.results[0].prime !== "" && oData.results[0].prime !== null) {
 							oViewModel.setProperty("/isWrctr", true);
 							that._fnTaskStatusGet(sJobId, oData.results[0].prime);
 						} else {
@@ -934,7 +935,7 @@ sap.ui.define([
 		 * Parameter:
 		 * Description: Function to validate time
 		 */
-		 /*Rahul: 18/11/2020: 05:25PM : Date code change : Start*/
+		/*Rahul: 18/11/2020: 05:25PM : Date code change : Start*/
 		handleChangeTm: function(oEvent) {
 			try {
 				var aData = this.getModel("appModel").getData();
@@ -1222,7 +1223,7 @@ sap.ui.define([
 		 * Description: To show upoaded photo of defect on screen.
 		 */
 
-			onAddDefectImage: function(oEvt) {
+		onAddDefectImage: function(oEvt) {
 			try {
 				/* Rahul Code Changed : 23/11/2020 : 10:47AM: changed for VAPT file upload issue Start*/
 				var oFiles = oEvt.getParameter("files"),
@@ -1234,79 +1235,78 @@ sap.ui.define([
 				oModel.setProperty("/photo", 1);
 				if (oFiles && oFiles[0]) {
 					this.getView().byId("photoUpload").setBusy(true);
-					
-					
-					var resize_width = 600;//without px
 
-				  //get the image selected
-				  //var item = document.querySelector('#uploader').files[0];
+					var resize_width = 600; //without px
 
-				  //create a FileReader
-				  var reader = new FileReader();
+					//get the image selected
+					//var item = document.querySelector('#uploader').files[0];
 
-				  //image turned to base64-encoded Data URI.
-				  reader.readAsDataURL(oFiles[0]);
-				  reader.name = oFiles[0].name;//get the image's name
-				  reader.size = oFiles[0].size; //get the image's size
-				  reader.onload = function(event) {
-					var img = new Image();//create a image
-					img.src = event.target.result;//result is base64-encoded Data URI
-					img.name = event.target.name;//set name (optional)
-					img.size = event.target.size;//set size (optional)
-					img.onload = function(e) {
-					  var elem = document.createElement('canvas');//create a canvas
+					//create a FileReader
+					var reader = new FileReader();
 
-					  //scale the image to 600 (width) and keep aspect ratio
-					  var scaleFactor = resize_width / e.target.width;
-					  elem.width = resize_width;
-					  elem.height = e.target.height * scaleFactor;
+					//image turned to base64-encoded Data URI.
+					reader.readAsDataURL(oFiles[0]);
+					reader.name = oFiles[0].name; //get the image's name
+					reader.size = oFiles[0].size; //get the image's size
+					reader.onload = function(event) {
+						var img = new Image(); //create a image
+						img.src = event.target.result; //result is base64-encoded Data URI
+						img.name = event.target.name; //set name (optional)
+						img.size = event.target.size; //set size (optional)
+						img.onload = function(e) {
+							var elem = document.createElement('canvas'); //create a canvas
 
-					  //draw in canvas
-					  var ctx = elem.getContext('2d');
-					  ctx.drawImage(e.target, 0, 0, elem.width, elem.height);
+							//scale the image to 600 (width) and keep aspect ratio
+							var scaleFactor = resize_width / e.target.width;
+							elem.width = resize_width;
+							elem.height = e.target.height * scaleFactor;
 
-					  //get the base64-encoded Data URI from the resize image
-					  var srcEncoded = ctx.canvas.toDataURL(e.target, 'image/jpeg', 0);
+							//draw in canvas
+							var ctx = elem.getContext('2d');
+							ctx.drawImage(e.target, 0, 0, elem.width, elem.height);
 
-					  //var src = e.target.result;
-						var bFlag = dataUtil._fileMimeVerification(srcEncoded);
-						var bFlag = true;
-						if (bFlag) {
-							sDefectImageSrc.push({
-								"docid": "",
-								"jobid": "",
-								"tailid": oAppModel.getProperty("/sTailId"),
-								"fname": "test.png",//oFiles[0].name,
-								"dvalue": srcEncoded,
-								"flag": "",
-								"rawbase": "",
-								"DOCREFID": that.docRefId === undefined ? "" : that.docRefId
-							});
-							oPrmPhoto.filter = "";
-							oPrmPhoto.error = function(Response) {
-								that.getView().byId("photoUpload").setBusy(false);
-							};
-							oPrmPhoto.success = function(oData) {
-								that.getView().byId("photoUpload").setBusy(false);
-								that.docRefId = oData.results[0].DOCREFID;
-								that._fnPhotoUploadGet(that.docRefId);
-							}.bind(this);
-							ajaxutil.fnCreate("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
-						} else {
-							that.onTypeMissmatch();
-							that.getView().byId("photoUpload").setBusy(false);
-							if (that.docRefId) {
-								that.getView().byId("photoUpload").setBusy(false);
-								that._fnPhotoUploadGet(that.docRefId);
+							//get the base64-encoded Data URI from the resize image
+							var srcEncoded = ctx.canvas.toDataURL(e.target, 'image/jpeg', 0);
+
+							//var src = e.target.result;
+							var bFlag = dataUtil._fileMimeVerification(srcEncoded);
+							var bFlag = true;
+							if (bFlag) {
+								sDefectImageSrc.push({
+									"docid": "",
+									"jobid": "",
+									"tailid": oAppModel.getProperty("/sTailId"),
+									"fname": "test.png", //oFiles[0].name,
+									"dvalue": srcEncoded,
+									"flag": "",
+									"rawbase": "",
+									"DOCREFID": that.docRefId === undefined ? "" : that.docRefId
+								});
+								oPrmPhoto.filter = "";
+								oPrmPhoto.error = function(Response) {
+									that.getView().byId("photoUpload").setBusy(false);
+								};
+								oPrmPhoto.success = function(oData) {
+									that.getView().byId("photoUpload").setBusy(false);
+									that.docRefId = oData.results[0].DOCREFID;
+									that._fnPhotoUploadGet(that.docRefId);
+								}.bind(this);
+								ajaxutil.fnCreate("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
 							} else {
-								oAppModel.setProperty("/DefectImageSrc", []);
-								oAppModel.refresh(true);
+								that.onTypeMissmatch();
+								that.getView().byId("photoUpload").setBusy(false);
+								if (that.docRefId) {
+									that.getView().byId("photoUpload").setBusy(false);
+									that._fnPhotoUploadGet(that.docRefId);
+								} else {
+									oAppModel.setProperty("/DefectImageSrc", []);
+									oAppModel.refresh(true);
+								}
 							}
-						}
-						that.getView().byId("photoUpload").setBusy(false);
+							that.getView().byId("photoUpload").setBusy(false);
 
+						};
 					};
-				  }; 					
 					/* Old Code commented : 23/11/2020: changed for VAPT file upload issue Start
 					var fileReader = new FileReader();
 					fileReader.readAsDataURL(oFiles[0]);
@@ -1355,7 +1355,7 @@ sap.ui.define([
 				Log.error("Exception in onAddDefectImage function");
 			}
 		},
-			/* Rahul Code Changed : 23/11/2020 : 10:47AM: changed for VAPT file upload issue End*/
+		/* Rahul Code Changed : 23/11/2020 : 10:47AM: changed for VAPT file upload issue End*/
 		/* Function: onUploadedImagePress
 		 * Parameter: oEvent
 		 * Description: To upload image for defected area..
@@ -1586,7 +1586,8 @@ sap.ui.define([
 					"DefectArea": "",
 					"oFlagEdit": true,
 					"editMode": false,
-					"isWrctr": true
+					"isWrctr": true,
+					"PrimeStatus": true   //Rahul: 03/12/2020 06.11PM: New Property Added	
 
 				});
 				this.getView().setModel(oAppModel, "appModel");

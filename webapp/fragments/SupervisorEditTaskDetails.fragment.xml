@@ -230,14 +230,16 @@
 											<HBox>
 												<Label width="200px" design="Bold" text="Other Reason" class="sapUiSmallMarginTop"/>
 											</HBox>
-											<Input width="200px" value="{DetailsSupEditModel>/OTHER_RSN}"/>
+											<Input width="250px" value="{DetailsSupEditModel>/OTHER_RSN}"/>
+										<!--Rahul 03/12/2020 :03:23:Width increased to "250PX"-->
 										</VBox>
 									</HBox>
 									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
 										<HBox>
 											<Label width="196px" design="Bold" text="Period of Deferment" class="sapUiSmallMarginTop"/>
 										</HBox>
-										<ComboBox width="245px" selectionChange="onPrdOfDefermentChange" items="{path:'PerioOfDeferCBModel>/',templateShareable: false}"
+										<!--Rahul 03/12/2020 :03:23:Width increased to "270PX"-->
+										<ComboBox width="270px" selectionChange="onPrdOfDefermentChange" items="{path:'PerioOfDeferCBModel>/',templateShareable: false}"
 											selectedKey="{DetailsSupEditModel>/DEFPD}">
 											<core:Item text="{PerioOfDeferCBModel>description}" key="{PerioOfDeferCBModel>ddid}"/>
 										</ComboBox>

@@ -204,14 +204,16 @@
 												<HBox>
 													<Label width="200px" design="Bold" text="Other Reason" class="sapUiSmallMarginTop"/>
 												</HBox>
-												<Input editable="false" width="200px" value="{DetailsSupModel>/OTHER_RSN}"/>
+												<!--Rahul 03/12/2020 :03:23:Width increased to "250PX"-->
+												<Input editable="false" width="250px" value="{DetailsSupModel>/OTHER_RSN}"/>
 											</VBox>
 										</HBox>
 										<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
 											<HBox>
 												<Label width="196px" design="Bold" text="Period of Deferment" class="sapUiSmallMarginTop"/>
 											</HBox>
-											<ComboBox editable="false" width="245px" selectionChange="onPrdOfDefermentChange"
+											<!--Rahul 03/12/2020 :03:23:Width increased to "270PX"-->
+											<ComboBox editable="false" width="270px" selectionChange="onPrdOfDefermentChange"
 												items="{path:'PerioOfDeferCBModel>/',templateShareable: false}" selectedKey="{DetailsSupModel>/DEFPD}">
 												<core:Item text="{PerioOfDeferCBModel>description}" key="{PerioOfDeferCBModel>ddid}"/>
 											</ComboBox>
@@ -285,7 +287,8 @@
 											<Label text="{TUserModel>/sTrads}" design="Bold" class="sapUiTinyMarginBegin"/>
 										</HBox>
 									</HBox>
-									<MessageStrip class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" type="Warning" showIcon="true" text='Pending Supervisor Sign Off'>
+									<!--Rahul: 03/12/2020 06.11PM: id="msSupId" added-->
+									<MessageStrip id="msSupId" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" type="Warning" showIcon="true" text='Pending Supervisor Sign Off'>
 										<Link text="Sign Off" press="onEditTaskSignOff('SP')" class="sapUiLargeMarginBegin"/>
 									</MessageStrip>
 									<layoutData>

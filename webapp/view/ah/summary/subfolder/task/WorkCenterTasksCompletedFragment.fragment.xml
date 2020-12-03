@@ -8,8 +8,8 @@
 			</items>
 		</VBox>
 		<VBox backgroundDesign="Solid" visible="{=${TaskCompleteModel>/}.length !== 0 ? true:false}" alignContent="Center" alignItems="Center">
-			<Table id="tbWcCompletedId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="SingleSelectMaster" itemPress="onSelTasksGetComplete"
-				items="{ path: 'TaskCompleteModel>/', sorter: [{ path: 'rtaskid', descending: false }]}" noDataText="{i18n>txtNoTextCompleted}" showNoData="true">
+			<!--Rahul: 03/12/2020 06.11PM: mode="SingleSelectMaster" change and removed itemPress="onSelTasksGetComplete"-->
+			<Table id="tbWcCompletedId" class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText" mode="MultiSelect" items="{ path: 'TaskCompleteModel>/', sorter: [{ path: 'rtaskid', descending: false }]}" noDataText="{i18n>txtNoTextCompleted}" showNoData="true">
 				<headerToolbar>
 					<OverflowToolbar>
 						<ToolbarSpacer/>
@@ -72,7 +72,8 @@
 					</Column>
 				</columns>
 				<items>
-					<ColumnListItem vAlign="Middle" press="onSelTasksGetComplete" type="Active">
+					<!--Rahul: 03/12/2020 06.11PM: New "onSelTasksGet('COM',$event)" added-->
+					<ColumnListItem vAlign="Middle" press="onSelTasksGet('COM',$event)" type="Navigation">
 <!--						type="Navigation" press="onSelTasksGetComplete"-->
 						<cells>
 							<!--	<HBox>

@@ -29,78 +29,76 @@ sap.ui.define([
 			var oInitialModel = that.getView().getModel("oInitialModel");
 			var selectionData = oInitialModel.getData();
 			var selectedKey = oEvent.getParameters().selectedItem.getProperty("key");
-			 	selectionData.dispJob = selectionData.dispRole = selectionData.dispSrv = false;
-				
+			selectionData.dispJob = selectionData.dispRole = selectionData.dispSrv = false;
+
 			// Get the Selection Type - To display the relevant Table output
-			if ( selectedKey === "JOB" )
-			{ oInitialModel.setProperty("/dispJob", true);
-			  that._getJobData();
-			  }
-			  
-			if ( selectedKey === "ROLE" )
-			{ oInitialModel.setProperty("/dispRole", true); 
+			if (selectedKey === "JOB") {
+				oInitialModel.setProperty("/dispJob", true);
+				that._getJobData();
+			}
+
+			if (selectedKey === "ROLE") {
+				oInitialModel.setProperty("/dispRole", true);
 				that._getRoleSrvData("ROLE");
-				}
-				
-			if ( selectedKey === "SERVICE" )
-			{ oInitialModel.setProperty("/dispSrv", true); 
+			}
+
+			if (selectedKey === "SERVICE") {
+				oInitialModel.setProperty("/dispSrv", true);
 				that._getRoleSrvData("SERVICE");
-			}					
+			}
 		},
-		
+
 		// Search 
 		onFilterLiveChange: function(oEvent) {
 			var sVal = oEvent.getParameter("newValue");
 			var selectionData = this.getView().getModel("oInitialModel").getData();
 			//var filters = [];
-			
+
 			// Get the Selection Type - relevant Filter
-			if ( selectionData.dispJob === true ) {
-			var oTable = this.getView().byId("jobTable");	
-			var filters = this._jobFilterSelection(sVal);
-			} 
-			
-			if ( selectionData.dispRole === true ) {
-			  oTable = this.getView().byId("roleTable");	
-			 filters = this._roleFilterSelection(sVal);
+			if (selectionData.dispJob === true) {
+				var oTable = this.getView().byId("jobTable");
+				var filters = this._jobFilterSelection(sVal);
 			}
-			
-			if ( selectionData.dispSrv === true ) {
-			 oTable = this.getView().byId("srvTable");	
-			 filters = this._srvFilterSelection(sVal);
+
+			if (selectionData.dispRole === true) {
+				oTable = this.getView().byId("roleTable");
+				filters = this._roleFilterSelection(sVal);
 			}
-			
+
+			if (selectionData.dispSrv === true) {
+				oTable = this.getView().byId("srvTable");
+				filters = this._srvFilterSelection(sVal);
+			}
+
 			var orFilters = new sap.ui.model.Filter(filters, false);
 			oTable.getBinding("rows").filter([orFilters]);
 		},
-	
-		
-		
+
 		// Download
 		onclickDownload: function() {
 			var aCols, aTableData, oSettings, oSheet;
 			var selectedRecords = [];
 			var selectionData = this.getView().getModel("oInitialModel").getData();
-			
+
 			// Get the Selection Type and relevant Data
-			if ( selectionData.dispJob === true ) {
-			aCols = this._createColumnJob();
-			var aSelectedIndexes = this.getView().byId("jobTable").getSelectedIndices(); //this.getView().byId("jobTable").getBinding().aIndices;
-			aTableData = this.getView().getModel("oGlobalModel").getProperty("/Jobs");
-			} 
-			
-			if ( selectionData.dispRole === true ) {
-			aCols = this._createColumnRole();
-			aSelectedIndexes = this.getView().byId("roleTable").getSelectedIndices();
-			aTableData = this.getView().getModel("oGlobalModel").getProperty("/Services");
-			} 
-			
-			if ( selectionData.dispSrv === true ) {
-			aCols = this._createColumnServices();
-			aSelectedIndexes = this.getView().byId("srvTable").getSelectedIndices();
-			aTableData = this.getView().getModel("oGlobalModel").getProperty("/Services");
+			if (selectionData.dispJob === true) {
+				aCols = this._createColumnJob();
+				var aSelectedIndexes = this.getView().byId("jobTable").getSelectedIndices(); //this.getView().byId("jobTable").getBinding().aIndices;
+				aTableData = this.getView().getModel("oGlobalModel").getProperty("/Jobs");
 			}
-			
+
+			if (selectionData.dispRole === true) {
+				aCols = this._createColumnRole();
+				aSelectedIndexes = this.getView().byId("roleTable").getSelectedIndices();
+				aTableData = this.getView().getModel("oGlobalModel").getProperty("/Services");
+			}
+
+			if (selectionData.dispSrv === true) {
+				aCols = this._createColumnServices();
+				aSelectedIndexes = this.getView().byId("srvTable").getSelectedIndices();
+				aTableData = this.getView().getModel("oGlobalModel").getProperty("/Services");
+			}
+
 			for (var i = 0; i < aSelectedIndexes.length; i++) {
 				var item = aSelectedIndexes[i];
 				selectedRecords.push(aTableData[item]);
@@ -145,7 +143,7 @@ sap.ui.define([
 
 			ajaxutil.fnRead(this.getResourceBundle().getText("GETESOPERATORSVC"), oParameter);
 		},
-		
+
 		// Get Role/Service Data
 		_getRoleSrvData: function(seltype) {
 			var oGlobalModel = this.getModel("oGlobalModel");
@@ -158,8 +156,7 @@ sap.ui.define([
 			oParameter.success = function(oData) {
 				if (oData && oData.results && oData.results.length > 0) {
 					oGlobalModel.setProperty("/Services", oData.results);
-				} else 
-				{
+				} else {
 					oGlobalModel.setProperty("/Services", []);
 				}
 				this.getView().getModel("oGlobalModel").refresh();
@@ -167,7 +164,7 @@ sap.ui.define([
 
 			ajaxutil.fnRead(this.getResourceBundle().getText("ESOPERATORFSSVC"), oParameter);
 		},
-		
+
 		// Job Excel Columns
 		_createColumnJob: function() {
 			return [{
@@ -297,7 +294,7 @@ sap.ui.define([
 				width: "25"
 			}];
 		},
-		
+
 		// Role Excel Columns
 		_createColumnRole: function() {
 			return [{
@@ -336,10 +333,10 @@ sap.ui.define([
 			}, {
 				label: "Time",
 				property: "RESGUZT",
-				width: "25"				
+				width: "25"
 			}];
-		},	
-
+		},
+     //Rahul: 03/12/2020 06.11PM: Local JSON Parameter added.--Start
 		// Services Excel Columns
 		_createColumnServices: function() {
 			return [{
@@ -348,12 +345,12 @@ sap.ui.define([
 				width: "25"
 			}, {
 				label: "Type of Flight Servicing",
-				property: "SRVTID",
+				property: "SRVT",
 				width: "25"
 			}, {
 				label: "Aircraft Tail",
 				property: "TAILID",
-				width: "25"	
+				width: "25"
 			}, {
 				label: "Replenish",
 				property: "RESID",
@@ -384,7 +381,7 @@ sap.ui.define([
 				width: "25"
 			}, {
 				label: "Tradesman",
-				property: "RTSGUSR",
+				property: "RESGUSR",
 				width: "25"
 			}, {
 				label: "Task ID",
@@ -420,11 +417,11 @@ sap.ui.define([
 				width: "25"
 			}, {
 				label: "Item Installed",
-				property: "STNSID",
+				property: "WESID",
 				width: "25"
 			}, {
 				label: "Serial Number",
-				property: "SERNR",
+				property: "WESNR",
 				width: "25"
 			}, {
 				label: "Weapon Config Date",
@@ -444,11 +441,11 @@ sap.ui.define([
 				width: "25"
 			}, {
 				label: "FFF Date",
-				property: "WESGDTM",
+				property: "FFDATE",
 				width: "25"
 			}, {
 				label: "FFF Time",
-				property: "WESGUZT",
+				property: "FFTIME",
 				width: "25"
 			}, {
 				label: "FFF",
@@ -456,11 +453,11 @@ sap.ui.define([
 				width: "25"
 			}, {
 				label: "Pilot Accept Date",
-				property: "FFDATE",
+				property: "PILOTDATE",
 				width: "25"
 			}, {
 				label: "Pilot Accept Time",
-				property: "FFTIME",
+				property: "PILOTTIME",
 				width: "25"
 			}, {
 				label: "Pilot Acceptance",
@@ -471,61 +468,173 @@ sap.ui.define([
 				property: "FSTAT",
 				width: "25"
 			}, {
-				label: "ATD",
-				property: "ATD",
+				label: "TYPE OF OPERATION",
+				property: "OPRTY",
 				width: "25"
 			}, {
-				label: "ATA",
-				property: "ATA",
+				label: "Normal",
+				property: "LNOR",
 				width: "25"
 			}, {
-				label: "JFS Start",
-				property: "JFSSTART",
+				label: "Running",
+				property: "LRUN",
 				width: "25"
 			}, {
-				label: "ROLLER",
-				property: "ROLLER",
+				label: "Total",
+				property: "LTOT",
 				width: "25"
 			}, {
-				label: "BRAKE",
-				property: "BRAKE",
+				label: "APU Duration",
+				property: "APUDUR",
 				width: "25"
 			}, {
-				label: "ARRESTOR",
-				property: "ARRESTOR",
+				label: "APU Start",
+				property: "APUSNO",
 				width: "25"
 			}, {
-				label: "No. of AAR contacts",
-				property: "AARCONTACTS",
+				label: "Engine Start Time",
+				property: "EGSTT",
 				width: "25"
 			}, {
-				label: "AAR fuel quantity",
-				property: "AARFUELQTY",
+				label: "Engine End Time",
+				property: "EGSPT",
+				width: "25"
+			}, {
+				label: "Weight Off Wheel Time",
+				property: "WOFFW",
+				width: "25"
+			}, {
+				label: "Weight on Wheel Time",
+				property: "WONW",
 				width: "25"
 			}, {
 				label: "AH-Post Flight Date",
-				property: "PILOTDATE",
+				property: "PFDATE",
 				width: "25"
 			}, {
 				label: "AH-Post Flight Time",
-				property: "PILOTTIME",
+				property: "PFTIME",
 				width: "25"
 			}, {
 				label: "Pilot Name",
-				property: "PILOT",
-				width: "25"				
+				property: "PFUSER",
+				width: "25"
+			}, {
+				label: "Engine Serial Number",
+				property: "ESERNR",
+				width: "25"
+			}, {
+				label: "Engine Reason for Check",
+				property: "CHKRN",
+				width: "25"
+			}, {
+				label: "AMBIENT TEMP",
+				property: "TEMP",
+				width: "25"
+			}, {
+				label: "AMBIENT BARO PRESSURE",
+				property: "BPRESS",
+				width: "25"
+			}, {
+				label: "TABLE TGT",
+				property: "TGTTAB",
+				width: "25"
+			}, {
+				label: "IND TGT",
+				property: "TGTIND",
+				width: "25"
+			}, {
+				label: "DIFF TGT",
+				property: "TGTDIFF",
+				width: "25"
+			}, {
+				label: "NG",
+				property: "NG",
+				width: "25"
+			}, {
+				label: "TQ ACT",
+				property: "TQACT",
+				width: "25"
+			}, {
+				label: "NP",
+				property: "NP",
+				width: "25"
+			}, {
+				label: "Airspeed",
+				property: "ASPEED",
+				width: "25"
+			}, {
+				label: "ETF",
+				property: "ETF",
+				width: "25"
+			}, {
+				label: "UPPER LIMIT",
+				property: "ULIMIT",
+				width: "25"
+			}, {
+				label: "WITHIN 5 UPPER LIMIT",
+				property: "ULIMIT5",
+				width: "25"
+			}, {
+				label: "LOWER LIMIT",
+				property: "LLIMIT",
+				width: "25"
+			}, {
+				label: "WITHIN 5 LOWER LIMIT",
+				property: "LLIMIT5",
+				width: "25"
+			}, {
+				label: "LOG ID",
+				property: "LOGID",
+				width: "25"
+			}, {
+				label: "Engine Serial Number",
+				property: "ESERNR",
+				width: "25"
+			}, {
+				label: "LCF1",
+				property: "LCF1",
+				width: "25"
+			}, {
+				label: "LCF2",
+				property: "LCF2",
+				width: "25"
+			}, {
+				label: "INDEX1",
+				property: "INDEX1",
+				width: "25"
+			}, {
+				label: "ENGHR",
+				property: "ENGHR",
+				width: "25"
+			}, {
+				label: "Total LCF1",
+				property: "TLCF1",
+				width: "25"
+			}, {
+				label: "Total LCF2",
+				property: "TLCF2",
+				width: "25"
+			}, {
+				label: "Total INDEX",
+				property: "TINDEX",
+				width: "25"
+			}, {
+				label: "Total ENGHR",
+				property: "TENGHR",
+				width: "25"
 			}];
 		},
-
+    //Rahul: 03/12/2020 06.11PM: Local JSON Parameter added.--End
 		_handleRouteMatched: function() {
 			this._getJobData();
 			this.getView().getModel("oGlobalModel").refresh();
 		},
-		
-		_jobFilterSelection:function(sVal) {
-			
+
+		_jobFilterSelection: function(sVal) {
+
 			var filters = [];
-					
+
 			filters.push(new sap.ui.model.Filter("JOBID", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("DefectType", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("AircraftTail", sap.ui.model.FilterOperator.Contains, sVal));
@@ -547,36 +656,36 @@ sap.ui.define([
 			filters.push(new sap.ui.model.Filter("TaskID", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("JobTradesman", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("JobSupervisor", sap.ui.model.FilterOperator.Contains, sVal));
-			
+
 			return filters;
-			
+
 		},
-		
-		_roleFilterSelection:function(sVal) {
-			
+
+		_roleFilterSelection: function(sVal) {
+
 			var filters = [];
-			
+
 			filters.push(new sap.ui.model.Filter("ROLEID", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("TAILID", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("STNSID", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("SERNR", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("SGUSR", sap.ui.model.FilterOperator.Contains, sVal));
-			filters.push(new sap.ui.model.Filter("ADAPTOR", sap.ui.model.FilterOperator.Contains, sVal));			
+			filters.push(new sap.ui.model.Filter("ADAPTOR", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("RESGUSR", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("RESGDTM", sap.ui.model.FilterOperator.Contains, sVal));
 
 			return filters;
-			
+
 		},
-		
-		_srvFilterSelection:function(sVal) {
-			
+
+		_srvFilterSelection: function(sVal) {
+
 			var filters = [];
-			
+
 			filters.push(new sap.ui.model.Filter("SRVID", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("RESID", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("SRVTID", sap.ui.model.FilterOperator.Contains, sVal));
-			filters.push(new sap.ui.model.Filter("RESGUSR", sap.ui.model.FilterOperator.Contains, sVal));		
+			filters.push(new sap.ui.model.Filter("RESGUSR", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("RESGDTM", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("RESGUZT", sap.ui.model.FilterOperator.Contains, sVal));
 			filters.push(new sap.ui.model.Filter("STATION", sap.ui.model.FilterOperator.Contains, sVal));

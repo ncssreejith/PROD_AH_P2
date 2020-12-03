@@ -973,7 +973,7 @@ sap.ui.define([
 					oModelView = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";*/
-				oPrmJobDue.filter = "ddid eq UTIL2_";
+				oPrmJobDue.filter = "ddid eq 118_";    //Rahul: 03/12/2020 06.11PM: Filter parameter changed
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					oModel = dataUtil.createNewJsonModel();
@@ -991,20 +991,26 @@ sap.ui.define([
 		 * Description: Private method: This will get called, to get data fro selected tasks.
 		 *Table: TASK
 		 */
-		onSelTasksGet: function(oEvent) {
+		 //Rahul: 03/12/2020 06.11PM: new parameter added oFlagEv
+		onSelTasksGet: function(oFlagEv, oEvent) {
 			try {
 				var that = this,
 					filters = [],
 					oModel,
-					oObj = oEvent.getSource().getBindingContext("TaskPendingModel").getObject(),
+					oObj,
 					sFilter, bFlag = true,
 					oPrmJobDue = {};
+				if (oFlagEv === "SUP") {
+					oObj = oEvent.getSource().getBindingContext("TaskPendingModel").getObject();
+				} else {
+					oObj = oEvent.getSource().getBindingContext("TaskCompleteModel").getObject();
+				}
 				oEvent.getSource().setSelected(true);
 				sFilter = "taskid eq " + oObj.taskid;
 				oPrmJobDue.filter = sFilter;
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
-					that.onPendingSupDetailsPress(oData.results[0]);
+					that.onPendingSupDetailsPress(oData.results[0], oFlagEv); //Rahul: 03/12/2020 06.11PM: New Parameter added "oFlagEv"
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmJobDue);
 			} catch (e) {
@@ -3838,7 +3844,8 @@ sap.ui.define([
 		// Description: Generic Method: This will get called, when task from Pending Supervisor tab has been pressed to open the dialog with information.
 		//Table: 
 		//------------------------------------------------------------------
-		onPendingSupDetailsPress: function(oObj) {
+		//Rahul: 03/12/2020 06.11PM: New Parameter added "oFlagEv"
+		onPendingSupDetailsPress: function(oObj, oFlagEv) {
 			try {
 				var that = this,
 					oLimitModel = this.getView().getModel("oViewLimitModel"),
@@ -3882,15 +3889,17 @@ sap.ui.define([
 							sVal = parseFloat(sVal, [10]);
 							var iPrec = formatter.JobDueDecimalPrecision(oMod.util1);
 							oModel.setProperty("/utilvl", parseFloat(minVal, [10]).toFixed(iPrec));
-
 						}
-
 					}
 					oModel.setData(oMod);
 					that._oSupDetails.setModel(oModel, "DetailsSupModel");
 					that.getView().addDependent(that._oSupDetails);
 				}
 				that._oSupDetails.open(that);
+				//Rahul: 03/12/2020 06.11PM: If condition added.
+				if (oFlagEv === "COM") {
+					sap.ui.core.Fragment.byId("OSTId", "msSupId").setVisible(false);
+				}
 			} catch (e) {
 				Log.error("Exception in onPendingSupDetailsPress function");
 			}
@@ -4468,11 +4477,11 @@ sap.ui.define([
 				oCanvas.style.backgroundRepeat = "no-repeat";
 				oCanvas.style.backgroundSize = "100%";
 				//Rahul: Code commented: 23/11/2020: 07:47PM Start
-			/*	var aCord = this.getModel("PhotoModel").getProperty("/Coordinates");
-				if (aCord) {
-					this.drawCoordinates("", aCord);
-				}*/
-					//Rahul: Code commented: 23/11/2020: 07:47PM End
+				/*	var aCord = this.getModel("PhotoModel").getProperty("/Coordinates");
+					if (aCord) {
+						this.drawCoordinates("", aCord);
+					}*/
+				//Rahul: Code commented: 23/11/2020: 07:47PM End
 			} catch (e) {
 				Log.error("Exception in _fnRenderImage function");
 			}
