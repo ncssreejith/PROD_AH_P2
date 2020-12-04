@@ -336,7 +336,7 @@ sap.ui.define([
 				width: "25"
 			}];
 		},
-     //Rahul: 03/12/2020 06.11PM: Local JSON Parameter added.--Start
+		//Rahul: 03/12/2020 06.11PM: Local JSON Parameter added.--Start
 		// Services Excel Columns
 		_createColumnServices: function() {
 			return [{
@@ -392,7 +392,7 @@ sap.ui.define([
 				property: "RTASKID",
 				width: "25"
 			}, {
-				label: "Follow Up Task Description",
+				label: "Task Status",
 				property: "FTDESC",
 				width: "25"
 			}, {
@@ -520,6 +520,22 @@ sap.ui.define([
 				property: "PFUSER",
 				width: "25"
 			}, {
+				label: "Aircraft Monitoring Description",
+				property: "SMDESC",
+				width: "25"
+			}, {
+				label: "Aircraft Monitoring Status",
+				property: "SMSTATUS",
+				width: "25"
+			}, {
+				label: "Flying Requirement Description",
+				property: "FRDESC",
+				width: "25"
+			}, {
+				label: "Flying Requirement Status",
+				property: "FRSTATUS",
+				width: "25"
+			}, {
 				label: "Engine Serial Number",
 				property: "ESERNR",
 				width: "25"
@@ -625,7 +641,7 @@ sap.ui.define([
 				width: "25"
 			}];
 		},
-    //Rahul: 03/12/2020 06.11PM: Local JSON Parameter added.--End
+		//Rahul: 03/12/2020 06.11PM: Local JSON Parameter added.--End
 		_handleRouteMatched: function() {
 			this._getJobData();
 			this.getView().getModel("oGlobalModel").refresh();

@@ -54,7 +54,7 @@
 						<m:Label text="Aircraft Tail"/>
 						<template>
 							<!--Rahul: 04/12/2020: TAILID property added-->
-							<m:Text text="{oGlobalModel>TAILID}" wrapping="false"/> 
+							<m:Text text="{oGlobalModel>TAILID}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column width="11rem">
@@ -380,7 +380,7 @@
 						</template>
 					</Column>
 					<Column width="11rem">
-						<m:Label text="Follow Up Task Description"/>
+						<m:Label text="Task Status"/>
 						<template>
 							<m:Text text="{oGlobalModel>FTDESC}" wrapping="false"/>
 						</template>
@@ -574,15 +574,39 @@
 						</template>
 					</Column>
 					<Column width="11rem">
-						<m:Label text="Engine Serial Number"/>
+						<m:Label text="Pilot Name"/>
 						<template>
-							<m:Text text="{oGlobalModel>ESERNR}" wrapping="false"/>
+							<m:Text text="{oGlobalModel>PFUSER}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column width="11rem">
-						<m:Label text="Engine Reason for Check"/>
+						<m:Label text="Pilot Name"/>
 						<template>
-							<m:Text text="{oGlobalModel>CHKRN}" wrapping="false"/>
+							<m:Text text="{oGlobalModel>PFUSER}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="14rem">
+						<m:Label text="Aircraft Monitoring Description"/>
+						<template>
+							<m:Text text="{oGlobalModel>SMDESC}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="14rem">
+						<m:Label text="Aircraft Monitoring Status"/>
+						<template>
+							<m:Text text="{oGlobalModel>SMSTATUS}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="14rem">
+						<m:Label text="Flying Requirement Description"/>
+						<template>
+							<m:Text text="{oGlobalModel>FRDESC}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="14rem">
+						<m:Label text="Flying Requirement Status"/>
+						<template>
+							<m:Text text="{oGlobalModel>FRSTATUS}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column width="11rem">
