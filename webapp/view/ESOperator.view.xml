@@ -53,7 +53,8 @@
 					<Column width="11rem">
 						<m:Label text="Aircraft Tail"/>
 						<template>
-							<m:Text text="{oGlobalModel>AircraftTail}" wrapping="false"/>
+							<!--Rahul: 04/12/2020: TAILID property added-->
+							<m:Text text="{oGlobalModel>TAILID}" wrapping="false"/> 
 						</template>
 					</Column>
 					<Column width="11rem">
