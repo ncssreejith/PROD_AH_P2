@@ -1023,6 +1023,9 @@ sap.ui.define([
 			return true;
 		},
 		fnEngineEnableHit: function(sReasonCheck, sHIT) {
+			if(sHIT === "0" || sHIT === undefined || sHIT === null){
+				return true;
+			}
 			switch (sReasonCheck) {
 				case "1":
 					if (sHIT === "1") {

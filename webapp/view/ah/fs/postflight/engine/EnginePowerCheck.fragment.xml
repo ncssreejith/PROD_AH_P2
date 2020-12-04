@@ -2,7 +2,7 @@
 	<VBox class="sapUiSmallMargin backgroundBlue">
 		<Label text="Is Engine Power Check Required?" design="Bold"/>
 		<!--Teck Meng change on 02/12/2020 10:00 start-->
-		<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/engPowerCheckRequired}"
+		<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/engPowerCheckRequired}" selectionChange="onEnginChange"
 		enabled="{= ${oPilotUpdatesViewModel>/srvid} === undefined}">
 		<!--Teck Meng change on 02/12/2020 10:00 end-->	
 			<items>
@@ -22,29 +22,33 @@
 				</SegmentedButton>
 			</VBox>
 			<!--Teck Meng change on 27/11/2020 10:00 start-->
-			<VBox class="sapUiSmallMarginTop">
+			<!--<VBox class="sapUiSmallMarginTop">-->
 			<!--Teck Meng change on 27/11/2020 10:00 end-->	
 				<!--Teck Meng change on 23/11/2020 10:00 start-->
-				<Label text="Update HIT or Re-establishment/ETF" design="Bold"/>
+			<!--	<Label text="Update HIT or Re-establishment/ETF" design="Bold"/>-->
 				<!--Teck Meng change on 23/11/2020 10:00 end-->
-				<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/HIT}" items="{postflightModel>/reasonHIT}" selectionChange="onEngineHITChange">
-					<items>
-						<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}" width="70%"/>
-					</items>
-				</SegmentedButton>
-			</VBox>
-			<VBox class="sapUiSmallMarginTop">
+			<!--	<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/HIT}" items="{postflightModel>/reasonHIT}" selectionChange="onEngineHITChange">-->
+			<!--		<items>-->
+						<!--enabled="{= ${oPilotUpdatesViewModel>/HIT} === ${oPilotUpdatesViewModel>HIT} }"-->
+			<!--			<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}" width="70%"-->
+			<!--			/>-->
+			<!--		</items>-->
+			<!--	</SegmentedButton>-->
+			<!--</VBox>-->
+			<VBox   class="sapUiSmallMarginTop">
 				<Label text="{i18n>txtReasonForCheck}" design="Bold"/>
-				<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/chkrn}" items="{postflightModel>/reasonCheck}" required="true"
+				<SegmentedButton selectedKey="{oPilotUpdatesViewModel>selTab}" items="{postflightModel>/reasonCheck}" required="true"
 					selectionChange="onEngineReasonChange">
 					<items>
+						<!--enabled="{parts: ['postflightModel>key', 'oPilotUpdatesViewModel>/HIT'], formatter: '.formatter.fnEngineEnableHit'}"-->
 						<SegmentedButtonItem text="{postflightModel>text}" key="{postflightModel>key}"
-							enabled="{parts: ['postflightModel>key', 'oPilotUpdatesViewModel>/HIT'], formatter: '.formatter.fnEngineEnableHit'}" width="70%"/>
+							 enabled="{parts: ['postflightModel>key', 'oPilotUpdatesViewModel>Lock'], formatter: '.formatter.fnEngineEnableHit'}" width="70%"/>
 					</items>
 				</SegmentedButton>
 			</VBox>
 		</VBox>
-		<HBox width="100%">
+		<VBox id="engindCldId">
+				<HBox width="100%">
 			<VBox width="30%">
 				<ct:HeaderCard title="Ambient"/>
 			</VBox>
@@ -158,5 +162,6 @@
 				</HBox>
 			</VBox>
 		</HBox>
+		</VBox>
 	</VBox>
 </core:FragmentDefinition>

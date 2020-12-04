@@ -843,7 +843,7 @@ sap.ui.define([
 			return oMark;
 		},
 		fnDrawDefect: function(oMarks, selArea) {
-			var oCanvas = document.getElementById("myCanvas");
+			var oCanvas = document.getElementById("myPACanvas"); //Teck Meng 04/12/2020 11:15
 			oCanvas.getContext("2d").clearRect(0, 0, oCanvas.width, oCanvas.height);
 			oCanvas.style.backgroundImage = "url('" + jQuery.sap.getModulePath("avmet.ah") + "/css/img/AH/" + selArea.img + "')";
 			oMarks.forEach(function(mark) {
