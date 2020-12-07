@@ -128,7 +128,7 @@ sap.ui.define([
 		// Get Job Data
 		_getJobData: function() {
 			var oGlobalModel = this.getModel("oGlobalModel"),
-				oInitialModel = this.getModel("oInitialModel");
+				oInitialModel = this.getModel("oInitialModel"); //Rahul: 07/12/2020: 05:43PM :New Model Initialized
 			var oParameter = {};
 			oParameter.error = function(error) {
 				this.getView().getModel("oGlobalModel").refresh();
