@@ -42,14 +42,28 @@ sap.ui.define([
 		onSignOffPress: function() {
 			try {
 				var oPayload = this.getModel("oAddEngCycLogModel").getProperty("/");
-				oPayload.FLAG = this.getModel("oViewModel").getProperty("/stepid") === "S_CL" ? " " : "X";//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+				var sStepid = this.getModel("oViewModel").getProperty("/stepid");
+				if (sStepid === "S_CL") { //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043 start
+					oPayload.FLAG = "D";
+				}
+				if (sStepid === "S_AD") {
+					oPayload.FLAG = "A";
+				}
+				if (sStepid === "S_ED") {
+					oPayload.FLAG = "E";
+				}
+				if (sStepid === "S_RE") {
+					oPayload.FLAG = "R";
+				} //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043 end
+				// oPayload.FLAG = this.getModel("oViewModel").getProperty("/stepid") === "S_CL" ? "D" : "X"; //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 				var aPayload = [oPayload];
 				//If engine 2 installed
 				var sEng1Id = oPayload.ENGID;
 				var sEng2Id = this.getModel("oAddEng2CycLogModel").getProperty("/ENGID");
 				if (sEng2Id && sEng2Id !== sEng1Id) {
 					var oTemp = this.getModel("oAddEng2CycLogModel").getProperty("/");
-					oTemp.FLAG = this.getModel("oViewModel").getProperty("/stepid") === "S_CL" ? " " : "X";//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+					oTemp.FLAG = oPayload.FLAG;  //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					// oTemp.FLAG = this.getModel("oViewModel").getProperty("/stepid") === "S_CL" ? "D" : "X"; //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 					aPayload.push(oTemp);
 				}
 				var oParameter = {};
@@ -75,10 +89,15 @@ sap.ui.define([
 		 */
 		_getEngCyclicLife: function(sEngID, iEngine) {
 			try {
+				var sLOGID = this.getModel("oViewModel").getProperty("/LOGID"); //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043 start
+				var sLogIdPath = "";
+				if (sLOGID) {
+					sLogIdPath = " and LOGID eq " + sLOGID;
+				}//Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043 end
 				var
 					oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "FLAG eq L and TAILID eq " + this.getTailId() + " and ENGID eq " + sEngID;
+				oParameter.filter = "FLAG eq A and TAILID eq " + this.getTailId() + " and ENGID eq " + sEngID + sLogIdPath; //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 				oParameter.success = function(oData) {
 					if (oData && oData.results.length) {
 						//sort by date
@@ -164,7 +183,7 @@ sap.ui.define([
 					"CREUSR": null,
 					"CREDTM": null,
 					"CREUZT": null,
-					"SGUZT": null//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+					"SGUZT": null //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 				};
 				var utilData2 = {
 					"FLAG": null,
@@ -202,7 +221,7 @@ sap.ui.define([
 					"CREUSR": null,
 					"CREDTM": null,
 					"CREUZT": null,
-					"SGUZT": null//Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+					"SGUZT": null //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 				};
 				// utilData.type = 0;
 				// utilData.logid = 0;
@@ -214,24 +233,25 @@ sap.ui.define([
 				this.last = oEvent.getParameter("arguments").last;
 				//Engine 1
 				this.getView().setModel(new JSONModel(utilData), "oAddEngCycLogModel");
-				this.getView().setModel(new JSONModel({}), "oViewModel");//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+				this.getView().setModel(new JSONModel({}), "oViewModel"); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 				var eng1Id = oEvent.getParameter("arguments").engid;
 				this.getModel("oAddEngCycLogModel").setProperty("/ENGID", eng1Id);
 				this.getModel("oAddEngCycLogModel").setProperty("/TAILID", oEvent.getParameter("arguments").tailid);
 				this.getModel("oAddEngCycLogModel").setProperty("/LAST", oEvent.getParameter("arguments").last);
-				this.getModel("oViewModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid);//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+				this.getModel("oViewModel").setProperty("/LOGID", oEvent.getParameter("arguments").LOGID);//Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+				this.getModel("oViewModel").setProperty("/stepid", oEvent.getParameter("arguments").stepid); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 				this.getModel("oAddEngCycLogModel").refresh(true);
 				//Engine 2
 				this.getView().setModel(new JSONModel(utilData2), "oAddEng2CycLogModel");
 				var eng2Id = oEvent.getParameter("arguments").eng2id;
-				this.getModel("oAddEng2CycLogModel").setProperty("/ENGID", eng2Id);
+				this.getModel("oAddEng2CycLogModel").setProperty("/ENGID", eng2Id !== " " ? eng2Id : null);//Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043 
 				this.getModel("oAddEng2CycLogModel").setProperty("/TAILID", oEvent.getParameter("arguments").tailid);
 				this.getModel("oAddEng2CycLogModel").setProperty("/LAST", oEvent.getParameter("arguments").last);
 				this.getModel("oAddEng2CycLogModel").refresh(true);
 				if (eng1Id) {
 					this._getEngCyclicLife(eng1Id, 1);
 				}
-				if (eng2Id) {
+				if (eng2Id !== " ") { //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 					this._getEngCyclicLife(eng2Id, 2);
 				}
 				// this.fnLogById();

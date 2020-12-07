@@ -406,7 +406,8 @@ sap.ui.define([
 			// if (sEngine === "engine2") {
 			// 	this.getModel("oPilotUpdatesViewModel").setProperty("/PowerCheck1", sChkrn);
 			// }
-			// this.fnLockEngineReason(oEvent); //Teck Meng change on 04/12/2020 14:00
+			this.fnLockEngineReason(oEvent); //Teck Meng change on 04/12/2020 14:00//Teck Meng change on 07/12/2020 14:00
+			this.getModel("oPilotUpdatesViewModel").refresh(); //Teck Meng change on 07/12/2020 14:00
 		},
 		/** 
 		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
@@ -811,12 +812,24 @@ sap.ui.define([
 			if (this.getModel("oPilotUpdatesViewModel").getProperty("/engPowerCheckRequired") === "Y") {
 				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/engines");
 				var aPayloads = [];
-				aPayloads.push(oPayloads[0][1]);
-				aPayloads.push(oPayloads[0][2]);
-				aPayloads.push(oPayloads[0][3]);
-				aPayloads.push(oPayloads[1][1]);
-				aPayloads.push(oPayloads[1][2]);
-				aPayloads.push(oPayloads[1][3]);
+				if (oPayloads[0][1]) { //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					aPayloads.push(oPayloads[0][1]);
+				} //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+				if (oPayloads[0][2]) { //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					aPayloads.push(oPayloads[0][2]);
+				} //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+				if (oPayloads[0][3]) { //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					aPayloads.push(oPayloads[0][3]);
+				} //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+				if (oPayloads[1][1]) { //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					aPayloads.push(oPayloads[1][1]);
+				} //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+				if (oPayloads[1][2]) { //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					aPayloads.push(oPayloads[1][2]);
+				} //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+				if (oPayloads[1][3]) { //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					aPayloads.push(oPayloads[1][3]);
+				} //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 				var aFinalPayload = [];
 				if (aPayloads.length === 0) {
 					return;
@@ -838,7 +851,9 @@ sap.ui.define([
 						} //Teck Meng change on 19/11/2020 13:00 AH Issue 1044,1043
 						//Teck Meng change on 19/11/2020 13:00 AH Issue 1044,1043
 						oItem.pnum = this.getModel("oPilotUpdatesViewModel").getProperty("/num1"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
-						oItem.num = null; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+						if (this.getModel("oPilotUpdatesViewModel").getProperty("/srvid") === undefined) {//Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+							oItem.num = null; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+						}//Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 						aFinalPayload.push(JSON.parse(JSON.stringify(oItem)));
 					}
 				}.bind(this));
@@ -1085,65 +1100,90 @@ sap.ui.define([
 						busy: false
 					}, "viewModel");
 					oData.results = this.fnSortEngine(oData.results);
-
-					if (sSrvidPath !== "" && oData.results.length > 0) { //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					//Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043 start
+					if (sSrvidPath !== "" && oData.results.length > 0) { //If edit post flight records //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 						this.getModel("oPilotUpdatesViewModel").setProperty("/engPowerCheckRequired", "Y"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 						var engine1Hit = [];
 						var engine2Hit = [];
 						// 	var sIndex = this.getModel("oPilotUpdatesViewModel").getProperty("/HIT");//Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 						// this.getModel("oPilotUpdatesViewModel").setProperty("/chkrn", "1");//Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 						oData.results.forEach(function(oPower) { //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
-							if (oPower.engno === "1") {
+							if (oPower.engno === "1") { //Engine 1
 								engine1Hit.push(oPower);
-							} else {
+							} else { //engine 2
 								engine2Hit.push(oPower);
 							}
-
 						}); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
-
-						this._getEngPowerCheck(oData.results[0].engid, oData.results[0].engno);
-						if (oData.results.length > 1) {
-							this._getEngPowerCheck(oData.results[1].engid, oData.results[1].engno);
+						if (engine1Hit.length && engine1Hit.length > 0) {
+							this._getEngPowerCheck(engine1Hit[0].engid, engine1Hit[0].engno);
 						}
+						if (engine2Hit.length && engine2Hit.length > 0) {
+							this._getEngPowerCheck(engine2Hit[0].engid, engine2Hit[0].engno);
+						}
+
 						var aEngines = [];
-						// oData.results[0].Lock = undefined;
-						aEngines[0] = {
-							"1": JSON.parse(JSON.stringify(oData.results[0])),
-							"2": JSON.parse(JSON.stringify(oData.results[0])),
-							"3": JSON.parse(JSON.stringify(oData.results[0])),
-							"Lock": "0",
-							"selTab": "1"
-						};
-						// oData.results[1].Lock = undefined;
-						aEngines[1] = {
-							"1": JSON.parse(JSON.stringify(oData.results[1])),
-							"2": JSON.parse(JSON.stringify(oData.results[1])),
-							"3": JSON.parse(JSON.stringify(oData.results[1])),
-							"Lock": "0",
-							"selTab": "1"
-						};
+						//Engine 1
+						if (engine1Hit.length && engine1Hit.length > 0) { //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043 start
+							aEngines[0] = {
+								"Lock": "0",
+								"selTab": "1"
+							};
+							engine1Hit.forEach(function(eng1Hit) {
+								switch (eng1Hit.chkrn) {
+									case "1":
+										aEngines[0]["1"] = JSON.parse(JSON.stringify(eng1Hit));
+										aEngines[0].Lock = "1";
+										break;
+									case "2":
+										aEngines[0]["2"] = JSON.parse(JSON.stringify(eng1Hit));
+										aEngines[0].Lock = "3";
+										aEngines[0].selTab = "3";
+										break;
+									case "3":
+										aEngines[0]["3"] = JSON.parse(JSON.stringify(eng1Hit));
+										aEngines[0].Lock = "3";
+										aEngines[0].selTab = "3";
+										break;
+								}
+							});
+						}
+
+						//Engine 2
+						if (engine2Hit.length && engine2Hit.length > 0) {
+							aEngines[1] = {
+								"Lock": "0",
+								"selTab": "1"
+							};
+							engine2Hit.forEach(function(eng2Hit) {
+								switch (eng2Hit.chkrn) {
+									case "1":
+										aEngines[1]["1"] = JSON.parse(JSON.stringify(eng2Hit));
+										aEngines[1].Lock = "1";
+										break;
+									case "2":
+										aEngines[1]["2"] = JSON.parse(JSON.stringify(eng2Hit));
+										aEngines[1].Lock = "3";
+										aEngines[1].selTab = "3";
+										break;
+									case "3":
+										aEngines[1]["3"] = JSON.parse(JSON.stringify(eng2Hit));
+										aEngines[1].Lock = "3";
+										aEngines[1].selTab = "3";
+										break;
+								}
+							});
+						}
 
 						this.getModel("oPilotUpdatesViewModel").setProperty("/engines", aEngines);
 
-						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/1/chkrn", oData.results[0].chkrn === null ? "1" : oData.results[
-								0]
-							.chkrn);
-						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/2/chkrn", oData.results[0].chkrn === null ? "2" : oData.results[
-								0]
-							.chkrn);
-						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/3/chkrn", oData.results[0].chkrn === null ? "3" : oData.results[
-								0]
-							.chkrn);
-						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/1/chkrn", oData.results[1].chkrn === null ? "1" : oData.results[
-								1]
-							.chkrn);
-						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/2/chkrn", oData.results[1].chkrn === null ? "2" : oData.results[
-								1]
-							.chkrn);
-						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/3/chkrn", oData.results[1].chkrn === null ? "3" : oData.results[
-								1]
-							.chkrn);
-
+						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/1/chkrn", "1");
+						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/2/chkrn", "2");
+						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/0/3/chkrn", "3");
+						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/1/chkrn", "1");
+						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/2/chkrn", "2");
+						this.getModel("oPilotUpdatesViewModel").setProperty("/engines/1/3/chkrn", "3");
+						this.onEnginChange();
+						//Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043 end
 					} else { //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 
 						this._getEngPowerCheck(oData.results[0].engid, oData.results[0].engno);
@@ -1189,7 +1229,7 @@ sap.ui.define([
 								1]
 							.chkrn);
 					}
-					this.getModel("oPilotUpdatesViewModel").refresh();
+					this.getModel("oPilotUpdatesViewModel").refresh(true);
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTAH4POWERSVC"), oParameter);
 			} catch (e) {
@@ -1549,7 +1589,7 @@ sap.ui.define([
 			var bHitDefect = false; //Teck Meng change on 02/12/2020 14:00
 
 			if (oHit) { //Teck Meng change on 02/12/2020 14:00
-				bHitDefect = this.fnCheckHIT("1", oHit); //Teck Meng change on 02/12/2020 14:00
+				// bHitDefect = this.fnCheckHIT("1", oHit); //Teck Meng change on 02/12/2020 14:00
 			} //Teck Meng change on 02/12/2020 14:00
 
 			if (isFly || isSorti || astId === "AST_US" || bHitDefect) {

@@ -60,15 +60,16 @@ sap.ui.define([
 		 */
 		onPastCyclicLogEditPress: function(oEvent) {
 			var oSource = oEvent.getSource();
-			var sSRVID = oSource.getBindingContext("oEngineModel").getObject().SRVID;
-			var sNUM = oSource.getBindingContext("oEngineModel").getObject().NUM;
+			var sLOGID = oSource.getBindingContext("oEngineModel").getObject().LOGID; //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+			var sENGID = oSource.getBindingContext("oEngineModel").getObject().ENGID; //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 			try {
 				this.getRouter().navTo("AddEngCyclicLog", {
-					engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
+					engid: sENGID,//Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 					tailid: this.getTailId(),
-					last: "X",
-					SRVID: sSRVID,
-					NUM: sNUM
+					last: " ", //Teck Meng 07/12/2020 16:45 
+					eng2id: " ", //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					stepid: "S_ED", //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					LOGID: sLOGID //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 				});
 			} catch (e) {
 				Log.error("Exception in Engine:onPastCyclicLogEditPress function");
@@ -226,7 +227,9 @@ sap.ui.define([
 				this.getRouter().navTo("AddEngCyclicLog", {
 					engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
 					tailid: this.getTailId(),
-					last: "X"
+					last: "X",
+					eng2id: " ", //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					stepid: "S_RE" //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 				});
 			} catch (e) {
 				Log.error("Exception in Engine:onResetEngCycLog function");
@@ -241,7 +244,9 @@ sap.ui.define([
 				this.getRouter().navTo("AddEngCyclicLog", {
 					engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
 					tailid: this.getTailId(),
-					last: "X"
+					last: "X",
+					eng2id: " ", //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					stepid: "S_RE" //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 				});
 			} catch (e) {
 				Log.error("Exception in Engine:onResetEngCycLog function");
@@ -256,7 +261,9 @@ sap.ui.define([
 				this.getRouter().navTo("AddEngCyclicLog", {
 					engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
 					tailid: this.getTailId(),
-					last: " "
+					last: " ",
+					eng2id: " ", //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					stepid: "S_AD" //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 				});
 			} catch (e) {
 				Log.error("Exception in Engine:onAddEngCycLog function");
@@ -303,7 +310,9 @@ sap.ui.define([
 				this.getRouter().navTo("AddEngCyclicLog", {
 					engid: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
 					tailid: this.getTailId(),
-					last: " "
+					last: " ",
+					eng2id: " ", //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					stepid: "S_AD" //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 				});
 			} catch (e) {
 				Log.error("Exception in Engine:onAddEngCycLog function");
