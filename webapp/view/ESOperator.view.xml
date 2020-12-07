@@ -567,6 +567,7 @@
 							<m:Text text="{oGlobalModel>PFTIME}" wrapping="false"/>
 						</template>
 					</Column>
+					<!--Rahul: 07/12/2020: 02:29PM: Pilot Name removed extra column-->
 					<Column width="11rem">
 						<m:Label text="Pilot Name"/>
 						<template>
@@ -595,6 +596,12 @@
 						<m:Label text="Flying Requirement Status"/>
 						<template>
 							<m:Text text="{oGlobalModel>FRSTATUS}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="14rem">
+						<m:Label text="Engine Reason for Check"/>   <!--Rahul: 07/12/2020: 02:28PM: New added-->
+						<template>
+							<m:Text text="{oGlobalModel>CHKRN}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column width="11rem">
@@ -741,6 +748,7 @@
 							<m:Text text="{oGlobalModel>TENGHR}" wrapping="false"/>
 						</template>
 					</Column>
+					<!--Rahul: 07/12/2020: 02:30PM: New Property Added-Start-->
 					<Column width="11rem">
 						<m:Label text="Date/Time"/>
 						<template>
@@ -795,6 +803,7 @@
 							<m:Text text="{oGlobalModel>REASON}" wrapping="false"/>
 						</template>
 					</Column>
+					<!--Rahul: 07/12/2020: 02:30PM: New Property Added-End-->
 				</columns>
 			</Table>
 		</m:content>

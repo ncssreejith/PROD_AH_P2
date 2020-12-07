@@ -337,7 +337,8 @@ sap.ui.define([
 			}];
 		},
 		//Rahul: 03/12/2020 06.11PM: Local JSON Parameter added.--Start
-		// Services Excel Columns
+		// Rahul: 07/12/2020: 02:24PM Services Excel Columns Added Aircraft Monitoring Description,Aircraft Monitoring Status,Flying Requirement Description and Flying Requirement Status 
+		 /*//Rahul: 07/12/2020: 02:24PM "Engine Serial Number", Removed from JSON FILE*/ 
 		_createColumnServices: function() {
 			return [{
 				label: "Service ID",
@@ -603,11 +604,8 @@ sap.ui.define([
 				label: "LOG ID",
 				property: "LOGID",
 				width: "25"
-			}, {
-				label: "Engine Serial Number",
-				property: "ESERNR",
-				width: "25"
-			}, {
+			},
+			{
 				label: "LCF1",
 				property: "LCF1",
 				width: "25"
