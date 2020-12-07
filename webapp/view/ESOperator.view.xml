@@ -11,8 +11,9 @@
 			<m:Vbox>
 				<m:HBox>
 					<m:Label text="Selection" wrapping="true" design="Bold" width="150px" class="sapUiSmallMarginBegin sapUiSmallMarginTop"></m:Label>
+						<!--Rahul: 07/12/2020: 05:45PM: Selected key logic moved to Controller for ComboBox "idSelectID"-->
 					<m:ComboBox id="idSelectID" selectionChange="onselectionChange" class="sapUiContentPadding" width="150px" items="{oSelectModel>/Selections}"
-						selectedKey="JOB" showSecondaryValues="true">
+						showSecondaryValues="true">
 						<c:ListItem key="{oSelectModel>SelectKey}" text="{oSelectModel>SelectText}"/>
 					</m:ComboBox>
 				</m:HBox>
@@ -32,6 +33,7 @@
 			<!--		<m:Button id="buttonGo" text="Go" press="onclickGo" class="sapUiLargeMarginBegin"/>-->
 			<!--	</m:HBox>-->
 			<!--</m:Vbox>-->
+	
 			<Table id="jobTable" rows="{oGlobalModel>/Jobs}" selectionMode="MultiToggle" visibleRowCount="11" ariaLabelledBy="Job"
 				class="sapUiSmallMarginBegin" visible="{oInitialModel>/dispJob}">
 				<extension>

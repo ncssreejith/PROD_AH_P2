@@ -205,7 +205,7 @@ sap.ui.define([
 				Log.error("Exception in onManageRequest function");
 			}
 		},
-		
+
 		handleChange: function() {
 			var prevDt = this.getModel("ViewModel").getProperty("/backDt");
 			var prevTime = this.getModel("ViewModel").getProperty("/backTm");
@@ -299,7 +299,7 @@ sap.ui.define([
 				oViewLimitModel.setProperty("/bAddLimitationBtn", false);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onAddLimitaionPress function");
-				
+
 			}
 		},
 
@@ -311,7 +311,7 @@ sap.ui.define([
 				this.getModel("CapExtendSet").setProperty("/LDESC", null);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onRemoveLimitaionPress function");
-				
+
 			}
 		},
 
@@ -435,7 +435,7 @@ sap.ui.define([
 					"DMDID": "",
 					"OTHER_RSN": "",
 					"CDESC": null,
-					"remarks":""
+					"remarks": ""
 				};
 
 				oParameter.error = function(response) {
@@ -505,7 +505,7 @@ sap.ui.define([
 					"DMDID": "",
 					"OTHER_RSN": "",
 					"CDESC": null,
-					"remarks":""
+					"remarks": ""
 				};
 
 				oParameter.error = function(response) {
@@ -549,7 +549,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
-				
+
 			}
 		},
 
@@ -909,10 +909,15 @@ sap.ui.define([
 					oPayload,
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
-				if (!this.handleChange()) {
-					return;
-				}
+
 				oPayload = this.getView().getModel("CapExtendSet").getData();
+				//Rahul: 07/12/2020: 05:25PM: New date validation check added for onlu Date and Both Type.-Start
+				if (oPayload.OPPR === "D" || oPayload.OPPR === "B") {
+					if (!this.handleChange()) {
+						return;
+					}
+				}
+				//Rahul: 07/12/2020: 05:25PM: New date validation check added.-End
 
 				if (oPayload.OPPR === "U") {
 					oPayload.EXPDT = null;
@@ -982,9 +987,9 @@ sap.ui.define([
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
-					sCount = oData.results[0].COUNT;
+						sCount = oData.results[0].COUNT;
 					} else {
-						sCount="0";
+						sCount = "0";
 					}
 					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
 				}.bind(this);
@@ -992,7 +997,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
-				
+
 			}
 		},
 
@@ -1059,7 +1064,7 @@ sap.ui.define([
 				Log.error("Exception in _fnUtilizationGet function");
 			}
 		},
-		
+
 		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};

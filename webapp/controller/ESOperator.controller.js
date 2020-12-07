@@ -127,7 +127,8 @@ sap.ui.define([
 		// Private Methods
 		// Get Job Data
 		_getJobData: function() {
-			var oGlobalModel = this.getModel("oGlobalModel");
+			var oGlobalModel = this.getModel("oGlobalModel"),
+				oInitialModel = this.getModel("oInitialModel");
 			var oParameter = {};
 			oParameter.error = function(error) {
 				this.getView().getModel("oGlobalModel").refresh();
@@ -138,6 +139,13 @@ sap.ui.define([
 				if (oData && oData.results && oData.results.length > 0) {
 					oGlobalModel.setProperty("/Jobs", oData.results);
 				}
+				//Rahul: 07/12/2020: 05:43PM : JSON Value Updated-Start
+				oInitialModel.setProperty("/dispJob", true);
+				oInitialModel.setProperty("/dispRole", false);
+				oInitialModel.setProperty("/dispSrv", false);
+				this.getView().byId("idSelectID").setSelectedKey("JOB");
+					//Rahul: 07/12/2020: 05:43PM : JSON Value Updated-End
+				oInitialModel.refresh();
 				this.getView().getModel("oGlobalModel").refresh();
 			}.bind(this);
 
@@ -338,7 +346,7 @@ sap.ui.define([
 		},
 		//Rahul: 03/12/2020 06.11PM: Local JSON Parameter added.--Start
 		// Rahul: 07/12/2020: 02:24PM Services Excel Columns Added Aircraft Monitoring Description,Aircraft Monitoring Status,Flying Requirement Description and Flying Requirement Status 
-		 /*//Rahul: 07/12/2020: 02:24PM "Engine Serial Number", Removed from JSON FILE*/ 
+		/*//Rahul: 07/12/2020: 02:24PM "Engine Serial Number", Removed from JSON FILE*/
 		_createColumnServices: function() {
 			return [{
 				label: "Service ID",
@@ -604,8 +612,7 @@ sap.ui.define([
 				label: "LOG ID",
 				property: "LOGID",
 				width: "25"
-			},
-			{
+			}, {
 				label: "LCF1",
 				property: "LCF1",
 				width: "25"

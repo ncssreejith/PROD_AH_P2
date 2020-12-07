@@ -1023,7 +1023,7 @@ sap.ui.define([
 			return true;
 		},
 		fnEngineEnableHit: function(sReasonCheck, sHIT) {
-			if(sHIT === "0" || sHIT === undefined || sHIT === null){
+			if (sHIT === "0" || sHIT === undefined || sHIT === null) {
 				return true;
 			}
 			switch (sReasonCheck) {
@@ -2053,6 +2053,13 @@ sap.ui.define([
 				var splitDt = creDt.split("/");
 				creDt = new Date(splitDt[2], splitDt[1] - 1, splitDt[0]);
 			}
+			//Rahul: 07/12/2020: 05:25PM: New date validation check added.-Start
+			if (!isNaN(creDt.getDate()) === false) {
+				oDatePicker.setValueState("Error");
+				oTimePick.setValueState("Error");
+				return false;
+			}
+			//Rahul: 07/12/2020: 05:25PM: New date validation check added.-End
 			var date = creDt.getDate(),
 				year = creDt.getFullYear(),
 				month = creDt.getMonth() + 1;
