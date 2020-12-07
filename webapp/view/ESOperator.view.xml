@@ -573,18 +573,6 @@
 							<m:Text text="{oGlobalModel>PFUSER}" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="11rem">
-						<m:Label text="Pilot Name"/>
-						<template>
-							<m:Text text="{oGlobalModel>PFUSER}" wrapping="false"/>
-						</template>
-					</Column>
-					<Column width="11rem">
-						<m:Label text="Pilot Name"/>
-						<template>
-							<m:Text text="{oGlobalModel>PFUSER}" wrapping="false"/>
-						</template>
-					</Column>
 					<Column width="14rem">
 						<m:Label text="Aircraft Monitoring Description"/>
 						<template>
@@ -751,6 +739,60 @@
 						<m:Label text="Total ENGHR"/>
 						<template>
 							<m:Text text="{oGlobalModel>TENGHR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Date/Time"/>
+						<template>
+							<m:Text text="{oGlobalModel>UPDON}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Airframe Hrs"/>
+						<template>
+							<m:Text text="{oGlobalModel>AFH}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="#1 Eng Hrs"/>
+						<template>
+							<m:Text text="{oGlobalModel>ENG1HR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="#2 Eng Hrs"/>
+						<template>
+							<m:Text text="{oGlobalModel>ENG2HR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="APU Hrs"/>
+						<template>
+							<m:Text text="{oGlobalModel>APUHR}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="APU Start"/>
+						<template>
+							<m:Text text="{oGlobalModel>APUSTRT}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="ALQ144"/>
+						<template>
+							<m:Text text="{oGlobalModel>ALQ144}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Updated By"/>
+						<template>
+							<m:Text text="{oGlobalModel>UPDBY}" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Reason"/>
+						<template>
+							<m:Text text="{oGlobalModel>REASON}" wrapping="false"/>
 						</template>
 					</Column>
 				</columns>

@@ -639,6 +639,42 @@ sap.ui.define([
 				label: "Total ENGHR",
 				property: "TENGHR",
 				width: "25"
+			}, {
+				label: "Date/Time",
+				property: "UPDON",
+				width: "25"
+			}, {
+				label: "Airframe Hrs",
+				property: "AFH",
+				width: "25"
+			}, {
+				label: "#1 Eng Hrs",
+				property: "ENG1HR",
+				width: "25"
+			}, {
+				label: "#2 Eng Hrs",
+				property: "ENG2HR",
+				width: "25"
+			}, {
+				label: "APU Hrs",
+				property: "APUHR",
+				width: "25"
+			}, {
+				label: "APU Start",
+				property: "APUHR",
+				width: "25"
+			}, {
+				label: "ALQ144",
+				property: "ALQ144",
+				width: "25"
+			}, {
+				label: "Updated By",
+				property: "UPDBY",
+				width: "25"
+			}, {
+				label: "Reason",
+				property: "REASON",
+				width: "25"
 			}];
 		},
 		//Rahul: 03/12/2020 06.11PM: Local JSON Parameter added.--End
