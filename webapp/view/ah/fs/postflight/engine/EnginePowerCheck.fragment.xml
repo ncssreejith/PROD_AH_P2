@@ -139,13 +139,13 @@
 							<Label text="TQ ACT" design="Bold"/>
 							<!--Teck Meng change on 27/11/2020 10:00 start-->
 							<!--Teck Meng change on 07/12/2020 10:00 start-->
-							<StepInput width="150px" min="0" editable="{= ${oPilotUpdatesViewModel>/chkrn}==='2'?true:false}" class="sapUiMediumMarginEnd"
+							<StepInput width="150px" min="0" editable="{= ${oPilotUpdatesViewModel>chkrn}==='2'?true:false}" class="sapUiMediumMarginEnd"
 								value="{oPilotUpdatesViewModel>tqact}" id="tqactId" fieldGroupIds="fgStepInput" required="true" change="onEngineValuesChange"/>
 							<!--Teck Meng change on 07/12/2020 10:00 end-->
 							<!--Teck Meng change on 27/11/2020 10:00 end-->
 						</VBox>
 					</HBox>
-					<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>/chkrn}==='2'?true:false}">
+					<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?true:false}">
 						<!--Teck Meng change on 24/11/2020 10:00 start-->
 						<!--<VBox class="sapUiSmallMarginBeginEnd" width="33%">-->
 						<!--	<Label text="ETF" design="Bold"/>-->

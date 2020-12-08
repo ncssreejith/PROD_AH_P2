@@ -1002,8 +1002,11 @@ sap.ui.define([
 		fnReadArming: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and srvtid eq " + this.getModel("oPilotUpdatesViewModel").getProperty(
-					"/srvtid");
+				oParameter.filter = 
+						"tailid eq " + this.getTailId() 
+						+" and srvtid eq " + this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid")
+						+" and pnum eq " + this.getModel("oPilotUpdatesViewModel").getProperty("/num1")
+						+" and srvid eq " + this.getModel("oPilotUpdatesViewModel").getProperty("/srvid");
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -1015,7 +1018,7 @@ sap.ui.define([
 						oArming = {};
 						var paDate = new Date();
 					} else {
-						paDate = new Date(oArming.sgdate + " " + oArming.sgtime);
+						paDate = new Date(oArming.sgdate);
 					}
 					this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/egstt", (paDate.getHours() + ":" + paDate.getMinutes()));
 					this.getModel("oPilotUpdatesViewModel").setProperty("/paDate", paDate);
