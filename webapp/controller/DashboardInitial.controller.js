@@ -17,7 +17,7 @@ sap.ui.define([
 	 *	 3. Private calls
 	 *   Note : 
 	 *************************************************************************** */
-	return BaseController.extend("avmet.ah.controller.DashboardInitial",f {
+	return BaseController.extend("avmet.ah.controller.DashboardInitial",{
 		formatter: formatter,
 		// ***************************************************************************
 		//                 1. UI Events  
