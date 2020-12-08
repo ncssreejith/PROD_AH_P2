@@ -5,7 +5,8 @@
 				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
 					<items>
 						<Text class="PDSFragTitle" text="Acceptable Deferred Defects"/>
-						<Button text="{path:'pdsSummaryModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized" enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
+						<Button text="{path:'pdsSummaryModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized"
+							enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
 					</items>
 				</FlexBox>
 				<FlexBox direction="Column" alignItems="Center" class="sapUiSmallMarginTop">
@@ -34,8 +35,10 @@
 										</VBox>
 										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${pdsSummaryModel>AFHR} !== null ? true : false}">
 											<Label text="{pdsSummaryModel>AFHR}" design="Bold"></Label>
-											<Label text="{pdsSummaryModel>UTIL1}" visible="{=${pdsSummaryModel>UTIL1_10} !== null ? true : false}"></Label>
-											<Label text="{pdsSummaryModel>UTIL1} left" visible="{=${pdsSummaryModel>UTIL1_10} === null ? true : false}"></Label>
+			                               <!--Rahul: 08/12/2020: 05:30PM: Visiblility logic change--START-->
+											<Label text="{pdsSummaryModel>UTIL1}" visible="{=${pdsSummaryModel>UTIL1} !== 'Air Frame Hours' ? true : false}"></Label>
+											<Label text="{pdsSummaryModel>UTIL1} left" visible="{=${pdsSummaryModel>UTIL1} === 'Air Frame Hours' ? true : false}"></Label>
+										   <!--Rahul: 08/12/2020: 05:30PM: Visiblility logic change--END-->
 										</VBox>
 									</HBox>
 									<HBox class="sapUiSmallMargin">

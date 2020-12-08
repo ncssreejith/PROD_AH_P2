@@ -99,14 +99,18 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmTD = {};
+						var oModel = dataUtil.createNewJsonModel(); //Rahul: 08/12/2020:04:51Pm Model declaration moved to Start
 				oPrmTD.filter = "TAILID eq " + that.getTailId() + " AND FLAG EQ D AND JOBID EQ " + sJobId + " AND SORNO EQ " + sSORNO;
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
+					//Rahul: 08/12/2020:04:51Pm =Model Data assignment changed---Start
 					if (oData !== undefined && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel();
-						oModel.setData(oData.results);
-						that.getView().setModel(oModel, "SortiDetails");
+					  oModel.setData(oData.results);
+					}else{
+						oModel.setData(null);
 					}
+					//Rahul: 08/12/2020: 04:51Pm =Model Data assignment changed---End
+					that.getView().setModel(oModel, "SortiDetails");
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
