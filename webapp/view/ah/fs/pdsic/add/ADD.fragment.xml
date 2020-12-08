@@ -35,10 +35,10 @@
 										</VBox>
 										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${pdsSummaryModel>AFHR} !== null ? true : false}">
 											<Label text="{pdsSummaryModel>AFHR}" design="Bold"></Label>
-			                               <!--Rahul: 08/12/2020: 05:30PM: Visiblility logic change--START-->
+											 <!--Rahul: 08/12/2020: 05:30PM: Visiblility logic change Start-->
 											<Label text="{pdsSummaryModel>UTIL1}" visible="{=${pdsSummaryModel>UTIL1} !== 'Air Frame Hours' ? true : false}"></Label>
 											<Label text="{pdsSummaryModel>UTIL1} left" visible="{=${pdsSummaryModel>UTIL1} === 'Air Frame Hours' ? true : false}"></Label>
-										   <!--Rahul: 08/12/2020: 05:30PM: Visiblility logic change--END-->
+										   <!--Rahul: 08/12/2020: 05:30PM: Visiblility logic change Start-->
 										</VBox>
 									</HBox>
 									<HBox class="sapUiSmallMargin">
