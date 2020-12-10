@@ -1022,23 +1022,24 @@ sap.ui.define([
 			}
 			return true;
 		},
-		fnEngineEnableHit: function(sReasonCheck, sHIT) {
-			if (sHIT === "0" || sHIT === undefined || sHIT === null) {
+		fnEngineEnableHit: function(sReasonCheck, sLock) {
+			if (sLock === "99" || sLock === undefined || sLock === null) {
 				return true;
 			}
+			// 
 			switch (sReasonCheck) {
+				case "0":
+					if (sLock === "0") {
+						return true;
+					}
+					break;
 				case "1":
-					if (sHIT === "1") {
+					if (sLock === "1" || sLock === "2"  || sLock === "3") {
 						return true;
 					}
 					break;
 				case "2":
-					if (sHIT === "2" || sHIT === "3") {
-						return true;
-					}
-					break;
-				case "3":
-					if (sHIT === "2" || sHIT === "3") {
+					if (sLock === "1" || sLock === "2"  || sLock === "3") {
 						return true;
 					}
 					break;

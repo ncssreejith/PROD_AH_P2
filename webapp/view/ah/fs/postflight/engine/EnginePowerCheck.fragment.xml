@@ -74,7 +74,7 @@
 				</VBox>
 				<VBox width="70%">
 					<HBox class="sapUiSmallMarginTop">
-						<VBox class="sapUiSmallMarginBeginEnd" width="33%" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?false:true}">
+						<VBox class="sapUiSmallMarginBeginEnd" width="33%" visible="{= ${oPilotUpdatesViewModel>chkrn}==='1'?false:true}">
 							<Label text="Table TGT" design="Bold"/>
 							<StepInput width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgttab}" id="tblTGTId" fieldGroupIds="fgStepInput"
 								required="true" change="fnTblInAndIndTgt"/>
@@ -89,32 +89,35 @@
 					</HBox>
 					<!--Teck Meng change on 27/11/2020 10:00 start-->
 					<HBox class="sapUiSmallMarginTop">
-						<VBox class="sapUiSmallMarginBeginEnd" width="33%" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?false:true}">
+						<VBox class="sapUiSmallMarginBeginEnd" width="33%" visible="{= ${oPilotUpdatesViewModel>chkrn}==='1'?false:true}">
 							<!--Teck Meng change on 27/11/2020 10:00 end-->
 							<Label text="TGT Difference" design="Bold"/>
 							<StepInput editable="false" min="0" width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgtdiff}"
 								fieldGroupIds="fgStepInput" required="true"/>
 						</VBox>
 						<!--Teck Meng change on 27/11/2020 10:00 start-->
-						<VBox class="sapUiSmallMarginBeginEnd" width="33%" visible="{= ${oPilotUpdatesViewModel>chkrn}==='1'?true:false}">
+						<VBox class="sapUiSmallMarginBeginEnd" width="33%" visible="{= ${oPilotUpdatesViewModel>chkrn}==='0'?true:false}">
 							<!--Teck Meng change on 27/11/2020 10:00 end-->
+							<!--{oPilotUpdatesViewModel>xtype}-->
 							<Label text="Strike Status" design="Bold"/>
 							<StepInput editable="false" min="0" width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>xstat}"
 								fieldGroupIds="fgStepInput" required="true"/>
 						</VBox>
 					</HBox>
-					<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?false:true}">
+					<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>chkrn}==='1'?false:true}">
 						<VBox class="sapUiSmallMarginBeginEnd" width="33%">
+							<!--{oPilotUpdatesViewModel>upperzone/xtype} {oPilotUpdatesViewModel>upperzone/xstat}-->
 							<Label text="Upper Limit" design="Bold"/>
 							<!--Teck Meng change on 07/12/2020 10:00 start-->
-							<StepInput width="150px" editable="{= ${oPilotUpdatesViewModel>chkrn}==='3'?true:false}" class="sapUiMediumMarginEnd"
+							<StepInput width="150px" editable="{= ${oPilotUpdatesViewModel>chkrn}==='2'?true:false}" class="sapUiMediumMarginEnd"
 								value="{oPilotUpdatesViewModel>ulimit}" id="upperLimitId" fieldGroupIds="fgStepInput" required="true" change="onEngineValuesChange"/>
 							<!--Teck Meng change on 07/12/2020 10:00 end-->
 						</VBox>
+						<!--{oPilotUpdatesViewModel>lowerzone/xtype} {oPilotUpdatesViewModel>lowerzone/xstat}-->
 						<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 							<Label text="Lower Limit" design="Bold"/>
 							<!--Teck Meng change on 07/12/2020 10:00 start-->
-							<StepInput width="150px" editable="{= ${oPilotUpdatesViewModel>chkrn}==='3'?true:false}" class="sapUiMediumMarginEnd"
+							<StepInput width="150px" editable="{= ${oPilotUpdatesViewModel>chkrn}==='2'?true:false}" class="sapUiMediumMarginEnd"
 								value="{oPilotUpdatesViewModel>llimit}" id="lowerLimitId" fieldGroupIds="fgStepInput" required="true" change="onEngineValuesChange"/>
 							<!--Teck Meng change on 07/12/2020 10:00 end-->
 						</VBox>
@@ -139,13 +142,13 @@
 							<Label text="TQ ACT" design="Bold"/>
 							<!--Teck Meng change on 27/11/2020 10:00 start-->
 							<!--Teck Meng change on 07/12/2020 10:00 start-->
-							<StepInput width="150px" min="0" editable="{= ${oPilotUpdatesViewModel>chkrn}==='2'?true:false}" class="sapUiMediumMarginEnd"
+							<StepInput width="150px" min="0" editable="{= ${oPilotUpdatesViewModel>chkrn}==='1'?true:false}" class="sapUiMediumMarginEnd"
 								value="{oPilotUpdatesViewModel>tqact}" id="tqactId" fieldGroupIds="fgStepInput" required="true" change="onEngineValuesChange"/>
 							<!--Teck Meng change on 07/12/2020 10:00 end-->
 							<!--Teck Meng change on 27/11/2020 10:00 end-->
 						</VBox>
 					</HBox>
-					<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>chkrn}==='2'?true:false}">
+					<HBox class="sapUiSmallMarginTop" visible="{= ${oPilotUpdatesViewModel>chkrn}==='1'?true:false}">
 						<!--Teck Meng change on 24/11/2020 10:00 start-->
 						<!--<VBox class="sapUiSmallMarginBeginEnd" width="33%">-->
 						<!--	<Label text="ETF" design="Bold"/>-->

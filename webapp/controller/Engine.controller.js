@@ -701,16 +701,16 @@ sap.ui.define([
 					var iULimit = parseInt(oItem.ULIMIT ? oItem.ULIMIT : 0) - 5;
 					var iLLimit = parseInt(oItem.LLIMIT ? oItem.LLIMIT : 0) + 5;
 					var iDiff = parseInt(oItem.TGTDIFF);
-					if (iDiff > iULimit && iDiff < oItem.ULIMIT) { // upper limit Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-						oItem.ULimitFlag = true;
-						// aRedPoints.push(iDiff);
-						// aDataPoints.push(iDiff);
-					}
-					if (iDiff < iLLimit && iDiff > oItem.LLIMIT) { // lower limit Teck Meng change on 27/11/2020 13:00 AH Issue 1044,104
-						oItem.LLimitFlag = true;
-						// aRedPoints.push(iDiff);
-						// aDataPoints.push(iDiff);
-					}
+					// if (iDiff > iULimit && iDiff < oItem.ULIMIT) { // upper limit Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+					// 	oItem.ULimitFlag = true;
+					// 	// aRedPoints.push(iDiff);
+					// 	// aDataPoints.push(iDiff);
+					// }
+					// if (iDiff < iLLimit && iDiff > oItem.LLIMIT) { // lower limit Teck Meng change on 27/11/2020 13:00 AH Issue 1044,104
+					// 	oItem.LLimitFlag = true;
+					// 	// aRedPoints.push(iDiff);
+					// 	// aDataPoints.push(iDiff);
+					// }
 					aXLabels.push(formatter.defaultDateFormatDisplay(oItem.BEGDA));
 
 					aDataPoints.push(iDiff);

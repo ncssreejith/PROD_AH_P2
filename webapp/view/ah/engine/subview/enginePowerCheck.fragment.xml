@@ -69,7 +69,7 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}{path:'oEngineModel>CREUZT'}"/>
 								<!--Teck Meng change on 23/11/2020 10:00 start-->
 								<Text text="{path:'oEngineModel>oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
 								<!--Teck Meng change on 23/11/2020 10:00 end-->
@@ -90,7 +90,7 @@
 								<!--Teck Meng change on 23/11/2020 10:00 end-->
 								<Text text="{oEngineModel>ULIMIT}"/>
 								<HBox>
-									<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= !!${oEngineModel>ULimitFlag}}">
+									<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= ${oEngineModel>xtype}==='UL'}">
 										<core:layoutData>
 											<FlexItemData growFactor="1"/>
 										</core:layoutData>
@@ -104,7 +104,7 @@
 								<!--<Text text="{oEngineModel>AmbTemp}"/>-->
 								<Text text="{oEngineModel>LLIMIT}"/>
 								<HBox>
-									<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= !!${oEngineModel>LLimitFlag}}">
+									<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= ${oEngineModel>xtype}==='LL'}">
 										<core:layoutData>
 											<FlexItemData growFactor="1"/>
 										</core:layoutData>
