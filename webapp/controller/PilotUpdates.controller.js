@@ -730,8 +730,8 @@ sap.ui.define([
 							delete sItem.increase;
 							delete sItem.upperzone;
 							delete sItem.lowerzone;
+							sItem.pnum = this.getModel("oPilotUpdatesViewModel").getProperty("/num1");
 							if (sLock === sItem.chkrn) {
-								sItem.pnum = this.getModel("oPilotUpdatesViewModel").getProperty("/num1");
 								sItem.chkrn = parseInt(sItem.chkrn) + 1;
 								oFinalPayload.push(JSON.parse(JSON.stringify(sItem)));
 							}
@@ -1087,7 +1087,7 @@ sap.ui.define([
 				}
 				sType = "OU";
 			}
-			if (iULimit <= sTgtDiff && sRecord.ulimit >= sTgtDiff) { // between upper limit and upper shadow 
+			if (iULimit < sTgtDiff && sRecord.ulimit >= sTgtDiff) { // between upper limit and upper shadow 
 				if (!sUpper.increase) {
 					sUpper.xstat = parseInt(sUpper.xstat) + 1;
 					sUpper.increase = true;
@@ -1098,7 +1098,7 @@ sap.ui.define([
 				}
 				sType = "UL";
 			}
-			if (iULimit > sTgtDiff && sTgtDiff > iLLimit) { // between/on upper shadow to lower shadow // happy zone 
+			if (iULimit >= sTgtDiff && sTgtDiff >= iLLimit) { // between/on upper shadow to lower shadow // happy zone 
 				if (sUpper.increase) {
 					sUpper.xstat = parseInt(sUpper.xstat) - 1;
 					sUpper.increase = false;
@@ -1110,7 +1110,7 @@ sap.ui.define([
 				sType = "NM";
 			}
 			//////  -54							-49
-			if (sRecord.llimit <= sTgtDiff && iLLimit >= sTgtDiff) { // between lower limit and lower shadow 
+			if (sRecord.llimit <= sTgtDiff && iLLimit > sTgtDiff) { // between lower limit and lower shadow 
 				if (!sLower.increase) {
 					sLower.xstat = parseInt(sLower.xstat) + 1;
 					sLower.increase = true;

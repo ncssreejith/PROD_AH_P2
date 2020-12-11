@@ -271,6 +271,7 @@ sap.ui.define([
 							stepid: "S_WE"
 						});
 						break;
+					case "AST_THR1":
 					case "AST_FFF": //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 					case "AST_FFF0": //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 						this.createNewFlightServicing(); //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043

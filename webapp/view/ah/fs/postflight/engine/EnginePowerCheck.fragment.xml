@@ -81,7 +81,7 @@
 						</VBox>
 						<VBox class="sapUiSmallMarginBeginEnd" width="33%">
 							<!--Teck Meng change on 02/12/2020 10:00 start-->
-							<Label text="{= ${oPilotUpdatesViewModel>chkrn}==='3'?'Avg TGT':'Ind. TGT'}" design="Bold"/>
+							<Label text="{= ${oPilotUpdatesViewModel>chkrn}==='2'?'Avg. TGT':'Ind. TGT'}" design="Bold"/>
 							<StepInput width="150px" class="sapUiMediumMarginEnd" value="{oPilotUpdatesViewModel>tgtind}" id="indTGTId" fieldGroupIds="fgStepInput"
 								required="true" change="fnTblInAndIndTgt"/>
 							<!--Teck Meng change on 02/12/2020 10:00 end-->
