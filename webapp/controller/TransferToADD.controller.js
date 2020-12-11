@@ -568,8 +568,8 @@ sap.ui.define([
 				var oViewModel = this.getModel("oViewModel");
 				oViewModel.setProperty("/bLimitation", false);
 				oViewModel.setProperty("/bAddLimitationBtn", true);
-				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", "");
-				oViewModel.updateBindings(true);
+				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", null); //Rahul: 11/12/2020: 05:46PM: Model set to null
+				oViewModel.refresh(true);  //Rahul: 11/12/2020: 05:46PM: Model Refreshed after changing value
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onRemoveLimitaionPress function");
 				
