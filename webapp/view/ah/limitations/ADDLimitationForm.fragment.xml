@@ -21,8 +21,10 @@
 								</VBox>
 								<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center" visible="{=${LimitationsSet>AFHR} !== null ? true : false}">
 									<Label text="{LimitationsSet>AFHR}" design="Bold"></Label>
-									<Label text="{LimitationsSet>UTIL1}" visible="{=${LimitationsSet>UTIL1_10} !== null ? true : false}"></Label>
-									<Label text="{LimitationsSet>UTIL1} left" visible="{=${LimitationsSet>UTIL1_10} === null ? true : false}"></Label>
+									<Label text="{LimitationsSet>UTIL1} left"></Label>
+									<!--Rahul: COS: 11/12/2020: 04:10PM: Left keyword required for all JDU Type-->
+									<!--<Label text="{LimitationsSet>UTIL1}" visible="{=${LimitationsSet>UTIL1_10} !== null ? true : false}"></Label>
+									<Label text="{LimitationsSet>UTIL1} left" visible="{=${LimitationsSet>UTIL1_10} === null ? true : false}"></Label>-->
 								</VBox>
 							</HBox>
 							<HBox class="sapUiSmallMargin">

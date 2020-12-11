@@ -46,7 +46,8 @@
 									visible="{=${ADDLimSet>AFHR} !== null ? true : false}">
 									<Label text="{path:'ADDLimSet>AFHR', type:'sap.ui.model.type.Float'}" design="Bold"></Label>
 									<Label text="{ADDLimSet>UTIL1}"></Label>
-									<Label text="left" wrapping="true" visible="{=${ADDLimSet>UTIL1} === 'Air Frame Hours' ? true : false}"></Label>
+									<Label text="left" wrapping="true"></Label>
+										<!--Rahul: COS: 11/12/2020: 04:10PM: Left keyword required for all JDU Type-->
 								</VBox>
 							</HBox>
 							<HBox class="sapUiSmallMargin">
