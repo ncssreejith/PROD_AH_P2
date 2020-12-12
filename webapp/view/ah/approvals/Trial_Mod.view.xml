@@ -42,7 +42,8 @@
 									</l:Grid>
 								</VBox>
 							</VBox>
-							<VBox backgroundDesign="Solid" height="30rem" width="30rem">
+							<!--Rahul: 12/12/2020: 05:29PM: New Allignment added-->
+							<VBox backgroundDesign="Solid" height="38rem" width="50rem">
 								<Title class="sapUiMediumMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>titlePage}"/>
 								<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
 									<VBox class="sapUiMediumMargin">
@@ -83,10 +84,18 @@
 												<HBox justifyContent="SpaceBetween">
 													<Label wrapping="true" width="9rem" text="Period of trial" design="Bold"></Label>
 													<!--dateValue="{trialModel>pddval1}"-->
-													<Text text="{trialModel>pddval1}  ({trialModel>JDUIDD})" visible="{= ${trialModel>JDUID} !== 'JDU_10'}"/>
-													<Text text="{path:'trialModel>pddval2', formatter:'.formatter.defaultDateFormatDisplay'}  ({trialModel>JDUIDD})" visible="{= ${trialModel>JDUID} === 'JDU_10'}"/>
+													<Text text="{trialModel>pddval1} ({trialModel>JDUIDD})" visible="{= ${trialModel>JDUID} !== 'JDU_10'}"/>
+													<Text text="{path:'trialModel>pddval2', formatter:'.formatter.defaultDateFormatDisplay'} ({trialModel>JDUIDD})"
+														visible="{= ${trialModel>JDUID} === 'JDU_10'}"/>
 													<layoutData>
 														<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+													</layoutData>
+												</HBox>
+												<HBox justifyContent="SpaceBetween">
+													<Label width="10rem" text="Flying Characteristic" design="Bold"></Label>
+													<Text width="9rem" text="{trialModel>REMARKS}"/>
+													<layoutData>
+														<l:GridData linebreak="true" span="XL11 L11 M11 S11"/>
 													</layoutData>
 												</HBox>
 											</l:Grid>

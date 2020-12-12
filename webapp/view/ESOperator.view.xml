@@ -11,7 +11,7 @@
 			<m:Vbox>
 				<m:HBox>
 					<m:Label text="Selection" wrapping="true" design="Bold" width="150px" class="sapUiSmallMarginBegin sapUiSmallMarginTop"></m:Label>
-						<!--Rahul: 07/12/2020: 05:45PM: Selected key logic moved to Controller for ComboBox "idSelectID"-->
+					<!--Rahul: 07/12/2020: 05:45PM: Selected key logic moved to Controller for ComboBox "idSelectID"-->
 					<m:ComboBox id="idSelectID" selectionChange="onselectionChange" class="sapUiContentPadding" width="150px" items="{oSelectModel>/Selections}"
 						showSecondaryValues="true">
 						<c:ListItem key="{oSelectModel>SelectKey}" text="{oSelectModel>SelectText}"/>
@@ -33,7 +33,6 @@
 			<!--		<m:Button id="buttonGo" text="Go" press="onclickGo" class="sapUiLargeMarginBegin"/>-->
 			<!--	</m:HBox>-->
 			<!--</m:Vbox>-->
-	
 			<Table id="jobTable" rows="{oGlobalModel>/Jobs}" selectionMode="MultiToggle" visibleRowCount="11" ariaLabelledBy="Job"
 				class="sapUiSmallMarginBegin" visible="{oInitialModel>/dispJob}">
 				<extension>
@@ -105,6 +104,13 @@
 						<m:Label text="ADD Reason"/>
 						<template>
 							<m:Text text="{oGlobalModel>ADDReason}" wrapping="false"/>
+						</template>
+					</Column>
+					<!--Rahul: 12/12/2020: 04:32PM: New column added-->
+					<Column width="11rem">
+						<m:Label text="Other Reason"/>
+						<template>
+							<m:Text text="{oGlobalModel>Other_Reason}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column width="11rem">
@@ -601,7 +607,8 @@
 						</template>
 					</Column>
 					<Column width="14rem">
-						<m:Label text="Engine Reason for Check"/>   <!--Rahul: 07/12/2020: 02:28PM: New added-->
+						<m:Label text="Engine Reason for Check"/>
+						<!--Rahul: 07/12/2020: 02:28PM: New added-->
 						<template>
 							<m:Text text="{oGlobalModel>CHKRN}" wrapping="false"/>
 						</template>

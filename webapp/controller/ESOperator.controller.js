@@ -144,7 +144,7 @@ sap.ui.define([
 				oInitialModel.setProperty("/dispRole", false);
 				oInitialModel.setProperty("/dispSrv", false);
 				this.getView().byId("idSelectID").setSelectedKey("JOB");
-					//Rahul: 07/12/2020: 05:43PM : JSON Value Updated-End
+				//Rahul: 07/12/2020: 05:43PM : JSON Value Updated-End
 				oInitialModel.refresh();
 				this.getView().getModel("oGlobalModel").refresh();
 			}.bind(this);
@@ -223,6 +223,10 @@ sap.ui.define([
 			}, {
 				label: "ADD Reason",
 				property: "ADDReason",
+				width: "25"
+			}, {
+				label: "Other Reason",
+				property: "Other_Reason",
 				width: "25"
 			}, {
 				label: "Period Of Deferment",
