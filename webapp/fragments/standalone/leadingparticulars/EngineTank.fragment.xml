@@ -10,10 +10,12 @@
 					<Label text="Capacity" design="Bold" wrapping="true"/>
 				</Column>
 				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-					<Label text="Capacity (370D/T)" design="Bold" wrapping="true"/>
+					<!--Rahul: 12/12/2020: 02:35PM: Code commented-->
+				<!--	<Label text="Capacity (370D/T)" design="Bold" wrapping="true"/>-->
 				</Column>
 				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-					<Label text="Capacity (600D/T)" design="Bold" wrapping="true"/>
+					<!--Rahul: 12/12/2020: 02:35PM: Code commented-->
+				<!--	<Label text="Capacity (600D/T)" design="Bold" wrapping="true"/>-->
 				</Column>
 			</columns>
 			<items>

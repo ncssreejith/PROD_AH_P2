@@ -1104,7 +1104,7 @@ sap.ui.define([
 				var oViewLimitModel = this.getModel("oViewLimitModel");
 				oViewLimitModel.setProperty("/bLimitation", false);
 				oViewLimitModel.setProperty("/bAddLimitationBtn", true);
-				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", "");
+				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", null);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onRemoveLimitaionPress function");
 				

@@ -45,6 +45,9 @@ sap.ui.define([
 		onPrint: function() {
 			var html = "<html><body><div  style='width:95%;'>";
 			html += "<div style='padding-left:3rem; padding-top:1rem;'> WDNS Coefficients Records - Aircraft OFP </div>";
+			/*Rahul: 12/12/2020: 02:55PM: Print added for Header Table*/
+			html = "<div style='width:95%;'>" + this.generateHtml(this, html, "tblDH") + "</div>";
+			
 			html = "<div style='width:95%;'>" + this.generateHtml(this, html, "tblHarmonisation") + "</div>";
 			html += "</div></body></html>";
 			html2pdf().from(html).set({
@@ -92,14 +95,14 @@ sap.ui.define([
 				utilData.hartabId = "TABW_115";
 				//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				utilData.dhtabId = "TABW_116";
-				
+
 				utilData.horm = [];
 				utilData.dh = []; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				this.getView().setModel(new JSONModel(utilData), "oWDNSModel");
 
 				var oData = {};
 				oData.horm = [];
-				oData.dh = [];//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				oData.dh = []; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				this.getView().setModel(new JSONModel(oData), "oWDNSDataModel");
 
 				this.getModel("oWDNSModel").setProperty("/tabid", oEvent.getParameter("arguments").tabid);
@@ -149,7 +152,7 @@ sap.ui.define([
 			try {
 				// this.getRouter().navTo("UpdateWDNSView");
 				this.getRouter().navTo("PilotAFEWDNS");
-				
+
 			} catch (e) {
 				Log.error("Exception in WDNSCoefficients:onUpdateRecord function");
 				this.handleException(e);
@@ -273,19 +276,19 @@ sap.ui.define([
 					var sTextProp = {};
 					sTextProp.path = oDataModel + ">" + oItem.colid;
 					switch (oItem.colid) {
-							case "COL_11":
-								sTextProp.path = oDataModel + ">" + "COL_11";
-								sTextProp.formatter = that.formatter.defaultDateTimeFormat;
-								sText = new sap.m.Text({
-									text: sTextProp
-								});
-								break;
-					default:
-								sText = new sap.m.Text({
-									text: "{" + oDataModel + ">" + oItem.colid + "}"
-								});
-								break;
-						}			
+						case "COL_11":
+							sTextProp.path = oDataModel + ">" + "COL_11";
+							sTextProp.formatter = that.formatter.defaultDateTimeFormat;
+							sText = new sap.m.Text({
+								text: sTextProp
+							});
+							break;
+						default:
+							sText = new sap.m.Text({
+								text: "{" + oDataModel + ">" + oItem.colid + "}"
+							});
+							break;
+					}
 					// var sText = new sap.m.Text({
 					// 	text: "{" + oDataModel + ">" + oItem.colid + "}"
 					// });

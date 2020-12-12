@@ -20,7 +20,8 @@
 									value="{path: 'ViewModel>/sDate', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 									width="13rem" placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>-->
 								<DatePicker id="DP1" value="{path: 'ViewModel>/sDate',formatter:'.formatter.defaultDateFormat'}" width="13rem"
-									placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+									placeholder="Creation Date ..." change="handleChangeTAsk" class="sapUiSmallMarginBottom"/>
+									<!--Rahul: 12/12/2020: 03:29PM: handleChangeTAsk change-->
 							</VBox>
 							<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
 								<Label design="Bold" text="Time" width="150px"/>

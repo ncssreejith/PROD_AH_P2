@@ -473,6 +473,18 @@ sap.ui.define([
 			var prevTime = this.getModel("ViewModel").getProperty("/backTm");
 			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
 		},
+		
+			/* Function: handleChange
+		 * Parameter:
+		 * Description: Function to validate date/time
+		 */
+       /*Rahul: 12/12/2020:03:28PM: New code added*/
+		handleChangeTAsk: function(oEvent) {
+			var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+			var prevTime = this.getModel("ViewModel").getProperty("/backTm");
+			this.getModel("ViewModel").setProperty("/sDate",oEvent.getSource().getDateValue());
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
+		},
 		//------------------------------------------------------------------
 		// Function: onTaskTypeChange
 		// Parameter: 

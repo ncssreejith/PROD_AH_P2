@@ -1034,12 +1034,12 @@ sap.ui.define([
 					}
 					break;
 				case "1":
-					if (sLock === "1" || sLock === "2"  || sLock === "3") {
+					if (sLock === "1" || sLock === "2" || sLock === "3") {
 						return true;
 					}
 					break;
 				case "2":
-					if (sLock === "1" || sLock === "2"  || sLock === "3") {
+					if (sLock === "1" || sLock === "2" || sLock === "3") {
 						return true;
 					}
 					break;
@@ -2247,6 +2247,16 @@ sap.ui.define([
 			}
 			return "";
 		},
+
+		AddRemarkDialog: function(sCount, cState) {
+
+			if ((sCount >= 8 && cState === "A") || (sCount >= 8 && cState === "B")) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
 		taskTemplateCheck: function(sVal) {
 			if (sVal) {
 				return "Template";

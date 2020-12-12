@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog title="Add Acceptable Deferred Defects" class="popoverHeaderCSS" contentWidth="50%">
+	<Dialog title="Add Acceptable Deferred Defects" class="popoverHeaderCSS" contentWidth="auto">
 		<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
 				<VBox>
@@ -46,11 +46,16 @@
 					<HBox class="sapUiSmallMargin">
 						<Label design="Bold" text="Acceptable Deferred Defects" wrapping="true" width="150px"/>
 						<Label design="Bold" text="{ViewModel>/ADDCount}" class="fontSize25 sapUiSmallMarginBegin sapUiTinyMarginTop"/>
-						<!---->
 						<Label design="Bold" text="/8" class="fontSize25 sapUiTinyMarginTop"/>
 					</HBox>
 				</VBox>
 			</HBox>
+			<!--Rahul: 12/12/2020: 03:30PM: new code added for remark-->
+			<VBox class="sapUiSmallMarginBegin" visible="{= ${ViewModel>/ADDCount} >= 8 ? true : false}">
+				<Label design="Bold" text="Had reached the maximum amount of ADD, Please enter the Reason to raise current ADD :" wrapping="true"></Label>
+				<TextArea value="{oViewGlobalModel>/REMARKS}" cols="100" rows="4" width="100%" growingMaxLines="7" showExceededText="true" maxLength="500"
+					liveChange="handleLiveChangeFlyingRequirements"></TextArea>
+			</VBox>
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
 				<VBox>
 					<Label design="Bold" text="But not later than" width="350px"/>
@@ -67,14 +72,14 @@
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{= ${oViewLimitModel>/bDateSection} === true ? true : false}">
 				<VBox>
 					<Label design="Bold" text="Expiry Date" width="150px"/>
-					<DatePicker  id="DP2" change="handleChangeUtil('idAddTaskADDDialog')"
+					<DatePicker id="DP2" change="handleChangeUtil('idAddTaskADDDialog')"
 						value="{path: 'oViewGlobalModel>/EXPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 						width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}"/>
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin">
 					<Label design="Bold" text="Time" width="150px"/>
-					<TimePicker id="TP2" change="handleChangeUtil('idAddTaskADDDialog')" width="200px" value="{oViewGlobalModel>/EXPTM}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime"
-						required="{oViewLimitModel>/bDateSection}"/>
+					<TimePicker id="TP2" change="handleChangeUtil('idAddTaskADDDialog')" width="200px" value="{oViewGlobalModel>/EXPTM}" valueFormat="HH:mm"
+						displayFormat="HH:mm" fieldGroupIds="fgTime" required="{oViewLimitModel>/bDateSection}"/>
 				</VBox>
 			</HBox>
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewLimitModel>/bUtilisationSection}">
@@ -107,7 +112,7 @@
 							color="#031E48"/>
 					</HBox>
 					<TextArea width="400px" value="{oViewGlobalModel>/LDESC}" maxLength="500" showExceededText="true" visible="{oViewLimitModel>/bLimitation}"
-						fieldGroupIds="fgTxtArea" required="{oViewLimitModel>/bLimitation}" liveChange="handleLiveChangeFlyingRequirements"/>
+						fieldGroupIds="fgTxtArea" liveChange="handleLiveChangeFlyingRequirements"/>
 					<!---->
 					<Button icon="sap-icon://sys-add" text="Add Limitation" width="400px" class="sapUiTinyMarginTop addLimitationBtn addTemBtn"
 						press="onAddLimitaionPress" visible="{oViewLimitModel>/bAddLimitationBtn}" iconFirst="true"/>
