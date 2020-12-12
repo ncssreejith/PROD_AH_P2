@@ -50,8 +50,9 @@
 				</VBox>
 				<VBox backgroundDesign="Solid">
 					<HBox justifyContent="End">
-						<Button text="Manage Request" type="Default" icon="sap-icon://megamenu" iconFirst="false" class="sapUiSmallMarginEnd"
-							press="onManageRequest"/>
+						<!--Rahul: 12/12/2020: No need button to display-->
+						<!--<Button text="Manage Request" type="Default" icon="sap-icon://megamenu" iconFirst="false" class="sapUiSmallMarginEnd"
+							press="onManageRequest"/>-->
 					</HBox>
 					<l:Grid hSpacing="3" vSpacing="3" defaultSpan="XL12 L12 M12 S12">
 						<VBox>
