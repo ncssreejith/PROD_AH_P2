@@ -26,7 +26,7 @@ sap.ui.define([
 			try {
 				var sData = {};
 				sData.login = {
-						air: "AH",
+					air: "AH",
 					airid: "AIR_11",
 					name: "AVMET",
 					sqnid: "SQN_805",
