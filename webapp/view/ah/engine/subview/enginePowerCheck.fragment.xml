@@ -163,7 +163,7 @@
 							<Label text="Table TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<Label text="Avg. TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
+							<Label text="AVG TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="Diff TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>

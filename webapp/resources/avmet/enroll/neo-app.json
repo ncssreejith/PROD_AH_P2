@@ -1,0 +1,62 @@
+{
+  "welcomeFile": "/index.html",
+  "routes": [
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/resources",
+        "version": "1.78.1"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources",
+        "version": "1.78.1"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/resources",
+        "version": "1.78.1"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources",
+        "version": "1.78.1"
+      },
+      "description": "SAPUI5 Test Resources"
+    },
+    {
+      "path": "/DBSRV17",
+      "target": {
+        "type": "destination",
+        "name": "DBSRV17"
+      },
+      "description": "DBSRV17"
+    },
+    {
+      "path": "/AVMET",
+      "target": {
+        "type": "destination",
+        "name": "AVMET"
+      },
+      "description": "AVMET"
+    }
+  ],
+  "sendWelcomeFileRedirect": true
+}

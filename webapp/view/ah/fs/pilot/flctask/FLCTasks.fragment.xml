@@ -10,7 +10,7 @@
 					</items>
 				</FlexBox>
 				<core:Fragment fragmentName="avmet.ah.view.ah.fs.pilot.flctask.replenishment.Replenishment" type="XML"/>
-				<core:Fragment fragmentName="avmet.ah.view.ah.fs.pilot.flctask.routinetask.RoutineTasks" type="XML"/>
+				<!--<core:Fragment fragmentName="avmet.ah.view.ah.fs.pilot.flctask.routinetask.RoutineTasks" type="XML"/>-->
 				<!--<core:Fragment fragmentName="avmet.ah.view.ah.fs.pilot.flctask.followuptask.FollowUpTasks" type="XML"/>-->
 				<!--<core:Fragment fragmentName="avmet.ah.view.ah.fs.pilot.flctask.createtask.CreateTasks" type="XML"/>-->
 			</VBox>

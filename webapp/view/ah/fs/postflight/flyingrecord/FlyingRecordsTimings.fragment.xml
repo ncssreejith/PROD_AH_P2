@@ -26,7 +26,8 @@
 					<ColumnListItem>
 						<cells>
 							<Text text="{path:'oPilotUpdatesViewModel>num1',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
-							<TimePicker fieldGroupIds="fgTime1" change="onTimingChange" value="{oPilotUpdatesViewModel>egstt}" valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>
+							<DateTimePicker fieldGroupIds="fgTime1" change="onTimingChange" value="{oPilotUpdatesViewModel>egstt}" valueFormat="dd/MM/yyyy HH:mm" displayFormat="dd/MM/yyyy HH:mm" class="sapUiSmallMarginBottom" required="true"/>
+							<!--<TimePicker fieldGroupIds="fgTime1" change="onTimingChange" value="{oPilotUpdatesViewModel>egstt}" valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>-->
 							<TimePicker fieldGroupIds="fgTime" change="onTimingChange" value="{oPilotUpdatesViewModel>woffw}" valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>
 							<TimePicker fieldGroupIds="fgTime" change="onTimingChange" value="{oPilotUpdatesViewModel>wonw}"  valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>
 							<TimePicker fieldGroupIds="fgTime2" change="onTimingChange" value="{oPilotUpdatesViewModel>egspt}" valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>

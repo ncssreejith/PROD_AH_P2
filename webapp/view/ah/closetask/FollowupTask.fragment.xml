@@ -35,17 +35,18 @@
 											value="{path:'TaskModel>ftcredt', formatter:'.formatter.defaultDateFormatDisplay'}" valueStateText="{i18n>MSG_DATE}"/>-->
 										<DatePicker id="DP1" width="10rem" required="true" fieldGroupIds="fgDate"
 											valueStateText="{= ${TaskModel>ftcredtStateText} ? ${TaskModel>ftcredtStateText} : ${i18n>ERROR_GENERIC}}"
-											value="{path: 'TaskModel>ftcredt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-											placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom" valueState="{TaskModel>ftcretmState}"/>
+											value="{path: 'TaskModel>ftcredt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
+											placeholder="New job creation date ..." change="handleChangeEditTask" class="sapUiSmallMarginBottom" valueState="{TaskModel>ftcretmState}"/>
 										<layoutData>
 											<l:GridData linebreak="false" span="XL5 L5 M10 S12"/>
 										</layoutData>
 									</VBox>
 									<VBox>
 										<Label design="Bold" text="Time"/>
-										<TimePicker width="10rem" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true" valueFormat="HH:mm"
-										valueStateText="{= ${TaskModel>ftcredtStateText} ? ${TaskModel>ftcredtStateText} : ${i18n>MSG_TIME}}" valueState="{TaskModel>ftcretmState}"
-											value="{path:'TaskModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}" change="onTimeChange"/>
+										<TimePicker id="TP1" width="10rem" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true" valueFormat="HH:mm" 
+											valueStateText="{= ${TaskModel>ftcredtStateText} ? ${TaskModel>ftcredtStateText} : ${i18n>MSG_TIME}}"
+											value="{path:'TaskModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}" change="onTimeChange"
+											valueState="{TaskModel>ftcretmState}"/>
 										<!--<Text text="{path:'TaskModel>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}"/>-->
 										<layoutData>
 											<l:GridData linebreak="true" span="XL5 L5 M10 S12"/>

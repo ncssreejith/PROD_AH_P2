@@ -154,12 +154,12 @@
 										<HBox class="sapUiTinyMargin">
 											<ComboBox placeholder="{i18n>phSelect}" required="{=${JobModel>/schreq}==='1'? true : false}"
 												fieldGroupIds="{=${JobModel>/schreq}==='1' ? 'fgCmbBox' : ''}" selectedKey="{JobCreateModel>/UMKEY}" items="{JobDueSet>/}"
-												change="onDueSelectChange">
+												change="onDueSelectChangeES">
 												<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 											</ComboBox>
 											<HBox id="ipServdue" class="sapUiTinyMarginBegin">
-												<StepInput min="0" fieldGroupIds="fgStepInput" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}"
-													visible="{= ${JobCreateModel>/UMKEY}!=='JDU_10' ? true:false}"
+												<StepInput min="{JobModel>/TRAILKMinVAL}" value="{JobCreateModel>/SERVDUE}"
+													visible="{= ${JobCreateModel>/UMKEY}!=='JDU_10' &amp;&amp; ${JobCreateModel>/TRAILKEY} !== null ? true:false}"
 													displayValuePrecision="{path:'JobCreateModel>/UMKEY' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 											</HBox>
 											<DatePicker id="dpServdt" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"

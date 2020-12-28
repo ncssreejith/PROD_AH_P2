@@ -43,12 +43,12 @@ sap.ui.define([
 		},
 
 		onPrint: function() {
-			var html = "<html><body><div  style='width:95%;'>";
+			var html = "<html> <style>.sapMListTbl th { background: #8894B5 !important;}</style> <body><div  style='width:95%;'>"; // AMIT KUMAR 14122020 1351
 			html += "<div style='padding-left:3rem; padding-top:1rem;'> WDNS Coefficients Records - Aircraft OFP </div>";
 			/*Rahul: 12/12/2020: 02:55PM: Print added for Header Table*/
-			html = "<div style='width:95%;'>" + this.generateHtml(this, html, "tblDH") + "</div>";
+			html += "<div style='width:95%;'>" + this.generateHtml(this, html, "tblDH") + "</div>";
 			
-			html = "<div style='width:95%;'>" + this.generateHtml(this, html, "tblHarmonisation") + "</div>";
+			html += "<div style='width:95%;'>" + this.generateHtml(this, html, "tblHarmonisation") + "</div>";
 			html += "</div></body></html>";
 			html2pdf().from(html).set({
 				margin: 0,
@@ -73,7 +73,7 @@ sap.ui.define([
 
 		generateHtml: function(that, html, id) {
 			try {
-				html += "<div style='padding:15px; page-break-before: always;'>";
+				html = "<div style='padding:15px; page-break-before: always;'>";
 				var oTarget1 = that.getView().byId(id);
 				var $domTarget1 = oTarget1.$()[0];
 				if ($domTarget1 !== undefined) {

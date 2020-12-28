@@ -11,7 +11,7 @@ sap.ui.define([], function() {
 		lblCurrentDate = "Today date",
 		// sScale = 3, // Included .
 		sMaxDec = 255,
-		fieldGroups = ["fgInput", "fgString", "fgNString", "fgNumber","fgNatNumber", "fgSignedNumber", "fgDecimal", "fgDecimal1", "fgDecimal2",
+		fieldGroups = ["fgInput", "fgString", "fgNString", "fgNumber", "fgSignedNumber", "fgDecimal", "fgDecimal1", "fgDecimal2",
 			"fgSignedDecimal",
 			"fgEmail", "fgDesc", "fgFDate", "fgPDate", "fgDR", "fgCombo","fgStep"
 		];
@@ -59,28 +59,6 @@ sap.ui.define([], function() {
 		}
 		return "";
 	}
-	
-		function _fnValidateNaturalNumber(value, minValue, maxValue, sLabel) {
-		// Check for numeric only  // ^-?[0-9]\d*(\.\d+)?$
-		if (!value.toString().match("^[-+]?[0-9]+$")) {
-			return sLabel + " number must be numeric only";
-		}
-		// // Check for length
-		// if (!value.toString().match("^[-+]?[0-9]{" + minValue + "," + maxValue + "}$")) {
-		// 	if (minValue === maxValue && value.length < maxValue) {
-		// 		return sLabel + " number must be " + maxValue + " digit.";
-		// 	}
-		// 	return sLabel + " must be between " + minValue + "-" + maxValue + " characters";
-		// }
-		
-			if (parseInt(value)< minValue || parseInt(value)> maxValue) {
-			return  sLabel + " must be between " + minValue + "-" + maxValue;
-		}
-		
-		return "";
-	}
-	
-	
 	
 	
 
@@ -217,27 +195,6 @@ sap.ui.define([], function() {
 		var sMsg = _fnValidateSigned(value, minValue, maxValue, sLabel);
 		return _fnUpdateValueState(oControl, sMsg);
 	}
-	
-	function _fnNatNumberValidation(oControl) {
-		var sLabel = "";
-		if (oControl.getLabels()) {
-			var sLen = oControl.getLabels().length;
-			if (sLen > 1) {
-				sLabel = oControl.getLabels()[1].getText();
-			} else {
-				sLabel = sLen > 0 ? oControl.getLabels()[0].getText() : "";
-			}
-		}
-		var value = oControl.getValue(),
-			sScale = 1;
-
-		// sLabel = oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
-		var maxValue = oControl.getMaxLength(),
-			minValue = 1; // - Math.pow(10, maxValue);
-		var sMsg = _fnValidateNaturalNumber(value, minValue, maxValue, sLabel);
-		return _fnUpdateValueState(oControl, sMsg);
-	}
-
 
 	function _fnStringValidation(oControl) {
 		var sLabel = "";
@@ -459,7 +416,7 @@ sap.ui.define([], function() {
 	}
 
 	function _fnValidateStep(oControl,reset){
-				var maxValue = oControl.getMax() ? oControl.getMax() : 99999999999999;
+				var maxValue = oControl.getMax() ? oControl.getMax() : 0;
 		var minValue = oControl.getMin() ? oControl.getMin() : 0;
 		var value = oControl.getValue(),
 			sLabel = "";//oControl.getLabels().length > 0 ? oControl.getLabels()[0].getText() : "";
@@ -586,7 +543,7 @@ sap.ui.define([], function() {
 		//Not required and empty field
 		if (!isRequired && (value === "" || value === 0)) {
 			_fnUpdateValueState(oControl, sMsg);
-			return true;
+			return false;
 		}
 		if (isRequired && (value === "" || value === 0)) {
 			sMsg = sLabel + " can't be empty";
@@ -617,9 +574,6 @@ sap.ui.define([], function() {
 				break;
 			case "fgSignedNumber":
 				_fnSignedNumberValidation(oControl, reset);
-				break;
-				case "fgNatNumber":
-				_fnNatNumberValidation(oControl, reset);
 				break;
 			case "fgDecimal":
 				_fnDecimalValidation(oControl, reset);

@@ -17,7 +17,7 @@ sap.ui.define([
 	 *	 3. Private calls
 	 *   Note : 
 	 *************************************************************************** */
-	return BaseController.extend("avmet.ah.controller.DashboardInitial",{
+	return BaseController.extend("avmet.ah.controller.DashboardInitial", {
 		formatter: formatter,
 		// ***************************************************************************
 		//                 1. UI Events  
@@ -173,7 +173,7 @@ sap.ui.define([
 					case "AST_FFF":
 					case "AST_FFF0":
 					case "AST_PF":
-					case "AST_THR1": //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043 //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+					case "AST_THR1": //AMIT KUMAR change on 27/11/2020 13:00 AH Issue 1044,1043
 						//case "AST_RCG":  //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
 						this.getRouter().navTo("PilotAccept", {
 							srvtid: sSrvtId ? sSrvtId : " ",

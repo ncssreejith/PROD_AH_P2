@@ -36,8 +36,9 @@
 										</VBox>
 										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${paModel>AFHR} !== null ? true : false}">
 											<Label text="{paModel>AFHR}" design="Bold"></Label>
-											<Label text="{paModel>UTIL1}" visible="{=${paModel>UTIL1} !== 'Air Frame Hours' ? true : false}"></Label>
-											<Label text="{paModel>UTIL1} left" visible="{=${paModel>UTIL1} === 'Air Frame Hours' ? true : false}"></Label>
+											<!--	amit kumar 11122020 1730-->
+											<Label text="{paModel>UTIL1} left"></Label>
+											<!--	amit kumar 11122020 1730-->
 										</VBox>
 									</HBox>
 									<HBox class="sapUiSmallMargin">

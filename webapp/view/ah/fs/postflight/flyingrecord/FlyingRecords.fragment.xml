@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ct="avmet.ah.control">
-	<l:VerticalLayout class="sapUiSmallMargin backgroundBlue">
+	<l:VerticalLayout class="sapUiSmallMargin backgroundBlue" width="98%">
 		<l:content>
 			<VBox class="sapUiSmallMargin">
 				<HBox width="100%">
@@ -90,16 +90,16 @@
 								<!--//Teck Meng change on 24/11/2020 13:00 AH Issue 1044,1043 end-->
 								<Label text="{oPilotUpdatesViewModel>resdescription}" design="Bold"/>
 								<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
-								<!--//Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 start-->
-								<StepInput value="{oPilotUpdatesViewModel>totamt}" required="{= ${oPilotUpdatesViewModel>/srvid} === undefined}" fieldGroupIds="fgStep"
+								<StepInput value="{oPilotUpdatesViewModel>totamt}" required="true" fieldGroupIds="fgStep"
 									max="{path:'oPilotUpdatesViewModel>max',formatter:'.formatter.formatMaxValue'}" min="0"/>
-									<!--//Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043 end-->
 							</VBox>
 						</l:Grid>
 					</HBox>
 				</HBox>
-				<Toolbar height="1rem"/>
+				<Toolbar height="1rem" />
+				<VBox visible="{= ${oPilotUpdatesViewModel>/flyRecord/fstat}==='F'?true:false}">
 				<core:Fragment fragmentName="avmet.ah.view.ah.fs.postflight.flyingrecord.FlyingRecordsTimings" type="XML"/>
+				</VBox>
 				<!--<VBox class="sapUiLargeMarginBegin sapUiSmallMarginBottom" visible="{= ${oPilotUpdatesViewModel>/arming/armde}===''?false:true}">-->
 				<!--	<Label text="{= ${oPilotUpdatesViewModel>/arming/armde}==='A' ? 'Is arming required ?' : 'Is dearming required ?'}" design="Bold"/>-->
 				<!--	<SegmentedButton selectedKey="{oPilotUpdatesViewModel>/armingReq}" selectionChange="onArmingDearmin" items="{postflightModel>/yn}" required="true" fieldGroupIds="fgSGBtn">-->

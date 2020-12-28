@@ -2,7 +2,7 @@ sap.ui.define([
 	"./BaseController",
 	"sap/m/MessageToast",
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
-	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/json/JSONModel",	
 	"../model/formatter",
 	"../model/FieldValidations",
 	"../util/ajaxutil",
@@ -436,18 +436,30 @@ sap.ui.define([
 		onSendOthers: function() {
 			try {
 				var isArmDeArmReq = this.getModel("oPilotUpdatesViewModel").getProperty("/armingReq");
+				var sFstat = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord/fstat");
 				if (isArmDeArmReq === "Y") {
 					this.fnCreateTimming();
+					// AMIT KUMAR 111220201823
+					if(sFstat==="F"){
+						this.fnCreateTimming();
+						this.fnCreateEngine();
+					}
+					// AMIT KUMAR 111220201823
 					this.fnCreateAlarming();
 					this.fnUpdateTanks();
 					return;
 				}
-				this.fnCreateTimming();
+				// AMIT KUMAR 111220201823
+				if(sFstat==="F"){
+					this.fnCreateTimming();
+					this.fnCreateEngine();
+				}
+				// AMIT KUMAR 111220201823
 				this.fnUpdateTanks();
 				this.fnCreateAirMon();
 				this.fnCreateFlyReq();
 				this.fnCreateDefect();
-				this.fnCreateEngine();
+				
 				this.fnCreateMano();
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:onSendOthers function");
@@ -730,7 +742,7 @@ sap.ui.define([
 							delete sItem.increase;
 							delete sItem.upperzone;
 							delete sItem.lowerzone;
-							sItem.pnum = this.getModel("oPilotUpdatesViewModel").getProperty("/num1");
+							sItem.pnum = this.getModel("oPilotUpdatesViewModel").getProperty("/num1"); // changed during UAT amit 10122020 1618
 							if (sLock === sItem.chkrn) {
 								sItem.chkrn = parseInt(sItem.chkrn) + 1;
 								oFinalPayload.push(JSON.parse(JSON.stringify(sItem)));
@@ -1360,8 +1372,8 @@ sap.ui.define([
 		 */
 		_fnCreateData: function() {
 			try {
-				var currentTime = new Date();
-				var oPayload = {};
+				var currentTime = new Date();				
+				var oPayload = {};								
 				oPayload.srvtid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid");
 				oPayload.stepid = this.getModel("oPilotUpdatesViewModel").getProperty("/stepid");
 				oPayload.srvid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvid"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043

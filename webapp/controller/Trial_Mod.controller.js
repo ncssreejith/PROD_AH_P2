@@ -143,6 +143,7 @@ sap.ui.define([
 				var oPayload = {};
 				oPayload = oItem;
 				oPayload.jstat = "S";
+				oPayload.trail = null;
 				oData.push(oPayload);
 
 				oParameter.error = function() {};

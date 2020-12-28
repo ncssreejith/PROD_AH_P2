@@ -17,8 +17,31 @@ sap.ui.define([
 		init: function() {
 			UIComponent.prototype.init.apply(this, arguments);
 			this.setModel(models.createDeviceModel(), "device");
-			this._fnSessionChk(); //Sreejith: 30/11/2020: Code Uncommented as session logic changed by sreejith
+			//this._fnSessionChk(); 	//Sreejith: 30/11/2020: Code Uncommented as session logic changed by sreejith
 			//this._fnUserPinLogin(); //Sreejith: 30/11/2020: Code Uncommented as not required
+			this._fnWebIDE();
+		},
+
+		_fnWebIDE: function() {
+			try {
+				var sData = {};
+				sData.login = {
+						air: "AH",
+					airid: "AIR_11",
+					name: "AVMET",
+					sqnid: "SQN_805",
+					sqntx: "805_SQN",
+					wcid: "WC_101",
+					wctx: "AWOF"
+				};
+				if (dataUtil.getDataSet(this.appModel) === null) {
+					dataUtil.setDataSet(this.appModel, sData);
+				}
+				this.getRouter().initialize();
+			} catch (e) {
+				Log.error("Exception in _fnWebIDE function");
+			}
+
 		},
 
 		_fnSessionChk: function() {
@@ -116,11 +139,9 @@ sap.ui.define([
 		},
 		_fnPlatformSelLogin: function(sPkey) {
 			try {
-				/*Rahul: 02/12/2020: 04:22PM : Sessionid removed as not required(Sreejith)*/
-				/*url: dataUtil.destination + "/ws_authenticate?sessionid=" + dataUtil.getDataSet("oUserSession").sessionid,*/
 				$.ajax({
 					type: 'GET',
-					url: dataUtil.destination + "/ws_authenticate",
+					url: dataUtil.destination + "/ws_authenticate?sessionid=" + dataUtil.getDataSet("oUserSession").sessionid,
 					headers: {
 						"state": "selPtfm",
 						"ptfm": sPkey

@@ -64,7 +64,7 @@ sap.ui.define([
 				var that = this,
 					oPrmFR = {},
 					oModel = this.getView().getModel("LocalModel");
-				var sPath = this.getResourceBundle().getText("FLYINGREQUIREMENTSVC") + "(" +
+				var sPath = this.getResourceBundle().getText("GETFLYREQSVC") + "(" +
 					"JOBID=" + oObj.JOBID + ",TAILID=" + oObj.TAILID + ",FR_NO=" + oObj.FR_NO + ")";
 				oPrmFR.error = function() {};
 				oPrmFR.success = function(oData) {
@@ -95,7 +95,7 @@ sap.ui.define([
 					that.onFlyingRequirementClose();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oParameter, [oPayload], "dummy", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter, [oPayload], "dummy", this);
 			} catch (e) {
 				Log.error("Exception in onFlyingRequirementUpdate function");
 			}

@@ -35,7 +35,7 @@ sap.ui.define([
 					return false;
 				}
 				sPath = sPath.split("/")[sPath.split("/").length - 1];
-                 //Rahul 16/11/2020 : 11:09AM: Cose commented ///////////
+                 //Rahul 16/11/2020 : 11:09AM: Code commented ///////////
 			/*	if (!sPath.match("^[a-zA-Z0-9]{1,200}\\.[a-zA-Z0-9]{1,10}$")) {
 					MessageBox.error("Invalid file name");
 					return false;

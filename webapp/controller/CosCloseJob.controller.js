@@ -210,7 +210,7 @@ sap.ui.define([
 				}
 
 				if (oModel.getProperty("/sFlag") === "N") {
-					if (oPayload.notity !== null && oPayload.trail !== "0") {
+					if (oPayload.notity !== null && (oPayload.trail !== null && oPayload.trail !== "0")) {
 						if (sSignFlag === "TR") {
 							try {
 								if (oPayload.TRAILKDT) {
@@ -227,20 +227,32 @@ sap.ui.define([
 							} catch (e) {
 								oPayload.TRAILKVAL = oPayload.TRAILKVAL;
 							}
+							oPayload.jstat = "P";
+							oPayload.trail = null;
+						}else{
+							oPayload.trail = "X";
 						}
-						oPayload.jstat = "P";
-						oPayload.trail = "X";
+						
+						
+						
 					} else {
 						if (sSignFlag === "TR") {
 							oPayload.jstat = "P";
+							oPayload.trail = null;
 						} else {
+                            if(!oPayload.TRAILKEY || oPayload.TRAILKEY==="" )
+							{
 							oPayload.jstat = "X";
+							}else{
+								oPayload.trail = "X";
+							}
 						}
 
 					}
 				} else {
 					if (sSignFlag === "TR") {
 						oPayload.jstat = "P";
+						oPayload.trail = null;
 					} else {
 						oPayload.jstat = "X";
 					}
@@ -507,6 +519,7 @@ sap.ui.define([
 					}, true);
 				}.bind(this);
 				oPrmTD.activity = 1;
+			    oPrmTD.title="Supervisor Sign Off for Out of phase job";
 				ajaxutil.fnCreate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:ESJobCreate function");

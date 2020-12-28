@@ -22,7 +22,7 @@
 						<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center"
 							visible="{=${paModel>UTIL1} !== null ? true : false}">
 							<Label text="{paModel>AFHR}" design="Bold"></Label>
-							<Label text="{paModel>UTIL1TEXT}"></Label>
+							<Label text="{paModel>UTIL1} left"></Label>
 						</VBox>
 					</HBox>
 					<HBox class="sapUiSmallMargin">

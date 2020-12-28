@@ -90,9 +90,39 @@ sap.ui.define([
 				that.getRouter().getRoute("RouteCreateTask").attachPatternMatched(that._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onInit function");
-				
 			}
 		},
+
+		/* Function: handleChange
+		 * Parameter:
+		 * Description: Function to validate date/time
+		 */
+		handleChange: function() {
+			try {
+				var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+				var prevTime = this.getModel("ViewModel").getProperty("/backTm");
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
+			} catch (e) {
+				Log.error("Exception in handleChange function");
+			}
+		},
+		
+			/* Function: handleChangeTAsk
+		 * Parameter:
+		 * Description: Function to validate date/time
+		 */
+       /*Rahul: 12/12/2020:03:28PM: New code added*/
+		handleChangeTAsk: function(oEvent) {
+			try {
+			var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+			var prevTime = this.getModel("ViewModel").getProperty("/backTm");
+			this.getModel("ViewModel").setProperty("/sDate",oEvent.getSource().getDateValue());
+			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
+			} catch (e) {
+				Log.error("Exception in handleChangeTAsk function");
+			}
+		},
+	
 
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  

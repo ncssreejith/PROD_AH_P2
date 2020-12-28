@@ -172,9 +172,8 @@ sap.ui.define([
 			try {
 				var prevDt = this.getModel("ViewModel").getProperty("/backDt");
 				var prevTime = this.getModel("ViewModel").getProperty("/backTm");
-				//Rahul: COS:08/12/2020: 04:28PM: Error message text corrected---START
-				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateSorMonPast", "errorCreateSorMonFuture", prevDt, prevTime);
-				//Rahul: COS:08/12/2020: 04:28PM: Error message text corrected---END
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateFlyReqPast", "errorCreateFlyReqFuture", prevDt, prevTime);
+
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:handleChange function");
 				

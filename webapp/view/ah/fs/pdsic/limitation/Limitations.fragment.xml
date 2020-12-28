@@ -22,7 +22,7 @@
 						<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center"
 							visible="{=${pdsSummaryModel>UTIL1} !== null ? true : false}">
 							<Label text="{pdsSummaryModel>AFHR}" design="Bold"></Label>
-							<Label text="{pdsSummaryModel>UTIL1TEXT}"></Label>
+							<Label text="{pdsSummaryModel>UTIL1} left"></Label>
 						</VBox>
 					</HBox>
 					<HBox class="sapUiSmallMargin">

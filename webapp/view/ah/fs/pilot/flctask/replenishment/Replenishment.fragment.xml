@@ -18,7 +18,7 @@
 				</cs:FuelTile>
 			</grid:CSSGrid>
 		</l:VerticalLayout>
-		<l:VerticalLayout width="100%">
+		<l:VerticalLayout width="100%" visible="false">
 			<Title text="{i18n>oilandMisc}" class="sapUiTinyMarginBegin"/>
 		<grid:CSSGrid class="sapUiTinyMarginBegin sapUiTinyMarginTop"
 						items="{path:'paModel>repl/oil',filters:[{path:'remid',operator:'EQ',value1:'REM_O'}]}" gridTemplateColumns="220px 220px 220px 220px"

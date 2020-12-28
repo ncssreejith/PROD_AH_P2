@@ -126,11 +126,10 @@ sap.ui.define([
 				
 			}
 		},
-		//------------------------------------------------------------------
-		// Function: handleChange
-		// Parameter: oEvent
-		// Description: This will get called, to handle change in date on view.
-		//------------------------------------------------------------------
+		/* Function: handleChange
+		 * Parameter:
+		 * Description: Function to validate date/time
+		 */
 		handleChange: function(oEvent) {
 			try {
 				var oSrc = oEvent.getSource(),
@@ -145,14 +144,40 @@ sap.ui.define([
 					tpId = sId;
 					dpId = sId.replace("TP1", "DP1");
 				}
-				var prevDt = this.getModel("TaskModel").getProperty(sPath + "/credtm");
-				var prevTime = this.getModel("TaskModel").getProperty(sPath + "/creuzt");
+				/* var prevDt = this.getModel("TaskModel").getProperty(sPath + "/credtm"); */
+				var prevDt = formatter.defaultOdataDateFormat(this.getModel("TaskModel").getProperty(sPath + "/ftcredt"));
+				var prevTime = this.getModel("TaskModel").getProperty(sPath + "/ftcretm");
 				return formatter.validDateTimeChecker(this, dpId, tpId, "errorCloseTaskPast", "errorCloseTaskFuture", prevDt, prevTime);
 			} catch (e) {
-				Log.error("Exception in CosCloseTask:handleChange function");
-				
+				Log.error("Exception in handleChange function");
 			}
 		},
+		
+		handleChangeEditTask: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					sId = oSrc.getId(),
+					sPath = oSrc.getBindingContext("TaskModel").getPath();
+				var dpId = "";
+				var tpId = "";
+				if (sId.search("DP1") !== -1) {
+					dpId = sId;
+					tpId = sId.replace("DP1", "TP1");
+				} else {
+					tpId = sId;
+					dpId = sId.replace("TP1", "DP1");
+				}
+				this.getModel("TaskModel").setProperty(sPath + "/ftcredt",oEvent.getSource().getDateValue());
+				var prevDt = formatter.defaultOdataDateFormat(this.getModel("TaskModel").getProperty(sPath + "/ftcredt"));
+				
+				var prevTime = this.getModel("TaskModel").getProperty(sPath + "/ftcretm");
+				return formatter.validDateTimeChecker(this, dpId, tpId, "errorCloseTaskPast", "errorCloseTaskFuture", prevDt, prevTime);
+			} catch (e) {
+				Log.error("Exception in handleChange function");
+			}
+		},
+		
+		
 
 		//------------------------------------------------------------------
 		// Function: handleChange

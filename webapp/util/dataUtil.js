@@ -21,9 +21,9 @@ sap.ui.define([
 	return {
 		// destination 
 		//Rahul: 25/11/2020: 06:53 removed destination and Username and PWD
-		destination: "",
-		username: "",
-		pwd: "",
+		destination: "/DBSRV17/avmetah",
+		username: "USER_AH_01",
+		pwd: "pass1234",
 
 		/* Function : getDataSet
 		 *  parameter : vDataSetName
@@ -71,7 +71,7 @@ sap.ui.define([
 		fnGetUIEncriptionKey: function(info) {
 			//Rahul: 25/11/2020: 07:17PM : EncriptionKey Changes (Sreejith)
 			return 'Yq3t6w9z$C&F)J@'; // Later will replace with service call
-			/*return '8Cnh7Ks5Mp';*/
+			//return '8Cnh7Ks5Mp';
 		},
 		/*	Rahul: 23/11/2020: 10:42AM: changed for VAPT Password HASH START*/
 		_AESHexEncript: function(value) {

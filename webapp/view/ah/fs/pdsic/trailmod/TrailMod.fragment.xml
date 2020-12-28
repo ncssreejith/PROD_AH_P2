@@ -85,6 +85,15 @@
 															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 														</layoutData>
 													</HBox>
+													<!--AMIT KUMAR 14122020 1025-->
+													<HBox justifyContent="SpaceBetween">
+														<Label text="Flying Characteristic" design="Bold"></Label>
+														<Text text="{path:'pdsSummaryModel>REMARKS'}"/>
+														<layoutData>
+															<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
+														</layoutData>
+													</HBox>
+													<!--AMIT KUMAR 14122020 1025-->
 												</l:Grid>
 											</VBox>
 										</VBox>

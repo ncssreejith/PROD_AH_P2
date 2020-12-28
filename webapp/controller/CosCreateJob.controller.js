@@ -84,6 +84,33 @@ sap.ui.define([
 		onExit: function() {
 			window.location.reload(); // Reason for this code????????????
 		},
+	/* Function: handleChange
+		 * Parameter:
+		 * Description: Function to validate date/time
+		 */
+		handleChange: function() {
+			try {
+				var aData = this.getModel("appModel").getData();
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
+			} catch (e) {
+				Log.error("Exception in handleChange function");
+			}
+		},
+			/* Function: handleChangeJob
+		 * Parameter:
+		 * Description: Function to validate date/time
+		 */
+       /*Rahul: 12/12/2020:03:28PM: New code added*/
+		handleChangeJob: function(oEvent) {
+			try {
+				var aData = this.getModel("appModel").getData();
+				this.getModel("oViewCreateModel").setProperty("/credt",oEvent.getSource().getDateValue());
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
+			
+			} catch (e) {
+				Log.error("Exception in handleChangeJob function");
+			}
+		},
 		// ***************************************************************************
 		//     2. Backend Calls
 		// ***************************************************************************

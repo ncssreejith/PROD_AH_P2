@@ -6,11 +6,22 @@
 *  Description			  : This contain the Changelog information about this application
 ======================================================================*
 #1 : 
-Change request :
-Modified by:
-Requirement:
-Files modified:
-Description:
+Change request : Comment & Incomment Sign-off fragament Pin button
+Modified by: Rahul Thorat
+Requirement: We need to uncomment code from Fragament SignOffLogin.fragment from (F16 and AH) and Home.view from (Login Application)
+Files modified: SignOffLogin.fragment (F16 and AH)(Path:  (AH):C:\ProgramData\ESLM\db\ESLMUI\apps\avmet\ah\fragments) || (F16) : C:\ProgramData\ESLM\db\ESLMUI\apps\avmet\f16\fragments)
+                 Home.view  (Login Application)    (Path: C:\ProgramData\ESLM\db\ESLMUI\apps\login\view)
+Description: 
+For Sign off login fragment: need to un-comment when moving code to SIT and USER device
+	<!--Rahul : 24/11/2020: AvMET UI Clean Up:Point(7) Application information, code commented to complete this point  : Start-->
+			<!--<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='NEW'}" type="Default" icon="sap-icon://key" text="{i18n>txtPasswordPin}"
+				press="onUserSelectNextBtnClk('PWD',$event)"/>-->
+			<!--Rahul : 24/11/2020: AvMET UI Clean Up:Point(7) Application information, code Added  : END-->
+			
+For Home.view :  need to un-comment when moving code to SIT and USER device
+<Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='NEW'}" type="Default" icon="sap-icon://key" text="{i18n>txtPassword}"
+											press="onUserSelectNextBtnClk('PWD',$event)"/>			
+			
 Test
 //-----------------------
 Demove chart and chart-min to delete
