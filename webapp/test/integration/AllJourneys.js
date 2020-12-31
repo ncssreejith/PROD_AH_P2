@@ -7,7 +7,7 @@ sap.ui.define([
 
 	Opa5.extendConfig({
 		arrangements: new Startup(),
-		viewNamespace: "avmet.ah.view.",
+		viewNamespace: "avmet.f16.view.",
 		autoWait: true
 	});
 });

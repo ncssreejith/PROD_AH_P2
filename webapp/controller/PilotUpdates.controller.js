@@ -72,11 +72,13 @@ sap.ui.define([
 					"num2": 1,
 					"endda": null,
 					"begda": null,
-					"egstt": paDate.getHours() + ":" + paDate.getMinutes(),
-					"woffw": currentTime.getHours() + ":" + currentTime.getMinutes(),
-					"wonw": currentTime.getHours() + ":" + currentTime.getMinutes(),
-					"egspt": currentTime.getHours() + ":" + currentTime.getMinutes(),
-					"pnum": this.getModel("oPilotUpdatesViewModel").getProperty("/num1") //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					"egstt": this.formatter.oDataDateTimeFormat(paDate,"yyyy-MM-dd HH:mm"),   //Rahul: 28/12/2020: Code change
+					"woffw": this.formatter.oDataDateTimeFormat(paDate,"yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
+					"wonw": this.formatter.oDataDateTimeFormat(currentTime,"yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
+					"egspt": this.formatter.oDataDateTimeFormat(currentTime,"yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
+					"pnum": this.getModel("oPilotUpdatesViewModel").getProperty("/num1"), //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					"diffwo":0,
+					"diffeg":0
 				};
 				this.getModel("oPilotUpdatesViewModel").getProperty("/timings").push(oItem);
 				this.getModel("oPilotUpdatesViewModel").refresh();
@@ -188,6 +190,7 @@ sap.ui.define([
 		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		 * @param oEvent
 		 */
+		 ////Rahul : change on 28/12/2020 : Start
 		onTimingChange: function(oEvent) {
 			var sPath = oEvent.getSource().getBindingInfo("value").parts[0].path;
 			var sValidTime = oEvent.getSource().getDateValue();
@@ -198,28 +201,36 @@ sap.ui.define([
 			var sMsg = true;
 			var sLbl = oEvent.getSource().getLabels()[0].getText();
 			switch (sPath) {
-				case "egstt":
+				case "egstt": 
 					minTime = paDate;
-					maxTime = this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
+					maxTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("egspt"));//this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
 					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
+					//currDate = oEvent.getSource().getParent().getCells()[4].getDateValue();
 					break;
 				case "wonw":
-					minTime = paDate;
-					maxTime = this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
+					minTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("egstt"));
+					maxTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("woffw"));//this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
 					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
+					//currDate = oEvent.getSource().getParent().getCells()[4].getDateValue();
 					break;
 				case "woffw":
-					minTime = paDate;
-					maxTime = this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
+					minTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("wonw"));
+					maxTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("egspt"));//this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
 					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
+					//currDate = oEvent.getSource().getParent().getCells()[4].getDateValue();
 					break;
 				case "egspt":
-					minTime = this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[1].getDateValue());
+					minTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("egstt"));
+					//maxTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("egspt"));
+					//this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[1].getDateValue());
 					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
+					//currDate = oEvent.getSource().getParent().getCells()[4].getDateValue();
 					break;
 			}
 			if (sMsg !== "") {
-				oEvent.getSource().setValue(currDate.getHours() + ":" + currDate.getMinutes());
+				//oEvent.getSource().setValue(currDate.getHours() + ":" + currDate.getMinutes());
+				sValidTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty(sPath));
+				//oEvent.getSource().setDateValue(sValidTime);
 				var oData = {
 					messages: [sMsg]
 				};
@@ -227,7 +238,12 @@ sap.ui.define([
 
 				});
 			}
+			var dPath = oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getPath()+"/"+sPath;
+			this.getModel("oPilotUpdatesViewModel").setProperty(dPath,this.formatter.oDataDateTimeFormat(sValidTime,"yyyy-MM-dd HH:mm"));
+			oEvent.getSource().setDateValue(sValidTime);
+			this.getModel("oPilotUpdatesViewModel").refresh();
 		},
+		////Rahul : change on 28/12/2020 : End
 
 		/** 
 		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
@@ -607,7 +623,16 @@ sap.ui.define([
 		 */
 		fnCreateTimming: function() {
 			try {
-				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/timings");
+				var oPayloads = [];
+				this.getModel("oPilotUpdatesViewModel").getProperty("/timings").forEach(function(oItem){
+					var sPayload = JSON.parse(JSON.stringify(oItem));
+					sPayload.egstt = this.formatter.oDataDateTimeFormat(oItem.egstt,"yyyy-MM-dd HH:mm");   
+					sPayload.woffw =this.formatter.oDataDateTimeFormat(oItem.woffw,"yyyy-MM-dd HH:mm");
+					sPayload.wonw =this.formatter.oDataDateTimeFormat(oItem.wonw,"yyyy-MM-dd HH:mm");
+					sPayload.egspt =this.formatter.oDataDateTimeFormat(oItem.egspt,"yyyy-MM-dd HH:mm");
+					oPayloads.push(sPayload)
+					
+				}.bind(this));
 				if (oPayloads.length === 0) {
 					return;
 				}
@@ -889,7 +914,11 @@ sap.ui.define([
 					} else {
 						paDate = new Date(oArming.sgdate);
 					}
-					this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/egstt", (paDate.getHours() + ":" + paDate.getMinutes()));
+					/* Rahul: 28/12/2020: Code change-Start */
+					/* this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/egstt", (paDate.getHours() + ":" + paDate.getMinutes())); */
+					this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/egstt", this.formatter.oDataDateTimeFormat(paDate,"yyyy-MM-dd HH:mm"));
+					this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/woffw", this.formatter.oDataDateTimeFormat(paDate,"yyyy-MM-dd HH:mm"));
+					/* Rahul: 28/12/2020: Code change-End */
 					this.getModel("oPilotUpdatesViewModel").setProperty("/paDate", paDate);
 					this.getModel("oPilotUpdatesViewModel").setProperty("/arming", oArming);
 					this.getModel("oPilotUpdatesViewModel").refresh();
@@ -1380,6 +1409,7 @@ sap.ui.define([
 				oPayload.num1 = this.getModel("oPilotUpdatesViewModel").getProperty("/num1"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				oPayload.selTab = "FlyingRecords";
 				oPayload.paDate = currentTime;
+				oPayload.currentDate = currentTime;
 				oPayload.ismano = "Y";
 				oPayload.armingReq = "N";
 				oPayload.srvable = "AST_S";
@@ -1425,11 +1455,17 @@ sap.ui.define([
 					"num2": 1,
 					"endda": null,
 					"begda": null,
-					"egstt": currentTime.getHours() + ":" + currentTime.getMinutes(),
+					/* "egstt": currentTime.getHours() + ":" + currentTime.getMinutes(),
 					"woffw": currentTime.getHours() + ":" + currentTime.getMinutes(),
 					"wonw": currentTime.getHours() + ":" + currentTime.getMinutes(),
-					"egspt": currentTime.getHours() + ":" + currentTime.getMinutes(),
-					"pnum": oPayload.num1 //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					"egspt": currentTime.getHours() + ":" + currentTime.getMinutes(), */
+					"egstt": this.formatter.oDataDateTimeFormat(currentTime,"yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
+					"woffw": this.formatter.oDataDateTimeFormat(currentTime,"yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
+					"wonw": this.formatter.oDataDateTimeFormat(currentTime,"yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
+					"egspt": this.formatter.oDataDateTimeFormat(currentTime,"yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
+					"pnum": oPayload.num1, //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					"diffwo":0,
+					"diffeg":0
 				}];
 				oPayload.defects = [{
 					"tailid": this.getTailId(),

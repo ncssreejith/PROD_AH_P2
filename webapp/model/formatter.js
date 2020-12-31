@@ -228,6 +228,62 @@ sap.ui.define([
 			}
 			return oTemp;
 		},
+		
+		
+		////Rahul : change on 28/12/2020 : Start
+		MinuteToHoursConversion: function(sDate,eDate) {
+					
+			var diffDate = Math.abs(new Date(eDate) - new Date(sDate));
+			var sMinutes = Math.floor((diffDate/1000)/60);
+			var sHours=0,sOneMin=60,sRem=0,sQue=0,sResult=0.0;
+			sQue =  Math.floor(sMinutes/sOneMin);
+			sRem = (sMinutes%sOneMin);			
+			if(sRem > 1){
+				sMinutes = sRem;
+			}
+   
+			sResult = sResult + sQue;
+
+			switch (true) {
+				case sMinutes <= 3:
+					sHours =  0.0;
+					break;
+				case 3 <= sMinutes && sMinutes < 9:
+					sHours =  0.1;
+					break;
+				case 9 <= sMinutes && sMinutes < 15:
+					sHours =  0.2;
+					break;
+				case 15 <= sMinutes && sMinutes < 21:
+					sHours =  0.3;
+					break;
+				case 21 <= sMinutes && sMinutes < 27:
+					sHours =  0.4;
+					break;
+				case 27 <= sMinutes && sMinutes < 33:
+					sHours =  0.5;
+					break;
+				case 33 <= sMinutes && sMinutes < 39:
+					sHours =  0.6;
+					break;
+				case 39 <= sMinutes && sMinutes < 45:
+					sHours =  0.7;
+					break;
+				case 45 <= sMinutes && sMinutes < 51:
+					sHours =  0.8;
+					break;
+				case 51 <= sMinutes && sMinutes < 57:
+					sHours =  0.9;
+					break;
+				case 57 <= sMinutes && sMinutes < 60:
+					sHours =  1.0;
+					break;	
+			}
+			sResult = sResult+sHours;
+			return sResult;
+		},
+		////Rahul : change on 28/12/2020 : End
+		
 
 		LimOverViewText: function(sValue) {
 			var oTemp = "";

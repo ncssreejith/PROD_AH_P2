@@ -1,7 +1,7 @@
 /*global QUnit*/
 
 sap.ui.define([
-	"avmet/ah/controller/AvMetFrame.controller"
+	"avmet/f16/controller/AvMetFrame.controller"
 ], function (Controller) {
 	"use strict";
 

@@ -825,7 +825,14 @@ sap.ui.define([
 			if (!sValue) {
 				return "";
 			}
-			sValue = this._fnConvertCurrentTime(sValue);
+			var currDate = new Date();
+			minTime.setSeconds(currDate.getSeconds());
+			maxTime.setSeconds(currDate.getSeconds());
+			sValue.setSeconds(currDate.getSeconds());
+			minTime.setMilliseconds(currDate.getMilliseconds());
+			maxTime.setMilliseconds(currDate.getMilliseconds());
+			sValue.setMilliseconds(currDate.getMilliseconds());
+			//sValue = this._fnConvertCurrentTime(sValue);
 			if (sValue < minTime || sValue > maxTime) {
 				return Lable + " can be " + this.formatter.defaultDateTimeFormat(minTime) + " - " + this.formatter.defaultDateTimeFormat(maxTime);
 			}

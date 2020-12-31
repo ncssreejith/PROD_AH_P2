@@ -5,7 +5,7 @@ sap.ui.getCore().attachInit(function () {
 	"use strict";
 
 	sap.ui.require([
-		"avmet/ah/test/integration/AllJourneys"
+		"avmet/f16/test/integration/AllJourneys"
 	], function () {
 		QUnit.start();
 	});

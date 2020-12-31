@@ -5,32 +5,49 @@
 			<Toolbar>
 				<Label class="titleStyle" text="Timings" design="Bold"/>
 			</Toolbar>
-			<Table class="CERTable" items="{oPilotUpdatesViewModel>/timings}" id="timingsTblId">
+			<Table class="CERTable" items="{path:'oPilotUpdatesViewModel>/timings',templateShareable:false}" id="timingsTblId">
 				<columns>
 					<Column width="5%" class="CERTableTextColor"/>
-					<Column demandPopin="true">
+					<Column width="15%" demandPopin="true">
 						<Label text="Engine start time" design="Bold"/>
 					</Column>
-					<Column demandPopin="true">
+					<Column width="15%" demandPopin="true">
 						<Label text="Weight off wheels" design="Bold"/>
 					</Column>
-					<Column demandPopin="true">
+					<Column width="15%" demandPopin="true">
 						<Label text="Weight on wheels" design="Bold"/>
 					</Column>
-					<Column demandPopin="true">
+					<Column width="15%" demandPopin="true">
 						<Label text="Engine stop time" design="Bold"/>
 					</Column>
-					<Column demandPopin="true" width="5%"/>
+					<!-- Rahul: Change 28/12/2020: Code commented Start-->
+					<Column width="10%" demandPopin="true" hAlign="Center">
+						<Label text="AirFrame Hrs" design="Bold"/>
+					</Column>
+					<Column width="10%" demandPopin="true" hAlign="Center">
+						<Label text="Engine Hrs" design="Bold"/>
+					</Column>	
+						<!-- Rahul: Change 28/12/2020: Code commented End-->	
+					<Column demandPopin="true" width="5%"/>	
 				</columns>
 				<items>
 					<ColumnListItem>
 						<cells>
 							<Text text="{path:'oPilotUpdatesViewModel>num1',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
-							<DateTimePicker fieldGroupIds="fgTime1" change="onTimingChange" value="{oPilotUpdatesViewModel>egstt}" valueFormat="dd/MM/yyyy HH:mm" displayFormat="dd/MM/yyyy HH:mm" class="sapUiSmallMarginBottom" required="true"/>
-							<!--<TimePicker fieldGroupIds="fgTime1" change="onTimingChange" value="{oPilotUpdatesViewModel>egstt}" valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>-->
+							<!-- Rahul: Change 28/12/2020: Code commented Start-->
+							<!-- <DateTimePicker fieldGroupIds="fgTime1" change="onTimingChange" value="{oPilotUpdatesViewModel>egstt}" valueFormat="dd/MM/yyyy HH:mm" displayFormat="dd/MM/yyyy HH:mm" class="sapUiSmallMarginBottom" required="true"/>
 							<TimePicker fieldGroupIds="fgTime" change="onTimingChange" value="{oPilotUpdatesViewModel>woffw}" valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>
 							<TimePicker fieldGroupIds="fgTime" change="onTimingChange" value="{oPilotUpdatesViewModel>wonw}"  valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>
-							<TimePicker fieldGroupIds="fgTime2" change="onTimingChange" value="{oPilotUpdatesViewModel>egspt}" valueFormat="HH:mm" displayFormat="HH:mm" required="true"/>
+							<TimePicker fieldGroupIds="fgTime2" change="onTimingChange" value="{oPilotUpdatesViewModel>egspt}" valueFormat="HH:mm" displayFormat="HH:mm" required="true"/> -->
+							<!-- Rahul: Change 28/12/2020: Code commented End-->
+							<!-- Rahul: Change 28/12/2020: Code commented Start-->
+							<DateTimePicker fieldGroupIds="fgTime1" change="onTimingChange" value="{path:'oPilotUpdatesViewModel>egstt',formatter:'.formatter.oDataDateTimeFormat'}" valueFormat="yyyy-MM-dd HH:mm" displayFormat="dd/MM/yyyy HH:mm" required="true"/>			
+							<DateTimePicker fieldGroupIds="fgTime" change="onTimingChange"  value="{path:'oPilotUpdatesViewModel>woffw',formatter:'.formatter.oDataDateTimeFormat'}" valueFormat="yyyy-MM-dd HH:mm" displayFormat="dd/MM/yyyy HH:mm" required="true"/>
+							<DateTimePicker fieldGroupIds="fgTime" change="onTimingChange"  value="{path:'oPilotUpdatesViewModel>wonw',formatter:'.formatter.oDataDateTimeFormat'}"  valueFormat="yyyy-MM-dd HH:mm" displayFormat="dd/MM/yyyy HH:mm" required="true"/>
+							<DateTimePicker fieldGroupIds="fgTime2" change="onTimingChange" value="{path:'oPilotUpdatesViewModel>egspt',formatter:'.formatter.oDataDateTimeFormat'}" valueFormat="yyyy-MM-dd HH:mm" displayFormat="dd/MM/yyyy HH:mm" required="true"/>
+							<Text text="{parts:[{path:'oPilotUpdatesViewModel>woffw'},{path:'oPilotUpdatesViewModel>wonw'}], formatter :'.formatter.MinuteToHoursConversion'}"/>
+							<Text text="{parts:[{path:'oPilotUpdatesViewModel>egstt'},{path:'oPilotUpdatesViewModel>egspt'}], formatter :'.formatter.MinuteToHoursConversion'}"/>
+			                <!-- Rahul: Change 28/12/2020: Code commented End-->							
 							<Button type="Transparent" icon="sap-icon://decline" press="onDeleteTimings" visible="{= ${oPilotUpdatesViewModel>num2}>1 &amp;&amp; ${oPilotUpdatesViewModel>/srvid}===undefined}"/>
 						</cells>
 					</ColumnListItem>
