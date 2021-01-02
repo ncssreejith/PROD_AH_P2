@@ -11,8 +11,10 @@ sap.ui.define([
 	"avmet/ah/util/cvUtil",
 	"../model/AvMetInitialRecord",
 	"sap/m/MessageBox",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
 ], function(Controller, JSONModel, MessageToast, Fragment, dataUtil, Log, html2pdfbundle, ajaxutil, cvUtil, AvMetInitialRecord,
-	MessageBox) {
+	MessageBox, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for Managing generic function across the project               
@@ -285,7 +287,7 @@ sap.ui.define([
 					if (oData && oData.results.length && oData.results.length > 0) {
 						oData.results[0].txt3 = this.fnReplaceString(oData.results[0].txt3);
 						oData.results[0].txt2 = this.fnReplaceString(oData.results[0].txt2);
-						if(!this.getModel("avmetModel")){
+						if (!this.getModel("avmetModel")) {
 							return;
 						}
 						this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
@@ -347,11 +349,11 @@ sap.ui.define([
 		 */
 		fnRestoreHistory: function() {
 			if (this.aHistory) {
-				var that = this;//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+				var that = this; //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 				var oDash = this.getModel("avmetModel").getProperty("/dash");
 				this.aHistory.forEach(function(oHistory, i) {
 					if (oHistory && oHistory.startsWith && oHistory.startsWith("CreateFlightService") && oDash.TBTN2 !== "X") {
-						that.aHistory.splice(i, 1);//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+						that.aHistory.splice(i, 1); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 						// this.aHistory.splice(i, 1);//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 					}
 				});
@@ -718,8 +720,8 @@ sap.ui.define([
 			try {
 				switch (sStatus) {
 					case "AST_FAIR":
-					// case "AST_FAIR0":
-					// case "AST_RECT1":
+						// case "AST_FAIR0":
+						// case "AST_RECT1":
 						// case "AST_FAIR1":
 						// case "AST_FAIR2":
 						// return true;
@@ -901,14 +903,14 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmFND = {};
-				oPrmFND.filter = "ddid eq FND_ and refid eq " + this.getAircraftId();
+				oPrmFND.filter = "ddid" + FilterOpEnum.EQ + "FND_&refid" + FilterOpEnum.EQ + this.getAircraftId();
 				oPrmFND.error = function() {};
 				oPrmFND.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.setModel(oModel, "FoundDuringSet");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
 			} catch (e) {
 				Log.error("Exception in _fnFoundDuringGet function");
 			}
@@ -944,13 +946,13 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		// ***************************************************************************
 		//  Profile Section  
 		// ***************************************************************************	
 		// Change Pin
 
-	onProfileModelLoad: function(oEvent) {
+		onProfileModelLoad: function(oEvent) {
 			//var oProfileModel = this.getModel("oProfileModel");
 
 			try {
@@ -966,7 +968,8 @@ sap.ui.define([
 
 						this.getModel("oProfileModel").setProperty("/userId", oData.results[0].plantuser);
 						//Rahul: 24/11/2020: 07:07PM: oData.results[0].TITLE + ". " code added
-						this.getModel("oProfileModel").setProperty("/userName", oData.results[0].TITLE + ". "+oData.results[0].namefirst + " " + oData.results[0].namelast);
+						this.getModel("oProfileModel").setProperty("/userName", oData.results[0].TITLE + ". " + oData.results[0].namefirst + " " +
+							oData.results[0].namelast);
 					}
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("EMPPINPWDSVC"), oParameter);
@@ -998,7 +1001,7 @@ sap.ui.define([
 			}
 		},
 		_validateChangedPin: function(oEvent) {
-			
+
 			var aChangedUser = this.getView().getModel("oProfileModel").getData();
 			if (aChangedUser.newPin === "") {
 				MessageBox.error("Pin can not be blank");
@@ -1079,11 +1082,11 @@ sap.ui.define([
 			var that = this;
 
 			var aChangedUser = that.getView().getModel("oProfileModel").getData(); //oEvent.getSource().getBindingContext("oProfileModel").getObject();
-			aChangedUser.newPin = dataUtil._AESHexEncript(aChangedUser.newPin);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
-			aChangedUser.oldPin = dataUtil._AESHexEncript(aChangedUser.oldPin);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
+			aChangedUser.newPin = dataUtil._AESHexEncript(aChangedUser.newPin); //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
+			aChangedUser.oldPin = dataUtil._AESHexEncript(aChangedUser.oldPin); //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
 			if (aChangedUser.newPwd !== "" || aChangedUser.newPwd !== undefined) {
-				aChangedUser.newPwd = dataUtil._AESHexEncript(aChangedUser.newPwd);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
-				aChangedUser.oldPwd = dataUtil._AESHexEncript(aChangedUser.oldPwd);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
+				aChangedUser.newPwd = dataUtil._AESHexEncript(aChangedUser.newPwd); //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
+				aChangedUser.oldPwd = dataUtil._AESHexEncript(aChangedUser.oldPwd); //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
 			} else {
 				aChangedUser.newPwd = "";
 				aChangedUser.oldPwd = "";
@@ -1092,7 +1095,7 @@ sap.ui.define([
 				plantuser: aChangedUser.userId,
 				namefirst: "",
 				namelast: "",
-				TITLE: "",//LAKSHMI: 26/11/2020 : 02:47 PM: Changed FOR RESOLVING ERROR
+				TITLE: "", //LAKSHMI: 26/11/2020 : 02:47 PM: Changed FOR RESOLVING ERROR
 				oldpin: aChangedUser.oldPin,
 				pin: aChangedUser.newPin,
 				oldpwd: aChangedUser.oldPwd,
@@ -1100,14 +1103,14 @@ sap.ui.define([
 			};
 			var oParameter = {};
 			oParameter.error = function(error) {
-			//Rahul: 26/11/2020 : 02:47 PM: Changed FOR Display ERROR-Start
-				try{
-					var oErrorMes=JSON.parse(error.responseText).sortmessage.replace("RAISERROR executed: ","");
+				//Rahul: 26/11/2020 : 02:47 PM: Changed FOR Display ERROR-Start
+				try {
+					var oErrorMes = JSON.parse(error.responseText).sortmessage.replace("RAISERROR executed: ", "");
 					MessageBox.error(oErrorMes);
-				}catch(e){
-				MessageBox.error(error.responseText);
+				} catch (e) {
+					MessageBox.error(error.responseText);
 				}
-			//Rahul: 26/11/2020 : 02:47 PM: Changed FOR Display ERROR-End	
+				//Rahul: 26/11/2020 : 02:47 PM: Changed FOR Display ERROR-End	
 			};
 			oParameter.success = function() {
 				that.getView().getModel("oProfileModel").refresh();

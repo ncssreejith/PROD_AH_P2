@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/AvMetInitialRecord",
 	"../model/formatter",
 	"../util/ajaxutil",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum",
 	"sap/base/Log"
-], function(BaseController, dataUtil, FieldValidations, AvMetInitialRecord, formatter, ajaxutil, Log) {
+], function(BaseController, dataUtil, FieldValidations, AvMetInitialRecord, formatter, ajaxutil, ajaxutilNew, FilterOpEnum, Log) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAHUL THORAT  Change
@@ -84,7 +86,7 @@ sap.ui.define([
 		onExit: function() {
 			window.location.reload(); // Reason for this code????????????
 		},
-	/* Function: handleChange
+		/* Function: handleChange
 		 * Parameter:
 		 * Description: Function to validate date/time
 		 */
@@ -96,17 +98,17 @@ sap.ui.define([
 				Log.error("Exception in handleChange function");
 			}
 		},
-			/* Function: handleChangeJob
+		/* Function: handleChangeJob
 		 * Parameter:
 		 * Description: Function to validate date/time
 		 */
-       /*Rahul: 12/12/2020:03:28PM: New code added*/
+		/*Rahul: 12/12/2020:03:28PM: New code added*/
 		handleChangeJob: function(oEvent) {
 			try {
 				var aData = this.getModel("appModel").getData();
-				this.getModel("oViewCreateModel").setProperty("/credt",oEvent.getSource().getDateValue());
+				this.getModel("oViewCreateModel").setProperty("/credt", oEvent.getSource().getDateValue());
 				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
-			
+
 			} catch (e) {
 				Log.error("Exception in handleChangeJob function");
 			}
@@ -123,9 +125,9 @@ sap.ui.define([
 		onDeleteImagePress: function(oEvent) {
 			try {
 				var obj = oEvent.getSource().getBindingContext("appModel").getObject();
-				var sPath = this.getResourceBundle().getText("DEFECTPHOTOSSVC") + "(" +
-					"DOCID=" + obj.DOCID +
-					",JOBID=A)";
+				var sPath = this.getResourceBundle().getText("DEFECTPHOTOSSVC") +
+					"?DOCID" + FilterOpEnum.EQ + obj.DOCID +
+					"&JOBID" + FilterOpEnum.EQ + "A";
 				this.getView().byId("photoUpload").setBusy(true);
 				var oPrmMark = {};
 				oPrmMark.error = function() {
@@ -137,7 +139,7 @@ sap.ui.define([
 					this._fnPhotoUploadGet(this.docRefId);
 				}.bind(this);
 
-				ajaxutil.fnDelete(sPath, oPrmMark);
+				ajaxutilNew.fnDelete(sPath, oPrmMark);
 			} catch (e) {
 				Log.error("Exception in onDeleteImagePress function");
 			}
@@ -152,13 +154,13 @@ sap.ui.define([
 		_fnDeleteUnusedDocs: function() {
 			try {
 				if (this.docRefId) {
-					var sPath = this.getResourceBundle().getText("DEFECTPHOTOSSVC") + "(" +
-						"DOCID=" + this.docRefId +
-						",JOBID=P)";
+					var sPath = this.getResourceBundle().getText("DEFECTPHOTOSSVC") +
+						"?DOCID" + FilterOpEnum.EQ + this.docRefId +
+						"&JOBID" + FilterOpEnum.EQ + "P";
 					var oPrmMark = {};
 					oPrmMark.error = function() {};
 					oPrmMark.success = function(oData) {}.bind(this);
-					ajaxutil.fnDelete(sPath, oPrmMark);
+					ajaxutilNew.fnDelete(sPath, oPrmMark);
 				}
 			} catch (e) {
 				Log.error("Exception in _fnDeleteUnusedDocs function");
@@ -234,7 +236,7 @@ sap.ui.define([
 
 					}.bind(this);
 					oParameter.activity = 1;
-					ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], "ZRM_COS_JB", this);
+					ajaxutilNew.fnCreate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], "ZRM_COS_JB", this);
 
 				} else {
 					that._fnUpdateJob(oPayload);
@@ -356,7 +358,7 @@ sap.ui.define([
 					this.getView().byId("topId").setVisible(false);
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], "ZRM_COS_JB", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnUpdateJob function");
 
@@ -520,14 +522,14 @@ sap.ui.define([
 					oAppModel = this.getView().getModel("appModel"),
 					sDefectImageSrc = oAppModel.getProperty("/DefectImageSrc");
 				oAppModel.updateBindings(true);
-				oPrmPhoto.filter = "DOCREFID eq " + sDOCREFID;
+				oPrmPhoto.filter = "DOCREFID" + FilterOpEnum.EQ + sDOCREFID;
 				oPrmPhoto.error = function() {};
 				oPrmPhoto.success = function(oData) {
 					oAppModel.setProperty("/DefectImageSrc", []);
 					oAppModel.setProperty("/DefectImageSrc", oData.results);
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnPhotoUploadGet function");
 
@@ -545,14 +547,14 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq JDU";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + that.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "JDU";
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDueGet function");
 
@@ -681,7 +683,7 @@ sap.ui.define([
 					oViewModel = this.getView().getModel("appModel"),
 					oPrmJobDue = {};
 				oViewModel.setProperty("/isEnabledNatureJob", false);
-				oPrmJobDue.filter = "jobid eq " + sJobId;
+				oPrmJobDue.filter = "jobid" + FilterOpEnum.EQ + sJobId + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -734,7 +736,7 @@ sap.ui.define([
 
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDetailsGet function");
 
@@ -1318,7 +1320,7 @@ sap.ui.define([
 									that.docRefId = oData.results[0].DOCREFID;
 									that._fnPhotoUploadGet(that.docRefId);
 								}.bind(this);
-								ajaxutil.fnCreate("/DefectPhotosSvc", oPrmPhoto, sDefectImageSrc);
+								ajaxutilNew.fnCreate(that.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
 							} else {
 								that.onTypeMissmatch();
 								that.getView().byId("photoUpload").setBusy(false);
@@ -1614,7 +1616,7 @@ sap.ui.define([
 					"oFlagEdit": true,
 					"editMode": false,
 					"isWrctr": true,
-					"PrimeStatus": true   //Rahul: 03/12/2020 06.11PM: New Property Added	
+					"PrimeStatus": true //Rahul: 03/12/2020 06.11PM: New Property Added	
 
 				});
 				this.getView().setModel(oAppModel, "appModel");

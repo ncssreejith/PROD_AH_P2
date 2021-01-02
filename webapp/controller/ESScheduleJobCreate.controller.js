@@ -6,8 +6,10 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/ajaxutil",
 	"sap/base/Log",
-	"../model/AvMetInitialRecord"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, AvMetInitialRecord) {
+	"../model/AvMetInitialRecord",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, AvMetInitialRecord, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name:            
@@ -62,7 +64,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq JDU";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + that.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "JDU";
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var aJobDue = [];
@@ -93,10 +95,10 @@ sap.ui.define([
 					oModel.setData(aJobDue);
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in ESScheduleJobCreate:_fnJobDueGet function");
-				
+
 			}
 		},
 		/* Function: _fnGetUtilisation

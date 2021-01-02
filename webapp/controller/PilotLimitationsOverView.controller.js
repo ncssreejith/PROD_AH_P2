@@ -4,8 +4,10 @@ sap.ui.define([
 	"sap/ui/core/Fragment",
 	"../model/FieldValidations",
 	"../model/formatter",
-	"../util/ajaxutil"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil) {
+	"../util/ajaxutil",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -222,7 +224,7 @@ sap.ui.define([
 		_fnReasonforADDGet: function(sAirId) {
 			var that = this,
 				oPrmJobDue = {};
-			oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq CPR_";
+			oPrmJobDue.filter = "airid" + FilterOpEnum.EQ + sAirId + "&ddid" + FilterOpEnum.EQ + "CPR_";
 			oPrmJobDue.error = function() {
 
 			};
@@ -233,14 +235,14 @@ sap.ui.define([
 				that.getView().setModel(oModel, "ReasonforADDModel");
 			}.bind(this);
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 		},
 
 		_fnPerioOfDeferCBGet: function(sAirId) {
 			var that = this,
 				oModel = this.getView().getModel("oViewModel"),
 				oPrmJobDue = {};
-			oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";
+			oPrmJobDue.filter = "airid" + FilterOpEnum + sAirId + "&ddid" + FilterOpEnum + "118_";
 			oPrmJobDue.error = function() {
 
 			};
@@ -251,13 +253,13 @@ sap.ui.define([
 				that.getView().setModel(oModel, "PerioOfDeferCBModel");
 			}.bind(this);
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 		},
 		_fnUtilizationGet: function(sAirId) {
 			var that = this,
 				oModel = this.getView().getModel("oViewModel"),
 				oPrmJobDue = {};
-			oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq UTIL1_";
+			oPrmJobDue.filter = "refid" + FilterOpEnum + sAirId + "&ddid" + FilterOpEnum + "UTIL1_";
 			oPrmJobDue.error = function() {
 
 			};
@@ -268,7 +270,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "UtilizationCBModel");
 			}.bind(this);
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 		}
 
 	});

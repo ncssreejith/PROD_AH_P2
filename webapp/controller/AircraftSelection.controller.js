@@ -6,8 +6,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
-	"sap/base/Log"
-], function(BaseController, dataUtil, Fragment, formatter, FieldValidations, ajaxutil, JSONModel, Log) {
+	"sap/base/Log",
+	"avmet/ah/util/FilterOpEnum",
+	"../util/ajaxutilNew"
+], function(BaseController, dataUtil, Fragment, formatter, FieldValidations, ajaxutil, JSONModel, Log, FilterOpEnum, ajaxutilNew) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -21,7 +23,8 @@ sap.ui.define([
 		//                 1. UI Events  
 		// ***************************************************************************
 		onInit: function() {
-			var that = this,oAirId;
+			var that = this,
+				oAirId;
 			this.getView().setModel(new JSONModel({}), "oViewModel");
 			this.getRouter().getRoute("AircraftSelection").attachPatternMatched(this._onObjectMatched, this);
 			//Rahul: 01/12/2020: 03:20PM: User Seeion set to null as this.getOwnerComponent().appModel is undefined;
@@ -163,7 +166,7 @@ sap.ui.define([
 			var selAirId = this.getModel("oAirSelectViewModel").getProperty("/sel/airid");
 			var selModId = this.getModel("oAirSelectViewModel").getProperty("/sel/modid");
 			var oParameter = {};
-			oParameter.filter = "airid eq " + selAirId + " and modid eq " + selModId;
+			oParameter.filter = "airid" + FilterOpEnum.EQ + selAirId + "&modid" + FilterOpEnum.EQ + selModId;
 			oParameter.error = function() {
 
 			};
@@ -185,13 +188,13 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				this.fnLoadEnginDistinct();
 			}.bind(this);
-			ajaxutil.fnRead(this.getResourceBundle().getText("AIRTAILSVC"), oParameter);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRTAILSVC"), oParameter);
 		},
 
 		fnLoadModels: function() {
 			var selAirId = this.getModel("oAirSelectViewModel").getProperty("/sel/airid");
 			var oParameter = {};
-			oParameter.filter = "airid eq " + selAirId;
+			oParameter.filter = "airid" + FilterOpEnum.EQ + selAirId;
 			oParameter.error = function() {
 
 			};
@@ -202,13 +205,13 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				this.fnLoadTails();
 			}.bind(this);
-			ajaxutil.fnRead(this.getResourceBundle().getText("AIRMODELSVC"), oParameter);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRMODELSVC"), oParameter);
 		},
 
 		fnLoadSquadran: function() {
 			var selAirId = this.getModel("oAirSelectViewModel").getProperty("/sel/airid");
 			var oParameter = {};
-			oParameter.filter = "refid eq " + selAirId + " and ddid eq SQN";
+			oParameter.filter = "refid" + FilterOpEnum.EQ + selAirId + "&ddid" + FilterOpEnum.EQ + "SQN";
 			oParameter.error = function() {
 
 			};
@@ -218,12 +221,12 @@ sap.ui.define([
 				// this.getModel("oAirSelectViewModel").setProperty("/sel/sqnid", oData.results.length > 0 ? oData.results[0].ddid : "");
 				this.fnLoadWorkCenter();
 			}.bind(this);
-			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 		},
 		fnLoadWorkCenter: function() {
 			var sqnId = this.getModel("oAirSelectViewModel").getProperty("/sel/sqnid");
 			var oParameter = {};
-			oParameter.filter = "SQNWC eq " + sqnId;
+			oParameter.filter = "SQNWC" + FilterOpEnum.EQ + sqnId;
 			oParameter.error = function() {
 
 			};
@@ -233,13 +236,13 @@ sap.ui.define([
 				// this.getModel("oAirSelectViewModel").setProperty("/sel/wcid", oData.results.length > 0 ? oData.results[0].wrctr : "");
 				// this.fnLoadTails();
 			}.bind(this);
-			ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oParameter);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oParameter);
 		},
 		fnLoadEngin: function(sEngType) {
 			var selTailid =
 				// this.getModel("oAirSelectViewModel").getProperty("/sel/tailid")
 				// + " and 
-				"ENGTY eq " + sEngType;
+				"ENGTY" + FilterOpEnum.EQ + sEngType;
 			var oParameter = {};
 			oParameter.filter =
 				// "tailid eq '" + 
@@ -253,7 +256,7 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				// this.fnLoadTails();
 			}.bind(this);
-			ajaxutil.fnRead(this.getResourceBundle().getText("ENGINESVC"), oParameter);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGINESVC"), oParameter);
 		},
 		/** 
 		 * Search by sernr
@@ -262,7 +265,7 @@ sap.ui.define([
 			try {
 				// var selTailid = this.getModel("oAirSelectViewModel").getProperty("/sel/tailid");
 				var oParameter = {};
-				oParameter.filter = "SERIAL eq " + sSernr;
+				oParameter.filter = "SERIAL" + FilterOpEnum.EQ + sSernr;
 				oParameter.error = function() {
 
 				};
@@ -273,7 +276,7 @@ sap.ui.define([
 					// this.fnLoadTails();
 				}.bind(this);
 				this.getModel("oAirSelectViewModel").setProperty("/engine", []);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETRSERNOSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("RSERNO"), oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadEnginBySernr function");
 			}
@@ -282,7 +285,7 @@ sap.ui.define([
 			var selTailid = this.getModel("oAirSelectViewModel").getProperty("/sel/tailid");
 
 			var oParameter = {};
-			oParameter.filter = "tailid eq '" + selTailid + "'";
+			oParameter.filter = "tailid" + FilterOpEnum.EQ + selTailid;
 			oParameter.error = function() {
 
 			};
@@ -292,7 +295,7 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				// this.fnLoadTails();
 			}.bind(this);
-			ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 		}
 	});
 });

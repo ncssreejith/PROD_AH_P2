@@ -7,8 +7,11 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/base/Log",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log, Filter, FilterOperator, ajaxutilNew,
+	FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.PDSSummary", {
@@ -532,7 +535,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
 				// ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);//Change by Teck Meng on 25/11/2020 11:30
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter);//Change by Teck Meng on 25/11/2020 11:30
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
 			} catch (e) {
 				Log.error("Exception in _getFLyReq function");
 			}
@@ -703,8 +706,9 @@ sap.ui.define([
 		_getSignOffOptions: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "DDID eq AST_ and REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty(
-					"/srvtid");
+				oParameter.filter = "DDID" + FilterOpEnum.EQ + "AST_ &REFID" + FilterOpEnum.EQ + this.getAircraftId() + "&SRVTID" + FilterOpEnum.EQ +
+					this.getModel("pdsSummaryModel").getProperty(
+						"/srvtid");
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty("/confirm/signOffOption", oData.results);
@@ -713,7 +717,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/confirm/selSignOff", oData.results.length > 0 ? oData.results[0] : "");
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getSignOffOptions function");
 			}

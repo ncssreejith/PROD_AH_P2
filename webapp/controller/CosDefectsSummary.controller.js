@@ -6,8 +6,10 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
 	"sap/m/MessageBox",
-	"../model/FieldValidations"
-], function(BaseController, dataUtil, formatter, ajaxutil, JSONModel, Log, MessageBox, FieldValidations) {
+	"../model/FieldValidations",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, formatter, ajaxutil, JSONModel, Log, MessageBox, FieldValidations, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAHUL THORAT  
@@ -308,7 +310,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq JDU";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + that.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "JDU";
 
 				oPrmJobDue.error = function() {};
 
@@ -318,7 +320,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDueGet function");
 			}
@@ -899,7 +901,7 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq UTIL1_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + that.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "UTIL1_";
 
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
@@ -907,7 +909,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "UtilizationCBModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnUtilizationGet function");
 			}
@@ -949,14 +951,14 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq CPR_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + that.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "CPR_";
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "ReasonforADDModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnReasonforADDGet function");
 			}
@@ -973,7 +975,7 @@ sap.ui.define([
 					oModelView = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";*/
-				oPrmJobDue.filter = "ddid eq 118_";    //Rahul: 03/12/2020 06.11PM: Filter parameter changed
+				oPrmJobDue.filter = "ddid eq 118_"; //Rahul: 03/12/2020 06.11PM: Filter parameter changed
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					oModel = dataUtil.createNewJsonModel();
@@ -991,7 +993,7 @@ sap.ui.define([
 		 * Description: Private method: This will get called, to get data fro selected tasks.
 		 *Table: TASK
 		 */
-		 //Rahul: 03/12/2020 06.11PM: new parameter added oFlagEv
+		//Rahul: 03/12/2020 06.11PM: new parameter added oFlagEv
 		onSelTasksGet: function(oFlagEv, oEvent) {
 			try {
 				var that = this,
@@ -1608,7 +1610,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmFND = {};
-				oPrmFND.filter = "ddid eq SORTI_ and refid eq " + that.getAircraftId();
+				oPrmFND.filter = "ddid" + FilterOpEnum.EQ + "SORTI_&refid" + FilterOpEnum.EQ + that.getAircraftId();
 				oPrmFND.error = function() {
 
 				};
@@ -1619,7 +1621,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "MonitoredForSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnMonitoredForGet function");
 
@@ -1635,7 +1637,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmFND = {};
-				oPrmFND.filter = "ddid eq TOP_ and refid eq " + that.getAircraftId();
+				oPrmFND.filter = "ddid"+FilterOpEnum.EQ+"TOP_&refid"+FilterOpEnum.EQ + that.getAircraftId();
 				oPrmFND.error = function() {
 
 				};
@@ -1646,7 +1648,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OperationSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnOperationTypeGet function");
 

@@ -5,8 +5,10 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"../model/AvMetInitialRecord",
-	"sap/base/Log"
-], function(BaseController, dataUtil, FieldValidations, ajaxutil, formatter, AvMetInitialRecord, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, FieldValidations, ajaxutil, formatter, AvMetInitialRecord, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAJAT GUPTA 
@@ -63,7 +65,7 @@ sap.ui.define([
 				this.getRouter().getRoute("RouteTransferToADD").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onInit function");
-				
+
 			}
 		},
 
@@ -80,7 +82,7 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + oModel.getProperty("/sAirId") + " and ddid eq CPR_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + oModel.getProperty("/sAirId") + "&ddid" + FilterOpEnum.EQ + "CPR_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -92,10 +94,10 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnReasonforADDGet function");
-				
+
 			}
 		},
 		/* Function: _fnUtilizationGet
@@ -123,7 +125,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilizationGet function");
-				
+
 			}
 		},
 		/* Function: _fnGetUtilisationDefaultValue
@@ -177,7 +179,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
-				
+
 			}
 		},
 		/* Function: _fnUtilization2Get
@@ -206,7 +208,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
-				
+
 			}
 		},
 		/* Function: _fnPerioOfDeferCBGet
@@ -235,7 +237,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnPerioOfDeferCBGet function");
-				
+
 			}
 		},
 
@@ -262,7 +264,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("ADDSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCapDataGet function");
-				
+
 			}
 		},
 		/* Function: _fnGetDateValidation
@@ -365,7 +367,7 @@ sap.ui.define([
 				this._fnGetDateValidation(sJobId);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_onObjectMatched function");
-				
+
 			}
 		},
 
@@ -380,7 +382,7 @@ sap.ui.define([
 				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateADDpast", "errorCreateADDfuture", prevDt, prevTime);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onInit function");
-				
+
 			}
 		},
 		/* Function: handleChangeExpiry
@@ -394,7 +396,7 @@ sap.ui.define([
 				return formatter.validDateTimeChecker(this, "DP2", "TP2", "errorADDexpiryDatePast", "", prevDt, prevTime, false);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onInit function");
-				
+
 			}
 		},
 		/* Function: onReasonForADDChange
@@ -427,7 +429,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onReasonForADDChange function");
-				
+
 			}
 		},
 		/* Function: onPrdOfDefermentChange
@@ -450,7 +452,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onPrdOfDefermentChange function");
-				
+
 			}
 		},
 		/* Function: onReasonTypeChange
@@ -494,7 +496,7 @@ sap.ui.define([
 				//oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onReasonTypeChange function");
-				
+
 			}
 		},
 		/* Function: onUilisationChange
@@ -539,7 +541,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onUilisationChange function");
-				
+
 			}
 		},
 		/* Function: onAddLimitaionPress
@@ -555,7 +557,7 @@ sap.ui.define([
 				oViewModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onAddLimitaionPress function");
-				
+
 			}
 		},
 		/* Function: onRemoveLimitaionPress
@@ -569,10 +571,10 @@ sap.ui.define([
 				oViewModel.setProperty("/bLimitation", false);
 				oViewModel.setProperty("/bAddLimitationBtn", true);
 				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", null); //Rahul: 11/12/2020: 05:46PM: Model set to null
-				oViewModel.refresh(true);  //Rahul: 11/12/2020: 05:46PM: Model Refreshed after changing value
+				oViewModel.refresh(true); //Rahul: 11/12/2020: 05:46PM: Model Refreshed after changing value
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onRemoveLimitaionPress function");
-				
+
 			}
 		},
 		/* Function: onNavToDefectSummaryADD
@@ -584,7 +586,7 @@ sap.ui.define([
 				this.getOwnerComponent().getRouter().navTo("RouteDefectSummaryADD");
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onNavToDefectSummaryADD function");
-				
+
 			}
 		},
 		/* Function: onSubmitTransferJobAdd
@@ -671,7 +673,7 @@ sap.ui.define([
 				ajaxutil.fnCreate(this.getResourceBundle().getText("ADDSVC"), oParameter, [oPayLoad], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onSubmitTransferJobAdd function");
-				
+
 			}
 		},
 

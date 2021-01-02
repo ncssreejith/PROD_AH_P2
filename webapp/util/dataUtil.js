@@ -21,9 +21,9 @@ sap.ui.define([
 	return {
 		// destination 
 		//Rahul: 25/11/2020: 06:53 removed destination and Username and PWD
-		destination: "",
-		username: "",
-		pwd: "",
+		destination: "/DBSRV17/avmetf16",
+		username: "USER_AH_01",
+		pwd: "pass1234",
 
 		/* Function : getDataSet
 		 *  parameter : vDataSetName

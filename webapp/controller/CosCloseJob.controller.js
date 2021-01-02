@@ -7,8 +7,11 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/m/MessageBox",
 	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum",
 	"../model/AvMetInitialRecord"
-], function(BaseController, dataUtil, Fragment, formatter, FieldValidations, ajaxutil, MessageBox, Log, AvMetInitialRecord) {
+], function(BaseController, dataUtil, Fragment, formatter, FieldValidations, ajaxutil, MessageBox, Log, ajaxutilNew, FilterOpEnum,
+	AvMetInitialRecord) {
 	"use strict";
 	/*	 ***************************************************************************
 	 *     Developer : RAHUL THORAT  
@@ -49,7 +52,7 @@ sap.ui.define([
 				this.getRouter().getRoute("CosCloseJob").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onInit function");
-				
+
 			}
 		},
 
@@ -65,7 +68,7 @@ sap.ui.define([
 				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCloseJobPast", "errorCloseJobFuture", aData.backDt, aData.backTm);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:handleChange function");
-				
+
 			}
 		},
 
@@ -104,7 +107,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onWorkCenterSelect function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -132,7 +135,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onRectificationSelectTask function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -180,7 +183,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onUpdateTask function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -229,21 +232,18 @@ sap.ui.define([
 							}
 							oPayload.jstat = "P";
 							oPayload.trail = null;
-						}else{
+						} else {
 							oPayload.trail = "X";
 						}
-						
-						
-						
+
 					} else {
 						if (sSignFlag === "TR") {
 							oPayload.jstat = "P";
 							oPayload.trail = null;
 						} else {
-                            if(!oPayload.TRAILKEY || oPayload.TRAILKEY==="" )
-							{
-							oPayload.jstat = "X";
-							}else{
+							if (!oPayload.TRAILKEY || oPayload.TRAILKEY === "") {
+								oPayload.jstat = "X";
+							} else {
 								oPayload.trail = "X";
 							}
 						}
@@ -312,7 +312,7 @@ sap.ui.define([
 				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmTask, [oPayload], sObject, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onSignOff function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -370,7 +370,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnJobDetailsGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -392,7 +392,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnTaskStatusGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -416,7 +416,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnWorkCenterGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -442,7 +442,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnGetUtilisation function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -466,7 +466,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnCreatedWorkCenterGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -479,17 +479,17 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq JDU";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + that.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "JDU";
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDueGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -519,11 +519,11 @@ sap.ui.define([
 					}, true);
 				}.bind(this);
 				oPrmTD.activity = 1;
-			    oPrmTD.title="Supervisor Sign Off for Out of phase job";
+				oPrmTD.title = "Supervisor Sign Off for Out of phase job";
 				ajaxutil.fnCreate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:ESJobCreate function");
-				
+
 			}
 		},
 
@@ -541,7 +541,7 @@ sap.ui.define([
 				oModel.setProperty("/selectedIcon", this.selectedTab);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onIconSelected function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -620,7 +620,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onSelectTaskList function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -660,7 +660,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnValidateTime function");
-				
+
 			}
 
 		},
@@ -697,7 +697,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnValidateCreationDateTime function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -743,7 +743,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onProceed function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -772,7 +772,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onBack function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -798,7 +798,7 @@ sap.ui.define([
 				this.byId("pageCloseId").scrollTo(0);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnBackBtnPress function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -826,7 +826,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onDueSelectChange function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -854,7 +854,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onDueSelectChangeES function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -878,7 +878,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onUpdateFinishedTB function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -900,7 +900,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnGetDateValidation function");
-				
+
 			}
 		},
 
@@ -923,19 +923,19 @@ sap.ui.define([
 					var aResults = oData.results;
 					var sTrads = "";
 					for (var i in aResults) {
-						if (parseInt(i,10) === 0){
+						if (parseInt(i, 10) === 0) {
 							sTrads = aResults[i].usrid;
 						} else {
-							sTrads = sTrads + ", " + aResults[i].usrid;            
+							sTrads = sTrads + ", " + aResults[i].usrid;
 						}
 					}
-					that.getModel("TUserJobModel").setProperty("/sTrads",sTrads);
+					that.getModel("TUserJobModel").setProperty("/sTrads", sTrads);
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("CRETUSERSVC"), oPrmTD);
 			} catch (e) {
 
 				Log.error("Exception in CosCloseJob:_fnMultiTradmanJobGet function");
-				
+
 			}
 		},
 
@@ -998,7 +998,7 @@ sap.ui.define([
 				this._fnGetDateValidation(sJobId);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_onObjectMatched function");
-				
+
 			}
 		}
 

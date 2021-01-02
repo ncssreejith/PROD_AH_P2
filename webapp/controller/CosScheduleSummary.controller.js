@@ -6,8 +6,10 @@ sap.ui.define([
 	"sap/base/Log",
 	"sap/m/MessageBox",
 	"sap/ui/model/json/JSONModel",
-	"../model/FieldValidations"
-], function(BaseController, dataUtil, formatter, ajaxutil, Log, MessageBox, JSONModel, FieldValidations) {
+	"../model/FieldValidations",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, formatter, ajaxutil, Log, MessageBox, JSONModel, FieldValidations, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	/* ***************************************************************************
@@ -209,7 +211,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("oViewModel"),
 					sAirId = this.getAircraftId(),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq UTIL1_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + sAirId + "&ddid" + FilterOpEnum.EQ + "UTIL1_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -220,7 +222,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "UtilizationCBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnUtilizationGet function");
 			}
@@ -441,7 +443,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + that.getAircraftId() + " and ddid eq JDU";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + that.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "JDU";
 				oPrmJobDue.error = function() {
 
 				};
@@ -452,7 +454,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDueGet function");
 			}

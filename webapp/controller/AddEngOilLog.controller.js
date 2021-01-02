@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/formatter",
 	"../model/FieldValidations",
 	"sap/ui/model/json/JSONModel",
-	"sap/base/Log"
-], function(BaseController, dataUtil, ajaxutil, formatter, FieldValidations, JSONModel, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, ajaxutil, formatter, FieldValidations, JSONModel, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : Teck Meng
@@ -99,7 +101,7 @@ sap.ui.define([
 						oModel.refresh();
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _fnReasonSOAPGet function");
 			}

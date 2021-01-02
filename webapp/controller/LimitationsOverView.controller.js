@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../model/formatter",
 	"../util/ajaxutil",
-	"sap/base/Log"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : Rahul Thorat
@@ -66,7 +68,7 @@ sap.ui.define([
 				this.getRouter().getRoute("LimitationsOverView").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onInit function");
-				
+
 			}
 		},
 
@@ -102,7 +104,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnCAPDataGet function");
-				
+
 			}
 		},
 		/* Function: CAPDataUpdate
@@ -145,7 +147,7 @@ sap.ui.define([
 				ajaxutil.fnUpdate(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:CAPDataUpdate function");
-				
+
 			}
 		},
 		/* Function: onStartRect
@@ -199,7 +201,7 @@ sap.ui.define([
 				ajaxutil.fnUpdate(this.getResourceBundle().getText("STARTRECTIFICSVC"), oParameter, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onStartRect function");
-				
+
 			}
 		},
 		/* Function: Parameter_fnADDCapDataGet
@@ -249,7 +251,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnADDCapDataGet function");
-				
+
 			}
 		},
 		/* Function: _fnGetMark
@@ -293,7 +295,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnGetMark function");
-				
+
 			}
 		},
 		/* Function: _fnADDCapDataMultipleGet
@@ -322,7 +324,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnADDCapDataMultipleGet function");
-				
+
 			}
 		},
 		/* Function: _fnReasonforADDGet
@@ -334,7 +336,7 @@ sap.ui.define([
 
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq CPR_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + sAirId + "&ddid" + FilterOpEnum.EQ + "CPR_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -347,10 +349,10 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnReasonforADDGet function");
-				
+
 			}
 		},
 		/* Function: _fnPerioOfDeferCBGet
@@ -380,7 +382,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnPerioOfDeferCBGet function");
-				
+
 			}
 		},
 		/* Function: _fnUtilizationGet
@@ -393,7 +395,7 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq UTIL1_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + sAirId + "&ddid" + FilterOpEnum.EQ + "UTIL1_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -406,10 +408,10 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnUtilizationGet function");
-				
+
 			}
 		},
 		/* Function: _fnUtilization2Get
@@ -438,7 +440,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
-				
+
 			}
 		},
 		/* Function: _fnGetUtilisationDefaultVal
@@ -499,7 +501,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onMangeAdd function");
-				
+
 			}
 		},
 		/* Function: onOpenMangeLimitaionDialog
@@ -530,7 +532,7 @@ sap.ui.define([
 				this._fnUtilization2Get();
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onOpenMangeLimitaionDialog function");
-				
+
 			}
 		},
 		/* Function: onCloseMangeLimitaionDialog
@@ -547,7 +549,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onCloseMangeLimitaionDialog function");
-				
+
 			}
 		},
 
@@ -585,7 +587,7 @@ sap.ui.define([
 				}, 500);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onSelectionDefectAreaChange function");
-				
+
 			}
 		},
 
@@ -609,7 +611,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnRenderImage function");
-				
+
 			}
 		},
 
@@ -636,7 +638,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:drawCoordinates function");
-				
+
 			}
 		},
 		/* Function: onUpdateADD
@@ -751,7 +753,7 @@ sap.ui.define([
 				//this._fnADDCapDataMultipleGet("E", sJob, sCAP);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_onObjectMatched function");
-				
+
 			}
 		}
 	});

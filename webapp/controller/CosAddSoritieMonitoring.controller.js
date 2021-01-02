@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
-	"sap/base/Log"
-], function(BaseController, dataUtil, ajaxutil, FieldValidations, formatter, JSONModel, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, ajaxutil, FieldValidations, formatter, JSONModel, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : Rahul Thorat
@@ -49,7 +51,7 @@ sap.ui.define([
 				that.getView().setModel(new JSONModel(oSortiData), "SortieMonitoringModel");
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:onInit function");
-				
+
 			}
 		},
 
@@ -78,7 +80,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:handleLiveChangeSorteiMonitoring function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -100,7 +102,7 @@ sap.ui.define([
 				that.getModel("SortieMonitoringModel").refresh();
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:onAddSorteiMonitoring function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -117,7 +119,7 @@ sap.ui.define([
 				that.getView().getModel("SortieMonitoringModel").refresh(true);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:onDeletePress function");
-				
+
 			}
 		},
 
@@ -160,7 +162,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:onSortiesNoChange function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -176,7 +178,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:handleChange function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -194,7 +196,7 @@ sap.ui.define([
 				that.fnCreateSorti();
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:onSubmitSortieMonitoring function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -218,7 +220,7 @@ sap.ui.define([
 				ajaxutil.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oPrmFR);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_fnSortieMonitoringGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -230,7 +232,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmFND = {};
-				oPrmFND.filter = "ddid eq SORTI_ and refid eq " + sAirId;
+				oPrmFND.filter = "ddid" + FilterOpEnum.EQ + "SORTI_&refid" + FilterOpEnum.EQ + sAirId;
 				oPrmFND.error = function() {
 
 				};
@@ -241,10 +243,10 @@ sap.ui.define([
 					that.getView().setModel(oModel, "MonitoredForSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_fnMonitoredForGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -281,7 +283,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmFND = {};
-				oPrmFND.filter = "ddid eq TOP_ and refid eq " + sAirId;
+				oPrmFND.filter = "ddid" + FilterOpEnum.EQ + "TOP_&refid" + FilterOpEnum.EQ + sAirId;
 				oPrmFND.error = function() {
 
 				};
@@ -292,10 +294,10 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OperationSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_fnGetOperationType function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -360,7 +362,7 @@ sap.ui.define([
 				FieldValidations.resetErrorStates(this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_onObjectMatched function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -444,7 +446,7 @@ sap.ui.define([
 				ajaxutil.fnCreate(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter, oPayloads, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:fnCreateSorti function");
-				
+
 			}
 		}
 	});

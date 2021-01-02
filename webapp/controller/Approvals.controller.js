@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../util/ajaxutil",
 	"../model/formatter",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum",
 	"sap/base/Log"
-], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, Log) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, ajaxutilNew, FilterOpEnum, Log) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -238,7 +240,8 @@ sap.ui.define([
 		_fnGetUtilisationDefaultValue: function(sAir) {
 			try {
 				var oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&refid" + FilterOpEnum.EQ + sAir + "&JDUID" + FilterOpEnum.EQ +
+					"UTIL";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -250,7 +253,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisationDefaultValue function");
 			}
@@ -1017,7 +1020,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "ReasonforADDModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnReasonforADDGet function");
 			}
@@ -1050,7 +1053,7 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq UTIL1_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + sAirId + "&ddid" + FilterOpEnum.EQ + "UTIL1_";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -1059,7 +1062,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "UtilizationCBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnUtilizationGet function");
 			}
