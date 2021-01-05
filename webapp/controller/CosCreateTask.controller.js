@@ -169,7 +169,9 @@ sap.ui.define([
 		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};
-				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+		//		oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+					oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "T&AFLAG" + FilterOpEnum.EQ +
+					"I&jobid" + FilterOpEnum.EQ + sJobId;
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {
 					if (oData && oData.results.length > 0) {
@@ -177,7 +179,7 @@ sap.ui.define([
 						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}
@@ -498,23 +500,23 @@ sap.ui.define([
 		 * Description: Function to validate date/time
 		 */
 
-		handleChange: function() {
-			var prevDt = this.getModel("ViewModel").getProperty("/backDt");
-			var prevTime = this.getModel("ViewModel").getProperty("/backTm");
-			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
-		},
+		// handleChange: function() {
+		// 	var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+		// 	var prevTime = this.getModel("ViewModel").getProperty("/backTm");
+		// 	return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
+		// },
 		
 			/* Function: handleChange
 		 * Parameter:
 		 * Description: Function to validate date/time
 		 */
        /*Rahul: 12/12/2020:03:28PM: New code added*/
-		handleChangeTAsk: function(oEvent) {
-			var prevDt = this.getModel("ViewModel").getProperty("/backDt");
-			var prevTime = this.getModel("ViewModel").getProperty("/backTm");
-			this.getModel("ViewModel").setProperty("/sDate",oEvent.getSource().getDateValue());
-			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
-		},
+		// handleChangeTAsk: function(oEvent) {
+		// 	var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+		// 	var prevTime = this.getModel("ViewModel").getProperty("/backTm");
+		// 	this.getModel("ViewModel").setProperty("/sDate",oEvent.getSource().getDateValue());
+		// 	return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
+		// },
 		//------------------------------------------------------------------
 		// Function: onTaskTypeChange
 		// Parameter: 

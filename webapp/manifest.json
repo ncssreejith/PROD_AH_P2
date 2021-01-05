@@ -43,8 +43,7 @@
 			"libs": {
 				"sap.m": {},
 				"sap.ui.core": {},
-				"sap.ui.layout": {},
-				"it.designfuture.chartjs": {}
+				"sap.ui.layout": {}
 			}
 		},
 		"contentDensities": {
@@ -72,11 +71,14 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}, {
-				"uri": "control/customcontrols_style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				},
+				{
+					"uri": "control/customcontrols_style.css"
+				}
+			]
 		},
 		"resourceRoots": {
 			"it.designfuture.chartjs": "./thirdparty/it/designfuture/chartjs/"
@@ -91,469 +93,547 @@
 				"controlId": "app",
 				"clearControlAggregation": false
 			},
-			"routes": [{
-				"name": "RouteHome",
-				"pattern": "RouteHome",
-				"target": [
-					"TargetHome"
-				]
-			}, {
-				"name": "Overview",
-				"pattern": "Overview",
-				"target": [
-					"DashboardInitial"
-				]
-			}, {
-				"name": "CosCreateJob",
-				"pattern": "CosCreateJob/:JobId:/:RJobId:",
-				"target": [
-					"CosCreateJob"
-				]
-			}, {
-				"name": "CosDefectsSummary",
-				"pattern": "CosDefectsSummary/:JobId:/:Flag:/:WcKey:/:goTo:",
-				"target": [
-					"CosDefectsSummary"
-				]
-			}, {
-				"name": "CosCloseJob",
-				"pattern": "CosCloseJob/:JobId:/:Flag:",
-				"target": [
-					"CosCloseJob"
-				]
-			}, {
-				"name": "CosCloseTask",
-				"pattern": "CosCloseTask/:JobId:/:TaskId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:MultiFLag:/:jbDate:/:jbTime:",
-				"target": [
-					"CosCloseTask"
-				]
-			}, {
-				"name": "CosScheduleSummary",
-				"pattern": "CosScheduleSummary/:ESJOBID:",
-				"target": [
-					"CosScheduleSummary"
-				]
-			}, {
-				"name": "CosApplyTemplate",
-				"pattern": "CosApplyTemplate/:airid:/:tailid:/:jobid:/:wc:/:jbDate:/:jbTime:",
-				"target": [
-					"CosApplyTemplate"
-				]
-			}, {
-				"pattern": "AddEngCyclicLog/:engid:/:tailid:/:last:/:eng2id:/:stepid:/:LOGID:",
-				"name": "AddEngCyclicLog",
-				"target": [
-					"AddEngCyclicLog"
-				]
-			}, {
-				"pattern": "AddEngOilLog/:engid:/:tailid:/:SFLAG:",
-				"name": "AddEngOilLog",
-				"target": [
-					"AddEngOilLog"
-				]
-			}, {
-				"name": "CosAddFlyingRequirements",
-				"pattern": "CosAddFlyingRequirements/:JobId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:Flag:",
-				"target": [
-					"CosAddFlyingRequirements"
-				]
-			}, {
-				"name": "CosAddSoritieMonitoring",
-				"pattern": "CosAddSoritieMonitoring/:JobId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:",
-				"target": [
-					"CosAddSoritieMonitoring"
-				]
-			}, {
-				"name": "CosAddTMDE",
-				"pattern": "CosAddTMDE/{jobId}/{WorkCenter}",
-				"target": [
-					"CosAddTMDE"
-				]
-			}, {
-				"name": "CosAddDemandSpares",
-				"pattern": "CosAddDemandSpares/{jobId}/{WorkCenter}",
-				"target": [
-					"CosAddDemandSpares"
-				]
-			}, {
-				"name": "Engine",
-				"pattern": "Engine/:ENGID:/:navType:",
-				"target": [
-					"Engine"
-				]
-			}, {
-				"name": "CosEngine",
-				"pattern": "CosEngine/:ENGID:",
-				"target": [
-					"CosEngine"
-				]
-			}, {
-				"name": "Cosjobs",
-				"pattern": "Cosjobs/:State:",
-				"target": [
-					"Cosjobs"
-				]
-			}, {
-				"name": "CosAddSoapSampling",
-				"pattern": "CosAddSoapSampling/{Engine}/{SN}",
-				"target": [
-					"CosAddSoapSampling"
-				]
-			}, {
-				"name": "RouteDefectSummaryADD",
-				"pattern": "RouteDefectSummaryADD",
-				"target": [
-					"TargetDefectSummaryADD"
-				]
-			}, {
-				"name": "RouteTransferToADD",
-				"pattern": "RouteTransferToADD/:JobId:/:FndBy:/:FndId:/:JobDesc:",
-				"target": [
-					"TargetTransferToAdd"
-				]
-			}, {
-				"name": "RouteConfirmation",
-				"pattern": "RouteConfirmation",
-				"target": [
-					"TargetComfirmation"
-				]
-			}, {
-				"name": "RouteCreateTask",
-				"pattern": "RouteCreateTask/:JobId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:Flag:/:srvid:/:jbDate:/:jbTime:",
-				"target": [
-					"TargetCreateTask"
-				]
-			}, {
-				"name": "WDNSCoefficients",
-				"pattern": "WDNSCoefficients/:tabid:/:logid:",
-				"target": [
-					"WDNSCoefficients"
-				]
-			}, {
-				"name": "MainWDNS",
-				"pattern": "MainWDNS",
-				"target": [
-					"MainWDNS"
-				]
-			}, {
-				"name": "PilotAFEWDNS",
-				"pattern": "PilotAFEWDNS",
-				"target": [
-					"PilotAFEWDNS"
-				]
-			}, {
-				"name": "WDNSView",
-				"pattern": "WDNSView",
-				"target": [
-					"WDNSView"
-				]
-			}, {
-				"name": "UpdateWDNSView",
-				"pattern": "UpdateWDNSView/:tabid:/:pilot:",
-				"target": [
-					"UpdateWDNSView"
-				]
-			}, {
-				"name": "OFPView",
-				"pattern": "OFPView/:tabid:/:logid:",
-				"target": [
-					"OFPView"
-				]
-			}, {
-				"name": "OFPUpdateView",
-				"pattern": "OFPUpdateView",
-				"target": [
-					"OFPUpdateView"
-				]
-			}, {
-				"name": "PastRecordView",
-				"pattern": "PastRecordView",
-				"target": [
-					"PastRecordView"
-				]
-			}, {
-				"name": "WeightBalance",
-				"pattern": "WeightBalance/:isEdit:/:isPastHistory:/:WABID:/:TAILID:",
-				"target": [
-					"WeightBalance"
-				]
-			}, {
-				"name": "UpdateWeightBalance",
-				"pattern": "UpdateWeightBalance/{Type}",
-				"target": [
-					"UpdateWeightBalance"
-				]
-			}, {
-				"pattern": "COSDashboard/{AirId}/{ModId}/{TailId}",
-				"name": "COSDashboard",
-				"target": [
-					"COSDashboard"
-				]
-			}, {
-				"name": "AircraftTransfer",
-				"pattern": "AircraftTransfer",
-				"target": [
-					"AircraftTransfer"
-				]
-			}, {
-				"name": "DispatchAircraft",
-				"pattern": "DispatchAircraft",
-				"target": [
-					"DispatchAircraft"
-				]
-			}, {
-				"name": "Limitations",
-				"pattern": "Limitations",
-				"target": [
-					"Limitations"
-				]
-			}, {
-				"name": "LimitationsOverView",
-				"pattern": "LimitationsOverView/:CAP:/:JOB:/:CAPTY:/:DEFID:/:XMARK:/:YMARK:/:FLag:",
-				"target": [
-					"LimitationsOverView"
-				]
-			}, {
-				"name": "Approvals",
-				"pattern": "Approvals",
-				"target": [
-					"Approvals"
-				]
-			}, {
-				"name": "Trial_Mod",
-				"pattern": "Trial_Mod",
-				"target": [
-					"Trial_Mod"
-				]
-			}, {
-				"name": "AircraftSelection",
-				"pattern": "",
-				"target": [
-					"AircraftSelection"
-				]
-			}, {
-				"name": "SortieMonitoring",
-				"pattern": "SortieMonitoring",
-				"target": [
-					"SortieMonitoring"
-				]
-			}, {
-				"name": "SortieDetails",
-				"pattern": "SortieDetails/:JobId:/:SORNO:",
-				"target": [
-					"SortieDetails"
-				]
-			}, {
-				"name": "ESScheduleJobCreate",
-				"pattern": "ESScheduleJobCreate/:ENGID:/:SN:/:ENGTY:",
-				"target": [
-					"ESScheduleJobCreate"
-				]
-			}, {
-				"name": "FlyingRequirements",
-				"pattern": "FlyingRequirements",
-				"target": [
-					"FlyingRequirements"
-				]
-			}, {
-				"name": "MassLimitation",
-				"pattern": "MassLimitation",
-				"target": "MassLimitation"
-			}, {
-				"name": "UpdateFlightServicing",
-				"pattern": "UpdateFlightServicing/{srvid}/:srv_id:",
-				"target": [
-					"TargetUpdateFlightServicing"
-				]
-			}, {
-				"name": "PastFlightServicing",
-				"pattern": "PastFlightServicing/{srvid}",
-				"target": [
-					"PastFlightServicing"
-				]
-			}, {
-				"name": "ViewPastFlightServicing",
-				"pattern": "ViewPastFlightServicing",
-				"target": [
-					"ViewPastFlightServicing"
-				]
-			}, {
-				"pattern": "CTCloseTask/{srvtid}/:srvid:",
-				"name": "CTCloseTask",
-				"target": [
-					"CTCloseTask"
-				]
-			}, {
-				"pattern": "Replenishment/{srvtid}/{stepid}/:srvid:",
-				"name": "Replenishment",
-				"target": [
-					"Replenishment"
-				]
-			}, {
-				"pattern": "ReplenishmentDetails/{srvtid}/{stepid}/{Replenish}/:srvid:",
-				"name": "ReplenishmentDetails",
-				"target": [
-					"ReplenishmentDetails"
-				]
-			}, {
-				"pattern": "RoutineTasks/{srvtid}/{stepid}/:srvid:",
-				"name": "RoutineTasks",
-				"target": [
-					"RoutineTasks"
-				]
-			}, {
-				"pattern": "FollowUpTasks/{srvtid}/{stepid}/:srvid:",
-				"name": "FollowUpTasks",
-				"target": [
-					"Follow-UpTasks"
-				]
-			}, {
-				"pattern": "PDSSummary/{srvtid}/{stepid}/:srvid:",
-				"name": "PDSSummary",
-				"target": [
-					"PDSSummary"
-				]
-			}, {
-				"pattern": "PDSApprovals",
-				"name": "PDSApprovals",
-				"target": [
-					"PDSApprovals"
-				]
-			}, {
-				"pattern": "DBPilotAccept",
-				"name": "DBPilotAccept",
-				"target": [
-					"DBPilotAccept"
-				]
-			}, {
-				"pattern": "PilotAccept/{srvtid}/{stepid}",
-				"name": "PilotAccept",
-				"target": [
-					"PilotAccept"
-				]
-			}, {
-				"pattern": "PilotUpdates/{srvtid}/{stepid}/:num1:/:srvid:",
-				"name": "PilotUpdates",
-				"target": [
-					"PilotUpdates"
-				]
-			}, {
-				"pattern": "WeaponExpenditure/{srvtid}/{stepid}",
-				"name": "WeaponExpenditure",
-				"target": [
-					"WeaponExpenditure"
-				]
-			}, {
-				"pattern": "DashboardInitial",
-				"name": "DashboardInitial",
-				"target": [
-					"DashboardInitial"
-				]
-			}, {
-				"pattern": "ReleaseForRectification",
-				"name": "ReleaseForRectification",
-				"target": [
-					"ReleaseForRectification"
-				]
-			}, {
-				"pattern": "CreateFlightService",
-				"name": "CreateFlightService",
-				"target": [
-					"CreateFlightService"
-				]
-			}, {
-				"pattern": "WeaponConfig/{srvtid}/{stepid}/:srvid:",
-				"name": "WeaponConfig",
-				"target": [
-					"WeaponConfig"
-				]
-			}, {
-				"pattern": "Station/{srvtid}/{stepid}/:stnmid:/:stns:",
-				"name": "Station",
-				"target": [
-					"Station"
-				]
-			}, {
-				"pattern": "Missiles/{Station}",
-				"name": "Missiles",
-				"target": [
-					"Station",
-					"Missiles"
-				]
-			}, {
-				"pattern": "DBOngFlightService",
-				"name": "DBOngFlightService",
-				"target": [
-					"DBOngFlightService"
-				]
-			}, {
-				"pattern": "AircraftUtilisation",
-				"name": "AircraftUtilisation",
-				"target": [
-					"AircraftUtilisation"
-				]
-			}, {
-				"pattern": "AddEquipRunLog/{type}/:logid:",
-				"name": "AddEquipRunLog",
-				"target": [
-					"AddEquipRunLog"
-				]
-			}, {
-				"pattern": "AircraftOverview",
-				"name": "AircraftOverview",
-				"target": [
-					"AircraftOverview"
-				]
-			}, {
-				"pattern": "RoleDisplayStations",
-				"name": "RoleDisplayStations",
-				"target": [
-					"RoleDisplayStations"
-				]
-			}, {
-				"pattern": "RoleChangeStations/:mode:",
-				"name": "RoleChangeStations",
-				"target": [
-					"RoleChangeStations"
-				]
-			}, {
-				"pattern": "Pylon/{RoleChangeStations}",
-				"name": "Pylon",
-				"target": [
-					"RoleChangeStations",
-					"Pylon"
-				]
-			}, {
-				"pattern": "PastHistoryWeightBalance",
-				"name": "PastHistoryWeightBalance",
-				"target": [
-					"WBPastRecords"
-				]
-			}, {
-				"pattern": "FileUpload",
-				"name": "FileUpload",
-				"target": [
-					"FileUpload"
-				]
-			}, {
-				"pattern": "AuditLog",
-				"name": "AuditLog",
-				"target": [
-					"AuditLog"
-				]
-			}, {
-				"name": "entityeditor",
-				"pattern": "entityeditor",
-				"target": [
-					"entityeditor"
-				]
-			}, {
+			"routes": [
+				{
+					"name": "RouteHome",
+					"pattern": "RouteHome",
+					"target": [
+						"TargetHome"
+					]
+				},
+				{
+					"name": "Overview",
+					"pattern": "Overview",
+					"target": [
+						"DashboardInitial"
+					]
+				},
+				{
+					"name": "CosCreateJob",
+					"pattern": "CosCreateJob/:JobId:/:RJobId:",
+					"target": [
+						"CosCreateJob"
+					]
+				},
+				{
+					"name": "CosDefectsSummary",
+					"pattern": "CosDefectsSummary/:JobId:/:Flag:/:WcKey:/:goTo:",
+					"target": [
+						"CosDefectsSummary"
+					]
+				},
+				{
+					"name": "CosCloseJob",
+					"pattern": "CosCloseJob/:JobId:/:Flag:",
+					"target": [
+						"CosCloseJob"
+					]
+				},
+				{
+					"name": "CosCloseTask",
+					"pattern": "CosCloseTask/:JobId:/:TaskId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:MultiFLag:/:jbDate:/:jbTime:",
+					"target": [
+						"CosCloseTask"
+					]
+				},
+				{
+					"name": "CosScheduleSummary",
+					"pattern": "CosScheduleSummary/:ESJOBID:",
+					"target": [
+						"CosScheduleSummary"
+					]
+				},
+				{
+					"name": "CosApplyTemplate",
+					"pattern": "CosApplyTemplate/:airid:/:tailid:/:jobid:/:wc:/:jbDate:/:jbTime:",
+					"target": [
+						"CosApplyTemplate"
+					]
+				},
+				{
+					"pattern": "AddEngCyclicLog/:engid:/:tailid:/:last:/:eng2id:/:stepid:/:LOGID:",
+					"name": "AddEngCyclicLog",
+					"target": [
+						"AddEngCyclicLog"
+					]
+				},
+				{
+					"pattern": "AddEngOilLog/:engid:/:tailid:/:SFLAG:",
+					"name": "AddEngOilLog",
+					"target": [
+						"AddEngOilLog"
+					]
+				},
+				{
+					"name": "CosAddFlyingRequirements",
+					"pattern": "CosAddFlyingRequirements/:JobId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:Flag:",
+					"target": [
+						"CosAddFlyingRequirements"
+					]
+				},
+				{
+					"name": "CosAddSoritieMonitoring",
+					"pattern": "CosAddSoritieMonitoring/:JobId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:",
+					"target": [
+						"CosAddSoritieMonitoring"
+					]
+				},
+				{
+					"name": "CosAddTMDE",
+					"pattern": "CosAddTMDE/{jobId}/{WorkCenter}",
+					"target": [
+						"CosAddTMDE"
+					]
+				},
+				{
+					"name": "CosAddDemandSpares",
+					"pattern": "CosAddDemandSpares/{jobId}/{WorkCenter}",
+					"target": [
+						"CosAddDemandSpares"
+					]
+				},
+				{
+					"name": "Engine",
+					"pattern": "Engine/:ENGID:/:navType:",
+					"target": [
+						"Engine"
+					]
+				},
+				{
+					"name": "CosEngine",
+					"pattern": "CosEngine/:ENGID:",
+					"target": [
+						"CosEngine"
+					]
+				},
+				{
+					"name": "Cosjobs",
+					"pattern": "Cosjobs/:State:",
+					"target": [
+						"Cosjobs"
+					]
+				},
+				{
+					"name": "CosAddSoapSampling",
+					"pattern": "CosAddSoapSampling/{Engine}/{SN}",
+					"target": [
+						"CosAddSoapSampling"
+					]
+				},
+				{
+					"name": "RouteDefectSummaryADD",
+					"pattern": "RouteDefectSummaryADD",
+					"target": [
+						"TargetDefectSummaryADD"
+					]
+				},
+				{
+					"name": "RouteTransferToADD",
+					"pattern": "RouteTransferToADD/:JobId:/:FndBy:/:FndId:/:JobDesc:",
+					"target": [
+						"TargetTransferToAdd"
+					]
+				},
+				{
+					"name": "RouteConfirmation",
+					"pattern": "RouteConfirmation",
+					"target": [
+						"TargetComfirmation"
+					]
+				},
+				{
+					"name": "RouteCreateTask",
+					"pattern": "RouteCreateTask/:JobId:/:TailId:/:AirId:/:WorkCenter:/:WorkKey:/:Flag:/:srvid:/:jbDate:/:jbTime:",
+					"target": [
+						"TargetCreateTask"
+					]
+				},
+				{
+					"name": "WDNSCoefficients",
+					"pattern": "WDNSCoefficients/:tabid:/:logid:",
+					"target": [
+						"WDNSCoefficients"
+					]
+				},
+				{
+					"name": "MainWDNS",
+					"pattern": "MainWDNS",
+					"target": [
+						"MainWDNS"
+					]
+				},
+				{
+					"name": "PilotAFEWDNS",
+					"pattern": "PilotAFEWDNS",
+					"target": [
+						"PilotAFEWDNS"
+					]
+				},
+				{
+					"name": "WDNSView",
+					"pattern": "WDNSView",
+					"target": [
+						"WDNSView"
+					]
+				},
+				{
+					"name": "UpdateWDNSView",
+					"pattern": "UpdateWDNSView/:tabid:/:pilot:",
+					"target": [
+						"UpdateWDNSView"
+					]
+				},
+				{
+					"name": "OFPView",
+					"pattern": "OFPView/:tabid:/:logid:",
+					"target": [
+						"OFPView"
+					]
+				},
+				{
+					"name": "OFPUpdateView",
+					"pattern": "OFPUpdateView",
+					"target": [
+						"OFPUpdateView"
+					]
+				},
+				{
+					"name": "PastRecordView",
+					"pattern": "PastRecordView",
+					"target": [
+						"PastRecordView"
+					]
+				},
+				{
+					"name": "WeightBalance",
+					"pattern": "WeightBalance/:isEdit:/:isPastHistory:/:WABID:/:TAILID:",
+					"target": [
+						"WeightBalance"
+					]
+				},
+				{
+					"name": "UpdateWeightBalance",
+					"pattern": "UpdateWeightBalance/{Type}",
+					"target": [
+						"UpdateWeightBalance"
+					]
+				},
+				{
+					"pattern": "COSDashboard/{AirId}/{ModId}/{TailId}",
+					"name": "COSDashboard",
+					"target": [
+						"COSDashboard"
+					]
+				},
+				{
+					"name": "AircraftTransfer",
+					"pattern": "AircraftTransfer",
+					"target": [
+						"AircraftTransfer"
+					]
+				},
+				{
+					"name": "DispatchAircraft",
+					"pattern": "DispatchAircraft",
+					"target": [
+						"DispatchAircraft"
+					]
+				},
+				{
+					"name": "Limitations",
+					"pattern": "Limitations",
+					"target": [
+						"Limitations"
+					]
+				},
+				{
+					"name": "LimitationsOverView",
+					"pattern": "LimitationsOverView/:CAP:/:JOB:/:CAPTY:/:DEFID:/:XMARK:/:YMARK:/:FLag:",
+					"target": [
+						"LimitationsOverView"
+					]
+				},
+				{
+					"name": "Approvals",
+					"pattern": "Approvals",
+					"target": [
+						"Approvals"
+					]
+				},
+				{
+					"name": "Trial_Mod",
+					"pattern": "Trial_Mod",
+					"target": [
+						"Trial_Mod"
+					]
+				},
+				{
+					"name": "AircraftSelection",
+					"pattern": "",
+					"target": [
+						"AircraftSelection"
+					]
+				},
+				{
+					"name": "SortieMonitoring",
+					"pattern": "SortieMonitoring",
+					"target": [
+						"SortieMonitoring"
+					]
+				},
+				{
+					"name": "SortieDetails",
+					"pattern": "SortieDetails/:JobId:/:SORNO:",
+					"target": [
+						"SortieDetails"
+					]
+				},
+				{
+					"name": "ESScheduleJobCreate",
+					"pattern": "ESScheduleJobCreate/:ENGID:/:SN:/:ENGTY:",
+					"target": [
+						"ESScheduleJobCreate"
+					]
+				},
+				{
+					"name": "FlyingRequirements",
+					"pattern": "FlyingRequirements",
+					"target": [
+						"FlyingRequirements"
+					]
+				},
+				{
+					"name": "MassLimitation",
+					"pattern": "MassLimitation",
+					"target": "MassLimitation"
+				},
+				{
+					"name": "UpdateFlightServicing",
+					"pattern": "UpdateFlightServicing/{srvid}/:srv_id:",
+					"target": [
+						"TargetUpdateFlightServicing"
+					]
+				},
+				{
+					"name": "PastFlightServicing",
+					"pattern": "PastFlightServicing/{srvid}",
+					"target": [
+						"PastFlightServicing"
+					]
+				},
+				{
+					"name": "ViewPastFlightServicing",
+					"pattern": "ViewPastFlightServicing",
+					"target": [
+						"ViewPastFlightServicing"
+					]
+				},
+				{
+					"pattern": "CTCloseTask/{srvtid}/:srvid:",
+					"name": "CTCloseTask",
+					"target": [
+						"CTCloseTask"
+					]
+				},
+				{
+					"pattern": "Replenishment/{srvtid}/{stepid}/:srvid:",
+					"name": "Replenishment",
+					"target": [
+						"Replenishment"
+					]
+				},
+				{
+					"pattern": "ReplenishmentDetails/{srvtid}/{stepid}/{Replenish}/:srvid:",
+					"name": "ReplenishmentDetails",
+					"target": [
+						"ReplenishmentDetails"
+					]
+				},
+				{
+					"pattern": "RoutineTasks/{srvtid}/{stepid}/:srvid:",
+					"name": "RoutineTasks",
+					"target": [
+						"RoutineTasks"
+					]
+				},
+				{
+					"pattern": "FollowUpTasks/{srvtid}/{stepid}/:srvid:",
+					"name": "FollowUpTasks",
+					"target": [
+						"Follow-UpTasks"
+					]
+				},
+				{
+					"pattern": "PDSSummary/{srvtid}/{stepid}/:srvid:",
+					"name": "PDSSummary",
+					"target": [
+						"PDSSummary"
+					]
+				},
+				{
+					"pattern": "PDSApprovals",
+					"name": "PDSApprovals",
+					"target": [
+						"PDSApprovals"
+					]
+				},
+				{
+					"pattern": "DBPilotAccept",
+					"name": "DBPilotAccept",
+					"target": [
+						"DBPilotAccept"
+					]
+				},
+				{
+					"pattern": "PilotAccept/{srvtid}/{stepid}",
+					"name": "PilotAccept",
+					"target": [
+						"PilotAccept"
+					]
+				},
+				{
+					"pattern": "PilotUpdates/{srvtid}/{stepid}/:num1:/:srvid:",
+					"name": "PilotUpdates",
+					"target": [
+						"PilotUpdates"
+					]
+				},
+				{
+					"pattern": "WeaponExpenditure/{srvtid}/{stepid}",
+					"name": "WeaponExpenditure",
+					"target": [
+						"WeaponExpenditure"
+					]
+				},
+				{
+					"pattern": "DashboardInitial",
+					"name": "DashboardInitial",
+					"target": [
+						"DashboardInitial"
+					]
+				},
+				{
+					"pattern": "ReleaseForRectification",
+					"name": "ReleaseForRectification",
+					"target": [
+						"ReleaseForRectification"
+					]
+				},
+				{
+					"pattern": "CreateFlightService",
+					"name": "CreateFlightService",
+					"target": [
+						"CreateFlightService"
+					]
+				},
+				{
+					"pattern": "WeaponConfig/{srvtid}/{stepid}/:srvid:",
+					"name": "WeaponConfig",
+					"target": [
+						"WeaponConfig"
+					]
+				},
+				{
+					"pattern": "Station/{srvtid}/{stepid}/:stnmid:/:stns:",
+					"name": "Station",
+					"target": [
+						"Station"
+					]
+				},
+				{
+					"pattern": "Missiles/{Station}",
+					"name": "Missiles",
+					"target": [
+						"Station",
+						"Missiles"
+					]
+				},
+				{
+					"pattern": "DBOngFlightService",
+					"name": "DBOngFlightService",
+					"target": [
+						"DBOngFlightService"
+					]
+				},
+				{
+					"pattern": "AircraftUtilisation",
+					"name": "AircraftUtilisation",
+					"target": [
+						"AircraftUtilisation"
+					]
+				},
+				{
+					"pattern": "AddEquipRunLog/{type}/:logid:",
+					"name": "AddEquipRunLog",
+					"target": [
+						"AddEquipRunLog"
+					]
+				},
+				{
+					"pattern": "AircraftOverview",
+					"name": "AircraftOverview",
+					"target": [
+						"AircraftOverview"
+					]
+				},
+				{
+					"pattern": "RoleDisplayStations",
+					"name": "RoleDisplayStations",
+					"target": [
+						"RoleDisplayStations"
+					]
+				},
+				{
+					"pattern": "RoleChangeStations/:mode:",
+					"name": "RoleChangeStations",
+					"target": [
+						"RoleChangeStations"
+					]
+				},
+				{
+					"pattern": "Pylon/{RoleChangeStations}",
+					"name": "Pylon",
+					"target": [
+						"RoleChangeStations",
+						"Pylon"
+					]
+				},
+				{
+					"pattern": "PastHistoryWeightBalance",
+					"name": "PastHistoryWeightBalance",
+					"target": [
+						"WBPastRecords"
+					]
+				},
+				{
+					"pattern": "FileUpload",
+					"name": "FileUpload",
+					"target": [
+						"FileUpload"
+					]
+				},
+				{
+					"pattern": "AuditLog",
+					"name": "AuditLog",
+					"target": [
+						"AuditLog"
+					]
+				},
+				{
+					"name": "entityeditor",
+					"pattern": "entityeditor",
+					"target": [
+						"entityeditor"
+					]
+				},
+				{
 					"pattern": "ESoperator",
 					"name": "ESoperator",
 					"target": [
 						"ESoperator"
 					]
-				}],
+				}
+			],
 			"targets": {
 				"TargetHome": {
 					"viewType": "XML",

@@ -5,8 +5,10 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
 	"../util/ajaxutil",
-	"sap/base/Log"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.PilotAccept", {
@@ -166,7 +168,7 @@ sap.ui.define([
 					this._fnNavToDetail("/masterList/" + sNextIndex);
 					return;
 				}
-				this.onPressSignOffPreflightDone(oEvent);//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				this.onPressSignOffPreflightDone(oEvent); //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 			} catch (e) {
 				Log.error("Exception in onPresSignOff function");
 			}
@@ -583,7 +585,8 @@ sap.ui.define([
 			try {
 
 				var oParameter = {};
-				oParameter.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
+			//	oParameter.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
+				oParameter.filter = "AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&TAILID" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T2_PAPPR");
@@ -593,7 +596,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/appr", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPendingApprovals function");
 			}
@@ -741,9 +744,9 @@ sap.ui.define([
 		 */
 		onPressSignOffConfirm: function() {
 			try {
-				var sAction = this.getModel("paModel").getProperty("/confirm/pfreq");//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				var sAction = this.getModel("paModel").getProperty("/confirm/pfreq"); //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				// var oPayloads = this.getModel("paModel").getProperty("/masterList");//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-				var oPayloads = JSON.parse(JSON.stringify(this.getModel("paModel").getProperty("/masterList")));//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+				var oPayloads = JSON.parse(JSON.stringify(this.getModel("paModel").getProperty("/masterList"))); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 				oPayloads.forEach(function(oItem) {
 					oItem.value = oItem.data.reviewd ? 1 : 0;
 					oItem.pfreq = sAction ? "X" : ""; // X FOR POST FLIGHT DONE  '' FOR NOT REQ//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043

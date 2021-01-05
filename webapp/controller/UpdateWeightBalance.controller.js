@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../util/ajaxutil",
 	"../model/formatter",
-		"sap/base/Log"
-], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter,Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.UpdateWeightBalance", {
@@ -296,7 +298,9 @@ sap.ui.define([
 		_fnWeightBalanceGet: function(sTailId, sType) {
 			var that = this,
 				oPrmWBM = {};
-			oPrmWBM.filter = "tailid eq " + sTailId + " and WTIND eq " + sType + " and MOD eq A";
+			//		oPrmWBM.filter = "tailid eq " + sTailId + " and WTIND eq " + sType + " and MOD eq A";
+			oPrmWBM.filter = "tailid" + FilterOpEnum.EQ + sTailId + FilterOpEnum.AND + "WTIND" + FilterOpEnum.EQ + sType + FilterOpEnum.AND +
+				"MOD" + FilterOpEnum.EQ + "A"; // Phase 2 Changes
 			oPrmWBM.error = function() {
 
 			};
@@ -319,7 +323,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
 		},
 
 		onSelectionChange: function(oEvent) {
@@ -354,7 +358,7 @@ sap.ui.define([
 
 					this.getOwnerComponent().getRouter().navTo("DashboardInitial");
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("WEBALISVC"), oPrmWBMCreate, oPayload);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("WEBALISVC"), oPrmWBMCreate, oPayload);
 			} else {
 				this.getRouter().navTo("DashboardInitial");
 			}
@@ -388,7 +392,7 @@ sap.ui.define([
 			oAutoModel[0].MOD = "C";
 			oPayload.push(oAutoModel[0]);
 			oPrmWBMUpdate.activity = 4;
-			ajaxutil.fnCreate(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBMUpdate, oPayload, "ZRM_WNB", this);
+			ajaxutilNew.fnCreate(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBMUpdate, oPayload, "ZRM_WNB", this);
 		},
 
 		// ***************************************************************************

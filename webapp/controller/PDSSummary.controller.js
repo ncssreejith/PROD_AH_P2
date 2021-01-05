@@ -348,8 +348,10 @@ sap.ui.define([
 			try {
 				var oStation = oEvent.getParameter("oSource").getParent().getBindingContext("pdsSummaryModel").getObject();
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID +
-					" and ADPID eq " + oStation.ADPID + " and adpflag eq S";
+				// oParameter.filter = "tailid eq " + this.getTailId() + " and stnmid eq " + oStation.STNMID + " and stnsid eq " + oStation.STNSID +
+				// 	" and ADPID eq " + oStation.ADPID + " and adpflag eq S";
+				oParameter.filter = "tailid=" + this.getTailId() + "&stnmid=" + oStation.STNMID + "&stnsid=" + oStation.STNSID +
+					"&ADPID=" + oStation.ADPID + "&adpflag=S"; //+ sSrvIdFilter;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty("/srnos", oData.results);
@@ -372,8 +374,11 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty(
-					"/srvtid") + " and TAILID eq " + this.getTailId();
+				// oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty(
+				// 	"/srvtid") + " and TAILID eq " + this.getTailId();
+				oParameter.filter = "REFID" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "SRVTID" + FilterOpEnum.EQ + this.getModel(
+					"pdsSummaryModel").getProperty(
+					"/srvtid") + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
 				oParameter.success = function(oData) {
 					var sPaSign = oData.results.length > 0 ? oData.results[0] : [];
 					this.getModel("pdsSummaryModel").setProperty("/masterList", oData.results);
@@ -383,7 +388,7 @@ sap.ui.define([
 						this.fnGetAllData();
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("PDSSUMMARYSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("PDSSUMMARYSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPDSLists function");
 			}
@@ -777,13 +782,14 @@ sap.ui.define([
 		_fnApprovalDetailsRequestGet: function(oContext) {
 			try {
 				var oPrmAppr = {};
-				oPrmAppr.filter = "CAPID eq " + oContext.getObject().id;
+				//	oPrmAppr.filter = "CAPID eq " + oContext.getObject().id;
+				oPrmAppr.filter = "CAPID" + FilterOpEnum.EQ + oContext.getObject().id;
 				oPrmAppr.error = function() {};
 				oPrmAppr.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/detail", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
 			} catch (e) {
 				Log.error("Exception in _fnApprovalDetailsRequestGet function");
 			}
@@ -791,14 +797,15 @@ sap.ui.define([
 		_fnWeightBalanceGet: function(oContext) {
 			try {
 				var oPrmWBM = {};
-				oPrmWBM.filter = "tailid eq " + this.getTailId() + " and MOD eq P";
+				//		oPrmWBM.filter = "tailid eq " + this.getTailId() + " and MOD eq P";
+				oPrmWBM.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "MOD" + FilterOpEnum.EQ + "P"; // Phase 2 Changes
 				oPrmWBM.error = function() {};
 				oPrmWBM.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/detail", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnWeightBalanceGet function");
 			}
@@ -806,13 +813,14 @@ sap.ui.define([
 		_fnGetWeightBalanceItemSet: function(oContext) {
 			try {
 				var oPrmWBM = {};
-				oPrmWBM.filter = "WABID eq " + oContext.getObject().id;
+				//	oPrmWBM.filter = "WABID eq " + oContext.getObject().id;
+				oPrmWBM.filter = "WABID" + FilterOpEnum.EQ + oContext.getObject().id; // Phase 2 Changes
 				oPrmWBM.error = function() {};
 				oPrmWBM.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/inoutDetail", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetWeightBalanceItemSet function");
 			}
@@ -834,13 +842,14 @@ sap.ui.define([
 		_fnTrialModGet: function(oContext) {
 			try {
 				var oPrmWB = {};
-				oPrmWB.filter = "FLAG eq TM and JOBID eq " + oContext.getObject().JOBID;
+				//	oPrmWB.filter = "FLAG eq TM and JOBID eq " + oContext.getObject().JOBID;
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "TM&JOBID" + FilterOpEnum.EQ + oContext.getObject().JOBID;
 				oPrmWB.error = function() {};
 				oPrmWB.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/detail", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnTrialModGet function");
 			}
@@ -896,7 +905,7 @@ sap.ui.define([
 					this.getRouter().navTo("DashboardInitial", false);
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("PDSSUMMARYSVC"), oParameter, [oSignOffPayload], "ZRM_FS_FFF", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("PDSSUMMARYSVC"), oParameter, [oSignOffPayload], "ZRM_FS_FFF", this);
 			} catch (e) {
 				Log.error("Exception in onPressSignOffConfirm function");
 			}

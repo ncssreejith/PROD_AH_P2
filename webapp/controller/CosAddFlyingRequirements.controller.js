@@ -4,8 +4,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../util/ajaxutil",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, dataUtil, FieldValidations, ajaxutil, formatter, Log) {
+	"sap/base/Log",
+		"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, FieldValidations, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAJAT GUPTA 
@@ -293,9 +295,13 @@ sap.ui.define([
 			try {
 				var oPrmTaskDue = {};
 				if (sJobId) {
-					oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+				//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+						oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "T&AFLAG" + FilterOpEnum.EQ +
+					"I&jobid" + FilterOpEnum.EQ + sJobId;
 				} else {
-					oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq I";
+				//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq I";
+					oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "J&AFLAG" + FilterOpEnum.EQ +
+					"I";
 				}
 
 				oPrmTaskDue.error = function() {};
@@ -305,7 +311,7 @@ sap.ui.define([
 						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}

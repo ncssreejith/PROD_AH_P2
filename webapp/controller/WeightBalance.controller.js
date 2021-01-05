@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../util/ajaxutil",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 
 	/* ***************************************************************************
@@ -103,7 +105,8 @@ sap.ui.define([
 					oModel = dataUtil.createNewJsonModel(),
 					oPrmWBM = {};
 				if (that.getTailId()) {
-					oPrmWBM.filter = "tailid eq " + that.getTailId() + " and MOD eq A";
+				//	oPrmWBM.filter = "tailid eq " + that.getTailId() + " and MOD eq A";
+					oPrmWBM.filter = "tailid" + FilterOpEnum.EQ + that.getTailId() + FilterOpEnum.AND + "MOD" + FilterOpEnum.EQ + "A"; // Phase 2 Changes
 				} else {
 					sap.m.MessageToast.show("Invalid parameter");
 				}
@@ -143,12 +146,12 @@ sap.ui.define([
 						this._fnGetWeightBalanceItemSet(oData.results[0].WABID);
 					} else {
 						oModel.setData(null);
-					/*	sap.m.MessageToast.show("No Response from server");*/
+						/*	sap.m.MessageToast.show("No Response from server");*/
 					}
 					that.getView().setModel(oModel, "WeightBalanceHeaderSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in WeightBalance:_fnGetWeightBalHeaderSet function");
 				this.handleException(e);
@@ -195,24 +198,26 @@ sap.ui.define([
 
 		_fnGetWeightBalanceItemSet: function(sWABID) {
 			try {
-				var that = this,oModel = dataUtil.createNewJsonModel(),
+				var that = this,
+					oModel = dataUtil.createNewJsonModel(),
 					oPrmWBM = {};
-				oPrmWBM.filter = "WABID eq " + sWABID;
+			//	oPrmWBM.filter = "WABID eq " + sWABID;
+				oPrmWBM.filter = "WABID" + FilterOpEnum.EQ +sWABID ; // Phase 2 Changes
 				oPrmWBM.error = function() {
 
 				};
 
 				oPrmWBM.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
-							oModel.setData(oData.results);
-						
-					}else{
+						oModel.setData(oData.results);
+
+					} else {
 						oModel.setData(null);
 					}
 					that.getView().setModel(oModel, "WeightBalanceSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in WeightBalance:_fnGetWeightBalanceItemSet function");
 				this.handleException(e);

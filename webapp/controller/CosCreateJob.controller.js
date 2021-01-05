@@ -90,14 +90,14 @@ sap.ui.define([
 		 * Parameter:
 		 * Description: Function to validate date/time
 		 */
-		handleChange: function() {
-			try {
-				var aData = this.getModel("appModel").getData();
-				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
-			} catch (e) {
-				Log.error("Exception in handleChange function");
-			}
-		},
+		// handleChange: function() {
+		// 	try {
+		// 		var aData = this.getModel("appModel").getData();
+		// 		return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateJobPast", "errorCreateJobFuture", aData.backDt, aData.backTm);
+		// 	} catch (e) {
+		// 		Log.error("Exception in handleChange function");
+		// 	}
+		// },
 		/* Function: handleChangeJob
 		 * Parameter:
 		 * Description: Function to validate date/time
@@ -749,7 +749,9 @@ sap.ui.define([
 		_fnGetDateValidation: function() {
 			try {
 				var oPrmTaskDue = {};
-				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq I";
+				//		oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq I";
+				oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "T&AFLAG" + FilterOpEnum.EQ +
+					"I";
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {
 					if (oData && oData.results.length > 0) {
@@ -757,7 +759,7 @@ sap.ui.define([
 						this.getModel("appModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}

@@ -1895,7 +1895,9 @@ sap.ui.define([
 		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};
-				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq C and jobid eq " + sJobId;
+			//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq C and jobid eq " + sJobId;
+					oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "J&AFLAG" + FilterOpEnum.EQ +
+					"C&jobid" + FilterOpEnum.EQ + sJobId;
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {
 					if (oData && oData.results.length > 0) {
@@ -1903,7 +1905,7 @@ sap.ui.define([
 						this.getModel("LocalModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}

@@ -4,8 +4,10 @@ sap.ui.define([
 	"sap/ui/core/Fragment",
 	"../model/FieldValidations",
 	"../util/ajaxutil",
-	"../model/formatter"
-], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter) {
+	"../model/formatter",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -79,7 +81,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "ApprovalListModel");
 			}.bind(this);
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oPrmAppr);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oPrmAppr);
 		},
 
 		//on Approve Request
@@ -105,7 +107,8 @@ sap.ui.define([
 		 */
 		_fnUpdateWB: function(sValue) {
 			var that = this,
-				sjobid = "",oModel = this.getView().getModel("ViewModel"),
+				sjobid = "",
+				oModel = this.getView().getModel("ViewModel"),
 				oModel,
 				oPayload;
 			var dDate = new Date();
@@ -138,7 +141,7 @@ sap.ui.define([
 				"Apprusr": "Test User1",
 				"Apprdtm": formatter.defaultOdataDateFormat(dDate),
 				"Appruzt": new Date().getHours() + ":" + new Date().getMinutes(),
-				"ldesc":null
+				"ldesc": null
 			};
 
 			oParameter.error = function(response) {
@@ -149,7 +152,7 @@ sap.ui.define([
 				that.onOpenDialogApp();
 			}.bind(this);
 
-			ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload]);
+			ajaxutilNew.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload]);
 
 		},
 
@@ -183,14 +186,15 @@ sap.ui.define([
 				that.onOpenDialogApp();
 			}.bind(this);
 
-			ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload]);
+			ajaxutilNew.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload]);
 
 		},
 
 		_fnApprovalDetailsRequestGet: function(sCapId) {
 			var that = this,
 				oPrmAppr = {};
-			oPrmAppr.filter = "CAPID eq " + sCapId;
+			//	oPrmAppr.filter = "CAPID eq " + sCapId;
+			oPrmAppr.filter = "CAPID" + FilterOpEnum.EQ + sCapId;
 			oPrmAppr.error = function() {
 
 			};
@@ -201,7 +205,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "ApprovalDetailstModel");
 			}.bind(this);
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
 		},
 
 		onOpenDialogApp: function() {
@@ -231,7 +235,7 @@ sap.ui.define([
 			var that = this;
 			that.getRouter().navTo("Limitations");
 		},
-		
+
 		handleDashBordress: function() {
 			var that = this;
 			that.getRouter().navTo("DashboardInitial");

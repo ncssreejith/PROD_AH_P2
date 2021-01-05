@@ -220,7 +220,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmAppr = {};
-				oPrmAppr.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
+				//	oPrmAppr.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
+				oPrmAppr.filter = "AIRID=" + this.getAircraftId() + "&TAILID=" + this.getTailId();
 				oPrmAppr.error = function() {
 
 				};
@@ -231,7 +232,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "ApprovalListModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oPrmAppr);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oPrmAppr);
 			} catch (e) {
 				Log.error("Exception in _fnApprovalRequestGet function");
 			}
@@ -450,7 +451,7 @@ sap.ui.define([
 					that.onOpenDialogApp();
 				}.bind(this);
 				oParameter.activity = 5;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], "ZRM_WNB", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], "ZRM_WNB", this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateWB function");
 			}
@@ -520,7 +521,7 @@ sap.ui.define([
 					that.onOpenDialogApp();
 				}.bind(this);
 				oParameter.activity = 5;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], "ZRM_AC_O", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], "ZRM_AC_O", this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateLP function");
 			}
@@ -536,7 +537,7 @@ sap.ui.define([
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + this.getAircraftId() + " and ddid eq UTIL2_";*/
 
-				oPrmJobDue.filter = "ddid eq UTIL2_";
+				oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "UTIL2_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -549,7 +550,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
 
@@ -599,7 +600,7 @@ sap.ui.define([
 					oObject = "ZRM_ADDL";
 				}
 				oParameter.activity = 5;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], oObject, this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], oObject, this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateADD function");
 			}
@@ -609,7 +610,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmAppr = {};
-				oPrmAppr.filter = "CAPID eq " + sCapId;
+				//	oPrmAppr.filter = "CAPID eq " + sCapId;
+				oPrmAppr.filter = "CAPID" + FilterOpEnum.EQ + sCapId;
 				oPrmAppr.error = function() {
 
 				};
@@ -627,7 +629,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
 			} catch (e) {
 				Log.error("Exception in _fnApprovalDetailsRequestGet function");
 			}
@@ -685,7 +687,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq TM and JOBID eq " + sJOBID;
+				//	oPrmWB.filter = "FLAG eq TM and JOBID eq " + sJOBID;
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "TM&JOBID" + FilterOpEnum.EQ + sJOBID;
 				oPrmWB.error = function() {
 
 				};
@@ -697,7 +700,7 @@ sap.ui.define([
 					this.getView().byId("MasterId").setVisible(true);
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnTrialModGet function");
 			}
@@ -714,7 +717,7 @@ sap.ui.define([
 					this.onOpenDialogApp();
 				}.bind(this);
 				oParameter.activity = 5;
-				ajaxutil.fnUpdate(sPath, oParameter, [oPayload], "ZRM_T_MOD", this);
+				ajaxutilNew.fnUpdate(sPath, oParameter, [oPayload], "ZRM_T_MOD", this);
 			} catch (e) {
 				Log.error("Exception in fnUpdateDeMod function");
 			}
@@ -724,7 +727,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWBM = {};
-				oPrmWBM.filter = "tailid eq " + sTailId + " and MOD eq P";
+				//		oPrmWBM.filter = "tailid eq " + sTailId + " and MOD eq P";
+				oPrmWBM.filter = "tailid" + FilterOpEnum.EQ + sTailId + FilterOpEnum.AND + "MOD" + FilterOpEnum.EQ + "P"; // Phase 2 Changes
 				oPrmWBM.error = function() {
 
 				};
@@ -750,7 +754,7 @@ sap.ui.define([
 					this._fnGetWeightBalanceItemSet(oData.results[0].WABID);
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnWeightBalanceGet function");
 			}
@@ -760,7 +764,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWBM = {};
-				oPrmWBM.filter = "WABID eq " + sWABID;
+				//	oPrmWBM.filter = "WABID eq " + sWABID;
+				oPrmWBM.filter = "WABID" + FilterOpEnum.EQ + sWABID; // Phase 2 Changes
 				oPrmWBM.error = function() {
 
 				};
@@ -771,7 +776,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "WeightBalanceSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetWeightBalanceItemSet function");
 			}
@@ -781,7 +786,9 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq H and TAILID eq " + sTailID + " AND LPTYPE EQ LPHEADER";
+				//	oPrmWB.filter = "FLAG eq H and TAILID eq " + sTailID + " AND LPTYPE EQ LPHEADER";
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "H" + FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + sTailID + FilterOpEnum.AND +
+					"LPTYPE" + FilterOpEnum.EQ + "LPHEADER";
 				oPrmWB.error = function() {
 
 				};
@@ -798,7 +805,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewHeaderGet function");
 			}
@@ -808,8 +815,11 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID +
-					" AND LPTYPE EQ LPTYREPRES";
+				// oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID +
+				// 	" AND LPTYPE EQ LPTYREPRES";
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "I" + FilterOpEnum.AND + "AIRID" + FilterOpEnum.EQ + "sAirID" + FilterOpEnum.AND +
+					"MODID" + FilterOpEnum.EQ + sMODID + FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + sTAILDID +
+					FilterOpEnum.AND + "LPTYPE" + FilterOpEnum.EQ + "LPTYREPRES";
 				oPrmWB.error = function() {
 
 				};
@@ -820,7 +830,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OverViewItemModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewItemGet function");
 			}
@@ -830,8 +840,12 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID +
-					" AND LPTYPE EQ LPTANK";
+				// oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID +
+				// 	" AND LPTYPE EQ LPTANK";
+
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "I" + FilterOpEnum.AND + "AIRID" + FilterOpEnum.EQ + sAirID + FilterOpEnum.AND +
+					"MODID" + FilterOpEnum.EQ + sMODID + FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + sTAILDID + FilterOpEnum.AND +
+					"LPTYPE" + FilterOpEnum.EQ + "LPTANK";
 				oPrmWB.error = function() {
 
 				};
@@ -842,7 +856,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OverViewItemTankModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewItemTankGet function");
 			}
@@ -852,8 +866,11 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID +
-					" AND LPTYPE EQ LPFUELOIL";
+				// oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILDID +
+				// 	" AND LPTYPE EQ LPFUELOIL";
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "I" + FilterOpEnum.AND + "AIRID" + FilterOpEnum.EQ + "sAirID" + FilterOpEnum.AND +
+					"MODID" + FilterOpEnum.EQ + sMODID + FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + sTAILDID +
+					FilterOpEnum.AND + "LPTYPE" + FilterOpEnum.EQ + "LPFUELOIL";
 				oPrmWB.error = function() {
 
 				};
@@ -864,7 +881,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OverViewItemOILModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewItemOilGet function");
 			}
@@ -876,7 +893,8 @@ sap.ui.define([
 
 					oPrmJobDue = {};
 				var oViewModel = dataUtil.createNewJsonModel();
-				oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+				//	oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+				oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + sFlag + "&CAPID" + FilterOpEnum.EQ + sCapId + "&JOBID" + FilterOpEnum.EQ + sJobId;
 				oPrmJobDue.error = function() {
 
 				};
@@ -900,7 +918,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnCAPDataGet function");
 			}
@@ -943,7 +961,7 @@ sap.ui.define([
 					that._fnApprovalDetailsRequestGet(that.Obj.id);
 				}.bind(this);
 				oPrmJobDue.activity = 2;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in CAPDataUpdate function");
 			}
@@ -970,7 +988,7 @@ sap.ui.define([
 
 				}.bind(this);
 				oPrmJobDue.activity = 2;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in CAPDataCancel function");
 			}
@@ -986,7 +1004,8 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel"),
 					sCount,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId();
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId();
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId(); // phase 2 Changes
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
@@ -997,7 +1016,7 @@ sap.ui.define([
 					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
 
@@ -1008,8 +1027,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq CPR_";
-
+				//	oPrmJobDue.filter = "refid eq " + sAirId + " and ddid eq CPR_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + sAirId + "&ddid" + FilterOpEnum.EQ + "CPR_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -1032,7 +1051,8 @@ sap.ui.define([
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";*/
-				oPrmJobDue.filter = "ddid eq 118_";
+				//	oPrmJobDue.filter = "ddid eq 118_";
+				oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "118_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -1043,7 +1063,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "PerioOfDeferCBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnPerioOfDeferCBGet function");
 			}
@@ -1071,7 +1091,9 @@ sap.ui.define([
 		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};
-				oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+				//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+				oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "T&AFLAG" + FilterOpEnum.EQ +
+					"I&jobid" + FilterOpEnum.EQ + sJobId;
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {
 					if (oData && oData.results.length > 0) {
@@ -1079,7 +1101,7 @@ sap.ui.define([
 						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}
