@@ -211,6 +211,7 @@ sap.ui.define([
 		fnLoadSquadran: function() {
 			var selAirId = this.getModel("oAirSelectViewModel").getProperty("/sel/airid");
 			var oParameter = {};
+			//	oParameter.filter = "refid" + FilterOpEnum.EQ + selAirId + "&ddid" + FilterOpEnum.EQ + "SQN";
 			oParameter.filter = "refid" + FilterOpEnum.EQ + selAirId + "&ddid" + FilterOpEnum.EQ + "SQN";
 			oParameter.error = function() {
 

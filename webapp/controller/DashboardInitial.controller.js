@@ -4,8 +4,10 @@ sap.ui.define([
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"sap/ui/model/json/JSONModel",
 	"avmet/ah/model/formatter",
-	"avmet/ah/util/ajaxutil"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil) {
+	"avmet/ah/util/ajaxutil",
+	"avmet/ah/util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name:            
@@ -231,7 +233,7 @@ sap.ui.define([
 							tailid: this.getTailId(),
 							last: " ",
 							eng2id: this.getModel("avmetModel").getProperty("/Engine2/ENGID"),
-							stepid: "S_CL"//Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
+							stepid: "S_CL" //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 						}); //nav cyclic log
 						break;
 					case "AST_S2":
@@ -259,7 +261,7 @@ sap.ui.define([
 					case "AST_RFF":
 					case "AST_RFF0":
 					case "AST_RCG": //Teck Meng change on 23/11/2020 13:00 AH Issue 1044,1043
-					case "AST_THR":  //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+					case "AST_THR": //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 						this.getRouter().navTo("PilotAccept", {
 							srvtid: sSrvtId ? sSrvtId : " ",
 							stepid: "S_PA"
@@ -298,7 +300,7 @@ sap.ui.define([
 						this.getModel("avmetModel").setProperty("/runningChange", aRunningChanges);
 						this.getModel("avmetModel").refresh();
 						var sSrvtId = this.getModel("avmetModel").getProperty("/dash/SRVTID");
-						
+
 						if (aRunningChanges && aRunningChanges.length && aRunningChanges.length > 0) { //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 							this.fnCheckPilotDone(aRunningChanges); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
 							this.fnOpenPilotUpdate(); //Teck Meng change on 26/11/2020 13:00 AH Issue 1044,1043
@@ -951,8 +953,8 @@ sap.ui.define([
 					oEngineModel = this.getView().getModel("avmetModel"),
 					oParameter = {};
 
-				oParameter.filter = "tailid eq '" + this.getTailId() + "'";
-
+				//	oParameter.filter = "tailid eq '" + this.getTailId() + "'";
+				oParameter.filter = "tailid"+FilterOpEnum.EQ+ this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length > 0) {
@@ -1236,13 +1238,14 @@ sap.ui.define([
 		fnLoadLocation: function(oItem) {
 			try {
 				var oParameter = {};
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and LFLAG eq L";
+				//	oParameter.filter = "REFID eq " + this.getAircraftId() + " and LFLAG eq L";
+				oParameter.filter = "REFID" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "LFLAG" + FilterOpEnum.EQ + "L"; // Phase 2 Changes 
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("dashboardModel").setProperty("/location", oData.results);
 					this.getModel("dashboardModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRTRANSCURRSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRTRANSCURRSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadLocation function");
 				this.handleException(e);

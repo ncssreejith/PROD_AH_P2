@@ -4,8 +4,10 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"../util/ajaxutil",
-	"sap/base/Log"
-], function(BaseController, JSONModel, formatter, dataUtil, ajaxutil, Log) {
+	"sap/base/Log",
+		"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, JSONModel, formatter, dataUtil, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.CTCloseTask", {
@@ -348,7 +350,7 @@ sap.ui.define([
 					that._getTasks();
 				}.bind(this);
 				oParameter.filter = "tailid eq " + this.getTailId() + " and stepid eq S_CT";
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter, oPayloadPut, "S_CT", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter, oPayloadPut, "S_CT", this);
 
 				/*oParameter.error = function() {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and stepid eq S_CT";
@@ -492,7 +494,8 @@ sap.ui.define([
 					CompletedTask = [],
 					oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and stepid eq " + stepid + " and srvtid eq " + srvtid;
+			//	oParameter.filter = "tailid eq " + this.getTailId() + " and stepid eq " + stepid + " and srvtid eq " + srvtid;
+				oParameter.filter = "tailid"+FilterOpEnum.EQ+ this.getTailId() +FilterOpEnum.AND+ "stepid"+FilterOpEnum.EQ + stepid +FilterOpEnum.AND+"srvtid"+FilterOpEnum.EQ+ srvtid;
 				oParameter.success = function(oData) {
 					if (oData.results.length) {
 						for (var i in oData.results) {
@@ -525,7 +528,7 @@ sap.ui.define([
 						oCTCloseTaskModel.refresh();
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTasks function");
 				this.handleException(e);

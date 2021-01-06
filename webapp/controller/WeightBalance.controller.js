@@ -105,7 +105,7 @@ sap.ui.define([
 					oModel = dataUtil.createNewJsonModel(),
 					oPrmWBM = {};
 				if (that.getTailId()) {
-				//	oPrmWBM.filter = "tailid eq " + that.getTailId() + " and MOD eq A";
+					//	oPrmWBM.filter = "tailid eq " + that.getTailId() + " and MOD eq A";
 					oPrmWBM.filter = "tailid" + FilterOpEnum.EQ + that.getTailId() + FilterOpEnum.AND + "MOD" + FilterOpEnum.EQ + "A"; // Phase 2 Changes
 				} else {
 					sap.m.MessageToast.show("Invalid parameter");
@@ -162,7 +162,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWBM = {};
-				oPrmWBM.filter = "tailid eq " + sTAILID + " and WABID eq " + sWABID;
+				//	oPrmWBM.filter = "tailid eq " + sTAILID + " and WABID eq " + sWABID;
+				oPrmWBM.filter = "tailid" + FilterOpEnum.EQ + sTAILID + FilterOpEnum.AND + "WABID" + FilterOpEnum.EQ + sWABID; // Phase 2 Changes	
 				oPrmWBM.error = function() {
 
 				};
@@ -189,7 +190,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETWBHFROMIDSVC"), oPrmWBM);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWBHFROMIDSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in WeightBalance:_fnGetWeightPastRecord function");
 				this.handleException(e);
@@ -201,8 +202,8 @@ sap.ui.define([
 				var that = this,
 					oModel = dataUtil.createNewJsonModel(),
 					oPrmWBM = {};
-			//	oPrmWBM.filter = "WABID eq " + sWABID;
-				oPrmWBM.filter = "WABID" + FilterOpEnum.EQ +sWABID ; // Phase 2 Changes
+				//	oPrmWBM.filter = "WABID eq " + sWABID;
+				oPrmWBM.filter = "WABID" + FilterOpEnum.EQ + sWABID; // Phase 2 Changes
 				oPrmWBM.error = function() {
 
 				};

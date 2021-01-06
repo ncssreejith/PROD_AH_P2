@@ -7,8 +7,10 @@ sap.ui.define([
 	"../model/formatter",
 	"sap/base/Log",
 	"sap/ui/model/json/JSONModel",
-	"../util/html2pdfbundle"
-], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, Log, JSONModel, html2pdfbundle) {
+	"../util/html2pdfbundle",
+		"avmet/ah/util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, Log, JSONModel, html2pdfbundle, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for Engine
@@ -406,9 +408,11 @@ sap.ui.define([
 					oParameter = {};
 				var sEngID = oEngineModel.getProperty("/ENGID");
 				if (sEngID && sEngID !== " ") {
-					oParameter.filter = "ENGID eq '" + sEngID + "'";
+				//	oParameter.filter = "ENGID eq '" + sEngID + "'";
+					oParameter.filter = "ENGID"+FilterOpEnum.EQ + sEngID;
 				} else {
-					oParameter.filter = "tailid eq '" + this.getTailId() + "'";
+				//	oParameter.filter = "tailid eq '" + this.getTailId() + "'";
+				oParameter.filter = "tailid"+FilterOpEnum.EQ + this.getTailId();
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -428,7 +432,7 @@ sap.ui.define([
 
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getHeader function");
 				this.handleException(e);
@@ -508,7 +512,9 @@ sap.ui.define([
 				// 	sEngId1 = oEngineModel.getProperty("/headerDetails/ENGID"),
 				// 	sEngId = sEngId1 === "" ? this.getEngine() : sEngId1;
 				var oParameter = {};
-				oParameter.filter = "engid eq " + sEngID + " AND sflag eq S AND tailid eq " + this.getTailId();
+			//	oParameter.filter = "engid eq " + sEngID + " AND sflag eq S AND tailid eq " + this.getTailId();
+				oParameter.filter = "engid"+FilterOpEnum.EQ+ sEngID +FilterOpEnum.AND+ "sflag"+FilterOpEnum.EQ+"S"+FilterOpEnum.AND+"tailid"+FilterOpEnum.EQ+ this.getTailId();
+				
 				oParameter.error = function() {
 
 				};
@@ -534,7 +540,7 @@ sap.ui.define([
 					}
 
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngineOilRepl function");
 				this.handleException(e);

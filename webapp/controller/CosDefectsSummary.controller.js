@@ -365,7 +365,7 @@ sap.ui.define([
 					});
 				}.bind(this);
 				oPrmSchJob.activity = 2;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("RAISESCHSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("RAISESCHSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcessionPress function");
 			}
@@ -380,7 +380,9 @@ sap.ui.define([
 					sDate = null,
 					aData = this.getModel("JobModel").getData(),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + that.getAircraftId() + " and JDUID eq JDU";
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + that.getAircraftId() + " and JDUID eq JDU";
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + that.getAircraftId() +
+					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "JDU";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -422,7 +424,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -435,7 +437,9 @@ sap.ui.define([
 		_fnGetUtilisation: function(obj) {
 			try {
 				var oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq SORTI";
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq SORTI";
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + this.getAircraftId() +
+					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "SORTI";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -453,7 +457,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -875,7 +879,9 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("appModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq UTIL";
+			//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq UTIL";
+					oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + this.getAircraftId() +
+					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "UTIL";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -887,7 +893,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisationDefaultVal function");
 			}
@@ -1072,7 +1078,7 @@ sap.ui.define([
 							Log.error("Exception in oGBAppModel FAIR STATUS function");
 						}
 					}.bind(this);
-					ajaxutil.fnRead(this.getResourceBundle().getText("GETTAILSTATUSSVC"), oPrmTaskDue);
+					ajaxutilNew.fnRead(this.getResourceBundle().getText("GETTAILSTATUSSVC"), oPrmTaskDue);
 				} catch (e) {
 					Log.error("Exception in _fnTailStatusGet function");
 				}
@@ -1084,7 +1090,8 @@ sap.ui.define([
 					oLocalModel = this.getView().getModel("LocalModel"),
 					oJobModel = this.getView().getModel("JobModel"),
 					oPrmTaskDue = {};
-				oPrmTaskDue.filter = "TAILID eq " + sTailId;
+			//	oPrmTaskDue.filter = "TAILID eq " + sTailId;
+				oPrmTaskDue.filter = "TAILID"+FilterOpEnum.EQ+ sTailId;
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {
 					try {
@@ -1118,7 +1125,7 @@ sap.ui.define([
 						Log.error("Exception in oGBAppModel FAIR STATUS function");
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETTAILSTATUSSVC"), oPrmTaskDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETTAILSTATUSSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnTailStatusGet function");
 			}
@@ -1637,7 +1644,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmFND = {};
-				oPrmFND.filter = "ddid"+FilterOpEnum.EQ+"TOP_&refid"+FilterOpEnum.EQ + that.getAircraftId();
+				oPrmFND.filter = "ddid" + FilterOpEnum.EQ + "TOP_&refid" + FilterOpEnum.EQ + that.getAircraftId();
 				oPrmFND.error = function() {
 
 				};
@@ -1895,8 +1902,8 @@ sap.ui.define([
 		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};
-			//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq C and jobid eq " + sJobId;
-					oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "J&AFLAG" + FilterOpEnum.EQ +
+				//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq C and jobid eq " + sJobId;
+				oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "J&AFLAG" + FilterOpEnum.EQ +
 					"C&jobid" + FilterOpEnum.EQ + sJobId;
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {

@@ -351,7 +351,7 @@ sap.ui.define([
 					oParameter.success = function(oData) {};
 					/*	oParameter.activity = 1;
 						, "ZRM_ADDL", this*/
-					ajaxutil.fnCreate(this.getResourceBundle().getText("ADDSVC"), oParameter, obj);
+					ajaxutilNew.fnCreate(this.getResourceBundle().getText("ADDSVC"), oParameter, obj);
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnUpdateLimitations function");
@@ -418,7 +418,8 @@ sap.ui.define([
 				var that = this,
 					sCount,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId();
+			//	oPrmJobDue.filter = "TAILID eq " + this.getTailId();
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId(); // phase 2 Changes
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
@@ -429,7 +430,7 @@ sap.ui.define([
 					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnADDCountGet function");
 
@@ -512,7 +513,9 @@ sap.ui.define([
 		_fnGetUtilisationDefaultVal: function(sAir) {
 			try {
 				var oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+			//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + sAir +
+					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "UTIL";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -524,7 +527,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnGetUtilisationDefaultVal function");
 

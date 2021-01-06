@@ -78,7 +78,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter, [oPayload], "ZRM_E_REPL", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter, [oPayload], "ZRM_E_REPL", this);
 			} catch (e) {
 				Log.error("Exception in AddEngOilLog:onSignOffPress function");
 				this.handleException(e);
@@ -90,7 +90,8 @@ sap.ui.define([
 		_fnReasonSOAPGet: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "ddid eq 125_ and REFID eq " + this.getAircraftId();
+			//	oParameter.filter = "ddid eq 125_ and REFID eq " + this.getAircraftId();
+				oParameter.filter = "ddid" + FilterOpEnum.EQ + "125_"+ FilterOpEnum.AND+ "REFID"+ FilterOpEnum.EQ + this.getAircraftId();
 				oParameter.error = function() {
 
 				};

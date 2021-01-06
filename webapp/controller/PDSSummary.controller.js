@@ -497,14 +497,17 @@ sap.ui.define([
 
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and stepid eq S_CT and srvtid eq " + this.getModel("pdsSummaryModel").getProperty(
-					"/srvtid");
+				// oParameter.filter = "tailid eq " + this.getTailId() + " and stepid eq S_CT and srvtid eq " + this.getModel("pdsSummaryModel").getProperty(
+				// 	"/srvtid");
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "stepid" + FilterOpEnum.EQ + "S_CT" +
+					FilterOpEnum.AND + "srvtid" + FilterOpEnum.EQ + this.getModel("pdsSummaryModel").getProperty(
+						"/srvtid"); // Phase 2 Changes 
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T6_FLC");
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/ct", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getCreatedTasks function");
 			}
@@ -595,7 +598,8 @@ sap.ui.define([
 		_getPastMonthDefects: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "jobty eq pd and tailid eq " + this.getTailId();
+			//	oParameter.filter = "jobty eq pd and tailid eq " + this.getTailId();
+			oParameter.filter = "jobty" + FilterOpEnum.EQ + "pd" + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T10_PASTD");
@@ -605,7 +609,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/pastDef", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("FSDEFECTJOBSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("FSDEFECTJOBSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPastMonthDefects function");
 				this.handleException(e);
@@ -828,13 +832,15 @@ sap.ui.define([
 		_fnAirOverViewHeaderGet: function(oContext) {
 			try {
 				var oPrmWB = {};
-				oPrmWB.filter = "FLAG eq H and TAILID eq " + this.getTailId() + " AND LPTYPE EQ LPHEADER";
+				// oPrmWB.filter = "FLAG eq H and TAILID eq " + this.getTailId() + " AND LPTYPE EQ LPHEADER";
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "H" + FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND +
+					"LPTYPE" + FilterOpEnum.EQ + "LPHEADER";
 				oPrmWB.error = function() {};
 				oPrmWB.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/detail", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewHeaderGet function");
 			}

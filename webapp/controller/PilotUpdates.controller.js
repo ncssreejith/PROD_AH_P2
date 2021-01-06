@@ -695,7 +695,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {};
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("PILOTSORTIF16SVC"), oParameter, oPayloads);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("PILOTSORTIF16SVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateAirMon function");
 				this.handleException(e);
@@ -964,7 +964,7 @@ sap.ui.define([
 		fnReadAmResults: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "refid"+FilterOpEnum.EQ + this.getAircraftId() + "&ddid"+FilterOpEnum.EQ+"PILOT";
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "PILOT";
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -1196,7 +1196,7 @@ sap.ui.define([
 		fnReadflyResults: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "refid"+FilterOpEnum.EQ + this.getAircraftId() + "&ddid"+FilterOpEnum.EQ+"FR";
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "FR";
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -1219,7 +1219,8 @@ sap.ui.define([
 		fnReadAirMon: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId();
+				//	oParameter.filter = "tailid eq " + this.getTailId();
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -1230,7 +1231,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/airMon", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTSORTIF16SVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTSORTIF16SVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAirMon function");
 				this.handleException(e);

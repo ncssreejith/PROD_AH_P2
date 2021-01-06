@@ -108,7 +108,9 @@ sap.ui.define([
 		_fnGetUtilisation: function(sAir) {
 			try {
 				var oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq JDU";
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq JDU";
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + sAir +
+					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "JDU";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -120,7 +122,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -137,9 +139,11 @@ sap.ui.define([
 					oParameter = {};
 				var sEngID = oEngineModel.getProperty("/ENGID");
 				if (sEngID && sEngID !== " ") {
-					oParameter.filter = "ENGID eq '" + sEngID + "'";
+					//oParameter.filter = "ENGID eq '" + sEngID + "'";
+					oParameter.filter = "ENGID"+FilterOpEnum.EQ+ sEngID;
 				} else {
-					oParameter.filter = "tailid eq '" + this.getTailId() + "'";
+				//	oParameter.filter = "tailid eq '" + this.getTailId() + "'";
+					oParameter.filter = "tailid"+FilterOpEnum.EQ+ this.getTailId();
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -163,7 +167,7 @@ sap.ui.define([
 
 					// }
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in getEngineHeader function");
 			}

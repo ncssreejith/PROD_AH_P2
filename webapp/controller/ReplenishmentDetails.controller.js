@@ -5,8 +5,10 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/base/Log",
-	"../model/FieldValidations"
-], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log, FieldValidations) {
+	"../model/FieldValidations",
+	"avmet/ah/util/FilterOpEnum",
+	"../util/ajaxutilNew"
+], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log, FieldValidations, FilterOpEnum, ajaxutilNew) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.ReplenishmentDetails", {
@@ -79,7 +81,7 @@ sap.ui.define([
 			var sOldValue = this.getModel("oRepDetailsModel").getProperty(sPath + "/sgusr");
 			var sValue = oEvent.getSource().getValue();
 			// if (sValue === parseInt(sOldValue)) {//Teck Meng 23/11/2020 15:00
-			if (sValue === parseFloat(sOldValue)) {//Teck Meng 23/11/2020 15:00
+			if (sValue === parseFloat(sOldValue)) { //Teck Meng 23/11/2020 15:00
 				sChange = "";
 				this.getModel("oRepDetailsModel").setProperty(sPath + "/sgusr", sValue);
 			}
@@ -287,13 +289,14 @@ sap.ui.define([
 		_fnAirOverViewHeaderGet: function() {
 			try {
 				var oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I AND LPTYPE eq LPTYREPRES and REFID eq " + this.getAircraftId();
+			//	oPrmWB.filter = "FLAG eq I AND LPTYPE eq LPTYREPRES and REFID eq " + this.getAircraftId();
+				oPrmWB.filter = "FLAG"+FilterOpEnum.EQ+"I"+FilterOpEnum.AND+"LPTYPE"+FilterOpEnum.EQ+"LPTYREPRES"+FilterOpEnum.AND+"REFID"+FilterOpEnum.EQ+this.getAircraftId();
 				oPrmWB.error = function() {};
 				oPrmWB.success = function(oData) {
 					this.getModel("oRepDetailsModel").setProperty("/TyrePressure", oData.results);
 					this.getModel("oRepDetailsModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewHeaderGet function");
 				this.handleException(e);

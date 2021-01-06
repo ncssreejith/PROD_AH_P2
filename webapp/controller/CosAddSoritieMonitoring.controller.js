@@ -257,7 +257,8 @@ sap.ui.define([
 		_fnGetUtilisation: function(sAir) {
 			try {
 				var oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq SORTI";
+			//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq SORTI";
+				oPrmJobDue.filter = "TAILID"+FilterOpEnum.EQ + this.getTailId() +FilterOpEnum.AND+"refid"+FilterOpEnum.EQ+ sAir +FilterOpEnum.AND+ "JDUID"+FilterOpEnum.EQ+"SORTI";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -269,7 +270,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}

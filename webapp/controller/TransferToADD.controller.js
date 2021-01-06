@@ -110,7 +110,9 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid eq " + oModel.getProperty("/sAirId") + " and ddid eq UTIL1_";
+				//	oPrmJobDue.filter = "refid eq " + oModel.getProperty("/sAirId") + " and ddid eq UTIL1_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + oModel.getProperty("/sAirId") + FilterOpEnum.AND + "ddid" + FilterOpEnum.EQ +
+					"UTIL1_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -135,7 +137,9 @@ sap.ui.define([
 		_fnGetUtilisationDefaultValue: function(sAir) {
 			try {
 				var oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + sAir +
+					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "UTIL";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -147,7 +151,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisationDefaultValue function");
 			}
@@ -162,7 +166,8 @@ sap.ui.define([
 					sCount,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + this.getTailId();
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId();
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId(); // phase 2 Changes
 				oPrmJobDue.error = function() {
 
 				};
@@ -176,7 +181,7 @@ sap.ui.define([
 					this.getView().getModel("oViewModel").setProperty("/ADDCount", sCount);
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
 
@@ -251,7 +256,8 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "CAPID eq " + sCapId;
+				//	oPrmJobDue.filter = "CAPID eq " + sCapId;
+				oPrmJobDue.filter = "CAPID" + FilterOpEnum.EQ + sCapId; // Phase 2 Changes
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -261,7 +267,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("ADDSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCapDataGet function");
 
@@ -274,7 +280,7 @@ sap.ui.define([
 		_fnGetDateValidation: function(sJobId) {
 			try {
 				var oPrmTaskDue = {};
-			//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+				//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
 				oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "T&AFLAG" + FilterOpEnum.EQ +
 					"I&jobid" + FilterOpEnum.EQ + sJobId;
 				oPrmTaskDue.error = function() {};
@@ -672,7 +678,7 @@ sap.ui.define([
 					ViewGlobalModel.setData(null);
 				}.bind(this);
 				oParameter.activity = 1;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("ADDSVC"), oParameter, [oPayLoad], "ZRM_ADDL", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("ADDSVC"), oParameter, [oPayLoad], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onSubmitTransferJobAdd function");
 

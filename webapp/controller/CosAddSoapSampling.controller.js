@@ -4,8 +4,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../util/ajaxutil",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, dataUtil, FieldValidations, ajaxutil, formatter, Log) {
+	"sap/base/Log",
+		"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, FieldValidations, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -152,7 +154,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					this.getRouter().navTo("CosEngine");
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter, [oPayload], "SOAPADD", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter, [oPayload], "SOAPADD", this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoapSampling:_fnReasonSOAPCreate function");
 				this.handleException(e);

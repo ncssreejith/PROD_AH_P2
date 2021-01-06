@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/ajaxutil",
 	"sap/m/MessageBox",
-	"sap/base/Log"
-], function(BaseController, dataUtil, JSONModel, formatter, ajaxutil, Log) {
+	"sap/base/Log",
+	"avmet/ah/util/FilterOpEnum",
+	"../util/ajaxutilNew"
+], function(BaseController, dataUtil, JSONModel, formatter, ajaxutil, Log, FilterOpEnum, ajaxutilNew) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAJAT GUPTA 
@@ -164,7 +166,7 @@ sap.ui.define([
 					this.getRouter().navTo("DashboardInitial");
 				}.bind(this);
 				oPrmTask.activity = 4; //Rahul: 25/11/2020 : 16:27 Code Added
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("LEADPARTISVC"), oPrmTask, oPayload, "ZRM_AC_O", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("LEADPARTISVC"), oPrmTask, oPayload, "ZRM_AC_O", this);
 			} catch (e) {
 				Log.error("Exception in AircraftOverview:onPresSignOff function");
 				this.handleException(e);
@@ -175,7 +177,10 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILID + " AND LPTYPE EQ LPTYREPRES";
+				//	oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILID + " AND LPTYPE EQ LPTYREPRES";
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "I" + FilterOpEnum.AND + "AIRID" + FilterOpEnum.EQ + sAirID + FilterOpEnum.AND +
+					"MODID" + FilterOpEnum.EQ + sMODID + FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + sTAILID + FilterOpEnum.AND +
+					"LPTYPE" + FilterOpEnum.EQ + "LPTYREPRES";
 				oPrmWB.error = function() {
 
 				};
@@ -189,7 +194,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in AircraftOverview:_fnAirOverViewItemGet function");
 				this.handleException(e);
@@ -200,7 +205,12 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILID + " AND LPTYPE EQ LPTANK";
+				// oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILID +
+				// 	" AND LPTYPE EQ LPTANK";
+
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "I" + FilterOpEnum.AND + "AIRID" + FilterOpEnum.EQ + sAirID + FilterOpEnum.AND +
+					"MODID" + FilterOpEnum.EQ + sMODID + FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + sTAILID + FilterOpEnum.AND +
+					"LPTYPE" + FilterOpEnum.EQ + "LPTANK";
 				oPrmWB.error = function() {
 
 				};
@@ -215,7 +225,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in AircraftOverview:_fnAirOverViewItemTankGet function");
 				this.handleException(e);
@@ -226,7 +236,11 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILID + " AND LPTYPE EQ LPFUELOIL";
+				// oPrmWB.filter = "FLAG eq I and AIRID eq " + sAirID + " and MODID eq " + sMODID + " and TAILID eq " + sTAILID +
+				// 	" AND LPTYPE EQ LPFUELOIL";
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "I" + FilterOpEnum.AND + "AIRID" + FilterOpEnum.EQ + sAirID + FilterOpEnum.AND +
+					"MODID" + FilterOpEnum.EQ + sMODID + FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + sTAILID + FilterOpEnum.AND +
+					"LPTYPE" + FilterOpEnum.EQ + "LPFUELOIL";
 				oPrmWB.error = function() {
 
 				};
@@ -239,7 +253,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in AircraftOverview:_fnAirOverViewItemOilGet function");
 				this.handleException(e);
@@ -250,7 +264,9 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWB = {};
-				oPrmWB.filter = "FLAG eq H and TAILID eq " + this.getTailId() + " AND LPTYPE EQ LPHEADER";
+				//		oPrmWB.filter = "FLAG eq H and TAILID eq " + this.getTailId() + " AND LPTYPE EQ LPHEADER";
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "H" + FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND +
+					"LPTYPE" + FilterOpEnum.EQ + "LPHEADER";
 				oPrmWB.error = function() {
 
 				};
@@ -269,7 +285,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in AircraftOverview:_fnAirOverViewHeaderGet function");
 				this.handleException(e);

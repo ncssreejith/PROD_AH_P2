@@ -7,8 +7,11 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageBox",
-	"sap/base/Log"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, JSONModel, MessageBox, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, JSONModel, MessageBox, Log, ajaxutilNew,
+	FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : KUMAR AMIT	
@@ -202,7 +205,7 @@ sap.ui.define([
 					}
 					this.getModel("atckModel").refresh(true);
 				}.bind(this);
-				ajaxutil.fnRead(sPath, oParameter);
+				ajaxutilNew.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:fnLoadHeader function");
 				this.handleException(e);
@@ -241,7 +244,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					this.getModel("atckModel").setProperty("/checklist", oData.results);
 				}.bind(this);
-				ajaxutil.fnRead(sPath, oParameter);
+				ajaxutilNew.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:fnLoadSquadranList function");
 				this.handleException(e);
@@ -325,7 +328,7 @@ sap.ui.define([
 				}.bind(this);
 
 				if (oData) {
-					ajaxutil.fnCreate(this.getResourceBundle().getText("ATCHECKLISTSVC"), oParameter, oData, "ZRM_TR_AC", this);
+					ajaxutilNew.fnCreate(this.getResourceBundle().getText("ATCHECKLISTSVC"), oParameter, oData, "ZRM_TR_AC", this);
 				}
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:fnSubmitResponse function");
@@ -335,13 +338,14 @@ sap.ui.define([
 		fnLoadLocation: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and LFLAG eq L";
+				//	oParameter.filter = "REFID eq " + this.getAircraftId() + " and LFLAG eq L";
+				oParameter.filter = "REFID" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "LFLAG" + FilterOpEnum.EQ + "L"; // Phase 2 Changes 
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("atckModel").setProperty("/location", oData.results);
 					this.getModel("atckModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRTRANSCURRSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRTRANSCURRSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:fnLoadLocation function");
 				this.handleException(e);
@@ -350,13 +354,14 @@ sap.ui.define([
 		fnLoadSqn: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and LFLAG eq S";
+			//	oParameter.filter = "REFID eq " + this.getAircraftId() + " and LFLAG eq S";
+				oParameter.filter = "REFID"+FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND+"LFLAG"+FilterOpEnum.EQ+"S";   // Phase 2 Changes 
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("atckModel").setProperty("/sqn", oData.results);
 					this.getModel("atckModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRTRANSCURRSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRTRANSCURRSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:fnLoadSqn function");
 				this.handleException(e);

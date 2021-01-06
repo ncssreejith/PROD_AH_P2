@@ -4,8 +4,10 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/FieldValidations",
 	"../util/ajaxutil",
-	"../model/formatter"
-], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter) {
+	"../model/formatter",
+		"../util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.PastHistoryWeightBalance", {
@@ -34,7 +36,8 @@ sap.ui.define([
 		_fnGetWeightBalSet: function(sTailId) {
 			var that = this,
 				oPrmWBM = {};
-			oPrmWBM.filter = "tailid eq " + sTailId;
+		//	oPrmWBM.filter = "tailid eq " + sTailId;
+		oPrmWBM.filter = "tailid" + FilterOpEnum.EQ + sTailId; // Phase 2 Changes
 			oPrmWBM.error = function() {
 
 			};
@@ -45,7 +48,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "WeightBalanceSet");
 			};
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("WEBALPASTRECSVC"), oPrmWBM);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALPASTRECSVC"), oPrmWBM);
 		},
 
 		// ***************************************************************************

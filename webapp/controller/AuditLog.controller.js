@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../util/ajaxutil",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, Log) {
+	"sap/base/Log",
+	"avmet/ah/util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.AuditLog", {
@@ -17,7 +19,7 @@ sap.ui.define([
 				this.getRouter().getRoute("AuditLog").attachPatternMatched(this._handleRouteMatched, this);
 				//Rahul: 1/12/2020: 10:59AM: Code Commented-Start.
 				//this.getRouter().getRoute("HistoryLog").attachPatternMatched(this._handleHistoryRouteMatched, this);
-			       	//Rahul: 1/12/2020: 10:59AM: Code Commented-End.
+				//Rahul: 1/12/2020: 10:59AM: Code Commented-End.
 			} catch (e) {
 				Log.error("Exception in onInit function");
 			}
@@ -91,7 +93,7 @@ sap.ui.define([
 				Log.error("Exception in onDialogClose function");
 			}
 		},
-	//Rahul: 1/12/2020: 10:59AM: New Code added-Start.
+		//Rahul: 1/12/2020: 10:59AM: New Code added-Start.
 		/* Function: onSuggestObj
 		 * Parameter: oEvt
 		 * Description: function to show items in predictive search
@@ -107,20 +109,27 @@ sap.ui.define([
 					sDateRange = this.getModel("auditLogModel").getProperty("/PeriodDate"),
 					fromDate = "",
 					toDate = "",
-					filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq J and TAILID eq " + this.getTailId() + " and KEYWORD eq " + sText;
+					//	filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq J and TAILID eq " + this.getTailId() + " and KEYWORD eq " + sText;
+					filter = "PLATFORM" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "FLAG" + FilterOpEnum.EQ + "J" + FilterOpEnum.AND +
+					"TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "KEYWORD" + FilterOpEnum.EQ + sText;
 
 				if (sApplication) {
-					filter = filter.concat(" and POBJECT eq " + sApplication);
+					//	filter = filter.concat(" and POBJECT eq " + sApplication);
+					filter = filter.concat(FilterOpEnum.AND + "POBJECT" + FilterOpEnum.EQ + sApplication);
 				}
 
 				if (sSubApplication) {
-					filter = filter.concat(" and OBJECT eq " + sSubApplication);
+					//	filter = filter.concat(" and OBJECT eq " + sSubApplication);
+					filter = filter.concat(FilterOpEnum.AND + "OBJECT" + FilterOpEnum.EQ + sSubApplication);
 				}
 
 				if (sDateRange) {
 					fromDate = this.formatter.defaultOdataDateFormat(this.getView().byId("drFilter").getDateValue());
 					toDate = this.formatter.defaultOdataDateFormat(this.getView().byId("drFilter").getSecondDateValue());
-					filter = filter.concat(" and ADATE eq " + fromDate + " and TODATE eq " + toDate);
+					//	filter = filter.concat(" and ADATE eq " + fromDate + " and TODATE eq " + toDate
+					filter = filter.concat(FilterOpEnum.AND + "ADATE" + FilterOpEnum.EQ + fromDate + FilterOpEnum.AND + "TODATE" + FilterOpEnum.EQ +
+						toDate
+					);
 				}
 
 				oPrmJobDue.filter = filter;
@@ -130,7 +139,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "ObjectSugg");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in onSuggestObj function");
 				this.handleException(e);
@@ -145,7 +154,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWBM = {};
-				oPrmWBM.filter = "FLAG eq U";
+				//	oPrmWBM.filter = "FLAG eq U";
+				oPrmWBM.filter = "FLAG" + FilterOpEnum.EQ + "U";
 				oPrmWBM.error = function() {
 
 				};
@@ -156,7 +166,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetAudLog function");
 			}
@@ -186,7 +196,7 @@ sap.ui.define([
 				Log.error("Exception in _fnGetAuditDetail function");
 			}
 		},
-			//Rahul: 1/12/2020: 10:59AM: New Code added-End.
+		//Rahul: 1/12/2020: 10:59AM: New Code added-End.
 
 		/* Function: onObjSelect
 		 * Parameter: oEvt
@@ -200,7 +210,9 @@ sap.ui.define([
 
 				var that = this,
 					oPrmWBM = {};
-				oPrmWBM.filter = "POBJECT eq " + sKey + " and FLAG eq S and TAILID eq " + this.getTailId();
+				//	oPrmWBM.filter = "POBJECT eq " + sKey + " and FLAG eq S and TAILID eq " + this.getTailId();
+				oPrmWBM.filter = "POBJECT" + FilterOpEnum.EQ + sKey + FilterOpEnum.AND + "FLAG" + FilterOpEnum.EQ + "S" + FilterOpEnum.AND +
+					"TAILID" + FilterOpEnum.EQ + this.getTailId();
 				oPrmWBM.error = function() {
 
 				};
@@ -214,7 +226,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in onObjSelect function");
 			}
@@ -230,9 +242,13 @@ sap.ui.define([
 				var that = this,
 					oPrmWBM = {};
 				if (sKey === "H") {
-					oPrmWBM.filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq J and TAILID eq " + this.getTailId(); //Rahul:01/11/2020: 11:02AM New filtter added in URL
+					//	oPrmWBM.filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq J and TAILID eq " + this.getTailId(); //Rahul:01/11/2020: 11:02AM New filtter added in URL
+					oPrmWBM.filter = "PLATFORM" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "FLAG" + FilterOpEnum.EQ + "J" +
+						FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + this.getTailId();
 				} else {
-					oPrmWBM.filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq O and TAILID eq " + this.getTailId();
+					//	oPrmWBM.filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq O and TAILID eq " + this.getTailId();
+					oPrmWBM.filter = "PLATFORM" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "FLAG" + FilterOpEnum.EQ + "O" +
+						FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + this.getTailId();
 				}
 
 				oPrmWBM.error = function() {
@@ -248,7 +264,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetApplicationAudLog function");
 			}
@@ -259,53 +275,59 @@ sap.ui.define([
 		 * Description: function when search button is clicked 
 		 */
 		onSearch: function() {
-			
-				var that = this,
-					oPrmWBM = {},
-					sObjId = this.getModel("auditLogModel").getProperty("/ObjectId"),
-					sApplication = this.getModel("auditLogModel").getProperty("/ApplicationKey"),
-					sSubApplication = this.getModel("auditLogModel").getProperty("/ApplicationDetailKey"),
-					sDateRange = this.getModel("auditLogModel").getProperty("/PeriodDate"),
-					fromDate = "",
-					toDate = "",
-					filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq T and TAILID eq " + this.getTailId();
-				if (sObjId) {
-					filter = filter.concat(" and JOBID eq " + sObjId);
+
+			var that = this,
+				oPrmWBM = {},
+				sObjId = this.getModel("auditLogModel").getProperty("/ObjectId"),
+				sApplication = this.getModel("auditLogModel").getProperty("/ApplicationKey"),
+				sSubApplication = this.getModel("auditLogModel").getProperty("/ApplicationDetailKey"),
+				sDateRange = this.getModel("auditLogModel").getProperty("/PeriodDate"),
+				fromDate = "",
+				toDate = "",
+				//	filter = "PLATFORM eq " + this.getAircraftId() + " and FLAG eq T and TAILID eq " + this.getTailId();
+				filter = "PLATFORM" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "FLAG" + FilterOpEnum.EQ + "T" +
+				FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + this.getTailId();
+			if (sObjId) {
+			//	filter = filter.concat(" and JOBID eq " + sObjId);
+			filter = filter.concat(FilterOpEnum.AND + "JOBID" + FilterOpEnum.EQ + sObjId);
+			}
+
+			if (sApplication) {
+			//	filter = filter.concat(" and POBJECT eq " + sApplication);
+				filter = filter.concat(FilterOpEnum.AND + "POBJECT" + FilterOpEnum.EQ + sApplication);
+			}
+
+			if (sSubApplication) {
+			//	filter = filter.concat(" and OBJECT eq " + sSubApplication);
+			filter = filter.concat(FilterOpEnum.AND + "OBJECT" + FilterOpEnum.EQ + sSubApplication);
+			}
+
+			if (sDateRange) {
+				fromDate = this.formatter.defaultOdataDateFormat(this.getView().byId("drFilter").getDateValue()); //Rahul:01/11/2020: 11:02AM New filtter added with formatter
+				toDate = this.formatter.defaultOdataDateFormat(this.getView().byId("drFilter").getSecondDateValue()); //Rahul:01/11/2020: 11:02AM New filtter added with formatter
+			//	filter = filter.concat(" and ADATE eq " + fromDate + " and TODATE eq " + toDate
+			filter = filter.concat(FilterOpEnum.AND + "ADATE" + FilterOpEnum.EQ + fromDate + FilterOpEnum.AND + "TODATE" + FilterOpEnum.EQ +
+						toDate);
+			}
+
+			oPrmWBM.filter = filter;
+
+			oPrmWBM.error = function() {
+
+			};
+
+			oPrmWBM.success = function(oData) {
+				if (oData && oData.results.length > 0) {
+					this.getModel("auditLogModel").setProperty("/TableDataSet", oData.results);
+				} else {
+					sap.m.MessageToast.show("No record(s) found");
+					this.getModel("auditLogModel").setProperty("/TableDataSet", []);
 				}
 
-				if (sApplication) {
-					filter = filter.concat(" and POBJECT eq " + sApplication);
-				}
+			}.bind(this);
 
-				if (sSubApplication) {
-					filter = filter.concat(" and OBJECT eq " + sSubApplication);
-				}
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 
-				if (sDateRange) {
-					fromDate = this.formatter.defaultOdataDateFormat(this.getView().byId("drFilter").getDateValue());        //Rahul:01/11/2020: 11:02AM New filtter added with formatter
-					toDate = this.formatter.defaultOdataDateFormat(this.getView().byId("drFilter").getSecondDateValue());    //Rahul:01/11/2020: 11:02AM New filtter added with formatter
-					filter = filter.concat(" and ADATE eq " + fromDate + " and TODATE eq " + toDate);
-				}
-
-				oPrmWBM.filter = filter;
-
-				oPrmWBM.error = function() {
-
-				};
-
-				oPrmWBM.success = function(oData) {
-					if (oData && oData.results.length > 0) {
-						this.getModel("auditLogModel").setProperty("/TableDataSet", oData.results);
-					} else {
-						sap.m.MessageToast.show("No record(s) found");
-						this.getModel("auditLogModel").setProperty("/TableDataSet", []);
-					}
-
-				}.bind(this);
-
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
-
-			
 		},
 
 		/* Function: onSelectionChange
@@ -313,34 +335,34 @@ sap.ui.define([
 		 * Description: function to intialize local model when route is matched
 		 */
 		_handleRouteMatched: function(oEvent) {
-			try {
-				//this._fnGetUserAudLog(); //Rahul:01/11/2020: 11:02AM Code commented
-				this._fnGetApplicationAudLog();
-				this.getView().setModel(new JSONModel({}), "auditLogModel");
-				this.getView().getModel("auditLogModel").setSizeLimit(10000);
-				this.getModel("auditLogModel").setProperty("/Title", "Audit Log Report");
-				this.getModel("auditLogModel").setProperty("/flag", null);
-				this.getModel("auditLogModel").setProperty("/isActionEnabled", false);
-			} catch (e) {
-				Log.error("Exception in _handleRouteMatched function");
+				try {
+					//this._fnGetUserAudLog(); //Rahul:01/11/2020: 11:02AM Code commented
+					this._fnGetApplicationAudLog();
+					this.getView().setModel(new JSONModel({}), "auditLogModel");
+					this.getView().getModel("auditLogModel").setSizeLimit(10000);
+					this.getModel("auditLogModel").setProperty("/Title", "Audit Log Report");
+					this.getModel("auditLogModel").setProperty("/flag", null);
+					this.getModel("auditLogModel").setProperty("/isActionEnabled", false);
+				} catch (e) {
+					Log.error("Exception in _handleRouteMatched function");
+				}
 			}
-		}
-//Rahul:01/11/2020: 11:02AM Code commented not needed-Start
-		// _handleHistoryRouteMatched: function(oEvent) {
-		// 	try {
-		// 		this.getView().setModel(new JSONModel({}), "auditLogModel");
-		// 		var jobId = oEvent.getParameter("arguments").JobId,
-		// 			sFlag = oEvent.getParameter("arguments").Flag;
-		// 		this.getModel("auditLogModel").setProperty("/Title", "History");
-		// 		this.getModel("auditLogModel").setProperty("/SubTitle", "Job :" + jobId);
-		// 		this.getModel("auditLogModel").setProperty("/isActionEnabled", false);
-		// 		this.getModel("auditLogModel").setProperty("/flag", sFlag);
-		// 		this._fnGetApplicationAudLog(sFlag, jobId);
-		// 	} catch (e) {
-		// 		Log.error("Exception in _handleHistoryRouteMatched function");
-		// 	}
-		// }
-	//Rahul:01/11/2020: 11:02AM Code commented not needed-End	
+			//Rahul:01/11/2020: 11:02AM Code commented not needed-Start
+			// _handleHistoryRouteMatched: function(oEvent) {
+			// 	try {
+			// 		this.getView().setModel(new JSONModel({}), "auditLogModel");
+			// 		var jobId = oEvent.getParameter("arguments").JobId,
+			// 			sFlag = oEvent.getParameter("arguments").Flag;
+			// 		this.getModel("auditLogModel").setProperty("/Title", "History");
+			// 		this.getModel("auditLogModel").setProperty("/SubTitle", "Job :" + jobId);
+			// 		this.getModel("auditLogModel").setProperty("/isActionEnabled", false);
+			// 		this.getModel("auditLogModel").setProperty("/flag", sFlag);
+			// 		this._fnGetApplicationAudLog(sFlag, jobId);
+			// 	} catch (e) {
+			// 		Log.error("Exception in _handleHistoryRouteMatched function");
+			// 	}
+			// }
+			//Rahul:01/11/2020: 11:02AM Code commented not needed-End	
 
 	});
 
