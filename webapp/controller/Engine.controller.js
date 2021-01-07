@@ -596,7 +596,6 @@ sap.ui.define([
 					}
 					// oEngineModel.setProperty("/EngineSchedule", oData.results);
 				}.bind(this);
-				// ajaxutil.fnRead(this.getResourceBundle().getText("DELESJOBSSVC"), oParameter);
 				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngScheule function");
