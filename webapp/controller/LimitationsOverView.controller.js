@@ -198,7 +198,7 @@ sap.ui.define([
 					this.getRouter().navTo("DashboardInitial", true);
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("STARTRECTIFICSVC"), oParameter, [oPayload], "ZRM_ADDL", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("STARTRECTIFICSVC"), oParameter, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onStartRect function");
 
@@ -292,7 +292,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnGetMark function");
 

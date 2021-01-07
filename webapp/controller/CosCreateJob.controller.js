@@ -417,7 +417,7 @@ sap.ui.define([
 						that.removeCoordinates(oModel.XCor, oModel.YCor, oCanvas);
 					}
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnCreateMark function");
 
@@ -463,7 +463,7 @@ sap.ui.define([
 						that.removeCoordinates(oModel.XCor, oModel.YCor, oCanvas);
 					}
 				}.bind(this);
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnUpdateMark function");
 
@@ -482,7 +482,8 @@ sap.ui.define([
 					that = this,
 					oPayload;
 				oModel = that.getModel("appModel").getData();
-				oPrmMark.filter = "jobid eq " + sjobid + " and tailid eq " + sTailId;
+			//	oPrmMark.filter = "jobid eq " + sjobid + " and tailid eq " + sTailId;
+				oPrmMark.filter = "jobid"+FilterOpEnum.EQ+ sjobid +FilterOpEnum.AND+ "tailid"+FilterOpEnum.EQ + sTailId;
 				oPrmMark.error = function() {};
 				oPrmMark.success = function(oData) {
 					if (oData && oData.results.length > 0) {
@@ -504,7 +505,7 @@ sap.ui.define([
 					}
 
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnGetMark function");
 
@@ -596,14 +597,15 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWorkCen = {};
-				oPrmWorkCen.filter = "REFID eq " + sAirId;
+			//	oPrmWorkCen.filter = "REFID eq " + sAirId;
+				oPrmWorkCen.filter = "REFID"+FilterOpEnum.EQ+ sAirId;
 				oPrmWorkCen.error = function() {};
 				oPrmWorkCen.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnWorkCenterGet function");
 

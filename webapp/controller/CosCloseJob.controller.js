@@ -406,14 +406,15 @@ sap.ui.define([
 				var that = this,
 					sAirId = this.getModel("ViewModel").getProperty("/sAirId"),
 					oPrmWorkCen = {};
-				oPrmWorkCen.filter = "REFID eq " + sAirId;
+			//	oPrmWorkCen.filter = "REFID eq " + sAirId;
+				oPrmWorkCen.filter = "REFID"+FilterOpEnum.EQ+ sAirId;
 				oPrmWorkCen.error = function() {};
 				oPrmWorkCen.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnWorkCenterGet function");
 

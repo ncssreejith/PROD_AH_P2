@@ -472,7 +472,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWorkCen = {};
-				oPrmWorkCen.filter = "REFID eq " + that.getAircraftId();
+			//	oPrmWorkCen.filter = "REFID eq " + that.getAircraftId();
+					oPrmWorkCen.filter = "REFID"+FilterOpEnum.EQ+ that.getAircraftId();
 				oPrmWorkCen.error = function() {
 
 				};
@@ -483,7 +484,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "WorkCenterSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in _fnWorkCenterGet function");
 			}

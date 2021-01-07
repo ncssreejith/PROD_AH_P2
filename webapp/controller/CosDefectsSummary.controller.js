@@ -879,8 +879,8 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("appModel"),
 					oPrmJobDue = {};
-			//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq UTIL";
-					oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + this.getAircraftId() +
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq UTIL";
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + this.getAircraftId() +
 					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "UTIL";
 				oPrmJobDue.error = function() {};
 
@@ -1090,8 +1090,8 @@ sap.ui.define([
 					oLocalModel = this.getView().getModel("LocalModel"),
 					oJobModel = this.getView().getModel("JobModel"),
 					oPrmTaskDue = {};
-			//	oPrmTaskDue.filter = "TAILID eq " + sTailId;
-				oPrmTaskDue.filter = "TAILID"+FilterOpEnum.EQ+ sTailId;
+				//	oPrmTaskDue.filter = "TAILID eq " + sTailId;
+				oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + sTailId;
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {
 					try {
@@ -1765,7 +1765,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWorkCen = {};
-				oPrmWorkCen.filter = "REFID eq " + sAirId;
+				//	oPrmWorkCen.filter = "REFID eq " + sAirId;
+				oPrmWorkCen.filter = "REFID" + FilterOpEnum.EQ + sAirId;
 				oPrmWorkCen.error = function() {
 
 				};
@@ -1776,7 +1777,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "WorkCenterSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnWorkCenterGet function");
 
@@ -2251,7 +2252,8 @@ sap.ui.define([
 					that = this,
 					oPayload;
 				oModel = that.getView().getModel("appModel").getData();
-				oPrmMark.filter = "jobid eq " + sjobid;
+				//	oPrmMark.filter = "jobid eq " + sjobid;
+				oPrmMark.filter = "jobid" + FilterOpEnum.EQ + sjobid;
 
 				oPrmMark.error = function() {
 
@@ -2277,7 +2279,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnGetMark function");
 
@@ -2294,8 +2296,8 @@ sap.ui.define([
 					oJobModel = this.getView().getModel("JobModel"),
 					oModel = this.getView().getModel("LocalModel"),
 					oPrmTask = {};
-				oPrmTask.filter = "JOB_ID eq " + sJobId;
-
+				//		oPrmTask.filter = "JOB_ID eq " + sJobId;
+				oPrmTask.filter = "JOB_ID"+FilterOpEnum.EQ + sJobId;
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					if (oData && oData.results.length > 0) {
@@ -2323,7 +2325,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("TOOLCHECKVALSVC"), oPrmTask);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TOOLCHECKVALSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in _fnToolCheck function");
 			}

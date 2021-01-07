@@ -765,12 +765,13 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmCAPStatus = {};
-				oPrmCAPStatus.filter = "airid eq " + that.getAircraftId() + " and Tailid eq " + that.getTailId();
+			//	oPrmCAPStatus.filter = "airid eq " + that.getAircraftId() + " and Tailid eq " + that.getTailId();
+				oPrmCAPStatus.filter = "airid"+FilterOpEnum.EQ+ that.getAircraftId() +FilterOpEnum.AND+"Tailid"+FilterOpEnum.EQ+ that.getTailId();
 				oPrmCAPStatus.error = function() {};
 
 				oPrmCAPStatus.success = function(oData) {}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("CHECKCAPSTATUSSVC"), oPrmCAPStatus);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("CHECKCAPSTATUSSVC"), oPrmCAPStatus);
 			} catch (e) {
 				Log.error("Exception in fnCheckCapStatus function");
 			}
@@ -919,12 +920,14 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmLimGet = {};
-				oPrmLimGet.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+		//		oPrmLimGet.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+				oPrmLimGet.filter = "CAPTY" + FilterOpEnum.EQ + "A&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
+					that.getTailId();
 				oPrmLimGet.error = function() {};
 
 				oPrmLimGet.success = function(oData) {}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("CHECKADDLIMITATIONSSVC"), oPrmLimGet);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("CHECKADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnADDGet function");
 				this.handleException(e);
@@ -937,10 +940,12 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmLimGet = {};
-				oPrmLimGet.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+			//	oPrmLimGet.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+				oPrmLimGet.filter = "CAPTY" + FilterOpEnum.EQ + "L&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
+					that.getTailId();
 				oPrmLimGet.error = function() {};
 				oPrmLimGet.success = function(oData) {}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("CHECKADDLIMITATIONSSVC"), oPrmLimGet);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("CHECKADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnLimitationsGet function");
 				this.handleException(e);

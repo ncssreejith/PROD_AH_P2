@@ -140,10 +140,10 @@ sap.ui.define([
 				var sEngID = oEngineModel.getProperty("/ENGID");
 				if (sEngID && sEngID !== " ") {
 					//oParameter.filter = "ENGID eq '" + sEngID + "'";
-					oParameter.filter = "ENGID"+FilterOpEnum.EQ+ sEngID;
+					oParameter.filter = "ENGID" + FilterOpEnum.EQ + sEngID;
 				} else {
-				//	oParameter.filter = "tailid eq '" + this.getTailId() + "'";
-					oParameter.filter = "tailid"+FilterOpEnum.EQ+ this.getTailId();
+					//	oParameter.filter = "tailid eq '" + this.getTailId() + "'";
+					oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId();
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -180,7 +180,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWorkCen = {};
-				oPrmWorkCen.filter = "REFID eq " + sAir;
+				//	oPrmWorkCen.filter = "REFID eq " + sAir;
+				oPrmWorkCen.filter = "REFID" + FilterOpEnum.EQ + sAir;
 				oPrmWorkCen.error = function() {
 
 				};
@@ -191,7 +192,7 @@ sap.ui.define([
 					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in _fnWorkCenterGet function");
 			}

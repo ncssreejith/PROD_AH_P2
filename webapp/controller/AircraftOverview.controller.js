@@ -4,7 +4,6 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
 	"../util/ajaxutil",
-	"sap/m/MessageBox",
 	"sap/base/Log",
 	"avmet/ah/util/FilterOpEnum",
 	"../util/ajaxutilNew"

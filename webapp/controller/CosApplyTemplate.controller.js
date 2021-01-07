@@ -8,8 +8,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../model/AvMetInitialRecord",
 	"sap/ui/model/json/JSONModel",
-	"sap/base/Log"
-], function(BaseController, dataUtil, Fragment, formatter, MessageBox, ajaxutil, FieldValidations, AvMetInitialRecord, JSONModel, Log) {
+	"sap/base/Log",
+		"avmet/ah/util/FilterOpEnum",
+	"../util/ajaxutilNew"
+], function(BaseController, dataUtil, Fragment, formatter, MessageBox, ajaxutil, FieldValidations, AvMetInitialRecord, JSONModel, Log, FilterOpEnum, ajaxutilNew) {
 	"use strict";
 
 	/* ***************************************************************************
@@ -104,14 +106,15 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWorkCen = {};
-				oPrmWorkCen.filter = "REFID eq " + this.getAircraftId();
+			//	oPrmWorkCen.filter = "REFID eq " + this.getAircraftId();
+				oPrmWorkCen.filter = "REFID"+FilterOpEnum.EQ + this.getAircraftId();
 				oPrmWorkCen.error = function() {};
 				oPrmWorkCen.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:_fnWorkCenterGet function");
 				

@@ -180,7 +180,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutil.fnUpdate(this.getResourceBundle().getText("STARTRECTIFICSVC"), oParameter, [oPayload]);
+			ajaxutilNew.fnUpdate(this.getResourceBundle().getText("STARTRECTIFICSVC"), oParameter, [oPayload]);
 
 		},
 		_fnADDCapDataGet: function(sFlag, sJobId, sCapId) {
