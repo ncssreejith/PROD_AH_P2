@@ -6,8 +6,10 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../util/ajaxutil",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, dataUtil, Fragment, FieldValidations, JSONModel, ajaxutil, formatter, Log) {
+	"sap/base/Log",
+		"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, FieldValidations, JSONModel, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -60,7 +62,7 @@ sap.ui.define([
 					this.fnLoadTrialMod();
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("TRAILMONSVC"), oParameter, [payload], "ZRM_T_MOD", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("TRAILMONSVC"), oParameter, [payload], "ZRM_T_MOD", this);
 			} catch (e) {
 				Log.error("Exception in Trial_Mod:onRaiseTrailMod function");
 				this.handleException(e);
@@ -117,14 +119,15 @@ sap.ui.define([
 			try {
 				var sPath = this.getResourceBundle().getText("TRAILMONSVC") + "/"; // + this.getTailId();
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId(); // + " and tailid eq " + this.getTailId() + " and trial eq " + "X";
+			//	oParameter.filter = "tailid eq " + this.getTailId(); // + " and tailid eq " + this.getTailId() + " and trial eq " + "X";
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId(); 
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var oTrial = oData.results;
 					this.getModel("trialModel").setProperty("/", oTrial);
 					this.getModel("trialModel").refresh(true);
 				}.bind(this);
-				ajaxutil.fnRead(sPath, oParameter);
+				ajaxutilNew.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in Trial_Mod:fnLoadTrialMod function");
 				this.handleException(e);
@@ -153,7 +156,7 @@ sap.ui.define([
 					// this.getModel("trialModel").setProperty("/", oTrial);
 					// this.getModel("trialModel").refresh(true);
 				}.bind(this);
-				ajaxutil.fnUpdate(sPath, oParameter, oData, "ZRM_T_MOD", this);
+				ajaxutilNew.fnUpdate(sPath, oParameter, oData, "ZRM_T_MOD", this);
 			} catch (e) {
 				Log.error("Exception in Trial_Mod:fnUpdateDeMod function");
 				this.handleException(e);

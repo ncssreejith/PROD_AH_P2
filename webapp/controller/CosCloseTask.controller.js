@@ -571,7 +571,8 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/AirId") + " and ddid eq UTIL2_";*/
-				oPrmJobDue.filter = "ddid eq UTIL2_";
+			//	oPrmJobDue.filter = "ddid eq UTIL2_";
+					oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "UTIL2_";
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -579,7 +580,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "Utilization2CBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnUtilization2Get function");
 
@@ -596,7 +597,8 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/AirId") + " and ddid eq 118_";*/
-				oPrmJobDue.filter = "ddid eq 118_";
+			//	oPrmJobDue.filter = "ddid eq 118_";
+				oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "118_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -607,7 +609,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "PerioOfDeferCBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnPerioOfDeferCBGet function");
 

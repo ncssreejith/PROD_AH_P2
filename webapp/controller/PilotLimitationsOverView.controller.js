@@ -242,7 +242,8 @@ sap.ui.define([
 			var that = this,
 				oModel = this.getView().getModel("oViewModel"),
 				oPrmJobDue = {};
-			oPrmJobDue.filter = "airid" + FilterOpEnum + sAirId + "&ddid" + FilterOpEnum + "118_";
+		//	oPrmJobDue.filter = "airid" + FilterOpEnum + sAirId + "&ddid" + FilterOpEnum + "118_";
+				oPrmJobDue.filter = "airid" + FilterOpEnum.EQ +sAirId+ FilterOpEnum.AND+"ddid"+FilterOpEnum.EQ+"118_";
 			oPrmJobDue.error = function() {
 
 			};

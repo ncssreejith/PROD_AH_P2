@@ -366,7 +366,8 @@ sap.ui.define([
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";*/
-				oPrmJobDue.filter = "ddid eq 118_";
+			//	oPrmJobDue.filter = "ddid eq 118_";
+				oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "118_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -379,7 +380,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnPerioOfDeferCBGet function");
 
@@ -424,7 +425,8 @@ sap.ui.define([
 				var that = this,
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + this.getAircraftId() + " and ddid eq UTIL2_";*/
-				oPrmJobDue.filter = "ddid eq UTIL2_";
+			//	oPrmJobDue.filter = "ddid eq UTIL2_";
+			oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "UTIL2_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -437,7 +439,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
 

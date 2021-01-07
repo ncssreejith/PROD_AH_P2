@@ -533,7 +533,8 @@ sap.ui.define([
 
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "ftype eq S and tailid eq " + this.getTailId(); //Change by Teck Meng on 25/11/2020 11:30
+				//	oParameter.filter = "ftype eq S and tailid eq " + this.getTailId(); //Change by Teck Meng on 25/11/2020 11:30
+				oParameter.filter = "ftype" + FilterOpEnum.EQ + "S" + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId(); //Change by Teck Meng on 25/11/2020 11:30
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T5_FREQ");
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/count", oData.results.length);
@@ -543,7 +544,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
 				// ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);//Change by Teck Meng on 25/11/2020 11:30
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
 			} catch (e) {
 				Log.error("Exception in _getFLyReq function");
 			}
@@ -598,8 +599,8 @@ sap.ui.define([
 		_getPastMonthDefects: function() {
 			try {
 				var oParameter = {};
-			//	oParameter.filter = "jobty eq pd and tailid eq " + this.getTailId();
-			oParameter.filter = "jobty" + FilterOpEnum.EQ + "pd" + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
+				//	oParameter.filter = "jobty eq pd and tailid eq " + this.getTailId();
+				oParameter.filter = "jobty" + FilterOpEnum.EQ + "pd" + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T10_PASTD");
@@ -676,7 +677,8 @@ sap.ui.define([
 		_getTrailMod: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId();
+				//	oParameter.filter = "tailid eq " + this.getTailId();
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T11_TMOD");
@@ -686,7 +688,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/trailMod", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("TRAILMONSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TRAILMONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTrailMod function");
 			}

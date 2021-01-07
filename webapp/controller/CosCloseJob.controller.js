@@ -383,13 +383,14 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmTaskDue = {};
-				oPrmTaskDue.filter = "JOBID eq " + sJobId;
+			//	oPrmTaskDue.filter = "JOBID eq " + sJobId;
+				oPrmTaskDue.filter = "JOBID"+FilterOpEnum.EQ+ sJobId;
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {
 					oModel.setProperty("/TaskStatus", oData.results[0].COUNT);
 					oModel.updateBindings(true);
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnTaskStatusGet function");
 

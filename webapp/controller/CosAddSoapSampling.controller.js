@@ -131,7 +131,8 @@ sap.ui.define([
 		_fnReasonSOAPGet: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "ddid eq 125_";
+			//	oParameter.filter = "ddid eq 125_";
+				oParameter.filter = "ddid" + FilterOpEnum.EQ + "125_";
 				oParameter.error = function() {
 
 				};
@@ -140,7 +141,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					this.getView().setModel(oModel, "ReasonSOAPModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in CosAddSoapSampling:_fnReasonSOAPGet function");
 				this.handleException(e);

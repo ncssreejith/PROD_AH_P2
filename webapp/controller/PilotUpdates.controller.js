@@ -721,7 +721,7 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function() {};
 				// ajaxutil.fnUpdate(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter, oPayloads);//Change by Teck Meng on 25/11/2020 11:30
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter, oPayloads); //Change by Teck Meng on 25/11/2020 11:30
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter, oPayloads); //Change by Teck Meng on 25/11/2020 11:30
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateFlyReq function");
 				this.handleException(e);
@@ -1245,7 +1245,8 @@ sap.ui.define([
 			try {
 
 				var oParameter = {};
-				oParameter.filter = "ftype eq S and tailid eq " + this.getTailId(); //Change by Teck Meng on 25/11/2020 11:30
+			//	oParameter.filter = "ftype eq S and tailid eq " + this.getTailId(); //Change by Teck Meng on 25/11/2020 11:30
+				oParameter.filter = "ftype" + FilterOpEnum.EQ + "S" + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -1257,7 +1258,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
 				// ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);//Change by Teck Meng on 25/11/2020 11:30
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadFlyReq function");
 				this.handleException(e);

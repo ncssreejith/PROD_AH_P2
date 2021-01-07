@@ -472,7 +472,8 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + this.getAircraftId() + " and ddid eq UTIL2_";*/
-				oPrmJobDue.filter = "ddid eq UTIL2_";
+			//	oPrmJobDue.filter = "ddid eq UTIL2_";
+			oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "UTIL2_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -483,7 +484,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "Utilization2CBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnUtilization2Get function");
 
@@ -598,7 +599,8 @@ sap.ui.define([
 					oModel,
 					that = this,
 					oPayload;
-				oPrmDD.filter = "ttid eq TT2_ and airid eq " + that.getAircraftId();
+				//	oPrmDD.filter = "ttid eq TT2_ and airid eq " + that.getAircraftId();
+				oPrmDD.filter = "ttid" + FilterOpEnum.EQ + "TT2_" + FilterOpEnum.AND + "airid" + FilterOpEnum.EQ + that.getAircraftId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -608,7 +610,7 @@ sap.ui.define([
 					this._fnGetTaskDescDropDown();
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in _fnGetTaskDropDown function");
 			}
@@ -626,7 +628,8 @@ sap.ui.define([
 					oModel,
 					that = this,
 					oPayload;
-				oPrmDD.filter = "ttid eq TT3_ and airid eq " + that.getAircraftId();
+				//	oPrmDD.filter = "ttid eq TT3_ and airid eq " + that.getAircraftId();
+				oPrmDD.filter = "ttid" + FilterOpEnum.EQ + "TT3_" + FilterOpEnum.AND + "airid" + FilterOpEnum.EQ + that.getAircraftId();
 				oPrmDD.error = function() {};
 				oPrmDD.success = function(oData) {
 					oModel = dataUtil.createNewJsonModel();
@@ -634,7 +637,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TaskDescModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in _fnGetTaskDescDropDown function");
 			}
@@ -651,7 +654,9 @@ sap.ui.define([
 					oModel,
 					that = this,
 					oPayload;
-				oPrmDD.filter = "ttid eq TT3_10 and tflag eq X and airid eq " + that.getAircraftId();
+				//	oPrmDD.filter = "ttid eq TT3_10 and tflag eq X and airid eq " + that.getAircraftId();
+				oPrmDD.filter = "ttid" + FilterOpEnum.EQ + "TT3_10" + FilterOpEnum.AND + "tflag" + FilterOpEnum.EQ + "X" + FilterOpEnum.AND +
+					"airid" + FilterOpEnum.EQ + that.getAircraftId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -660,7 +665,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TT310Model");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in _fnGetTaskTT310DropDown function");
 			}
@@ -678,6 +683,8 @@ sap.ui.define([
 					that = this,
 					oPayload;
 				oPrmDD.filter = "ttid eq TT3_11 and tflag eq X and airid eq " + that.getAircraftId();
+				oPrmDD.filter = "ttid" + FilterOpEnum.EQ + "TT3_11" + FilterOpEnum.AND + "tflag" + FilterOpEnum.EQ + "X" + FilterOpEnum.AND +
+					"airid" + FilterOpEnum.EQ + that.getAircraftId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -686,7 +693,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TT311Model");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in _fnGetTaskTT311DropDown function");
 			}
@@ -777,7 +784,8 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("LocalModel"),
 					oPrmTaskDue = {};
-				oPrmTaskDue.filter = "JOBID eq " + sJobId;
+			//	oPrmTaskDue.filter = "JOBID eq " + sJobId;
+				oPrmTaskDue.filter = "JOBID"+FilterOpEnum.EQ+ sJobId;
 				oPrmTaskDue.error = function() {
 
 				};
@@ -791,7 +799,7 @@ sap.ui.define([
 						oModel.updateBindings(true);
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnTaskStatusGet function");
 
@@ -931,7 +939,9 @@ sap.ui.define([
 					oModel,
 					that = this,
 					oPayload;
-				oPrmDD.filter = "ttid eq TT1_ and tflag eq Y and airid eq " + that.getAircraftId();
+				//	oPrmDD.filter = "ttid eq TT1_ and tflag eq Y and airid eq " + that.getAircraftId();
+				oPrmDD.filter = "ttid" + FilterOpEnum.EQ + "TT1_" + FilterOpEnum.AND + "tflag" + FilterOpEnum.EQ + "Y" + FilterOpEnum.AND +
+					"airid" + FilterOpEnum.EQ + that.getAircraftId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -981,7 +991,8 @@ sap.ui.define([
 					oModelView = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + sAirId + " and ddid eq 118_";*/
-				oPrmJobDue.filter = "ddid eq 118_"; //Rahul: 03/12/2020 06.11PM: Filter parameter changed
+			//	oPrmJobDue.filter = "ddid eq 118_"; //Rahul: 03/12/2020 06.11PM: Filter parameter changed
+					oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "118_";
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					oModel = dataUtil.createNewJsonModel();
@@ -989,7 +1000,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "PerioOfDeferCBModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnPerioOfDeferCBGet function");
 			}
@@ -2297,7 +2308,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("LocalModel"),
 					oPrmTask = {};
 				//		oPrmTask.filter = "JOB_ID eq " + sJobId;
-				oPrmTask.filter = "JOB_ID"+FilterOpEnum.EQ + sJobId;
+				oPrmTask.filter = "JOB_ID" + FilterOpEnum.EQ + sJobId;
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					if (oData && oData.results.length > 0) {

@@ -482,8 +482,8 @@ sap.ui.define([
 					that = this,
 					oPayload;
 				oModel = that.getModel("appModel").getData();
-			//	oPrmMark.filter = "jobid eq " + sjobid + " and tailid eq " + sTailId;
-				oPrmMark.filter = "jobid"+FilterOpEnum.EQ+ sjobid +FilterOpEnum.AND+ "tailid"+FilterOpEnum.EQ + sTailId;
+				//	oPrmMark.filter = "jobid eq " + sjobid + " and tailid eq " + sTailId;
+				oPrmMark.filter = "jobid" + FilterOpEnum.EQ + sjobid + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + sTailId;
 				oPrmMark.error = function() {};
 				oPrmMark.success = function(oData) {
 					if (oData && oData.results.length > 0) {
@@ -597,8 +597,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWorkCen = {};
-			//	oPrmWorkCen.filter = "REFID eq " + sAirId;
-				oPrmWorkCen.filter = "REFID"+FilterOpEnum.EQ+ sAirId;
+				//	oPrmWorkCen.filter = "REFID eq " + sAirId;
+				oPrmWorkCen.filter = "REFID" + FilterOpEnum.EQ + sAirId;
 				oPrmWorkCen.error = function() {};
 				oPrmWorkCen.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -780,7 +780,8 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("appModel"),
 					oPrmTaskDue = {};
-				oPrmTaskDue.filter = "JOBID eq " + sJobId + " and wrctr eq " + sPrime;
+				//	oPrmTaskDue.filter = "JOBID eq " + sJobId + " and wrctr eq " + sPrime;
+				oPrmTaskDue.filter = "JOBID" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "wrctr" + FilterOpEnum.EQ + sPrime;
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {
 					if (oData.results[0].COUNT !== "0") {
@@ -791,7 +792,7 @@ sap.ui.define([
 						oModel.updateBindings(true);
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnTaskStatusGet function");
 			}

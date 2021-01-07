@@ -6,8 +6,10 @@ sap.ui.define([
 	"../model/AvMetInitialRecord",
 	"../util/ajaxutil",
 	"sap/base/Log",
-	"sap/m/MessageBox"
-], function(BaseController, dataUtil, FieldValidations, formatter, AvMetInitialRecord, ajaxutil, Log, MessageBox) {
+	"sap/m/MessageBox",
+		"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, FieldValidations, formatter, AvMetInitialRecord, ajaxutil, Log, MessageBox, ajaxutilNew,FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAHUL THORAT   
@@ -351,7 +353,8 @@ sap.ui.define([
 					oModel,
 					that = this,
 					oPayload;
-				oPrmDD.filter = "ttid eq TT1_ and airid eq " + that.getAircraftId();
+			//	oPrmDD.filter = "ttid eq TT1_ and airid eq " + that.getAircraftId();
+				oPrmDD.filter = "ttid"+FilterOpEnum.EQ+"TT1_"+FilterOpEnum.AND+"airid"+FilterOpEnum.EQ+that.getAircraftId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -360,7 +363,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TaskMainListModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetMainTaskDropDown function");
 				
@@ -378,7 +381,8 @@ sap.ui.define([
 					oModel,
 					that = this,
 					oPayload;
-				oPrmDD.filter = "ttid eq TT2_ and airid eq " + that.getAircraftId();
+			//	oPrmDD.filter = "ttid eq TT2_ and airid eq " + that.getAircraftId();
+				oPrmDD.filter = "ttid"+FilterOpEnum.EQ+"TT2_"+FilterOpEnum.AND+"airid"+FilterOpEnum.EQ+that.getAircraftId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -388,7 +392,7 @@ sap.ui.define([
 					this._fnGetTaskDescDropDown();
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskDropDown function");
 				
@@ -406,7 +410,8 @@ sap.ui.define([
 					oModel,
 					that = this,
 					oPayload;
-				oPrmDD.filter = "ttid eq TT3_ and airid eq " + that.getAircraftId();
+			//	oPrmDD.filter = "ttid eq TT3_ and airid eq " + that.getAircraftId();
+			oPrmDD.filter = "ttid"+FilterOpEnum.EQ+"TT3_"+FilterOpEnum.AND+"airid"+FilterOpEnum.EQ+that.getAircraftId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -416,7 +421,7 @@ sap.ui.define([
 					//that._fnGetTaskSubDescDropDown();
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskDescDropDown function");
 				
@@ -434,7 +439,8 @@ sap.ui.define([
 					oModel,
 					that = this,
 					oPayload;
-				oPrmDD.filter = "ttid eq TT3_10 and tflag eq X and airid eq " + that.getAircraftId();
+			//	oPrmDD.filter = "ttid eq TT3_10 and tflag eq X and airid eq " + that.getAircraftId();
+				oPrmDD.filter = "ttid"+FilterOpEnum.EQ+"TT3_10"+FilterOpEnum.AND+"tflag"+FilterOpEnum.EQ+"X"+FilterOpEnum.AND+"airid"+FilterOpEnum.EQ+that.getAircraftId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -443,7 +449,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TT310Model");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskTT310DropDown function");
 				
@@ -461,7 +467,8 @@ sap.ui.define([
 					oModel,
 					that = this,
 					oPayload;
-				oPrmDD.filter = "ttid eq TT3_11 and tflag eq X and airid eq " + that.getAircraftId();
+			//	oPrmDD.filter = "ttid eq TT3_11 and tflag eq X and airid eq " + that.getAircraftId();
+			oPrmDD.filter = "ttid"+FilterOpEnum.EQ+"TT3_11"+FilterOpEnum.AND+"tflag"+FilterOpEnum.EQ+"X"+FilterOpEnum.AND+"airid"+FilterOpEnum.EQ+that.getAircraftId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -470,7 +477,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TT311Model");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskTT311DropDown function");
 				

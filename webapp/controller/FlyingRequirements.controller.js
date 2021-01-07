@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../model/formatter",
 	"../util/ajaxutil",
-	"sap/base/Log"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log) {
+	"sap/base/Log",
+		"../util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -43,14 +45,15 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmTD = {};
-				oPrmTD.filter = "TAILID eq " + that.getTailId();
+			//	oPrmTD.filter = "TAILID eq " + that.getTailId();
+			oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + that.getTailId();
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "FRAllModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oPrmTD);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in _fnFlyingRequirementsMasterGet function");
 			}
@@ -71,7 +74,7 @@ sap.ui.define([
 					that._fnFlyingRequirementsMasterGet();
 				}.bind(this);
 				oPrmFR.activity = 4;
-				ajaxutil.fnDelete(sPath, oPrmFR, "dummy", this);
+				ajaxutilNew.fnDelete(sPath, oPrmFR, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in onFlyingRequirementDelete function");
 			}
@@ -95,7 +98,7 @@ sap.ui.define([
 					that.onFlyingRequirementClose();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter, [oPayload], "dummy", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter, [oPayload], "dummy", this);
 			} catch (e) {
 				Log.error("Exception in onFlyingRequirementUpdate function");
 			}
