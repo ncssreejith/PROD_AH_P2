@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../model/formatter",
 	"../util/ajaxutil",
-	"sap/base/Log"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log) {
+	"sap/base/Log",
+		"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAJAT GUPTA 
@@ -73,7 +75,9 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmTD = {};
-				oPrmTD.filter = "TAILID eq " + that.getTailId() + " AND FLAG EQ H AND JOBID EQ " + sJobId + " AND SORNO EQ " + sSORNO;
+			//	oPrmTD.filter = "TAILID eq " + that.getTailId() + " AND FLAG EQ H AND JOBID EQ " + sJobId + " AND SORNO EQ " + sSORNO;
+				oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + that.getTailId() + "&FLAG" + FilterOpEnum.EQ + "H&JOBID" + FilterOpEnum.EQ + sJobId +
+					"&SORNO" + FilterOpEnum.EQ + sSORNO;
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
@@ -82,7 +86,7 @@ sap.ui.define([
 						that.getView().setModel(oModel, "SortiHeader");
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:_fnSortieMonitoringHeaderGet function");
 
@@ -100,7 +104,9 @@ sap.ui.define([
 				var that = this,
 					oPrmTD = {};
 						var oModel = dataUtil.createNewJsonModel(); //Rahul: 08/12/2020:04:51Pm Model declaration moved to Start
-				oPrmTD.filter = "TAILID eq " + that.getTailId() + " AND FLAG EQ D AND JOBID EQ " + sJobId + " AND SORNO EQ " + sSORNO;
+			//	oPrmTD.filter = "TAILID eq " + that.getTailId() + " AND FLAG EQ D AND JOBID EQ " + sJobId + " AND SORNO EQ " + sSORNO;
+					oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + that.getTailId() + "&FLAG" + FilterOpEnum.EQ + "D&JOBID" + FilterOpEnum.EQ + sJobId +
+					"&SORNO" + FilterOpEnum.EQ + sSORNO;
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					//Rahul: 08/12/2020:04:51Pm =Model Data assignment changed---Start
@@ -112,7 +118,7 @@ sap.ui.define([
 					//Rahul: 08/12/2020: 04:51Pm =Model Data assignment changed---End
 					that.getView().setModel(oModel, "SortiDetails");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieDetails:_fnSortieMonitoringDetailsGet function");
 

@@ -874,7 +874,8 @@ sap.ui.define([
 		fnLoadSCLDashboard: function(bScheduledJob) {
 			try {
 				var oParameter = {};
-				oParameter.filter = "CTYPE eq ALL AND tailid eq " + this.getTailId();
+				//	oParameter.filter = "CTYPE eq ALL AND tailid eq " + this.getTailId();
+				oParameter.filter = "CTYPE" + FilterOpEnum.EQ + "ALL&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length > 0) {
@@ -903,7 +904,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSCHDUESOONSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSCHDUESOONSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadSCLDashboard function");
 				this.handleException(e);
@@ -954,7 +955,7 @@ sap.ui.define([
 					oParameter = {};
 
 				//	oParameter.filter = "tailid eq '" + this.getTailId() + "'";
-				oParameter.filter = "tailid"+FilterOpEnum.EQ+ this.getTailId();
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length > 0) {
@@ -1116,7 +1117,8 @@ sap.ui.define([
 		fnLoadCAPDashboard: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and repl_flag eq Z";
+				//	oParameter.filter = "tailid eq " + this.getTailId() + " and repl_flag eq Z";
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&repl_flag" + FilterOpEnum.EQ + "Z";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("dashboardModel").setProperty("/cap", oData.results.length > 0 ? oData.results[0] : undefined);
@@ -1130,7 +1132,7 @@ sap.ui.define([
 					this._setRadialChartText("capMicroChartId", "", "", 0, 0);
 					this.getModel("dashboardModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARD1SVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARD1SVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadCAPDashboard function");
 				this.handleException(e);

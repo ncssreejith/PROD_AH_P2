@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../model/formatter",
 	"../util/ajaxutil",
-	"sap/base/Log"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log) {
+	"sap/base/Log",
+		"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAJAT GUPTA 
@@ -75,7 +77,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmTD = {};
-				oPrmTD.filter = "TAILID eq " + that.getTailId() + " AND FLAG EQ M";
+			//	oPrmTD.filter = "TAILID eq " + that.getTailId() + " AND FLAG EQ M";
+				oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + that.getTailId() + "&FLAG" + FilterOpEnum.EQ + "M";
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
@@ -91,7 +94,7 @@ sap.ui.define([
 						that.getView().setModel(oModel, "SortiMaster");
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieMonitoring:_fnSortieMonitoringMasterGet function");
 

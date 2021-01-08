@@ -96,15 +96,15 @@ sap.ui.define([
 					sWrctr = oEvent;
 				}
 				oTable.removeSelections(true);
-				oPrmTask.filter = "jobid eq " + sJobId + " and TSTAT eq ALL and WRCTR eq " + sWrctr;
-
+			//	oPrmTask.filter = "jobid eq " + sJobId + " and TSTAT eq ALL and WRCTR eq " + sWrctr;
+				oPrmTask.filter = "jobid"+ FilterOpEnum.EQ + sJobId + FilterOpEnum.AND+ "TSTAT"+ FilterOpEnum.EQ+ "ALL"+ FilterOpEnum.AND+"WRCTR"+FilterOpEnum.EQ+ sWrctr;
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					oModel = that.getView().getModel("TaskModel");
 					oModel.setData(oData.results);
 					oModel.updateBindings(true);
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onWorkCenterSelect function");
 
@@ -126,13 +126,14 @@ sap.ui.define([
 					oSelectedTask,
 					oPrmTask = {};
 				oSelectedTask = oModelView.getProperty("/selectedTask");
-				oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
+			//	oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
+				oPrmTask.filter = "jobid"+FilterOpEnum.EQ+"sJobId"+ FilterOpEnum.AND+"recTstar"+FilterOpEnum.EQ+"X";
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					this.getView().getModel("ViewModel").setProperty("/selectedTask", oData.results);
 					this.getView().getModel("ViewModel").setProperty("/oldSelectedTask", oData.results);
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKSVC"), oPrmTask);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onRectificationSelectTask function");
 
@@ -179,7 +180,7 @@ sap.ui.define([
 					oPrmTask.success = function(oData) {
 
 					}.bind(this);
-					ajaxutil.fnUpdate(this.getResourceBundle().getText("TASKSVC"), oPrmTask, oPayload);
+					ajaxutilNew.fnUpdate(this.getResourceBundle().getText("TASKSVC"), oPrmTask, oPayload);
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onUpdateTask function");
@@ -460,14 +461,15 @@ sap.ui.define([
 				var that = this,
 					oModel,
 					oPrmWorkCenter = {};
-				oPrmWorkCenter.filter = "jobid eq " + sJobId;
+			//	oPrmWorkCenter.filter = "jobid eq " + sJobId;
+				oPrmWorkCenter.filter = "jobid"+FilterOpEnum.EQ+ sJobId;
 				oPrmWorkCenter.error = function() {};
 				oPrmWorkCenter.success = function(oData) {
 					oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "CreatedWorkCenterModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnCreatedWorkCenterGet function");
 
@@ -920,7 +922,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmTD = {};
-				oPrmTD.filter = "JOBID eq " + sJobId;
+			//	oPrmTD.filter = "JOBID eq " + sJobId;
+				oPrmTD.filter = "JOBID"+ FilterOpEnum.EQ + sJobId;
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -937,7 +940,7 @@ sap.ui.define([
 					}
 					that.getModel("TUserJobModel").setProperty("/sTrads", sTrads);
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("CRETUSERSVC"), oPrmTD);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("CRETUSERSVC"), oPrmTD);
 			} catch (e) {
 
 				Log.error("Exception in CosCloseJob:_fnMultiTradmanJobGet function");

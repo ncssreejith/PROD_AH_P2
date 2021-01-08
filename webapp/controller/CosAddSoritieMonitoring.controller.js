@@ -217,7 +217,7 @@ sap.ui.define([
 					that.getModel("SortieMonitoringModel").setProperty("/SortieMonitoring/SN", oData.results.length + 1);
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oPrmFR);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oPrmFR);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_fnSortieMonitoringGet function");
 
@@ -448,7 +448,7 @@ sap.ui.define([
 					}, true);
 				}.bind(this);
 				oParameter.activity = 1;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter, oPayloads, "dummy", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter, oPayloads, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:fnCreateSorti function");
 

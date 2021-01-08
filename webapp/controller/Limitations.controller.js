@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../model/formatter",
 	"../util/ajaxutil",
-	"sap/base/Log"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log) {
+	"sap/base/Log",
+		"../util/ajaxutilNew",
+	"avmet/f16/util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : Rahul Thorat 
@@ -115,7 +117,9 @@ sap.ui.define([
 					oModel = dataUtil.createNewJsonModel(),
 					oViewModel = this.getView().getModel("oViewModel"),
 					oPrmLimGet = {};
-				oPrmLimGet.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+			//	oPrmLimGet.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+				oPrmLimGet.filter = "CAPTY" + FilterOpEnum.EQ + "A&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
+					that.getTailId();
 				oPrmLimGet.error = function() {};
 
 				oPrmLimGet.success = function(oData) {
@@ -160,7 +164,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "ADDLimSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnADDGet function");
 				
@@ -177,7 +181,9 @@ sap.ui.define([
 					oModel = dataUtil.createNewJsonModel(),
 					oViewModel = this.getView().getModel("oViewModel"),
 					oPrmLimGet = {};
-				oPrmLimGet.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+			//	oPrmLimGet.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+				oPrmLimGet.filter = "CAPTY" + FilterOpEnum.EQ + "L&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
+					that.getTailId();
 				oPrmLimGet.error = function() {};
 				oPrmLimGet.success = function(oData) {
 					if (oData !== undefined && oData.results.length > 0) {
@@ -188,7 +194,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "LimitationsSet");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnLimitationsGet function");
 				
@@ -202,7 +208,9 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmLimGet = {};
-				oPrmLimGet.filter = "CSTAT eq X and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+			//	oPrmLimGet.filter = "CSTAT eq X and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+					oPrmLimGet.filter = "CSTAT" + FilterOpEnum.EQ + "X&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
+					that.getTailId();
 				oPrmLimGet.error = function() {};
 
 				oPrmLimGet.success = function(oData) {
@@ -213,7 +221,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnLimitationsCompleteGet function");
 				

@@ -217,14 +217,15 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmFR = {};
-				oPrmFR.filter = "jobid eq " + sJobId;
+			//	oPrmFR.filter = "jobid eq " + sJobId;
+				oPrmFR.filter = "jobid"+FilterOpEnum.EQ+ sJobId;
 				oPrmFR.error = function() {};
 				oPrmFR.success = function(oData) {
 					this.getModel("FlyingRequirementsModel").getData().FlyingRequirements[0].FR_NO = (oData.results.length + 1).toString();
 					this.getModel("ViewModel").setProperty("/SN", oData.results.length + 1);
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmFR);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmFR);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:_fnFlyingRequirementsGet function");
 				
@@ -280,7 +281,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmFL.activity = 1;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmFL, oPayload, "dummy", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmFL, oPayload, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onSubmitFlyingRequirements function");
 				

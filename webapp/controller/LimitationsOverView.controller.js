@@ -86,7 +86,8 @@ sap.ui.define([
 					oViewGBModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				var oViewModel = dataUtil.createNewJsonModel();
-				oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+			//	oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+				oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + sFlag + "&CAPID" + FilterOpEnum.EQ + sCapId + "&JOBID" + FilterOpEnum.EQ + sJobId;
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -101,7 +102,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnCAPDataGet function");
 
@@ -144,7 +145,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmJobDue.activity = 2;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:CAPDataUpdate function");
 
@@ -215,7 +216,8 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				var oViewModel = dataUtil.createNewJsonModel();
-				oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+			//	oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+				oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + sFlag + "&CAPID" + FilterOpEnum.EQ + sCapId + "&JOBID" + FilterOpEnum.EQ + sJobId;
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -248,7 +250,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnADDCapDataGet function");
 
@@ -309,7 +311,8 @@ sap.ui.define([
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
 				var oViewModel = dataUtil.createNewJsonModel();
-				oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+			//	oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+				oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + sFlag + "&CAPID" + FilterOpEnum.EQ + sCapId + "&JOBID" + FilterOpEnum.EQ + sJobId;
 				oPrmJobDue.error = function() {
 
 				};
@@ -321,7 +324,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnADDCapDataMultipleGet function");
 

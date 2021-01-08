@@ -140,7 +140,8 @@ sap.ui.define([
 					oModel = this.getModel("oCreateTaskModel"),
 					that = this,
 					oPayload;
-				oPrmDD.filter = "PARTNO eq " + oModel.getProperty("/sType2Value") + " and ESTAT eq I and INSON eq " + this.getTailId();
+			//	oPrmDD.filter = "PARTNO eq " + oModel.getProperty("/sType2Value") + " and ESTAT eq I and INSON eq " + this.getTailId();
+				oPrmDD.filter = "PARTNO"+ FilterOpEnum.EQ + oModel.getProperty("/sType2Value") +  FilterOpEnum.AND+ "ESTAT" +FilterOpEnum.EQ+ "I" +FilterOpEnum.AND+ "INSON" +FilterOpEnum.EQ+ this.getTailId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -159,7 +160,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in getSerialNoPress function");
 			}
@@ -327,14 +328,15 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + that.getTailId() + " and TOREF eq " + sText;
+			//	oPrmJobDue.filter = "TAILID eq " + that.getTailId() + " and TOREF eq " + sText;
+				oPrmJobDue.filter = "TAILID"+FilterOpEnum.EQ+ that.getTailId() + FilterOpEnum.AND+ "TOREF"+ FilterOpEnum.EQ + sText;
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TechRefSugg");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETTASKREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETTASKREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
 				
@@ -1357,7 +1359,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmTask.activity = 1;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("TASKSVC"), oPrmTask, oPayload, "ZRM_COS_TK", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("TASKSVC"), oPrmTask, oPayload, "ZRM_COS_TK", this);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnCreateTask function");
 				this.handleException(e);

@@ -205,14 +205,15 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "TAILID eq " + that.getTailId() + " and TOREF eq " + sText;
+			//	oPrmJobDue.filter = "TAILID eq " + that.getTailId() + " and TOREF eq " + sText;
+				oPrmJobDue.filter = "TAILID"+FilterOpEnum.EQ+ that.getTailId() + FilterOpEnum.AND+ "TOREF"+ FilterOpEnum.EQ + sText;
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TechRefSugg");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETTASKREFSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETTASKREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
 
@@ -246,7 +247,7 @@ sap.ui.define([
 						}, true);
 					}
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("CRETUSERSVC"), oPrmTD, oPayLoad);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("CRETUSERSVC"), oPrmTD, oPayLoad);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnMultiTradmanCreate function");
 
@@ -330,7 +331,7 @@ sap.ui.define([
 				}
 				oPrmTask.activity = 4;
 				oPrmTask.title = "Tradesman Sign Off";
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmTask, oPayload, sObject, this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmTask, oPayload, sObject, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onSignOff function");
 
@@ -451,7 +452,8 @@ sap.ui.define([
 					that = this,
 					oPayload;
 				oModelObj.getObject("partno");
-				oPrmDD.filter = "PARTNO eq " + oModelObj.getObject("partno") + " and ESTAT eq R and INSON eq " + this.getTailId();
+			//	oPrmDD.filter = "PARTNO eq " + oModelObj.getObject("partno") + " and ESTAT eq R and INSON eq " + this.getTailId();
+				oPrmDD.filter = "PARTNO"+ FilterOpEnum.EQ + oModel.getProperty("partno") +  FilterOpEnum.AND+ "ESTAT" +FilterOpEnum.EQ+ "R" +FilterOpEnum.AND+ "INSON" +FilterOpEnum.EQ+ this.getTailId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -470,7 +472,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:getSerialNoPress function");
 
@@ -630,7 +632,8 @@ sap.ui.define([
 					sFilter, bFlag = true,
 					oModelView = this.getView().getModel("TaskModel"),
 					oPrmJobDue = {};
-				sFilter = "taskid eq " + oTempJB;
+			//	sFilter = "taskid eq " + oTempJB;
+				sFilter = "taskid"+FilterOpEnum.EQ+ oTempJB;
 				oPrmJobDue.filter = sFilter;
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
@@ -644,7 +647,7 @@ sap.ui.define([
 					oModelView.getData().push(oData.results[0]);
 					oModelView.updateBindings();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnTasksADDGet function");
 
@@ -668,10 +671,12 @@ sap.ui.define([
 				var Temp = oModel.getProperty("/TaskId");
 				for (var i = 0; i < Temp.length; i++) {
 					if (bFlag) {
-						sFilter = "taskid eq " + Temp[i];
+					//	sFilter = "taskid eq " + Temp[i];
+						sFilter = "taskid"+FilterOpEnum.EQ+ Temp[i];
 						bFlag = false;
 					} else {
-						var sFilterStr = " and taskid eq " + Temp[i];
+					//	var sFilterStr = " and taskid eq " + Temp[i];
+						var sFilterStr = FilterOpEnum.AND+"taskid"+FilterOpEnum.EQ+ Temp[i];
 						sFilter = sFilter.concat(sFilterStr);
 					}
 					/*filters.push(new sap.ui.model.Filter("taskid", sap.ui.model.FilterOperator.EQ, Temp[i]));*/
@@ -723,7 +728,7 @@ sap.ui.define([
 					that.handleBusyDialogClose();
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnTasksGet function");
 

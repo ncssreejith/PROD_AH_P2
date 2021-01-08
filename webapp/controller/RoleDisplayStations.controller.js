@@ -6,8 +6,10 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"sap/m/MessageBox",
-	"sap/base/Log"
-], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log) {
+	"sap/base/Log",
+		"avmet/ah/util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	return BaseController.extend("avmet.ah.controller.RoleDisplayStations", {
 		formatter: formatter,
@@ -471,13 +473,14 @@ sap.ui.define([
 				this.getModel("oRoleChangeModel").setProperty("/TileTwoHeader", "test3");
 				var oParameter = {};
 				oParameter.filter = "tailid eq '" + this.getTailId() + "' and repl_flag eq X";
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&repl_flag" + FilterOpEnum.EQ + "X";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					// this.getModel("oRoleChangeModel").setProperty("/role", {LV_LOADC:10,LV_LOADD:12,LV_TOTAMT:22});//oData.results.length > 0 ? oData.results[0] : undefined);
 					this.getModel("oRoleChangeModel").refresh();
 
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARD1SVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARD1SVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:fnLoadDrop function");
 				this.handleException(e);

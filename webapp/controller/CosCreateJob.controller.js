@@ -637,7 +637,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterCreate function");
 
@@ -669,7 +669,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterUpdate function");
 

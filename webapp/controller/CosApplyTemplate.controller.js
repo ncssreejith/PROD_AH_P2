@@ -9,9 +9,10 @@ sap.ui.define([
 	"../model/AvMetInitialRecord",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-		"avmet/ah/util/FilterOpEnum",
+	"avmet/ah/util/FilterOpEnum",
 	"../util/ajaxutilNew"
-], function(BaseController, dataUtil, Fragment, formatter, MessageBox, ajaxutil, FieldValidations, AvMetInitialRecord, JSONModel, Log, FilterOpEnum, ajaxutilNew) {
+], function(BaseController, dataUtil, Fragment, formatter, MessageBox, ajaxutil, FieldValidations, AvMetInitialRecord, JSONModel, Log,
+	FilterOpEnum, ajaxutilNew) {
 	"use strict";
 
 	/* ***************************************************************************
@@ -69,7 +70,8 @@ sap.ui.define([
 					oModel = this._oAddSR.getModel("SerialAddSet"),
 					that = this,
 					oPayload;
-				oPrmDD.filter = "PARTNO eq " + oModel.getProperty("/PARTNO") + " and ESTAT eq I and INSON eq " + this.getTailId();
+				//	oPrmDD.filter = "PARTNO eq " + oModel.getProperty("/PARTNO") + " and ESTAT eq I and INSON eq " + this.getTailId();
+				oPrmDD.filter = "PARTNO"+ FilterOpEnum.EQ + oModel.getProperty("/PARTNO") +  FilterOpEnum.AND+ "ESTAT" +FilterOpEnum.EQ+ "I" +FilterOpEnum.AND+ "INSON" +FilterOpEnum.EQ+ this.getTailId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -90,10 +92,10 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:getSerialNoPress function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -106,8 +108,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWorkCen = {};
-			//	oPrmWorkCen.filter = "REFID eq " + this.getAircraftId();
-				oPrmWorkCen.filter = "REFID"+FilterOpEnum.EQ + this.getAircraftId();
+				//	oPrmWorkCen.filter = "REFID eq " + this.getAircraftId();
+				oPrmWorkCen.filter = "REFID" + FilterOpEnum.EQ + this.getAircraftId();
 				oPrmWorkCen.error = function() {};
 				oPrmWorkCen.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -117,7 +119,7 @@ sap.ui.define([
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:_fnWorkCenterGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -132,7 +134,8 @@ sap.ui.define([
 				if (oFlag === "WR") {
 					/*	oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAILID EQ " + this.getTailId();*/
 					if (oSelectedKey !== undefined) {
-						oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAILID EQ " + this.getTailId();
+					//	oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAILID EQ " + this.getTailId();
+						oParameter.filter = "WRCTR"+ FilterOpEnum.EQ + oSelectedKey +  FilterOpEnum.AND +"TAILID"+ FilterOpEnum.EQ+ this.getTailId();
 					} else {
 						sap.m.MessageBox.information("Please select workcenter to proceed.");
 						return;
@@ -142,7 +145,8 @@ sap.ui.define([
 					var oTempId = this.getModel("applTmplModel").getProperty("/header/selTmpl");
 					if (oTempId !== -1 && oTempId !== "") {
 						var jobId = this.getModel("applTmplModel").getProperty("/header/selJobId");
-						oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "' and JOBID eq " + jobId;
+					//	oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "' and JOBID eq " + jobId;
+						oParameter.filter = "tmpid"+FilterOpEnum.EQ+ this.getModel("applTmplModel").getProperty("/header/selTmpl") +FilterOpEnum.AND+"JOBID"+FilterOpEnum.EQ+ jobId;
 					} else {
 						sap.m.MessageBox.information("Please select template to proceed.");
 						return;
@@ -171,10 +175,10 @@ sap.ui.define([
 					this.handleBusyDialogClose();
 					// this.fnLoadTails();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETRTASKSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETRTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:fnLoadTask function");
-				
+
 			}
 		},
 		// ***************************************************************************
@@ -199,7 +203,7 @@ sap.ui.define([
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onTemplateChange function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -214,7 +218,7 @@ sap.ui.define([
 				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:handleChange function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -227,7 +231,7 @@ sap.ui.define([
 				this.fnLoadTask("TM");
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onTemplateApply function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -382,10 +386,10 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("TASKSVC"), oParameter, oPayloads, "ZRM_COS_TP", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("TASKSVC"), oParameter, oPayloads, "ZRM_COS_TP", this);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onApplySelection function");
-				
+
 			}
 		},
 
@@ -419,7 +423,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onSerialNumPress function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -436,7 +440,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onSerialNumClose function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -455,7 +459,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onTypePartChange function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -474,7 +478,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onTypeSRChange function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -499,7 +503,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onWorkCenterChange function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -516,7 +520,7 @@ sap.ui.define([
 				this.getModel("applTmplModel").refresh();
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onWorkCenterTempChange function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -560,7 +564,7 @@ sap.ui.define([
 				that.onSerialNumClose();
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onSerialNumUpdatePress function");
-				
+
 			}
 		},
 		// ***************************************************************************
@@ -627,7 +631,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:_onObjectMatched function");
-				
+
 			}
 		}
 

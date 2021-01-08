@@ -331,7 +331,9 @@ sap.ui.define([
 		},
 		fnLoadAddLimitationDetail: function(sContext) {
 			var oPrmJobDue = {};
-			oPrmJobDue.filter = "FLAG EQ O AND CAPID EQ " + sContext.getObject().CAPID + " AND JOBID EQ " + sContext.getObject().JOBID;
+			//	oPrmJobDue.filter = "FLAG EQ O AND CAPID EQ " + sContext.getObject().CAPID + " AND JOBID EQ " + sContext.getObject().JOBID;
+			oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + "O" + "&CAPID" + FilterOpEnum.EQ + sContext.getObject().CAPID + "&JOBID" +
+				FilterOpEnum.EQ + sContext.getObject().JOBID;
 			oPrmJobDue.error = function() {};
 			oPrmJobDue.success = function(oData) {
 				this.getModel("pdsSummaryModel").setProperty(sContext.getPath() + "/ADDLimit", oData.results.length > 0 ? oData.results[0] : {});
@@ -342,7 +344,7 @@ sap.ui.define([
 				});
 
 			}.bind(this);
-			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 		},
 		onSerialNoPress: function(oEvent) {
 			try {
@@ -412,7 +414,8 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "TAILID EQ '" + this.getTailId() + "' and FLAG eq 'FS'";
+				//	oParameter.filter = "TAILID EQ '" + this.getTailId() + "' and FLAG eq 'FS'";
+				oParameter.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&FLAG" + FilterOpEnum.EQ + "FS"; // + sSrvIdFilter;
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T1_MCARD");
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/count", oData.results.length);
@@ -422,7 +425,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").refresh();
 					this._fnNavToDetail("/masterList/0");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getSortie function");
 			}
@@ -638,7 +641,9 @@ sap.ui.define([
 		_fnLimitationsGet: function() {
 			try {
 				var oPrmJobDue = {};
-				oPrmJobDue.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
+			//	oPrmJobDue.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
+					oPrmJobDue.filter = "CAPTY" + FilterOpEnum.EQ + "L&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
+					this.getTailId();
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T3_LIMIT");
@@ -649,7 +654,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/addLimit", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnLimitationsGet function");
 			}
@@ -657,7 +662,9 @@ sap.ui.define([
 		_fnADDGet: function() {
 			try {
 				var oPrmJobDue = {};
-				oPrmJobDue.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
+			//	oPrmJobDue.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
+				oPrmJobDue.filter = "CAPTY" + FilterOpEnum.EQ + "A&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
+					this.getTailId();
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T4_ADD");
@@ -669,7 +676,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/add", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnADDGet function");
 			}
@@ -736,14 +743,16 @@ sap.ui.define([
 		_fnSortieMonitoringDetailsGet: function(sJobId, sSORNO) {
 			try {
 				var oPrmTD = {};
-				oPrmTD.filter = "TAILID eq " + this.getTailId() + " AND FLAG EQ D AND JOBID EQ " + sJobId + " AND SORNO EQ " + sSORNO;
+				//	oPrmTD.filter = "TAILID eq " + this.getTailId() + " AND FLAG EQ D AND JOBID EQ " + sJobId + " AND SORNO EQ " + sSORNO;
+				oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&FLAG" + FilterOpEnum.EQ + "D&JOBID" + FilterOpEnum.EQ + sJobId +
+					"&SORNO" + FilterOpEnum.EQ + sSORNO;
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setData(oData.results);
 					this.getView().setModel(oModel, "SortiDetails");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in _fnSortieMonitoringDetailsGet function");
 			}

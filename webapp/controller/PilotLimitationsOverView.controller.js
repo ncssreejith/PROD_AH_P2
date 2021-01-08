@@ -106,7 +106,9 @@ sap.ui.define([
 
 				oPrmJobDue = {};
 			var oViewModel = dataUtil.createNewJsonModel();
-			oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+			//	oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+			oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + sFlag + "&CAPID" + FilterOpEnum.EQ + sCapId + "&JOBID" +
+				FilterOpEnum.EQ + sJobId;
 			oPrmJobDue.error = function() {
 
 			};
@@ -119,7 +121,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 		},
 
 		CAPDataUpdate: function() {
@@ -143,7 +145,7 @@ sap.ui.define([
 				this.onCloseMangeLimitaionDialog();
 			}.bind(this);
 
-			ajaxutil.fnUpdate(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue, [oPayload]);
+			ajaxutilNew.fnUpdate(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue, [oPayload]);
 		},
 
 		onStartRect: function(sValue) {
@@ -188,7 +190,9 @@ sap.ui.define([
 				oModel = this.getView().getModel("oViewModel"),
 				oPrmJobDue = {};
 			var oViewModel = dataUtil.createNewJsonModel();
-			oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+		//	oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+			oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + sFlag + "&CAPID" + FilterOpEnum.EQ + sCapId + "&JOBID" +
+				FilterOpEnum.EQ + sJobId;
 			oPrmJobDue.error = function() {
 
 			};
@@ -199,7 +203,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 		},
 
 		_fnADDCapDataMultipleGet: function(sFlag, sJobId, sCapId) {
@@ -207,7 +211,9 @@ sap.ui.define([
 				oModel = this.getView().getModel("oViewModel"),
 				oPrmJobDue = {};
 			var oViewModel = dataUtil.createNewJsonModel();
-			oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+		//	oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
+			oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + sFlag + "&CAPID" + FilterOpEnum.EQ + sCapId + "&JOBID" +
+				FilterOpEnum.EQ + sJobId;
 			oPrmJobDue.error = function() {
 
 			};
@@ -218,7 +224,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 		},
 
 		_fnReasonforADDGet: function(sAirId) {
@@ -242,8 +248,8 @@ sap.ui.define([
 			var that = this,
 				oModel = this.getView().getModel("oViewModel"),
 				oPrmJobDue = {};
-		//	oPrmJobDue.filter = "airid" + FilterOpEnum + sAirId + "&ddid" + FilterOpEnum + "118_";
-				oPrmJobDue.filter = "airid" + FilterOpEnum.EQ +sAirId+ FilterOpEnum.AND+"ddid"+FilterOpEnum.EQ+"118_";
+			//	oPrmJobDue.filter = "airid" + FilterOpEnum + sAirId + "&ddid" + FilterOpEnum + "118_";
+			oPrmJobDue.filter = "airid" + FilterOpEnum.EQ + sAirId + FilterOpEnum.AND + "ddid" + FilterOpEnum.EQ + "118_";
 			oPrmJobDue.error = function() {
 
 			};
