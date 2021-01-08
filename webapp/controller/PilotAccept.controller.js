@@ -287,9 +287,9 @@ sap.ui.define([
 				oParameter.error = function() {};
 				// oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("paModel").getProperty(
 				// 	"/srvtid") + " and TAILID eq " + this.getTailId();
-				oParameter.filter = "REFID=" + this.getAircraftId() + 
-				"&SRVTID=" + this.getModel("paModel").getProperty("/srvtid")+
-				"&TAILID=" + this.getTailId();
+				oParameter.filter = "REFID=" + this.getAircraftId() +
+					"&SRVTID=" + this.getModel("paModel").getProperty("/srvtid") +
+					"&TAILID=" + this.getTailId();
 				oParameter.success = function(oData) {
 					this.getModel("paModel").setProperty("/masterList", oData.results);
 					this.getModel("paModel").refresh();
@@ -513,8 +513,9 @@ sap.ui.define([
 		 */
 		_getJobDetails: function() {
 			try {
-				var oParameter = {};
-				oParameter.filter = "CTYPE eq ALL and tailid eq " + this.getTailId();
+				var that = this,
+					oParameter = {};
+				oParameter.filter = "CTYPE" + FilterOpEnum.EQ + "ALL&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					oData.results = this.fnDueJob(oData.results);
@@ -525,7 +526,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/dueJobs", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getDueSoonJobDetails function");
 				this.handleException(e);

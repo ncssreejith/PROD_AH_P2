@@ -302,7 +302,7 @@ sap.ui.define([
 						}, true);
 					}.bind(this);
 					oPrmTD.activity = 1;
-					ajaxutil.fnCreate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_SCH", this);
+					ajaxutilNew.fnCreate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_SCH", this);
 				} else {
 					oPayload = this.getView().getModel("oViewCreateModel").getData();
 					that._fnUpdateJob(oPayload);

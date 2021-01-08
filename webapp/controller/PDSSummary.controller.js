@@ -436,7 +436,7 @@ sap.ui.define([
 				// var filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty("/srvtid") +
 				// 	" and TAILID eq " + this.getTailId() +
 				// 	" and STEPID eq S_RE";
-					var filter = "REFID=" + this.getAircraftId() + "&SRVTID=" + this.getModel("pdsSummaryModel").getProperty("/srvtid") +
+				var filter = "REFID=" + this.getAircraftId() + "&SRVTID=" + this.getModel("pdsSummaryModel").getProperty("/srvtid") +
 					"&TAILID=" + this.getTailId() +
 					"&STEPID=S_RE";
 				oParameter.error = function() {};
@@ -557,8 +557,9 @@ sap.ui.define([
 		},
 		_getJobDetails: function() {
 			try {
-				var oParameter = {};
-				oParameter.filter = "CTYPE eq ALL and tailid eq " + this.getTailId();
+				var that = this,
+					oParameter = {};
+				oParameter.filter = "CTYPE" + FilterOpEnum.EQ + "ALL&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					oData.results = this.fnDueJob(oData.results);
@@ -569,7 +570,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/dueJobs", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getJobDetails function");
 				this.handleException(e);
@@ -644,8 +645,8 @@ sap.ui.define([
 		_fnLimitationsGet: function() {
 			try {
 				var oPrmJobDue = {};
-			//	oPrmJobDue.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
-					oPrmJobDue.filter = "CAPTY" + FilterOpEnum.EQ + "L&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
+				//	oPrmJobDue.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
+				oPrmJobDue.filter = "CAPTY" + FilterOpEnum.EQ + "L&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
 					this.getTailId();
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
@@ -665,7 +666,7 @@ sap.ui.define([
 		_fnADDGet: function() {
 			try {
 				var oPrmJobDue = {};
-			//	oPrmJobDue.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
+				//	oPrmJobDue.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
 				oPrmJobDue.filter = "CAPTY" + FilterOpEnum.EQ + "A&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
 					this.getTailId();
 				oPrmJobDue.error = function() {};

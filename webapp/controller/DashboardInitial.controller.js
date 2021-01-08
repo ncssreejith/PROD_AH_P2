@@ -796,7 +796,7 @@ sap.ui.define([
 		fnLoadSrv1Dashboard: function() {
 			try {
 				var oParameter = {};
-			//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
 				oParameter.filter = "tailid=" + this.getTailId() + "&REFID=" + this.getAircraftId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -931,16 +931,16 @@ sap.ui.define([
 		 */
 		fnTriggerScheduledJobs: function() {
 			try {
-				var
+				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "CTYPE eq ALL and tailid eq " + this.getTailId();
+				oPrmJobDue.filter = "CTYPE" + FilterOpEnum.EQ + "ALL&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function() {
 					this.fnLoadSCLDashboard(true);
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				this.Log.error("Exception in fnTriggerScheduledJobs function");
 			}
@@ -990,7 +990,7 @@ sap.ui.define([
 				// }.bind(this);
 				// ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
 				var oParameter = {};
-			//	oParameter.filter = "tailid eq " + this.getTailId();
+				//	oParameter.filter = "tailid eq " + this.getTailId();
 				oParameter.filter = "tailid=" + this.getTailId();
 				oParameter.error = function() {
 					this.fnProcessArrayFuel({
@@ -1261,7 +1261,7 @@ sap.ui.define([
 		fnLoadUtilization: function() {
 			try {
 				var oParameter = {};
-		//		oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq TABA_102" + " and otype eq AU";
+				//		oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq TABA_102" + " and otype eq AU";
 				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + "TABA_102" + "&otype" +
 					FilterOpEnum.EQ + "AU";
 				oParameter.error = function() {};

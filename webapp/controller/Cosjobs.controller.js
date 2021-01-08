@@ -3,8 +3,10 @@ sap.ui.define([
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"../util/ajaxutil",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, dataUtil, ajaxutil, formatter, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAHUL THORAT   
@@ -287,7 +289,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "CTYPE eq ALL and tailid eq " + that.getTailId();
+				oPrmJobDue.filter = "CTYPE" + FilterOpEnum.EQ + "ALL&tailid" + FilterOpEnum.EQ + that.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -312,7 +314,7 @@ sap.ui.define([
 					that._fnJobGetMODSTIScheduled();
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetScheduled function");
 			}
@@ -325,7 +327,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "CTYPE eq AIRCRAFT and tailid eq " + that.getTailId();
+				oPrmJobDue.filter = "CTYPE" + FilterOpEnum.EQ + "AIRCRAFT&tailid" + FilterOpEnum.EQ + that.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -345,7 +347,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelAIR");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetAircraftScheduled function");
 			}
@@ -358,7 +360,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "CTYPE eq COMPONENT and tailid eq " + that.getTailId();
+				oPrmJobDue.filter = "CTYPE" + FilterOpEnum.EQ + "COMPONENT&tailid" + FilterOpEnum.EQ + that.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -378,7 +380,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelCOM");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetCompScheduled function");
 			}
@@ -392,7 +394,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "CTYPE eq ENGINE and tailid eq " + that.getTailId();
+				oPrmJobDue.filter = "CTYPE" + FilterOpEnum.EQ + "ENGINE&tailid" + FilterOpEnum.EQ + that.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -412,7 +414,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelENG");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetENGScheduled function");
 			}
@@ -425,7 +427,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "CTYPE eq MODSTI and tailid eq " + that.getTailId();
+				oPrmJobDue.filter = "CTYPE" + FilterOpEnum.EQ + "MODSTI&tailid" + FilterOpEnum.EQ + that.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -445,7 +447,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelMODSTI");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetMODSTIScheduled function");
 			}

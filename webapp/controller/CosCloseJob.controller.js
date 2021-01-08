@@ -526,7 +526,7 @@ sap.ui.define([
 				}.bind(this);
 				oPrmTD.activity = 1;
 				oPrmTD.title = "Supervisor Sign Off for Out of phase job";
-				ajaxutil.fnCreate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_COS_JB", this);
+				ajaxutilNew.fnCreate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:ESJobCreate function");
 

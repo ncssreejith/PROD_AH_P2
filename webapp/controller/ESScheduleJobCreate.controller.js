@@ -294,7 +294,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmTD.activity = 1;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_COS_JB", this);
+				ajaxutilNew.fnCreate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in ESJobCreate function");
 			}

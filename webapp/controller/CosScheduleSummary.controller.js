@@ -135,9 +135,10 @@ sap.ui.define([
 		 */
 		_fnDeleteScheduleJob: function() {
 			try {
-				var sPath = this.getResourceBundle().getText("GETSERLOGSVC") + "(" +
-					"ESJOBID=" + this.getModel("LocalModel").getProperty("/ESJobId") +
-					")";
+				var that = this;
+				var sPath = that.getResourceBundle().getText("GETSERLOGSVC") +
+					"?ESJOBID" + FilterOpEnum.EQ + this.getModel("LocalModel").getProperty("/ESJobId") + "&tailid" + FilterOpEnum.EQ + that.getTailId();
+
 				var oParameter = {};
 				oParameter.error = function(hrex) {}.bind(this);
 				oParameter.success = function(oData) {
@@ -146,7 +147,7 @@ sap.ui.define([
 					});
 				}.bind(this);
 				oParameter.activity = 3;
-				ajaxutil.fnDelete(sPath, oParameter, "ZRM_COS_JB", this);
+				ajaxutilNew.fnDelete(sPath, oParameter, "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in _fnDeleteScheduleJob function");
 
@@ -161,8 +162,8 @@ sap.ui.define([
 				var that = this,
 					aData = this.getModel("SummaryModel").getData(),
 					oPrmJobDue = {};
-			//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + that.getAircraftId() + " and JDUID eq JDU";
-					oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + that.getAircraftId() +
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + that.getAircraftId() + " and JDUID eq JDU";
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + that.getAircraftId() +
 					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "JDU";
 				oPrmJobDue.error = function() {};
 
@@ -240,7 +241,8 @@ sap.ui.define([
 					oPrmSummary = {};
 				oModelLocal = that.getView().getModel("LocalModel").getData();
 
-				oPrmSummary.filter = "ESJOBID eq " + sESJobId + " and tailid eq " + that.getTailId() + " and FLAG eq ES";
+				oPrmSummary.filter = "ESJOBID" + FilterOpEnum.EQ + sESJobId + "&tailid" + FilterOpEnum.EQ + that.getTailId() + "&FLAG" +
+					FilterOpEnum.EQ + "ES";
 
 				oPrmSummary.error = function() {};
 				oPrmSummary.success = function(oData) {
@@ -265,7 +267,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmSummary);
+				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSummary);
 			} catch (e) {
 				Log.error("Exception in _fnSumamryDetailsGet function");
 			}
@@ -356,7 +358,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmSchJob.activity = 2;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
+				ajaxutilNew.fnUpdate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcessionPress function");
 			}
@@ -400,7 +402,7 @@ sap.ui.define([
 
 				}.bind(this);
 				oPrmSchJob.activity = 2;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
+				ajaxutilNew.fnUpdate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in onUpdateWorkCenterPress function");
 			}
@@ -422,7 +424,7 @@ sap.ui.define([
 						this.getRouter().navTo("Cosjobs", true);
 					}.bind(this);
 					oPrmSchJob.activity = 1;
-					ajaxutil.fnCreate(this.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
+					ajaxutilNew.fnCreate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
 				} else {
 					MessageBox.error(
 						"Please add workcenter to start schedule job.", {
@@ -472,8 +474,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmWorkCen = {};
-			//	oPrmWorkCen.filter = "REFID eq " + that.getAircraftId();
-					oPrmWorkCen.filter = "REFID"+FilterOpEnum.EQ+ that.getAircraftId();
+				//	oPrmWorkCen.filter = "REFID eq " + that.getAircraftId();
+				oPrmWorkCen.filter = "REFID" + FilterOpEnum.EQ + that.getAircraftId();
 				oPrmWorkCen.error = function() {
 
 				};

@@ -8,9 +8,10 @@ sap.ui.define([
 	"sap/base/Log",
 	"sap/ui/model/json/JSONModel",
 	"../util/html2pdfbundle",
-		"avmet/ah/util/ajaxutilNew",
+	"avmet/ah/util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, Log, JSONModel, html2pdfbundle, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, Log, JSONModel, html2pdfbundle, ajaxutilNew,
+	FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for Engine
@@ -66,7 +67,7 @@ sap.ui.define([
 			var sENGID = oSource.getBindingContext("oEngineModel").getObject().ENGID; //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 			try {
 				this.getRouter().navTo("AddEngCyclicLog", {
-					engid: sENGID,//Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+					engid: sENGID, //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
 					tailid: this.getTailId(),
 					last: " ", //Teck Meng 07/12/2020 16:45 
 					eng2id: " ", //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
@@ -408,11 +409,11 @@ sap.ui.define([
 					oParameter = {};
 				var sEngID = oEngineModel.getProperty("/ENGID");
 				if (sEngID && sEngID !== " ") {
-				//	oParameter.filter = "ENGID eq '" + sEngID + "'";
-					oParameter.filter = "ENGID"+FilterOpEnum.EQ + sEngID;
+					//	oParameter.filter = "ENGID eq '" + sEngID + "'";
+					oParameter.filter = "ENGID" + FilterOpEnum.EQ + sEngID;
 				} else {
-				//	oParameter.filter = "tailid eq '" + this.getTailId() + "'";
-				oParameter.filter = "tailid"+FilterOpEnum.EQ + this.getTailId();
+					//	oParameter.filter = "tailid eq '" + this.getTailId() + "'";
+					oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId();
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -512,9 +513,10 @@ sap.ui.define([
 				// 	sEngId1 = oEngineModel.getProperty("/headerDetails/ENGID"),
 				// 	sEngId = sEngId1 === "" ? this.getEngine() : sEngId1;
 				var oParameter = {};
-			//	oParameter.filter = "engid eq " + sEngID + " AND sflag eq S AND tailid eq " + this.getTailId();
-				oParameter.filter = "engid"+FilterOpEnum.EQ+ sEngID +FilterOpEnum.AND+ "sflag"+FilterOpEnum.EQ+"S"+FilterOpEnum.AND+"tailid"+FilterOpEnum.EQ+ this.getTailId();
-				
+				//	oParameter.filter = "engid eq " + sEngID + " AND sflag eq S AND tailid eq " + this.getTailId();
+				oParameter.filter = "engid" + FilterOpEnum.EQ + sEngID + FilterOpEnum.AND + "sflag" + FilterOpEnum.EQ + "S" + FilterOpEnum.AND +
+					"tailid" + FilterOpEnum.EQ + this.getTailId();
+
 				oParameter.error = function() {
 
 				};
@@ -557,10 +559,12 @@ sap.ui.define([
 		},
 		_getEngScheule: function(iEngine, sSerialNo) {
 			try {
-				var oEngineModel = this.getView().getModel("oEngineModel");
+				var that = this,
+					oEngineModel = this.getView().getModel("oEngineModel");
 				var oParameter = {};
 				// oParameter.filter = "SN eq " + sSerialNo;
-				oParameter.filter = "CTYPE eq ENGINE and tailid eq " + this.getTailId() + " and SN eq " + sSerialNo;
+				oParameter.filter = "CTYPE" + FilterOpEnum.EQ + "ENGINE&tailid" + FilterOpEnum.EQ + this.getTailId() + "&SN" + FilterOpEnum.EQ +
+					sSerialNo;
 				// oEngineModel.getProperty("/headerDetails/SERIAL");
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -596,7 +600,7 @@ sap.ui.define([
 					}
 					// oEngineModel.setProperty("/EngineSchedule", oData.results);
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngScheule function");
 				this.handleException(e);
