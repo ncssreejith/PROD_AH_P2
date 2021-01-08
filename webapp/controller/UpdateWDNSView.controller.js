@@ -4,8 +4,10 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
 	"sap/base/Log",
-	"../util/cvUtil"
-], function(BaseController, ajaxutil, JSONModel, formatter, Log, cvUtil) {
+	"../util/cvUtil",
+	"avmet/ah/util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, ajaxutil, JSONModel, formatter, Log, cvUtil, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name: UpdateWDNSView           
@@ -69,21 +71,21 @@ sap.ui.define([
 				this.getModel("oWDNSModel").setProperty("/tabid", oEvent.getParameter("arguments").tabid);
 				var sTabid = this.getModel("oWDNSModel").getProperty("/tabid");
 				switch (sTabid) {
-					case "TABW_115"://<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+					case "TABW_115": //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 						this.fnLoadHarmClm();
 						this.fnLoadHarmData();
 						break;
-					case "TABW_116"://<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+					case "TABW_116": //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 						this.fnLoadDHClm();
 						this.fnLoadDHData();
 						break;
-					default://<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+					default: //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 						this.getModel("oWDNSModel").setProperty("/tabid", "ALL");
 						this.fnLoadDHClm();
 						this.fnLoadDHData();
 						this.fnLoadHarmClm();
 						this.fnLoadHarmData();
-				}//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+				} //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 				//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 			} catch (e) {
 				Log.error("Exception in UpdateWDNSView:_onObjectMatched function");
@@ -109,9 +111,11 @@ sap.ui.define([
 		fnLoadHarmClm: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty("/harmotabId") +
-					" and otype eq C";
-
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty("/harmotabId") +
+				// 	" and otype eq C";
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oWDNSModel").getProperty(
+						"/harmotabId") +
+					"&otype" + FilterOpEnum.EQ + "C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.deleteColumn(oData);
@@ -119,7 +123,7 @@ sap.ui.define([
 					this.getModel("oWDNSModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblUpHarmonic"), "oWDNSModel", "harmo", "oWDNSDataModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in UpdateWDNSView:fnLoadHarmClm function");
 				this.handleException(e);
@@ -130,8 +134,11 @@ sap.ui.define([
 				// var sPilot = this.getModel("oWDNSModel").getProperty("/pilot");
 				// var bPilot = (sPilot === "GUNDH");
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
-					"/harmotabId") + " and otype eq D";
+				// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
+				// 	"/harmotabId") + " and otype eq D";
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oWDNSModel").getProperty(
+						"/harmotabId") +
+					"&otype" + FilterOpEnum.EQ + "D";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					// if(oData.results) {
@@ -142,7 +149,7 @@ sap.ui.define([
 					this.getModel("oWDNSDataModel").setProperty("/harmo", oData.results);
 					this.getModel("oWDNSDataModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in UpdateWDNSView:fnLoadHarmData function");
 				this.handleException(e);
@@ -151,23 +158,26 @@ sap.ui.define([
 		/** //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		 * Load harmonic columns
 		 */
-		fnLoadDHClm: function() {//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+		fnLoadDHClm: function() { //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 			try {
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty("/dhtabId") +
-					" and otype eq C";
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty("/dhtabId") +
+				// 	" and otype eq C";
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oWDNSModel").getProperty(
+						"/dhtabId") +
+					"&otype" + FilterOpEnum.EQ + "C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oWDNSModel").setProperty("/dh", oData.results);
 					this.getModel("oWDNSModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblDH"), "oWDNSModel", "dh", "oWDNSDataModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
-			} catch (e) {//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+			} catch (e) { //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 				Log.error("Exception in WDNSCoefficients:fnLoadDHClm function");
 				this.handleException(e);
 			}
-		},//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+		}, //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 		/** //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		 * Load harmonic data
 		 */
@@ -181,20 +191,23 @@ sap.ui.define([
 					sPath = sPath + "(logid=" + sLogid + ",tailid=" + this.getTailId() + ",tabid=" + this.getModel(
 						"oWDNSModel").getProperty("/dhtabId") + ")";
 				} else {
-					oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
-						"/dhtabId") + " and otype eq D";
+					// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
+					// 	"/dhtabId") + " and otype eq D";
+					oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oWDNSModel").getProperty(
+							"/dhtabId") +
+						"&otype" + FilterOpEnum.EQ + "D";
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oWDNSDataModel").setProperty("/dh", oData.results);
 					this.getModel("oWDNSDataModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(sPath, oParameter);
-			} catch (e) {//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+				ajaxutilNew.fnRead(sPath, oParameter);
+			} catch (e) { //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 				Log.error("Exception in WDNSCoefficients:fnLoadDHData function");
 				this.handleException(e);
 			}
-		},//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+		}, //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 		deleteColumn: function(oData) {
 			try {
 				if (!oData || !oData.results || oData.results.length < 3) {
@@ -310,16 +323,16 @@ sap.ui.define([
 				// var sPilot = this.getModel("oWDNSModel").getProperty("/pilot");
 				// var bPilot = sPilot === "GUNDH";
 				if (this.getView().getModel(oModel).getProperty("/isChange")) {
-					 //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+					//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 					if (this.getModel("oWDNSModel").getProperty("/tabid") === "TABW_115") {
 						this.getModel(oDataModel).getProperty("/" + sClmPath).forEach(function(oItem) {
 							var oPayload = {};
 							// delete oItem.editFlag;
 							oPayload = oItem;
 							oData.push(oPayload);
-						});//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
-					}//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
-					sClmPath = "dh";<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+						}); //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+					} //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+					sClmPath = "dh"; <!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 					if (this.getModel("oWDNSModel").getProperty("/tabid") === "TABW_116") {
 						this.getModel(oDataModel).getProperty("/" + sClmPath).forEach(function(oItem) {
 							var oPayload = {};
@@ -327,8 +340,8 @@ sap.ui.define([
 							oPayload = oItem;
 							oData.push(oPayload);
 
-						});//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
-					}//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+						}); //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
+					} //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 					//<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 					// this.getModel(oDataModel).getProperty("/" + sClmPath).forEach(function(oItem) {
 					// 	// if ((bPilot && oItem.COL_12 === "GUN DH") || !bPilot && oItem.COL_12 !== "GUN DH") {
@@ -337,7 +350,7 @@ sap.ui.define([
 					// 	oData.push(oPayload);
 					// 	// }
 					// });
-					 //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+					//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oRespond) {
@@ -345,7 +358,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this);
 				if (oData.length > 0) {
-					ajaxutil.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
+					ajaxutilNew.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
 				} else {
 					sap.m.MessageToast.show("No table are changed");
 				}

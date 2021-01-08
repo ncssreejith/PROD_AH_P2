@@ -7,8 +7,10 @@ sap.ui.define([
 	"../util/dataUtil",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"sap/ui/export/Spreadsheet"
-], function(BaseController, JSONModel, MessageToast, MessageBox, ajaxutil, dataUtil, Filter, FilterOperator, Spreadsheet) {
+	"sap/ui/export/Spreadsheet",
+		"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, JSONModel, MessageToast, MessageBox, ajaxutil, dataUtil, Filter, FilterOperator, Spreadsheet, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	return BaseController.extend("avmet.ah.controller.ESOperator", {
 
@@ -134,7 +136,8 @@ sap.ui.define([
 				this.getView().getModel("oGlobalModel").refresh();
 				MessageBox.error(error.responseText);
 			};
-			oParameter.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
+		//	oParameter.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
+			oParameter.filter = "AIRID"+FilterOpEnum.EQ+ this.getAircraftId()+FilterOpEnum.AND+"TAILID"+FilterOpEnum.EQ+this.getTailId();
 			oParameter.success = function(oData) {
 				if (oData && oData.results && oData.results.length > 0) {
 					oGlobalModel.setProperty("/Jobs", oData.results);
@@ -149,7 +152,7 @@ sap.ui.define([
 				this.getView().getModel("oGlobalModel").refresh();
 			}.bind(this);
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("GETESOPERATORSVC"), oParameter);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("GETESOPERATORSVC"), oParameter);
 		},
 
 		// Get Role/Service Data

@@ -4,8 +4,10 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../util/ajaxutil",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.Replenishment", {
@@ -91,11 +93,16 @@ sap.ui.define([
 		_getRepTiles: function() {
 			try {
 				var oParameter = {};
-				var sSrvIdFilter = this.getModel("oReplModel").getProperty("/SRVID") ?
-					(" and SRVID eq " + this.getModel("oReplModel").getProperty("/SRVID") + " and PASTFLIGHT eq Y") : "";
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("oReplModel").getProperty("/srvtid") +
-					" and TAILID eq " + this.getTailId() +
-					" and STEPID eq " + this.getModel("oReplModel").getProperty("/stepid") + sSrvIdFilter;
+				// var sSrvIdFilter = this.getModel("oReplModel").getProperty("/SRVID") ?
+				// 	(" and SRVID eq " + this.getModel("oReplModel").getProperty("/SRVID") + " and PASTFLIGHT eq Y") : "";
+				var sSrvIdFilter = this.getModel("oReplModel").getProperty("/srvid") ?
+					("&SRVID=" + this.getModel("oReplModel").getProperty("/srvid") + "&PASTFLIGHT=Y") : "";
+				// oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("oReplModel").getProperty("/srvtid") +
+				// 	" and TAILID eq " + this.getTailId() +
+				// 	" and STEPID eq " + this.getModel("oReplModel").getProperty("/stepid") + sSrvIdFilter;
+				oParameter.filter = "REFID=" + this.getAircraftId() + "&SRVTID=" + this.getModel("oReplModel").getProperty("/srvtid") +
+					"&TAILID=" + this.getTailId() +
+					"&STEPID=" + this.getModel("oReplModel").getProperty("/stepid") + sSrvIdFilter;
 				oParameter.error = function(hrex) {
 					this.updateModel({
 						busy: false
@@ -110,7 +117,7 @@ sap.ui.define([
 					}, "viewModel");
 					// this._getFuelExtTanks();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRepTiles function");
 				this.handleException(e);

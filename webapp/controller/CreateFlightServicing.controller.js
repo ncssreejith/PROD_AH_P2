@@ -4,8 +4,10 @@ sap.ui.define([
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
-	"sap/base/Log"
-], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log) {
+	"sap/base/Log",
+	"avmet/ah/util/FilterOpEnum",
+	"../util/ajaxutilNew"
+], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log, FilterOpEnum, ajaxutilNew) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.CreateFlightServicing", {
@@ -37,7 +39,7 @@ sap.ui.define([
 				var sSubId = oEvent.getSource().getBindingContext("oCreatFlightSerModel").getObject().subid;
 				this.getRouter().navTo("UpdateFlightServicing", {
 					srvid: sSubId
-				},false);
+				}, false);
 			} catch (e) {
 				Log.error("Exception in onFlightServiceTilePress function");
 				this.handleException(e);
@@ -139,7 +141,8 @@ sap.ui.define([
 				//this.getModel("srvModel").refresh();
 				this.getView().getModel("oCreatFlightSerModel").setProperty("/aCreateFlgSrv", []);
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and mainid eq SRVM and dflag eq 1 and tailid eq " + this.getTailId(); //To pass '%' in the Url, decoded to '%25' in the filter
+				oParameter.filter = "refid=" + this.getAircraftId() + "&mainid=SRVM&dflag=1&tailid=" + this.getTailId();
+				//	oParameter.filter = "refid eq " + this.getAircraftId() + " and mainid eq SRVM and dflag eq 1 and tailid eq " + this.getTailId(); //To pass '%' in the Url, decoded to '%25' in the filter
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					// this.fnCreateServiceSequnce(oData);
@@ -147,7 +150,7 @@ sap.ui.define([
 						this._getFlightServicing(oItem);
 					}.bind(this));
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
 				this.handleException(e);
@@ -159,9 +162,10 @@ sap.ui.define([
 				var oCreatFlightSerModel = this.getView().getModel("oCreatFlightSerModel"),
 					aCreateFlgSrv = oCreatFlightSerModel.getProperty("/aCreateFlgSrv"),
 					oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and mainid eq " + oItem.mainid + " and dflag eq 0 and tailid eq " +
-					this
-					.getTailId();
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and mainid eq " + oItem.mainid + " and dflag eq 0 and tailid eq " +
+				// 	this.getTailId();
+				oParameter.filter = "refid=" + this.getAircraftId() + "&mainid=" + oItem.mainid + "&dflag=0&tailid=" +
+					this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oItem, oData) {
 					if (oData.results.length) {
@@ -195,7 +199,7 @@ sap.ui.define([
 					//this.getModel("srvModel").getProperty("/srv").push(oItem);
 					this.getModel("oCreatFlightSerModel").refresh();
 				}.bind(this, oItem);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getFlightServicing function");
 				this.handleException(e);

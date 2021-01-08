@@ -599,7 +599,7 @@ sap.ui.define([
 					//this._signOffPUT();
 					that._navToDashboard();
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, aPayload, "S_RL", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, aPayload, "S_RL", this);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:onStationSignOff function");
 				this.handleException(e);
@@ -932,7 +932,8 @@ sap.ui.define([
 					aTanks = [];
 				oRoleChange.setProperty("/Adaptors", aAdaptors);
 				oParameter.error = function() {};
-				oParameter.filter = "airid eq '" + this.getAircraftId() + "' and adpflag eq 'X' and stnsid eq '" + sStationId + "'";
+		//		oParameter.filter = "airid eq '" + this.getAircraftId() + "' and adpflag eq 'X' and stnsid eq '" + sStationId + "'";
+				oParameter.filter = "airid"+FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND+"adpflag"+ FilterOpEnum.EQ+ 'X' +FilterOpEnum.AND+ "stnsid" +FilterOpEnum.EQ+ sStationId;
 				oParameter.success = function(oData) {
 					if (oData.results.length) {
 						var aUniLaunchers = [],
@@ -1014,7 +1015,7 @@ sap.ui.define([
 						that._checkSelectedAdaptors();
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:_getAdaptors function");
 				this.handleException(e);
@@ -1069,7 +1070,8 @@ sap.ui.define([
 					oRoleChange = this.getView().getModel("oRoleChangeModel"),
 					oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "airid eq " + this.getAircraftId() + " and" + " tailid eq " + this.getTailId();
+			//	oParameter.filter = "airid eq " + this.getAircraftId() + " and" + " tailid eq " + this.getTailId();
+				oParameter.filter = "airid"+FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND+"tailid"+ FilterOpEnum.EQ+ this.getTailId();
 				oParameter.success = function(oData) {
 					if (oData.results.length) {
 						for (var i in oData.results) {
@@ -1110,7 +1112,7 @@ sap.ui.define([
 						that._setFirstItemSelected();
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:_getStations function");
 				this.handleException(e);
@@ -1122,7 +1124,8 @@ sap.ui.define([
 					oRoleChange = this.getView().getModel("oRoleChangeModel"),
 					oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "airid eq " + this.getAircraftId() + " and" + " tailid eq " + this.getTailId();
+			//	oParameter.filter = "airid eq " + this.getAircraftId() + " and" + " tailid eq " + this.getTailId();
+				oParameter.filter = "airid"+FilterOpEnum.EQ+this.getAircraftId() + FilterOpEnum.AND+"tailid"+FilterOpEnum.EQ+ this.getTailId();
 				oParameter.success = function(oData) {
 
 					var aStation = oRoleChange.getProperty("/Stations");

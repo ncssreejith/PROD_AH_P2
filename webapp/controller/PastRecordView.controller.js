@@ -4,8 +4,10 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, dataUtil, ajaxutil, JSONModel, formatter, Log) {
+	"sap/base/Log",
+		"avmet/ah/util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, dataUtil, ajaxutil, JSONModel, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name: PastRecordView           
@@ -50,7 +52,7 @@ sap.ui.define([
 				var router = sap.ui.core.UIComponent.getRouterFor(this);
 				switch (oItem.tabid) {
 					case "TABW_115":
-					case "TABW_116":	//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
+					case "TABW_116": //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 						router.navTo("WDNSCoefficients", {
 							tabid: oItem.tabid,
 							logid: oItem.logid
@@ -99,15 +101,17 @@ sap.ui.define([
 		fnLoadPastData: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and refid eq " + this.getAircraftId() +
-				 " and otype eq P";
-				 //" and tabid eq ('" + this.getModel("oPastModel").getProperty("/cnpytabId") +
+				// oParameter.filter = "tailid eq " + this.getTailId() + " and refid eq " + this.getAircraftId() +
+				// 	" and otype eq P";
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&refid" + FilterOpEnum.EQ + this.getAircraftId() +
+					"&otype" + FilterOpEnum.EQ + "P";
+				//" and tabid eq ('" + this.getModel("oPastModel").getProperty("/cnpytabId") +
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oPastModel").setProperty("/past", oData.results);
 					this.getModel("oPastModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadPastData function");
 			}

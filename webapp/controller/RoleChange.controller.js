@@ -6,8 +6,10 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/dataUtil",
 	"sap/m/MessageBox",
-	"sap/base/Log"
-], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	//Teck Meng 13/11/2020 12:00 ah Role change fixes issue no 25,26 
@@ -228,7 +230,7 @@ sap.ui.define([
 				}.bind(this);
 				oParameter.activity = sAct;
 				oParameter.title = "Tradesman undosign off";
-				ajaxutil.fnCreate("/ROLECHANGESVC", oParameter, oPayloads, sObj, this);
+				ajaxutilNew.fnCreate("/ROLECHANGESVC", oParameter, oPayloads, sObj, this);
 			} catch (e) {
 				Log.error("Exception in onStationUndoSignOff function");
 			}
@@ -262,14 +264,14 @@ sap.ui.define([
 					sTitle = "Tradesman ";
 				if (this.fnGetApproNo() > 0) {
 					sAct = "4";
-					sObj = "ZRM_FS_WCS";//Teck Meng change on 19/11/2020 13:00 AH Issue 1044,1043 Authorisation change for Supervisor signoff
+					sObj = "ZRM_FS_WCS"; //Teck Meng change on 19/11/2020 13:00 AH Issue 1044,1043 Authorisation change for Supervisor signoff
 					sTitle = "Supervisor ";
 				}
 				// this.formatter.rcSignChange(tSign,selKey)?"Sign off":"Undo Sign off"
 				sTitle = sTitle + ("Sign off");
 				oParameter.activity = sAct;
 				oParameter.title = sTitle;
-				ajaxutil.fnCreate("/ROLECHANGESVC", oParameter, oPayloads, sObj, this);
+				ajaxutilNew.fnCreate("/ROLECHANGESVC", oParameter, oPayloads, sObj, this);
 			} catch (e) {
 				Log.error("Exception in onStationSignOff function");
 			}
@@ -300,7 +302,8 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "airid eq " + this.getAircraftId() + " and" + " tailid eq " + this.getTailId();
+				//	oParameter.filter = "airid eq " + this.getAircraftId() + " and" + " tailid eq " + this.getTailId();
+				oParameter.filter = "airid=" + this.getAircraftId() + "&" + "tailid=" + this.getTailId();
 				oParameter.success = function(oData) {
 					var sTab = "rc1";
 					this.editMode = null;
@@ -320,7 +323,7 @@ sap.ui.define([
 					this.getModel("rcModel").refresh();
 				}.bind(this);
 				//Teck Meng 13/11/2020 12:00 ah Role change fixes issue no 25,26 
-				ajaxutil.fnRead("/ROLECHANGESVC", oParameter);
+				ajaxutilNew.fnRead("/ROLECHANGESVC", oParameter);
 			} catch (e) {
 				Log.error("Exception in _getStations function");
 			}
@@ -329,14 +332,16 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "airid eq '" + this.getAircraftId() + "' and adpflag eq 'X' and stnsid eq '" + oStn.SUBID + "'" + " and" +
-					" tailid eq " + this.getTailId();
+				// oParameter.filter = "airid eq '" + this.getAircraftId() + "' and adpflag eq 'X' and stnsid eq '" + oStn.SUBID + "'" + " and" +
+				// 	" tailid eq " + this.getTailId();
+				oParameter.filter = "airid=" + this.getAircraftId() + "&adpflag=X&stnsid=" + oStn.SUBID + "&" +
+					"tailid=" + this.getTailId();
 				oParameter.success = function(oStn, oData) {
 					oStn.adapters = oData.results;
 					oStn.selADP = this.fnAttachAdapter(oData.results);
 					this.getModel("rcModel").refresh();
 				}.bind(this, oStn);
-				ajaxutil.fnRead("/ROLECHANGESVC", oParameter);
+				ajaxutilNew.fnRead("/ROLECHANGESVC", oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadAdapter function");
 			}
@@ -381,7 +386,7 @@ sap.ui.define([
 		fnRoleChanegPayload: function() {
 			var oPayloads = [],
 				sSelect = false,
-				sPayload = {}; 
+				sPayload = {};
 			//Teck Meng 13/11/2020 12:00 ah Role change fixes issue no 25,26 
 			this.getModel("rcModel").getProperty("/stns").forEach(function(stn) {
 				// if (stn.tstat === 1) {
@@ -401,13 +406,13 @@ sap.ui.define([
 				//Teck Meng 16/11/2020 18:00 ah Role change fixes issue no 25,26 
 				stn.selADP.forEach(function(adp) {
 					// if(stn.tstat===1){
-						oPayloads.push(this.fnPayload(stn, adp, stn.tstat));
-					if (stn.NUM1 === "2" && stn.APRNO === 1 && stn.selADP.length===1) {
+					oPayloads.push(this.fnPayload(stn, adp, stn.tstat));
+					if (stn.NUM1 === "2" && stn.APRNO === 1 && stn.selADP.length === 1) {
 						sPayload = this.fnPayload(stn, undefined, stn.tstat);
 						sPayload.NUM1 = 2;
 						oPayloads.push(sPayload);
 					}
-					
+
 					// }
 				}.bind(this));
 			}.bind(this));

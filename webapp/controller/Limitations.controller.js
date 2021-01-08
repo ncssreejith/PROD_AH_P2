@@ -7,7 +7,7 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/base/Log",
 		"../util/ajaxutilNew",
-	"avmet/f16/util/FilterOpEnum"
+	"avmet/ah/util/FilterOpEnum"
 ], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************

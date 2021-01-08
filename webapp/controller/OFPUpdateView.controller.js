@@ -4,8 +4,10 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
 	"sap/base/Log",
-	"../util/cvUtil"
-], function(BaseController, ajaxutil, JSONModel, formatter, Log, cvUtil) {
+	"../util/cvUtil",
+	"avmet/ah/util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, ajaxutil, JSONModel, formatter, Log, cvUtil, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name: WDNSCoefficients           
@@ -74,8 +76,11 @@ sap.ui.define([
 		fnLoadOFPClm: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oOFPModel").getProperty("/ofptabId") +
-					" and otype eq C";
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oOFPModel").getProperty("/ofptabId") +
+				// 	" and otype eq C";
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oOFPModel").getProperty(
+						"/ofptabId") +
+					"&otype" + FilterOpEnum.EQ + "C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.deleteColumn(oData);
@@ -83,7 +88,7 @@ sap.ui.define([
 					this.getModel("oOFPModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblUpOFP"), "oOFPModel", "ofp", "oOFPDataModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in OFPUpdateView:fnLoadOFPClm function");
 				this.handleException(e);
@@ -93,14 +98,17 @@ sap.ui.define([
 		fnLoadOFPData: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oOFPModel").getProperty(
-					"/ofptabId") + " and otype eq D";
+				// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oOFPModel").getProperty(
+				// 	"/ofptabId") + " and otype eq D";
+					oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oOFPModel").getProperty(
+						"/ofptabId") +
+					"&otype" + FilterOpEnum.EQ + "D";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oOFPDataModel").setProperty("/ofp", oData.results);
 					this.getModel("oOFPDataModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in OFPUpdateView:fnLoadOFPData function");
 				this.handleException(e);
@@ -200,7 +208,7 @@ sap.ui.define([
 					sap.m.MessageToast.show("Tables updated");
 				}.bind(this);
 				if (oData.length > 0) {
-					ajaxutil.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_O", this);
+					ajaxutilNew.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_O", this);
 				} else {
 					sap.m.MessageToast.show("No table are changed");
 				}

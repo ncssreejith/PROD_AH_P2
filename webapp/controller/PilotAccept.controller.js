@@ -241,7 +241,7 @@ sap.ui.define([
 		},
 		fnLoadAddLimitationDetail: function(sContext) {
 			var oPrmJobDue = {};
-		//	oPrmJobDue.filter = "FLAG EQ O AND CAPID EQ " + sContext.getObject().CAPID + " AND JOBID EQ " + sContext.getObject().JOBID;
+			//	oPrmJobDue.filter = "FLAG EQ O AND CAPID EQ " + sContext.getObject().CAPID + " AND JOBID EQ " + sContext.getObject().JOBID;
 			oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + "O" + "&CAPID" + FilterOpEnum.EQ + sContext.getObject().CAPID + "&JOBID" +
 				FilterOpEnum.EQ + sContext.getObject().JOBID;
 			oPrmJobDue.error = function() {};
@@ -285,8 +285,11 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("paModel").getProperty(
-					"/srvtid") + " and TAILID eq " + this.getTailId();
+				// oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("paModel").getProperty(
+				// 	"/srvtid") + " and TAILID eq " + this.getTailId();
+				oParameter.filter = "REFID=" + this.getAircraftId() + 
+				"&SRVTID=" + this.getModel("paModel").getProperty("/srvtid")+
+				"&TAILID=" + this.getTailId();
 				oParameter.success = function(oData) {
 					this.getModel("paModel").setProperty("/masterList", oData.results);
 					this.getModel("paModel").refresh();
@@ -294,7 +297,7 @@ sap.ui.define([
 						this.fnGetAllData();
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTACCEPTANCESVCHEL"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTACCEPTANCESVCHEL"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPDSLists function");
 			}
@@ -320,7 +323,7 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-			//	oParameter.filter = "TAILID EQ '" + this.getTailId() + "' and FLAG eq 'FS'";
+				//	oParameter.filter = "TAILID EQ '" + this.getTailId() + "' and FLAG eq 'FS'";
 				oParameter.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&FLAG" + FilterOpEnum.EQ + "FS"; // + sSrvIdFilter;
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T1_MCARD");
@@ -343,9 +346,12 @@ sap.ui.define([
 		_getReplenishmentDetails: function() {
 			try {
 				var oParameter = {};
-				var filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("paModel").getProperty("/srvtid") +
-					" and TAILID eq " + this.getTailId() +
-					" and STEPID eq S_RE";
+				// var filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("paModel").getProperty("/srvtid") +
+				// 	" and TAILID eq " + this.getTailId() +
+				// 	" and STEPID eq S_RE";
+				var filter = "REFID=" + this.getAircraftId() + "&SRVTID=" + this.getModel("paModel").getProperty("/srvtid") +
+					"&TAILID=" + this.getTailId() +
+					"&STEPID=S_RE";
 				oParameter.error = function() {};
 				oParameter.filter = filter;
 				oParameter.success = function(oData) {
@@ -355,7 +361,7 @@ sap.ui.define([
 					this._getCreatedTasks();
 					// this._getFuelExtTanks();//Teck Meng change on 25/11/2020 13:00 
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getReplenishmentDetails function");
 			}
@@ -641,7 +647,7 @@ sap.ui.define([
 		_fnADDGet: function() {
 			try {
 				var oPrmJobDue = {};
-			//	oPrmJobDue.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
+				//	oPrmJobDue.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
 				oPrmJobDue.filter = "CAPTY" + FilterOpEnum.EQ + "A&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
 					this.getTailId();
 				oPrmJobDue.error = function() {};
@@ -667,7 +673,7 @@ sap.ui.define([
 		_getTrailMod: function() {
 			try {
 				var oParameter = {};
-		//		oParameter.filter = "tailid eq " + this.getTailId();
+				//		oParameter.filter = "tailid eq " + this.getTailId();
 				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -717,8 +723,8 @@ sap.ui.define([
 		_fnSortieMonitoringDetailsGet: function(sJobId, sSORNO) {
 			try {
 				var oPrmTD = {};
-			//	oPrmTD.filter = "TAILID eq " + this.getTailId() + " AND FLAG EQ D AND JOBID EQ " + sJobId + " AND SORNO EQ " + sSORNO;
-			oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&FLAG" + FilterOpEnum.EQ + "D&JOBID" + FilterOpEnum.EQ + sJobId +
+				//	oPrmTD.filter = "TAILID eq " + this.getTailId() + " AND FLAG EQ D AND JOBID EQ " + sJobId + " AND SORNO EQ " + sSORNO;
+				oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&FLAG" + FilterOpEnum.EQ + "D&JOBID" + FilterOpEnum.EQ + sJobId +
 					"&SORNO" + FilterOpEnum.EQ + sSORNO;
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
@@ -773,7 +779,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTACCEPTANCESVCHEL"), oParameter, oPayloads, "ZRM_FS_PA", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("PILOTACCEPTANCESVCHEL"), oParameter, oPayloads, "ZRM_FS_PA", this);
 				this.closeDialog("SignOffConfirmDialog");
 			} catch (e) {
 				Log.error("Exception in onPressSignOffConfirm function");

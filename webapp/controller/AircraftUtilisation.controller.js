@@ -4,8 +4,10 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
-	"sap/base/Log"
-], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log) {
+	"sap/base/Log",
+	"avmet/ah/util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : KUMAR AMIT	
@@ -108,9 +110,14 @@ sap.ui.define([
 		fnLoadEquipClm: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
+				// 		"/equiptabId") +
+				// 	" and otype eq C";
+
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + "&tabid" + FilterOpEnum.EQ + this.getModel(
+						"oAircraftUtilModel").getProperty(
 						"/equiptabId") +
-					" and otype eq C";
+					"&otype" + FilterOpEnum.EQ + "C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var columnList = this._addEditColumn(oData.results); // Add blank column for Edit button //Teck Meng 30/11/2020 17:30
@@ -119,7 +126,7 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblEquip"), "oAircraftUtilModel", "equip", "oAircraftDataUtilModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadEquipClm function");
 				this.handleException(e);
@@ -129,8 +136,11 @@ sap.ui.define([
 			try {
 
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
-					"/equiptabId") + " and otype eq AU";
+				// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
+				// 	"/equiptabId") + " and otype eq AU";
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + this.getModel(
+					"oAircraftUtilModel").getProperty(
+					"/equiptabId") + "&otype" + FilterOpEnum.EQ + "AU";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results) {
@@ -141,7 +151,7 @@ sap.ui.define([
 					}
 					this.getModel("oAircraftDataUtilModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadEquipData function");
 				this.handleException(e);
@@ -150,9 +160,13 @@ sap.ui.define([
 		fnLoadFlyingClm: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
+				// 		"/flyingtabId") +
+				// 	" and otype eq C";
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + "&tabid" + FilterOpEnum.EQ + this.getModel(
+						"oAircraftUtilModel").getProperty(
 						"/flyingtabId") +
-					" and otype eq C";
+					"&otype" + FilterOpEnum.EQ + "C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var columnList = this._addEditColumn(oData.results); // Add blank column for Edit button //Teck Meng 30/11/2020 17:30
@@ -161,7 +175,7 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblFlying"), "oAircraftUtilModel", "flying", "oAircraftDataUtilModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadFlyingClm function");
 				this.handleException(e);
@@ -170,14 +184,17 @@ sap.ui.define([
 		fnLoadFlyingData: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
-					"/flyingtabId") + " and otype eq AU";
+				// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
+				// 	"/flyingtabId") + " and otype eq AU";
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + this.getModel(
+					"oAircraftUtilModel").getProperty(
+					"/flyingtabId") + "&otype" + FilterOpEnum.EQ + "AU";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oAircraftDataUtilModel").setProperty("/flying", oData.results);
 					this.getModel("oAircraftDataUtilModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadFlyingData function");
 				this.handleException(e);
@@ -186,9 +203,12 @@ sap.ui.define([
 		fnLoadManoClm: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
-						"/manotabId") +
-					" and otype eq C";
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
+				// 		"/manotabId") +
+				// 	" and otype eq C";
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + "&tabid" + FilterOpEnum.EQ + this.getModel(
+					"oAircraftUtilModel").getProperty(
+					"/manotabId") + "&otype" + FilterOpEnum.EQ + "C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var columnList = this._addEditColumn(oData.results); // Add blank column for Edit button //Teck Meng 30/11/2020 17:30
@@ -197,7 +217,7 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblMano"), "oAircraftUtilModel", "mano", "oAircraftDataUtilModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadManoClm function");
 				this.handleException(e);
@@ -206,14 +226,17 @@ sap.ui.define([
 		fnLoadManoData: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
-					"/manotabId") + " and otype eq AU";
+				// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oAircraftUtilModel").getProperty(
+				// 	"/manotabId") + " and otype eq AU";
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + this.getModel(
+					"oAircraftUtilModel").getProperty(
+					"/manotabId") + "&otype" + FilterOpEnum.EQ + "AU";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oAircraftDataUtilModel").setProperty("/mano", oData.results);
 					this.getModel("oAircraftDataUtilModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadManoData function");
 				this.handleException(e);
@@ -417,7 +440,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		/** 
 		 * On pilot running changes
 		 */
@@ -456,11 +479,14 @@ sap.ui.define([
 		/** 
 		 * On running pilot change
 		 */
-		onRunningChangePress: function(oEvent) { 
+		onRunningChangePress: function(oEvent) {
 			try {
-				var sNum1 = oEvent.getSource().getParent().getContent()[0].getSelectedButton().getBindingContext("oAircraftDataUtilModel").getObject().num1; //Teck Meng 25/11/2020 16:50
-				var sSrvtId = oEvent.getSource().getParent().getContent()[0].getSelectedButton().getBindingContext("oAircraftDataUtilModel").getObject().srvtid; //Teck Meng 30/11/2020 16:50
-				var sSrvid = oEvent.getSource().getParent().getContent()[0].getSelectedButton().getBindingContext("oAircraftDataUtilModel").getObject().srvid; //Teck Meng 30/11/2020 16:50
+				var sNum1 = oEvent.getSource().getParent().getContent()[0].getSelectedButton().getBindingContext("oAircraftDataUtilModel").getObject()
+					.num1; //Teck Meng 25/11/2020 16:50
+				var sSrvtId = oEvent.getSource().getParent().getContent()[0].getSelectedButton().getBindingContext("oAircraftDataUtilModel").getObject()
+					.srvtid; //Teck Meng 30/11/2020 16:50
+				var sSrvid = oEvent.getSource().getParent().getContent()[0].getSelectedButton().getBindingContext("oAircraftDataUtilModel").getObject()
+					.srvid; //Teck Meng 30/11/2020 16:50
 
 				this.getRouter().navTo("PilotUpdates", {
 					srvtid: sSrvtId ? sSrvtId : " ",
@@ -473,7 +499,7 @@ sap.ui.define([
 				this.Log.error("Exception in ReleaseForRectification:onRunningChangePress function");
 				this.handleException(e);
 			}
-		},//Teck Meng 30/11/2020 14:00 end-------------
+		}, //Teck Meng 30/11/2020 14:00 end-------------
 		/** //Teck Meng 30/11/2020 17:30 start
 		 * Add edit col
 		 * @constructor 

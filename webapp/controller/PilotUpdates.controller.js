@@ -673,7 +673,7 @@ sap.ui.define([
 						this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 					}
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, oPayloads);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnUpdateTanks function");
 				this.handleException(e);
@@ -1245,7 +1245,7 @@ sap.ui.define([
 			try {
 
 				var oParameter = {};
-			//	oParameter.filter = "ftype eq S and tailid eq " + this.getTailId(); //Change by Teck Meng on 25/11/2020 11:30
+				//	oParameter.filter = "ftype eq S and tailid eq " + this.getTailId(); //Change by Teck Meng on 25/11/2020 11:30
 				oParameter.filter = "ftype" + FilterOpEnum.EQ + "S" + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {
 					this.updateModel({
@@ -1325,9 +1325,13 @@ sap.ui.define([
 				var sSrvtid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid");
 				var sStepid = this.getModel("oPilotUpdatesViewModel").getProperty("/stepid");
 				var oParameter = {};
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and STEPID eq " + sStepid +
-					" and TAILID eq " + this.getTailId() +
-					" and REMID eq REM_F";
+				// oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + sSrvtid + " and STEPID eq " + sStepid +
+				// 	" and TAILID eq " + this.getTailId() +
+				// 	" and REMID eq REM_F";
+				oParameter.filter = "REFID=" + this.getAircraftId() + "&SRVTID=" + sSrvtid +
+					"&STEPID=" + sStepid +
+					"&TAILID=" + this.getTailId() +
+					"&REMID=REM_F";
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -1342,7 +1346,7 @@ sap.ui.define([
 						busy: false
 					}, "viewModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadFuleTankFromRepl function");
 				this.handleException(e);

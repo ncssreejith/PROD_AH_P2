@@ -796,7 +796,8 @@ sap.ui.define([
 		fnLoadSrv1Dashboard: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+			//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				oParameter.filter = "tailid=" + this.getTailId() + "&REFID=" + this.getAircraftId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results.length && oData.results.length > 0) {
@@ -825,7 +826,7 @@ sap.ui.define([
 						// this.fnCreateTableFromData();
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in fnLoadSrv1Dashboard function");
 				this.handleException(e);
@@ -989,7 +990,8 @@ sap.ui.define([
 				// }.bind(this);
 				// ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId();
+			//	oParameter.filter = "tailid eq " + this.getTailId();
+				oParameter.filter = "tailid=" + this.getTailId();
 				oParameter.error = function() {
 					this.fnProcessArrayFuel({
 						results: []
@@ -999,7 +1001,7 @@ sap.ui.define([
 					this.fnProcessArrayFuel(oData);
 					// this.fnProcessFuel({results: []});
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDFUELSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARDFUELSVC"), oParameter);
 
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadFLDashboard function");
@@ -1259,13 +1261,15 @@ sap.ui.define([
 		fnLoadUtilization: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq TABA_102" + " and otype eq AU";
+		//		oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq TABA_102" + " and otype eq AU";
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + "TABA_102" + "&otype" +
+					FilterOpEnum.EQ + "AU";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("avmetModel").setProperty("/airutil", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("avmetModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadUtilization function");
 				this.handleException(e);

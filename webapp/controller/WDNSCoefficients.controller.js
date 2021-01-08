@@ -4,8 +4,10 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, dataUtil, ajaxutil, JSONModel, formatter, Log) {
+	"sap/base/Log",
+	"avmet/ah/util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, dataUtil, ajaxutil, JSONModel, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name: WDNSCoefficients           
@@ -47,7 +49,7 @@ sap.ui.define([
 			html += "<div style='padding-left:3rem; padding-top:1rem;'> WDNS Coefficients Records - Aircraft OFP </div>";
 			/*Rahul: 12/12/2020: 02:55PM: Print added for Header Table*/
 			html += "<div style='width:95%;'>" + this.generateHtml(this, html, "tblDH") + "</div>";
-			
+
 			html += "<div style='width:95%;'>" + this.generateHtml(this, html, "tblHarmonisation") + "</div>";
 			html += "</div></body></html>";
 			html2pdf().from(html).set({
@@ -167,15 +169,18 @@ sap.ui.define([
 		fnLoadHarmoClm: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty("/hartabId") +
-					" and otype eq C";
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty("/hartabId") +
+				// 	" and otype eq C";
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oWDNSModel").getProperty(
+						"/hartabId") +
+					"&otype" + FilterOpEnum.EQ + "C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oWDNSModel").setProperty("/horm", oData.results);
 					this.getModel("oWDNSModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblHarmonisation"), "oWDNSModel", "horm", "oWDNSDataModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in WDNSCoefficients:fnLoadHarmoClm function");
 				this.handleException(e);
@@ -196,15 +201,18 @@ sap.ui.define([
 					// sPath = sPath + "/" + sLogid + "/" + this.getTailId() + "/" + this.getModel(
 					// 	"oWDNSModel").getProperty("/hartabId");
 				} else {
-					oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
-						"/hartabId") + " and otype eq D";
+					// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
+					// 	"/hartabId") + " and otype eq D";
+					oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oWDNSModel").getProperty(
+							"/hartabId") +
+						"&otype" + FilterOpEnum.EQ + "D";
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oWDNSDataModel").setProperty("/horm", oData.results);
 					this.getModel("oWDNSDataModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(sPath, oParameter);
+				ajaxutilNew.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in WDNSCoefficients:fnLoadHarmoData function");
 				this.handleException(e);
@@ -216,15 +224,18 @@ sap.ui.define([
 		fnLoadDHClm: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty("/dhtabId") +
-					" and otype eq C";
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty("/dhtabId") +
+				// 	" and otype eq C";
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oWDNSModel").getProperty(
+						"/dhtabId") +
+					"&otype" + FilterOpEnum.EQ + "C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oWDNSModel").setProperty("/dh", oData.results);
 					this.getModel("oWDNSModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblDH"), "oWDNSModel", "dh", "oWDNSDataModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in WDNSCoefficients:fnLoadDHClm function");
 				this.handleException(e);
@@ -243,15 +254,18 @@ sap.ui.define([
 					sPath = sPath + "(logid=" + sLogid + ",tailid=" + this.getTailId() + ",tabid=" + this.getModel(
 						"oWDNSModel").getProperty("/dhtabId") + ")";
 				} else {
-					oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
-						"/dhtabId") + " and otype eq D";
+					// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
+					// 	"/dhtabId") + " and otype eq D";
+					oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oWDNSModel").getProperty(
+							"/dhtabId") +
+						"&otype" + FilterOpEnum.EQ + "D";
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oWDNSDataModel").setProperty("/dh", oData.results);
 					this.getModel("oWDNSDataModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(sPath, oParameter);
+				ajaxutilNew.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in WDNSCoefficients:fnLoadDHData function");
 				this.handleException(e);

@@ -281,7 +281,8 @@ sap.ui.define([
 			try {
 				this.fnSaveHistory();
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&REFID" + FilterOpEnum.EQ + this.getAircraftId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results.length && oData.results.length > 0) {
@@ -307,7 +308,7 @@ sap.ui.define([
 						this.getModel("avmetModel").refresh();
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
 			} catch (e) {
 				this.fnRestoreHistory();
 				Log.error("Exception in fnLoadSrv1Dashboard function");
@@ -765,8 +766,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmCAPStatus = {};
-			//	oPrmCAPStatus.filter = "airid eq " + that.getAircraftId() + " and Tailid eq " + that.getTailId();
-				oPrmCAPStatus.filter = "airid"+FilterOpEnum.EQ+ that.getAircraftId() +FilterOpEnum.AND+"Tailid"+FilterOpEnum.EQ+ that.getTailId();
+				//	oPrmCAPStatus.filter = "airid eq " + that.getAircraftId() + " and Tailid eq " + that.getTailId();
+				oPrmCAPStatus.filter = "airid" + FilterOpEnum.EQ + that.getAircraftId() + FilterOpEnum.AND + "Tailid" + FilterOpEnum.EQ + that.getTailId();
 				oPrmCAPStatus.error = function() {};
 
 				oPrmCAPStatus.success = function(oData) {}.bind(this);
@@ -920,7 +921,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmLimGet = {};
-		//		oPrmLimGet.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+				//		oPrmLimGet.filter = "CAPTY eq A and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
 				oPrmLimGet.filter = "CAPTY" + FilterOpEnum.EQ + "A&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
 					that.getTailId();
 				oPrmLimGet.error = function() {};
@@ -940,7 +941,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmLimGet = {};
-			//	oPrmLimGet.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
+				//	oPrmLimGet.filter = "CAPTY eq L and AIRID eq " + this.getAircraftId() + " and tailid eq " + that.getTailId();
 				oPrmLimGet.filter = "CAPTY" + FilterOpEnum.EQ + "L&AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&tailid" + FilterOpEnum.EQ +
 					that.getTailId();
 				oPrmLimGet.error = function() {};

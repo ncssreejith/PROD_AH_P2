@@ -3,8 +3,10 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, ajaxutil, JSONModel, formatter, Log) {
+	"sap/base/Log",
+	"avmet/ah/util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, ajaxutil, JSONModel, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name: WDNSCoefficients           
@@ -149,8 +151,11 @@ sap.ui.define([
 		fnLoadOFPClm: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oOFPModel").getProperty("/ofptabId") +
-					" and otype eq C";
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and tabid eq " + this.getModel("oOFPModel").getProperty("/ofptabId") +
+				// 	" and otype eq C";
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oOFPModel").getProperty(
+						"/ofptabId") +
+					"&otype" + FilterOpEnum.EQ + "C";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					// this.deleteColumn(oData);
@@ -158,7 +163,7 @@ sap.ui.define([
 					this.getModel("oOFPModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblOFP"), "oOFPModel", "ofp", "oOFPDataModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in OFPView:fnLoadOFPClm function");
 				this.handleException(e);
@@ -179,15 +184,18 @@ sap.ui.define([
 					// sPath = sPath + "/" + sLogid + "/" + this.getTailId() + "/" + this.getModel(
 					// 	"oOFPModel").getProperty("/tabid");
 				} else {
-					oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oOFPModel").getProperty(
-						"/ofptabId") + " and otype eq D";
+					// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oOFPModel").getProperty(
+					// 	"/ofptabId") + " and otype eq D";
+					oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + this.getModel("oOFPModel").getProperty(
+							"/ofptabId") +
+						"&otype" + FilterOpEnum.EQ + "D";
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("oOFPDataModel").setProperty("/ofp", oData.results);
 					this.getModel("oOFPDataModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(sPath, oParameter);
+				ajaxutilNew.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in OFPView:fnLoadOFPData function");
 				this.handleException(e);

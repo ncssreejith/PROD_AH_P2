@@ -5,8 +5,10 @@ sap.ui.define([
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-	"../util/cvUtil"
-], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log, cvUtil) {
+	"../util/cvUtil",
+		"avmet/ah/util/ajaxutilNew",
+	"../util/FilterOpEnum"
+], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log, cvUtil, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : Teck Meng
@@ -55,7 +57,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter, [oPayload], "ZRM_AC_U", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter, [oPayload], "ZRM_AC_U", this);
 			} catch (e) {
 				Log.error("Exception in AddEquipRunningLog:onSignOffPress function");
 				this.handleException(e);
@@ -95,7 +97,7 @@ sap.ui.define([
 					this.getModel("oAircraftAddModel").refresh(true);
 					this.fnSetReason();
 				}.bind(this);
-				ajaxutil.fnRead(sPath, oParameter);
+				ajaxutilNew.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in AddEquipRunningLog:fnLogById function");
 				this.handleException(e);

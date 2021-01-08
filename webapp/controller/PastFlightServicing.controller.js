@@ -4,8 +4,10 @@ sap.ui.define([
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
-	"sap/base/Log"
-], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log) {
+	"sap/base/Log",
+	"avmet/ah/util/FilterOpEnum",
+	"../util/ajaxutilNew"
+], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log, FilterOpEnum, ajaxutilNew) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.PastFlightServicing", {
@@ -164,15 +166,18 @@ sap.ui.define([
 				oUpdateFlightModel.setProperty("/srvid", oEvent.getParameter("arguments").srvid);
 				oUpdateFlightModel.setProperty("/sPageTitle", oEvent.getParameter("arguments").srvid.split("_")[1]);
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oEvent.getParameter("arguments").srvid +
-					" and tailid eq " + this.getTailId();
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oEvent.getParameter("arguments").srvid +
+				// 	" and tailid eq " + this.getTailId();
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "subid" + FilterOpEnum.EQ + oEvent.getParameter(
+						"arguments").srvid + FilterOpEnum.AND +
+					"tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					oData.results.forEach(function(oItem) {
 						this._getTaskServicing(oItem);
 					}.bind(this));
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 				// this.fnLoadSrv1Dashboard();
 				// //this.setBasicDetails(oEvent);
 				// var oPastFlightModel = this.getView().getModel("oPastFlightModel");
@@ -201,8 +206,10 @@ sap.ui.define([
 					aTasks = oPastFlightModel.getProperty("/aTasks");
 				var oParameter = {};
 				// oPastFlightModel.getProperty("/srvid")
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oItem.SRVTID +
-					" and mainid eq " + oItem.SRVTID + " and tailid eq " + this.getTailId();
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oItem.SRVTID +
+				// 	" and mainid eq " + oItem.SRVTID + " and tailid eq " + this.getTailId();
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "subid" + FilterOpEnum.EQ +  oItem.SRVTID + FilterOpEnum.AND +
+				"mainid"+FilterOpEnum.EQ+oItem.SRVTID+"tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oItem, oData) {
 					if (oData.results.length) {
@@ -259,7 +266,7 @@ sap.ui.define([
 					oPastFlightModel.setProperty("/aTasks", aTasks);
 					oPastFlightModel.refresh();
 				}.bind(this, oItem);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTaskServicing function");
 				this.handleException(e);

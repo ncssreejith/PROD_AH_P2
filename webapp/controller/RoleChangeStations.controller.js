@@ -6,8 +6,10 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"sap/m/MessageBox",
-	"sap/base/Log"
-], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	return BaseController.extend("avmet.ah.controller.RoleChangeStations", {
 		formatter: formatter,
@@ -851,7 +853,7 @@ sap.ui.define([
 					}, 100);
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, plStations, "ZRM_FS_RCT", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, plStations, "ZRM_FS_RCT", this);
 			} catch (e) {
 				Log.error("Exception in onStationSignOff function");
 				this.handleException(e);
@@ -1275,7 +1277,8 @@ sap.ui.define([
 					sStationId = sObj.SUBID;
 				oRoleChange.setProperty("/sStationId", sStationId);
 				oParameter.error = function() {};
-				oParameter.filter = "airid eq '" + this.getAircraftId() + "' and adpflag eq 'X' and stnsid eq '" + sStationId + "'";
+				//		oParameter.filter = "airid eq '" + this.getAircraftId() + "' and adpflag eq 'X' and stnsid eq '" + sStationId + "'";
+				oParameter.filter = "airid=" + this.getAircraftId() + "&adpflag=X&stnsid=" + sStationId;
 				oParameter.success = function(oData) {
 					if (oData.results.length) {
 						var aUniLaunchers = [],
@@ -1364,7 +1367,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getAdaptors function");
 				this.handleException(e);
@@ -1455,7 +1458,7 @@ sap.ui.define([
 				});
 				this.getView().setModel(oModel, "oRoleChangeModel");
 				// var oModel = this.getView().getModel("oRoleChangeModel"),
-				var	oData = dataUtil.getDataSet(this.getOwnerComponent().appModel),
+				var oData = dataUtil.getDataSet(this.getOwnerComponent().appModel),
 					aStations = oData.login.rolechangedetails;
 				oModel.setProperty("/bDropSection", true);
 				oModel.setProperty("/bGunSection", false);
@@ -1483,7 +1486,8 @@ sap.ui.define([
 					oRoleChange = this.getView().getModel("oRoleChangeModel"),
 					oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "airid eq " + this.getAircraftId() + " and" + " tailid eq " + this.getTailId();
+				//	oParameter.filter = "airid eq " + this.getAircraftId() + " and" + " tailid eq " + this.getTailId();
+				oParameter.filter = "airid=" + this.getAircraftId() + "&" + "tailid=" + this.getTailId();
 				oParameter.success = function(oData) {
 					if (oData.results.length) {
 						for (var i in oData.results) {
@@ -1526,7 +1530,7 @@ sap.ui.define([
 						that._fnOpentab(oData.results[0].HCFLAG);
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getStations function");
 				this.handleException(e);
@@ -1614,7 +1618,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		
+
 		_fnGetStationPayload: function(aPayload, iType) {
 			var plStations = {};
 			var aStations = [];

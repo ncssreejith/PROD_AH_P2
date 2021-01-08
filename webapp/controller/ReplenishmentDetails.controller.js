@@ -219,7 +219,7 @@ sap.ui.define([
 					this._getRepTiles();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, [oObject], "ZRM_FS_RP", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, [oObject], "ZRM_FS_RP", this);
 
 			} catch (e) {
 				Log.error("Exception in fnUndoSignOff function");
@@ -259,7 +259,7 @@ sap.ui.define([
 					// }, true);
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, aPayloads, "ZRM_FS_RP", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, aPayloads, "ZRM_FS_RP", this);
 
 			} catch (e) {
 				Log.error("Exception in onPressSignOffConfirm function");
@@ -289,8 +289,9 @@ sap.ui.define([
 		_fnAirOverViewHeaderGet: function() {
 			try {
 				var oPrmWB = {};
-			//	oPrmWB.filter = "FLAG eq I AND LPTYPE eq LPTYREPRES and REFID eq " + this.getAircraftId();
-				oPrmWB.filter = "FLAG"+FilterOpEnum.EQ+"I"+FilterOpEnum.AND+"LPTYPE"+FilterOpEnum.EQ+"LPTYREPRES"+FilterOpEnum.AND+"REFID"+FilterOpEnum.EQ+this.getAircraftId();
+				//	oPrmWB.filter = "FLAG eq I AND LPTYPE eq LPTYREPRES and REFID eq " + this.getAircraftId();
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "I" + FilterOpEnum.AND + "LPTYPE" + FilterOpEnum.EQ + "LPTYREPRES" + FilterOpEnum.AND +
+					"REFID" + FilterOpEnum.EQ + this.getAircraftId();
 				oPrmWB.error = function() {};
 				oPrmWB.success = function(oData) {
 					this.getModel("oRepDetailsModel").setProperty("/TyrePressure", oData.results);
@@ -338,9 +339,12 @@ sap.ui.define([
 		_getRepTiles: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("oRepDetailsModel").getProperty(
-						"/srvtid") + " and TAILID eq " + this.getTailId() +
-					" and STEPID eq " + this.getModel("oRepDetailsModel").getProperty("/stepid");
+				// oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("oRepDetailsModel").getProperty(
+				// 		"/srvtid") + " and TAILID eq " + this.getTailId() +
+				// 	" and STEPID eq " + this.getModel("oRepDetailsModel").getProperty("/stepid");
+				oParameter.filter = "REFID=" + this.getAircraftId() + "&SRVTID=" + this.getModel("oRepDetailsModel").getProperty(
+						"/srvtid") + "&TAILID=" + this.getTailId() +
+					"&STEPID=" + this.getModel("oRepDetailsModel").getProperty("/stepid");
 				oParameter.error = function(hrex) {
 					this.updateModel({
 						busy: false
@@ -355,7 +359,7 @@ sap.ui.define([
 					}, "viewModel");
 					// this._getFuelExtTanks();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRepTiles function");
 				this.handleException(e);

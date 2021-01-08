@@ -5,8 +5,10 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-	"../model/formatter"
-], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log, formatter) {
+	"../model/formatter",
+	"avmet/ah/util/FilterOpEnum",
+	"../util/ajaxutilNew"
+], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log, formatter, FilterOpEnum, ajaxutilNew) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.UpdateFlightServicing", {
@@ -174,21 +176,22 @@ sap.ui.define([
 				var srv_id = oEvent.getParameter("arguments").srv_id;
 				oUpdateFlightModel.setProperty("/srv_id", srv_id);
 				oUpdateFlightModel.setProperty("/sPageTitle", oEvent.getParameter("arguments").srvid.split("_")[1]);
-				
-				var sSrvIdFilter = this.getModel("oUpdateFlightModel").getProperty("/srv_id") ? 
-				 (" and SRVID eq " + this.getModel("oUpdateFlightModel").getProperty("/srv_id") )
-				 : "";
+
+				var sSrvIdFilter = this.getModel("oUpdateFlightModel").getProperty("/srv_id") ?
+					(" and SRVID eq " + this.getModel("oUpdateFlightModel").getProperty("/srv_id")) : "";
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oEvent.getParameter("arguments").srvid +
-					" and tailid eq " + this.getTailId() 
-					+ sSrvIdFilter;
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oEvent.getParameter("arguments").srvid +
+				// 	" and tailid eq " + this.getTailId() + sSrvIdFilter;
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "subid" + FilterOpEnum.EQ + oEvent.getParameter(
+						"arguments").srvid + FilterOpEnum.AND +
+					"tailid" + FilterOpEnum.EQ + this.getTailId() + sSrvIdFilter;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					oData.results.forEach(function(oItem) {
 						this._getTaskServicing(oItem);
 					}.bind(this));
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 				this.fnLoadSrv1Dashboard();
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
@@ -200,14 +203,16 @@ sap.ui.define([
 			try {
 				var oUpdateFlightModel = this.getView().getModel("oUpdateFlightModel"),
 					aTasks = oUpdateFlightModel.getProperty("/aTasks");
-					
-				var sSrvIdFilter = this.getModel("oUpdateFlightModel").getProperty("/srv_id") ? 
-				 (" and SRVID eq " + this.getModel("oUpdateFlightModel").getProperty("/srv_id") )
-				 : "";
-					
+
+				var sSrvIdFilter = this.getModel("oUpdateFlightModel").getProperty("/srv_id") ?
+					(" and SRVID eq " + this.getModel("oUpdateFlightModel").getProperty("/srv_id")) : "";
+
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oUpdateFlightModel.getProperty("/srvid") +
-					" and mainid eq " + oItem.mainid + " and tailid eq " + this.getTailId() + sSrvIdFilter;
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oUpdateFlightModel.getProperty("/srvid") +
+				// 	" and mainid eq " + oItem.mainid + " and tailid eq " + this.getTailId() + sSrvIdFilter;
+				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "subid" + FilterOpEnum.EQ +
+					oUpdateFlightModel.getProperty("/srvid") + FilterOpEnum.AND + "mainid" + FilterOpEnum.EQ + oItem.mainid +
+					"tailid" + FilterOpEnum.EQ + this.getTailId() + sSrvIdFilter;
 				oParameter.error = function() {};
 				oParameter.success = function(oItem, oData) {
 					if (oData.results.length) {
@@ -264,7 +269,7 @@ sap.ui.define([
 					oUpdateFlightModel.setProperty("/aTasks", aTasks);
 					oUpdateFlightModel.refresh();
 				}.bind(this, oItem);
-				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTaskServicing function");
 				this.handleException(e);

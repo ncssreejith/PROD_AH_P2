@@ -433,9 +433,12 @@ sap.ui.define([
 		_getReplenishmentDetails: function() {
 			try {
 				var oParameter = {};
-				var filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty("/srvtid") +
-					" and TAILID eq " + this.getTailId() +
-					" and STEPID eq S_RE";
+				// var filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty("/srvtid") +
+				// 	" and TAILID eq " + this.getTailId() +
+				// 	" and STEPID eq S_RE";
+					var filter = "REFID=" + this.getAircraftId() + "&SRVTID=" + this.getModel("pdsSummaryModel").getProperty("/srvtid") +
+					"&TAILID=" + this.getTailId() +
+					"&STEPID=S_RE";
 				oParameter.error = function() {};
 				oParameter.filter = filter;
 				oParameter.success = function(oData) {
@@ -444,7 +447,7 @@ sap.ui.define([
 					this._getTasks();
 					this._getCreatedTasks();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getReplenishmentDetails function");
 			}
