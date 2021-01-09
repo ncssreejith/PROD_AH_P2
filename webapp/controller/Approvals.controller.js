@@ -611,7 +611,7 @@ sap.ui.define([
 				var that = this,
 					oPrmAppr = {};
 				//	oPrmAppr.filter = "CAPID eq " + sCapId;
-				oPrmAppr.filter = "CAPID" + FilterOpEnum.EQ + sCapId;
+				oPrmAppr.filter = "CAPID" + FilterOpEnum.EQ + sCapId + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmAppr.error = function() {
 
 				};
@@ -688,7 +688,7 @@ sap.ui.define([
 				var that = this,
 					oPrmWB = {};
 				//	oPrmWB.filter = "FLAG eq TM and JOBID eq " + sJOBID;
-				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "TM&JOBID" + FilterOpEnum.EQ + sJOBID;
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "TM&JOBID" + FilterOpEnum.EQ + sJOBID+"&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmWB.error = function() {
 
 				};

@@ -194,7 +194,7 @@ sap.ui.define([
 			var that = this,
 				oPrmAppr = {};
 			//	oPrmAppr.filter = "CAPID eq " + sCapId;
-			oPrmAppr.filter = "CAPID" + FilterOpEnum.EQ + sCapId;
+			oPrmAppr.filter = "CAPID" + FilterOpEnum.EQ + sCapId + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 			oPrmAppr.error = function() {
 
 			};

@@ -98,7 +98,7 @@ sap.ui.define([
 				oTable.removeSelections(true);
 				//	oPrmTask.filter = "jobid eq " + sJobId + " and TSTAT eq ALL and WRCTR eq " + sWrctr;
 				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "TSTAT" + FilterOpEnum.EQ + "ALL" + FilterOpEnum.AND +
-					"WRCTR" + FilterOpEnum.EQ + sWrctr;
+					"WRCTR" + FilterOpEnum.EQ + sWrctr+"&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					oModel = that.getView().getModel("TaskModel");
@@ -128,7 +128,7 @@ sap.ui.define([
 					oPrmTask = {};
 				oSelectedTask = oModelView.getProperty("/selectedTask");
 				//	oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
-				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + "sJobId" + FilterOpEnum.AND + "recTstar" + FilterOpEnum.EQ + "X";
+				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + "sJobId" + FilterOpEnum.AND + "recTstar" + FilterOpEnum.EQ + "X&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					this.getView().getModel("ViewModel").setProperty("/selectedTask", oData.results);

@@ -6,7 +6,7 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/ajaxutil",
 	"sap/base/Log",
-		"../util/ajaxutilNew",
+	"../util/ajaxutilNew",
 	"../util/FilterOpEnum"
 ], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
@@ -45,8 +45,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmTD = {};
-			//	oPrmTD.filter = "TAILID eq " + that.getTailId();
-			oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + that.getTailId();
+				//	oPrmTD.filter = "TAILID eq " + that.getTailId();
+				oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + that.getTailId();
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -67,8 +67,8 @@ sap.ui.define([
 				var that = this,
 					oPrmFR = {},
 					oModel = this.getView().getModel("LocalModel");
-				var sPath = this.getResourceBundle().getText("GETFLYREQSVC") + "(" +
-					"JOBID=" + oObj.JOBID + ",TAILID=" + oObj.TAILID + ",FR_NO=" + oObj.FR_NO + ")";
+				var sPath = this.getResourceBundle().getText("FLYINGREQUIREMENTSVC") + "?JOBID" + FilterOpEnum.EQ + oObj.JOBID + "&TAILID" +
+					FilterOpEnum.EQ + oObj.TAILID + "&FR_NO" + FilterOpEnum.EQ + oObj.FR_NO;
 				oPrmFR.error = function() {};
 				oPrmFR.success = function(oData) {
 					that._fnFlyingRequirementsMasterGet();
@@ -98,7 +98,7 @@ sap.ui.define([
 					that.onFlyingRequirementClose();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter, [oPayload], "dummy", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oParameter, [oPayload], "dummy", this);
 			} catch (e) {
 				Log.error("Exception in onFlyingRequirementUpdate function");
 			}

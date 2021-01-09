@@ -1032,7 +1032,8 @@ sap.ui.define([
 				}
 				oEvent.getSource().setSelected(true);
 				//	sFilter = "taskid eq " + oObj.taskid;
-				sFilter = "taskid" + FilterOpEnum.EQ + oObj.taskid;
+				sFilter = "taskid" + FilterOpEnum.EQ + oObj.taskid + "&tailid" + FilterOpEnum.EQ + this.getTailId() + "&tailid" + FilterOpEnum.EQ +
+					this.getTailId();
 				oPrmJobDue.filter = sFilter;
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
@@ -1058,7 +1059,7 @@ sap.ui.define([
 					oPrmJobDue = {};
 				//oEvent.getSource().setSelected(true);
 				//	sFilter = "taskid eq " + oObj.taskid;
-				sFilter = "taskid" + FilterOpEnum.EQ + oObj.taskid;
+				sFilter = "taskid" + FilterOpEnum.EQ + oObj.taskid + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmJobDue.filter = sFilter;
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
@@ -1256,8 +1257,8 @@ sap.ui.define([
 					oLocalModel = this.getView().getModel("LocalModel"),
 					oPrmTask = {};
 				//	oPrmTask.filter = "jobid eq " + sJobId + " and TSTAT eq C and WRCTR eq " + sWrctr;
-				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + "sJobId" + FilterOpEnum.AND + "TSTAT" + FilterOpEnum.EQ + "C" + FilterOpEnum.AND +
-					"WRCTR" + FilterOpEnum.EQ + sWrctr;
+				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "TSTAT" + FilterOpEnum.EQ + "C" + FilterOpEnum.AND +
+					"WRCTR" + FilterOpEnum.EQ + sWrctr + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmTask.error = function() {
 
 				};
@@ -1382,8 +1383,8 @@ sap.ui.define([
 					oLocalModel = this.getView().getModel("LocalModel"),
 					oPrmTask = {};
 				//	oPrmTask.filter = "jobid eq " + sJobId + " and TSTAT eq P and WRCTR eq " + sWrctr;
-				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + "sJobId" + FilterOpEnum.AND + "TSTAT" + FilterOpEnum.EQ + "P" + FilterOpEnum.AND +
-					"WRCTR" + FilterOpEnum.EQ + sWrctr;
+				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "TSTAT" + FilterOpEnum.EQ + "P" + FilterOpEnum.AND +
+					"WRCTR" + FilterOpEnum.EQ + sWrctr + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmTask.error = function() {
 
 				};
@@ -1421,8 +1422,8 @@ sap.ui.define([
 					oLocalModel = this.getView().getModel("LocalModel"),
 					oPrmTask = {};
 				//	oPrmTask.filter = "jobid eq " + sJobId + " and TSTAT eq X and WRCTR eq " + sWrctr;
-				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + "sJobId" + FilterOpEnum.AND + "TSTAT" + FilterOpEnum.EQ + "X" + FilterOpEnum.AND +
-					"WRCTR" + FilterOpEnum.EQ + sWrctr;
+				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "TSTAT" + FilterOpEnum.EQ + "X" + FilterOpEnum.AND +
+					"WRCTR" + FilterOpEnum.EQ + sWrctr + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmTask.error = function() {
 
 				};
@@ -2181,7 +2182,7 @@ sap.ui.define([
 				var that = this,
 					oPrmTask = {};
 				//	oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
-				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + "sJobId" + FilterOpEnum.AND + "recTstar" + FilterOpEnum.EQ + "X&tailid" +
+				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "recTstar" + FilterOpEnum.EQ + "X&tailid" +
 					FilterOpEnum.EQ + this.getTailId();
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {

@@ -802,7 +802,7 @@ sap.ui.define([
 			try {
 				var oPrmAppr = {};
 				//	oPrmAppr.filter = "CAPID eq " + oContext.getObject().id;
-				oPrmAppr.filter = "CAPID" + FilterOpEnum.EQ + oContext.getObject().id;
+				oPrmAppr.filter = "CAPID" + FilterOpEnum.EQ + oContext.getObject().id + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmAppr.error = function() {};
 				oPrmAppr.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/detail", oData.results.length > 0 ? oData.results[0] : {});
@@ -864,7 +864,8 @@ sap.ui.define([
 			try {
 				var oPrmWB = {};
 				//	oPrmWB.filter = "FLAG eq TM and JOBID eq " + oContext.getObject().JOBID;
-				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "TM&JOBID" + FilterOpEnum.EQ + oContext.getObject().JOBID;
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "TM&JOBID" + FilterOpEnum.EQ + oContext.getObject().JOBID + "&tailid" + FilterOpEnum.EQ +
+					this.getTailId();
 				oPrmWB.error = function() {};
 				oPrmWB.success = function(oData) {
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/detail", oData.results.length > 0 ? oData.results[0] : {});

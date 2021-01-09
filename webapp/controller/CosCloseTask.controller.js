@@ -205,8 +205,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-			//	oPrmJobDue.filter = "TAILID eq " + that.getTailId() + " and TOREF eq " + sText;
-				oPrmJobDue.filter = "TAILID"+FilterOpEnum.EQ+ that.getTailId() + FilterOpEnum.AND+ "TOREF"+ FilterOpEnum.EQ + sText;
+				//	oPrmJobDue.filter = "TAILID eq " + that.getTailId() + " and TOREF eq " + sText;
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + that.getTailId() + FilterOpEnum.AND + "TOREF" + FilterOpEnum.EQ + sText;
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -419,7 +419,7 @@ sap.ui.define([
 				var that = this,
 					sCount,
 					oPrmJobDue = {};
-			//	oPrmJobDue.filter = "TAILID eq " + this.getTailId();
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId();
 				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId(); // phase 2 Changes
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
@@ -452,8 +452,9 @@ sap.ui.define([
 					that = this,
 					oPayload;
 				oModelObj.getObject("partno");
-			//	oPrmDD.filter = "PARTNO eq " + oModelObj.getObject("partno") + " and ESTAT eq R and INSON eq " + this.getTailId();
-				oPrmDD.filter = "PARTNO"+ FilterOpEnum.EQ + oModel.getProperty("partno") +  FilterOpEnum.AND+ "ESTAT" +FilterOpEnum.EQ+ "R" +FilterOpEnum.AND+ "INSON" +FilterOpEnum.EQ+ this.getTailId();
+				//	oPrmDD.filter = "PARTNO eq " + oModelObj.getObject("partno") + " and ESTAT eq R and INSON eq " + this.getTailId();
+				oPrmDD.filter = "PARTNO" + FilterOpEnum.EQ + oModel.getProperty("partno") + FilterOpEnum.AND + "ESTAT" + FilterOpEnum.EQ + "R" +
+					FilterOpEnum.AND + "INSON" + FilterOpEnum.EQ + this.getTailId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -515,7 +516,7 @@ sap.ui.define([
 		_fnGetUtilisationDefaultVal: function(sAir) {
 			try {
 				var oPrmJobDue = {};
-			//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq UTIL";
 				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + sAir +
 					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "UTIL";
 				oPrmJobDue.error = function() {};
@@ -573,8 +574,8 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/AirId") + " and ddid eq UTIL2_";*/
-			//	oPrmJobDue.filter = "ddid eq UTIL2_";
-					oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "UTIL2_";
+				//	oPrmJobDue.filter = "ddid eq UTIL2_";
+				oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "UTIL2_";
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -599,7 +600,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/AirId") + " and ddid eq 118_";*/
-			//	oPrmJobDue.filter = "ddid eq 118_";
+				//	oPrmJobDue.filter = "ddid eq 118_";
 				oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "118_";
 				oPrmJobDue.error = function() {
 
@@ -632,8 +633,8 @@ sap.ui.define([
 					sFilter, bFlag = true,
 					oModelView = this.getView().getModel("TaskModel"),
 					oPrmJobDue = {};
-			//	sFilter = "taskid eq " + oTempJB;
-				sFilter = "taskid"+FilterOpEnum.EQ+ oTempJB;
+				//	sFilter = "taskid eq " + oTempJB;
+				sFilter = "taskid" + FilterOpEnum.EQ + oTempJB + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmJobDue.filter = sFilter;
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
@@ -671,12 +672,12 @@ sap.ui.define([
 				var Temp = oModel.getProperty("/TaskId");
 				for (var i = 0; i < Temp.length; i++) {
 					if (bFlag) {
-					//	sFilter = "taskid eq " + Temp[i];
-						sFilter = "taskid"+FilterOpEnum.EQ+ Temp[i];
+						//	sFilter = "taskid eq " + Temp[i];
+						sFilter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&taskid" + FilterOpEnum.EQ + Temp[i];
 						bFlag = false;
 					} else {
-					//	var sFilterStr = " and taskid eq " + Temp[i];
-						var sFilterStr = FilterOpEnum.AND+"taskid"+FilterOpEnum.EQ+ Temp[i];
+						//	var sFilterStr = " and taskid eq " + Temp[i];
+						var sFilterStr = FilterOpEnum.AND + "taskid" + FilterOpEnum.EQ + Temp[i];
 						sFilter = sFilter.concat(sFilterStr);
 					}
 					/*filters.push(new sap.ui.model.Filter("taskid", sap.ui.model.FilterOperator.EQ, Temp[i]));*/
