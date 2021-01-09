@@ -384,7 +384,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnLoadEngineLong: function() {
+		/*fnLoadEngineLong: function() {
 			try {
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId();
@@ -395,12 +395,12 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").setProperty("/engine", oData.results);
 					this.getModel("oAircraftUtilModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTUTILIZATIONSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTUTILIZATIONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadEngineLong function");
 				this.handleException(e);
 			}
-		},
+		},*/
 		//Teck Meng 30/11/2020 14:00 start-------------
 		onEditEquip: function(oEvent) {
 			var that = this;

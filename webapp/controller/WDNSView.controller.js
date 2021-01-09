@@ -76,8 +76,8 @@ sap.ui.define([
 				Log.error("Exception in WDNSView:_onObjectMatched function");
 				this.handleException(e);
 			}
-		},
-		fnLoadEngineLong: function() {
+		}
+		/*fnLoadEngineLong: function() {
 			try {
 				var oParameter = {};
 				oParameter.filter = "tailid eq " + this.getTailId();
@@ -89,12 +89,12 @@ sap.ui.define([
 					this.getView().getModel("oWDNSModel").refresh();
 					// this.fnLoadTails();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTUTILIZATIONSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTUTILIZATIONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in WDNSView:fnLoadEngineLong function");
 				this.handleException(e);
 			}
-		}
+		}*/
 
 	});
 

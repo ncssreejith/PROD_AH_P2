@@ -601,24 +601,24 @@ sap.ui.define([
 		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		 * @returns
 		 */
-		fnCreateAlarming: function() {
-			try {
-				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/arming");
-				if (oPayloads.length === 0) {
-					return;
-				}
-				// oPayloads.armde = oPayloads.armde === "" ? "A" : "D";
-				var oParameter = {};
-				oParameter.error = function() {};
-				oParameter.success = function() {
-					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
-				}.bind(this);
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("ALARMINGSVC"), oParameter, [oPayloads]);
-			} catch (e) {
-				Log.error("Exception in PilotUpdate:fnCreateAlarming function");
-				this.handleException(e);
-			}
-		},
+		// fnCreateAlarming: function() {
+		// 	try {
+		// 		var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/arming");
+		// 		if (oPayloads.length === 0) {
+		// 			return;
+		// 		}
+		// 		// oPayloads.armde = oPayloads.armde === "" ? "A" : "D";
+		// 		var oParameter = {};
+		// 		oParameter.error = function() {};
+		// 		oParameter.success = function() {
+		// 			this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
+		// 		}.bind(this);
+		// 		ajaxutilNew.fnUpdate(this.getResourceBundle().getText("ALARMINGSVC"), oParameter, [oPayloads]);
+		// 	} catch (e) {
+		// 		Log.error("Exception in PilotUpdate:fnCreateAlarming function");
+		// 		this.handleException(e);
+		// 	}
+		// },
 
 		/** 
 		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
@@ -897,43 +897,43 @@ sap.ui.define([
 		/** 
 		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		 */
-		fnReadArming: function() {
-			try {
-				var oParameter = {};
-				oParameter.filter =
-					"tailid eq " + this.getTailId() + " and srvtid eq " + this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid") +
-					" and pnum eq " + this.getModel("oPilotUpdatesViewModel").getProperty("/num1") + " and srvid eq " + this.getModel(
-						"oPilotUpdatesViewModel").getProperty("/srvid");
-				oParameter.error = function() {
-					this.updateModel({
-						busy: false
-					}, "viewModel");
-				}.bind(this);
-				oParameter.success = function(oData) {
-					var oArming = oData.results.length > 0 ? oData.results[0] : null;
-					if (!oArming) {
-						oArming = {};
-						var paDate = new Date();
-					} else {
-						paDate = new Date(oArming.sgdate);
-					}
-					/* Rahul: 28/12/2020: Code change-Start */
-					/* this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/egstt", (paDate.getHours() + ":" + paDate.getMinutes())); */
-					this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/egstt", this.formatter.oDataDateTimeFormat(paDate,
-						"yyyy-MM-dd HH:mm"));
-					this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/woffw", this.formatter.oDataDateTimeFormat(paDate,
-						"yyyy-MM-dd HH:mm"));
-					/* Rahul: 28/12/2020: Code change-End */
-					this.getModel("oPilotUpdatesViewModel").setProperty("/paDate", paDate);
-					this.getModel("oPilotUpdatesViewModel").setProperty("/arming", oArming);
-					this.getModel("oPilotUpdatesViewModel").refresh();
-				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ALARMINGSVC"), oParameter);
-			} catch (e) {
-				Log.error("Exception in PilotUpdate:fnReadArming function");
-				this.handleException(e);
-			}
-		},
+		// fnReadArming: function() {
+		// 	try {
+		// 		var oParameter = {};
+		// 		oParameter.filter =
+		// 			"tailid eq " + this.getTailId() + " and srvtid eq " + this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid") +
+		// 			" and pnum eq " + this.getModel("oPilotUpdatesViewModel").getProperty("/num1") + " and srvid eq " + this.getModel(
+		// 				"oPilotUpdatesViewModel").getProperty("/srvid");
+		// 		oParameter.error = function() {
+		// 			this.updateModel({
+		// 				busy: false
+		// 			}, "viewModel");
+		// 		}.bind(this);
+		// 		oParameter.success = function(oData) {
+		// 			var oArming = oData.results.length > 0 ? oData.results[0] : null;
+		// 			if (!oArming) {
+		// 				oArming = {};
+		// 				var paDate = new Date();
+		// 			} else {
+		// 				paDate = new Date(oArming.sgdate);
+		// 			}
+		// 			/* Rahul: 28/12/2020: Code change-Start */
+		// 			/* this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/egstt", (paDate.getHours() + ":" + paDate.getMinutes())); */
+		// 			this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/egstt", this.formatter.oDataDateTimeFormat(paDate,
+		// 				"yyyy-MM-dd HH:mm"));
+		// 			this.getModel("oPilotUpdatesViewModel").setProperty("/timings/0/woffw", this.formatter.oDataDateTimeFormat(paDate,
+		// 				"yyyy-MM-dd HH:mm"));
+		// 			/* Rahul: 28/12/2020: Code change-End */
+		// 			this.getModel("oPilotUpdatesViewModel").setProperty("/paDate", paDate);
+		// 			this.getModel("oPilotUpdatesViewModel").setProperty("/arming", oArming);
+		// 			this.getModel("oPilotUpdatesViewModel").refresh();
+		// 		}.bind(this);
+		// 		ajaxutilNew.fnRead(this.getResourceBundle().getText("ALARMINGSVC"), oParameter);
+		// 	} catch (e) {
+		// 		Log.error("Exception in PilotUpdate:fnReadArming function");
+		// 		this.handleException(e);
+		// 	}
+		// },
 
 		/** 
 		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
