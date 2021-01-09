@@ -417,7 +417,8 @@ sap.ui.define([
 		fnGetRunningChanges: function(sSRVID) {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId() + " and SRVID eq " + sSRVID;
+			//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId() + " and SRVID eq " + sSRVID;
+				oParameter.filter = "tailid"+FilterOpEnum.EQ+this.getTailId()+FilterOpEnum.AND+"REFID"+FilterOpEnum.EQ+ this.getAircraftId() +FilterOpEnum.AND+ "SRVID"+FilterOpEnum.EQ + sSRVID;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length) {
@@ -434,7 +435,7 @@ sap.ui.define([
 					} //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnGetRunningChanges function");
 				this.handleException(e);

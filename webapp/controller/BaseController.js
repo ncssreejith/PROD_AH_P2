@@ -321,7 +321,8 @@ sap.ui.define([
 			try {
 				var aPilot = [];
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+			//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				oParameter.filter = "tailid"+FilterOpEnum.EQ+this.getTailId()+FilterOpEnum.AND+"REFID"+FilterOpEnum.EQ+ this.getAircraftId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length) {
@@ -333,7 +334,7 @@ sap.ui.define([
 
 				}.bind(this);
 				this.getModel("avmetModel").setProperty("/runningChange", []);
-				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadRunningChange function");
 			}

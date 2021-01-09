@@ -70,7 +70,7 @@ sap.ui.define([
 		//*************************************************************************************************************
 		//           2. Database/Ajax/OData Calls
 		//*************************************************************************************************************
-		_fnWeightBalanceItemGet: function(sTailId) {
+/*		_fnWeightBalanceItemGet: function(sTailId) {
 			try {
 				var that = this,
 					oModel = dataUtil.createNewJsonModel(),
@@ -97,7 +97,7 @@ sap.ui.define([
 				Log.error("Exception in WeightBalance:_fnWeightBalanceItemGet function");
 				this.handleException(e);
 			}
-		},
+		},*/
 
 		_fnGetWeightBalHeaderSet: function(sTailId) {
 			try {
