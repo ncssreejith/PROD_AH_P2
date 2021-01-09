@@ -688,7 +688,7 @@ sap.ui.define([
 				var that = this,
 					oPrmWB = {};
 				//	oPrmWB.filter = "FLAG eq TM and JOBID eq " + sJOBID;
-				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "TM&JOBID" + FilterOpEnum.EQ + sJOBID+"&tailid" + FilterOpEnum.EQ + this.getTailId();
+				oPrmWB.filter = "FLAG" + FilterOpEnum.EQ + "TM&JOBID" + FilterOpEnum.EQ + sJOBID + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmWB.error = function() {
 
 				};
@@ -894,7 +894,8 @@ sap.ui.define([
 					oPrmJobDue = {};
 				var oViewModel = dataUtil.createNewJsonModel();
 				//	oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
-				oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + sFlag + "&CAPID" + FilterOpEnum.EQ + sCapId + "&JOBID" + FilterOpEnum.EQ + sJobId;
+				oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + sFlag + "&CAPID" + FilterOpEnum.EQ + sCapId + "&JOBID" + FilterOpEnum.EQ + sJobId +
+					"&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -1001,6 +1002,7 @@ sap.ui.define([
 		_fnADDCountGet: function(sCapTy) {
 			try {
 				var that = this,
+					sMaxCount,
 					oModel = this.getView().getModel("ViewModel"),
 					sCount,
 					oPrmJobDue = {};
@@ -1013,7 +1015,13 @@ sap.ui.define([
 					} else {
 						sCount = "0";
 					}
+					try {
+						sMaxCount = oData.results[0].MAXCOUNT;
+					} catch (e) {
+						sMaxCount = "0";
+					}
 					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
+					this.getView().getModel("oViewModel").setProperty("/ADDMaxCount", sMaxCount);
 				}.bind(this);
 
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
@@ -1073,7 +1081,7 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + sAirId + "&ddid" + FilterOpEnum.EQ + "UTIL1_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ +  that.getAircraftId()  + "&ddid" + FilterOpEnum.EQ + "UTIL1_";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -1132,7 +1140,8 @@ sap.ui.define([
 					dialogTitle: "",
 					btnText: "Edit",
 					DatePrev: new Date(),
-					ADDCount: ""
+					ADDCount: "",
+					ADDMaxCount:""
 				});
 
 				this.getView().setModel(oViewModel, "ViewModel");

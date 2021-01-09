@@ -463,7 +463,8 @@ sap.ui.define([
 					oModel,
 					oPrmWorkCenter = {};
 				//	oPrmWorkCenter.filter = "jobid eq " + sJobId;
-				oPrmWorkCenter.filter = "jobid" + FilterOpEnum.EQ + sJobId;
+				oPrmWorkCenter.filter = "jobid" + FilterOpEnum.EQ + sJobId + "&TAILID" +
+					FilterOpEnum.EQ + that.getTailId();
 				oPrmWorkCenter.error = function() {};
 				oPrmWorkCenter.success = function(oData) {
 					oModel = dataUtil.createNewJsonModel();

@@ -196,11 +196,29 @@ sap.ui.define([
 					undefined) {
 					oPayload.jobid = sjobid.concat("JOB_", dDate.getFullYear(), dDate.getMonth(), dDate.getDate(), dDate.getHours(), dDate.getMinutes(),
 						dDate.getSeconds());
-					oPayload.endda = formatter.defaultOdataDateFormat(oPayload.credt);
-					oPayload.begda = formatter.defaultOdataDateFormat(oPayload.credt);
-					oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
-					oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
-					oPayload.credt = formatter.defaultOdataDateFormat(oPayload.credt); //Rahul: 18/11/2020: 05:23PM: CREDT Added
+					/*	oPayload.endda = formatter.defaultOdataDateFormat(oPayload.credt);
+						oPayload.begda = formatter.defaultOdataDateFormat(oPayload.credt);
+						oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
+						oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
+						oPayload.credt = formatter.defaultOdataDateFormat(oPayload.credt); //Rahul: 18/11/2020: 05:23PM: CREDT Added
+						oPayload.cretm = formatter.defaultTimeFormatDisplay(oPayload.cretm);*/
+
+					try {
+						oPayload.endda = formatter.defaultOdataDateFormat(oPayload.credt);
+						oPayload.begda = formatter.defaultOdataDateFormat(oPayload.credt);
+						oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
+						oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
+						oPayload.credt = formatter.defaultOdataDateFormat(oPayload.credt);
+						oPayload.cretm = formatter.defaultTimeFormatDisplay(oPayload.cretm);
+					} catch (e) {
+						oPayload.endda = oPayload.credt;
+						oPayload.begda = oPayload.credt;
+						oPayload.etrdt = oPayload.credt;
+						oPayload.credtm = oPayload.credt;
+						oPayload.credt = oPayload.credt;
+						oPayload.cretm = formatter.defaultTimeFormatDisplay(oPayload.cretm);
+					}
+
 					if (oPayload.jobty === "S") {
 						oPayload.symbol = "3";
 					}
@@ -333,6 +351,7 @@ sap.ui.define([
 				oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.credt);
 				oPayload.credtm = formatter.defaultOdataDateFormat(oPayload.credt);
 				oPayload.credt = formatter.defaultOdataDateFormat(oPayload.credt); //Rahul: 18/11/2020: 05:23PM: CREDT Added
+				oPayload.cretm = formatter.defaultTimeFormatDisplay(oPayload.cretm);
 
 				oParameter.error = function(response) {};
 				oParameter.success = function(oData) {
@@ -519,7 +538,8 @@ sap.ui.define([
 		//------------------------------------------------------------------
 		_fnPhotoUploadGet: function(sDOCREFID) {
 			try {
-				var that=this,oPrmPhoto = {},
+				var that = this,
+					oPrmPhoto = {},
 					oAppModel = this.getView().getModel("appModel"),
 					sDefectImageSrc = oAppModel.getProperty("/DefectImageSrc");
 				oAppModel.updateBindings(true);

@@ -163,7 +163,7 @@ sap.ui.define([
 		_fnADDCountGet: function() {
 			try {
 				var that = this,
-					sCount,
+					sCount, sMaxCount,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
 				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId();
@@ -178,7 +178,14 @@ sap.ui.define([
 					} else {
 						sCount = "0";
 					}
+					try {
+						sMaxCount = oData.results[0].MAXCOUNT;
+					} catch (e) {
+						sMaxCount = "0";
+					}
+
 					this.getView().getModel("oViewModel").setProperty("/ADDCount", sCount);
+					this.getView().getModel("oViewModel").setProperty("/ADDMaxCount", sMaxCount);
 				}.bind(this);
 
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
@@ -352,6 +359,7 @@ sap.ui.define([
 					"bDate": false,
 					"DatePrev": PrevDate,
 					"ADDCount": "",
+					"ADDMaxCount": "",
 					"ADDRemark": ""
 				});
 				this.getView().setModel(oModel, "oViewModel");
@@ -731,9 +739,10 @@ sap.ui.define([
 		 */
 		onSubmitADD: function() {
 			try {
-				var sCount = this.getView().getModel("oViewModel").getProperty("/ADDCount");
+				var sCount = this.getView().getModel("oViewModel").getProperty("/ADDCount"),
+					sMaxCount = this.getView().getModel("oViewModel").getProperty("/ADDMaxCount");
 
-				if (sCount >= "8") {
+				if (sCount >= sMaxCount) {
 					this.onGetRemarkDialog();
 				} else {
 					this.onSubmitTransferJobAdd();

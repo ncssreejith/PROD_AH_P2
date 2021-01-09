@@ -314,7 +314,8 @@ sap.ui.define([
 					oPrmJobDue = {};
 				var oViewModel = dataUtil.createNewJsonModel();
 				//	oPrmJobDue.filter = "FLAG EQ " + sFlag + " AND CAPID EQ " + sCapId + " AND JOBID EQ " + sJobId;
-				oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + sFlag + "&CAPID" + FilterOpEnum.EQ + sCapId + "&JOBID" + FilterOpEnum.EQ + sJobId+"&tailid" + FilterOpEnum.EQ + this.getTailId();
+				oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + sFlag + "&CAPID" + FilterOpEnum.EQ + sCapId + "&JOBID" + FilterOpEnum.EQ + sJobId +
+					"&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -341,7 +342,7 @@ sap.ui.define([
 
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + sAirId + "&ddid" + FilterOpEnum.EQ + "CPR_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + that.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "CPR_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -401,7 +402,7 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + sAirId + "&ddid" + FilterOpEnum.EQ + "UTIL1_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + that.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "UTIL1_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -760,6 +761,11 @@ sap.ui.define([
 				//this._fnADDCapDataGet(sCAP);
 				this._fnADDCapDataGet("O", sJob, sCAP);
 				//this._fnADDCapDataMultipleGet("E", sJob, sCAP);
+				var sAirId = this.getAircraftId();
+				this._fnPerioOfDeferCBGet(sAirId);
+				this._fnReasonforADDGet(sAirId);
+				this._fnUtilizationGet(sAirId);
+				this._fnUtilization2Get();
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_onObjectMatched function");
 

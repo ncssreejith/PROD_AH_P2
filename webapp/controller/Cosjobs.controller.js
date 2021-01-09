@@ -750,8 +750,7 @@ sap.ui.define([
 
 				filterObj = new sap.ui.model.Filter(oFilters, false);
 				oBindingADD.filter(filterObj);
-				/*	oViewModel.setProperty("/sADDCount", oListADD.getItems().length);*/
-			} catch (e) {
+					} catch (e) {
 				Log.error("Exception in onJobUpdateFinished function");
 			}
 		},

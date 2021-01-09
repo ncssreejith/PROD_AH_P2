@@ -606,6 +606,9 @@ Description :
 .whiteText {
     color: white !important;
 }
+.comboWhite .sapMSlt {
+	 color: white !important;
+}
 
 .sparesTable .sapMListTbl th {
     background: #8894B5 !important;

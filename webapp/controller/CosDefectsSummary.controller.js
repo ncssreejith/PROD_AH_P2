@@ -2097,8 +2097,8 @@ sap.ui.define([
 						wrctr: "Summary",
 						isprime: "",
 						wrctrtx: "Summary",
-						"PrimeCount": "0",
-						"LASTWC": null
+						primecount: "0",
+						LASTWC: null
 					});
 
 					if (oModelLocal.getProperty("/sFlag") === "N") {
@@ -2108,8 +2108,8 @@ sap.ui.define([
 							wrctr: "RectSum",
 							isprime: "",
 							wrctrtx: "Rectification Summary",
-							"PrimeCount": oData.results.length,
-							"LASTWC": null
+							primecount: (oData.results.length).toString(),
+							LASTWC: null
 						});
 					}
 					oModel.setData(oData.results);

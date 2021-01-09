@@ -23,7 +23,7 @@
 						<Label design="Bold" text="Acceptable Deferred Defects" wrapping="true" width="150px"/>
 						<Label design="Bold" text="{oViewModel>/ADDCount}" class="fontSize25 sapUiLargeMarginBegin sapUiTinyMarginTop"/>
 						<!---->
-						<Label design="Bold" text="/8" class="fontSize25 sapUiTinyMarginTop"/>
+						<Label design="Bold" text="/{oViewModel>/ADDMaxCount}" class="fontSize25 sapUiTinyMarginTop"/>
 					</HBox>
 				</VBox>
 			</VBox>

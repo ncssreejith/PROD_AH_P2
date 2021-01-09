@@ -417,7 +417,7 @@ sap.ui.define([
 		_fnADDCountGet: function() {
 			try {
 				var that = this,
-					sCount,
+					sCount, sMaxCount,
 					oPrmJobDue = {};
 				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId();
 				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId(); // phase 2 Changes
@@ -428,7 +428,13 @@ sap.ui.define([
 					} else {
 						sCount = "0";
 					}
+					try {
+						sMaxCount = oData.results[0].MAXCOUNT;
+					} catch (e) {
+						sMaxCount = "0";
+					}
 					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
+					this.getView().getModel("oViewModel").setProperty("/ADDMaxCount", sMaxCount);
 				}.bind(this);
 
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
@@ -1406,7 +1412,11 @@ sap.ui.define([
 						oTaskModel[i].expdt = oPayLoad.EXPDT;
 						oTaskModel[i].exptm = oPayLoad.EXPTM;
 						oTaskModel[i].util1 = oPayLoad.UTIL1;
-						oTaskModel[i].utilvl = oPayLoad.UTILVL;
+						if (oPayLoad.UTIL1 === "UTIL1_20") {
+							oTaskModel[i].utilvl = oPayLoad.UTIL2;
+						} else {
+							oTaskModel[i].utilvl = oPayLoad.UTILVL;
+						}
 						oTaskModel[i].addLimitAdded = true;
 
 					}
@@ -1592,6 +1602,7 @@ sap.ui.define([
 					bAddADDOps: false,
 					bLiveChnage: true,
 					ADDCount: "",
+					ADDMaxCount: "",
 					ResultStatus: "",
 					tradesManTable: [{
 						"Name": "",

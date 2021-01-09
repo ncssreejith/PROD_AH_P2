@@ -31,7 +31,7 @@
 					<Title text="{i18n>lblADD}" level="H2" titleStyle="H2"/>
 					<Label text="{=${ADDLimSet>/}.length} Out of 8" design="Bold"/>
 				</HBox>
-				<List width="40rem" id="ADDId" items="{ path: 'ADDLimSet>/'}" class="sapUiSmallMargin hboxColor" selectionChange="onADDPress"
+				<List width="90%" id="ADDId" items="{ path: 'ADDLimSet>/'}" class="sapUiSmallMargin hboxColor" selectionChange="onADDPress"
 					mode="SingleSelectMaster">
 					<CustomListItem class="sapUiSmallMargin hboxColor" type="Navigation">
 						<HBox class="sapUiResponsivePadding">
