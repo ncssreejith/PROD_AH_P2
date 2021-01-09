@@ -198,7 +198,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/sAirId") + " and ddid eq UTIL2_";*/
-			//	oPrmJobDue.filter = "ddid eq UTIL2_";
+				//	oPrmJobDue.filter = "ddid eq UTIL2_";
 				oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "UTIL2_";
 				oPrmJobDue.error = function() {
 
@@ -228,8 +228,8 @@ sap.ui.define([
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
 				/*oPrmJobDue.filter = "airid eq " + oModel.getProperty("/sAirId") + " and ddid eq 118_";*/
-			//	oPrmJobDue.filter = "ddid eq 118_";
-					oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "118_";
+				//	oPrmJobDue.filter = "ddid eq 118_";
+				oPrmJobDue.filter = "ddid" + FilterOpEnum.EQ + "118_";
 				oPrmJobDue.error = function() {
 
 				};
@@ -259,7 +259,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
 				//	oPrmJobDue.filter = "CAPID eq " + sCapId;
-				oPrmJobDue.filter = "CAPID" + FilterOpEnum.EQ + sCapId; // Phase 2 Changes
+				oPrmJobDue.filter = "CAPID" + FilterOpEnum.EQ + sCapId + "&tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {

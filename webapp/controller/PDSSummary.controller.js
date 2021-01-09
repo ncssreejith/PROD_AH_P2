@@ -333,7 +333,7 @@ sap.ui.define([
 			var oPrmJobDue = {};
 			//	oPrmJobDue.filter = "FLAG EQ O AND CAPID EQ " + sContext.getObject().CAPID + " AND JOBID EQ " + sContext.getObject().JOBID;
 			oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + "O" + "&CAPID" + FilterOpEnum.EQ + sContext.getObject().CAPID + "&JOBID" +
-				FilterOpEnum.EQ + sContext.getObject().JOBID;
+				FilterOpEnum.EQ + sContext.getObject().JOBID+"&tailid" + FilterOpEnum.EQ + this.getTailId();
 			oPrmJobDue.error = function() {};
 			oPrmJobDue.success = function(oData) {
 				this.getModel("pdsSummaryModel").setProperty(sContext.getPath() + "/ADDLimit", oData.results.length > 0 ? oData.results[0] : {});
