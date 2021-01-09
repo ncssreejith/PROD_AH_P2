@@ -1822,7 +1822,7 @@ sap.ui.define([
 					oAppModel = this.getView().getModel("appModel"),
 					that = this,
 					sDefectImageSrc = oAppModel.getProperty("/DefectImageSrc");
-				oPrmPhoto.filter = "DOCREFID" + FilterOpEnum.EQ + sDOCREFID;
+				oPrmPhoto.filter = "DOCREFID" + FilterOpEnum.EQ + sDOCREFID + "&TAILID" + FilterOpEnum.EQ + that.getTailId();
 				oPrmPhoto.error = function() {};
 				oPrmPhoto.success = function(oData) {
 					if (oData && oData.results.length > 0) {
@@ -2207,8 +2207,9 @@ sap.ui.define([
 				bTaskFlag = this._fnCheckWCTaskCount(sWorkCenterKey);
 				if (bTaskFlag) {
 					/*oPrmWorkCenter.filter="jobid eq "+sJobId+" and taild eq "+sTailId;*/
-					var sPath = this.getResourceBundle().getText("DEFECTWORKCENTERSVC") + "(" +
-						"JOBID=" + oModel.getProperty("/sJobId") + ",WRCTR=" + sWorkCenterKey + ")";
+					var sPath = this.getResourceBundle().getText("DEFECTWORKCENTERSVC") + "?JOBID" + FilterOpEnum.EQ + oModel.getProperty("/sJobId") +
+						"&WRCTR" + FilterOpEnum.EQ + sWorkCenterKey + "&TAILID" +
+						FilterOpEnum.EQ + that.getTailId();
 					oPrmWorkCenter.error = function() {};
 					oPrmWorkCenter.success = function(oData) {
 						oModel.setProperty("/SummaryFlag", true);
@@ -2283,7 +2284,7 @@ sap.ui.define([
 					oPayload;
 				oModel = that.getView().getModel("appModel").getData();
 				//	oPrmMark.filter = "jobid eq " + sjobid;
-				oPrmMark.filter = "jobid" + FilterOpEnum.EQ + sjobid+"&tailid" + FilterOpEnum.EQ + this.getTailId();
+				oPrmMark.filter = "jobid" + FilterOpEnum.EQ + sjobid + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 
 				oPrmMark.error = function() {
 

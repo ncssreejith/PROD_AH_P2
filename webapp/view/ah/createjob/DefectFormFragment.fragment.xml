@@ -25,7 +25,7 @@
 					uploadComplete="onUploadComplete" uploadButtonInvisible="false" beforeUploadStarts="onBeforeUploadStarts"
 					items="{ path: 'appModel>/DefectImageSrc'}">
 					<items>
-						<UploadCollectionItem documentId="{appModel>DOCID}" fileName="{appModel>fname}" url="{appModel>dvalue}" press="onUploadedImagePress"
+						<UploadCollectionItem documentId="{appModel>DOCID}" fileName="{appModel>FNAME}" url="{appModel>DVALUE}" press="onUploadedImagePress"
 							deletePress="onDeleteImagePress" visibleDelete="true" visibleEdit="false"></UploadCollectionItem>
 					</items>
 				</UploadCollection>

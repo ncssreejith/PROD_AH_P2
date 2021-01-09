@@ -519,11 +519,11 @@ sap.ui.define([
 		//------------------------------------------------------------------
 		_fnPhotoUploadGet: function(sDOCREFID) {
 			try {
-				var oPrmPhoto = {},
+				var that=this,oPrmPhoto = {},
 					oAppModel = this.getView().getModel("appModel"),
 					sDefectImageSrc = oAppModel.getProperty("/DefectImageSrc");
 				oAppModel.updateBindings(true);
-				oPrmPhoto.filter = "DOCREFID" + FilterOpEnum.EQ + sDOCREFID;
+				oPrmPhoto.filter = "DOCREFID" + FilterOpEnum.EQ + sDOCREFID + "&TAILID" + FilterOpEnum.EQ + that.getTailId();
 				oPrmPhoto.error = function() {};
 				oPrmPhoto.success = function(oData) {
 					oAppModel.setProperty("/DefectImageSrc", []);
@@ -1312,7 +1312,7 @@ sap.ui.define([
 									"docid": "",
 									"jobid": "",
 									"tailid": oAppModel.getProperty("/sTailId"),
-									"fname": "test.png", //oFiles[0].name,
+									"fname": oFiles[0].name,
 									"dvalue": srcEncoded,
 									"flag": "",
 									"rawbase": "",
