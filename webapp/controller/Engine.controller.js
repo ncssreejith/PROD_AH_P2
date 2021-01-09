@@ -136,7 +136,7 @@ sap.ui.define([
 					this._getEngScheule(oObject.ENGNO, oObject.SN);
 				}.bind(this);
 				if (oData.length > 0) {
-					ajaxutil.fnUpdate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
+					ajaxutilNew.fnUpdate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
 				} else {
 					sap.m.MessageToast.show("No table are changed");
 				}
@@ -164,7 +164,7 @@ sap.ui.define([
 					this._getEngPowerCheck(oObject.ENGID, oObject.ENGNO);
 				}.bind(this);
 				if (oData.length > 0) {
-					ajaxutil.fnUpdate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
+					ajaxutilNew.fnUpdate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
 				} else {
 					sap.m.MessageToast.show("No table are changed");
 				}
@@ -495,7 +495,7 @@ sap.ui.define([
 						// this._setData();
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngPowerCheck function");
 				this.handleException(e);
@@ -640,7 +640,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngCyclicLife function");
 				this.handleException(e);

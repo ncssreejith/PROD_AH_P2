@@ -163,7 +163,9 @@ sap.ui.define([
 				this.getView().getModel("oGlobalModel").refresh();
 				MessageBox.error(error.responseText);
 			};
-			oParameter.filter = "SELTYPE eq " + seltype + " and TAILID eq " + this.getTailId();
+		//	oParameter.filter = "SELTYPE eq " + seltype + " and TAILID eq " + this.getTailId();
+			oParameter.filter = "SELTYPE" + FilterOpEnum.EQ + seltype + "&TAILID" + FilterOpEnum.EQ + this.getTailId();
+			
 			oParameter.success = function(oData) {
 				if (oData && oData.results && oData.results.length > 0) {
 					oGlobalModel.setProperty("/Services", oData.results);
@@ -173,7 +175,7 @@ sap.ui.define([
 				this.getView().getModel("oGlobalModel").refresh();
 			}.bind(this);
 
-			ajaxutil.fnRead(this.getResourceBundle().getText("ESOPERATORFSSVC"), oParameter);
+			ajaxutilNew.fnRead(this.getResourceBundle().getText("ESOPERATORFSSVC"), oParameter);
 		},
 
 		// Job Excel Columns

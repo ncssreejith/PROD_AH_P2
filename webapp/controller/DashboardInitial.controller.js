@@ -1292,7 +1292,7 @@ sap.ui.define([
 					this.getView().getModel("dashboardModel").refresh();
 					this.fnLoadSrv1Dashboard();
 				}.bind(this);
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("AIRTAILSVC"), oParameter, [oPayload], "ZRM_S_LOC", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("AIRTAILSVC"), oParameter, [oPayload], "ZRM_S_LOC", this);
 				//Reset data
 				this.getView().getModel("dashboardModel").setProperty("/editLoc", false);
 				this.getView().getModel("dashboardModel").refresh();

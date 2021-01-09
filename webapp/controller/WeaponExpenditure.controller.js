@@ -6,8 +6,10 @@ sap.ui.define([
 	"../model/formatter",
 	"../model/FieldValidations",
 	"../util/ajaxutil",
-	"sap/base/Log"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, FieldValidations, ajaxutil, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, FieldValidations, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.WeaponExpenditure", {
@@ -178,7 +180,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("DECLARESAFESVC"), oParameter, oPayloadWeapExp, "ZRM_PFR_WE", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("DECLARESAFESVC"), oParameter, oPayloadWeapExp, "ZRM_PFR_WE", this);
 			} catch (e) {
 				Log.error("Exception in createEmptyPayload function");
 				this.handleException(e);

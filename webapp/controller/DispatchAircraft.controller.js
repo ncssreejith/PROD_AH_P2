@@ -216,7 +216,8 @@ sap.ui.define([
 			try {
 				var sPath = this.getResourceBundle().getText("ATCHECKLISTSVC");
 				var oParameter = {};
-				oParameter.filter = "airid eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
+			//	oParameter.filter = "airid eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
+				oParameter.filter = "airid"+FilterOpEnum.EQ+ this.getAircraftId() +FilterOpEnum.AND+ "tailid"+FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {
 
 				};
@@ -228,7 +229,7 @@ sap.ui.define([
 					this.getModel("atckModel").setProperty("/checklist", oData.results);
 					this.getModel("atckModel").refresh(true);
 				}.bind(this);
-				ajaxutil.fnRead(sPath, oParameter);
+				ajaxutilNew.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in DispatchAircraft:fnLoadCheckList function");
 				this.handleException(e);
