@@ -924,7 +924,7 @@ sap.ui.define([
 				var that = this,
 					oPrmTD = {};
 				//	oPrmTD.filter = "JOBID eq " + sJobId;
-				oPrmTD.filter = "JOBID" + FilterOpEnum.EQ + sJobId;
+				oPrmTD.filter = "JOBID" + FilterOpEnum.EQ + sJobId+ "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();

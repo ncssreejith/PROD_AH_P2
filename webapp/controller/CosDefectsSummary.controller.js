@@ -280,7 +280,7 @@ sap.ui.define([
 				var that = this,
 					oPrmTD = {};
 				//		oPrmTD.filter = "TASKID eq " + sTaskId;
-				oPrmTD.filter = "TASKID" + FilterOpEnum.EQ + sTaskId;
+				oPrmTD.filter = "TASKID" + FilterOpEnum.EQ + sTaskId + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -503,7 +503,7 @@ sap.ui.define([
 				var that = this,
 					oPrmTD = {};
 				//	oPrmTD.filter = "JOBID eq " + sJobId;
-				oPrmTD.filter = "JOBID" + FilterOpEnum.EQ + sJobId;
+				oPrmTD.filter = "JOBID" + FilterOpEnum.EQ + sJobId + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -575,7 +575,7 @@ sap.ui.define([
 					}.bind(this);
 					oPrmTask.activity = 4;
 					oPrmTask.title = "Supervisor Sign Off";
-					ajaxutil.fnUpdate(this.getResourceBundle().getText("TASKSVC"), oPrmTask, oPayload, "dummy", this);
+					ajaxutilNew.fnUpdate(this.getResourceBundle().getText("TASKSVC"), oPrmTask, oPayload, "dummy", this);
 				} else {
 					MessageBox.error(
 						"Please select task for Sign-off.", {
@@ -956,7 +956,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TaskMainListModel");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetMainTaskDropDown function");
 
@@ -1822,7 +1822,7 @@ sap.ui.define([
 					oAppModel = this.getView().getModel("appModel"),
 					that = this,
 					sDefectImageSrc = oAppModel.getProperty("/DefectImageSrc");
-				oPrmPhoto.filter = "DOCREFID eq " + sDOCREFID;
+				oPrmPhoto.filter = "DOCREFID" + FilterOpEnum.EQ + sDOCREFID;
 				oPrmPhoto.error = function() {};
 				oPrmPhoto.success = function(oData) {
 					if (oData && oData.results.length > 0) {
@@ -1842,7 +1842,7 @@ sap.ui.define([
 					}
 
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnPhotoUploadGet function");
 
@@ -1871,7 +1871,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc, "PHOTO", that);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc, "PHOTO", that);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnPhotoUploadCreate function");
 
@@ -2083,7 +2083,8 @@ sap.ui.define([
 					oPrmWorkCenter = {};
 				oModelLocal = this.getView().getModel("LocalModel");
 				//	oPrmWorkCenter.filter = "jobid eq " + sJobId;
-				oPrmWorkCenter.filter = "jobid" + FilterOpEnum.EQ + sJobId;
+				oPrmWorkCenter.filter = "jobid" + FilterOpEnum.EQ + sJobId + "&TAILID" +
+					FilterOpEnum.EQ + that.getTailId();
 				oPrmWorkCenter.error = function() {};
 				oPrmWorkCenter.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -2156,7 +2157,7 @@ sap.ui.define([
 				}.bind(this);
 				/*if (sState) {
 					//oPrmWorkCenter.activity = 1;
-					ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
+					ajaxutilNew.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
 				} else {
 					
 				}*/
@@ -2178,7 +2179,8 @@ sap.ui.define([
 				var that = this,
 					oPrmTask = {};
 				//	oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
-				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + "sJobId" + FilterOpEnum.AND + "recTstar" + FilterOpEnum.EQ + "X";
+				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + "sJobId" + FilterOpEnum.AND + "recTstar" + FilterOpEnum.EQ + "X&tailid" +
+					FilterOpEnum.EQ + this.getTailId();
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					this.getView().getModel("LocalModel").setProperty("/selectedTask", oData.results);
@@ -2281,7 +2283,7 @@ sap.ui.define([
 					oPayload;
 				oModel = that.getView().getModel("appModel").getData();
 				//	oPrmMark.filter = "jobid eq " + sjobid;
-				oPrmMark.filter = "jobid" + FilterOpEnum.EQ + sjobid;
+				oPrmMark.filter = "jobid" + FilterOpEnum.EQ + sjobid+"&tailid" + FilterOpEnum.EQ + this.getTailId();
 
 				oPrmMark.error = function() {
 
