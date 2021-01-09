@@ -5,7 +5,7 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/base/Log",
-		"../util/ajaxutilNew",
+	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
 ], function(BaseController, dataUtil, FieldValidations, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
@@ -31,7 +31,7 @@ sap.ui.define([
 				this.getRouter().getRoute("CosAddFlyingRequirements").attachPatternMatched(this._onObjectMatched, this);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onInit function");
-				
+
 			}
 		},
 
@@ -59,7 +59,7 @@ sap.ui.define([
 				}
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:handleLiveChangeFlyingRequirements function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -103,7 +103,7 @@ sap.ui.define([
 				this.getView().getModel("FlyingRequirementsModel").updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onAddFlyingRequirements function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -119,7 +119,7 @@ sap.ui.define([
 				this.getView().getModel("FlyingRequirementsModel").refresh(true);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onDeletePress function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -135,7 +135,7 @@ sap.ui.define([
 
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:handleChange function");
-				
+
 			}
 		},
 
@@ -217,8 +217,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmFR = {};
-			//	oPrmFR.filter = "jobid eq " + sJobId;
-				oPrmFR.filter = "jobid"+FilterOpEnum.EQ+ sJobId;
+				//	oPrmFR.filter = "jobid eq " + sJobId;
+				oPrmFR.filter = "jobid" + FilterOpEnum.EQ + sJobId + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmFR.error = function() {};
 				oPrmFR.success = function(oData) {
 					this.getModel("FlyingRequirementsModel").getData().FlyingRequirements[0].FR_NO = (oData.results.length + 1).toString();
@@ -228,7 +228,7 @@ sap.ui.define([
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmFR);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:_fnFlyingRequirementsGet function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -284,7 +284,7 @@ sap.ui.define([
 				ajaxutilNew.fnCreate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmFL, oPayload, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onSubmitFlyingRequirements function");
-				
+
 			}
 		},
 		//------------------------------------------------------------------
@@ -296,13 +296,13 @@ sap.ui.define([
 			try {
 				var oPrmTaskDue = {};
 				if (sJobId) {
-				//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
-						oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "T&AFLAG" + FilterOpEnum.EQ +
-					"I&jobid" + FilterOpEnum.EQ + sJobId;
+					//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq T and AFLAG eq I and jobid eq " + sJobId;
+					oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "T&AFLAG" + FilterOpEnum.EQ +
+						"I&jobid" + FilterOpEnum.EQ + sJobId;
 				} else {
-				//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq I";
+					//	oPrmTaskDue.filter = "TAILID eq " + this.getTailId() + " and JFLAG eq J and AFLAG eq I";
 					oPrmTaskDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&JFLAG" + FilterOpEnum.EQ + "J&AFLAG" + FilterOpEnum.EQ +
-					"I";
+						"I";
 				}
 
 				oPrmTaskDue.error = function() {};

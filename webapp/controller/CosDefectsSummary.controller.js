@@ -1458,7 +1458,8 @@ sap.ui.define([
 				var that = this,
 					oPrmFR = {};
 				//	oPrmFR.filter = "jobid eq " + sJobId + " and WRCTR eq " + sWrctr;
-				oPrmFR.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "WRCTR" + FilterOpEnum.EQ + sWrctr;
+				oPrmFR.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "WRCTR" + FilterOpEnum.EQ + sWrctr + "&tailid" +
+					FilterOpEnum.EQ + this.getTailId();
 				oPrmFR.error = function() {
 
 				};
@@ -1522,8 +1523,8 @@ sap.ui.define([
 				var that = this,
 					oPrmFR = {},
 					oModel = this.getView().getModel("LocalModel");
-				var sPath = this.getResourceBundle().getText("FLYINGREQUIREMENTSVC") + "(" +
-					"JOBID=" + oObj.JOBID + ",TAILID=" + oObj.TAILID + ",FR_NO=" + oObj.FR_NO + ")";
+				var sPath = this.getResourceBundle().getText("FLYINGREQUIREMENTSVC") +
+					"?JOBID" + FilterOpEnum.EQ + oObj.JOBID + "&TAILID" + FilterOpEnum.EQ + oObj.TAILID + "&FR_NO" + FilterOpEnum.EQ + oObj.FR_NO;
 				oPrmFR.error = function() {};
 				oPrmFR.success = function(oData) {
 					var oTable = this.getView().byId("tbWcFlyingReqId");
@@ -1547,7 +1548,8 @@ sap.ui.define([
 				var that = this,
 					oPrmFR = {};
 				//	oPrmFR.filter = "jobid eq " + sJobId + " and WRCTR eq " + sWrctr;
-				oPrmFR.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "WRCTR" + FilterOpEnum.EQ + sWrctr;
+				oPrmFR.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "WRCTR" + FilterOpEnum.EQ + sWrctr + "&tailid" +
+					FilterOpEnum.EQ + this.getTailId();
 				oPrmFR.error = function() {};
 
 				oPrmFR.success = function(oData) {
@@ -1620,8 +1622,8 @@ sap.ui.define([
 				var that = this,
 					oPrmSORT = {},
 					oModel = this.getView().getModel("LocalModel");
-				var sPath = this.getResourceBundle().getText("SORTIEMONSVC") + "(" +
-					"JOBID=" + oObj.JOBID + ",TAILID=" + oObj.TAILID + ",SORNO=" + oObj.SORNO + ")";
+				var sPath = this.getResourceBundle().getText("SORTIEMONSVC") +
+					"?JOBID" + FilterOpEnum.EQ + oObj.JOBID + "&TAILID" + FilterOpEnum.EQ + oObj.TAILID + "&SORNO" + FilterOpEnum.EQ + oObj.SORNO;
 				oPrmSORT.error = function() {};
 				oPrmSORT.success = function(oData) {
 					var oTable = this.getView().byId("tbWcSortieMonId");

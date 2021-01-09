@@ -208,7 +208,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmFR = {};
-				oPrmFR.filter = "jobid eq " + sJobId;
+				oPrmFR.filter = "jobid eq " + sJobId + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmFR.error = function() {
 
 				};
@@ -257,8 +257,9 @@ sap.ui.define([
 		_fnGetUtilisation: function(sAir) {
 			try {
 				var oPrmJobDue = {};
-			//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq SORTI";
-				oPrmJobDue.filter = "TAILID"+FilterOpEnum.EQ + this.getTailId() +FilterOpEnum.AND+"refid"+FilterOpEnum.EQ+ sAir +FilterOpEnum.AND+ "JDUID"+FilterOpEnum.EQ+"SORTI";
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + sAir + " and JDUID eq SORTI";
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + sAir +
+					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "SORTI";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
