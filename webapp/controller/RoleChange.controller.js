@@ -230,7 +230,7 @@ sap.ui.define([
 				}.bind(this);
 				oParameter.activity = sAct;
 				oParameter.title = "Tradesman undosign off";
-				ajaxutilNew.fnCreate("/ROLECHANGESVC", oParameter, oPayloads, sObj, this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, oPayloads, sObj, this);
 			} catch (e) {
 				Log.error("Exception in onStationUndoSignOff function");
 			}
@@ -271,7 +271,7 @@ sap.ui.define([
 				sTitle = sTitle + ("Sign off");
 				oParameter.activity = sAct;
 				oParameter.title = sTitle;
-				ajaxutilNew.fnCreate("/ROLECHANGESVC", oParameter, oPayloads, sObj, this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, oPayloads, sObj, this);
 			} catch (e) {
 				Log.error("Exception in onStationSignOff function");
 			}
@@ -323,7 +323,7 @@ sap.ui.define([
 					this.getModel("rcModel").refresh();
 				}.bind(this);
 				//Teck Meng 13/11/2020 12:00 ah Role change fixes issue no 25,26 
-				ajaxutilNew.fnRead("/ROLECHANGESVC", oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getStations function");
 			}
@@ -341,7 +341,7 @@ sap.ui.define([
 					oStn.selADP = this.fnAttachAdapter(oData.results);
 					this.getModel("rcModel").refresh();
 				}.bind(this, oStn);
-				ajaxutilNew.fnRead("/ROLECHANGESVC", oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadAdapter function");
 			}
