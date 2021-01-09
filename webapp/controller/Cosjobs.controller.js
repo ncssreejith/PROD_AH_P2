@@ -124,7 +124,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "jobty eq Z and tailid eq " + that.getTailId();
+				oPrmJobDue.filter = "jobty" + FilterOpEnum.EQ + "Z&tailid" + FilterOpEnum.EQ + that.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -146,7 +146,7 @@ sap.ui.define([
 					that._fnJobDetailsGetUnScheduled();
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetAll function");
 			}
@@ -159,7 +159,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "jobty eq D and tailid eq " + that.getTailId();
+				oPrmJobDue.filter = "jobty" + FilterOpEnum.EQ + "D&tailid" + FilterOpEnum.EQ + that.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -178,7 +178,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelD");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetDefect function");
 			}
@@ -191,7 +191,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "jobty eq S and tailid eq " + that.getTailId();
+				oPrmJobDue.filter = "jobty" + FilterOpEnum.EQ + "S&tailid" + FilterOpEnum.EQ + that.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -210,7 +210,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelS");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetScheduled function");
 			}
@@ -223,7 +223,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "jobty eq U and tailid eq " + that.getTailId();
+				oPrmJobDue.filter = "jobty" + FilterOpEnum.EQ + "U&tailid" + FilterOpEnum.EQ + that.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -242,7 +242,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelU");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetUnScheduled function");
 			}
@@ -256,7 +256,7 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "jstat eq X and tailid eq " + that.getTailId();
+				oPrmJobDue.filter = "jstat" + FilterOpEnum.EQ + "X&tailid" + FilterOpEnum.EQ + that.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -276,7 +276,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelC");
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetUnCompleted function");
 			}

@@ -1078,7 +1078,7 @@ sap.ui.define([
 					oAppModel.push({
 						"jobid": "",
 						"tailid": oModel.sTailId,
-						"deadid": oModel.SelectedKey,
+						"deaid": oModel.SelectedKey,
 						"num2": (parseInt(oAppModel.length) + 1).toString(),
 						"endda": "99991231",
 						"begda": formatter.defaultOdataDateFormat(dDate),
@@ -1185,7 +1185,7 @@ sap.ui.define([
 				} else {
 					oSelectedItemId = oSegmentedButton.getSelectedKey();
 				}
-				oModel.setProperty("/deadid", oSelectedItemId);
+				oModel.setProperty("/deaid", oSelectedItemId);
 				oCanvas = document.getElementById("myCanvasTopDefect");
 
 				//that._fnRestMarkArea();

@@ -250,7 +250,7 @@ sap.ui.define([
 				var oPrmJobDue = {};
 				var that = this;
 				var sJobId = oEvent.getSource().getText();
-				oPrmJobDue.filter = "jobid eq " + sJobId;
+				oPrmJobDue.filter = "jobid" + FilterOpEnum.EQ + sJobId + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					if (oData && oData.results && oData.results.length > 0) {
@@ -262,7 +262,7 @@ sap.ui.define([
 					}
 				};
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGet function");
 			}
@@ -1703,7 +1703,7 @@ sap.ui.define([
 				if (sEvent === "UpdateJob") {
 					sJobId = oData.sJobId;
 				}
-				oPrmJobDue.filter = "jobid eq " + sJobId;
+				oPrmJobDue.filter = "jobid" + FilterOpEnum.EQ + sJobId + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmJobDue.error = function() {
 
 				};
@@ -1776,7 +1776,7 @@ sap.ui.define([
 					that._fnTaskStatusGet(sJobId);
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnJobDetailsGet function");
 
@@ -1907,7 +1907,7 @@ sap.ui.define([
 					that._fnJobDetailsGet(oLocalModel.getProperty("/sJobId"), oLocalModel.getProperty("/sTailId"));
 				}.bind(this);
 				if (oFlag === "WRC") {
-					ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload]); //Rahul 23.11.2020 :05:39PM: Service name changed to i18n Property
+					ajaxutilNew.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload]); //Rahul 23.11.2020 :05:39PM: Service name changed to i18n Property
 				} else {
 					if (oPayload.fstat === "R") {
 						oObject = "ZRM_FAIR_R";
@@ -1916,7 +1916,7 @@ sap.ui.define([
 						oObject = "ZRM_COS_JB";
 						oParameter.activity = 2;
 					}
-					ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], oObject, this);
+					ajaxutilNew.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], oObject, this);
 				}
 
 			} catch (e) {
@@ -1978,7 +1978,7 @@ sap.ui.define([
 			}.bind(this);
 			sObject = "ZRM_COS_JS";
 			oPrmTask.activity = 6;
-			ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmTask, [oPayload], sObject, this);
+			ajaxutilNew.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmTask, [oPayload], sObject, this);
 		},
 
 		//------------------------------------------------------------------
@@ -2064,7 +2064,7 @@ sap.ui.define([
 					oParameter.activity = "1";
 				}
 
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], oObjectId, this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], oObjectId, this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateFAIRJob function");
 			}

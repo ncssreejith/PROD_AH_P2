@@ -966,7 +966,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnGetEngine function");
 				this.handleException(e);

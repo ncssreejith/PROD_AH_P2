@@ -96,8 +96,9 @@ sap.ui.define([
 					sWrctr = oEvent;
 				}
 				oTable.removeSelections(true);
-			//	oPrmTask.filter = "jobid eq " + sJobId + " and TSTAT eq ALL and WRCTR eq " + sWrctr;
-				oPrmTask.filter = "jobid"+ FilterOpEnum.EQ + sJobId + FilterOpEnum.AND+ "TSTAT"+ FilterOpEnum.EQ+ "ALL"+ FilterOpEnum.AND+"WRCTR"+FilterOpEnum.EQ+ sWrctr;
+				//	oPrmTask.filter = "jobid eq " + sJobId + " and TSTAT eq ALL and WRCTR eq " + sWrctr;
+				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "TSTAT" + FilterOpEnum.EQ + "ALL" + FilterOpEnum.AND +
+					"WRCTR" + FilterOpEnum.EQ + sWrctr;
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					oModel = that.getView().getModel("TaskModel");
@@ -126,8 +127,8 @@ sap.ui.define([
 					oSelectedTask,
 					oPrmTask = {};
 				oSelectedTask = oModelView.getProperty("/selectedTask");
-			//	oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
-				oPrmTask.filter = "jobid"+FilterOpEnum.EQ+"sJobId"+ FilterOpEnum.AND+"recTstar"+FilterOpEnum.EQ+"X";
+				//	oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
+				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + "sJobId" + FilterOpEnum.AND + "recTstar" + FilterOpEnum.EQ + "X";
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					this.getView().getModel("ViewModel").setProperty("/selectedTask", oData.results);
@@ -310,7 +311,7 @@ sap.ui.define([
 					}
 				}
 				oPrmTask.activity = 6;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmTask, [oPayload], sObject, this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmTask, [oPayload], sObject, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:onSignOff function");
 
@@ -326,7 +327,7 @@ sap.ui.define([
 				var that = this,
 					oViewModel = this.getView().getModel("ViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "jobid eq " + sJobId;
+				oPrmJobDue.filter = "jobid" + FilterOpEnum.EQ + sJobId + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -368,7 +369,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModel");
 
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseJob:_fnJobDetailsGet function");
 
@@ -384,8 +385,8 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("ViewModel"),
 					oPrmTaskDue = {};
-			//	oPrmTaskDue.filter = "JOBID eq " + sJobId;
-				oPrmTaskDue.filter = "JOBID"+FilterOpEnum.EQ+ sJobId;
+				//	oPrmTaskDue.filter = "JOBID eq " + sJobId;
+				oPrmTaskDue.filter = "JOBID" + FilterOpEnum.EQ + sJobId;
 				oPrmTaskDue.error = function() {};
 				oPrmTaskDue.success = function(oData) {
 					oModel.setProperty("/TaskStatus", oData.results[0].COUNT);
@@ -408,8 +409,8 @@ sap.ui.define([
 				var that = this,
 					sAirId = this.getModel("ViewModel").getProperty("/sAirId"),
 					oPrmWorkCen = {};
-			//	oPrmWorkCen.filter = "REFID eq " + sAirId;
-				oPrmWorkCen.filter = "REFID"+FilterOpEnum.EQ+ sAirId;
+				//	oPrmWorkCen.filter = "REFID eq " + sAirId;
+				oPrmWorkCen.filter = "REFID" + FilterOpEnum.EQ + sAirId;
 				oPrmWorkCen.error = function() {};
 				oPrmWorkCen.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
@@ -461,8 +462,8 @@ sap.ui.define([
 				var that = this,
 					oModel,
 					oPrmWorkCenter = {};
-			//	oPrmWorkCenter.filter = "jobid eq " + sJobId;
-				oPrmWorkCenter.filter = "jobid"+FilterOpEnum.EQ+ sJobId;
+				//	oPrmWorkCenter.filter = "jobid eq " + sJobId;
+				oPrmWorkCenter.filter = "jobid" + FilterOpEnum.EQ + sJobId;
 				oPrmWorkCenter.error = function() {};
 				oPrmWorkCenter.success = function(oData) {
 					oModel = dataUtil.createNewJsonModel();
@@ -922,8 +923,8 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmTD = {};
-			//	oPrmTD.filter = "JOBID eq " + sJobId;
-				oPrmTD.filter = "JOBID"+ FilterOpEnum.EQ + sJobId;
+				//	oPrmTD.filter = "JOBID eq " + sJobId;
+				oPrmTD.filter = "JOBID" + FilterOpEnum.EQ + sJobId;
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();

@@ -587,7 +587,7 @@ sap.ui.define([
 		_getOutstandingJob: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "jobty eq Z and tailid eq " + this.getTailId();
+				oParameter.filter = "jobty" + FilterOpEnum.EQ + "Z&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T8_OJOBS");
@@ -598,7 +598,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
 
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getOutstandingJob function");
 			}
