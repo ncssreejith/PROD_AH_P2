@@ -58,7 +58,7 @@ sap.ui.define([
 				// 	"RTASKID": "",
 				// 	"DONE": "",
 				// 	"NA": null,
-				// 	"TAIL_ID": this.getTailId(),
+				// 	"Tailid": this.getTailId(),
 				// 	"SRVID": "",
 				// 	"SRVTID": this.getModel("rtModel").getProperty("/srvtid"),
 				// 	"TASKID": "",
@@ -82,7 +82,6 @@ sap.ui.define([
 				oObj.RTASKID = "";
 				oObj.DONE = "";
 				oObj.NA = null;
-				oObj.TAIL_ID = this.getTailId();
 				oObj.SRVID = "";
 				oObj.SRVTID = this.getModel("rtModel").getProperty("/srvtid");
 				oObj.TASKID = "";
@@ -379,7 +378,7 @@ sap.ui.define([
 					("&SRVID=" + this.getModel("rtModel").getProperty("/srvid")) : "";
 				var oParameter = {};
 				// oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("rtModel").getProperty("/srvtid") +
-				// 	" and TAIL_ID eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") + sSrvIdFilter;
+				// 	" and Tailid eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") + sSrvIdFilter;
 				oParameter.filter = "refid=" + this.getAircraftId() + "&srvtid=" + this.getModel("rtModel").getProperty("/srvtid") +
 					"&TAILID=" + this.getTailId() + "&stepid=" + this.getModel("rtModel").getProperty("/stepid") + sSrvIdFilter;
 				// + " and srvid eq " + this.getModel("rtModel").getProperty("/SRVID");
@@ -420,7 +419,7 @@ sap.ui.define([
 					("&SRVID=" + this.getModel("rtModel").getProperty("/SRVID")) : "";
 				var oParameter = {};
 				// oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("rtModel").getProperty("/srvtid") +
-				// 	" and TAIL_ID eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") +
+				// 	" and Tailid eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") +
 				// 	" and leadflag eq X" + sSrvIdFilter;
 					oParameter.filter = "refid=" + this.getAircraftId() + "&srvtid=" + this.getModel("rtModel").getProperty("/srvtid") +
 					"&TAILID=" + this.getTailId() + "&stepid=" + this.getModel("rtModel").getProperty("/stepid") + "&leadflag="+sSrvIdFilter;

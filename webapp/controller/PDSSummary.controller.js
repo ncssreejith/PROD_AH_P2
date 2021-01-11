@@ -640,7 +640,8 @@ sap.ui.define([
 			try {
 
 				var oParameter = {};
-				oParameter.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
+			//	oParameter.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
+				oParameter.filter = "AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&TAILID" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T2_PAPPR");
@@ -650,7 +651,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/appr", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead("/ApprovalSvc", oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPendingApprovals function");
 			}
