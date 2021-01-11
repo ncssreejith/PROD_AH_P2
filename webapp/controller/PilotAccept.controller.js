@@ -752,7 +752,7 @@ sap.ui.define([
 		 * @param sign
 		 */
 		onPressSignOffPreflightDone: function(oEvent, sign) {
-			this.getModel("paModel").setProperty("/confirm/pfreq", false);
+			// this.getModel("paModel").setProperty("/confirm/pfreq", false);
 			this.getModel("paModel").refresh();
 
 			var oDialog = this.openDialog("SignOffConfirmDialog", ".fragments.fs.pilot.");
@@ -772,16 +772,26 @@ sap.ui.define([
 		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 		 * Confirm signoff
 		 */
-		onPressSignOffConfirm: function() {
+		onPressSignOffConfirm: function(oEvent, sign) {
 			try {
-				var sAction = this.getModel("paModel").getProperty("/confirm/pfreq"); //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
-				// var oPayloads = this.getModel("paModel").getProperty("/masterList");//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+				// var sAction = this.getModel("paModel").getProperty("/confirm/pfreq"); //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				// // var oPayloads = this.getModel("paModel").getProperty("/masterList");//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+				// var oPayloads = JSON.parse(JSON.stringify(this.getModel("paModel").getProperty("/masterList"))); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+				// oPayloads.forEach(function(oItem) {
+				// 	oItem.value = oItem.data.reviewd ? 1 : 0;
+				// 	oItem.pfreq = sAction ? "X" : ""; // X FOR POST FLIGHT DONE  '' FOR NOT REQ//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				// 	delete oItem.data;
+				// });
+				
+				var sAction = this.getModel("paModel").getProperty("/confirm/pfreq");
 				var oPayloads = JSON.parse(JSON.stringify(this.getModel("paModel").getProperty("/masterList"))); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 				oPayloads.forEach(function(oItem) {
-					oItem.value = oItem.data.reviewd ? 1 : 0;
-					oItem.pfreq = sAction ? "X" : ""; // X FOR POST FLIGHT DONE  '' FOR NOT REQ//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+					oItem.review = oItem.data.reviewd;
+					oItem.signStat = sign;
+					oItem.pfreq = sAction ?"": "X" ; // X FOR POST FLIGHT DONE  '' FOR NOT REQ//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 					delete oItem.data;
 				});
+
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -927,6 +937,7 @@ sap.ui.define([
 					"selSignOff": {},
 					"chk1": false,
 					"chk2": false,
+					"pfreq": false,
 					"sgEnable": false
 				},
 				"defects": [{
