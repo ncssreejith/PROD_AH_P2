@@ -812,14 +812,18 @@ sap.ui.define([
 		 * Parameter:oEvent, oFlag
 		 * Description: This will get called, to get Serial number for part number.
 		 */
-		getSerialNoPress: function(oEvent, oFlag) {
+		getSerialNoPress: function(oPart) {
 			try {
 				var oPrmDD = {},
 					oModel,
 					oModelObj,
 					that = this,
 					oPayload;
-				oModelObj = this._oSPDetails.getModel("DetailsSupEditModel").getProperty("/partno");
+				try {
+					oModelObj = this._oSPDetails.getModel("DetailsSupEditModel").getProperty("/partno");
+				} catch (e) {
+					oModelObj = oPart;
+				}
 				//	oPrmDD.filter = "ESTAT eq R and PARTNO eq " + oModelObj + " and INSON eq " + this.getTailId();
 				oPrmDD.filter = "ESTAT" + FilterOpEnum.EQ + "R" + FilterOpEnum.AND + "PARTNO" + FilterOpEnum.EQ + oModelObj + FilterOpEnum.AND +
 					"INSON" + FilterOpEnum.EQ + this.getTailId();
@@ -3944,6 +3948,7 @@ sap.ui.define([
 					that.getView().addDependent(that._oSupDetails);
 				}
 				that._oSupDetails.open(that);
+				that.getSerialNoPress(oObj.partno);
 				//Rahul: 03/12/2020 06.11PM: If condition added.
 				if (oFlagEv === "COM") {
 					sap.ui.core.Fragment.byId("OSTId", "msSupId").setVisible(false);
@@ -4008,11 +4013,10 @@ sap.ui.define([
 						}
 
 					}
-
-					//oPayLoad.EXPTM=new Date(oPayLoad.EXPTM);
 					oModel.setData(oMod);
 					that._oSPDetails.setModel(oModel, "DetailsSupEditModel");
 					that.getView().addDependent(that._oSPDetails);
+					that.getSerialNoPress(oObj.partno);
 				}
 				that._oSPDetails.open(that);
 			} catch (e) {

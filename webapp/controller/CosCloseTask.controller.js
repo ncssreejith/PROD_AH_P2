@@ -459,7 +459,7 @@ sap.ui.define([
 					oPayload;
 				oModelObj.getObject("partno");
 				//	oPrmDD.filter = "PARTNO eq " + oModelObj.getObject("partno") + " and ESTAT eq R and INSON eq " + this.getTailId();
-				oPrmDD.filter = "PARTNO" + FilterOpEnum.EQ + oModel.getProperty("partno") + FilterOpEnum.AND + "ESTAT" + FilterOpEnum.EQ + "R" +
+				oPrmDD.filter = "PARTNO" + FilterOpEnum.EQ + oModelObj.getObject("partno") + FilterOpEnum.AND + "ESTAT" + FilterOpEnum.EQ + "R" +
 					FilterOpEnum.AND + "INSON" + FilterOpEnum.EQ + this.getTailId();
 				oPrmDD.error = function() {};
 
