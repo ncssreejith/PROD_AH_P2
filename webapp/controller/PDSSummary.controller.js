@@ -742,7 +742,7 @@ sap.ui.define([
 		_getSignOffOptions: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "DDID" + FilterOpEnum.EQ + "AST_ &REFID" + FilterOpEnum.EQ + this.getAircraftId() + "&SRVTID" + FilterOpEnum.EQ +
+				oParameter.filter = "DDID" + FilterOpEnum.EQ + "AST_&REFID" + FilterOpEnum.EQ + this.getAircraftId() + "&SRVTID" + FilterOpEnum.EQ +
 					this.getModel("pdsSummaryModel").getProperty(
 						"/srvtid");
 				oParameter.error = function() {};

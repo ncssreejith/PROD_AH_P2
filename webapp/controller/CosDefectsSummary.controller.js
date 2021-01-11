@@ -3948,7 +3948,9 @@ sap.ui.define([
 					that.getView().addDependent(that._oSupDetails);
 				}
 				that._oSupDetails.open(that);
-				that.getSerialNoPress(oObj.partno);
+				if (oObj.tt1id === "TT1_10" && oObj.tt2id === "TT2_10") {
+					that.getSerialNoPress(oObj.partno);
+				}
 				//Rahul: 03/12/2020 06.11PM: If condition added.
 				if (oFlagEv === "COM") {
 					sap.ui.core.Fragment.byId("OSTId", "msSupId").setVisible(false);
@@ -4016,7 +4018,9 @@ sap.ui.define([
 					oModel.setData(oMod);
 					that._oSPDetails.setModel(oModel, "DetailsSupEditModel");
 					that.getView().addDependent(that._oSPDetails);
-					that.getSerialNoPress(oObj.partno);
+					if (oObj.tt1id === "TT1_10" && oObj.tt2id === "TT2_10") {
+						that.getSerialNoPress(oObj.partno);
+					}
 				}
 				that._oSPDetails.open(that);
 			} catch (e) {
