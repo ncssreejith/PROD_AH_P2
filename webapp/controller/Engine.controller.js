@@ -451,9 +451,9 @@ sap.ui.define([
 					oParameter = {};
 				// var sEngID = oEngineModel.getProperty("/ENGID");
 				if (sEngID) {
-					oParameter.filter = "ENGID eq " + sEngID + " and FLAG eq P and tailid eq " + this.getTailId();
+					oParameter.filter = "ENGID" + FilterOpEnum.EQ + sEngID + "&FLAG" + FilterOpEnum.EQ + "P&tailid" + FilterOpEnum.EQ + this.getTailId();
 				} else {
-					oParameter.filter = "tailid eq " + this.getTailId() + " and FLAG eq P";
+					oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&FLAG" + FilterOpEnum.EQ + "P";
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -619,7 +619,8 @@ sap.ui.define([
 					oEngineModel = this.getView().getModel("oEngineModel"),
 					oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "FLAG eq L and TAILID eq " + this.getTailId() + " and ENGID eq " + sEngID;
+				oParameter.filter = "FLAG" + FilterOpEnum.EQ + "L&TAILID" + FilterOpEnum.EQ + this.getTailId() + "&ENGID" + FilterOpEnum.EQ +
+					sEngID;
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length) {
 
