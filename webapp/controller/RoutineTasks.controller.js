@@ -4,8 +4,10 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../util/ajaxutil",
 	"../model/formatter",
-	"sap/base/Log"
-], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	//Developer : Priya
@@ -245,7 +247,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("RT2SVC"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
 			} catch (e) {
 				Log.error("Exception in onTeamLeadUndoSignOffClick function");
 				this.handleException(e);
@@ -270,7 +272,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("RT2SVC"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
 
 			} catch (e) {
 				Log.error("Exception in fnUndoSignOff function");
@@ -304,7 +306,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("RT2SVC"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
 			} catch (e) {
 				Log.error("Exception in onSignOff function");
 				this.handleException(e);
@@ -329,7 +331,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("RT2SVC"), oParameter, [sPayload], "ZRM_FS_RTT", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("RoutineTask"), oParameter, [sPayload], "ZRM_FS_RTT", this);
 			} catch (e) {
 				Log.error("Exception in _SignOffPost function");
 				this.handleException(e);
@@ -371,11 +373,15 @@ sap.ui.define([
 		},
 		_getRTTasks: function() {
 			try {
-				var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ?
-					(" and SRVID eq " + this.getModel("rtModel").getProperty("/SRVID")) : "";
+				// var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ?
+				// 	(" and SRVID eq " + this.getModel("rtModel").getProperty("/SRVID")) : "";
+				var sSrvIdFilter = this.getModel("rtModel").getProperty("/srvid") ?
+					("&SRVID=" + this.getModel("rtModel").getProperty("/srvid")) : "";
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("rtModel").getProperty("/srvtid") +
-					" and TAIL_ID eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") + sSrvIdFilter;
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("rtModel").getProperty("/srvtid") +
+				// 	" and TAIL_ID eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") + sSrvIdFilter;
+				oParameter.filter = "refid=" + this.getAircraftId() + "&srvtid=" + this.getModel("rtModel").getProperty("/srvtid") +
+					"&TAILID=" + this.getTailId() + "&stepid=" + this.getModel("rtModel").getProperty("/stepid") + sSrvIdFilter;
 				// + " and srvid eq " + this.getModel("rtModel").getProperty("/SRVID");
 				oParameter.error = function(hrex) {
 					this.updateModel({
@@ -399,7 +405,7 @@ sap.ui.define([
 					}, "viewModel");
 					// this._getRTLeadTasks();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("RT2SVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRTTasks function");
 				this.handleException(e);
@@ -408,12 +414,16 @@ sap.ui.define([
 
 		_getRTLeadTasks: function() {
 			try {
+				// var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ?
+				// 	(" and SRVID eq " + this.getModel("rtModel").getProperty("/SRVID")) : "";
 				var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ?
-					(" and SRVID eq " + this.getModel("rtModel").getProperty("/SRVID")) : "";
+					("&SRVID=" + this.getModel("rtModel").getProperty("/SRVID")) : "";
 				var oParameter = {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("rtModel").getProperty("/srvtid") +
-					" and TAIL_ID eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") +
-					" and leadflag eq X" + sSrvIdFilter;
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("rtModel").getProperty("/srvtid") +
+				// 	" and TAIL_ID eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") +
+				// 	" and leadflag eq X" + sSrvIdFilter;
+					oParameter.filter = "refid=" + this.getAircraftId() + "&srvtid=" + this.getModel("rtModel").getProperty("/srvtid") +
+					"&TAILID=" + this.getTailId() + "&stepid=" + this.getModel("rtModel").getProperty("/stepid") + "&leadflag="+sSrvIdFilter;
 				oParameter.error = function(hrex) {
 					this.updateModel({
 						busy: false
@@ -433,7 +443,7 @@ sap.ui.define([
 					}, "viewModel");
 					this._fnActivate();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("RT2SVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRTLeadTasks function");
 				this.handleException(e);

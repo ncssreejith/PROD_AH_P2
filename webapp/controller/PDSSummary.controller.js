@@ -4,7 +4,7 @@ sap.ui.define([
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
-	"../util/ajaxutil",
+	"../util/ajaxutilNew",
 	"sap/base/Log",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
@@ -531,14 +531,18 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("pdsSummaryModel").getProperty(
-					"/srvtid") + " and TAIL_ID eq " + this.getTailId() + " and stepid eq S_RT";
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("pdsSummaryModel").getProperty(
+				// 	"/srvtid") + " and TAIL_ID eq " + this.getTailId() + " and stepid eq S_RT";
+
+				oParameter.filter = "refid=" + this.getAircraftId() + "&srvtid=" + this.getModel("pdsSummaryModel").getProperty(
+						"/srvtid") + "&TAIL_ID=" + this.getTailId() +
+					"&stepid=S_RT"; // + sSrvIdFilter;
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T6_FLC");
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/rt", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("RT2SVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRTTasks function");
 			}

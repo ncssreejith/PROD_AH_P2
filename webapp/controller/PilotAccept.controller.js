@@ -313,7 +313,9 @@ sap.ui.define([
 			this._fnLimitationsGet();
 			this._fnADDGet();
 			this._getTrailMod();
-			this._getWeaponConfig();
+			if (this.getModel("paModel").getProperty("/masterList/0/viswc") === "X") {
+				this._getWeaponConfig();
+			}
 		},
 		/** 
 		 * //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
@@ -356,9 +358,12 @@ sap.ui.define([
 				oParameter.filter = filter;
 				oParameter.success = function(oData) {
 					this.fnSetReplData(oData);
-					this._getRTTasks();
-					this._getTasks();
-					this._getCreatedTasks();
+					if (this.getModel("paModel").getProperty("/masterList/0/visrt") === "X") {
+						this._getRTTasks();
+					}
+
+					// this._getTasks();
+					// this._getCreatedTasks();
 					// this._getFuelExtTanks();//Teck Meng change on 25/11/2020 13:00 
 				}.bind(this);
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
@@ -470,14 +475,17 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("paModel").getProperty(
-					"/srvtid") + " and TAIL_ID eq " + this.getTailId() + " and stepid eq S_RT";
+				// oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("paModel").getProperty(
+				// 	"/srvtid") + " and TAIL_ID eq " + this.getTailId() + " and stepid eq S_RT";
+				oParameter.filter = "refid=" + this.getAircraftId() + "&srvtid=" + this.getModel("paModel").getProperty(
+						"/srvtid") + "&TAIL_ID=" + this.getTailId() +
+					"&stepid=S_RT";
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T6_FLC");
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/rt", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("RT2SVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRTTasks function");
 			}
