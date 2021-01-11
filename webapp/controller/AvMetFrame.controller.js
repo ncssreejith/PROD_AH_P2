@@ -47,7 +47,7 @@ sap.ui.define([
 			if (!this._LoadAVMETServices) {
 				this._LoadAVMETServices = setInterval(function() {
 					that._fnJobGetScheduled();
-				}, 30000);
+				}, 300000);
 			}
 		},
 		/** 

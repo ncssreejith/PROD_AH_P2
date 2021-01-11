@@ -46,7 +46,7 @@ sap.ui.define([
 			if (!this._LoadMessageInterval) {
 				this._LoadMessageInterval = setInterval(function() {
 					that._fnJobGetScheduled();
-				}, 30000);
+				}, 300000);
 			}
 		},
 		/** 

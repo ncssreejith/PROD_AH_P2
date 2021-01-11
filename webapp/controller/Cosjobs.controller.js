@@ -84,7 +84,7 @@ sap.ui.define([
 						that._fnJobGetScheduled();
 						that._fnJobDetailsGetAll();
 						that.fnLoadSrv1Dashboard();
-					}, 30000);
+					}, 300000);
 				}
 			} catch (e) {
 				Log.error("Exception in onAfterRendering function");

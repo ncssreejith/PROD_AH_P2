@@ -31,6 +31,18 @@
 									valueFormat="HH:mm" displayFormat="HH:mm" class="sapUiTinyMarginBegin" change="handleChange" visible="{= ${LocalModel>/editModeRectify}}"/>
 							</HBox>
 						</VBox>
+						<VBox class="sapUiTinyMargin">
+							<HBox>
+								<Label text="Job Tradesman :" design="Bold" class="sapUiTinyMargin"/>
+								<Text text="{JobModel>/SG1USR}" design="Bold" class="sapUiTinyMargin"/>
+							</HBox>
+						</VBox>
+						<VBox class="sapUiTinyMargin">
+							<HBox>
+								<Label text="Job Supervisor :" design="Bold" class="sapUiTinyMargin"/>
+								<Text text="{JobModel>/SG2USR}" design="Bold" class="sapUiTinyMargin"/>
+							</HBox>
+						</VBox>
 						<HBox class="sapUiTinyMargin" wrap="Wrap">
 							<Label text="Tradesman :" design="Bold" class="sapUiTinyMargin"/>
 							<FlexBox items="{TUserJobModel>/}" renderType="Bare" class="sapUiTinyMargin">

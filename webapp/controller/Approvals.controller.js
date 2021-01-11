@@ -38,7 +38,7 @@ sap.ui.define([
 			if (!this._LoadMessageInterval) {
 				this._LoadMessageInterval = setInterval(function() {
 					that._fnApprovalRequestGet();
-				}, 120000);
+				}, 300000);
 			}
 		},
 

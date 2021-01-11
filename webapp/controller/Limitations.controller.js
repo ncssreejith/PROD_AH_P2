@@ -75,7 +75,7 @@ sap.ui.define([
 						that._fnADDGet();
 						that._fnLimitationsGet();
 						that._fnLimitationsCompleteGet();
-					}, 30000);
+					}, 300000);
 				}
 			} catch (e) {
 				Log.error("Exception in onAfterRendering function");

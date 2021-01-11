@@ -18,7 +18,7 @@
 						</Label>
 						<VBox class="sapUiMediumMarginBegin">
 							<VBox>
-								<HBox class="sapUiLargeMarginBegin" visible="{= ${SummaryModel>/SERVDT}!==null ? true:false}">
+								<HBox class="sapUiLargeMarginBegin" visible="{= (${SummaryModel>/SERVDT}!==null &amp;&amp; ${SummaryModel>/SERVDT}!=='') ? true:false}">
 									<Label design="Bold" text="{i18n>lbDueDate}" width="150px"/>
 									<HBox>
 										<Text text="{path:'SummaryModel>/SERVDT', formatter:'.formatter.defaultDateFormatDisplay'}"/>
