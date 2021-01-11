@@ -1,10 +1,10 @@
 sap.ui.define([
 	"./BaseController",
-	"avmet/ah/util/ajaxutil",
+	"avmet/ah/util/ajaxutilNew",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageBox",
 	"sap/base/Log"
-], function(BaseController, ajaxutil, JSONModel, MessageBox, Log) {
+], function(BaseController, ajaxutilNew, JSONModel, MessageBox, Log) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.FileUpload", {
@@ -96,7 +96,7 @@ sap.ui.define([
 				oPrmWB.success = function(oData) {
 					this.getView().getModel("FileUploadModel").setProperty("/TableNameSet", oData.results);
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("FILESVC"), oPrmWB);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("FILESVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in FileUpload:_fnGetTableDD function");
 				this.handleException(e);
@@ -126,7 +126,7 @@ sap.ui.define([
 						"\n Error Records: " + oData.results[0].TOT_ER_REC);
 				}.bind(this);
 				oPrmWBMCreate.activity = 4;
-				ajaxutil.fnCreate(this.getResourceBundle().getText("FILESVC"), oPrmWBMCreate, oPayload, "ZRM_S_UPLD", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("FILESVC"), oPrmWBMCreate, oPayload, "ZRM_S_UPLD", this);
 			} catch (e) {
 				Log.error("Exception in FileUpload:_postFile function");
 				this.handleException(e);
@@ -157,7 +157,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutil.fnCreate(this.getResourceBundle().getText("FILESVC"), oPrmWBMCreate, oPayload);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("FILESVC"), oPrmWBMCreate, oPayload);
 			} catch (e) {
 				Log.error("Exception in FileUpload:_postFile function");
 				this.handleException(e);

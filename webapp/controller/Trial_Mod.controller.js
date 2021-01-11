@@ -7,7 +7,7 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/base/Log",
-		"../util/ajaxutilNew",
+	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
 ], function(BaseController, dataUtil, Fragment, FieldValidations, JSONModel, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
@@ -80,26 +80,26 @@ sap.ui.define([
 				var oModel = this.getModel("trialModel");
 				this.oObject = oEvent.getSource().getBindingContext("trialModel").getObject();
 				if (this.oObject.JDUID === "JDU_10") {
-
 					oModel.setProperty("/isVisInput", false);
 					oModel.setProperty("/isVisDate", true);
 					var minDate = new Date(this.oObject.pddval2);
 					minDate.setDate(minDate.getDate() + 1);
 					oModel.setProperty("/minDate", minDate);
 				} else {
-
 					oModel.setProperty("/isVisInput", true);
 					oModel.setProperty("/isVisDate", false);
+					oModel.setProperty("/minVal", parseFloat(this.defVal[this.oObject.JDUID].VALUE));
+					oModel.setProperty("/UtilVal", parseFloat(this.defVal[this.oObject.JDUID].VALUE));
 				}
 				oModel.setProperty("/ExtLbl", this.oObject.JDUIDD);
 				oModel.setProperty("/JDUID", this.oObject.JDUID);
 				this.TrialModExtension.open();
+
 			} catch (e) {
 				Log.error("Exception in Trial_Mod:onTModExtension function");
-				this.handleException(e);
+				//this.handleException(e);
 			}
 		},
-
 		onDueSelectChange: function(oEvent) {
 			try {
 				var oSrc = oEvent.getSource(),
@@ -119,8 +119,8 @@ sap.ui.define([
 			try {
 				var sPath = this.getResourceBundle().getText("TRAILMONSVC"); // + this.getTailId();
 				var oParameter = {};
-			//	oParameter.filter = "tailid eq " + this.getTailId(); // + " and tailid eq " + this.getTailId() + " and trial eq " + "X";
-				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId(); 
+				//	oParameter.filter = "tailid eq " + this.getTailId(); // + " and tailid eq " + this.getTailId() + " and trial eq " + "X";
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var oTrial = oData.results;
@@ -162,6 +162,33 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		/* Function: _fnGetUtilisation
+		 * Parameter:
+		 * Description: This is called retreive min values for the utilisation
+		 */
+		_fnGetUtilisation: function() {
+			try {
+				var oPrmJobDue = {};
+				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq JDU";
+				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + this.getAircraftId() +
+					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "JDU"; // phase 2 Changes
+				oPrmJobDue.error = function() {};
+
+				oPrmJobDue.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.defVal = {};
+						for (var i in oData.results) {
+							this.defVal[oData.results[i].JDUID] = oData.results[i];
+						}
+					}
+				}.bind(this);
+
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISDUESVC"), oPrmJobDue); // Phase 2 changes 
+			} catch (e) {
+				Log.error("Exception in _fnGetUtilisation function");
+			}
+		},
 		// ***************************************************************************
 		//                 3.  Specific Methods  
 		// ***************************************************************************
@@ -169,7 +196,12 @@ sap.ui.define([
 		//                 4. Private Methods   
 		// ***************************************************************************
 		_onObjectMatched: function(oEvent) {
-			this.fnLoadTrialMod();
+			try {
+				this.fnLoadTrialMod();
+				this._fnGetUtilisation();
+			} catch (e) {
+				Log.error("Exception in _onObjectMatched function");
+			}
 		}
 	});
 });
