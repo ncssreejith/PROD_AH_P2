@@ -4,8 +4,10 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
-	"sap/base/Log"
-], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log) {
+	"sap/base/Log",
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : Teck Meng
@@ -72,7 +74,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("EHSERSVC"), oParameter, aPayload, "ZRM_E_CYCL", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("EHSERSVC"), oParameter, aPayload, "ZRM_E_CYCL", this);
 			} catch (e) {
 				Log.error("Exception in AddEngCyclicLog:onSignOffPress function");
 				this.handleException(e);
@@ -90,9 +92,10 @@ sap.ui.define([
 		_getEngCyclicLife: function(sEngID, iEngine) {
 			try {
 				var sLOGID = this.getModel("oViewModel").getProperty("/LOGID"); //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
-				var sLogIdPath = "";
+				var sLogIdPath = "",
+					sPath;
 				if (sLOGID) {
-					sLogIdPath = " and LOGID eq " + sLOGID;
+					sLogIdPath = "&LOGID" + FilterOpEnum.EQ + sLOGID;
 				}
 				// var sFLAG = "L";
 				// if (sStepid === "S_CL") {//Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
@@ -101,7 +104,13 @@ sap.ui.define([
 				var
 					oParameter = {};
 				oParameter.error = function() {};
-				oParameter.filter = "FLAG eq A and TAILID eq " + this.getTailId() + " and ENGID eq " + sEngID + sLogIdPath; //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+				sPath = "FLAG" + FilterOpEnum.EQ + "A&TAILID" + FilterOpEnum.EQ + this.getTailId() + "&ENGID" + FilterOpEnum.EQ +
+					sEngID;
+				if (sLOGID) {
+					oParameter.filter = sPath + sLogIdPath; //Teck Meng change on 07/12/2020 13:00 AH Issue 1044,1043
+				} else {
+					oParameter.filter = sPath;
+				}
 				oParameter.success = function(oData) {
 					if (oData && oData.results.length) {
 						//sort by date
@@ -137,7 +146,7 @@ sap.ui.define([
 						oEngineModel.setProperty("/", oObject);
 					}
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngCyclicLife function");
 				this.handleException(e);

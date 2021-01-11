@@ -164,6 +164,24 @@ sap.ui.define([
 			return Temp;
 		},
 
+		esOperDateFormatter: function(dDate, sFormat) {
+			if (!dDate) {
+				return "";
+			}
+			var res, Temp, res2, res3;
+
+			try {
+				res2 = dDate.split(" ");
+				res = res2[0].split("-");
+				res3 = res2[1].split(":");
+				Temp = res[2].concat("/", res[1], "/", res[0], " ", res3[0], ":", res3[1]);
+			} catch (e) {
+				Temp = dDate;
+			}
+
+			return Temp;
+		},
+
 		defaultDateFormatLimDisplay: function(dDate, sFormat) {
 			if (dDate === "-" || dDate === "_" || dDate === null) {
 				return "_";
@@ -233,62 +251,64 @@ sap.ui.define([
 			}
 			return oTemp;
 		},
-		
-		
+
 		////Rahul : change on 28/12/2020 : Start
-		MinuteToHoursConversion: function(sDate,eDate) {
-					
+		MinuteToHoursConversion: function(sDate, eDate) {
+
 			var diffDate = Math.abs(new Date(eDate) - new Date(sDate));
-			var sMinutes = Math.floor((diffDate/1000)/60);
-			var sHours=0,sOneMin=60,sRem=0,sQue=0,sResult=0.0;
-			sQue =  Math.floor(sMinutes/sOneMin);
-			sRem = (sMinutes%sOneMin);			
-			if(sRem > 1){
+			var sMinutes = Math.floor((diffDate / 1000) / 60);
+			var sHours = 0,
+				sOneMin = 60,
+				sRem = 0,
+				sQue = 0,
+				sResult = 0.0;
+			sQue = Math.floor(sMinutes / sOneMin);
+			sRem = (sMinutes % sOneMin);
+			if (sRem > 1) {
 				sMinutes = sRem;
 			}
-   
+
 			sResult = sResult + sQue;
 
 			switch (true) {
 				case sMinutes <= 3:
-					sHours =  0.0;
+					sHours = 0.0;
 					break;
 				case 3 <= sMinutes && sMinutes < 9:
-					sHours =  0.1;
+					sHours = 0.1;
 					break;
 				case 9 <= sMinutes && sMinutes < 15:
-					sHours =  0.2;
+					sHours = 0.2;
 					break;
 				case 15 <= sMinutes && sMinutes < 21:
-					sHours =  0.3;
+					sHours = 0.3;
 					break;
 				case 21 <= sMinutes && sMinutes < 27:
-					sHours =  0.4;
+					sHours = 0.4;
 					break;
 				case 27 <= sMinutes && sMinutes < 33:
-					sHours =  0.5;
+					sHours = 0.5;
 					break;
 				case 33 <= sMinutes && sMinutes < 39:
-					sHours =  0.6;
+					sHours = 0.6;
 					break;
 				case 39 <= sMinutes && sMinutes < 45:
-					sHours =  0.7;
+					sHours = 0.7;
 					break;
 				case 45 <= sMinutes && sMinutes < 51:
-					sHours =  0.8;
+					sHours = 0.8;
 					break;
 				case 51 <= sMinutes && sMinutes < 57:
-					sHours =  0.9;
+					sHours = 0.9;
 					break;
 				case 57 <= sMinutes && sMinutes < 60:
-					sHours =  1.0;
-					break;	
+					sHours = 1.0;
+					break;
 			}
-			sResult = sResult+sHours;
+			sResult = sResult + sHours;
 			return sResult;
 		},
 		////Rahul : change on 28/12/2020 : End
-		
 
 		LimOverViewText: function(sValue) {
 			var oTemp = "";
@@ -2103,7 +2123,7 @@ sap.ui.define([
 				return sValue;
 			}
 		},
-			validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime, futureCheck, fragmentId) {
+		validDateTimeChecker: function(that, idDate, idTime, errorMessagePast, errorMessageFuture, prevDate, prevTime, futureCheck, fragmentId) {
 			var maxDt = new Date(),
 				oDatePicker = fragmentId ? sap.ui.core.Fragment.byId(fragmentId, idDate) : that.getView().byId(idDate),
 				creDt = oDatePicker.getDateValue(),
@@ -2201,7 +2221,7 @@ sap.ui.define([
 			// Rahul: COS: 20/11/2020: 09:16Am: new if condition added.
 			if (!isNaN(crDtTime.getDate()) === false) {
 				datec = dateString + 'T' + timeString; //Rahul: COS: 19/11/2020: 10:04Am: "T" Added
-		    	crDtTime = new Date(dateString);
+				crDtTime = new Date(dateString);
 				var TempCreTime = timeString.split(":"); //Rahul: COS: 25/11/2020: 04:16pm: code Added
 				crDtTime.setHours(TempCreTime[0], TempCreTime[1], "00");
 			}

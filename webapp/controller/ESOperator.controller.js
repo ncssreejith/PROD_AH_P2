@@ -8,12 +8,14 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/export/Spreadsheet",
-		"../util/ajaxutilNew",
-	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, JSONModel, MessageToast, MessageBox, ajaxutil, dataUtil, Filter, FilterOperator, Spreadsheet, ajaxutilNew, FilterOpEnum) {
+	"../util/ajaxutilNew",
+	"avmet/ah/util/FilterOpEnum",
+	"../model/formatter"
+], function(BaseController, JSONModel, MessageToast, MessageBox, ajaxutil, dataUtil, Filter, FilterOperator, Spreadsheet, ajaxutilNew,
+	FilterOpEnum, formatter) {
 	"use strict";
 	return BaseController.extend("avmet.ah.controller.ESOperator", {
-
+		formatter: formatter,
 		onInit: function() {
 			var oInitialModel = new JSONModel({
 				dispJob: true,
@@ -136,8 +138,8 @@ sap.ui.define([
 				this.getView().getModel("oGlobalModel").refresh();
 				MessageBox.error(error.responseText);
 			};
-		//	oParameter.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
-			oParameter.filter = "AIRID"+FilterOpEnum.EQ+ this.getAircraftId()+FilterOpEnum.AND+"TAILID"+FilterOpEnum.EQ+this.getTailId();
+			//	oParameter.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
+			oParameter.filter = "AIRID" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + this.getTailId();
 			oParameter.success = function(oData) {
 				if (oData && oData.results && oData.results.length > 0) {
 					oGlobalModel.setProperty("/Jobs", oData.results);
@@ -163,9 +165,9 @@ sap.ui.define([
 				this.getView().getModel("oGlobalModel").refresh();
 				MessageBox.error(error.responseText);
 			};
-		//	oParameter.filter = "SELTYPE eq " + seltype + " and TAILID eq " + this.getTailId();
+			//	oParameter.filter = "SELTYPE eq " + seltype + " and TAILID eq " + this.getTailId();
 			oParameter.filter = "SELTYPE" + FilterOpEnum.EQ + seltype + "&TAILID" + FilterOpEnum.EQ + this.getTailId();
-			
+
 			oParameter.success = function(oData) {
 				if (oData && oData.results && oData.results.length > 0) {
 					oGlobalModel.setProperty("/Services", oData.results);
