@@ -91,8 +91,10 @@ sap.ui.define([
 		 */
 		fnLoadCurrentDetails: function() {
 			try {
-				var sPath = this.getResourceBundle().getText("AIRTRANSCURRSVC") + "(tailid=" + this.getTailId() + ")";
+				var sPath = this.getResourceBundle().getText("AIRTRANSCURRSVC");
 				var oParameter = {};
+					oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId()+"&LFLAG" + FilterOpEnum.EQ+"T"; // Phase 2 changes
+			
 				oParameter.error = function() {
 
 				};
@@ -111,8 +113,9 @@ sap.ui.define([
 		 */
 		fnLoadHistory: function() {
 			try {
-				var sPath = this.getResourceBundle().getText("AIRTRANSSVC") + "(tailid=" + this.getTailId() + ")";
+				var sPath = this.getResourceBundle().getText("AIRTRANSSVC");
 				var oParameter = {};
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId(); 
 				oParameter.error = function() {
 
 				};

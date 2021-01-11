@@ -79,7 +79,10 @@
 					<Column width="11rem">
 						<m:Label text="Defect Start Date/ Time"/>
 						<template>
-							<m:Text text="{oGlobalModel>DefectStartTimestamp}" wrapping="false"/>
+						<!--	<m:Text text="{oGlobalModel>DefectStartTimestamp}" wrapping="false"/>-->
+							<m:Text text="{path: 'oGlobalModel>DefectStartTimestamp',formatter:'.formatter.esOperDateFormatter'}" wrapping="false"/>
+							
+						
 						</template>
 					</Column>
 					<Column width="11rem">
