@@ -97,12 +97,12 @@
 									<Text text="{auditLogModel>FILED_NAME}"/>
 									<Text text="{auditLogModel>ACTION}"/>
 									<VBox>
-										<Text text="{auditLogModel>OLDVALUE}" visible="{= ${auditLogModel>OLDDESC} === null}"/>
-										<Text text="{auditLogModel>OLDDESC}" visible="{= ${auditLogModel>OLDDESC} !== null}"/>
+										<Text text="{auditLogModel>OLDVALUE}" visible="{= ${auditLogModel>OLDDESC} === ''}"/>
+										<Text text="{auditLogModel>OLDDESC}" visible="{= ${auditLogModel>OLDDESC} !== ''}"/>
 									</VBox>
 									<VBox>
-										<Text text="{auditLogModel>NEWVALUE}" visible="{= ${auditLogModel>NEWDESC} === null}"/>
-										<Text text="{auditLogModel>NEWDESC}" visible="{= ${auditLogModel>NEWDESC} !== null}"/>
+										<Text text="{auditLogModel>NEWVALUE}" visible="{= ${auditLogModel>NEWDESC} === ''}"/>
+										<Text text="{auditLogModel>NEWDESC}" visible="{= ${auditLogModel>NEWDESC} !== ''}"/>
 									</VBox>
 									<Text text="{auditLogModel>PLANTUSER}"/>
 									<Text text="{path:'auditLogModel>ADATE'} {path:'auditLogModel>ATIME'}"/>
