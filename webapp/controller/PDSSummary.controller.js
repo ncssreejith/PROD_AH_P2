@@ -378,9 +378,10 @@ sap.ui.define([
 				oParameter.error = function() {};
 				// oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty(
 				// 	"/srvtid") + " and TAILID eq " + this.getTailId();
-				oParameter.filter = "REFID" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "SRVTID" + FilterOpEnum.EQ + this.getModel(
-					"pdsSummaryModel").getProperty(
-					"/srvtid") + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
+				oParameter.filter = "REFID" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND +
+					"SRVTID" + FilterOpEnum.EQ + this.getModel("pdsSummaryModel").getProperty("/srvtid") +FilterOpEnum.AND + 
+					"STEPID" + FilterOpEnum.EQ + this.getModel("pdsSummaryModel").getProperty("/stepid") +FilterOpEnum.AND + 
+					"tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
 				oParameter.success = function(oData) {
 					var sPaSign = oData.results.length > 0 ? oData.results[0] : [];
 					this.getModel("pdsSummaryModel").setProperty("/masterList", oData.results);
@@ -742,7 +743,7 @@ sap.ui.define([
 		_getSignOffOptions: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "DDID" + FilterOpEnum.EQ + "AST_ &REFID" + FilterOpEnum.EQ + this.getAircraftId() + "&SRVTID" + FilterOpEnum.EQ +
+				oParameter.filter = "DDID" + FilterOpEnum.EQ + "AST_&REFID" + FilterOpEnum.EQ + this.getAircraftId() + "&SRVTID" + FilterOpEnum.EQ +
 					this.getModel("pdsSummaryModel").getProperty(
 						"/srvtid");
 				oParameter.error = function() {};
@@ -893,47 +894,15 @@ sap.ui.define([
 		onPressSignOffConfirm: function(oEvent) {
 			try {
 
-				var oSignOffPayload = {
-					srvid: "",
-					refid: this.getAircraftId(),
-					tailid: this.getTailId(),
-					stepid: this.getModel("pdsSummaryModel").getProperty("/stepid"),
-					FFDT: this.getModel("pdsSummaryModel").getProperty("/confirm/selDDID"),
-					srvtid: this.getModel("pdsSummaryModel").getProperty("/srvtid"),
-					reftyp: "AIR",
-					ddid: "HC_SG_S_FF",
-					dftl: "",
-					num1: "",
-					uom: "",
-					value: null,
-					sgid: null,
-					begda: "",
-					endda: "",
-					airid: "",
-					modid: "",
-					ddesc: " ",
-					sign: "",
-					sgusr: "",
-					T8_OJOBS: null,
-					T2_PAPPR: null,
-					T6_FLC: null,
-					T7_WCONF: null,
-					T5_FREQ: null,
-					T4_ADD: null,
-					T3_LIMIT: null,
-					T11_TMOD: null,
-					T1_MCARD: null,
-					T9_JDUE: null,
-					T10_PASTD: null,
-					T1_SORTIE: null,
-					visrt: null,
-					visft: null,
-					visct: null,
-					couts: null,
-					cpend: null,
-					CFLAG: null,
-					NPASIGN: this.getModel("pdsSummaryModel").getProperty("/confirm/pasign") ? "X" : ""
-				};
+				
+				var oSignOffPayload = JSON.parse(JSON.stringify(this.getModel("pdsSummaryModel").getProperty("/masterList"))); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
+				oSignOffPayload.forEach(function(oItem) {
+					oItem.review = oItem.data.reviewd;
+					oItem.pareq = this.getModel("pdsSummaryModel").getProperty("/confirm/pasign") ? "X" : "";
+					oItem.ffdt = this.getModel("pdsSummaryModel").getProperty("/confirm/selDDID");
+					delete oItem.data;
+				}.bind(this));
+				
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -941,7 +910,7 @@ sap.ui.define([
 					this.getRouter().navTo("DashboardInitial", false);
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("PDSSUMMARYSVC"), oParameter, [oSignOffPayload], "ZRM_FS_FFF", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("PDSSUMMARYSVC"), oParameter, oSignOffPayload, "ZRM_FS_FFF", this);
 			} catch (e) {
 				Log.error("Exception in onPressSignOffConfirm function");
 			}
