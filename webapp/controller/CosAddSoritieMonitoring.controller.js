@@ -157,6 +157,11 @@ sap.ui.define([
 				var that = this;
 				var oObject = oEvent.getSource().getBindingContext("SortieMonitoringModel").getObject();
 				oObject.SortiesNo = oEvent.getParameter("value");
+				if (oObject.MonFor === "SORTI_1") {
+					if (oObject.SortiesNo >= 99) {
+						oObject.SortiesNo = 99;
+					}
+				}
 				var oModel = that.getView().getModel("SortieMonitoringModel");
 				oModel.updateBindings(true);
 

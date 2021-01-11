@@ -44,14 +44,14 @@
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin">
 					<HBox class="sapUiSmallMargin">
-						<Label design="Bold" text="Acceptable Deferred Defects" wrapping="true" width="150px"/>
+						<Label design="Bold" text="Acceptable Deferred Defects" wrapping="true" width="150px" class="sapUiTinyMarginTop"/>
 						<Label design="Bold" text="{ViewModel>/ADDCount}" class="fontSize25 sapUiSmallMarginBegin sapUiTinyMarginTop"/>
-						<Label design="Bold" text="{ViewModel>/ADDMaxCount}" class="fontSize25 sapUiTinyMarginTop"/>
+						<Label design="Bold" text="/{ViewModel>/ADDMaxCount}" class="fontSize25 sapUiTinyMarginTop"/>
 					</HBox>
 				</VBox>
 			</HBox>
 			<!--Rahul: 12/12/2020: 03:30PM: new code added for remark-->
-			<VBox class="sapUiSmallMarginBegin" visible="{= ${ViewModel>/ADDCount} >= ${ViewModel>/ADDCount} ? true : false}">
+			<VBox class="sapUiSmallMarginBegin" visible="{= ${ViewModel>/ADDCount} >= ${ViewModel>/ADDMaxCount} ? true : false}">
 				<Label design="Bold" text="Had reached the maximum amount of ADD, Please enter the Reason to raise current ADD :" wrapping="true"></Label>
 				<TextArea value="{oViewGlobalModel>/REMARKS}" cols="100" rows="4" width="100%" growingMaxLines="7" showExceededText="true" maxLength="500"
 					liveChange="handleLiveChangeFlyingRequirements"></TextArea>

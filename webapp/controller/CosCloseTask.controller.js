@@ -434,7 +434,7 @@ sap.ui.define([
 						sMaxCount = "0";
 					}
 					this.getView().getModel("ViewModel").setProperty("/ADDCount", sCount);
-					this.getView().getModel("oViewModel").setProperty("/ADDMaxCount", sMaxCount);
+					this.getView().getModel("ViewModel").setProperty("/ADDMaxCount", sMaxCount);
 				}.bind(this);
 
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
@@ -683,7 +683,7 @@ sap.ui.define([
 						bFlag = false;
 					} else {
 						//	var sFilterStr = " and taskid eq " + Temp[i];
-						var sFilterStr = FilterOpEnum.AND + "taskid" + FilterOpEnum.EQ + Temp[i];
+						var sFilterStr = ",taskid" + FilterOpEnum.EQ + Temp[i];
 						sFilter = sFilter.concat(sFilterStr);
 					}
 					/*filters.push(new sap.ui.model.Filter("taskid", sap.ui.model.FilterOperator.EQ, Temp[i]));*/

@@ -51,7 +51,7 @@
 				</VBox>
 				<VBox>
 					<Label/>
-					<Label text="Removal" class="sapUiSmallMarginTop sapUiTinyMarginBeginEnd"/>
+					<Label text="Removal" class="sapUiSmallMarginTop sapUiTinyMarginBeginEnd" visible="{=${oCreateTaskModel>/sTask} !== 'TT2_13' ? true:false}"/>
 				</VBox>
 				<VBox class="sapUiTinyMarginBegin">
 					<HBox>
