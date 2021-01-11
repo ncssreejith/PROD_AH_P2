@@ -117,7 +117,7 @@ sap.ui.define([
 		// ***************************************************************************	
 		fnLoadTrialMod: function() {
 			try {
-				var sPath = this.getResourceBundle().getText("TRAILMONSVC") + "/"; // + this.getTailId();
+				var sPath = this.getResourceBundle().getText("TRAILMONSVC"); // + this.getTailId();
 				var oParameter = {};
 			//	oParameter.filter = "tailid eq " + this.getTailId(); // + " and tailid eq " + this.getTailId() + " and trial eq " + "X";
 				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId(); 
