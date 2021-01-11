@@ -333,7 +333,7 @@ sap.ui.define([
 			var oPrmJobDue = {};
 			//	oPrmJobDue.filter = "FLAG EQ O AND CAPID EQ " + sContext.getObject().CAPID + " AND JOBID EQ " + sContext.getObject().JOBID;
 			oPrmJobDue.filter = "FLAG" + FilterOpEnum.EQ + "O" + "&CAPID" + FilterOpEnum.EQ + sContext.getObject().CAPID + "&JOBID" +
-				FilterOpEnum.EQ + sContext.getObject().JOBID+"&tailid" + FilterOpEnum.EQ + this.getTailId();
+				FilterOpEnum.EQ + sContext.getObject().JOBID + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 			oPrmJobDue.error = function() {};
 			oPrmJobDue.success = function(oData) {
 				this.getModel("pdsSummaryModel").setProperty(sContext.getPath() + "/ADDLimit", oData.results.length > 0 ? oData.results[0] : {});
@@ -406,7 +406,9 @@ sap.ui.define([
 			this._fnLimitationsGet();
 			this._fnADDGet();
 			this._getTrailMod();
-			this._getWeaponConfig();
+			if (this.getModel("pdsSummaryModel").getProperty("/masterList/0/viswc") === "X") {
+				this._getWeaponConfig();
+			}
 			this._getSignOffOptions();
 		},
 
@@ -443,9 +445,16 @@ sap.ui.define([
 				oParameter.filter = filter;
 				oParameter.success = function(oData) {
 					this.fnSetReplData(oData);
-					this._getRTTasks();
-					this._getTasks();
-					this._getCreatedTasks();
+					if (this.getModel("pdsSummaryModel").getProperty("/masterList/0/visrt") === "X") {
+						this._getRTTasks();
+					}
+					// if (this.getModel("pdsSummaryModel").getProperty("/masterList/0/vis") === "X") {
+					// 	this._getTasks();
+					// }
+					// if (this.getModel("pdsSummaryModel").getProperty("/masterList/0/viswc") === "X") {
+					// 	this._getCreatedTasks();
+					// }
+
 				}.bind(this);
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
