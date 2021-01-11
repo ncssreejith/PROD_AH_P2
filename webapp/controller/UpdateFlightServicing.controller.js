@@ -211,7 +211,7 @@ sap.ui.define([
 				// oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oUpdateFlightModel.getProperty("/srvid") +
 				// 	" and mainid eq " + oItem.mainid + " and tailid eq " + this.getTailId() + sSrvIdFilter;
 				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "subid" + FilterOpEnum.EQ +
-					oUpdateFlightModel.getProperty("/srvid") + FilterOpEnum.AND + "mainid" + FilterOpEnum.EQ + oItem.mainid +
+					oUpdateFlightModel.getProperty("/srvid") + FilterOpEnum.AND + "mainid" + FilterOpEnum.EQ + oItem.mainid + FilterOpEnum.AND +
 					"tailid" + FilterOpEnum.EQ + this.getTailId() + sSrvIdFilter;
 				oParameter.error = function() {};
 				oParameter.success = function(oItem, oData) {

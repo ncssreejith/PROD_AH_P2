@@ -708,7 +708,7 @@ sap.ui.define([
 					this.getModel("avmetModel").refresh();
 					this.getRouter().navTo("CreateFlightService", {}, false);
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_VS", this);
+				ajaxutilNew.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_VS", this);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onACSignOffConfirm function");
 				this.handleException(e);

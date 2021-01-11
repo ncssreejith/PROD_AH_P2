@@ -169,8 +169,7 @@ sap.ui.define([
 				// oParameter.filter = "refid eq " + this.getAircraftId() + " and subid eq " + oEvent.getParameter("arguments").srvid +
 				// 	" and tailid eq " + this.getTailId();
 				oParameter.filter = "refid" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "subid" + FilterOpEnum.EQ + oEvent.getParameter(
-						"arguments").srvid + FilterOpEnum.AND +
-					"tailid" + FilterOpEnum.EQ + this.getTailId();
+						"arguments").srvid + FilterOpEnum.AND +"tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					oData.results.forEach(function(oItem) {
