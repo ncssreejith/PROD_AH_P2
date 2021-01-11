@@ -214,15 +214,15 @@ sap.ui.define([
 			if (!dDate) {
 				return "";
 			}
-			var oResTemp = "0";
+			var oResTemp = "0",oResTempHr = "0";
 			var res = dDate.split(":");
 			if (res[1].length === 1) {
 				oResTemp = oResTemp.concat(res[1]);
 				res[1] = oResTemp;
 			}
 			if (res[0].length === 1) {
-				oResTemp = oResTemp.concat(res[0]);
-				res[0] = oResTemp;
+				oResTempHr = oResTempHr.concat(res[0]);
+				res[0] = oResTempHr;
 			}
 			var Temp = res[0].concat(":", res[1]);
 
