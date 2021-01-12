@@ -179,10 +179,12 @@ sap.ui.define([
 				var sLogid = this.getModel("oOFPModel").getProperty("/logid");
 				// var sLogidPath = sLogid ? " and logid eq " + sLogid : "";
 				if (sLogid) {
-					sPath = sPath + "(logid=" + sLogid + ",tailid=" + this.getTailId() + ",tabid=" + this.getModel(
-						"oOFPModel").getProperty("/tabid") + ")";
-					// sPath = sPath + "/" + sLogid + "/" + this.getTailId() + "/" + this.getModel(
+					// sPath = "logid=" + sLogid + ",tailid=" + this.getTailId() + ",tabid=" + this.getModel(
 					// 	"oOFPModel").getProperty("/tabid");
+					oParameter.filter = "logid" + FilterOpEnum.EQ + sLogid + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId() +
+						FilterOpEnum.AND + "tabid" + FilterOpEnum.EQ +
+						this.getModel(
+							"oOFPModel").getProperty("/tabid");
 				} else {
 					// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oOFPModel").getProperty(
 					// 	"/ofptabId") + " and otype eq D";

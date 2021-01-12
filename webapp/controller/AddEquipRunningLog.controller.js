@@ -6,7 +6,7 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
 	"../util/cvUtil",
-		"avmet/ah/util/ajaxutilNew",
+	"avmet/ah/util/ajaxutilNew",
 	"../util/FilterOpEnum"
 ], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log, cvUtil, ajaxutilNew, FilterOpEnum) {
 	"use strict";
@@ -74,10 +74,13 @@ sap.ui.define([
 		//-------------------------------------------------------------		
 		fnLogById: function() {
 			try {
-				var sPath = this.getResourceBundle().getText("AIRCRAFTLOGSVC") + "(logid=" + this.getModel("oAircraftAddModel").getProperty(
-					"/logid") + ",tailid=" + this.getTailId() + ",tabid=TABA_102)";
+				var sPath = this.getResourceBundle().getText("AIRCRAFTLOGSVC");
+
 				// var sPath = "/AircraftLogSvc/" + this.getModel("oAircraftAddModel").getProperty("/logid") + "/" + this.getTailId() + "/TABA_102";
 				var oParameter = {};
+				oParameter.filter = "logid" + FilterOpEnum.EQ + this.getModel("oAircraftAddModel").getProperty(
+						"/logid") + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "tabid" + FilterOpEnum.EQ +
+					"TABA_102";
 				oParameter.error = function() {
 
 				};

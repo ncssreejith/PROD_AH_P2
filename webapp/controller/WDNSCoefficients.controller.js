@@ -196,10 +196,11 @@ sap.ui.define([
 				var sLogid = this.getModel("oWDNSModel").getProperty("/logid");
 				var sLogidPath = sLogid ? " and logid eq " + sLogid : "";
 				if (sLogidPath) {
-					sPath = sPath + "(logid=" + sLogid + ",tailid=" + this.getTailId() + ",tabid=" + this.getModel(
-						"oWDNSModel").getProperty("/hartabId") + ")";
-					// sPath = sPath + "/" + sLogid + "/" + this.getTailId() + "/" + this.getModel(
-					// 	"oWDNSModel").getProperty("/hartabId");
+					// sPath = sPath + "(logid=" + sLogid + ",tailid=" + this.getTailId() + ",tabid=" + this.getModel(
+					// 	"oWDNSModel").getProperty("/hartabId") + ")";
+					oParameter.filter = "logid" + FilterOpEnum.EQ + sLogid + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId() +
+						FilterOpEnum.AND + "tabid" + FilterOpEnum.EQ +
+						this.getModel("oWDNSModel").getProperty("/hartabId");
 				} else {
 					// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
 					// 	"/hartabId") + " and otype eq D";
@@ -251,8 +252,11 @@ sap.ui.define([
 				var sLogid = this.getModel("oWDNSModel").getProperty("/logid");
 				var sLogidPath = sLogid ? " and logid eq " + sLogid : "";
 				if (sLogidPath) {
-					sPath = sPath + "(logid=" + sLogid + ",tailid=" + this.getTailId() + ",tabid=" + this.getModel(
-						"oWDNSModel").getProperty("/dhtabId") + ")";
+					// sPath = sPath + "(logid=" + sLogid + ",tailid=" + this.getTailId() + ",tabid=" + this.getModel(
+					// 	"oWDNSModel").getProperty("/dhtabId") + ")";
+					oParameter.filter = "logid" + FilterOpEnum.EQ + sLogid + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId() +
+						FilterOpEnum.AND + "tabid" + FilterOpEnum.EQ +
+						this.getModel("oWDNSModel").getProperty("/dhtabId");
 				} else {
 					// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oWDNSModel").getProperty(
 					// 	"/dhtabId") + " and otype eq D";
