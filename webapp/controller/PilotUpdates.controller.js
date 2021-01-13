@@ -5,7 +5,7 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
 	"../model/FieldValidations",
-	"../util/ajaxutil",
+	"../util/ajaxutilNew",
 	"sap/base/Log",
 	"avmet/ah/util/cvUtil",
 	"../util/ajaxutilNew",
@@ -493,7 +493,7 @@ sap.ui.define([
 				var oPayloads = this.getModel("oPilotUpdatesViewModel").getProperty("/flyRecord");
 				oPayloads.astatid = this.fnGetAircraftStatus();
 				oPayloads.isfair = this.getModel("oPilotUpdatesViewModel").getProperty("/isFair") ? "Y" : "N";
-
+				
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {
@@ -863,7 +863,7 @@ sap.ui.define([
 					this.updateModel({
 						busy: true
 					}, "viewModel");
-					this.fnReadArming();
+					// this.fnReadArming();
 					this.fnReadAmResults();
 					this.fnReadOpType();
 					// this.fnReadflyResults();//Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
@@ -1270,7 +1270,7 @@ sap.ui.define([
 		fnReadAddLimitCount: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId();
+				oParameter.filter = "tailid=" + this.getTailId();
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false

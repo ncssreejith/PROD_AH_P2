@@ -241,7 +241,7 @@ sap.ui.define([
 					} catch (e) {
 						oTempData[0].credtm = oTempData[0].credtm;
 					}
-					oTempData[0].creuzt = oModel.getProperty("/Time");
+					oTempData[0].creuzt = formatter.defaultTimeFormatDisplay(oModel.getProperty("/Time"));
 					if (aTasks[i].sCheckfor !== "") {
 						oTempData[0].chkfor = aTasks[i].sCheckfor;
 						oTempData[0].ftchkfor = aTasks[i].sCheckfor;

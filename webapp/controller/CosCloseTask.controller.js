@@ -694,8 +694,10 @@ sap.ui.define([
 					var oModel = dataUtil.createNewJsonModel();
 					oModel.setSizeLimit(1000);
 					for (var i = 0; i < oData.results.length; i++) {
-						oData.results[i].ftcredt = new Date();
-						oData.results[i].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();
+						/*oData.results[i].ftcredt = new Date();
+						oData.results[i].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();*/
+						oData.results[i].ftcredt = 	new Date(oData.results[i].credtm);
+						oData.results[i].ftcretm = oData.results[i].creuzt;
 						if (oData.results[i].tt1id === 'TT1_12' && oData.results[i].tt2id === '' && oData.results[i].tt3id === '' && oData.results[i].tt4id ===
 							'') {
 							if (oData.results[i].ftrsltgd === "" || oData.results[i].ftrsltgd === null || oData.results[i].ftrsltgd === 0) {
