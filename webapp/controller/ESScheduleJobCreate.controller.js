@@ -508,21 +508,21 @@ sap.ui.define([
 				oJobModel.setData(oTempData[0]);
 
 				this.getView().setModel(oJobModel, "JobCreateModel");
-
+				this.getEngineHeader();
+				this._fnJobDueGet(sAir);
+				this._fnGetUtilisation(sAir);
+				this._fnWorkCenterGet(sAir);
 				var sEngID = oEvent.getParameter("arguments").ENGID;
 				this.getModel("JobCreateModel").setProperty("/ENGID", sEngID);
 				this.getModel("JobCreateModel").setProperty("/SERIAL", oEvent.getParameter("arguments").SN);
 				if (sEngID) {
 					this.getModel("JobCreateModel").setProperty("/SN", oEvent.getParameter("arguments").SN);
 					this.getModel("JobCreateModel").setProperty("/PN", oEvent.getParameter("arguments").ENGTY);
-
+					this.getModel("JobCreateModel").setProperty("/ENGNO", oEvent.getParameter("arguments").ENGNO);
 					this.getModel("JobCreateModel").setProperty("/CTYPE", "ENGINE");
+					this.getView().byId("SerialNoId").setEditable(false);
+					this.getView().byId("PartNoId").setEditable(false);
 				}
-
-				this._fnJobDueGet(sAir);
-				this._fnGetUtilisation(sAir);
-				this.getEngineHeader();
-				this._fnWorkCenterGet(sAir);
 
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");

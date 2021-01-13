@@ -38,7 +38,8 @@ sap.ui.define([
 				this.getRouter().navTo("ESScheduleJobCreate", {
 					ENGID: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
 					SN: this.getModel("oEngineModel").getProperty("/headerDetails/SERIAL"),
-					ENGTY: this.getModel("oEngineModel").getProperty("/headerDetails/ENGTY")
+					ENGTY: this.getModel("oEngineModel").getProperty("/headerDetails/ENGTY"),
+					ENGNO: this.getModel("oEngineModel").getProperty("/headerDetails/ENGNO")
 				});
 			} catch (e) {
 				Log.error("Exception in Engine:onScheduleLinkPress function");
@@ -50,7 +51,8 @@ sap.ui.define([
 				this.getRouter().navTo("ESScheduleJobCreate", {
 					ENGID: this.getModel("oEngineModel").getProperty("/header2Details/ENGID"),
 					SN: this.getModel("oEngineModel").getProperty("/header2Details/SERIAL"),
-					ENGTY: this.getModel("oEngineModel").getProperty("/header2Details/ENGTY")
+					ENGTY: this.getModel("oEngineModel").getProperty("/header2Details/ENGTY"),
+					ENGNO: this.getModel("oEngineModel").getProperty("/header2Details/ENGNO")
 				});
 			} catch (e) {
 				Log.error("Exception in Engine:onSchedule2LinkPress function");
