@@ -1336,9 +1336,9 @@ sap.ui.define([
 					}
 					if (oPayload.isser === "Batch No.") {
 						oPayload.tt2id = "TT2_15";
-					} else if (oPayload.isser === "Serial No. (S/N)") {
+					} /*else if (oPayload.isser === "Serial No. (S/N)") {
 						oPayload.tt2id = "TT2_10";
-					}
+					}*/
 					oTempObj = this._fnGetObjectTypeAndActivity(oPayload.tt1id);
 					oPrmTask.filter = "";
 					oPrmTask.error = function() {};
@@ -2599,6 +2599,7 @@ sap.ui.define([
 				var sSelectedKey = oEvent.getSource().getSelectedKey(),
 					oCreateTaskModel = this._oMGDetails.getModel("ManageTaskModel");
 				oCreateTaskModel.setProperty("/engflag", sSelectedKey);
+				oCreateTaskModel.refresh(true);
 				/*	oCreateTaskModel.setProperty("/sernr", "");
 					oCreateTaskModel.setProperty("/partno", "");*/
 
