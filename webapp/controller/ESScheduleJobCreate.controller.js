@@ -134,7 +134,7 @@ sap.ui.define([
 
 		getEngineHeader: function() {
 			try {
-				var
+				var that = this,
 					oEngineModel = this.getView().getModel("JobCreateModel"),
 					oParameter = {};
 				var sEngID = oEngineModel.getProperty("/ENGID");
@@ -151,21 +151,16 @@ sap.ui.define([
 					if (oData && oData.results.length > 0) {
 						// this.oObject = {};
 						for (var i in oData.results) {
-							this.oObject["JDU_22"] = {
+							var oModel = dataUtil.createNewJsonModel();
+							oModel.setData(oData.results);
+							that.getView().setModel(oModel, "EngineSRModel");
+							that.oObject["JDU_22"] = {
 								VALUE: oData.results[i].EOT
 							};
 						}
+
 					}
 
-					// if (oData && oData.results && oData.results.length > 0) {
-					// 	oData.results.forEach(function(oItem) {
-					// 		if (oItem.ENGNO === null) {
-					// 			oItem.ENGNO = "1";
-					// 		}
-					// 		oEngineModel.setProperty("/" + (oItem.ENGNO === "2" ? "header2Details" : "headerDetails"), oItem);
-					// 	}.bind(this));
-
-					// }
 				}.bind(this);
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 			} catch (e) {
@@ -319,7 +314,20 @@ sap.ui.define([
 		 */
 		onSelectionNatureofJobChange: function(oEvent) {
 			try {
+				var oModel = this.getView().getModel("EngineSRModel");
 				this.getModel("JobCreateModel").setProperty("/MODTYPE", 0);
+				if (oEvent.getSource().getSelectedKey() === "ENGINE") {
+					this.getModel("JobCreateModel").setProperty("/SN", oModel.getData()[0].SERIAL);
+					this.getModel("JobCreateModel").setProperty("/PN", oModel.getData()[0].ENGTY);
+					this.getModel("JobCreateModel").setProperty("/ENGNO", "1");
+					this.getView().byId("SerialNoId").setEditable(false);
+					this.getView().byId("PartNoId").setEditable(false);
+				} else {
+					this.getModel("JobCreateModel").setProperty("/SN", "");
+					this.getModel("JobCreateModel").setProperty("/PN", "");
+					this.getView().byId("SerialNoId").setEditable(true);
+					this.getView().byId("PartNoId").setEditable(true);
+				}
 			} catch (e) {
 				Log.error("Exception in onNavBackSortie function");
 			}
@@ -384,6 +392,27 @@ sap.ui.define([
 
 				oAppModel.setProperty("/UM", sDue);
 				oAppModel.updateBindings(true);
+			} catch (e) {
+				Log.error("Exception in onDueSelectChange function");
+			}
+		},
+
+		onEngineSelectChange: function(oEvent) {
+			try {
+				var oSrc = oEvent.getSource(),
+					sKey = oSrc.getSelectedKey(),
+					oModel = this.getView().getModel("EngineSRModel"),
+					sDue = oEvent.getSource().getSelectedItem().getText(),
+					oAppModel = this.getView().getModel("JobCreateModel");
+				for (var i = 0; i < oModel.getData().length; i++) {
+					if (oModel.getData()[i].ENGNO === sKey) {
+						oAppModel.setProperty("/SN", oModel.getData()[i].SERIAL);
+						oAppModel.setProperty("/PN", oModel.getData()[i].ENGTY);
+					}
+				}
+
+				oAppModel.refresh(true);
+
 			} catch (e) {
 				Log.error("Exception in onDueSelectChange function");
 			}

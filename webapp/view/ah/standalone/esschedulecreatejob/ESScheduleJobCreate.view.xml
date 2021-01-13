@@ -81,7 +81,7 @@
 												<Label/>
 												<Text text="Optional" class="optionalTxtMargin"/>
 											</HBox>
-											<Input width="200px" maxLength="20" value="{JobCreateModel>/SN}"/>
+											<Input id="SerialNoId" width="200px" maxLength="20" value="{JobCreateModel>/SN}"/>
 										</VBox>
 									</HBox>
 									<HBox class="sapUiLargeMarginBegin">
@@ -102,7 +102,7 @@
 												<Label/>
 												<Text text="Optional" class="optionalTxtMargin" visible="{JobCreateModel>/bOptionalLabel}"/>
 											</HBox>
-											<Input width="200px" value="{JobCreateModel>/PN}"/>
+											<Input id="PartNoId" width="200px" value="{JobCreateModel>/PN}"/>
 										</VBox>
 									</HBox>
 								</HBox>
@@ -115,9 +115,10 @@
 										</HBox>
 										<HBox>
 											<ComboBox visible="{=${JobCreateModel>/CTYPE}==='ENGINE' ? true:false}" class="sapUiTinyMarginEnd" placeholder="{i18n>engNoSelect}"
-												selectedKey="{JobCreateModel>/ENGNO}" required="true">
-												<core:Item key="1" text="{i18n>lbEngine1}"/>
-												<core:Item key="2" text="{i18n>lbEngine2}"/>
+												selectedKey="{JobCreateModel>/ENGNO}" required="true" change="onEngineSelectChange" items="{EngineSRModel>/}">
+												<!--<core:Item key="1" text="{i18n>lbEngine1}"/>
+												<core:Item key="2" text="{i18n>lbEngine2}"/>-->
+												<core:Item key="{EngineSRModel>ENGNO}" text="{EngineSRModel>ENGTXT}"/>
 											</ComboBox>
 											<Input width="500px" placeholder="eg. Engine" value="{JobCreateModel>/CDESC}" fieldGroupIds="fgInput"/>
 										</HBox>

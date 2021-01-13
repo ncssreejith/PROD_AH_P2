@@ -14,7 +14,8 @@
 			<!--Rahul: 18/11/2020: 10:24 AM : Commented code removed.-->
 			<HBox class="sapUiSmallMarginBegin" width="{=${PhotoModel>/photoSet}.length > 0 ? '84%' :'100%'}">
 				<VBox class="sapUiTinyMargin" width="100%">
-					<Toolbar width="{=${JobModel>/jobty}==='D' ? '84%' :'92%'}">
+					<Toolbar>
+						<!--width="{=${JobModel>/jobty}==='D' ? '84%' :'92%'}"-->
 						<Title text="{i18n>tiJobSummary}" level="H4" titleStyle="H4"/>
 						<ToolbarSpacer/>
 						<Button text="{i18n>btnManageJobs}" type="Default" icon="sap-icon://megamenu" iconFirst=" false" class="btnClass"

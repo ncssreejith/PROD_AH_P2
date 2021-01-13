@@ -16,7 +16,7 @@
 			</HBox>
 			<HBox>
 				<Label design="Bold" class="sapUiTinyMargin" text="{i18n>lblFoundBy}" width="150px"/>
-				<Text text="{CapSet>/SUBUSR}" class="sapUiTinyMargin" width="145px"/>
+				<Text text="{CapSet>/FNDBY}" class="sapUiTinyMargin" width="145px"/>
 			</HBox>
 		</VBox>
 		<VBox class="sapUiSmallMarginTop"  visible="{=(${CapSet>/CAPTY} !== 'L' &amp;&amp; ${CapSet>/DEAID} !== null) ? true : false}">

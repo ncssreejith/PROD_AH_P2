@@ -117,12 +117,24 @@ sap.ui.define([
 
 		},
 
-		onChangeWeightAdd: function() {
+		onChangeWeightAdd: function(oEvent) {
 			var oModel = this.getView().getModel("WeightBalanceNewSet").getData(),
 				oTotalAdd = 0.0,
 				sTotal = 0.0,
+				oTotalArm,
 				oTotalMinus = 0.0,
-				oMainModel = this.getView().getModel("WeightBalanceHeaderSet");
+				oMainModel = this.getView().getModel("WeightBalanceHeaderSet"),
+				oObject, oWeightObj, oWeightObjPath;
+
+			if (oEvent) {
+				oObject = oEvent.getSource().getParent().getParent().getBindingContext("WeightBalanceNewSet");
+				oWeightObj = oObject.getObject();
+				oWeightObjPath = oObject.getPath();
+				oTotalArm = (oWeightObj.MOMENT / oWeightObj.WEIGHT) * 100;
+				this.getModel("WeightBalanceNewSet").setProperty(oWeightObjPath + "/ARM", (parseFloat(oTotalArm)).toFixed(3));
+				this.getModel("WeightBalanceNewSet").refresh();
+			}
+
 			for (var i = 0; i < oModel.length; i++) {
 				var val = oModel[i].WEIGHT === "" ? 0 : oModel[i].WEIGHT;
 				if (oModel[i].IINDI === "O") {
@@ -180,12 +192,21 @@ sap.ui.define([
 			}
 		},
 
-		onChangeMomentAdd: function() {
+		onChangeMomentAdd: function(oEvent) {
 			var oModel = this.getView().getModel("WeightBalanceNewSet").getData(),
 				oTotalAdd = 0,
 				sTotal = 0,
 				oTotalMinus = 0,
-				oMainModel = this.getView().getModel("WeightBalanceHeaderSet");
+				oMainModel = this.getView().getModel("WeightBalanceHeaderSet"),
+				oTotalArm, oObject, oWeightObj, oWeightObjPath;
+			if (oEvent) {
+				oObject = oEvent.getSource().getParent().getParent().getBindingContext("WeightBalanceNewSet");
+				oWeightObj = oObject.getObject();
+				oWeightObjPath = oObject.getPath();
+				oTotalArm = (oWeightObj.MOMENT / oWeightObj.WEIGHT) * 100;
+				this.getModel("WeightBalanceNewSet").setProperty(oWeightObjPath + "/ARM", (parseFloat(oTotalArm)).toFixed(3));
+				this.getModel("WeightBalanceNewSet").refresh();
+			}
 			for (var i = 0; i < oModel.length; i++) {
 				var val = oModel[i].MOMENT === undefined ? 0 : oModel[i].MOMENT;
 				if (oModel[i].IINDI === "O") {

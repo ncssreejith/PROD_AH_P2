@@ -98,7 +98,7 @@
 											<VBox>
 												<Text text="{WeightBalanceNewSet>ARM}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
 												<Input value="{WeightBalanceNewSet>ARM}" type="Number" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"
-													change="onChangeArmAdd" fieldGroupIds="fgInput" required="true"/>
+													change="onChangeArmAdd" fieldGroupIds="fgInput" required="true" editable="false"/>
 											</VBox>
 											<VBox>
 												<Text text="{WeightBalanceNewSet>MOMENT}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
@@ -169,7 +169,7 @@
 											<VBox>
 												<Text text="{WeightBalanceNewSet>ARM}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>
 												<Input value="{WeightBalanceNewSet>ARM}" type="Number" visible="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"
-													change="onChangeArmAdd" fieldGroupIds="fgInput" required="true"/>
+													change="onChangeArmAdd" fieldGroupIds="fgInput" required="true" editable="false"/>
 											</VBox>
 											<VBox>
 												<Text text="{WeightBalanceNewSet>MOMENT}" visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>

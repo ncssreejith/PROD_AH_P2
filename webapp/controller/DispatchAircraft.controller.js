@@ -186,8 +186,10 @@ sap.ui.define([
 		 */
 		fnLoadHeader: function() {
 			try {
-				var sPath = this.getResourceBundle().getText("AIRTRANSCURRSVC") + "(tailid=" + this.getTailId() + ")";
+				var sPath = this.getResourceBundle().getText("AIRTRANSCURRSVC");
+
 				var oParameter = {};
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId()+"&LFLAG" + FilterOpEnum.EQ+"T";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var oHeader = oData.results.length > 0 ? oData.results[0] : {};
@@ -216,8 +218,8 @@ sap.ui.define([
 			try {
 				var sPath = this.getResourceBundle().getText("ATCHECKLISTSVC");
 				var oParameter = {};
-			//	oParameter.filter = "airid eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
-				oParameter.filter = "airid"+FilterOpEnum.EQ+ this.getAircraftId() +FilterOpEnum.AND+ "tailid"+FilterOpEnum.EQ + this.getTailId();
+				//	oParameter.filter = "airid eq " + this.getAircraftId() + " and tailid eq " + this.getTailId();
+				oParameter.filter = "airid" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {
 
 				};
@@ -355,8 +357,8 @@ sap.ui.define([
 		fnLoadSqn: function() {
 			try {
 				var oParameter = {};
-			//	oParameter.filter = "REFID eq " + this.getAircraftId() + " and LFLAG eq S";
-				oParameter.filter = "REFID"+FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND+"LFLAG"+FilterOpEnum.EQ+"S";   // Phase 2 Changes 
+				//	oParameter.filter = "REFID eq " + this.getAircraftId() + " and LFLAG eq S";
+				oParameter.filter = "REFID" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND + "LFLAG" + FilterOpEnum.EQ + "S"; // Phase 2 Changes 
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("atckModel").setProperty("/sqn", oData.results);

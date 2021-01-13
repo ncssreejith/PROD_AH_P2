@@ -1036,8 +1036,7 @@ sap.ui.define([
 				}
 				oEvent.getSource().setSelected(true);
 				//	sFilter = "taskid eq " + oObj.taskid;
-				sFilter = "taskid" + FilterOpEnum.EQ + oObj.taskid + "&tailid" + FilterOpEnum.EQ + this.getTailId() + "&tailid" + FilterOpEnum.EQ +
-					this.getTailId();
+				sFilter = "taskid" + FilterOpEnum.EQ + oObj.taskid + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmJobDue.filter = sFilter;
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
