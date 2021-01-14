@@ -181,10 +181,14 @@ sap.ui.define([
 				if (sLogid) {
 					// sPath = "logid=" + sLogid + ",tailid=" + this.getTailId() + ",tabid=" + this.getModel(
 					// 	"oOFPModel").getProperty("/tabid");
-					oParameter.filter = "logid" + FilterOpEnum.EQ + sLogid + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId() +
-						FilterOpEnum.AND + "tabid" + FilterOpEnum.EQ +
-						this.getModel(
-							"oOFPModel").getProperty("/tabid");
+					// oParameter.filter = "logid" + FilterOpEnum.EQ + sLogid + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId() +
+					// 	FilterOpEnum.AND + "tabid" + FilterOpEnum.EQ +
+					// 	this.getModel("oOFPModel").getProperty("/tabid");
+					oParameter.filter = "logid" + FilterOpEnum.EQ + this.getModel("oOFPModel").getProperty("/logid") +
+						FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId() + 
+						FilterOpEnum.AND + "tabid" + FilterOpEnum.EQ +this.getModel("oOFPModel").getProperty("/tabid")+
+						FilterOpEnum.AND+"OTYPE"+ FilterOpEnum.EQ +"ID";
+						
 				} else {
 					// oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq " + this.getModel("oOFPModel").getProperty(
 					// 	"/ofptabId") + " and otype eq D";

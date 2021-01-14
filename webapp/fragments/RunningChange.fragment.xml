@@ -7,7 +7,7 @@
 				<!--Teck Meng change on 25/11/2020 15:00 end-->
 				<buttons>
 					<!--Teck Meng change on 25/11/2020 15:00 start-->
-					<RadioButton text="Pilot name: {avmetModel>PILOTNAME} Updated on: {path: 'avmetModel>patime',formatter:'.formatter.defaultDateTimeFormat'}" />
+					<RadioButton text="Pilot name: {avmetModel>pilotname} Updated on: {path: 'avmetModel>patime'}" />
 					<!--Teck Meng change on 25/11/2020 15:00 end-->
 				</buttons>
 			</RadioButtonGroup>

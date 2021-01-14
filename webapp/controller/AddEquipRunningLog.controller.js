@@ -48,7 +48,7 @@ sap.ui.define([
 					return;
 				}
 				var oPayload = this.getModel("oAircraftAddModel").getProperty("/record");
-				oPayload.COL_11 = this.formatter.defaultDateTimeFormat(oPayload.Date);
+				oPayload.COL_11 = this.formatter.defaultDateTimeFormat(oPayload.Date,"yyyy-MM-dd HH:mm:sss");
 				oPayload.refid = this.getAircraftId();
 				delete oPayload.time;
 				var oParameter = {};
@@ -78,9 +78,10 @@ sap.ui.define([
 
 				// var sPath = "/AircraftLogSvc/" + this.getModel("oAircraftAddModel").getProperty("/logid") + "/" + this.getTailId() + "/TABA_102";
 				var oParameter = {};
-				oParameter.filter = "logid" + FilterOpEnum.EQ + this.getModel("oAircraftAddModel").getProperty(
-						"/logid") + FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "tabid" + FilterOpEnum.EQ +
-					"TABA_102";
+				oParameter.filter = "logid" + FilterOpEnum.EQ + this.getModel("oAircraftAddModel").getProperty("/logid") +
+						FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId() + 
+						FilterOpEnum.AND + "tabid" + FilterOpEnum.EQ +"TABA_102"+
+						FilterOpEnum.AND+"OTYPE"+ FilterOpEnum.EQ +"ID";
 				oParameter.error = function() {
 
 				};

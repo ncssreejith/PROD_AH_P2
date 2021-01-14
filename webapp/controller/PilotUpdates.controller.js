@@ -385,7 +385,8 @@ sap.ui.define([
 		fnTblInAndIndTgt: function(oEvent) {
 			try {
 				var oObj = oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getObject();
-				oObj.tgtdiff = oObj.tgtind - oObj.tgttab;
+				oObj.tgtdiff = parseInt(oObj.tgtind) - parseInt(oObj.tgttab);
+				// this.getModel("oPilotUpdatesViewModel").refresh();
 				this.fnLockEngineReason(oEvent); //Teck Meng change on 04/12/2020 14:00
 				this.getModel("oPilotUpdatesViewModel").refresh();
 			} catch (e) {
@@ -991,11 +992,11 @@ sap.ui.define([
 				var sSrvid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvid"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				var sNum1 = this.getModel("oPilotUpdatesViewModel").getProperty("/num1"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				if (sSrvid !== undefined) { //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
-					sSrvidPath = " and SRVID eq " + sSrvid + " and pnum eq " + sNum1; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					sSrvidPath = " and SRVID eq " + sSrvid + " and pnum=" + sNum1; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				} //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + sSrvidPath; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+				oParameter.filter = "tailid=" + this.getTailId() + sSrvidPath; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false

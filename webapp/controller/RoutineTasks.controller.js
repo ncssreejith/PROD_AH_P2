@@ -391,6 +391,8 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					var sTab = "rt1";
 					var sCount = this.formatter.integerUnit((oData.results.length > 0 ? oData.results[0].APR_NO : 0));
+					oData.results[0].TLCDT = this.formatter.defaultDateTimeFormat(new Date(oData.results[0].TLCDT),"dd/MM/yyyy");
+					oData.results[0].TLCTM = this.formatter.defaultDateTimeFormat(new Date(oData.results[0].TLCTM),"HH:mm");
 					this.getModel("rtModel").setProperty("/tasks", oData.results);
 					var sSRVID = this.getModel("rtModel").getProperty("/SRVID");
 					this.getModel("rtModel").setProperty("/sgEnable", (sCount < 4) && !sSRVID ? true : false);
@@ -402,7 +404,6 @@ sap.ui.define([
 					this.updateModel({
 						busy: false
 					}, "viewModel");
-					// this._getRTLeadTasks();
 				}.bind(this);
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
 			} catch (e) {
@@ -411,44 +412,7 @@ sap.ui.define([
 			}
 		},
 
-		_getRTLeadTasks: function() {
-			try {
-				// var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ?
-				// 	(" and SRVID eq " + this.getModel("rtModel").getProperty("/SRVID")) : "";
-				var sSrvIdFilter = this.getModel("rtModel").getProperty("/SRVID") ?
-					("&SRVID=" + this.getModel("rtModel").getProperty("/SRVID")) : "";
-				var oParameter = {};
-				// oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("rtModel").getProperty("/srvtid") +
-				// 	" and Tailid eq " + this.getTailId() + " and stepid eq " + this.getModel("rtModel").getProperty("/stepid") +
-				// 	" and leadflag eq X" + sSrvIdFilter;
-					oParameter.filter = "refid=" + this.getAircraftId() + "&srvtid=" + this.getModel("rtModel").getProperty("/srvtid") +
-					"&TAILID=" + this.getTailId() + "&stepid=" + this.getModel("rtModel").getProperty("/stepid") + "&leadflag="+sSrvIdFilter;
-				oParameter.error = function(hrex) {
-					this.updateModel({
-						busy: false
-					}, "viewModel");
-					this.fnShowMessage("E", {}, hrex, function(oEvent) {});
-				}.bind(this);
-				oParameter.success = function(oData) {
-
-					this.getModel("rtModel").setProperty("/rtasks", oData.results.length > 0 ? oData.results[0] : {});
-					this.getModel("rtModel").setProperty("/rtasks/TLCDT", this.getModel("rtModel").getProperty("/currentDate"));
-					this.getModel("rtModel").setProperty("/rtasks/TLCTM", this.getModel("rtModel").getProperty("/currentTime"));
-					this.getModel("rtModel").setProperty("/rtasks/TLQTY", 1);
-					this.getModel("rtModel").setProperty("/rtasks/PUBQTY", 1);
-					this.getModel("rtModel").refresh();
-					this.updateModel({
-						busy: false
-					}, "viewModel");
-					this._fnActivate();
-				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
-			} catch (e) {
-				Log.error("Exception in _getRTLeadTasks function");
-				this.handleException(e);
-			}
-		},
-
+	
 		_fnActivate: function() {
 			try {
 				var sStep = this.getModel("rtModel").getProperty("/tasks/0/APR_NO");
