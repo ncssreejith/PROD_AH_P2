@@ -2334,7 +2334,8 @@ sap.ui.define([
 					oModel = this.getView().getModel("LocalModel"),
 					oPrmTask = {};
 				//		oPrmTask.filter = "JOB_ID eq " + sJobId;
-				oPrmTask.filter = "JOB_ID" + FilterOpEnum.EQ + sJobId;
+			/*	oPrmTask.filter = "JOB_ID" + FilterOpEnum.EQ + sJobId;*/
+				oPrmTask.filter = "JOB_ID" + FilterOpEnum.EQ + sJobId + "&TAILID" + FilterOpEnum.EQ + that.getTailId();
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					if (oData && oData.results.length > 0) {
