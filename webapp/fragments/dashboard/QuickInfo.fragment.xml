@@ -18,13 +18,13 @@
 			<ColumnListItem class="tableTextColor">
 				<cells>
 					<Text text="BF validity"/>
-					<Text text="{= ${avmetModel>/dash/bfvalid} ? ${avmetModel>/dash/bfvalid}: '--'}"/>
+					<Text text="{= ${avmetModel>/dash/BFVALID} ? ${avmetModel>/dash/BFVALID}: '--'}"/>
 				</cells>
 			</ColumnListItem>
 			<ColumnListItem class="tableTextColor">
 				<cells>
 					<Text text="WPT validity"/>
-					<Text text="{= ${avmetModel>/dash/afvalid} ? ${avmetModel>/dash/afvalid}: '--'}"/>
+					<Text text="{= ${avmetModel>/dash/WPTVALID} ? ${avmetModel>/dash/WPTVALID}: '--'}"/>
 				</cells>
 			</ColumnListItem>
 			<ColumnListItem class="tableTextColor">

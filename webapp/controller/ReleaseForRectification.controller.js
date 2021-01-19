@@ -1,7 +1,7 @@
 sap.ui.define([
 	"./BaseController",
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
-	"../util/ajaxutil",
+	"../util/ajaxutilNew",
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
@@ -72,11 +72,8 @@ sap.ui.define([
 				var sPath = this.getResourceBundle().getText("PILOTDEFECTF16SVC");
 				// + this.getModel("oRectModel").getProperty("/logid") + "/" + this.getTailId() + "/TABA_102";
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + " and SRVTID eq " + this.getModel("avmetModel").getProperty(
-					"/dash/SRVTID");
-				oParameter.error = function() {
-
-				};
+				oParameter.filter = "tailid=" + this.getTailId() + "&SRVTID=" + this.getModel("avmetModel").getProperty("/dash/SRVTID");
+				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					// var currentTime = new Date();
 					var oObject = oData.results.length > 0 ? oData.results : [];

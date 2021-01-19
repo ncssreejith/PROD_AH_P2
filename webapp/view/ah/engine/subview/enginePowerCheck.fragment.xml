@@ -69,7 +69,7 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}{path:'oEngineModel>CREUZT'}"/>
+								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateTimeFormat'}"/>
 								<!--Teck Meng change on 23/11/2020 10:00 start-->
 								<Text text="{path:'oEngineModel>oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
 								<!--Teck Meng change on 23/11/2020 10:00 end-->
@@ -187,7 +187,7 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateTimeFormat'}"/>
 								<!--<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>-->
 								<!--Teck Meng change on 23/11/2020 10:00 start-->
 								<Text text="{path:'oEngineModel>oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
@@ -274,7 +274,7 @@
 							<cells>
 								<!--<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>-->
 								<!--Teck Meng change on 24/11/2020 15:00 start-->
-								<Text text="{path:'oEngineModel>BEGDA', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateTimeFormat'}"/>
 								<!--Teck Meng change on 23/11/2020 10:00 start-->
 								<!--Teck Meng change on 24/11/2020 15:00 start-->
 								<Text text="{path:'oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>

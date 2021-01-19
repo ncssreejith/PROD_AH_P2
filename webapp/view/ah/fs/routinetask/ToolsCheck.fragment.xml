@@ -6,13 +6,13 @@
 				<VBox class="bgColorWhiteWithRightBorder sapUiSmallMarginBegin sapUiSmallMarginTopBottom" width="30%">
 					<VBox class="sapUiSmallMarginBeginEnd">
 						<Label design="Bold" text="Date" width="150px"/>
-						<DatePicker id="dpToolChkId" enabled="{rtModel>/sgEnable}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" value="{rtModel>/tasks/0/TLCDT}"
+						<DatePicker id="dpToolChkId" enabled="{rtModel>/sgEnable}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" dateValue="{rtModel>/tasks/0/TLCDT}"
 							width="200px" fieldGroupIds="fgDate" maxDate="{rtModel>/currentDate}" required="true"/>
 					</VBox>
 					<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
 						<Label design="Bold" text="Time" width="150px"/>
 						<TimePicker id="time" enabled="{rtModel>/sgEnable}" width="200px" value="{rtModel>/tasks/0/TLCTM}"
-							valueFormat="HH:mm:ss.SSS" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true" change="onTimeChange"/>
+							valueFormat="HH:mm:ss" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true" change="onTimeChange"/>
 					</VBox>
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd bgColorWhite" width="70%">

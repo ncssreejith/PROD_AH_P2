@@ -311,13 +311,6 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		fnInsertValues: function(oPayload) {
-			// this.getModel("rtModel").setProperty("/rtasks/TLCDT", this.getModel("rtModel").getProperty("/currentDate"));
-			// 		oPayload this.getModel("rtModel").getProperty("/currentTime"));
-			// 		oPayloadthis.getModel("rtModel").setProperty("/rtasks/TLQTY", 1);
-			// 		this.getModel("rtModel").setProperty("/rtasks/PUBQTY", 1);
-		},
-
 		_SignOffR3: function() {
 			try {
 				var sPayload = this.getModel("rtModel").getProperty("/rtasks");
@@ -391,7 +384,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					var sTab = "rt1";
 					var sCount = this.formatter.integerUnit((oData.results.length > 0 ? oData.results[0].APR_NO : 0));
-					oData.results[0].TLCDT = this.formatter.defaultDateTimeFormat(new Date(oData.results[0].TLCDT),"dd/MM/yyyy");
+					oData.results[0].TLCDT = new Date(oData.results[0].TLCDT);
 					oData.results[0].TLCTM = this.formatter.defaultDateTimeFormat(new Date(oData.results[0].TLCTM),"HH:mm");
 					this.getModel("rtModel").setProperty("/tasks", oData.results);
 					var sSRVID = this.getModel("rtModel").getProperty("/SRVID");

@@ -267,7 +267,7 @@ sap.ui.define([
 						break;
 					case "EnginePowerCheck":
 						sNextKey = "Manoeuvring";
-						if (this.getModel("oPilotUpdatesViewModel").getProperty("/eng") === "engine1") {
+						if (this.getModel("oPilotUpdatesViewModel").getProperty("/eng") === "engine1" && this.getModel("oPilotUpdatesViewModel").getProperty("/engPowerCheckRequired") === "Y") {
 							this.getModel("oPilotUpdatesViewModel").setProperty("/eng", "engine2");
 							this.onEnginChange();
 							sNextKey = "EnginePowerCheck";
@@ -300,7 +300,7 @@ sap.ui.define([
 						break;
 					case "EnginePowerCheck":
 						sNextKey = "StatusTest";
-						if (this.getModel("oPilotUpdatesViewModel").getProperty("/eng") === "engine2") {
+						if (this.getModel("oPilotUpdatesViewModel").getProperty("/eng") === "engine2" &&  this.getModel("oPilotUpdatesViewModel").getProperty("/engPowerCheckRequired") === "Y") {
 							this.getModel("oPilotUpdatesViewModel").setProperty("/eng", "engine1");
 							this.onEnginChange();
 							sNextKey = "EnginePowerCheck";
@@ -634,8 +634,7 @@ sap.ui.define([
 					sPayload.woffw = this.formatter.oDataDateTimeFormat(oItem.woffw, "yyyy-MM-dd HH:mm");
 					sPayload.wonw = this.formatter.oDataDateTimeFormat(oItem.wonw, "yyyy-MM-dd HH:mm");
 					sPayload.egspt = this.formatter.oDataDateTimeFormat(oItem.egspt, "yyyy-MM-dd HH:mm");
-					oPayloads.push(sPayload)
-
+					oPayloads.push(sPayload);
 				}.bind(this));
 				if (oPayloads.length === 0) {
 					return;

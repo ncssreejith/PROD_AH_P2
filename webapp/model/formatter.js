@@ -32,7 +32,7 @@ sap.ui.define([
 		defaultDateTimeFormat: function(dDate, sFormat) {
 			if (!dDate) {
 				dDate = new Date();
-				// return "";
+				return "";
 			}
 			if(dDate !== "" ){
 				dDate = new Date(dDate);
@@ -2355,35 +2355,12 @@ sap.ui.define([
 		 * @returns
 		 */
 		adtEditVisible: function(sVal, sFlown) {
-
-			// var maxDt = new Date(),
-			// 	creDt = new Date();
-
-			// // Set DateTime 
-			// var dateString = sVal.split(" "),
-			// 	date = dateString[0],
-			// 	time = dateString[1];
-
-			// var dateParts = date.split("/");
-			// var timeParts = time.split(":");
-			// creDt.setFullYear(dateParts[2], dateParts[1] - 1, dateParts[0]); //(dateParts[0]);
-			// creDt.setHours(timeParts[0]);
-			// creDt.setMinutes(timeParts[1]);
-			// creDt.setSeconds(0);
-
-			// var diff = maxDt.getTime() - creDt.getTime();
-			// var daysDifference = Math.floor(diff / 1000 / 60 / 60 / 24);
-			// if (daysDifference >= 1 || (sFlown && sFlown.toUpperCase() === "NOT FLOWN")) {
-			// 	return false;
-			// } else {
-			// 	return true;
-			// }
-			
+		var sDiff = 1440; // 24 hourse in minutes 
 		var rowDate = new Date(sVal); // your date object
-		var sMaxDate = new Date();
-		sMaxDate.setHours(sMaxDate.getHours() + 24);
-		
-		if(rowDate <= sMaxDate && (sFlown && sFlown.toUpperCase() === "FLOWN")){
+		var sToday = new Date();
+		var diffMs = (sToday-rowDate); 
+		var diffMins = Math.floor((diffMs/1000)/60);
+		if(sDiff >= diffMins){
 			return true;
 		}
 			return false;

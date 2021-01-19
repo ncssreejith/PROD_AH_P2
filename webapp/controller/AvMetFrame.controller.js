@@ -4,7 +4,7 @@ sap.ui.define([
 	"sap/ui/core/Fragment",
 	"sap/ui/core/Popup",
 	"avmet/ah/model/formatter",
-	"avmet/ah/util/ajaxutil",
+	"avmet/ah/util/ajaxutilNew",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
 		"avmet/ah/util/ajaxutilNew",
@@ -359,6 +359,7 @@ sap.ui.define([
 				oPayload.TAILID = this.getTailId();
 				oPayload.LFLAG = "X";
 				oPayload.SRVTID = this.getModel("avmetModel").getProperty("/dash/SRVTID");
+				oPayload.STEPID = "S_UL";
 				var oParameter = {};
 				oParameter.activity = 2;
 				oParameter.error = function() {};
