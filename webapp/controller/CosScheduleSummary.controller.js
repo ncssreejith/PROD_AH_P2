@@ -712,7 +712,7 @@ sap.ui.define([
 							"dgIdText": "Raise Schedule Concession"
 						});
 					}
-					that._oRaiseConcession.setModel(oSchDialogModel, "-");
+					that._oRaiseConcession.setModel(oSchDialogModel, "SchDialogModel");
 					this._fnGetUtilisation();
 				} catch (e) {
 					Log.error("Exception in _fnOpenScheduleConcessionDialog function");

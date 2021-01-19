@@ -1336,7 +1336,8 @@ sap.ui.define([
 					}
 					if (oPayload.isser === "Batch No.") {
 						oPayload.tt2id = "TT2_15";
-					} /*else if (oPayload.isser === "Serial No. (S/N)") {
+					}
+					/*else if (oPayload.isser === "Serial No. (S/N)") {
 						oPayload.tt2id = "TT2_10";
 					}*/
 					oTempObj = this._fnGetObjectTypeAndActivity(oPayload.tt1id);
@@ -1775,7 +1776,7 @@ sap.ui.define([
 						that.getView().setModel(oModel, "JobModel");
 						this._fnEditRectButtonVisibility();
 					}
-					that._fnTailStatusGet(that.getTailId());
+
 					oViewModel.refresh(true);
 					oSummaryModel.refresh(true);
 					that.fnLoadSrv1Dashboard();
@@ -1786,6 +1787,48 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosDefectsSummary:_fnJobDetailsGet function");
 
+			}
+		},
+
+		fnLoadSrv1Dashboard: function() {
+			try {
+				var that = this,
+					oParameter = {};
+				//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				oParameter.filter = "tailid=" + this.getTailId() + "&REFID=" + this.getAircraftId();
+				oParameter.error = function() {};
+				oParameter.success = function(oData) {
+					if (oData && oData.results.length && oData.results.length > 0) {
+						oData.results[0].txt3 = this.fnReplaceString(oData.results[0].txt3);
+						oData.results[0].txt2 = this.fnReplaceString(oData.results[0].txt2);
+						this.getModel("avmetModel").setProperty("/dash", oData.results.length > 0 ? oData.results[0] : {});
+						var oModel = this.getView().getModel("avmetModel");
+						var oDash = oModel.getProperty("/dash");
+						// oModel.setProperty("/UnlockAVMET", this.fnCheckLockStatus(oDash.astid)); // Change by Teck Meng 25/11/2020 10:15
+						oModel.setProperty("/UnlockAVMET", oDash.alock === 1); // Change by Teck Meng 25/11/2020 10:15
+						if (this.fnOverwriteStatus(oDash.astid)) {
+							oModel.setProperty("/dash/TBTN3", true);
+						}
+						oModel.setProperty("/UnlockRec", this.fnCheckRecLockStatus(oDash.astid));
+						this.fnSetMenuVisible(oDash.TBTN1, this.fnFindRoleChangeStations);
+						this.fnSetMenuVisible(oDash.TBTN2, this.fnFindCreateFlightService);
+						this.fnSetMenuVisible(oDash.TBTN3, this.fnFindCosjobs);
+						if (oData.results[0].WFLAG === "X") {
+							oModel.setProperty("/WarningFlag", true);
+							this._fnSetWarningMessage(oData.results[0]);
+						} else {
+							oModel.setProperty("/WarningFlag", false);
+						}
+						this.getModel("menuModel").refresh();
+						this.getModel("avmetModel").refresh(true);
+						// this.fnCreateTableFromData();
+					}
+					that._fnTailStatusGet(that.getTailId());
+				}.bind(this);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
+			} catch (e) {
+				this.Log.error("Exception in fnLoadSrv1Dashboard function");
+				this.handleException(e);
 			}
 		},
 		//------------------------------------------------------------------
@@ -2334,7 +2377,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("LocalModel"),
 					oPrmTask = {};
 				//		oPrmTask.filter = "JOB_ID eq " + sJobId;
-			/*	oPrmTask.filter = "JOB_ID" + FilterOpEnum.EQ + sJobId;*/
+				/*	oPrmTask.filter = "JOB_ID" + FilterOpEnum.EQ + sJobId;*/
 				oPrmTask.filter = "JOB_ID" + FilterOpEnum.EQ + sJobId + "&TAILID" + FilterOpEnum.EQ + that.getTailId();
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
@@ -2969,6 +3012,37 @@ sap.ui.define([
 				Log.error("Exception in onRaiseScheduleConcession function");
 			}
 		},
+		/* Function: _fnOpenScheduleConcessionDialog
+		 * Parameter: oFlag
+		 * Description: Function to open edit Schedule Concession fragment New Both Case 19/01/2021
+		 */
+		/*_fnOpenScheduleConcessionDialog: function(oFlag) {
+			try {
+				var that = this,
+					oSchDialogModel = dataUtil.createNewJsonModel();
+				if (!this._oRaiseConcession) {
+					this._oRaiseConcession = sap.ui.xmlfragment(this.createId("idScheduleJobExtension"),
+						"avmet.ah.fragments.ScheduleJobExtension",
+						this);
+					this._fnJobDueGet();
+					this.getView().addDependent(this._oRaiseConcession);
+				}
+
+				oSchDialogModel.setData({
+					"cbJobDueId": false,
+					"btnRaiseFlag": true,
+					"btnEditFlag": false,
+					"ipIntervalFlag": false,
+					"dgIdText": "Raise Schedule Concession"
+				});
+
+				that._oRaiseConcession.setModel(oSchDialogModel, "SchDialogModel");
+				this._fnGetUtilisationSched();
+			} catch (e) {
+				Log.error("Exception in _fnOpenScheduleConcessionDialog function");
+			}
+		},*/
+
 		/* Function: onCloseRaiseScheduleConcession
 		 * Parameter: 
 		 * Description: Function to close raise schedule concession dialog
