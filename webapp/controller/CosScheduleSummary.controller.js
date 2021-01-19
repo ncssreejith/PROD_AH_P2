@@ -679,6 +679,46 @@ sap.ui.define([
 			}
 		},
 
+		/* Function: _fnOpenScheduleConcessionDialog
+		 * Parameter: oFlag
+		 * Description: Function to open edit Schedule Concession fragment New Both Case 19/01/2021
+		 */
+		/*	_fnOpenScheduleConcessionDialog: function(oFlag) {
+				try {
+					var that = this,
+						oSchDialogModel = dataUtil.createNewJsonModel();
+					if (!this._oRaiseConcession) {
+						this._oRaiseConcession = sap.ui.xmlfragment(this.createId("idScheduleJobExtension"),
+							"avmet.ah.fragments.ScheduleJobExtension",
+							this);
+						this._fnJobDueGet();
+						this.getView().addDependent(this._oRaiseConcession);
+					}
+					if (oFlag === "ED") {
+						oSchDialogModel.setData({
+							"cbJobDueId": false,
+							"btnRaiseFlag": false,
+							"btnEditFlag": true,
+							"ipIntervalFlag": true,
+							"dgIdText": "Edit Schedule Concession"
+						});
+
+					} else {
+						oSchDialogModel.setData({
+							"cbJobDueId": false,
+							"btnRaiseFlag": true,
+							"btnEditFlag": false,
+							"ipIntervalFlag": false,
+							"dgIdText": "Raise Schedule Concession"
+						});
+					}
+					that._oRaiseConcession.setModel(oSchDialogModel, "-");
+					this._fnGetUtilisation();
+				} catch (e) {
+					Log.error("Exception in _fnOpenScheduleConcessionDialog function");
+				}
+			},*/
+
 		/* Function: _fnGetUtilisation
 		 * Parameter:
 		 * Description: Function call when utilisation drop down is changed

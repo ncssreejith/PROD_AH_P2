@@ -1,0 +1,59 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="dgId" title="{SchDialogModel>/dgIdText}" class="popoverHeaderCSS" contentWidth="50%">
+		<VBox class="sapUiSmallMarginTop" alignContent="Center" alignItems="Center">
+			<VBox>
+				<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+					<SegmentedButton selectedKey="{oViewGlobalModel>/OPPR}" selectionChange="onReasonTypeChange" fieldGroupIds="fgSGBtn">
+						<items>
+							<SegmentedButtonItem text="Date" key="D" width="50%"/>
+							<SegmentedButtonItem text="Utilisation" key="U" width="50%"/>
+							<SegmentedButtonItem text="Both" key="B" width="50%"/>
+							<SegmentedButtonItem text="" key="N" visible="false"/>
+						</items>
+					</SegmentedButton>
+				</VBox>
+				<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{= ${oViewLimitModel>/bDateSection} === true ? true : false}">
+					<VBox>
+						<Label design="Bold" text="Job Due Date" width="150px"/>
+						<DatePicker id="DP2" minDate="{RSModel>/minDT}" value="{path: 'RSModel>/ExpDate',formatter:'.formatter.defaultDateFormat'}"
+							displayFormat="dd/MM/yyyy" width="200px" placeholder="New job creation date ..." change="handleChangeSche" class="sapUiSmallMarginBottom"/>
+					</VBox>
+					<VBox id="vbInterval" class="sapUiTinyMarginBegin">
+						<Label text="Interval" design="Bold"/>
+						<Input id="ipInterval" value="{RSModel>/INTERVAL}" type="Number" textAlign="End" change="onIntervalChange"
+							editable="{SchDialogModel>/btnRaiseFlag}"></Input>
+					</VBox>
+				</HBox>
+				<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewLimitModel>/bUtilisationSection}">
+					<VBox>
+						<Label text="{i18n>lbJobDue}" design="Bold"/>
+						<Select id="cbJobDueId1" width="13rem" placeholder="{i18n>phSelect}" selectedKey="{RSModel>/DueBy}" class="sapUiTinyMarginEnd"
+							items="{JobDueSet>/}" change="onDueSelectChange" editable="{SchDialogModel>/cbJobDueId}">
+							<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
+						</Select>
+					</VBox>
+					<VBox class="sapUiSmallMarginBegin">
+						<Label text="Job Due At" design="Bold"></Label>
+						<HBox id="SchJobDueId1">
+							<StepInput id="siSchedId1" width="13rem" min="{RSModel>/minVal}"
+								displayValuePrecision="{path:'RSModel>/DueBy' , formatter:'.formatter.JobDueDecimalPrecision'}" valueStateText="{i18n>ERROR_GENERIC}"
+								value="{RSModel>/UtilVal}" change="onStepChangeSchedule"/>
+						</HBox>
+					</VBox>
+					<VBox id="vbInterval2" class="sapUiTinyMarginBegin">
+						<Label text="Interval" design="Bold"/>
+						<Input id="ipInterval2" value="{RSModel>/INTERVAL}" type="Number" textAlign="End" change="onIntervalChange"
+							editable="{SchDialogModel>/btnRaiseFlag}"></Input>
+					</VBox>
+				</HBox>
+			</VBox>
+		</VBox>
+		<buttons>
+			<Button text="Cancel" press="onCloseRaiseScheduleConcession"/>
+			<Button id="btnRaise" text="Raise Schedule Concession" press="onRaiseScheduleConcessionPress('Y')" type="Emphasized"
+				visible="{SchDialogModel>/btnRaiseFlag}"/>
+			<Button id="btnEdit" text="Edit Schedule Concession" press="onRaiseScheduleConcessionPress('E')" type="Emphasized"
+				visible="{SchDialogModel>/btnEditFlag}"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
