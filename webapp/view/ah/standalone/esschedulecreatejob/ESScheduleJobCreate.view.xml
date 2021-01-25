@@ -142,9 +142,9 @@
 											visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' &amp;&amp; ${JobCreateModel>/UMKEY} !== null &amp;&amp; ${JobCreateModel>/UMKEY} !== 'JDU_23' ? true:false}"
 											required="true" fieldGroupIds="fgStepInput"
 											displayValuePrecision="{ path:'JobCreateModel>/UMKEY' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
-										<DatePicker width="15rem" id="DP2" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
+										<DatePicker width="15rem" id="DP2" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}" minDate="{appModel>/minDate}"
 											value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-											placeholder="New job creation date ..." change="onDueDateChange" class="sapUiSmallMarginBottom"/>
+											placeholder="New job creation date ..." change="onDueDateChange" class="sapUiSmallMarginBottom" required="true" fieldGroupIds="fgDate" />	
 										<Input maxLength="30" width="16rem" visible="{=${JobCreateModel>/UMKEY}==='JDU_23' ? true:false}" value="{JobCreateModel>/SERVDUE}"></Input>
 									</HBox>
 								</VBox>

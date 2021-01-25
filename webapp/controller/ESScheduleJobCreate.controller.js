@@ -154,9 +154,11 @@ sap.ui.define([
 							var oModel = dataUtil.createNewJsonModel();
 							oModel.setData(oData.results);
 							that.getView().setModel(oModel, "EngineSRModel");
-							that.oObject["JDU_22"] = {
-								VALUE: oData.results[i].EOT
-							};
+							if (that.oObject) {
+								that.oObject["JDU_22"] = {
+									VALUE: oData.results[i].EOT
+								};
+							}
 						}
 
 					}
@@ -215,6 +217,22 @@ sap.ui.define([
 						return;
 					}
 				}
+				if (oPayload.UMKEY === "JDU_10") {
+					var seltDate, currDate;
+					seltDate = oPayload.SERVDT;
+					currDate = new Date();
+					if (seltDate < currDate) {
+						this.getView().byId("DP2").setValueState("Error");
+						this.getView().byId("DP2").setValueStateText("Enter valid date.");
+						return;
+					}
+				}
+				try {
+					oPayload.SERVDT = formatter.defaultOdataDateFormat(oPayload.SERVDT);
+				} catch (e) {
+					oPayload.SERVDT = oPayload.SERVDT;
+				}
+
 				try {
 					oPayload.CREDT = formatter.defaultOdataDateFormat(oPayload.CREDT);
 				} catch (e) {
@@ -350,19 +368,21 @@ sap.ui.define([
 		 */
 		onDueDateChange: function(oEvent) {
 			try {
-				var oSrc = oEvent.getSource(),
-					oAppModel = this.getView().getModel("JobCreateModel"),
-					sKey = oAppModel.getProperty("/UMKEY"),
-					sInt = oAppModel.getProperty("/INTERVAL");
-				oSrc.setValueState("None");
-				var iPrec = formatter.JobDueDecimalPrecision(sKey);
-				/*if (parseFloat(sInt, [10]) > 0) {
-					oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
-					sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
-				}*/
+				var seltDate, currDate, oSrc = oEvent.getSource(),
+					oDate;
+				oDate = oSrc.getValue().split("/");
+				seltDate =new Date(oDate[2]+"-"+oDate[1]+"-"+oDate[0]);
+				currDate = new Date();
+				if (seltDate >= currDate) {
+					oSrc.setValueState("None");
+				} else {
+					oSrc.setValueState("Error");
+				}
+
 			} catch (e) {
 				Log.error("Exception in onDueDateChange function");
 			}
+
 		},
 
 		/* Function: onDueSelectChange
@@ -496,7 +516,8 @@ sap.ui.define([
 
 				oAppModel = dataUtil.createNewJsonModel();
 				oAppModel.setData({
-					sSelectedKey: "NA"
+					sSelectedKey: "NA",
+					minDate: new Date()
 
 				});
 				this.getView().setModel(oAppModel, "appModel");
