@@ -22,6 +22,26 @@ For Home.view :  need to un-comment when moving code to SIT and USER device
 <Button class="iconTxt " visible="{= ${signOffModel>/uSel}==='NEW'}" type="Default" icon="sap-icon://key" text="{i18n>txtPassword}"
 											press="onUserSelectNextBtnClk('PWD',$event)"/>			
 			
-Test
+
 //-----------------------
-Demove chart and chart-min to delete
+#2 : 
+Change request :Had choose Install Only, but display still show Removal (Cosmetic Issue)
+Modified by: Rahul
+Requirement:Had choose Install Only, but display still show Removal (Cosmetic Issue)
+Files modified:CreateTaskRemoveInstallFragment.fragment.xml and EditCreateTaskRemoveInstallFragment.fragment.xml
+Description:Added Visiblity condition.
+//-----------------------
+#3 : 
+Change request : Found by name was replaced by the approved name (Issue),Found by is the user who create the defect (Pilot). It should not be replaced the name of user who edit the defect.
+Modified by: Rahul
+Requirement: Found by name was replaced by the approved name (Issue),Found by is the user who create the defect (Pilot). It should not be replaced the name of user who edit the defect.
+Files modified: DefectInformation.fragment.xml
+Description: Property bbindings changed to FNDBY.
+//-----------------------
+#4 : 
+Change request : Sortie Monitoring can key with no limit, Expected: To limit to 2 digit
+Modified by: Rahul
+Requirement: Sortie Monitoring can key with no limit, Expected: To limit to 2 digit
+Files modified: CosAddSoritieMonitoring.controller.js and AddSortieMonitoring.view.xml
+Description: Added max value for Step input.
+//-----------------------
