@@ -25,7 +25,7 @@
 										<!--<Text text="{path:'SummaryModel>/SERVDUE'}"/>-->
 									</HBox>
 								</HBox>
-								<HBox class="sapUiLargeMarginBegin" visible="{= ${SummaryModel>/SERVDUE}!==null ? true:false}">
+								<HBox class="sapUiLargeMarginBegin" visible="{= (${SummaryModel>/SERVDUE}!==null &amp;&amp; ${SummaryModel>/SERVDUE}!=='' ) ? true:false}">
 									<Label design="Bold" text="Due Util :" width="150px"/>
 									<HBox>
 										<Text text="{path:'SummaryModel>/UM'}"/>
@@ -35,6 +35,14 @@
 								<HBox class="sapUiLargeMarginBegin">
 									<Label design="Bold" text="ES Notification :" width="150px"/>
 									<Text text="{SummaryModel>/ESJOBID}" width="200px"/>
+								</HBox>
+								<HBox class="sapUiLargeMarginBegin" visible="{= (${SummaryModel>/PN}!==null &amp;&amp; ${SummaryModel>/PN}!=='') ? true:false}">
+									<Label design="Bold" text="Part No. :" width="150px"/>
+									<Text text="{SummaryModel>/PN}" width="200px"/>
+								</HBox>
+								<HBox class="sapUiLargeMarginBegin" visible="{= (${SummaryModel>/SN}!==null &amp;&amp; ${SummaryModel>/SN}!=='') ? true:false}">
+									<Label design="Bold" text="Serial No. (S/N) :" width="150px"/>
+									<Text text="{SummaryModel>/SN}" width="200px"/>
 								</HBox>
 							</VBox>
 							<layoutData>
@@ -58,7 +66,7 @@
 					title="{LocalModel>wrctrtx}" select="onWorkCenterSelect" visible="{= ${LocalModel>wrctr} !== 'ZSummary' }"/>
 			</HBox>
 			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter" enabled="true"
-					visible="{=(${SummaryModel>/PRIME}==='' || ${SummaryModel>/PRIME} === null)?true:false}">
+				visible="{=(${SummaryModel>/PRIME}==='' || ${SummaryModel>/PRIME} === null)?true:false}">
 				<core:Icon src="sap-icon://sys-add" size="35px" color="blue" press="onIconPress"/>
 			</cc:RectificationTileAdd>
 		</HBox>

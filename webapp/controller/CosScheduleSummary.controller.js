@@ -146,8 +146,8 @@ sap.ui.define([
 						State: "SCH"
 					});
 				}.bind(this);
-				oParameter.activity = 3;
-				ajaxutilNew.fnDelete(sPath, oParameter, "ZRM_COS_JB", this);
+				oParameter.activity = 7;
+				ajaxutilNew.fnDelete(sPath, oParameter, "ZRM_COS_OP", this);
 			} catch (e) {
 				Log.error("Exception in _fnDeleteScheduleJob function");
 

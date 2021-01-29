@@ -38,7 +38,7 @@
 							<!--	<f:Avatar initials="A" displaySize="XS" backgroundColor="Accent5" class="avtarRadius sapUiTinyMargin"/>-->
 							<cs:ColorStatus title="{ADDLimSet>NAME1}" status="{ADDLimSet>CFLAG}" statushr="{ADDLimSet>AFHR}"/>
 							<HBox class="sapUiSmallMargin" alignContent="Start" alignItems="Start">
-								<VBox alignContent="Center" alignItems="Center" visible="{=${ADDLimSet>EXPDT} !== null ? true : false}">
+								<VBox alignContent="Center" alignItems="Center" visible="{=${ADDLimSet>EXPDT} !== null &amp;&amp; ${ADDLimSet>EXPDT} !== ''? true : false}">
 									<Label text="{ADDLimSet>AFDAY}" design="Bold"></Label>
 									<Label text="days left"></Label>
 								</VBox>
@@ -52,7 +52,7 @@
 							</HBox>
 							<HBox class="sapUiSmallMargin">
 								<VBox>
-									<Text text="{ADDLimSet>JOBDESC}" wrapping="false" width="20rem" tooltip="{ADDLimSet>JOBDESC}"/>
+									<Text text="{ADDLimSet>JOBDESC}" wrapping="false" width="50rem" tooltip="{ADDLimSet>JOBDESC}"/>
 									<VBox visible="{= ${ADDLimSet>CAPTY} === 'A'|| ${ADDLimSet>CAPTY} === 'B'}">
 										<tnt:InfoLabel text="Limitation" renderMode="Narrow" visible="{= ${ADDLimSet>LDESC} !== null}" colorScheme="7" class="sapUiTinyMarginTop"
 											displayOnly="true"/>

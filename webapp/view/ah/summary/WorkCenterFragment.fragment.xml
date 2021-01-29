@@ -11,13 +11,18 @@
 					</Toolbar>
 				</headerToolbar>
 				<items>
-					<StandardListItem type="Active" title="{i18n>liTaks}" counter="{LocalModel>/TaskCount}" press="onAEFMMenuPress('TS')" class="sapUiTinyMargin listBorder"/>
-					<StandardListItem type="Active" title="{i18n>liSpares}" counter="{LocalModel>/SparesCount}" press="onAEFMMenuPress('SP')" class="sapUiTinyMargin listBorder"/>
-					<StandardListItem type="Active" title="{i18n>liTMDE}" counter="{LocalModel>/TMDECount}" press="onAEFMMenuPress('TM')" class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>liTaks}" counter="{LocalModel>/TaskCount}" press="onAEFMMenuPress('TS')"
+						class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>liSpares}" counter="{LocalModel>/SparesCount}" press="onAEFMMenuPress('SP')"
+						class="sapUiTinyMargin listBorder"/>
+					<StandardListItem type="Active" title="{i18n>liTMDE}" counter="{LocalModel>/TMDECount}" press="onAEFMMenuPress('TM')"
+						class="sapUiTinyMargin listBorder"/>
+					<!-- Rahul ChangesL 25/01/2021: Code Added for visiblity- Start -->
 					<StandardListItem type="Active" title="{i18n>liFlyingRequirements}" counter="{= ${FRModel>/}.length}" press="onAEFMMenuPress('FR')"
-						class="sapUiTinyMargin listBorder"/>
+						class="sapUiTinyMargin listBorder" visible="{=${JobModel>/jobty}!=='F'}"/>
 					<StandardListItem type="Active" title="{i18n>liSortieMonitoring}" counter="{= ${SRMModel>/}.length}" press="onAEFMMenuPress('SM')"
-						class="sapUiTinyMargin listBorder"/>
+						class="sapUiTinyMargin listBorder" visible="{=${JobModel>/jobty}!=='F'}"/>
+					<!-- Rahul ChangesL 25/01/2021: Code Added for visiblity- End -->
 				</items>
 			</List>
 			<layoutData>

@@ -18,11 +18,14 @@
 						<!--width="{=${JobModel>/jobty}==='D' ? '84%' :'92%'}"-->
 						<Title text="{i18n>tiJobSummary}" level="H4" titleStyle="H4"/>
 						<ToolbarSpacer/>
+						<!--Rahul: 25/01/2021: enabled Code added Start.-->
 						<Button text="{i18n>btnManageJobs}" type="Default" icon="sap-icon://megamenu" iconFirst=" false" class="btnClass"
-							press="onOpenQuickView('DF',$event)" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}" enabled="{LocalModel>/FairEditBtnFlag}"/>
+							press="onOpenQuickView('DF',$event)" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"
+							enabled="{parts:['LocalModel>/FairEditBtnFlag','JobModel>/jobty'],templateShareable: false,formatter:'.formatter.ManageJobBtnStatus'}"/>
 						<Button text=" {i18n>btnCloseJob}" type="Emphasized" class="sapUiSmallMarginEnd"
-							enabled="{parts:['LocalModel>/JobStatus','LocalModel>/FairEditFlag'],templateShareable: false,formatter:'.formatter.CloseJobBtnStatus'}"
+							enabled="{parts:['LocalModel>/JobStatus','LocalModel>/FairEditFlag','JobModel>/jobty'],templateShareable: false,formatter:'.formatter.CloseJobBtnStatus'}"
 							press="onCloseJobPress('N')" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
+						<!--Rahul: 25/01/2021: enabled Code End.-->
 					</Toolbar>
 					<!--Rahul: 18/11/2020: 10:24 AM : Commented code removed.-->
 					<FlexBox>
@@ -34,7 +37,8 @@
 							</Text>
 							<VBox class="sapUiMediumMarginBegin" alignContent="End" alignItems="End">
 								<VBox
-									visible="{=${JobModel>/jobty}==='D' || ${JobModel>/jobty}==='U' || ${JobModel>/jobty}==='S' || ${JobModel>/jobty}==='ZQ' ? true :false}">
+									visible="{=${JobModel>/jobty}==='D' || ${JobModel>/jobty}==='U' || ${JobModel>/jobty}==='F' || ${JobModel>/jobty}==='S' || ${JobModel>/jobty}==='ZQ' ? true :false}">
+									<!-- Rahul: 25/01/2021: New Added|| ${JobModel>/jobty}==='F' -->
 									<HBox class="sapUiTinyMarginTop" alignItems="Start" alignContent="Start">
 										<Label design="Bold" text="{i18n>lbDateTime}" width="150px"/>
 										<HBox>
@@ -53,8 +57,9 @@
 									</HBox>
 									<HBox class="sapUiTinyMarginTop">
 										<!--visible="{=${JobModel>/jduid}!=='' ? true :false}"-->
+										<!--Rahul: 26/01/2021 Changes for AIRFHR-->
 										<Label design="Bold" text="Airframe Hrs" width="150px"/>
-										<Text text="{JobModel>/airhrs}" width="200px"/>
+										<Text text="{JobModel>/AIRFHR}" width="200px"/>
 									</HBox>
 									<HBox class="sapUiTinyMarginTop" visible="{=${JobModel>/jobty}==='S' ? true :false}">
 										<Label design="Bold" text="Scheduled Due" width="150px"/>
@@ -91,8 +96,9 @@
 									</HBox>
 								</VBox>
 								<VBox
-									visible="{=${JobModel>/jobty}!=='D' &amp;&amp; ${JobModel>/jobty}!=='U' &amp;&amp; ${JobModel>/jobty}!=='S' &amp;&amp; ${JobModel>/jobty}!=='ZQ' ? true :false}"
+									visible="{=${JobModel>/jobty}!=='D' &amp;&amp; ${JobModel>/jobty}!=='U' &amp;&amp; ${JobModel>/jobty}!=='F' &amp;&amp; ${JobModel>/jobty}!=='S' &amp;&amp; ${JobModel>/jobty}!=='ZQ' ? true :false}"
 									class="sapUiMediumMarginBegin" alignContent="End" alignItems="End">
+									<!-- Rahul: 25/01/2021: New Added&amp;&amp; ${JobModel>/jobty}!=='F' -->
 									<HBox class="sapUiLargeMarginBegin">
 										<Label design="Bold" text="{i18n>lbDueDate}" width="150px"/>
 										<Text text="{path:'SummaryModel>/DefectData/Date', formatter:'.formatter.defaultDateFormat'}" width="200px"/>
@@ -108,7 +114,7 @@
 							</VBox>
 						</items>
 					</FlexBox>
-							<!--Rahul: 18/11/2020: 10:24 AM : Commented code removed.-->
+					<!--Rahul: 18/11/2020: 10:24 AM : Commented code removed.-->
 				</VBox>
 			</HBox>
 		</HBox>

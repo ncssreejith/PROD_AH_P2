@@ -34,7 +34,7 @@ sap.ui.define([
 				dDate = new Date();
 				return "";
 			}
-			if(dDate !== "" ){
+			if (dDate !== "") {
 				dDate = new Date(dDate);
 			}
 			var fnDateFormatter = DateFormat.getDateInstance({
@@ -217,7 +217,8 @@ sap.ui.define([
 			if (!dDate) {
 				return "";
 			}
-			var oResTemp = "0",oResTempHr = "0";
+			var oResTemp = "0",
+				oResTempHr = "0";
 			var res = dDate.split(":");
 			if (res[1].length === 1) {
 				oResTemp = oResTemp.concat(res[1]);
@@ -373,6 +374,9 @@ sap.ui.define([
 					break;
 				case "U":
 					oTemp = "Unscheduled";
+					break;
+				case "F":
+					oTemp = "Flight Servicing"; /* Rahul Changes 25/01/2021: Code Added for visiblity- Start */
 					break;
 			}
 			return oTemp;
@@ -800,7 +804,7 @@ sap.ui.define([
 			}
 		},
 		DBSchedule: function(iPercentage) {
-			if (iPercentage < 40) {
+			if (iPercentage < 40 && iPercentage !== 0) {
 				return "Critical";
 			} else {
 				return "Good";
@@ -2062,13 +2066,22 @@ sap.ui.define([
 			}
 		},
 
-		CloseJobBtnStatus: function(sStatus1, sStatus2) {
-			if ((sStatus1 === true && sStatus2 === true)) {
+		//Rahul change on 25/01/2021: Start
+		CloseJobBtnStatus: function(sStatus1, sStatus2, sStatus3) {
+			if ((sStatus1 === true && sStatus2 === true && sStatus3 !== 'F')) {
 				return true;
 			} else {
 				return false;
 			}
 		},
+		ManageJobBtnStatus: function(sStatus2, sStatus3) {
+			if ((sStatus2 === true && sStatus3 !== 'F')) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		//Rahul change on 25/01/2021: End
 		FormatRoleChangeSLNo: function(sSlNo) {
 			if (sSlNo !== "") {
 				return "S/N: " + sSlNo;
@@ -2355,14 +2368,14 @@ sap.ui.define([
 		 * @returns
 		 */
 		adtEditVisible: function(sVal, sFlown) {
-		var sDiff = 1440; // 24 hourse in minutes 
-		var rowDate = new Date(sVal); // your date object
-		var sToday = new Date();
-		var diffMs = (sToday-rowDate); 
-		var diffMins = Math.floor((diffMs/1000)/60);
-		if(sDiff >= diffMins){
-			return true;
-		}
+			var sDiff = 1440; // 24 hourse in minutes 
+			var rowDate = new Date(sVal); // your date object
+			var sToday = new Date();
+			var diffMs = (sToday - rowDate);
+			var diffMins = Math.floor((diffMs / 1000) / 60);
+			if (sDiff >= diffMins) {
+				return true;
+			}
 			return false;
 		}, // Teck Meng 30/11/2020 10:30 end
 		/** Teck Meng 30/11/2020 10:30 start

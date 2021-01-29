@@ -1,0 +1,69 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
+	xmlns:f="sap.f">
+	<ScrollContainer horizontal="false" vertical="true" width="100%" focusable="false" class="sapUiTinyMarginTop">
+		<Table id="FSUnSchId" class="sapUiResponsivePadding CERTable sapUiSizeCompact" growing="true" items="{JobModelFS>/}">
+			<headerToolbar>
+				<OverflowToolbar>
+					<Title text="Flight Servicing" level="H2"/>
+					<ToolbarSpacer/>
+					<ComboBox width="10rem" id="cbFSUnSchId" change="onFilterChange" placeholder="Select column filter"
+						items="{path : 'DDModel>/FilterDDModel' , filters : [{ path : 'type', operator : 'Contains', value1 : 'DefectJobOut' }]}">
+						<core:Item key="{DDModel>key}-{DDModel>filter}" text="{DDModel>text}"/>
+					</ComboBox>
+					<SearchField placeholder="Search" width="15rem" class="sapUiSmallMargin" value="{LocalJobsModel>/FSUnSchId}"
+						search="onSearchTable($event,'FSUnSchId','JobModelFS')"/>
+				</OverflowToolbar>
+			</headerToolbar>
+			<columns>
+				<Column width="8rem" hAlign="Center" class="CERTableTextColor">
+					<HBox>
+						<Label text="{i18n>lbDateTime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'timeVal')"/>
+					</HBox>
+				</Column>
+				<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<HBox>
+						<Label text="{i18n>lbJobNo}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobid')"/>
+					</HBox>
+				</Column>
+				<Column width="20rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">                 <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+					<HBox>
+						<Label text="{i18n>lbDefect}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobdesc')"/>
+					</HBox>
+				</Column>
+				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">                 <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+					<HBox>
+						<Label text="{i18n>lbPrime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ptext')"/>
+					</HBox>
+				</Column>
+				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">                 <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+					<HBox>
+						<Label text="{i18n>lbTrades}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
+						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
+					</HBox>
+				</Column>
+				<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">                 <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+					<Label text="{i18n>lbAction}" design="Bold" wrapping="true"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem vAlign="Middle" type="Navigation" press="onFSDetailsPress">
+					<cells>
+						<VBox>
+							<Text text="{path:'JobModelFS>credtm', formatter:'.formatter.defaultDateFormatDisplay'}"/>
+							<Text text="{path:'JobModelFS>creuzt', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
+						</VBox>
+						<Text text="{JobModelFS>jobid}"/>
+						<Text text="{JobModelFS>jobdesc}"/>
+						<Text text="{JobModelFS>ptext}"/>
+						<Text text="-"/>
+						<ObjectStatus state="Error" text="{path:'JobModelFS>fstat', formatter : '.formatter.jobAction'}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</ScrollContainer>
+</core:FragmentDefinition>

@@ -12,6 +12,10 @@
 						class="sapUiTinyMargin listBorder"/>
 					<StandardListItem type="Active" title="{i18n>lbUnScheduled}" counter="{=${JobModelU>/}.length}" press="onOutstandingJobTypePress('USC')"
 						class="sapUiTinyMargin listBorder"/>
+					<!--Rahul: 25/01/2021: enabled Code added Start.-->
+					<StandardListItem type="Active" title="{i18n>lbFlightServiceing}" counter="{=${JobModelFS>/}.length}"
+						press="onOutstandingJobTypePress('FS')" class="sapUiTinyMargin listBorder"/>
+					<!--Rahul: 25/01/2021: enabled Code added End.-->
 				</items>
 			</List>
 			<layoutData>
@@ -31,6 +35,11 @@
 			<HBox visible="{LocalJobsModel>/UnscheduledTableFlag}">
 				<core:Fragment fragmentName="avmet.ah.view.ah.jobs.outstandingjobs.JobsOutstandingUnscheduledFragment" type="XML"/>
 			</HBox>
+			<!--Rahul: 25/01/2021: enabled Code added Start.-->
+			<HBox visible="{LocalJobsModel>/FSFlag}">
+				<core:Fragment fragmentName="avmet.ah.view.ah.jobs.outstandingjobs.JobsOutstandingFSFragment" type="XML"/>
+			</HBox>
+			<!--Rahul: 25/01/2021: enabled Code added End.-->
 			<layoutData>
 				<l:SplitterLayoutData size="auto"/>
 			</layoutData>

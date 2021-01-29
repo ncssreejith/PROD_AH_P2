@@ -86,7 +86,7 @@
 								<Link text="view" press="onSchedulesView('SCH')" visible="{= !!${dashboardModel>/scl/LV_COUNT}}"/>
 							</ct:DashboardTile3>
 							<ct:DashboardTile4 class="sapUiTinyMargin" title="Aircraft Capabilities">
-								<mc:RadialMicroChart id="capMicroChartId" size="L" valueColor="{path : 'dashboardModel>/cap/LV_TADD', formatter : '.formatter.DBSchedule'}"
+								<mc:RadialMicroChart id="capMicroChartId" size="L" valueColor="{path : 'dashboardModel>/cap/LV_ADDCOLOR', formatter : '.formatter.DBSchedule'}"
 									class="customChartFont numFontColor"></mc:RadialMicroChart>
 								<SegmentedButton selectedKey="{dashboardModel>/cap/Index}" selectionChange="onAircapSegBtnChange" width="100%" class="sapUiSizeCompact">
 									<items>

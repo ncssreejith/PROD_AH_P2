@@ -67,7 +67,7 @@ sap.ui.define([
 						"modid": null,
 						"airid": null,
 						"DOCREFID": null,
-						"airhrs": null,
+						"AIRFHR": null, //26/01/2020: Added new field
 						"TRAILKEY": null,
 						"TRAILKVAL": null,
 						"TRAILKDT": null,

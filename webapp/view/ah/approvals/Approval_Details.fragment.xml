@@ -105,7 +105,7 @@
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>
 									</HBox>
-									<HBox visible="{=${ApprovalDetailstModel>/expdt} !== null ? true : false}">
+									<HBox visible="{=${ApprovalDetailstModel>/expdt} !== null &amp;&amp; ${ApprovalDetailstModel>/expdt} !== '' ? true : false}">
 										<Label width="9rem" wrapping="true" text="{ApprovalDetailstModel>/defpdtx} but not later than" design="Bold"></Label>
 										<HBox class="sapUiTinyMarginTop">
 											<Text text="{path:'ApprovalDetailstModel>/expdt', formatter:'.formatter.defaultDateFormatDisplay'}"/>

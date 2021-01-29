@@ -292,8 +292,8 @@ sap.ui.define([
 		fnGetRunningChanges: function() {
 			try {
 				var oParameter = {};
-			//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
-				oParameter.filter = "tailid"+FilterOpEnum.EQ+this.getTailId()+FilterOpEnum.AND+"REFID"+FilterOpEnum.EQ+ this.getAircraftId();
+				//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "REFID" + FilterOpEnum.EQ + this.getAircraftId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length) {
@@ -433,6 +433,9 @@ sap.ui.define([
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
 						break;
 					case "Days":
+						if (oItem.LV_TDAY === null) {
+							oItem.LV_TDAY = 0;
+						}
 						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TDAY >= 0 ? parseFloat(oItem.LV_TDAY) : 0), "", (oItem.LV_TDAY >= 0 ?
 								parseFloat(oItem.LV_DAY) : 0),
 							oItem.LV_DAY);
@@ -485,11 +488,15 @@ sap.ui.define([
 				switch (sSelectedKey) {
 					case "ADD":
 						this._setRadialChartText("capMicroChartId", oItem.LV_TADD ? oItem.LV_TADD : "", "", oItem.LV_TADD, oItem.LV_TADD);
+						oItem.LV_ADDCOLOR = oItem.LV_TADD;
 						break;
 					case "LMT":
 						this._setRadialChartText("capMicroChartId", oItem.LV_TLIMI ? oItem.LV_TLIMI : "", "", oItem.LV_TLIMI, oItem.LV_TLIMI);
+						oItem.LV_ADDCOLOR = oItem.LV_TLIMI;
 						break;
 				}
+				this.getModel("dashboardModel").refresh();
+				this.getModel("dashboardModel").updateBindings(true);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onAircapSegBtnChange function");
 				this.handleException(e);
@@ -1128,8 +1135,11 @@ sap.ui.define([
 
 					if (oData && oData.results && oData.results.length && oData.results.length > 0) {
 						oData.results[0].Index = "ADD";
+
 						this._setRadialChartText("capMicroChartId", oData.results[0].LV_TADD ? oData.results[0].LV_TADD : "", "", oData.results[0].LV_TADD,
 							oData.results[0].LV_TADD);
+						oData.results[0].LV_ADDCOLOR = oData.results[0].LV_TADD;
+						this.getModel("dashboardModel").refresh();
 						return;
 					}
 					this._setRadialChartText("capMicroChartId", "", "", 0, 0);
