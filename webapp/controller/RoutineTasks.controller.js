@@ -283,7 +283,7 @@ sap.ui.define([
 				var aFinalPayload = [];
 				var bSelected = false;
 				var aPayloads = this.getModel("rtModel").getProperty("/tasks");
-
+				var objectId;  // changes added for tfoa check authorisation by lakshmi on 29012021 at 1017am
 				aPayloads.forEach(function(oPayload) {
 					// this.fnInsertValues(oPayload);
 					var oCopy = JSON.parse(JSON.stringify(oPayload));
@@ -293,6 +293,13 @@ sap.ui.define([
 					}
 					delete oCopy.selected;
 					aFinalPayload.push(oCopy);
+					// changes added for tfoa check authorisation by lakshmi on 29012021 at 1017am -start
+					if (this.formatter.srvTOFACheck(this.getModel("rtModel").getProperty("/srvtid"))) {
+						objectId="ZRM_FS_TFOA";
+					}else{
+						objectId="ZRM_FS_RTT"; 
+					}
+					// changes added for tfoa check authorisation by lakshmi on 29012021 at 1017am -end
 				});
 				if (!bSelected) {
 					sap.m.MessageToast.show("Select at least one for sign off first");
@@ -305,7 +312,8 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
+			//	ajaxutilNew.fnCreate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);// COMMENTED for tfoa check authorisation by lakshmi on 29012021 at 1017am
+			   ajaxutilNew.fnCreate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, objectId, this);// changes added for tfoa check authorisation by lakshmi on 29012021 at 1017am
 			} catch (e) {
 				Log.error("Exception in onSignOff function");
 				this.handleException(e);
