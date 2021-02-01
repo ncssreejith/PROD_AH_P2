@@ -21,9 +21,9 @@
 						<!--Rahul: 25/01/2021: enabled Code added Start.-->
 						<Button text="{i18n>btnManageJobs}" type="Default" icon="sap-icon://megamenu" iconFirst=" false" class="btnClass"
 							press="onOpenQuickView('DF',$event)" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"
-							enabled="{parts:['LocalModel>/FairEditBtnFlag','JobModel>/jobty'],templateShareable: false,formatter:'.formatter.ManageJobBtnStatus'}"/>
+							enabled="{LocalModel>/FairEditBtnFlag}"/>
 						<Button text=" {i18n>btnCloseJob}" type="Emphasized" class="sapUiSmallMarginEnd"
-							enabled="{parts:['LocalModel>/JobStatus','LocalModel>/FairEditFlag','JobModel>/jobty'],templateShareable: false,formatter:'.formatter.CloseJobBtnStatus'}"
+							enabled="{parts:['LocalModel>/JobStatus','LocalModel>/FairEditFlag'],templateShareable: false,formatter:'.formatter.CloseJobBtnStatus'}"
 							press="onCloseJobPress('N')" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
 						<!--Rahul: 25/01/2021: enabled Code End.-->
 					</Toolbar>
@@ -37,7 +37,7 @@
 							</Text>
 							<VBox class="sapUiMediumMarginBegin" alignContent="End" alignItems="End">
 								<VBox
-									visible="{=${JobModel>/jobty}==='D' || ${JobModel>/jobty}==='U' || ${JobModel>/jobty}==='F' || ${JobModel>/jobty}==='S' || ${JobModel>/jobty}==='ZQ' ? true :false}">
+									visible="{=${JobModel>/jobty}==='D' || ${JobModel>/jobty}==='U' || ${JobModel>/jobty}==='S' || ${JobModel>/jobty}==='ZQ' ? true :false}">
 									<!-- Rahul: 25/01/2021: New Added|| ${JobModel>/jobty}==='F' -->
 									<HBox class="sapUiTinyMarginTop" alignItems="Start" alignContent="Start">
 										<Label design="Bold" text="{i18n>lbDateTime}" width="150px"/>
@@ -96,7 +96,7 @@
 									</HBox>
 								</VBox>
 								<VBox
-									visible="{=${JobModel>/jobty}!=='D' &amp;&amp; ${JobModel>/jobty}!=='U' &amp;&amp; ${JobModel>/jobty}!=='F' &amp;&amp; ${JobModel>/jobty}!=='S' &amp;&amp; ${JobModel>/jobty}!=='ZQ' ? true :false}"
+									visible="{=${JobModel>/jobty}!=='D' &amp;&amp; ${JobModel>/jobty}!=='U' &amp;&amp; ${JobModel>/jobty}!=='S' &amp;&amp; ${JobModel>/jobty}!=='ZQ' ? true :false}"
 									class="sapUiMediumMarginBegin" alignContent="End" alignItems="End">
 									<!-- Rahul: 25/01/2021: New Added&amp;&amp; ${JobModel>/jobty}!=='F' -->
 									<HBox class="sapUiLargeMarginBegin">

@@ -144,7 +144,6 @@ sap.ui.define([
 					that._fnJobDetailsGetDefect();
 					that._fnJobDetailsGetScheduled();
 					that._fnJobDetailsGetUnScheduled();
-					that._fnJobDetailsGetFSUnScheduled(); // Rahul Change: 25/01/2021: Added call
 				}.bind(this);
 
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
@@ -248,40 +247,7 @@ sap.ui.define([
 				Log.error("Exception in _fnJobDetailsGetUnScheduled function");
 			}
 		},
-		/* Rahul: 25/01/2021: enabled Code added Start. */
-		/* Function: _fnJobDetailsGetFSUnScheduled
-		 * Parameter:
-		 * Description: Function to retreive unscheduled jobs
-		 */
-		_fnJobDetailsGetFSUnScheduled: function() {
-			try {
-				var that = this,
-					oPrmJobDue = {};
-				oPrmJobDue.filter = "jobty eq F and tailid eq " + that.getTailId();
-				oPrmJobDue.error = function() {
-
-				};
-
-				oPrmJobDue.success = function(oData) {
-					var oModel = dataUtil.createNewJsonModel();
-					if (oData && oData.results.length > 0) {
-
-						var aData = oData.results;
-						for (var i in aData) {
-							aData[i].timeVal = formatter.getTimeValueForDate(aData[i], "credtm", "creuzt");
-						}
-
-					}
-					oModel.setData(aData);
-					that.getView().setModel(oModel, "JobModelFS");
-				}.bind(this);
-
-				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
-			} catch (e) {
-				Log.error("Exception in _fnJobDetailsGetFSUnScheduled function");
-			}
-		},
-		/* Rahul: 25/01/2021: enabled Code added End. */
+	
 
 		/* Function: _fnJobDetailsGetUnCompleted
 		 * Parameter:
@@ -508,38 +474,25 @@ sap.ui.define([
 						oLocalJobsModel.setProperty("/DefectTableFlag", false);
 						oLocalJobsModel.setProperty("/ScheduledTableFlag", false);
 						oLocalJobsModel.setProperty("/UnscheduledTableFlag", false);
-						oLocalJobsModel.setProperty("/FSFlag", false); // Rahul: 25/01/2021: eFlag Added.
 						break;
 					case "DE":
 						oLocalJobsModel.setProperty("/AllTableFlag", false);
 						oLocalJobsModel.setProperty("/DefectTableFlag", true);
 						oLocalJobsModel.setProperty("/ScheduledTableFlag", false);
 						oLocalJobsModel.setProperty("/UnscheduledTableFlag", false);
-						oLocalJobsModel.setProperty("/FSFlag", false); // Rahul: 25/01/2021: eFlag Added.
 						break;
 					case "SC":
 						oLocalJobsModel.setProperty("/AllTableFlag", false);
 						oLocalJobsModel.setProperty("/DefectTableFlag", false);
 						oLocalJobsModel.setProperty("/ScheduledTableFlag", true);
 						oLocalJobsModel.setProperty("/UnscheduledTableFlag", false);
-						oLocalJobsModel.setProperty("/FSFlag", false); // Rahul: 25/01/2021: eFlag Added.
 						break;
 					case "USC":
 						oLocalJobsModel.setProperty("/AllTableFlag", false);
 						oLocalJobsModel.setProperty("/DefectTableFlag", false);
 						oLocalJobsModel.setProperty("/ScheduledTableFlag", false);
 						oLocalJobsModel.setProperty("/UnscheduledTableFlag", true);
-						oLocalJobsModel.setProperty("/FSFlag", false); // Rahul: 25/01/2021: eFlag Added.
 						break;
-						/* Rahul: 25/01/2021: enabled Code added Start. */
-					case "FS":
-						oLocalJobsModel.setProperty("/AllTableFlag", false);
-						oLocalJobsModel.setProperty("/DefectTableFlag", false);
-						oLocalJobsModel.setProperty("/ScheduledTableFlag", false);
-						oLocalJobsModel.setProperty("/UnscheduledTableFlag", false);
-						oLocalJobsModel.setProperty("/FSFlag", true);
-						break;
-						/* Rahul: 25/01/2021: enabled Code added Start. */
 				}
 				oLocalJobsModel.updateBindings(true);
 			} catch (e) {
@@ -711,24 +664,6 @@ sap.ui.define([
 				Log.error("Exception in onUnscheduledDetailsPress function");
 			}
 		},
-		/* Rahul: 25/01/2021: enabled Code added Start. */
-		/* Function: onFSDetailsPress
-		 * Parameter: oEvent
-		 * Description:  Function call when unscheduled job press
-		 */
-		onFSDetailsPress: function(oEvent) {
-			try {
-				var oJobId = oEvent.getSource().getBindingContext("JobModelFS").getObject().jobid;
-				var aState = this.getModel("avmetModel").getProperty("/dash/astid");
-				this.getRouter().navTo("CosDefectsSummary", {
-					"JobId": oJobId,
-					"Flag": "Y"
-				});
-			} catch (e) {
-				Log.error("Exception in onFSDetailsPress function");
-			}
-		},
-		/* Rahul: 25/01/2021: enabled Code added End. */
 		/* Function: onDefectsCompletePress
 		 * Parameter: oEvent
 		 * Description: Function call when completed job pressed
@@ -973,7 +908,6 @@ sap.ui.define([
 					DefectTableFlag: false,
 					ScheduledTableFlag: false,
 					UnscheduledTableFlag: false,
-					FSFlag:false, // Rahul Change: 25/01/2021: Added Flag
 					SelectedKey: sState ? sState : "OST",
 					SchAllTableFlag: true,
 					SchAirTableFlag: false,

@@ -375,9 +375,6 @@ sap.ui.define([
 				case "U":
 					oTemp = "Unscheduled";
 					break;
-				case "F":
-					oTemp = "Flight Servicing"; /* Rahul Changes 25/01/2021: Code Added for visiblity- Start */
-					break;
 			}
 			return oTemp;
 		},
@@ -2067,15 +2064,8 @@ sap.ui.define([
 		},
 
 		//Rahul change on 25/01/2021: Start
-		CloseJobBtnStatus: function(sStatus1, sStatus2, sStatus3) {
-			if ((sStatus1 === true && sStatus2 === true && sStatus3 !== 'F')) {
-				return true;
-			} else {
-				return false;
-			}
-		},
-		ManageJobBtnStatus: function(sStatus2, sStatus3) {
-			if ((sStatus2 === true && sStatus3 !== 'F')) {
+		CloseJobBtnStatus: function(sStatus1, sStatus2) {
+			if ((sStatus1 === true && sStatus2 === true)) {
 				return true;
 			} else {
 				return false;
