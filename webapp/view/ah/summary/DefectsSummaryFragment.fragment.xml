@@ -59,7 +59,7 @@
 										<!--visible="{=${JobModel>/jduid}!=='' ? true :false}"-->
 										<!--Rahul: 26/01/2021 Changes for AIRFHR-->
 										<Label design="Bold" text="Airframe Hrs" width="150px"/>
-										<Text text="{JobModel>/AIRFHR}" width="200px"/>
+										<Text text="{JobModel>/airhrs}" width="200px"/>
 									</HBox>
 									<HBox class="sapUiTinyMarginTop" visible="{=${JobModel>/jobty}==='S' ? true :false}">
 										<Label design="Bold" text="Scheduled Due" width="150px"/>

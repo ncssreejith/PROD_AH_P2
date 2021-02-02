@@ -36,10 +36,10 @@
 									<Label design="Bold" text="ES Notification :" width="150px"/>
 									<Text text="{SummaryModel>/ESJOBID}" width="200px"/>
 								</HBox>
-								<HBox class="sapUiLargeMarginBegin" visible="{= (${SummaryModel>/PN}!==null &amp;&amp; ${SummaryModel>/PN}!=='') ? true:false}">
+								<!--<HBox class="sapUiLargeMarginBegin" visible="{= (${SummaryModel>/PN}!==null &amp;&amp; ${SummaryModel>/PN}!=='') ? true:false}">
 									<Label design="Bold" text="Part No. :" width="150px"/>
 									<Text text="{SummaryModel>/PN}" width="200px"/>
-								</HBox>
+								</HBox>-->
 								<HBox class="sapUiLargeMarginBegin" visible="{= (${SummaryModel>/SN}!==null &amp;&amp; ${SummaryModel>/SN}!=='') ? true:false}">
 									<Label design="Bold" text="Serial No. (S/N) :" width="150px"/>
 									<Text text="{SummaryModel>/SN}" width="200px"/>
