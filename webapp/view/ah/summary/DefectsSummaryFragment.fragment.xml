@@ -20,8 +20,7 @@
 						<ToolbarSpacer/>
 						<!--Rahul: 25/01/2021: enabled Code added Start.-->
 						<Button text="{i18n>btnManageJobs}" type="Default" icon="sap-icon://megamenu" iconFirst=" false" class="btnClass"
-							press="onOpenQuickView('DF',$event)" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"
-							enabled="{LocalModel>/FairEditBtnFlag}"/>
+							press="onOpenQuickView('DF',$event)" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}" enabled="{LocalModel>/FairEditBtnFlag}"/>
 						<Button text=" {i18n>btnCloseJob}" type="Emphasized" class="sapUiSmallMarginEnd"
 							enabled="{parts:['LocalModel>/JobStatus','LocalModel>/FairEditFlag'],templateShareable: false,formatter:'.formatter.CloseJobBtnStatus'}"
 							press="onCloseJobPress('N')" visible="{= ${LocalModel>/sFlag}==='Y' ? true:false}"/>
@@ -66,6 +65,10 @@
 										<Text text="{JobModel>/jduvl} {JobModel>/jdutxt}" width="200px" visible="{=${JobModel>/jduid}!=='JDU_10' ? true :false}"/>
 										<Text text="{path:'JobModel>/jduvl', formatter:'.formatter.defaultDateFormatDisplay'} {JobModel>/jdutxt}"
 											visible="{=${JobModel>/jduid}==='JDU_10' ? true :false}"/>
+									</HBox>
+									<HBox class="sapUiTinyMarginTop" visible="{=${JobModel>/SERNR}!=='' &amp;&amp; ${JobModel>/SERNR}!==null ? true :false}">
+										<Label design="Bold" text="Serial No. (S/N)" width="150px"/>
+										<Text text="{JobModel>/SERNR}" width="200px"/>
 									</HBox>
 									<HBox class="sapUiTinyMarginTop">
 										<Label design="Bold" text="{i18n>lbETR}" width="140px"/>

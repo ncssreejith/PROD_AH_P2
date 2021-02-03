@@ -80,7 +80,8 @@ sap.ui.define([
 						"SG1UZT": null,
 						"SG2USR": null,
 						"SG2DTM": null,
-						"SG2UZT": null
+						"SG2UZT": null,
+						"SERNR": null
 					};
 					oArray.push(CREATEJOB);
 					break;
