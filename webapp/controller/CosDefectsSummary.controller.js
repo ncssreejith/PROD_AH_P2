@@ -1136,7 +1136,7 @@ sap.ui.define([
 								//oViewModel.setProperty("/FairEditFlag", false);
 								oSummaryModel.setProperty("/FAIRStatus", "Error");
 							} else if (oJobModel.getProperty("/fstat") === "" || oJobModel.getProperty("/fstat") === null) {
-								//oViewModel.setProperty("/FairEditFlag", false);
+								oLocalModel.setProperty("/FairEditFlag", bTailStatus);
 								oLocalModel.setProperty("/FairEditBtnFlag", false);
 							}
 						} else {

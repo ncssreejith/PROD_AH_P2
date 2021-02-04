@@ -2027,15 +2027,20 @@ sap.ui.define([
 		},
 		CheckTailStatus: function(aState) {
 			switch (aState) {
-				case "AST_FFF":
-				case "AST_RFF":
 				case "AST_FAIR":
 				case "AST_FAIR0":
+				case "AST_FFC":
+				case "AST_FFF":
+				case "AST_FFG":
+				case "AST_GN":
+				case "AST_PF":
+				case "AST_RCG":
+				case "AST_REC":
+				case "AST_RFF":
 				case "AST_FAIR1":
 				case "AST_FAIR2":
-				case "AST_REC":
-				case "AST_GN":
-				case "AST_RCG":
+				case "AST_THR":
+				case "AST_THR1":
 					return false;
 				default:
 					return true;
