@@ -220,13 +220,18 @@ sap.ui.define([
 				if (oPayload.UMKEY === "JDU_10") {
 					var seltDate, currDate;
 					seltDate = oPayload.SERVDT;
+					seltDate.setHours(0, 0, 0, 0);
 					currDate = new Date();
-					if (seltDate < currDate) {
+					currDate.setHours(0, 0, 0, 0);
+					if (seltDate >= currDate) {
+					this.getView().byId("DP2").setValueState("None");
+					} else {
 						this.getView().byId("DP2").setValueState("Error");
 						this.getView().byId("DP2").setValueStateText("Enter valid date.");
 						return;
 					}
 				}
+
 				try {
 					oPayload.SERVDT = formatter.defaultOdataDateFormat(oPayload.SERVDT);
 				} catch (e) {
@@ -356,8 +361,8 @@ sap.ui.define([
 		 */
 		handleChange: function(oEvent) {
 			try {
-				if(oEvent){
-				this.getModel("JobCreateModel").setProperty("/CREDT", oEvent.getSource().getDateValue());
+				if (oEvent) {
+					this.getModel("JobCreateModel").setProperty("/CREDT", oEvent.getSource().getDateValue());
 				}
 				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateJobPast", "errorCreateJobFuture");
 			} catch (e) {
@@ -374,8 +379,10 @@ sap.ui.define([
 				var seltDate, currDate, oSrc = oEvent.getSource(),
 					oDate;
 				oDate = oSrc.getValue().split("/");
-				seltDate =new Date(oDate[2]+"-"+oDate[1]+"-"+oDate[0]);
+				seltDate = new Date(oDate[2] + "-" + oDate[1] + "-" + oDate[0]);
+				seltDate.setHours(0, 0, 0, 0);
 				currDate = new Date();
+				currDate.setHours(0, 0, 0, 0);
 				if (seltDate >= currDate) {
 					oSrc.setValueState("None");
 				} else {

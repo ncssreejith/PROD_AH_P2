@@ -114,7 +114,7 @@
 												color="#031E48"/>
 										</HBox>
 										<HBox>
-											<ComboBox visible="{=${JobCreateModel>/CTYPE}==='ENGINE' ? true:false}" class="sapUiTinyMarginEnd" placeholder="{i18n>engNoSelect}"
+											<ComboBox visible="{=${JobCreateModel>/CTYPE}==='ENGINE' ? true:false}" class="sapUiTinyMarginEnd" placeholder="Eng. No. Select"
 												selectedKey="{JobCreateModel>/ENGNO}" required="true" change="onEngineSelectChange" items="{EngineSRModel>/}">
 												<!--<core:Item key="1" text="{i18n>lbEngine1}"/>
 												<core:Item key="2" text="{i18n>lbEngine2}"/>-->
