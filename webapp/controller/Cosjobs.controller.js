@@ -247,7 +247,6 @@ sap.ui.define([
 				Log.error("Exception in _fnJobDetailsGetUnScheduled function");
 			}
 		},
-	
 
 		/* Function: _fnJobDetailsGetUnCompleted
 		 * Parameter:
@@ -592,9 +591,19 @@ sap.ui.define([
 					oModel;
 				sSelectedKey = oEvent.getParameter("selectedItem").getKey();
 				sSelectedtxt = oEvent.getParameter("selectedItem").getText();
-
 				oModel = that.getView().getModel("LocalJobsModel");
 				oModel.setProperty("/sSelectedKey", sSelectedKey);
+				switch (sSelectedKey) {
+					case "SCH":
+						this._fnJobGetScheduled();
+						break;
+					case "COM":
+						this._fnJobDetailsGetUnCompleted();
+						break;
+					case "OST":
+						this._fnJobDetailsGetAll();
+						break;
+				}
 				oModel.updateBindings(true);
 			} catch (e) {
 				Log.error("Exception in onJobTabSelect function");

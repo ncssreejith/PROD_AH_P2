@@ -354,8 +354,11 @@ sap.ui.define([
 		 * Parameter: oEvt
 		 * Description: function to check validation on date/time
 		 */
-		handleChange: function() {
+		handleChange: function(oEvent) {
 			try {
+				if(oEvent){
+				this.getModel("JobCreateModel").setProperty("/CREDT", oEvent.getSource().getDateValue());
+				}
 				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateJobPast", "errorCreateJobFuture");
 			} catch (e) {
 				Log.error("Exception in onNavBackSortie function");

@@ -21,7 +21,7 @@ sap.ui.define([
 	return {
 		// destination 
 		//Rahul: 25/11/2020: 06:53 removed destination and Username and PWD
-		destination: "/DBSRV17/phase2db",
+		destination: "/DBSRV17/p2",
 		username: "USER_AH_01",
 		pwd: "pass1234",
 
