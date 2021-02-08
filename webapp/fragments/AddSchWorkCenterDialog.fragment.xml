@@ -8,9 +8,9 @@
 				</Toolbar>
 				<VBox class="sapUiLargeMarginBeginEnd sapUiSmallMarginTopBottom">
 					<Label text="{i18n>lbSelectWOrCenter}" wrapping="true" design="Bold" class="sapUiTinyMarginBegin"></Label>
-					<ComboBox id="ComboWCId" width="15rem" placeholder="{i18n>phSelect}" selectedKey="{SummaryModel>/PRIME}" items="{WorkCenterSet>/}" class="sapUiTinyMargin">
+					<Select id="ComboWCId" width="15rem" placeholder="{i18n>phSelect}" selectedKey="{SummaryModel>/PRIME}" items="{WorkCenterSet>/}" class="sapUiTinyMargin">
 						<core:Item key="{WorkCenterSet>wrctr}" text="{WorkCenterSet>name}"/>
-					</ComboBox>
+					</Select>
 				</VBox>
 				<Toolbar class="sapUiSmallMarginBottom toolbarBorder">
 					<ToolbarSpacer/>

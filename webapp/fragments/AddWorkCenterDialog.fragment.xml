@@ -8,17 +8,17 @@
 				</Toolbar>
 				<VBox class="sapUiLargeMarginBeginEnd sapUiSmallMarginTopBottom">
 					<Label text="{i18n>lbSelectWOrCenter}" wrapping="true" design="Bold" class="sapUiTinyMarginBegin"></Label>
-					<ComboBox id="ComboWCId" width="15rem" placeholder="{i18n>phSelect}" items="{WorkCenterDialogModel>/WorkCenterSet}"
+					<Select id="ComboWCId" width="15rem" placeholder="{i18n>phSelect}" items="{WorkCenterDialogModel>/WorkCenterSet}"
 						visible="{= ${WorkCenterDialogModel>/WorkCenterMode} === 'ADD' || ${WorkCenterDialogModel>/WorkCenterMode} === 'SWITCH'}"
 						class="sapUiTinyMargin">
 						<core:Item key="{WorkCenterDialogModel>wrctr}" text="{WorkCenterDialogModel>name}"/>
-					</ComboBox>
-					<ComboBox id="cbWorkCenterEdit" selectionChange="onWorkCenterEditChange" width="15rem" placeholder="{i18n>phSelect}"
+					</Select>
+					<Select id="cbWorkCenterEdit" selectionChange="onWorkCenterEditChange" width="15rem" placeholder="{i18n>phSelect}"
 						selectedKey="{WorkCenterDialogModel>/SelectedWorkCenter}" items="{WorkCenterDialogModel>/WorkCenterSet}"
 						visible="{= ${WorkCenterDialogModel>/WorkCenterMode} !== 'ADD' &amp;&amp; ${WorkCenterDialogModel>/WorkCenterMode} !== 'SWITCH'}"
 						class="sapUiTinyMargin">
 						<core:Item key="{WorkCenterDialogModel>wrctr}" text="{WorkCenterDialogModel>wrctrtx}"/>
-					</ComboBox>
+					</Select>
 					<VBox visible="{= ${WorkCenterDialogModel>/WorkCenterMode} !== 'DELETE' &amp;&amp; ${WorkCenterDialogModel>/WorkCenterMode} !== 'SWITCH'}">
 						<Label text="{i18n>lbSetAsPrime}" wrapping="true" design="Bold" class="sapUiTinyMarginTop sapUiTinyMarginBegin"></Label>
 						<Switch id="switchId" state="false" customTextOn=" " customTextOff=" " class="sapUiTinyMarginBegin">

@@ -12,7 +12,6 @@
 			</HBox>
 			<HBox>
 				<Label design="Bold" class="sapUiTinyMargin" text="{i18n>lblFoundDur}" width="150px"/>
-				<!--<Text text="{path:'CapSet>/FNDID', formatter:'.formatter.fndIdFormatter'}" width="145px" class="sapUiTinyMargin"/>-->
 				<Text text="{parts:[{path:'CapSet>/FNDID'},{path:'FoundDuringSet>/'}], formatter:'.formatter.fndIdFormatterModel'}" width="145px" class="sapUiTinyMargin"/>
 			</HBox>
 			<HBox>
