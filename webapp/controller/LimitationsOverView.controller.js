@@ -766,6 +766,7 @@ sap.ui.define([
 				this._fnReasonforADDGet(sAirId);
 				this._fnUtilizationGet(sAirId);
 				this._fnUtilization2Get();
+				this._fnFoundDuringGet();
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_onObjectMatched function");
 

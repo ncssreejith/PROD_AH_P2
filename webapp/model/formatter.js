@@ -378,6 +378,18 @@ sap.ui.define([
 			}
 			return oTemp;
 		},
+		
+		fndIdFormatterModel: function(stTask1, stTask2) {
+			/*var stTask1, stTask2;*/
+			if (stTask2) {
+				for (var i in stTask2) {
+					if (stTask2[i].ddid === stTask1) {
+						return stTask2[i].description;
+					}
+				}
+				return stTask2;
+			}
+		},
 
 		fndIdFormatter: function(sValue) {
 			var oTemp = "";
