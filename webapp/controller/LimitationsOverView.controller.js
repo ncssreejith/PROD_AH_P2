@@ -321,10 +321,10 @@ sap.ui.define([
 				};
 
 				oPrmJobDue.success = function(oData) {
-					if (oData && oData.results.length > 0) {
+					// if (oData && oData.results.length > 0) {
 						oViewModel.setData(oData.results);
 						that.getView().setModel(oViewModel, "CapExtensionSet");
-					}
+					// }
 				}.bind(this);
 
 				ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);

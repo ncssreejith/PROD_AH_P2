@@ -15,7 +15,7 @@
 				<VBox alignContent="Center" alignItems="Center" visible="{=(${CapSet>/UTIL1} !== null &amp;&amp; ${CapSet>/UTIL1} !== '') ? true : false}"
 					class="sapUiSmallMarginTop">
 					<Label design="Bold" text="{CapSet>/UTILVL}" class="sapUiTinyMargin whiteText" visible="{=${CapSet>UTIL1} !=='UTIL1_20' ? true:false}"/>
-					<Label text="{CapSet>/UTIL1TEXT}" visible="{=${CapSet>/UTIL1} === 'UTIL1_20' ? true:false}" design="Bold" class="sapUiTinyMargin whiteText"/>
+					<Label text="{CapSet>/UTIL1TEXT}" visible="{=${CapSet>/UTIL1} !== 'UTIL1_20' ? true:false}" design="Bold" class="sapUiTinyMargin whiteText"/>
 					<Select width="200px" forceSelection="false" visible="{=${CapSet>/UTIL1} ==='UTIL1_20' ? true:false}" items="{Utilization2CBModel>/}" class="sapUiTinyMargin comboWhite"
 						selectedKey="{CapSet>/UTIL2}" editable="false">
 						<core:Item text="{Utilization2CBModel>description}" key="{Utilization2CBModel>ddid}"/>
