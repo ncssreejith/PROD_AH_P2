@@ -14,9 +14,11 @@
 				<!--<HBox>-->
 				<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"
 					growing="true" growingThreshold="5" growingScrollToLoad="false"
-					items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '1' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }], templateShareable: true}"
+				items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters : [{ path : 'chkrn', operator : 'EQ', value1 : '1' },{ path : 'engno', operator : 'EQ', value1 : '1' }], templateShareable: true}"
 					noDataText="{i18n>noDataHitTable}" showNoData="true">
 					<headerToolbar>
+							<!--items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters : [{ path : 'chkrn', operator : 'EQ', value1 : '1' },{ path : 'engno', operator : 'EQ', value1 : '1' }], templateShareable: true}"-->
+				
 						<OverflowToolbar>
 							<content>
 								<Title level="H3" text="{i18n>lblHit}"/>
@@ -69,53 +71,31 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateTimeFormat'}"/>
-								<!--Teck Meng change on 23/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<!--Teck Meng change on 23/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<!--Teck Meng change on 27/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>TGTTAB', formatter:'.formatter.integerUnit'}"/>
-								<Text text="{path:'oEngineModel>oEngineModel>TGTIND', formatter:'.formatter.integerUnit'}"/>
-								<Text text="{path:'oEngineModel>oEngineModel>TGTDIFF', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 27/11/2020 10:00 end-->
-								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
-								<!--Teck Meng change on 30/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>TQACT', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 30/11/2020 10:00 end-->
-								<!--Teck Meng change on 23/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>NP', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<Text text="{oEngineModel>ULIMIT}"/>
+								<Text text="{path:'oEngineModel>credtm', formatter:'.formatter.defaultDateTimeFormat'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>temp', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>bpress', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>tgttab', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>tgtind', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>tgtdiff', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>ng', formatter:'.formatter.numberUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>tqact', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>np', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{oEngineModel>ulimit}"/>
 								<HBox>
 									<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= ${oEngineModel>xtype}==='UL'}">
 										<core:layoutData>
 											<FlexItemData growFactor="1"/>
 										</core:layoutData>
 									</core:Icon>
-									<!--<core:Icon src="sap-icon://decline" color="#FF0000" size="2em" visible="{= !!${oEngineModel>ULimitFlag}}">-->
-									<!--	<core:layoutData>-->
-									<!--		<FlexItemData growFactor="1"/>-->
-									<!--	</core:layoutData>-->
-									<!--</core:Icon>-->
 								</HBox>
-								<!--<Text text="{oEngineModel>AmbTemp}"/>-->
-								<Text text="{oEngineModel>LLIMIT}"/>
+								<Text text="{oEngineModel>llimit}"/>
 								<HBox>
 									<core:Icon src="sap-icon://accept" color="#00FF00" size="2em" visible="{= ${oEngineModel>xtype}==='LL'}">
 										<core:layoutData>
 											<FlexItemData growFactor="1"/>
 										</core:layoutData>
 									</core:Icon>
-									<!--<core:Icon src="sap-icon://decline" color="#FF0000" size="2em" visible="{= !!${oEngineModel>LLimitFlag}}">-->
-									<!--	<core:layoutData>-->
-									<!--		<FlexItemData growFactor="1"/>-->
-									<!--	</core:layoutData>-->
-									<!--</core:Icon>-->
 								</HBox>
-								<!--<Text text="{oEngineModel>AmbTemp}"/>-->
 							</cells>
 						</ColumnListItem>
 					</items>
@@ -123,24 +103,10 @@
 						<FlexItemData growFactor="2" baseSize="0" minWidth="70%" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
 					</layoutData>
 				</Table>
-				<!--<VBox>-->
-				<!--</VBox>	-->
-				<!--<VBox visible="{= !!${oEngineModel>/displayPowerLineChart}}" alignItems="Center" width="800px" class="vboxChart sapUiMediumMarginTop">-->
-				<!--<HBox width="100%">-->
-				<!--<HBox width="20%"></HBox>-->
-				<!--	<Link text="view table" press="onPowerCheckPress"/>-->
-				<!--	<Label text="HIT Chart" design="Bold"/>-->
-				<!--	<lab:LineChartJS datasets="{temp>/lineChart/datasets}" width="500" height="500" labels="{temp>/lineChart/labels}" titleDisplay="false"-->
-				<!--		titleText="Replenishment Frequency" onLegendItemClick="onLegendItemClick" onLegendItemHover="onLegendItemHover" onClick="onClick"-->
-				<!--		onHover="onHover" tooltipEnabled="true" onAnimationProgress="onAnimationProgress"-->
-				<!--		onAnimationComplete="onAnimationComplete" showLines="true" spanGaps="true"></lab:LineChartJS>-->
-				<!--<core:HTML content="&lt;canvas id=&quot;myChart1&quot; width=&quot;500px&quot; &gt;&lt;/canvas&gt;"></core:HTML>-->
-				<!--</HBox>-->
-				<!--</VBox>-->
-				<!--</HBox>-->
+			
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 					growingScrollToLoad="false"
-					items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '3' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }] ,sorter: [{ path: 'SRVID', descending: true}], templateShareable: true}"
+					items="{ path: 'oEngineModel>/EngPowerCheck', filters : [{ path : 'chkrn', operator : 'EQ', value1 : '3' },{ path : 'engno', operator : 'EQ', value1 : '1' }] ,sorter: [{ path: 'SRVID', descending: true}], templateShareable: true}"
 					noDataText="No {i18n>txtRestablish} Records" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>
@@ -187,28 +153,17 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateTimeFormat'}"/>
-								<!--<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>-->
-								<!--Teck Meng change on 23/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<!--Teck Meng change on 23/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<!--Teck Meng change on 27/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>TGTTAB', formatter:'.formatter.integerUnit'}"/>
-								<Text text="{path:'oEngineModel>oEngineModel>TGTIND', formatter:'.formatter.integerUnit'}"/>
-								<Text text="{path:'oEngineModel>oEngineModel>TGTDIFF', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 27/11/2020 10:00 end-->
-								<Text text="{path:'oEngineModel>oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
-								<!--Teck Meng change on 30/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>TQACT', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 30/11/2020 10:00 end-->
-								<!--Teck Meng change on 23/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>NP', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<Text text="{oEngineModel>ULIMIT}"/>
-								<Text text="{oEngineModel>LLIMIT}"/>
+								<Text text="{path:'oEngineModel>credtm', formatter:'.formatter.defaultDateTimeFormat'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>temp', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>bpress', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>tgttab', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>tgtind', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>tgtdiff', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>ng', formatter:'.formatter.numberUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>tqact', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>np', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{oEngineModel>ulimit}"/>
+								<Text text="{oEngineModel>llimit}"/>
 							</cells>
 						</ColumnListItem>
 					</items>
@@ -219,9 +174,9 @@
 				<!--updateFinished="testUpdateFinished"-->
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 					growingScrollToLoad="false"
-					items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters: [ { filters: [ { path: 'CHKRN', operator: 'EQ', value1: '2' }, { path: 'ENGNO', operator: 'EQ', value1: '1' } ], and: true } ]}"
+					items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters: [ { filters: [ { path: 'chkrn', operator: 'EQ', value1: '2' }, { path: 'engno', operator: 'EQ', value1: '1' } ], and: true } ]}"
 					noDataText="No ETF Records" showNoData="true">
-					<!--filters : [{ path : 'CHKRN', operator : 'EQ', value1 : '2' },{ path : 'ENGNO', operator : 'EQ', value1 : '1' }],-->
+					<!--filters : [{ path : 'chkrn', operator : 'EQ', value1 : '2' },{ path : 'engno', operator : 'EQ', value1 : '1' }],-->
 					<headerToolbar>
 						<OverflowToolbar>
 							<content>
@@ -239,15 +194,8 @@
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="10%">
 							<Label text="Ambient Baro Pressure(FT)" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
-						<!--Teck Meng change on 23/11/2020 10:00 start-->
-						<!--<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">-->
-						<!--	<Label text="Table TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>-->
-						<!--</Column>-->
-						<!--Teck Meng change on 23/11/2020 10:00 end-->
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-							<!--Teck Meng change on 02/12/2020 10:00 start-->
 							<Label text="AVG TGT (&#8451;)" design="Bold" wrapping="true" class="whiteText"/>
-							<!--Teck Meng change on 02/12/2020 10:00 end-->
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 							<Label text="NG (%)" design="Bold" wrapping="true" class="whiteText"/>
@@ -272,54 +220,23 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<!--<Text text="{oEngineModel>TIMEI} {oEngineModel>TIMEI}"/>-->
-								<!--Teck Meng change on 24/11/2020 15:00 start-->
-								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateTimeFormat'}"/>
-								<!--Teck Meng change on 23/11/2020 10:00 start-->
-								<!--Teck Meng change on 24/11/2020 15:00 start-->
-								<Text text="{path:'oEngineModel>TEMP', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 24/11/2020 15:00 end-->
-								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<!--Teck Meng change on 23/11/2020 10:00 start-->
-								<!--Teck Meng change on 24/11/2020 15:00 start-->
-								<Text text="{path:'oEngineModel>BPRESS', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 24/11/2020 15:00 end-->
-								<!--<Text text="{oEngineModel>TGTTAB}"/>-->
-								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<!--Teck Meng change on 27/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>TGTIND', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 27/11/2020 10:00 end-->
-								<Text text="{path:'oEngineModel>NG', formatter:'.formatter.numberUnit'}"/>
+								<Text text="{path:'oEngineModel>credtm', formatter:'.formatter.defaultDateTimeFormat'}"/>
+								<Text text="{path:'oEngineModel>temp', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>bpress', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>tgtind', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>ng', formatter:'.formatter.numberUnit'}"/>
 								<Text text="{oEngineModel>TQACT}"/>
-								<!--Teck Meng change on 23/11/2020 10:00 start-->
-								<!--Teck Meng change on 24/11/2020 15:00 start-->
-								<Text text="{path:'oEngineModel>NP', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 24/11/2020 15:00 end-->
-								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<!--<Text text=" "/>-->
-								<!--Teck Meng change on 23/11/2020 10:00 start-->
-								<!--Teck Meng change on 24/11/2020 15:00 start-->
-								<Text text="{path:'oEngineModel>TGTTAB', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 24/11/2020 15:00 end-->
-								<!--Teck Meng change on 23/11/2020 10:00 end-->
-								<!--Teck Meng change on 27/11/2020 10:00 start-->
-								<Text text="{path:'oEngineModel>oEngineModel>ASPEED', formatter:'.formatter.integerUnit'}"/>
-								<!--Teck Meng change on 27/11/2020 10:00 end-->
+								<Text text="{path:'oEngineModel>np', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>tgttab', formatter:'.formatter.integerUnit'}"/>
+								<Text text="{path:'oEngineModel>oEngineModel>aspeed', formatter:'.formatter.integerUnit'}"/>
 								<HBox justifyContent="Center">
-									<!--Teck Meng change on 24/11/2020 15:00 start-->
-									<Text text="{path:'oEngineModel>ETF', formatter:'.formatter.numberUnit'}" visible="{= !${oEngineModel>/headerDetails/ETFEDIT} }" class="sapUiTinyMarginTopEnd"/>
-									<!--Teck Meng change on 24/11/2020 15:00 end-->
-									<!--Teck Meng change on 25/11/2020 15:00 start-->
-									<StepInput min="0" value="{oEngineModel>ETF}"
-										visible="{= !!${oEngineModel>/headerDetails/ETFEDIT} &amp;&amp; !!${oEngineModel>Special} }" displayValuePrecision="2"/>
-										<!--Teck Meng change on 25/11/2020 15:00 end-->
+									<Text text="{path:'oEngineModel>etf', formatter:'.formatter.numberUnit'}" visible="{= !${oEngineModel>/headerDetails/etfedit} }" class="sapUiTinyMarginTopEnd"/>
+									<StepInput min="0" value="{oEngineModel>etf}"
+										visible="{= !!${oEngineModel>/headerDetails/etfedit} &amp;&amp; !!${oEngineModel>Special} }" displayValuePrecision="2"/>
 								</HBox>
-								<!--{= !!${oEngineModel>Special} }-->
-								<!--Teck Meng change on 30/11/2020 15:00 start-->
-								<Button text="{= !!${oEngineModel>/headerDetails/ETFEDIT} ? ${i18n>txtSignOff} : ${i18n>btnEdit} }" visible="{= !!${oEngineModel>Special} }"
+								<Button text="{= !!${oEngineModel>/headerDetails/etfedit} ? ${i18n>txtSignOff} : ${i18n>btnEdit} }" visible="{= !!${oEngineModel>Special} }"
 									enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"
 									icon="sap-icon://request" press="onETFEdit" type="Emphasized"/>
-									<!--Teck Meng change on 30/11/2020 15:00 end-->
 							</cells>
 						</ColumnListItem>
 					</items>

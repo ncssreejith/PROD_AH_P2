@@ -18,29 +18,22 @@
 						<Label text="Restrictions Imposed" design="Bold"/>
 					</Column>
 					<Column hAlign="Center" width="12%" class="textColor">
+						<Label text="Count" design="Bold"/>
+					</Column>
+					<Column hAlign="Center" width="12%" class="textColor">
 						<Label text="Monitorised For" design="Bold"/>
 					</Column>
 					<Column hAlign="Center" width="4%" class="textColor"/>
 				</columns>
 				<items>
-					<ColumnListItem>
+					<ColumnListItem type="Active" press="onClickSortieDetails">
 						<cells>
-							<VBox>
-								<Text
-									text="{path:'SortiMaster>CREDT', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'SortiMaster>CRETM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-							</VBox>
-							<Text text="{SortiMaster>JOBDESC}"/>
-							<Text text="{SortiMaster>SORDESC}"/>
-							<Text text="{SortiMaster>REST_IMPOSE}"/>
-							<HBox>
-								<VBox>
-								<Text text="{SortiMaster>SCRCNT}" visible="{= ${SortiMaster>MON_FOR} !== 'SORTI_5' &amp;&amp;  ${SortiMaster>MON_FOR} !== 'SORTI_1'}"/>
-								<Text text="{SortiMaster>COUNT}/{SortiMaster>SCRCNT}" visible="{= ${SortiMaster>MON_FOR} === 'SORTI_1'}"/>
-								<Text text="{SortiMaster>SCRTEXT}" visible="{= ${SortiMaster>MON_FOR} === 'SORTI_5'}"/>
-								</VBox>
-								<Text text="{SortiMaster>MON_FORTXT}" class="sapUiTinyMarginBegin"/>
-							</HBox>
-							<Button type="Transparent" icon="sap-icon://navigation-right-arrow" press="onClickSortieDetails"/>
+							<Text text="{path:'SortiMaster>sg1dtm', formatter:'.formatter.defaultDateTimeFormat'}"/>
+							<Text text="{SortiMaster>jobdesc}"/>
+							<Text text="{SortiMaster>sordesc}"/>
+							<Text text="{SortiMaster>restimp}"/>
+							<Text text="{= ${SortiMaster>monfor}==='SORTI_1'? ${SortiMaster>remcnt}+'/':''}{SortiMaster>sorcnt}"/>
+							<Text text="{SortiMaster>monfordesc}" class="sapUiTinyMarginBegin"/>
 						</cells>
 					</ColumnListItem>
 				</items>

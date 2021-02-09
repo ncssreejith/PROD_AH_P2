@@ -123,21 +123,21 @@ sap.ui.define([
 						var oObject = oData.results[0];
 						delete oObject.ID;
 						oObject.LAST = this.last;
-						if (this.last !== "X") { //Add
-							oObject.minINDEX1 = oObject.INDEX1 ? parseInt(JSON.parse(JSON.stringify(oObject.INDEX1))) : 0;
-							oObject.minLCF1 = oObject.LCF1 ? parseInt(JSON.parse(JSON.stringify(oObject.LCF1))) : 0;
-							oObject.minLCF2 = oObject.LCF2 ? parseInt(JSON.parse(JSON.stringify(oObject.LCF2))) : 0;
-							oObject.minENGHR = oObject.ENGHR ? parseInt(JSON.parse(JSON.stringify(oObject.ENGHR))) : 0;
-						} else { //Reset
-							oObject.minINDEX1 = 0;
-							oObject.minLCF1 = 0;
-							oObject.minLCF2 = 0;
-							oObject.minENGHR = 0;
-							oObject.INDEX1 = 0;
-							oObject.LCF1 = 0;
-							oObject.LCF2 = 0;
-							oObject.ENGHR = 0;
-						}
+						// if (this.last !== "X") { //Add
+						// 	oObject.minINDEX1 = oObject.INDEX1 ? parseInt(JSON.parse(JSON.stringify(oObject.INDEX1))) : 0;
+						// 	oObject.minLCF1 = oObject.LCF1 ? parseInt(JSON.parse(JSON.stringify(oObject.LCF1))) : 0;
+						// 	oObject.minLCF2 = oObject.LCF2 ? parseInt(JSON.parse(JSON.stringify(oObject.LCF2))) : 0;
+						// 	oObject.minENGHR = oObject.ENGHR ? parseInt(JSON.parse(JSON.stringify(oObject.ENGHR))) : 0;
+						// } else { //Reset
+						// 	oObject.minINDEX1 = 0;
+						// 	oObject.minLCF1 = 0;
+						// 	oObject.minLCF2 = 0;
+						// 	oObject.minENGHR = 0;
+						// 	oObject.INDEX1 = 0;
+						// 	oObject.LCF1 = 0;
+						// 	oObject.LCF2 = 0;
+						// 	oObject.ENGHR = 0;
+						// }
 						if (iEngine === 1) {
 							var oEngineModel = this.getView().getModel("oAddEngCycLogModel");
 						} else {

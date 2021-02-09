@@ -3,8 +3,9 @@
 	<VBox backgroundDesign="Solid" width="100%" alignItems="Center">
 		<FlexBox class="sapUiSmallMarginTopBottom">
 			<VBox>
-				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"  growing="true" growingThreshold="5" growingScrollToLoad="false"
-					items="{path:'oEngineModel>/EngCyclicLife2',sorter: { path: 'LOGID', descending: true}}" noDataText="No Engine Indicator Value" showNoData="true">
+				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
+					growingScrollToLoad="false" items="{path:'oEngineModel>/EngCyclicLife2',sorter: { path: 'LOGID', descending: true}}"
+					noDataText="No Engine Indicator Value" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>
 							<content>
@@ -13,10 +14,9 @@
 								<!--<Link text="View Past Records"/>-->
 								<!--Teck Meng change on 30/11/2020 15:00 start-->
 								<Button text="Reset Indicator Value" type="Transparent" press="onResetEng2CycLog"
-								enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"/>
-								<Button text="Add Engine Cyclic Log" type="Emphasized" press="onAddEng2CycLog" 
-								enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"
-								visible="{= ${avmetModel>/airSel/tailid} !=='NA'}"/>
+									enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"/>
+								<Button text="Add Engine Cyclic Log" type="Emphasized" press="onAddEng2CycLog"
+									enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}" visible="{= ${avmetModel>/airSel/tailid} !=='NA'}"/>
 								<!--Teck Meng change on 30/11/2020 15:00 end-->
 							</content>
 						</OverflowToolbar>
@@ -41,30 +41,28 @@
 							<Label text="Updated By" design="Bold" wrapping="true" class="whiteText"/>
 						</Column>
 						<!--Teck Meng change on 07/12/2020 15:00 start-->
-						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"></Column>
 						<!--Teck Meng change on 07/12/2020 15:00 end-->
 					</columns>
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateFormatDisplay'} {path:'oEngineModel>CREUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateTimeFormat'}"/>
 								<Text text="{= ${oEngineModel>LCF1} ? ${oEngineModel>LCF1} : '0'}"/>
 								<Text text="{= ${oEngineModel>LCF2} ? ${oEngineModel>LCF2} : '0'}"/>
 								<Text text="{= ${oEngineModel>INDEX1} ? ${oEngineModel>INDEX1} : '0'}"/>
 								<Text text="{path:'oEngineModel>ENGHR', formatter:'.formatter.decimal1Unit'}"/>
 								<Text text="{oEngineModel>CREUSR}"/>
-								<!--Teck Meng change on 07/12/2020 15:00 start-->
-								<Button text="Edit" visible="{parts:['oEngineModel>CREDTM','oEngineModel>CREUZT'], formatter:'.formatter.engineCycLogtEditVisible'}"
-									enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"
-									icon="sap-icon://request" press="onPastCyclicLogEditPress" type="Emphasized"/>
-									<!--Teck Meng change on 07/12/2020 15:00 end-->
+								<Button text="Edit" visible="{path:'oEngineModel>CREDTM', formatter:'.formatter.EditBtnVisibility'}"
+									enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}" icon="sap-icon://request" press="onPastCyclicLogEditPress"
+									type="Emphasized"/>
 							</cells>
 						</ColumnListItem>
 					</items>
 				</Table>
-				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"  growing="true" growingThreshold="5" growingScrollToLoad="false"
-					items="{path:'oEngineModel>/EngCyclicLife2',sorter: { path: 'LOGID', descending: true}}" noDataText="No Accumulative Engine Indicator Value" showNoData="true">
+				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
+					growingScrollToLoad="false" items="{path:'oEngineModel>/EngCyclicLife2',sorter: { path: 'LOGID', descending: true}}"
+					noDataText="No Accumulative Engine Indicator Value" showNoData="true">
 					<headerToolbar>
 						<OverflowToolbar>
 							<content>
@@ -96,7 +94,7 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateFormatDisplay'} {path:'oEngineModel>CREUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateTimeFormat'}"/>
 								<Text text="{= ${oEngineModel>TLCF1} ? ${oEngineModel>TLCF1} : '0'}"/>
 								<Text text="{= ${oEngineModel>TLCF2} ? ${oEngineModel>TLCF2} : '0'}"/>
 								<Text text="{= ${oEngineModel>TINDEX} ? ${oEngineModel>TINDEX} : '0'}"/>

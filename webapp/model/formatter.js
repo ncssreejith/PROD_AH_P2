@@ -2373,13 +2373,25 @@ sap.ui.define([
 			}
 			return false;
 		}, // Teck Meng 30/11/2020 10:30 end
+		
+		EditBtnVisibility: function(sVal,hrs) {
+			var sDiff = hrs?hrs:1440; // 24 hourse in minutes 
+			var rowDate = new Date(sVal); // your date object
+			var sToday = new Date();
+			var diffMs = (sToday - rowDate);
+			var diffMins = Math.floor((diffMs / 1000) / 60);
+			if (sDiff >= diffMins) {
+				return true;
+			}
+			return false;
+		}, // Teck Meng 30/11/2020 10:30 end
 		/** Teck Meng 30/11/2020 10:30 start
 		 * 
 		 * @param sVal
 		 * @param sFlown
 		 * @returns
 		 */
-		engineCycLogtEditVisible: function(sDate, sTime) {
+		engineCycLogtEditVisible: function(sDate) {
 
 				var maxDt = new Date(),
 					creDt = new Date();

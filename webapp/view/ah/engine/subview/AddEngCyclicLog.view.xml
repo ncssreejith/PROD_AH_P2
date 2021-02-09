@@ -9,40 +9,38 @@
 						<Title text="{= !!${oAddEng2CycLogModel>/ENGID} ? 'Engine 1':''}" width="250px" level="H1" class="sapUiSmallMarginTop"/>
 						<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTop">
 							<Title text="LCF1" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<StepInput width="250px" min="{oAddEngCycLogModel>/minLCF1}" value="{oAddEngCycLogModel>/LCF1}"/>
+							<StepInput width="250px" min="0" value="{oAddEngCycLogModel>/LCF1}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Title text="LCF2" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<StepInput width="250px" min="{oAddEngCycLogModel>/minLCF2}" value="{oAddEngCycLogModel>/LCF2}"/>
+							<StepInput width="250px" min="0" value="{oAddEngCycLogModel>/LCF2}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Title text="Index" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<StepInput width="250px" min="{oAddEngCycLogModel>/minINDEX1}" value="{oAddEngCycLogModel>/INDEX1}"/>
+							<StepInput width="250px" min="0" value="{oAddEngCycLogModel>/INDEX1}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Title text="Engine Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<StepInput width="250px" min="{oAddEngCycLogModel>/minENGHR}" displayValuePrecision="1" value="{oAddEngCycLogModel>/ENGHR}"/>
+							<StepInput width="250px" min="0" displayValuePrecision="1" value="{oAddEngCycLogModel>/ENGHR}"/>
 						</HBox>
 					</VBox>
 					<VBox visible="{= !!${oAddEng2CycLogModel>/ENGID}}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd bgColorWhite" width="70%">
 						<Title text="Engine 2" width="250px" level="H1" class="sapUiSmallMarginTop"/>
 						<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTop">
 							<Title text="LCF1" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<StepInput width="250px" min="{oAddEng2CycLogModel>/minLCF1}" value="{oAddEng2CycLogModel>/LCF1}"/>
+							<StepInput width="250px" min="0" value="{oAddEng2CycLogModel>/LCF1}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Title text="LCF2" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<StepInput width="250px" min="{oAddEng2CycLogModel>/minLCF2}" value="{oAddEng2CycLogModel>/LCF2}"/>
+							<StepInput width="250px" min="0" value="{oAddEng2CycLogModel>/LCF2}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Title text="Index" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<StepInput width="250px" min="{oAddEng2CycLogModel>/minINDEX1}" value="{oAddEng2CycLogModel>/INDEX1}"/>
+							<StepInput width="250px" min="0" value="{oAddEng2CycLogModel>/INDEX1}"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Title text="Engine Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<!--//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043-->
-							<StepInput width="250px" min="{oAddEng2CycLogModel>/minENGHR}" value="{oAddEng2CycLogModel>/ENGHR}" displayValuePrecision="1"/>
-							<!--//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043-->
+							<StepInput width="250px" min="0" value="{oAddEng2CycLogModel>/ENGHR}" displayValuePrecision="1"/>
 						</HBox>
 					</VBox>
 				</HBox>

@@ -6,7 +6,7 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/ajaxutil",
 	"sap/base/Log",
-		"../util/ajaxutilNew",
+	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
 ], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
 	"use strict";
@@ -52,19 +52,46 @@ sap.ui.define([
 		 * Parameter:
 		 * Description: This is called to navigate sortie detail screen
 		 */
-		 	//Rahul: 13/11/2020: 11:55AM: Function Description added .
 		onClickSortieDetails: function(oEvent) {
 			try {
+				var oSortiDialog = this.openDialog("SortieDetailDialog", ".fragments.standalone.sortimonitoring.");
 				var oObj = oEvent.getSource().getBindingContext("SortiMaster").getObject();
-				this.getRouter().navTo("SortieDetails", {
-					JobId: oObj.JOBID,
-					SORNO: oObj.SORNO
+				var sPath = oEvent.getSource().getBindingContext("SortiMaster").getPath();
+				oSortiDialog.bindElement({
+					path: sPath,
+					model: "SortiMaster"
 				});
+				this._fnSortieMonitoringDetailsGet(oObj.jobid, oObj.sorno);
 			} catch (e) {
-				Log.error("Exception in SortieMonitoring:onClickSortieDetails function");
-
+				Log.error("Exception in onClickSortieDetails function");
 			}
 		},
+		onSortieDetailsClose: function() {
+			try {
+				this.closeDialog("SortieDetailDialog");
+			} catch (e) {
+				Log.error("Exception in onSortieDetailsClose function");
+			}
+		},
+
+		_fnSortieMonitoringDetailsGet: function(sJobId, sSORNO) {
+			try {
+				var oPrmTD = {};
+				//	oPrmTD.filter = "TAILID eq " + this.getTailId() + " AND FLAG EQ D AND JOBID EQ " + sJobId + " AND SORNO EQ " + sSORNO;
+				oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&FLAG" + FilterOpEnum.EQ + "D&JOBID" + FilterOpEnum.EQ + sJobId +
+					"&SORNO" + FilterOpEnum.EQ + sSORNO;
+				oPrmTD.error = function() {};
+				oPrmTD.success = function(oData) {
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					this.getView().setModel(oModel, "SortiDetails");
+				}.bind(this);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
+			} catch (e) {
+				Log.error("Exception in _fnSortieMonitoringDetailsGet function");
+			}
+		},
+
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
@@ -77,24 +104,15 @@ sap.ui.define([
 			try {
 				var that = this,
 					oPrmTD = {};
-			//	oPrmTD.filter = "TAILID eq " + that.getTailId() + " AND FLAG EQ M";
-				oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + that.getTailId() + "&FLAG" + FilterOpEnum.EQ + "M";
+				//	oPrmTD.filter = "TAILID eq " + that.getTailId() + " AND FLAG EQ M";
+				oPrmTD.filter = "TAILID" + FilterOpEnum.EQ + that.getTailId() + "&SFLAG" + FilterOpEnum.EQ + "M";
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
-					if (oData !== undefined && oData.results.length > 0) {
-						var oModel = dataUtil.createNewJsonModel();
-						var aData = [];
-						for (var i in oData.results) {
-							aData[i] = oData.results[i];
-							var temp = oData.results[i].SCRCNT.split("@");
-							aData[i].SCRCNT = temp[0];
-							aData[i].SCRTEXT = temp[1];
-						}
-						oModel.setData(aData);
-						that.getView().setModel(oModel, "SortiMaster");
-					}
+					var oModel = dataUtil.createNewJsonModel();
+					oModel.setData(oData.results);
+					that.getView().setModel(oModel, "SortiMaster");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTSORTI"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in SortieMonitoring:_fnSortieMonitoringMasterGet function");
 
@@ -107,7 +125,7 @@ sap.ui.define([
 		 * Parameter:
 		 * Description: This will called to handle route matched.
 		 */
-		 	//Rahul: 13/11/2020: 11:55AM: Comment added .
+		//Rahul: 13/11/2020: 11:55AM: Comment added .
 		_onObjectMatched: function(oEvent) {
 			try {
 				this._fnSortieMonitoringMasterGet();

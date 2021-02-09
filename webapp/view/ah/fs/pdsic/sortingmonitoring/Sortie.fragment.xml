@@ -26,14 +26,12 @@
 					<items>
 						<ColumnListItem type="Navigation" press="onClickSortieDetails">
 							<cells>
-								<Text
-									text="{path:'pdsSummaryModel>SORDT', formatter:'.formatter.defaultDateFormatDisplay'} {path:'pdsSummaryModel>SORTM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-								<Text text="{pdsSummaryModel>SORDESC}"/>
-								<HBox>
-									<Text text="{parts : ['pdsSummaryModel>SORCNT','pdsSummaryModel>MON_FOR'], formatter:'.formatter.sortieMonitoringFormat'}"/>
-									<Text text="{pdsSummaryModel>MON_FORTXT}" class="sapUiTinyMarginBegin"/>
-								</HBox>
-								<Text text="{pdsSummaryModel>SG1USR}"/>
+								<!-- amit kumar change 03022021 start -->
+								<Text text="{path:'pdsSummaryModel>sg1dtm', formatter:'.formatter.defaultDateTimeFormat'}"/>
+								<Text text="{pdsSummaryModel>sordesc}"/>									
+								<Text text="{pdsSummaryModel>sorcnt} {pdsSummaryModel>monfordesc}" class="sapUiTinyMarginBegin"/>
+								<Text text="{pdsSummaryModel>sg1usr}"/>
+																<!-- amit kumar change 03022021 end -->
 							</cells>
 						</ColumnListItem>
 					</items>

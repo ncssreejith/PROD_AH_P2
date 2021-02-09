@@ -293,14 +293,12 @@ sap.ui.define([
 					}
 					delete oCopy.selected;
 					aFinalPayload.push(oCopy);
-					// changes added for tfoa check authorisation by lakshmi on 29012021 at 1017am -start
 					if (this.formatter.srvTOFACheck(this.getModel("rtModel").getProperty("/srvtid"))) {
 						objectId="ZRM_FS_TFOA";
 					}else{
 						objectId="ZRM_FS_RTT"; 
 					}
-					// changes added for tfoa check authorisation by lakshmi on 29012021 at 1017am -end
-				});
+				}.bind(this));
 				if (!bSelected) {
 					sap.m.MessageToast.show("Select at least one for sign off first");
 					return;

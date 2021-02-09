@@ -53,7 +53,7 @@ sap.ui.define([
 					path: sPath,
 					model: "paModel"
 				});
-				this._fnSortieMonitoringDetailsGet(oObj.JOBID, oObj.SORNO);
+				this._fnSortieMonitoringDetailsGet(oObj.jobid, oObj.sorno);
 			} catch (e) {
 				Log.error("Exception in onClickSortieDetails function");
 			}
@@ -168,7 +168,11 @@ sap.ui.define([
 					this._fnNavToDetail("/masterList/" + sNextIndex);
 					return;
 				}
-				this.onPressSignOffPreflightDone(oEvent); //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+				if(oList[0].prereq){
+					this.onPressSignOffPreflightDone(oEvent);	
+					return;
+				}
+				this.onPressSignOffConfirm(oEvent,"A");
 			} catch (e) {
 				Log.error("Exception in onPresSignOff function");
 			}
@@ -325,8 +329,7 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				oParameter.error = function() {};
-				//	oParameter.filter = "TAILID EQ '" + this.getTailId() + "' and FLAG eq 'FS'";
-				oParameter.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + "&FLAG" + FilterOpEnum.EQ + "FS"; // + sSrvIdFilter;
+				oParameter.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId(); 
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T1_MCARD");
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/count", oData.results.length);
@@ -336,7 +339,7 @@ sap.ui.define([
 					this.getModel("paModel").refresh();
 					this._fnNavToDetail("/masterList/0");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTSORTI"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getSortie function");
 			}
@@ -774,21 +777,12 @@ sap.ui.define([
 		 */
 		onPressSignOffConfirm: function(oEvent, sign) {
 			try {
-				// var sAction = this.getModel("paModel").getProperty("/confirm/pfreq"); //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
-				// // var oPayloads = this.getModel("paModel").getProperty("/masterList");//Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-				// var oPayloads = JSON.parse(JSON.stringify(this.getModel("paModel").getProperty("/masterList"))); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-				// oPayloads.forEach(function(oItem) {
-				// 	oItem.value = oItem.data.reviewd ? 1 : 0;
-				// 	oItem.pfreq = sAction ? "X" : ""; // X FOR POST FLIGHT DONE  '' FOR NOT REQ//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
-				// 	delete oItem.data;
-				// });
-				
 				var sAction = this.getModel("paModel").getProperty("/confirm/pfreq");
 				var oPayloads = JSON.parse(JSON.stringify(this.getModel("paModel").getProperty("/masterList"))); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 				oPayloads.forEach(function(oItem) {
 					oItem.review = oItem.data.reviewd;
 					oItem.signStat = sign;
-					oItem.pfreq = sAction ?"": "X" ; // X FOR POST FLIGHT DONE  '' FOR NOT REQ//Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
+					oItem.pfreq = sAction ?"": "X";
 					delete oItem.data;
 				});
 

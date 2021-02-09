@@ -476,7 +476,6 @@ sap.ui.define([
 				}
 				// AMIT KUMAR 111220201823
 				this.fnUpdateTanks();
-				this.fnCreateAirMon();
 				this.fnCreateFlyReq();
 				this.fnCreateDefect();
 
@@ -640,8 +639,12 @@ sap.ui.define([
 					return;
 				}
 				var oParameter = {};
-				oParameter.error = function() {};
-				oParameter.success = function() {};
+				oParameter.error = function() {
+					this.fnCreateAirMon();
+				}.bind(this);
+				oParameter.success = function() {
+					this.fnCreateAirMon();
+				}.bind(this);
 				ajaxutil.fnCreate(this.getResourceBundle().getText("AH4TIMINGSSVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateTimming function");
@@ -695,7 +698,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {};
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("PILOTSORTIF16SVC"), oParameter, oPayloads);
+				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("PILOTSORTI"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateAirMon function");
 				this.handleException(e);
@@ -788,7 +791,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {};
-				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTAH4POWERSVC"), oParameter, oFinalPayload);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTENGINERECORD"), oParameter, oFinalPayload);
 			}
 		},
 		/** 
@@ -1063,7 +1066,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").refresh(true);
 
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTAH4POWERSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTENGINERECORD"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAmResults function");
 				this.handleException(e);
@@ -1220,7 +1223,8 @@ sap.ui.define([
 			try {
 				var oParameter = {};
 				//	oParameter.filter = "tailid eq " + this.getTailId();
-				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId()+ FilterOpEnum.AND 
+				+"pnum"+ FilterOpEnum.EQ + this.getModel("oPilotUpdatesViewModel").getProperty("/num1"); // Phase 2 Changes
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -1231,7 +1235,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/airMon", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTSORTIF16SVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTSORTI"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAirMon function");
 				this.handleException(e);

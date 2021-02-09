@@ -5,25 +5,25 @@
 			<VBox class="sapUiSmallMargin">
 				<HBox>
 					<Label class="sapUiSmallMarginEnd" design="Bold" text="Defect Description"/>
-					<Text text="{paModel>SG2USR}"/>
+					<Text text="{SortiMaster>jobdesc}"/>
 				</HBox>
 			</VBox>
 			<VBox class="sapUiSmallMargin">
 				<HBox>
 					<Label class="sapUiSmallMarginEnd" design="Bold" text="Monitoring Description"/>
-					<Text text="{paModel>SORDESC}"/>
+					<Text text="{SortiMaster>sordesc}"/>
 				</HBox>
 			</VBox>
 			<VBox class="sapUiSmallMargin">
 				<HBox>
 					<Label class="sapUiSmallMarginEnd" design="Bold" text="Restriction Imposed"/>
-					<Text text="{paModel>REST_IMPOSE}"/>
+					<Text text="{SortiMaster>restimp}"/>
 				</HBox>
 			</VBox>
 			<VBox class="sapUiSmallMargin">
 				<HBox>
-					<Label class="sapUiSmallMarginEnd" design="Bold" text="No. of Sortie"/>
-					<Text text="{paModel>SORCNT}"/>
+					<Label class="sapUiSmallMarginEnd" design="Bold" text="Monitorised For"/>
+					<Text text="{SortiMaster>sorcnt} {SortiMaster>monfordesc}" class="sapUiTinyMarginBegin"/>
 				</HBox>
 			</VBox>
 			<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBegin CERTable tableHFont" items="{ path: 'SortiDetails>/'}"
@@ -45,11 +45,10 @@
 				<items>
 					<ColumnListItem>
 						<cells>
-							<Text text="{SortiDetails>NUM2}"/>
-							<Text
-								text="{path:'SortiDetails>RESDTM', formatter:'.formatter.defaultDateFormatDisplay'}, {path:'SortiDetails>RESUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
-							<Text text="{SortiDetails>SSTAT2}"/>
-							<Text text="{SortiDetails>RESUSR}"/>
+							<Text text="{SortiDetails>num2}"/>
+							<Text text="{path:'SortiDetails>reasdtm', formatter:'.formatter.defaultDateTimeFormat'}"/>
+							<Text text="{SortiDetails>sstat}"/>
+							<Text text="{SortiDetails>pname}"/>
 						</cells>
 					</ColumnListItem>
 				</items>

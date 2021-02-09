@@ -965,7 +965,7 @@
 					"controlAggregation": "pages",
 					"parent": "TargetHome",
 					"viewType": "XML",
-					"viewName": "ah/standalone/SortieMonitoring",
+					"viewName": "ah/standalone/sortiemonitoring/SortieMonitoring",
 					"viewId": "SortieMonitoring",
 					"title": "Sortie Monitoring"
 				},

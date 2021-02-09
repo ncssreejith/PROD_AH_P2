@@ -44,7 +44,7 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{path:'oEngineModel>SPDT', formatter:'.formatter.defaultDateFormatDisplay'} {path:'oEngineModel>SPTM', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{path:'oEngineModel>SPDT', formatter:'.formatter.defaultDateTimeFormat'}"/>
 								<Text text="{path:'oEngineModel>ENGHR', formatter:'.formatter.decimal1Unit'}"/>
 								<Text text="{path:'oEngineModel>HRAT', formatter:'.formatter.decimal1Unit'}"/>
 								<Text text="{path:'oEngineModel>HRSINCE', formatter:'.formatter.decimal1Unit'}"/>

@@ -22,7 +22,7 @@
 					<ColumnListItem>
 						<cells>
 							<Text text="{path:'oPilotUpdatesViewModel>sorno',formatter:'avmet.ah.model.formatter.serialNumber'}"/>
-							<Text text="{oPilotUpdatesViewModel>remcnt}/{oPilotUpdatesViewModel>sorcnt}"/>
+							<Text text="{= ${oPilotUpdatesViewModel>monfor}==='SORTI_1'? ${oPilotUpdatesViewModel>remcnt}+'/':''}{oPilotUpdatesViewModel>sorcnt}"/>
 							<Text text="{oPilotUpdatesViewModel>sordesc}"/>
 							<SegmentedButton selectedKey="{oPilotUpdatesViewModel>frrid}" items="{oPilotUpdatesViewModel>/amResult}" selectionChange="onSortiSelChange" required="true" fieldGroupIds="fgSGBtn">
 								<items>

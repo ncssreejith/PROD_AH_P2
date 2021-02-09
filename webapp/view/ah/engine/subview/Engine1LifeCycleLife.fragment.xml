@@ -49,19 +49,15 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateFormatDisplay'} {path:'oEngineModel>CREUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateTimeFormat'}"/>
 								<Text text="{= ${oEngineModel>LCF1} ? ${oEngineModel>LCF1} : '0'}"/>
 								<Text text="{= ${oEngineModel>LCF2} ? ${oEngineModel>LCF2} : '0'}"/>
 								<Text text="{= ${oEngineModel>INDEX1} ? ${oEngineModel>INDEX1} : '0'}"/>
 								<Text text="{path:'oEngineModel>ENGHR', formatter:'.formatter.decimal1Unit'}"/>
 								<Text text="{oEngineModel>CREUSR}"/>
-								<!--Teck Meng change on 30/11/2020 15:00 start-->
-								<!--Teck Meng change on 07/12/2020 15:00 start-->
-								<Button text="Edit" visible="{parts:['oEngineModel>CREDTM','oEngineModel>CREUZT'], formatter:'.formatter.engineCycLogtEditVisible'}"
+								<Button text="Edit" visible="{path:'oEngineModel>CREDTM', formatter:'.formatter.EditBtnVisibility'}"
 									enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"
 									icon="sap-icon://request" press="onPastCyclicLogEditPress" type="Emphasized"/>
-									<!--Teck Meng change on 07/12/2020 15:00 end-->
-								<!--Teck Meng change on 30/11/2020 15:00 end-->	
 							</cells>
 						</ColumnListItem>
 					</items>
@@ -99,7 +95,7 @@
 					<items>
 						<ColumnListItem>
 							<cells>
-								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateFormatDisplay'} {path:'oEngineModel>CREUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
+								<Text text="{path:'oEngineModel>CREDTM', formatter:'.formatter.defaultDateTimeFormat'}"/>
 								<Text text="{= ${oEngineModel>TLCF1} ? ${oEngineModel>TLCF1} : '0'}"/>
 								<Text text="{= ${oEngineModel>TLCF2} ? ${oEngineModel>TLCF2} : '0'}"/>
 								<Text text="{= ${oEngineModel>TINDEX} ? ${oEngineModel>TINDEX} : '0'}"/>

@@ -90,7 +90,7 @@ sap.ui.define([
 					path: sPath,
 					model: "pdsSummaryModel"
 				});
-				this._fnSortieMonitoringDetailsGet(oObj.JOBID, oObj.SORNO);
+				this._fnSortieMonitoringDetailsGet(oObj.jobid, oObj.sorno);
 			} catch (e) {
 				Log.error("Exception in onClickSortieDetails function");
 			}
@@ -428,7 +428,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").refresh();
 					this._fnNavToDetail("/masterList/0");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter);
+				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTSORTI"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getSortie function");
 			}
