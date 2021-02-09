@@ -1938,11 +1938,11 @@ sap.ui.define([
 					that.getRouter().navTo("RouteCreateTask", {
 						"JobId": oModel.getProperty("/JobId"),
 						"AirId": oModel.getProperty("/AirId"),
-						"TailId": oModel.getProperty("/TailId"),
+						"TailId": that.getTailId(),
 						"WorkCenter": oModel.getProperty("/WorkCenter"),
 						"WorkKey": oModel.getProperty("/WorkKey"),
-						"Flag": "TS",
-						"srvid": "NA",
+						"Flag": oModel.getProperty("/Flag") ? oModel.getProperty("/Flag") : "TS",
+						"srvtid": oModel.getProperty("/srvtid"),
 						"jbDate": oModel.getProperty("/jbDate"),
 						"jbTime": oModel.getProperty("/jbTime")
 					});

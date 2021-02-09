@@ -224,7 +224,7 @@ sap.ui.define([
 					}
 					oPayload.jstat = "C";
 					if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === "T") {
-						oPayload.rjobid = oModel.getProperty("/sRJobId");
+						oPayload.rjobid = oModel.getProperty("/sRJobId") ? oModel.getProperty("/sRJobId") : null;
 					}
 
 					oParameter.error = function(response) {};

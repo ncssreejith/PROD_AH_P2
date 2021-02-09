@@ -655,6 +655,12 @@ sap.ui.define([
 				}
 
 				try {
+					oPayLoad.CAPTM = formatter.defaultTimeFormatDisplay(oPayLoad.CAPTM);
+				} catch (e) {
+					oPayLoad.CAPTM = oPayLoad.CAPTM;
+				}
+
+				try {
 					if (oPayLoad.UTILVL) {
 						var iPrec = formatter.JobDueDecimalPrecision(oPayLoad.UTIL1);
 						oPayLoad.UTILVL = parseFloat(oPayLoad.UTILVL, [10]).toFixed(iPrec);
