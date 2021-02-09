@@ -7,9 +7,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, FieldValidations, JSONModel, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, JSONModel, ajaxutil, formatter, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -44,10 +43,10 @@ sap.ui.define([
 
 		onRaiseTrailMod: function() {
 			try {
-				var oModel = this.getModel("trialModel"),
+				var oModel = this.TrialModExtension.getModel("TrailModelFarg"),
 					payload = this.oObject;
 				if (oModel.getProperty("/isVisDate")) {
-					payload.pddval2 = formatter.defaultOdataDateFormat(oModel.getProperty("/UtilVal"));
+					payload.pddval2 = formatter.defaultOdataDateFormat(oModel.getProperty("/UtilDT"));
 				} else {
 					payload.pddval1 = oModel.getProperty("/UtilVal");
 					var iPrecision = formatter.JobDueDecimalPrecision(oModel.getProperty("/JDUID"));
@@ -62,7 +61,7 @@ sap.ui.define([
 					this.fnLoadTrialMod();
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("TRAILMONSVC"), oParameter, [payload], "ZRM_T_MOD", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("TRAILMONSVC"), oParameter, [payload], "ZRM_T_MOD", this);
 			} catch (e) {
 				Log.error("Exception in Trial_Mod:onRaiseTrailMod function");
 				this.handleException(e);
@@ -75,38 +74,46 @@ sap.ui.define([
 		},
 
 		onTModExtension: function(oEvent) {
-			try {
+			 try {
 				this.TrialModExtension = this.fnLoadFragment("TrialModExtension", null, true);
-				var oModel = this.getModel("trialModel");
+				var oModel = this.getModel("trialModel"),
+					oMod, oModelFrag = dataUtil.createNewJsonModel();
 				this.oObject = oEvent.getSource().getBindingContext("trialModel").getObject();
+				oMod = JSON.parse(JSON.stringify(this.oObject));
 				if (this.oObject.JDUID === "JDU_10") {
-					oModel.setProperty("/isVisInput", false);
-					oModel.setProperty("/isVisDate", true);
+					oModelFrag.setProperty("/isVisInput", false);
+					oModelFrag.setProperty("/isVisDate", true);
 					var minDate = new Date(this.oObject.pddval2);
 					minDate.setDate(minDate.getDate() + 1);
-					oModel.setProperty("/minDate", minDate);
-				} else {
-					oModel.setProperty("/isVisInput", true);
-					oModel.setProperty("/isVisDate", false);
+					oModelFrag.setProperty("/minDate", minDate);
 					try {
-						oModel.setProperty("/minVal", parseFloat(this.defVal[this.oObject.JDUID].VALUE));
+						oModelFrag.setProperty("/UtilDT", new Date(this.oObject.pddval2));
 					} catch (e) {
-						oModel.setProperty("/minVal", 0);
+						oModelFrag.setProperty("/UtilDT", null);
+					}
+				} else {
+					oModelFrag.setProperty("/isVisInput", true);
+					oModelFrag.setProperty("/isVisDate", false);
+					try {
+						oModelFrag.setProperty("/minVal", parseFloat(this.oObjectJDU[this.oObject.JDUID].VALUE));
+					} catch (e) {
+						oModelFrag.setProperty("/minVal", 0);
 					}
 					try {
-						oModel.setProperty("/UtilVal", parseFloat(this.defVal[this.oObject.JDUID].VALUE));
+						oModelFrag.setProperty("/UtilVal", this.oObject.pddval1);
 					} catch (e) {
-						oModel.setProperty("/UtilVal", 0);
+						oModelFrag.setProperty("/UtilVal", 0);
 					}
 				}
-				oModel.setProperty("/ExtLbl", this.oObject.JDUIDD);
-				oModel.setProperty("/JDUID", this.oObject.JDUID);
+				oModelFrag.setProperty("/ExtLbl", this.oObject.JDUIDD);
+				oModelFrag.setProperty("/JDUID", this.oObject.JDUID);
+				this.TrialModExtension.setModel(oModelFrag,"TrailModelFarg");
 				this.TrialModExtension.open();
 
-			} catch (e) {
+		 } catch (e) {
 				Log.error("Exception in Trial_Mod:onTModExtension function");
-				//this.handleException(e);
-			}
+			 	//this.handleException(e);
+			 }
 		},
 		onDueSelectChange: function(oEvent) {
 			try {
@@ -135,7 +142,7 @@ sap.ui.define([
 					this.getModel("trialModel").setProperty("/", oTrial);
 					this.getModel("trialModel").refresh(true);
 				}.bind(this);
-				ajaxutilNew.fnRead(sPath, oParameter);
+				ajaxutil.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in Trial_Mod:fnLoadTrialMod function");
 				this.handleException(e);
@@ -164,7 +171,7 @@ sap.ui.define([
 					// this.getModel("trialModel").setProperty("/", oTrial);
 					// this.getModel("trialModel").refresh(true);
 				}.bind(this);
-				ajaxutilNew.fnUpdate(sPath, oParameter, oData, "ZRM_T_MOD", this);
+				ajaxutil.fnUpdate(sPath, oParameter, oData, "ZRM_T_MOD", this);
 			} catch (e) {
 				Log.error("Exception in Trial_Mod:fnUpdateDeMod function");
 				this.handleException(e);
@@ -175,28 +182,53 @@ sap.ui.define([
 		 * Parameter:
 		 * Description: This is called retreive min values for the utilisation
 		 */
+		// _fnGetUtilisation: function() {
+		// 	try {
+		// 		var oPrmJobDue = {};
+		// 		//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq JDU";
+		// 		oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + this.getAircraftId() +
+		// 			FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "JDU"; // phase 2 Changes
+		// 		oPrmJobDue.error = function() {};
+
+		// 		oPrmJobDue.success = function(oData) {
+		// 			if (oData && oData.results.length > 0) {
+		// 				this.defVal = {};
+		// 				for (var i in oData.results) {
+		// 					this.defVal[oData.results[i].JDUID] = oData.results[i];
+		// 				}
+		// 			}
+		// 		}.bind(this);
+
+		// 		ajaxutil.fnRead(this.getResourceBundle().getText("UTILISDUESVC"), oPrmJobDue); // Phase 2 changes 
+		// 	} catch (e) {
+		// 		Log.error("Exception in _fnGetUtilisation function");
+		// 	}
+		// },
+
 		_fnGetUtilisation: function() {
 			try {
 				var oPrmJobDue = {};
 				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + this.getAircraftId() + " and JDUID eq JDU";
 				oPrmJobDue.filter = "TAILID" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "refid" + FilterOpEnum.EQ + this.getAircraftId() +
-					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "JDU"; // phase 2 Changes
+					FilterOpEnum.AND + "JDUID" + FilterOpEnum.EQ + "JDU";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
 					if (oData && oData.results.length > 0) {
-						this.defVal = {};
+						this.oObjectJDU = {};
 						for (var i in oData.results) {
-							this.defVal[oData.results[i].JDUID] = oData.results[i];
+							this.oObjectJDU[oData.results[i].JDUID] = oData.results[i];
 						}
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISDUESVC"), oPrmJobDue); // Phase 2 changes 
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
-				Log.error("Exception in _fnGetUtilisation function");
+				Log.error("Exception in CosCloseJob:_fnGetUtilisation function");
+
 			}
 		},
+
 		// ***************************************************************************
 		//                 3.  Specific Methods  
 		// ***************************************************************************
@@ -207,6 +239,7 @@ sap.ui.define([
 			try {
 				this.fnLoadTrialMod();
 				this._fnGetUtilisation();
+		
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
 			}

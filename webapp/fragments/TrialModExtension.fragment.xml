@@ -3,18 +3,14 @@
 		<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">
 			<VBox class="sapUiLargeMarginBeginEnd sapUiMediumMarginTopBottom" alignItems="Central" alignContent="Central">
 				<HBox>
-					<!--<ComboBox width="13rem" placeholder="{i18n>phSelect}" selectedKey="{trialModel>/DueBy}" items="{trialModel>/JobDueSet}" change="onDueSelectChange">-->
-					<!--	<core:Item key="{trialModel>ddid}" text="{trialModel>description}"/>-->
-					<!--</ComboBox>-->
 					<HBox class="sapUiTinyMarginBegin">
-						<Label text="{trialModel>/ExtLbl}" class="sapUiTinyMarginTop sapUiMediumMarginEnd"></Label>
-						<StepInput required="true" min="{trialModel>/minVal}" fieldGroupIds="fgStepInput" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" value="{trialModel>/UtilVal}" visible="{trialModel>/isVisInput}"
-						displayValuePrecision="{ path:'trialModel>/JDUID' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
-					<!--	<DatePicker id="dpValue" required="true" fieldGroupIds="fgDate"  width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{trialModel>/isVisDate}" minDate="{trialModel>/minDate}"
-							value="{path: 'trialModel>/UtilVal', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-							placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>-->
-								<DatePicker id="dpValue" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{trialModel>/isVisDate}" minDate="{trialModel>/minDate}"
-							value="{path: 'trialModel>/UtilVal', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+						<Label text="{TrailModelFarg>/ExtLbl}" class="sapUiTinyMarginTop sapUiMediumMarginEnd"></Label>
+						<StepInput required="true" min="{TrailModelFarg>/minVal}" fieldGroupIds="fgStepInput" width="13rem" valueStateText="{i18n>ERROR_GENERIC}"
+							value="{TrailModelFarg>/UtilVal}" visible="{TrailModelFarg>/isVisInput}"
+							displayValuePrecision="{ path:'TrailModelFarg>/JDUID' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
+						<DatePicker id="dpValue" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{TrailModelFarg>/isVisDate}"
+							minDate="{TrailModelFarg>/minDate}"
+							value="{path: 'TrailModelFarg>/UtilDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
 							placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 					</HBox>
 				</HBox>

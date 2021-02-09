@@ -1717,7 +1717,7 @@ sap.ui.define([
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
 
-					if (oData.results[0].length !== 0) {
+					if (oData && oData.results.length !== 0) {
 
 						that._fnCreatedWorkCenterGet(sJobId);
 

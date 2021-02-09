@@ -166,6 +166,7 @@ sap.ui.define([
 					case "AST_ARM":
 					case "AST_DEA1":
 					case "AST_FS":
+					case "AST_FS0":
 						this.getRouter().navTo("UpdateFlightServicing", {
 							srvid: sSrvtId ? sSrvtId : " "
 						});
