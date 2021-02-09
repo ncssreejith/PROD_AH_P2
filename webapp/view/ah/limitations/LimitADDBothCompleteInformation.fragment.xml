@@ -11,13 +11,13 @@
 		<HBox width="100%">
 			<VBox id="VBColorIdCom1" alignContent="Center" alignItems="Center">
 				<!--class="vbox6BgColor"-->
-				<VBox alignContent="Center" alignItems="Center" visible="{=${CapSet>/EXPDT} !== null ? true : false}" class="sapUiSmallMarginTop">
+				<VBox alignContent="Center" alignItems="Center" visible="{=${CapSet>/EXPDT} !== null &amp;&amp; ${CapSet>/EXPDT} !== '' ? true : false}" class="sapUiSmallMarginTop">
 					<Label design="Bold" text="{path:'CapSet>/EXPDT', formatter:'.formatter.defaultDateFormatDisplay'}" class="sapUiTinyMargin whiteText"/>
 					<Label text="Due Date" design="Bold" class="sapUiTinyMargin whiteText"/>
 					<Label design="Bold" text="{path:'CapSet>/EXPTM', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMargin whiteText"/>
 					<Label text="Due Time" design="Bold" class="sapUiTinyMargin whiteText"/>
 				</VBox>
-				<VBox alignContent="Center" alignItems="Center" visible="{=${CapSet>/UTIL1} !== null ? true : false}" class="sapUiLargeMarginTop">
+				<VBox alignContent="Center" alignItems="Center" visible="{=${CapSet>/UTIL1} !== null &amp;&amp; ${CapSet>/UTIL1} !== '' ? true : false}" class="sapUiLargeMarginTop">
 					<Label design="Bold" text="{CapSet>/UTILVL}" class="sapUiTinyMargin whiteText"/>
 					<Label text="{CapSet>/UTIL1TEXT}" design="Bold" class="sapUiTinyMargin whiteText"/>
 				</VBox>

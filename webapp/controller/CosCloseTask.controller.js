@@ -696,7 +696,7 @@ sap.ui.define([
 					for (var i = 0; i < oData.results.length; i++) {
 						/*oData.results[i].ftcredt = new Date();
 						oData.results[i].ftcretm = new Date().getHours() + ":" + new Date().getMinutes();*/
-						oData.results[i].ftcredt = 	new Date(oData.results[i].credtm);
+						oData.results[i].ftcredt = new Date(oData.results[i].credtm);
 						oData.results[i].ftcretm = oData.results[i].creuzt;
 						if (oData.results[i].tt1id === 'TT1_12' && oData.results[i].tt2id === '' && oData.results[i].tt3id === '' && oData.results[i].tt4id ===
 							'') {
@@ -1195,7 +1195,11 @@ sap.ui.define([
 					oTempCDESC = this._fnCheckTaskType(oObject.tt1id, oObject.tt2id, oObject.tt3id, oObject.tt4id);
 					if (oTempCDESC) {
 						oViewModel.setProperty("/CDESC", oObject.cdesc);
-						oViewModel.setProperty("/bCDESC", true);
+						if (oObject.cdesc !== "" && oObject.cdesc !== null) {
+							oViewModel.setProperty("/bCDESC", true);
+						} else {
+							oViewModel.setProperty("/bCDESC", false);
+						}
 					} else {
 						oViewModel.setProperty("/CDESC", "");
 						oViewModel.setProperty("/bCDESC", false);

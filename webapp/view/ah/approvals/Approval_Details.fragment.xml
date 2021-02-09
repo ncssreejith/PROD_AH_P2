@@ -137,14 +137,14 @@
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>
 									</HBox>
-									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/PAST_COUNT} !== null ? true : false}">
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/PAST_COUNT} !== null &amp;&amp; ${ApprovalDetailstModel>/PAST_COUNT} !== '0' ? true : false}">
 										<Label width="9rem" text="Past ADD(s)" design="Bold"></Label>
 										<Text width="9rem" text="{ApprovalDetailstModel>/PAST_COUNT}"/>
 										<layoutData>
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>
 									</HBox>
-									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/PAST_COUNT} !== null ? true : false}">
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/PAST_COUNT} !== null &amp;&amp; ${ApprovalDetailstModel>/PAST_COUNT} !== '0' ? true : false}">
 										<Label width="9rem" text="Initial ADD Date" design="Bold"></Label>
 										<Text width="9rem" text="{path:'ApprovalDetailstModel>/ini_date', formatter:'.formatter.defaultDateFormatDisplay'}"/>
 										<layoutData>

@@ -88,8 +88,16 @@ sap.ui.define([
 				} else {
 					oModel.setProperty("/isVisInput", true);
 					oModel.setProperty("/isVisDate", false);
-					oModel.setProperty("/minVal", parseFloat(this.defVal[this.oObject.JDUID].VALUE));
-					oModel.setProperty("/UtilVal", parseFloat(this.defVal[this.oObject.JDUID].VALUE));
+					try {
+						oModel.setProperty("/minVal", parseFloat(this.defVal[this.oObject.JDUID].VALUE));
+					} catch (e) {
+						oModel.setProperty("/minVal", 0);
+					}
+					try {
+						oModel.setProperty("/UtilVal", parseFloat(this.defVal[this.oObject.JDUID].VALUE));
+					} catch (e) {
+						oModel.setProperty("/UtilVal", 0);
+					}
 				}
 				oModel.setProperty("/ExtLbl", this.oObject.JDUIDD);
 				oModel.setProperty("/JDUID", this.oObject.JDUID);

@@ -128,7 +128,7 @@ sap.ui.define([
 					oPrmTask = {};
 				oSelectedTask = oModelView.getProperty("/selectedTask");
 				//	oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
-				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + "sJobId" + FilterOpEnum.AND + "recTstar" + FilterOpEnum.EQ + "X&tailid" + FilterOpEnum.EQ + this.getTailId();
+				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + sJobId +FilterOpEnum.AND + "recTstar" + FilterOpEnum.EQ + "X&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					this.getView().getModel("ViewModel").setProperty("/selectedTask", oData.results);

@@ -15,11 +15,11 @@
 							<!--<cs:ColorStatus title="{localViewModel>Title}" status="{localViewModel>Status}"/>-->
 							<cs:ColorStatus status="{LimitationsSet>CFLAG}" statushr="{LimitationsSet>AFHR}"/>
 							<HBox class="sapUiSmallMargin">
-								<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${LimitationsSet>EXPDT} !== null ? true : false}">
+								<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${LimitationsSet>EXPDT} !== null &amp;&amp; ${LimitationsSet>EXPDT} !== '' ? true : false}">
 									<Label text="{LimitationsSet>AFDAY}" design="Bold"></Label>
 									<Label text="day left"></Label>
 								</VBox>
-								<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center" visible="{=${LimitationsSet>AFHR} !== null ? true : false}">
+								<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center" visible="{=${LimitationsSet>AFHR} !== null &amp;&amp; ${LimitationsSet>AFHR} !== '' ? true : false}">
 									<Label text="{LimitationsSet>AFHR}" design="Bold"></Label>
 									<Label text="{LimitationsSet>UTIL1} left"></Label>
 									<!--Rahul: COS: 11/12/2020: 04:10PM: Left keyword required for all JDU Type-->

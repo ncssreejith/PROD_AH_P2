@@ -34,17 +34,12 @@
 							</VBox>
 							<VBox alignContent="Center">
 								<ObjectIdentifier title="{CapExtensionSet>SUBUSR}" titleActive="false" class="sapUiTinyMarginTopBottom"/>
-								<HBox class="sapUiLargeMarginBegin">
-									<Text text="{path:'CapExtensionSet>SUBDTM', formatter:'.formatter.defaultDateFormatDisplay'}" class="sapUiLargeMarginBegin"/>
-									<Text text="{path:'CapExtensionSet>SUBUZT', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
-								</HBox>
+								<Text text="{path:'CapExtensionSet>SUBDTM', formatter:'.formatter.defaultDateFormatDisplay'} {path:'CapExtensionSet>SUBUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 							</VBox>
 							<VBox alignContent="Center">
 								<ObjectIdentifier title="{CapExtensionSet>APPRUSR}" titleActive="false" class="sapUiTinyMarginTopBottom"/>
-								<HBox class="sapUiLargeMarginBegin">
-									<Text text="{path:'CapExtensionSet>APPRDTM', formatter:'.formatter.defaultDateFormatDisplay'}" class="sapUiLargeMarginBegin"/>
-									<Text text="{path:'CapExtensionSet>APPRUZT', formatter:'.formatter.defaultTimeFormatDisplay'}" class="sapUiTinyMarginBegin"/>
-								</HBox>
+								<Text
+									text="{path:'CapExtensionSet>APPRDTM', formatter:'.formatter.defaultDateFormatDisplay'} {path:'CapExtensionSet>APPRUZT', formatter:'.formatter.defaultTimeFormatDisplay'}"/>
 							</VBox>
 						</cells>
 					</ColumnListItem>
