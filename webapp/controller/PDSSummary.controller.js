@@ -383,9 +383,9 @@ sap.ui.define([
 					"STEPID" + FilterOpEnum.EQ + this.getModel("pdsSummaryModel").getProperty("/stepid") +FilterOpEnum.AND + 
 					"tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
 				oParameter.success = function(oData) {
-					var sPaSign = oData.results.length > 0 ? oData.results[0] : [];
+					var sPASign = oData.results.length > 0 ? oData.results[0].padone : null;
 					this.getModel("pdsSummaryModel").setProperty("/masterList", oData.results);
-					this.getModel("pdsSummaryModel").setProperty("/confirm/pareqvisible", sPaSign.NPASIGN === "X");
+					this.getModel("pdsSummaryModel").setProperty("/confirm/pareqvisible", ((sPASign === null || sPASign === "") ? false : true));
 					this.getModel("pdsSummaryModel").refresh();
 					if (oData.results.length > 0) {
 						this.fnGetAllData();

@@ -1,13 +1,10 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<Dialog title="">
 		<content>
-			<RadioButtonGroup selectedIndex="{oAircraftUtilModel>/selIndex}">
-				<RadioButton  text="#1 Engine Change"/>
-				<RadioButton  text="#2 Engine Change"/>
-				<RadioButton  text="APU Change"/>
-				<RadioButton  text="APU Run"/>
-				<RadioButton  text="Update ALQ144"/>
-				<RadioButton  text="Others"/>
+			<RadioButtonGroup buttons="{oAircraftUtilModel>/reasons}" selectedIndex="{oAircraftUtilModel>/selIndex}">
+				<buttons>
+					<RadioButton  text="{oAircraftUtilModel>text}"/>
+				</buttons>
 			</RadioButtonGroup>
 		</content>
 		<beginButton>

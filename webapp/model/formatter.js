@@ -2380,10 +2380,13 @@ sap.ui.define([
 			var sToday = new Date();
 			var diffMs = (sToday - rowDate);
 			var diffMins = Math.floor((diffMs / 1000) / 60);
-			if (sDiff >= diffMins) {
-				return true;
+			if (diffMins > sDiff ) {
+				return false;
 			}
-			return false;
+			if(sFlown==="RSN_998"){
+				return false;
+			}
+			return true;
 		}, // Teck Meng 30/11/2020 10:30 end
 		
 		EditBtnVisibility: function(sVal,hrs) {

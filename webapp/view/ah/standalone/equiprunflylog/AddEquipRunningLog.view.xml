@@ -9,86 +9,55 @@
 							<Label design="Bold" text="Date" width="150px"/>
 							<!--value="{path: 'oAircraftAddModel>/record/COL_11',formatter:'.formatter.defaultDateTimeFormat'}"-->
 							<!--maxDate="{oAircraftAddModel>/today}"-->
-							<DateTimePicker
-								displayFormat="dd/MM/yyyy HH:mm"
-								
-								dateValue="{oAircraftAddModel>/record/Date}"
-								maxDate="{oAircraftAddModel>/today}"
+							<DateTimePicker displayFormat="dd/MM/yyyy HH:mm" dateValue="{oAircraftAddModel>/record/Date}" maxDate="{oAircraftAddModel>/today}"
 								width="200px" fieldGroupIds="fgDate" required="true" editable="true"/>
-							<!--<DatePicker-->
-							<!--	displayFormat="dd/MM/yyyy"-->
-							<!--	dateValue="{oAircraftAddModel>/record/Date}"-->
-							<!--	value="{path: 'oAircraftAddModel>/record/COL_10',formatter:'.formatter.defaultDateFormat'}"-->
-							<!--	width="200px" fieldGroupIds="fgDate" required="true" editable="true"/>-->
 						</VBox>
-						<!--<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">-->
-						<!--	<Label design="Bold" text="Time" width="150px"/>-->
-						<!--	<TimePicker width="200px" value="{path:'oAircraftAddModel>/record/time'}" valueFormat="HH:mm" displayFormat="HH:mm" fieldGroupIds="fgTime"-->
-						<!--		required="true" editable="true"/>-->
-						<!--</VBox>-->
 					</VBox>
 					<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd bgCOLorWhite" width="70%">
 						<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTop">
 							<Label text="Airframe Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
 							<StepInput width="250px" value="{oAircraftAddModel>/record/COL_12}" fieldGroupIds="fgDecimal1" editable="false" displayValuePrecision="1"/>
-							<!--displayValuePrecision="1"-->
-							<!--<Input width="250px" id="" value="{oAircraftAddModel>/record/COL_12}" liveChange="onLiveChange" fieldGroupIds="fgNumber" maxLength="2" required="true"  editable="true"/>-->
-						</HBox>
+							</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="#1 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<!--<Input width="250px" value="{oAircraftAddModel>/record/COL_13}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"-->
-							<!--required="{= ${oAircraftAddModel>/type} === '0'}" editable="{= ${oAircraftAddModel>/type} === '0'}"-->
-							<!--/>-->
-							<!-- -->
-							<!--{oAircraftAddModel>/record/minCOL_13}Teck Meng 27/11/2020 18:30 start-->
 							<StepInput width="250px" min="0" value="{oAircraftAddModel>/record/COL_13}" displayValuePrecision="1"
-							required="{= ${oAircraftAddModel>/type} === '0' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '0' || ${oAircraftAddModel>/type} === '5'}" 
-							fieldGroupIds="fgDecimal1,AddEquipRunningLog"/>
+								required="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_100' || ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}"
+								editable="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_100' || ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}" fieldGroupIds="fgDecimal1,AddEquipRunningLog"/>
 							<!--Teck Meng 27/11/2020 18:30 end-->
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="#2 Eng Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<!--<Input width="250px" value="{oAircraftAddModel>/record/COL_14}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"-->
-							<!-- required="{= ${oAircraftAddModel>/type} === '1'}" editable="{= ${oAircraftAddModel>/type} === '1'}"/>-->
-							<!--{oAircraftAddModel>/record/minCOL_14}Teck Meng 27/11/2020 18:30 start-->
 							<StepInput width="250px" min="0" value="{oAircraftAddModel>/record/COL_14}" displayValuePrecision="1"
-							required="{= ${oAircraftAddModel>/type} === '1' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '1' || ${oAircraftAddModel>/type} === '5'}" 
-							fieldGroupIds="fgDecimal1,AddEquipRunningLog"/>
+								required="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_101' || ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}"
+								editable="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_101' || ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}" fieldGroupIds="fgDecimal1,AddEquipRunningLog"/>
 							<!--Teck Meng 27/11/2020 18:30 end-->
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="APU Hrs" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<!--<Input width="250px" value="{oAircraftAddModel>/record/COL_15}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"-->
-							<!-- required="{= ${oAircraftAddModel>/type} === '2'||${oAircraftAddModel>/type} === '3'}" editable="{= ${oAircraftAddModel>/type} === '2'||${oAircraftAddModel>/type} === '3'}"/>-->
-							<!--{oAircraftAddModel>/record/minCOL_15}Teck Meng 27/11/2020 18:30 start-->
 							<StepInput width="250px" min="0" value="{oAircraftAddModel>/record/COL_15}" displayValuePrecision="1"
-							required="{= ${oAircraftAddModel>/type} === '2'||${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" 
-							editable="{= ${oAircraftAddModel>/type} === '2'||${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal2,AddEquipRunningLog"/>
+								required="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_102'||${oAircraftAddModel>/record/COL_18} === 'RSN_103' || ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}"
+								editable="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_102'||${oAircraftAddModel>/record/COL_18} === 'RSN_103' || ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}"
+								fieldGroupIds="fgDecimal2,AddEquipRunningLog"/>
 							<!--Teck Meng 27/11/2020 18:30 start-->
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="APU Start" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<!--<Input width="250px" value="{oAircraftAddModel>/record/COL_16}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"-->
-							<!-- required="{= ${oAircraftAddModel>/type} === '2'}" editable="{= ${oAircraftAddModel>/type} === '2'}"{oAircraftAddModel>/record/minCOL_16}/>-->
-							<!--Teck Meng 27/11/2020 18:30 start-->
-							<StepInput width="250px" min="0" value="{oAircraftAddModel>/record/COL_16}"
-							required="{= ${oAircraftAddModel>/type} === '2' || ${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '2' || ${oAircraftAddModel>/type} === '3' || ${oAircraftAddModel>/type} === '5'}" 
-							fieldGroupIds="fgNumber,AddEquipRunningLog"/>
+						<StepInput width="250px" min="0" value="{oAircraftAddModel>/record/COL_16}"
+								required="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_102' || ${oAircraftAddModel>/record/COL_18} === 'RSN_103' || ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}"
+								editable="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_102' || ${oAircraftAddModel>/record/COL_18} === 'RSN_103' || ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}"
+								fieldGroupIds="fgNumber,AddEquipRunningLog"/>
 							<!--Teck Meng 27/11/2020 18:30 end-->
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="ALQ144" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<!--<Input width="250px" value="{oAircraftAddModel>/record/COL_17}" maxLength="20" liveChange="onLiveChange" fieldGroupIds="fgDecimal2,AddEquipRunningLog"-->
-							<!--required="{= ${oAircraftAddModel>/type} === '4'}" editable="{= ${oAircraftAddModel>/type} === '4'}"/>-->
-							<!--<StepInput width="250px" min="{oAircraftAddModel>/record/minCOL_17}" value="{oAircraftAddModel>/record/COL_17}" displayValuePrecision="2"-->
-							<!--required="{= ${oAircraftAddModel>/type} === '4' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '4' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgDecimal2,AddEquipRunningLog"/>-->
-							<Input width="250px" value="{oAircraftAddModel>/record/COL_17}"
-							required="{= ${oAircraftAddModel>/type} === '4' || ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '4' || ${oAircraftAddModel>/type} === '5'}" fieldGroupIds="fgInput,AddEquipRunningLog"/>
+								<Input width="250px" value="{oAircraftAddModel>/record/COL_17}"
+								required="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_104' || ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}"
+								editable="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_104' || ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}" fieldGroupIds="fgInput,AddEquipRunningLog"/>
 						</HBox>
 						<HBox class="sapUiSmallMarginBegin sapUiTinyMarginTop">
 							<Label text="Reason" width="250px" level="H2" class="sapUiSmallMarginTop"/>
-							<Input width="250px" value="{oAircraftAddModel>/record/COL_18}" maxLength="20" fieldGroupIds="fgString,AddEquipRunningLog"
-							required="{= ${oAircraftAddModel>/type} === '5'}" editable="{= ${oAircraftAddModel>/type} === '5'}"/>
+							<Input width="250px" value="{oAircraftAddModel>/record/rsntxt}" maxLength="20" fieldGroupIds="fgString,AddEquipRunningLog"
+								required="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}" editable="{= ${oAircraftAddModel>/record/COL_18} === 'RSN_105'}"/>
 						</HBox>
 					</VBox>
 				</HBox>

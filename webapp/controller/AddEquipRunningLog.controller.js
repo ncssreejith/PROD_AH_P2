@@ -49,6 +49,7 @@ sap.ui.define([
 				}
 				var oPayload = this.getModel("oAircraftAddModel").getProperty("/record");
 				oPayload.COL_11 = this.formatter.defaultDateTimeFormat(oPayload.Date,"yyyy-MM-dd HH:mm:sss");
+				oPayload.COL_18 = this.getModel("oAircraftAddModel").getProperty("/type");
 				oPayload.refid = this.getAircraftId();
 				delete oPayload.time;
 				var oParameter = {};
@@ -80,8 +81,9 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.filter = "logid" + FilterOpEnum.EQ + this.getModel("oAircraftAddModel").getProperty("/logid") +
 						FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId() + 
+						FilterOpEnum.AND + "tailid" + FilterOpEnum.EQ + this.getTailId() + 
 						FilterOpEnum.AND + "tabid" + FilterOpEnum.EQ +"TABA_102"+
-						FilterOpEnum.AND+"OTYPE"+ FilterOpEnum.EQ +"ID";
+						FilterOpEnum.AND+"OTYPE"+ FilterOpEnum.EQ +this.getModel("oAircraftAddModel").getProperty("/type");
 				oParameter.error = function() {
 
 				};
@@ -95,11 +97,9 @@ sap.ui.define([
 					oObject.minCOL_17 = oObject.COL_17 ? +parseFloat(JSON.parse(JSON.stringify(oObject.COL_17))).toFixed(2) : 0;
 					oObject.minCOL_18 = oObject.COL_18 ? +parseFloat(JSON.parse(JSON.stringify(oObject.COL_18))).toFixed(2) : 0;
 					this.getModel("oAircraftAddModel").setProperty("/record", oObject);
-					// this.getModel("oAircraftAddModel").setProperty("/record/COL_11", currentTime);
-					// this.getModel("oAircraftAddModel").setProperty("/record/time", this.formatter.defaultDateTimeFormat(currentTime, "HH:mm"));
+					// this.getModel("oAircraftAddModel").setProperty("/record/COL_18", this.getModel("oAircraftAddModel").getProperty("/type"));
 					this.getModel("oAircraftAddModel").setProperty("/record/Date", currentTime);
 					this.getModel("oAircraftAddModel").refresh(true);
-					this.fnSetReason();
 				}.bind(this);
 				ajaxutilNew.fnRead(sPath, oParameter);
 			} catch (e) {
@@ -174,44 +174,6 @@ sap.ui.define([
 				Log.error("Exception in fnClearValueState function");
 				this.handleException(e);
 			}
-		},
-		/** 
-		 * Update reason text
-		 */
-		fnSetReason: function() {
-			try {
-				var sReasonTxt = "";
-				switch (this.getModel("oAircraftAddModel").getProperty("/type")) {
-					case "0":
-						sReasonTxt = this.getResourceBundle().getText("EngineChange1");
-						break;
-					case "1":
-						sReasonTxt = this.getResourceBundle().getText("EngineChange2");
-						break;
-					case "2":
-						sReasonTxt = this.getResourceBundle().getText("APUChange");
-						break;
-					case "3":
-						sReasonTxt = this.getResourceBundle().getText("APURun");
-						break;
-					case "4":
-						if (this.getModel("oAircraftAddModel").getProperty("/logid") === "dash") {
-							sReasonTxt = "";
-						} else {
-							sReasonTxt = this.getResourceBundle().getText("txtUpdateALQ144");
-						}
-						break;
-					case "5":
-						sReasonTxt = "Others";
-						break;
-				}
-				this.getModel("oAircraftAddModel").setProperty("/record/COL_18", sReasonTxt);
-				this.getModel("oAircraftAddModel").refresh();
-			} catch (e) {
-				Log.error("Exception in AddEquipRunningLog:fnSetReason function");
-				this.handleException(e);
-			}
 		}
-
 	});
 });

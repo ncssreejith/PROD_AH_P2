@@ -33,6 +33,29 @@ sap.ui.define([
 			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
 
+		reasonForAU: function() {
+			var sData = [{
+				key: "RSN_100",
+				text: "#1 Engine Change"
+			}, {
+				key: "RSN_101",
+				text: "#2 Engine Change"
+			}, {
+				key: "RSN_102",
+				text: "APU Change"
+			}, {
+				key: "RSN_103",
+				text: "APU Run"
+			}, {
+				key: "RSN_104",
+				text: "Update ALQ144"
+			}, {
+				key: "RSN_105",
+				text: "Others"
+			}];
+			return sData;
+		},
+
 		/** 
 		 * Function : getModel
 		 * Convenience method for getting the view model by name.
@@ -314,7 +337,7 @@ sap.ui.define([
 				Log.error("Exception in fnLoadSrv1Dashboard function");
 			}
 		},*/
-			fnLoadSrv1Dashboard: function() {
+		fnLoadSrv1Dashboard: function() {
 			try {
 				var oParameter = {};
 				//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
@@ -360,8 +383,8 @@ sap.ui.define([
 			try {
 				var aPilot = [];
 				var oParameter = {};
-			//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
-				oParameter.filter = "tailid"+FilterOpEnum.EQ+this.getTailId()+FilterOpEnum.AND+"REFID"+FilterOpEnum.EQ+ this.getAircraftId();
+				//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId();
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "REFID" + FilterOpEnum.EQ + this.getAircraftId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length) {

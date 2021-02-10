@@ -38,6 +38,7 @@ sap.ui.define([
 				// // this.getView().byId("landing").setHeaderSpan([3, 1]);
 				var utilData = {};
 				utilData.selIndex = 0;
+				utilData.reasons = this.reasonForAU();
 				utilData.equiptabId = "TABA_102";
 				utilData.flyingtabId = "TABA_103";
 				utilData.manotabId = "TABA_104";
@@ -84,6 +85,7 @@ sap.ui.define([
 				var oEngins = this.getModel("oAircraftDataUtilModel").getProperty("/equip");
 				var sLogid = oEngins.length > 0 ? oEngins[0].logid : "";
 				var oIndex = this.getModel("oAircraftUtilModel").getProperty("/selIndex");
+				oIndex = this.getModel("oAircraftUtilModel").getProperty("/reasons/" + oIndex + "/key");
 				this.getRouter().navTo("AddEquipRunLog", {
 					type: oIndex,
 					logid: sLogid
@@ -269,6 +271,7 @@ sap.ui.define([
 									text: sTextProp
 								});
 								break;
+
 								// case "COL_17":
 								// 	sTextProp.formatter = that.formatter.numberUnit;
 								// 	sText = new sap.m.Text({
@@ -299,6 +302,12 @@ sap.ui.define([
 									}
 								});
 								break;
+							case "COL_18":
+								sText = new sap.m.Text({
+									text: "{" + oDataModel + ">rsntxt}"
+								});
+								break;
+
 							default:
 								sText = new sap.m.Text({
 									text: "{" + oDataModel + ">" + oItem.colid + "}"
@@ -417,8 +426,9 @@ sap.ui.define([
 		fnGetRunningChanges: function(sSRVID) {
 			try {
 				var oParameter = {};
-			//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId() + " and SRVID eq " + sSRVID;
-				oParameter.filter = "tailid"+FilterOpEnum.EQ+this.getTailId()+FilterOpEnum.AND+"REFID"+FilterOpEnum.EQ+ this.getAircraftId() +FilterOpEnum.AND+ "SRVID"+FilterOpEnum.EQ + sSRVID;
+				//	oParameter.filter = "tailid eq " + this.getTailId() + " and REFID eq " + this.getAircraftId() + " and SRVID eq " + sSRVID;
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + FilterOpEnum.AND + "REFID" + FilterOpEnum.EQ + this.getAircraftId() +
+					FilterOpEnum.AND + "SRVID" + FilterOpEnum.EQ + sSRVID;
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length) {

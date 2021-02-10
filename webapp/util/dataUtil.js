@@ -21,10 +21,10 @@ sap.ui.define([
 	return {
 		// destination 
 		//Rahul: 25/11/2020: 06:53 removed destination and Username and PWD
-		destination: "/DBSRV17/p2",
+		destination: "/AVMET/p2",
 		username: "USER_AH_01",
 		pwd: "pass1234",
-
+		
 		/* Function : getDataSet
 		 *  parameter : vDataSetName
 		 *  To get the data from local storage

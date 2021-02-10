@@ -242,7 +242,7 @@ sap.ui.define([
 					case "AST_FAIR2":
 					case "AST_RECT2":
 						this.getRouter().navTo("AddEquipRunLog", {
-							type: "4",
+							type: "RSN_999",
 							logid: "dash"
 						});
 						// this.getRouter().navTo("AircraftUtilisation");
