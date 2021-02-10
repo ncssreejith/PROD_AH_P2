@@ -7,7 +7,7 @@
 					<Toolbar>
 						<Title level="H3" text="{LocalModel>/WorkCenterTitle}" class="sapUiTinyMarginBegin"/>
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://overflow" press="handlePressWorkCenterFragmentOpenMenu('WCA',$event)" type="Transparent"/>
+						<Button icon="sap-icon://overflow" press="handlePressWorkCenterFragmentOpenMenu('WCA',$event)" type="Transparent" 	enabled="{LocalModel>/FairEditFlag}"/>
 					</Toolbar>
 				</headerToolbar>
 				<items>
