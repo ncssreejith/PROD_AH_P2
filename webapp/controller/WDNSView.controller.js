@@ -1,6 +1,5 @@
 sap.ui.define([
 	"./BaseController",
-
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
@@ -89,7 +88,7 @@ sap.ui.define([
 					this.getView().getModel("oWDNSModel").refresh();
 					// this.fnLoadTails();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTUTILIZATIONSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTUTILIZATIONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in WDNSView:fnLoadEngineLong function");
 				this.handleException(e);

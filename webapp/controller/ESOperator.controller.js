@@ -8,11 +8,9 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/export/Spreadsheet",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum",
 	"../model/formatter"
-], function(BaseController, JSONModel, MessageToast, MessageBox, ajaxutil, dataUtil, Filter, FilterOperator, Spreadsheet, ajaxutilNew,
-	FilterOpEnum, formatter) {
+], function(BaseController, JSONModel, MessageToast, MessageBox, ajaxutil, dataUtil, Filter, FilterOperator, Spreadsheet, FilterOpEnum, formatter) {
 	"use strict";
 	return BaseController.extend("avmet.ah.controller.ESOperator", {
 		formatter: formatter,
@@ -154,7 +152,7 @@ sap.ui.define([
 				this.getView().getModel("oGlobalModel").refresh();
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("GETESOPERATORSVC"), oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("GETESOPERATORSVC"), oParameter);
 		},
 
 		// Get Role/Service Data
@@ -177,7 +175,7 @@ sap.ui.define([
 				this.getView().getModel("oGlobalModel").refresh();
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("ESOPERATORFSSVC"), oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ESOPERATORFSSVC"), oParameter);
 		},
 
 		// Job Excel Columns

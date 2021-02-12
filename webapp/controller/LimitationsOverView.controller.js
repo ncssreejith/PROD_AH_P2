@@ -6,9 +6,8 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/ajaxutil",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : Rahul Thorat
@@ -103,7 +102,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnCAPDataGet function");
 
@@ -146,7 +145,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmJobDue.activity = 2;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:CAPDataUpdate function");
 
@@ -200,7 +199,7 @@ sap.ui.define([
 					this.getRouter().navTo("DashboardInitial", true);
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("STARTRECTIFICSVC"), oParameter, [oPayload], "ZRM_ADDL", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("STARTRECTIFICSVC"), oParameter, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onStartRect function");
 
@@ -252,7 +251,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnADDCapDataGet function");
 
@@ -296,7 +295,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnGetMark function");
 
@@ -327,7 +326,7 @@ sap.ui.define([
 					// }
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnADDCapDataMultipleGet function");
 
@@ -355,7 +354,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnReasonforADDGet function");
 
@@ -386,7 +385,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnPerioOfDeferCBGet function");
 
@@ -415,7 +414,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_fnUtilizationGet function");
 
@@ -445,7 +444,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
 
@@ -479,7 +478,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisationDefaultVal function");
 			}

@@ -5,10 +5,9 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../util/ajaxutil",
 	"../model/formatter",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum",
 	"sap/base/Log"
-], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, ajaxutilNew, FilterOpEnum, Log) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, FilterOpEnum, Log) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -232,7 +231,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "ApprovalListModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oPrmAppr);
+				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oPrmAppr);
 			} catch (e) {
 				Log.error("Exception in _fnApprovalRequestGet function");
 			}
@@ -254,7 +253,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisationDefaultValue function");
 			}
@@ -451,7 +450,7 @@ sap.ui.define([
 					that.onOpenDialogApp();
 				}.bind(this);
 				oParameter.activity = 5;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], "ZRM_WNB", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], "ZRM_WNB", this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateWB function");
 			}
@@ -521,7 +520,7 @@ sap.ui.define([
 					that.onOpenDialogApp();
 				}.bind(this);
 				oParameter.activity = 5;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], "ZRM_AC_O", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], "ZRM_AC_O", this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateLP function");
 			}
@@ -550,7 +549,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnUtilization2Get function");
 
@@ -600,7 +599,7 @@ sap.ui.define([
 					oObject = "ZRM_ADDL";
 				}
 				oParameter.activity = 5;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], oObject, this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload], oObject, this);
 			} catch (e) {
 				Log.error("Exception in _fnUpdateADD function");
 			}
@@ -629,7 +628,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
+				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
 			} catch (e) {
 				Log.error("Exception in _fnApprovalDetailsRequestGet function");
 			}
@@ -700,7 +699,7 @@ sap.ui.define([
 					this.getView().byId("MasterId").setVisible(true);
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnTrialModGet function");
 			}
@@ -717,7 +716,7 @@ sap.ui.define([
 					this.onOpenDialogApp();
 				}.bind(this);
 				oParameter.activity = 5;
-				ajaxutilNew.fnUpdate(sPath, oParameter, [oPayload], "ZRM_T_MOD", this);
+				ajaxutil.fnUpdate(sPath, oParameter, [oPayload], "ZRM_T_MOD", this);
 			} catch (e) {
 				Log.error("Exception in fnUpdateDeMod function");
 			}
@@ -754,7 +753,7 @@ sap.ui.define([
 					this._fnGetWeightBalanceItemSet(oData.results[0].WABID);
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnWeightBalanceGet function");
 			}
@@ -776,7 +775,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "WeightBalanceSet");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetWeightBalanceItemSet function");
 			}
@@ -805,7 +804,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewHeaderGet function");
 			}
@@ -830,7 +829,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OverViewItemModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewItemGet function");
 			}
@@ -856,7 +855,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OverViewItemTankModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewItemTankGet function");
 			}
@@ -881,7 +880,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OverViewItemOILModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewItemOilGet function");
 			}
@@ -919,7 +918,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnCAPDataGet function");
 			}
@@ -962,7 +961,7 @@ sap.ui.define([
 					that._fnApprovalDetailsRequestGet(that.Obj.id);
 				}.bind(this);
 				oPrmJobDue.activity = 2;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in CAPDataUpdate function");
 			}
@@ -989,7 +988,7 @@ sap.ui.define([
 
 				}.bind(this);
 				oPrmJobDue.activity = 2;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("EDITLIMITATIONSVC"), oPrmJobDue, [oPayload], "ZRM_ADDL", this);
 			} catch (e) {
 				Log.error("Exception in CAPDataCancel function");
 			}
@@ -1024,7 +1023,7 @@ sap.ui.define([
 					this.getView().getModel("oViewModel").setProperty("/ADDMaxCount", sMaxCount);
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:_fnADDCountGet function");
 
@@ -1047,7 +1046,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "ReasonforADDModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnReasonforADDGet function");
 			}
@@ -1071,7 +1070,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "PerioOfDeferCBModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnPerioOfDeferCBGet function");
 			}
@@ -1090,7 +1089,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "UtilizationCBModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnUtilizationGet function");
 			}
@@ -1109,7 +1108,7 @@ sap.ui.define([
 						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}

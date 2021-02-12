@@ -6,9 +6,8 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/ajaxutil",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -53,7 +52,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "FRAllModel");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in _fnFlyingRequirementsMasterGet function");
 			}
@@ -74,7 +73,7 @@ sap.ui.define([
 					that._fnFlyingRequirementsMasterGet();
 				}.bind(this);
 				oPrmFR.activity = 4;
-				ajaxutilNew.fnDelete(sPath, oPrmFR, "dummy", this);
+				ajaxutil.fnDelete(sPath, oPrmFR, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in onFlyingRequirementDelete function");
 			}
@@ -98,7 +97,7 @@ sap.ui.define([
 					that.onFlyingRequirementClose();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oParameter, [oPayload], "dummy", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oParameter, [oPayload], "dummy", this);
 			} catch (e) {
 				Log.error("Exception in onFlyingRequirementUpdate function");
 			}

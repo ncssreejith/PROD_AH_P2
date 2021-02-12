@@ -5,9 +5,8 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../model/formatter",
 	"../util/ajaxutil",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -121,7 +120,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 		},
 
 		CAPDataUpdate: function() {
@@ -145,7 +144,7 @@ sap.ui.define([
 				this.onCloseMangeLimitaionDialog();
 			}.bind(this);
 
-			ajaxutilNew.fnUpdate(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue, [oPayload]);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue, [oPayload]);
 		},
 
 		onStartRect: function(sValue) {
@@ -182,7 +181,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutilNew.fnUpdate(this.getResourceBundle().getText("STARTRECTIFICSVC"), oParameter, [oPayload]);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("STARTRECTIFICSVC"), oParameter, [oPayload]);
 
 		},
 		_fnADDCapDataGet: function(sFlag, sJobId, sCapId) {
@@ -203,7 +202,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 		},
 
 		_fnADDCapDataMultipleGet: function(sFlag, sJobId, sCapId) {
@@ -224,7 +223,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 		},
 
 		_fnReasonforADDGet: function(sAirId) {
@@ -241,7 +240,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "ReasonforADDModel");
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 		},
 
 		_fnPerioOfDeferCBGet: function(sAirId) {
@@ -260,7 +259,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "PerioOfDeferCBModel");
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 		},
 		_fnUtilizationGet: function(sAirId) {
 			var that = this,
@@ -277,7 +276,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "UtilizationCBModel");
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 		}
 
 	});

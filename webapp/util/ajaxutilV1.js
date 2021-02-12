@@ -9,7 +9,7 @@ sap.ui.define([
 		//fnBasePath: "/DBSRV17/avmet",
 		sessionTimeOutWin: null,
 		swnDialog: null,
-		fnBasePath: dataUtil.destination + "/ws_restful_data_controller",
+		fnBasePath: dataUtil.destination + "/sap/opu/odata/sap/AVMET_SRV",
 		fnCreate: function(sPath, oParameters, oPayLoad, oObjectId, ref) {
 			try {
 				if (oObjectId) {
@@ -39,18 +39,13 @@ sap.ui.define([
 				oData.type = "POST";
 
 				oData.url = this.fnBasePath + "" + sPath + "" + oParameters.queryParam;
-				//	oData.data = JSON.stringify(oPayLoad);
-				oData.data = JSON.stringify({
-					"results": oPayLoad
-				});
-
+				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
 				oData.contentType = "application/json";
 				oData.error = function(hrex) {
 					this.sessionTimeOutCheck(hrex);
 					if (signoffUtil) {
-						signoffUtil.onSignOffError(hrex.responseText); //lakshmi changed for phase 2 error mesg display on 08/01/2021 at 10.51am
-						//signoffUtil.onSignOffError(JSON.parse(hrex.responseText).sortmessage);
+						signoffUtil.onSignOffError(JSON.parse(hrex.responseText).sortmessage);
 					}
 					oParameters.error(hrex);
 				}.bind(this);
@@ -58,7 +53,7 @@ sap.ui.define([
 					if (signoffUtil) {
 						signoffUtil.closeSignOff();
 					}
-					oParameters.success(oData[0]);
+					oParameters.success(oData);
 				};
 				$.ajax(oData);
 			} catch (e) {
@@ -95,11 +90,7 @@ sap.ui.define([
 				oData.type = "PUT";
 
 				oData.url = this.fnBasePath + "" + sPath + "" + oParameters.queryParam;
-				/*oData.data = JSON.stringify(oPayLoad);*/
-				oData.data = JSON.stringify({
-					"results": oPayLoad
-				});
-
+				oData.data = JSON.stringify(oPayLoad);
 				oData.dataType = "json";
 				oData.contentType = "application/json";
 				oData.error = function(hrex) {
@@ -113,7 +104,7 @@ sap.ui.define([
 					if (signoffUtil) {
 						signoffUtil.closeSignOff();
 					}
-					oParameters.success(oData[0]);
+					oParameters.success(oData);
 				};
 				$.ajax(oData);
 			} catch (e) {
@@ -147,7 +138,7 @@ sap.ui.define([
 				}
 				oData.type = "DELETE";
 
-				oData.url = this.fnBasePath + "" + sPath;
+				oData.url = this.fnBasePath + "" + sPath + "" + oParameters.queryParam;
 				oData.contentType = "application/json";
 				oData.error = function(hrex) {
 					this.sessionTimeOutCheck(hrex);
@@ -214,7 +205,7 @@ sap.ui.define([
 				if (isQueryParam) {
 					oParameters.queryParam = "?";
 					oParameters.queryParam = oParameters.queryParam + (oParameters.expand === undefined ? "" : "$expand=" + oParameters.expand);
-					oParameters.queryParam = oParameters.queryParam + (oParameters.filter === undefined ? "" : "" + oParameters.filter);
+					oParameters.queryParam = oParameters.queryParam + (oParameters.filter === undefined ? "" : "$filter=" + oParameters.filter);
 					//oParameters.queryParam = oParameters.queryParam + "&sessionid=" + dataUtil.getDataSet("oUserSession").sessionid; Sreejith: Code commented 25/11/2020: for Session cookie
 				}
 				if (!isQueryParam) {
@@ -232,7 +223,7 @@ sap.ui.define([
 			 try {
         		var act = user.activity === undefined ? "99" : user.activity;
                 var signAuth = dataUtil._AESHexEncript(user.username+ ":" + user.password+":"+user.objid+":"+act);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
-                 xhr.setRequestHeader("signAuth","Basic "+signAuth);
+                xhr.setRequestHeader("signAuth",signAuth);
             } catch (e) {
                 Log.error("Exception in fnEncryptDetails function");
             }
@@ -243,9 +234,8 @@ sap.ui.define([
 			try {
 				var act = user.activity === undefined ? "99" : user.activity;
 				var bioid = user.bioid === undefined ? "" : user.bioid;
-				var signAuth = dataUtil._AESHexEncript(user.username + ":" + user.password + ":" + user.objid + ":" + bioid + ":" + act); //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
+				var signAuth = dataUtil._AESHexEncript(user.username + ":" + user.password + ":" + user.objid + ":" + bioid + ":" + act);  //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
 				xhr.setRequestHeader("signAuth", signAuth);
-				xhr.setRequestHeader("uname", user.username);
 			} catch (e) {
 				Log.error("Exception in fnEncryptDetails function");
 			}

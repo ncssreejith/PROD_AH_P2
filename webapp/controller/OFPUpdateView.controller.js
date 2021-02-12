@@ -5,9 +5,8 @@ sap.ui.define([
 	"../model/formatter",
 	"sap/base/Log",
 	"../util/cvUtil",
-	"avmet/ah/util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, ajaxutil, JSONModel, formatter, Log, cvUtil, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, ajaxutil, JSONModel, formatter, Log, cvUtil, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name: WDNSCoefficients           
@@ -88,7 +87,7 @@ sap.ui.define([
 					this.getModel("oOFPModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblUpOFP"), "oOFPModel", "ofp", "oOFPDataModel");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in OFPUpdateView:fnLoadOFPClm function");
 				this.handleException(e);
@@ -108,7 +107,7 @@ sap.ui.define([
 					this.getModel("oOFPDataModel").setProperty("/ofp", oData.results);
 					this.getModel("oOFPDataModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in OFPUpdateView:fnLoadOFPData function");
 				this.handleException(e);
@@ -208,7 +207,7 @@ sap.ui.define([
 					sap.m.MessageToast.show("Tables updated");
 				}.bind(this);
 				if (oData.length > 0) {
-					ajaxutilNew.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_O", this);
+					ajaxutil.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_O", this);
 				} else {
 					sap.m.MessageToast.show("No table are changed");
 				}

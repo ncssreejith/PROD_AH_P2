@@ -5,9 +5,8 @@ sap.ui.define([
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"../util/ajaxutil",
 	"sap/base/Log",
-		"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, JSONModel, formatter, dataUtil, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, JSONModel, formatter, dataUtil, ajaxutil, Log, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.CTCloseTask", {
@@ -350,7 +349,7 @@ sap.ui.define([
 					that._getTasks();
 				}.bind(this);
 				oParameter.filter = "tailid eq " + this.getTailId() + " and stepid eq S_CT";
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter, oPayloadPut, "S_CT", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter, oPayloadPut, "S_CT", this);
 
 				/*oParameter.error = function() {};
 				oParameter.filter = "tailid eq " + this.getTailId() + " and stepid eq S_CT";
@@ -528,7 +527,7 @@ sap.ui.define([
 						oCTCloseTaskModel.refresh();
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTasks function");
 				this.handleException(e);

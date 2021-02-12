@@ -5,9 +5,8 @@ sap.ui.define([
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-	"avmet/ah/util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : KUMAR AMIT	
@@ -128,7 +127,7 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblEquip"), "oAircraftUtilModel", "equip", "oAircraftDataUtilModel");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadEquipClm function");
 				this.handleException(e);
@@ -153,7 +152,7 @@ sap.ui.define([
 					}
 					this.getModel("oAircraftDataUtilModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadEquipData function");
 				this.handleException(e);
@@ -177,7 +176,7 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblFlying"), "oAircraftUtilModel", "flying", "oAircraftDataUtilModel");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadFlyingClm function");
 				this.handleException(e);
@@ -196,7 +195,7 @@ sap.ui.define([
 					this.getModel("oAircraftDataUtilModel").setProperty("/flying", oData.results);
 					this.getModel("oAircraftDataUtilModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadFlyingData function");
 				this.handleException(e);
@@ -219,7 +218,7 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblMano"), "oAircraftUtilModel", "mano", "oAircraftDataUtilModel");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadManoClm function");
 				this.handleException(e);
@@ -238,7 +237,7 @@ sap.ui.define([
 					this.getModel("oAircraftDataUtilModel").setProperty("/mano", oData.results);
 					this.getModel("oAircraftDataUtilModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadManoData function");
 				this.handleException(e);
@@ -404,7 +403,7 @@ sap.ui.define([
 					this.getModel("oAircraftUtilModel").setProperty("/engine", oData.results);
 					this.getModel("oAircraftUtilModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTUTILIZATIONSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTUTILIZATIONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftUtilisation:fnLoadEngineLong function");
 				this.handleException(e);
@@ -445,7 +444,7 @@ sap.ui.define([
 					} //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnGetRunningChanges function");
 				this.handleException(e);

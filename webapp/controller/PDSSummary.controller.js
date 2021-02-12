@@ -4,14 +4,12 @@ sap.ui.define([
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
-	"../util/ajaxutilNew",
+	"../util/ajaxutil",
 	"sap/base/Log",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log, Filter, FilterOperator, ajaxutilNew,
-	FilterOpEnum) {
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log, Filter, FilterOperator, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.PDSSummary", {
@@ -344,7 +342,7 @@ sap.ui.define([
 				});
 
 			}.bind(this);
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue);
 		},
 		onSerialNoPress: function(oEvent) {
 			try {
@@ -391,7 +389,7 @@ sap.ui.define([
 						this.fnGetAllData();
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("PDSSUMMARYSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PDSSUMMARYSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPDSLists function");
 			}
@@ -428,7 +426,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").refresh();
 					this._fnNavToDetail("/masterList/0");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTSORTI"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTSORTI"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getSortie function");
 			}
@@ -457,7 +455,7 @@ sap.ui.define([
 					// }
 
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getReplenishmentDetails function");
 			}
@@ -523,7 +521,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/ct", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getCreatedTasks function");
 			}
@@ -543,7 +541,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/rt", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRTTasks function");
 			}
@@ -564,7 +562,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
 				// ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);//Change by Teck Meng on 25/11/2020 11:30
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
 			} catch (e) {
 				Log.error("Exception in _getFLyReq function");
 			}
@@ -584,7 +582,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/dueJobs", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
+				ajaxutil.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getJobDetails function");
 				this.handleException(e);
@@ -612,7 +610,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getOutstandingJob function");
 			}
@@ -631,7 +629,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/pastDef", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("FSDEFECTJOBSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("FSDEFECTJOBSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPastMonthDefects function");
 				this.handleException(e);
@@ -652,7 +650,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/appr", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPendingApprovals function");
 			}
@@ -673,7 +671,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/addLimit", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnLimitationsGet function");
 			}
@@ -695,7 +693,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/add", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnADDGet function");
 			}
@@ -714,7 +712,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/masterList/" + sIndex + "/data/trailMod", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("TRAILMONSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TRAILMONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTrailMod function");
 			}
@@ -754,7 +752,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty("/confirm/selSignOff", oData.results.length > 0 ? oData.results[0] : "");
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getSignOffOptions function");
 			}
@@ -771,7 +769,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					this.getView().setModel(oModel, "SortiDetails");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in _fnSortieMonitoringDetailsGet function");
 			}
@@ -823,7 +821,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/detail", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
+				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
 			} catch (e) {
 				Log.error("Exception in _fnApprovalDetailsRequestGet function");
 			}
@@ -839,7 +837,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").refresh();
 
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnWeightBalanceGet function");
 			}
@@ -854,7 +852,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/inoutDetail", oData.results);
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetWeightBalanceItemSet function");
 			}
@@ -870,7 +868,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/detail", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewHeaderGet function");
 			}
@@ -886,7 +884,7 @@ sap.ui.define([
 					this.getModel("pdsSummaryModel").setProperty(oContext.getPath() + "/detail", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("pdsSummaryModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnTrialModGet function");
 			}
@@ -910,7 +908,7 @@ sap.ui.define([
 					this.getRouter().navTo("DashboardInitial", false);
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("PDSSUMMARYSVC"), oParameter, oSignOffPayload, "ZRM_FS_FFF", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("PDSSUMMARYSVC"), oParameter, oSignOffPayload, "ZRM_FS_FFF", this);
 			} catch (e) {
 				Log.error("Exception in onPressSignOffConfirm function");
 			}

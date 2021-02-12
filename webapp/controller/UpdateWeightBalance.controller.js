@@ -6,9 +6,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, Log, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.UpdateWeightBalance", {
@@ -344,7 +343,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
+			ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
 		},
 
 		onSelectionChange: function(oEvent) {
@@ -379,7 +378,7 @@ sap.ui.define([
 
 					this.getOwnerComponent().getRouter().navTo("DashboardInitial");
 				}.bind(this);
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("WEBALISVC"), oPrmWBMCreate, oPayload);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("WEBALISVC"), oPrmWBMCreate, oPayload);
 			} else {
 				this.getRouter().navTo("DashboardInitial");
 			}
@@ -413,7 +412,7 @@ sap.ui.define([
 			oAutoModel[0].MOD = "C";
 			oPayload.push(oAutoModel[0]);
 			oPrmWBMUpdate.activity = 4;
-			ajaxutilNew.fnCreate(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBMUpdate, oPayload, "ZRM_WNB", this);
+			ajaxutil.fnCreate(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBMUpdate, oPayload, "ZRM_WNB", this);
 		},
 
 		// ***************************************************************************

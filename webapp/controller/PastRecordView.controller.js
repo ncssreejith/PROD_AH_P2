@@ -5,9 +5,8 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
 	"sap/base/Log",
-		"avmet/ah/util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, dataUtil, ajaxutil, JSONModel, formatter, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, ajaxutil, JSONModel, formatter, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name: PastRecordView           
@@ -111,7 +110,7 @@ sap.ui.define([
 					this.getModel("oPastModel").setProperty("/past", oData.results);
 					this.getModel("oPastModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadPastData function");
 			}

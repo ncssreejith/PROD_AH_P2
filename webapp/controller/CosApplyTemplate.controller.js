@@ -9,10 +9,9 @@ sap.ui.define([
 	"../model/AvMetInitialRecord",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-	"avmet/ah/util/FilterOpEnum",
-	"../util/ajaxutilNew"
+	"avmet/ah/util/FilterOpEnum"
 ], function(BaseController, dataUtil, Fragment, formatter, MessageBox, ajaxutil, FieldValidations, AvMetInitialRecord, JSONModel, Log,
-	FilterOpEnum, ajaxutilNew) {
+	FilterOpEnum) {
 	"use strict";
 
 	/* ***************************************************************************
@@ -92,7 +91,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:getSerialNoPress function");
 
@@ -116,7 +115,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:_fnWorkCenterGet function");
 
@@ -175,7 +174,7 @@ sap.ui.define([
 					this.handleBusyDialogClose();
 					// this.fnLoadTails();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETRTASKSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETRTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:fnLoadTask function");
 
@@ -386,7 +385,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("TASKSVC"), oParameter, oPayloads, "ZRM_COS_TP", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("TASKSVC"), oParameter, oPayloads, "ZRM_COS_TP", this);
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:onApplySelection function");
 

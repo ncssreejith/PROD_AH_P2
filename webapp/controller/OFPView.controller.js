@@ -4,9 +4,8 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
 	"sap/base/Log",
-	"avmet/ah/util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, ajaxutil, JSONModel, formatter, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, ajaxutil, JSONModel, formatter, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name: WDNSCoefficients           
@@ -163,7 +162,7 @@ sap.ui.define([
 					this.getModel("oOFPModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblOFP"), "oOFPModel", "ofp", "oOFPDataModel");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in OFPView:fnLoadOFPClm function");
 				this.handleException(e);
@@ -201,7 +200,7 @@ sap.ui.define([
 					this.getModel("oOFPDataModel").setProperty("/ofp", oData.results);
 					this.getModel("oOFPDataModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(sPath, oParameter);
+				ajaxutil.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in OFPView:fnLoadOFPData function");
 				this.handleException(e);

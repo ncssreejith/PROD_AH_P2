@@ -6,9 +6,8 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/ajaxutil",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, Log, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.PilotAccept", {
@@ -259,7 +258,7 @@ sap.ui.define([
 
 			}.bind(this);
 			// ajaxutil.fnRead(this.getResourceBundle().getText("REPLROLESVC"), oPrmJobDue); //Teck Meng 27/11/2020 09:30
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue); //Teck Meng 27/11/2020 09:30
+			ajaxutil.fnRead(this.getResourceBundle().getText("ADDOVERVIEWSVC"), oPrmJobDue); //Teck Meng 27/11/2020 09:30
 		},
 		onSerialNoPress: function(oEvent) {
 			try {
@@ -301,7 +300,7 @@ sap.ui.define([
 						this.fnGetAllData();
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTACCEPTANCESVCHEL"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTACCEPTANCESVCHEL"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPDSLists function");
 			}
@@ -339,7 +338,7 @@ sap.ui.define([
 					this.getModel("paModel").refresh();
 					this._fnNavToDetail("/masterList/0");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTSORTI"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTSORTI"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getSortie function");
 			}
@@ -369,7 +368,7 @@ sap.ui.define([
 					// this._getCreatedTasks();
 					// this._getFuelExtTanks();//Teck Meng change on 25/11/2020 13:00 
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getReplenishmentDetails function");
 			}
@@ -463,7 +462,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/ct", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETFSTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getCreatedTasks function");
 			}
@@ -488,7 +487,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/rt", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRTTasks function");
 			}
@@ -513,7 +512,7 @@ sap.ui.define([
 					this.getModel("paModel").refresh();
 				}.bind(this);
 				// ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);//Change by Teck Meng on 25/11/2020 11:30
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
 			} catch (e) {
 				Log.error("Exception in _getFLyReq function");
 			}
@@ -537,7 +536,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/dueJobs", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
+				ajaxutil.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getDueSoonJobDetails function");
 				this.handleException(e);
@@ -574,7 +573,7 @@ sap.ui.define([
 					this.getModel("paModel").refresh();
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getOutstandingJob function");
 			}
@@ -597,7 +596,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/pastDef", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("FSDEFECTJOBSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("FSDEFECTJOBSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPastMonthDefects function");
 				this.handleException(e);
@@ -622,7 +621,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/appr", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getPendingApprovals function");
 			}
@@ -647,7 +646,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/addLimit", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnLimitationsGet function");
 			}
@@ -673,7 +672,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/add", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSPDSICSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnADDGet function");
 			}
@@ -696,7 +695,7 @@ sap.ui.define([
 					this.getModel("paModel").setProperty("/masterList/" + sIndex + "/data/trailMod", oData.results);
 					this.getModel("paModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("TRAILMONSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TRAILMONSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTrailMod function");
 			}
@@ -744,7 +743,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					this.getView().setModel(oModel, "SortiDetails");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSORTIAISVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in _fnSortieMonitoringDetailsGet function");
 			}
@@ -792,7 +791,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("PILOTACCEPTANCESVCHEL"), oParameter, oPayloads, "ZRM_FS_PA", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("PILOTACCEPTANCESVCHEL"), oParameter, oPayloads, "ZRM_FS_PA", this);
 				this.closeDialog("SignOffConfirmDialog");
 			} catch (e) {
 				Log.error("Exception in onPressSignOffConfirm function");

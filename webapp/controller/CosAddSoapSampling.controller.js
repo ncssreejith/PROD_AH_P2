@@ -5,9 +5,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/base/Log",
-		"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, FieldValidations, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, FieldValidations, ajaxutil, formatter, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -141,7 +140,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					this.getView().setModel(oModel, "ReasonSOAPModel");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in CosAddSoapSampling:_fnReasonSOAPGet function");
 				this.handleException(e);
@@ -155,7 +154,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					this.getRouter().navTo("CosEngine");
 				}.bind(this);
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter, [oPayload], "SOAPADD", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter, [oPayload], "SOAPADD", this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoapSampling:_fnReasonSOAPCreate function");
 				this.handleException(e);

@@ -6,9 +6,8 @@ sap.ui.define([
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, ajaxutil, FieldValidations, formatter, JSONModel, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, ajaxutil, FieldValidations, formatter, JSONModel, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : Rahul Thorat
@@ -222,7 +221,7 @@ sap.ui.define([
 					that.getModel("SortieMonitoringModel").setProperty("/SortieMonitoring/SN", oData.results.length + 1);
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oPrmFR);
+				ajaxutil.fnRead(this.getResourceBundle().getText("SORTIEMONSVC"), oPrmFR);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_fnSortieMonitoringGet function");
 
@@ -248,7 +247,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "MonitoredForSet");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_fnMonitoredForGet function");
 
@@ -276,7 +275,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -301,7 +300,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "OperationSet");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:_fnGetOperationType function");
 
@@ -332,7 +331,7 @@ sap.ui.define([
 						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}
@@ -454,7 +453,7 @@ sap.ui.define([
 					}, true);
 				}.bind(this);
 				oParameter.activity = 1;
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter, oPayloads, "dummy", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("SORTIEMONSVC"), oParameter, oPayloads, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosAddSoritieMonitoring:fnCreateSorti function");
 

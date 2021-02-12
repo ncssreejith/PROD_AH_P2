@@ -6,9 +6,8 @@ sap.ui.define([
 	"../model/formatter",
 	"../util/ajaxutil",
 	"sap/base/Log",
-		"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : Rahul Thorat 
@@ -164,7 +163,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "ADDLimSet");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnADDGet function");
 				
@@ -194,7 +193,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "LimitationsSet");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnLimitationsGet function");
 				
@@ -221,7 +220,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnLimitationsCompleteGet function");
 				

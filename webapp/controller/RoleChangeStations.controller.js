@@ -7,9 +7,8 @@ sap.ui.define([
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"sap/m/MessageBox",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log, ajaxutilNew, FilterOpEnum) {
+], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log, FilterOpEnum) {
 	"use strict";
 	return BaseController.extend("avmet.ah.controller.RoleChangeStations", {
 		formatter: formatter,
@@ -853,7 +852,7 @@ sap.ui.define([
 					}, 100);
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, plStations, "ZRM_FS_RCT", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, plStations, "ZRM_FS_RCT", this);
 			} catch (e) {
 				Log.error("Exception in onStationSignOff function");
 				this.handleException(e);
@@ -1367,7 +1366,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getAdaptors function");
 				this.handleException(e);
@@ -1530,7 +1529,7 @@ sap.ui.define([
 						that._fnOpentab(oData.results[0].HCFLAG);
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getStations function");
 				this.handleException(e);

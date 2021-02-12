@@ -6,9 +6,8 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, ajaxutil, JSONModel, formatter, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, ajaxutil, JSONModel, formatter, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -102,7 +101,7 @@ sap.ui.define([
 					var oHeader = oData.results.length > 0 ? oData.results[0] : {};
 					this.getModel("atModel").setProperty("/header", oHeader);
 				}.bind(this);
-				ajaxutilNew.fnRead(sPath, oParameter);
+				ajaxutil.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftTransfer:fnLoadCurrentDetails function");
 				this.handleException(e);
@@ -124,7 +123,7 @@ sap.ui.define([
 					this.fnCheckStatus();
 					this.getModel("atModel").refresh(true);
 				}.bind(this);
-				ajaxutilNew.fnRead(sPath, oParameter);
+				ajaxutil.fnRead(sPath, oParameter);
 			} catch (e) {
 				Log.error("Exception in AircraftTransfer:fnLoadHistory function");
 				this.handleException(e);

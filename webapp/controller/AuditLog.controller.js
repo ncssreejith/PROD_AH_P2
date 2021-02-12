@@ -6,9 +6,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/base/Log",
-	"avmet/ah/util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, Log, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.AuditLog", {
@@ -139,7 +138,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "ObjectSugg");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in onSuggestObj function");
 				this.handleException(e);
@@ -166,7 +165,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetAudLog function");
 			}
@@ -226,7 +225,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in onObjSelect function");
 			}
@@ -264,7 +263,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in _fnGetApplicationAudLog function");
 			}
@@ -326,7 +325,7 @@ sap.ui.define([
 
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
+			ajaxutil.fnRead(this.getResourceBundle().getText("GETAUDITLOGSVC"), oPrmWBM);
 
 		},
 

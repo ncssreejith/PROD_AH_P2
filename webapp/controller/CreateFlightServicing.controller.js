@@ -5,9 +5,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-	"avmet/ah/util/FilterOpEnum",
-	"../util/ajaxutilNew"
-], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log, FilterOpEnum, ajaxutilNew) {
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.CreateFlightServicing", {
@@ -150,7 +149,7 @@ sap.ui.define([
 						this._getFlightServicing(oItem);
 					}.bind(this));
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
 				this.handleException(e);
@@ -199,7 +198,7 @@ sap.ui.define([
 					//this.getModel("srvModel").getProperty("/srv").push(oItem);
 					this.getModel("oCreatFlightSerModel").refresh();
 				}.bind(this, oItem);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINSRVSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getFlightServicing function");
 				this.handleException(e);

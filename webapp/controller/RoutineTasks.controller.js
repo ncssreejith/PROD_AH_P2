@@ -5,9 +5,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	//Developer : Priya
@@ -246,7 +245,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
 			} catch (e) {
 				Log.error("Exception in onTeamLeadUndoSignOffClick function");
 				this.handleException(e);
@@ -271,7 +270,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);
 
 			} catch (e) {
 				Log.error("Exception in fnUndoSignOff function");
@@ -310,8 +309,8 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-			//	ajaxutilNew.fnCreate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);// COMMENTED for tfoa check authorisation by lakshmi on 29012021 at 1017am
-			   ajaxutilNew.fnCreate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, objectId, this);// changes added for tfoa check authorisation by lakshmi on 29012021 at 1017am
+			//	ajaxutil.fnCreate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, "ZRM_FS_RTT", this);// COMMENTED for tfoa check authorisation by lakshmi on 29012021 at 1017am
+			   ajaxutil.fnCreate(this.getResourceBundle().getText("RoutineTask"), oParameter, aFinalPayload, objectId, this);// changes added for tfoa check authorisation by lakshmi on 29012021 at 1017am
 			} catch (e) {
 				Log.error("Exception in onSignOff function");
 				this.handleException(e);
@@ -329,7 +328,7 @@ sap.ui.define([
 					this._getRTTasks();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("RoutineTask"), oParameter, [sPayload], "ZRM_FS_RTT", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("RoutineTask"), oParameter, [sPayload], "ZRM_FS_RTT", this);
 			} catch (e) {
 				Log.error("Exception in _SignOffPost function");
 				this.handleException(e);
@@ -404,7 +403,7 @@ sap.ui.define([
 						busy: false
 					}, "viewModel");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("RoutineTask"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRTTasks function");
 				this.handleException(e);

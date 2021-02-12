@@ -4,12 +4,11 @@ sap.ui.define([
 	"sap/ui/core/Fragment",
 	"sap/ui/core/Popup",
 	"avmet/ah/model/formatter",
-	"avmet/ah/util/ajaxutilNew",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-		"avmet/ah/util/ajaxutilNew",
+	"avmet/ah/util/ajaxutil",
 	"../util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, Popup, formatter, ajaxutil, JSONModel, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, Popup, formatter, JSONModel, Log, ajaxutil, FilterOpEnum) {
 	"use strict";
 
 	/* ***************************************************************************
@@ -253,7 +252,7 @@ sap.ui.define([
 					this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ ); //Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 				}.bind(this);
 				//Teck Meng change on 20/11/2020 13:00 AH Issue REUAT 40. As discussed with Ninuk
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_FFF", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_FFF", this);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onACSignOffConfirm function");
 				this.handleException(e);
@@ -481,15 +480,15 @@ sap.ui.define([
 		fnLoadUtilization: function() {
 			try {
 				var oParameter = {};
-			//	oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq TABA_102" + " and otype eq AU";
-					oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + "TABA_102" + "&otype" +
+				//	oParameter.filter = "tailid eq " + this.getTailId() + " and tabid eq TABA_102" + " and otype eq AU";
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId() + "&tabid" + FilterOpEnum.EQ + "TABA_102" + "&otype" +
 					FilterOpEnum.EQ + "AU";
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					this.getModel("avmetModel").setProperty("/airutil", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("avmetModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadUtilization function");
 				this.handleException(e);

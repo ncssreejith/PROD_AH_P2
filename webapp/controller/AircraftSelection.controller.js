@@ -7,9 +7,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-	"avmet/ah/util/FilterOpEnum",
-	"../util/ajaxutilNew"
-], function(BaseController, dataUtil, Fragment, formatter, FieldValidations, ajaxutil, JSONModel, Log, FilterOpEnum, ajaxutilNew) {
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, Fragment, formatter, FieldValidations, ajaxutil, JSONModel, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -188,7 +187,7 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				this.fnLoadEnginDistinct();
 			}.bind(this);
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRTAILSVC"), oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("AIRTAILSVC"), oParameter);
 		},
 
 		fnLoadModels: function() {
@@ -205,7 +204,7 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				this.fnLoadTails();
 			}.bind(this);
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRMODELSVC"), oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("AIRMODELSVC"), oParameter);
 		},
 
 		fnLoadSquadran: function() {
@@ -222,7 +221,7 @@ sap.ui.define([
 				// this.getModel("oAirSelectViewModel").setProperty("/sel/sqnid", oData.results.length > 0 ? oData.results[0].ddid : "");
 				this.fnLoadWorkCenter();
 			}.bind(this);
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 		},
 		fnLoadWorkCenter: function() {
 			var sqnId = this.getModel("oAirSelectViewModel").getProperty("/sel/sqnid");
@@ -237,7 +236,7 @@ sap.ui.define([
 				// this.getModel("oAirSelectViewModel").setProperty("/sel/wcid", oData.results.length > 0 ? oData.results[0].wrctr : "");
 				// this.fnLoadTails();
 			}.bind(this);
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oParameter);
 		},
 		fnLoadEngin: function(sEngType) {
 			var selTailid =
@@ -257,7 +256,7 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				// this.fnLoadTails();
 			}.bind(this);
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGINESVC"), oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ENGINESVC"), oParameter);
 		},
 		/** 
 		 * Search by sernr
@@ -277,7 +276,7 @@ sap.ui.define([
 					// this.fnLoadTails();
 				}.bind(this);
 				this.getModel("oAirSelectViewModel").setProperty("/engine", []);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("RSERNO"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("RSERNO"), oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadEnginBySernr function");
 			}
@@ -296,7 +295,7 @@ sap.ui.define([
 				this.getModel("oAirSelectViewModel").refresh();
 				// this.fnLoadTails();
 			}.bind(this);
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
+			ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 		}
 	});
 });

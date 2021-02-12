@@ -5,9 +5,8 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../util/ajaxutil",
 	"../model/formatter",
-		"../util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.PastHistoryWeightBalance", {
@@ -48,7 +47,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "WeightBalanceSet");
 			};
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALPASTRECSVC"), oPrmWBM);
+			ajaxutil.fnRead(this.getResourceBundle().getText("WEBALPASTRECSVC"), oPrmWBM);
 		},
 
 		// ***************************************************************************

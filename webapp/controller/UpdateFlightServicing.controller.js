@@ -6,9 +6,8 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
 	"../model/formatter",
-	"avmet/ah/util/FilterOpEnum",
-	"../util/ajaxutilNew"
-], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log, formatter, FilterOpEnum, ajaxutilNew) {
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log, formatter, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.UpdateFlightServicing", {
@@ -191,7 +190,7 @@ sap.ui.define([
 						this._getTaskServicing(oItem);
 					}.bind(this));
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 				this.fnLoadSrv1Dashboard();
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
@@ -269,7 +268,7 @@ sap.ui.define([
 					oUpdateFlightModel.setProperty("/aTasks", aTasks);
 					oUpdateFlightModel.refresh();
 				}.bind(this, oItem);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTaskServicing function");
 				this.handleException(e);

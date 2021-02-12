@@ -1,7 +1,7 @@
 sap.ui.define([
 	"./BaseController",
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
-	"../util/ajaxutilNew",
+	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",

@@ -5,9 +5,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, FieldValidations, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, FieldValidations, ajaxutil, formatter, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAJAT GUPTA 
@@ -225,7 +224,7 @@ sap.ui.define([
 					this.getModel("ViewModel").setProperty("/SN", oData.results.length + 1);
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmFR);
+				ajaxutil.fnRead(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmFR);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:_fnFlyingRequirementsGet function");
 
@@ -281,7 +280,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmFL.activity = 1;
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmFL, oPayload, "dummy", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmFL, oPayload, "dummy", this);
 			} catch (e) {
 				Log.error("Exception in CosAddFlyingRequirements:onSubmitFlyingRequirements function");
 
@@ -312,7 +311,7 @@ sap.ui.define([
 						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}

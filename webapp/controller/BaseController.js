@@ -11,10 +11,9 @@ sap.ui.define([
 	"avmet/ah/util/cvUtil",
 	"../model/AvMetInitialRecord",
 	"sap/m/MessageBox",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
 ], function(Controller, JSONModel, MessageToast, Fragment, dataUtil, Log, html2pdfbundle, ajaxutil, cvUtil, AvMetInitialRecord,
-	MessageBox, ajaxutilNew, FilterOpEnum) {
+	MessageBox, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for Managing generic function across the project               
@@ -331,7 +330,7 @@ sap.ui.define([
 						this.getModel("avmetModel").refresh();
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
 			} catch (e) {
 				this.fnRestoreHistory();
 				Log.error("Exception in fnLoadSrv1Dashboard function");
@@ -370,7 +369,7 @@ sap.ui.define([
 						// this.fnCreateTableFromData();
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in fnLoadSrv1Dashboard function");
 				this.handleException(e);
@@ -396,7 +395,7 @@ sap.ui.define([
 
 				}.bind(this);
 				this.getModel("avmetModel").setProperty("/runningChange", []);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in fnLoadRunningChange function");
 			}
@@ -835,7 +834,7 @@ sap.ui.define([
 
 				oPrmCAPStatus.success = function(oData) {}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("CHECKCAPSTATUSSVC"), oPrmCAPStatus);
+				ajaxutil.fnRead(this.getResourceBundle().getText("CHECKCAPSTATUSSVC"), oPrmCAPStatus);
 			} catch (e) {
 				Log.error("Exception in fnCheckCapStatus function");
 			}
@@ -975,7 +974,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.setModel(oModel, "FoundDuringSet");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmFND);
 			} catch (e) {
 				Log.error("Exception in _fnFoundDuringGet function");
 			}
@@ -991,7 +990,7 @@ sap.ui.define([
 
 				oPrmLimGet.success = function(oData) {}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("CHECKADDLIMITATIONSSVC"), oPrmLimGet);
+				ajaxutil.fnRead(this.getResourceBundle().getText("CHECKADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnADDGet function");
 				this.handleException(e);
@@ -1009,7 +1008,7 @@ sap.ui.define([
 					that.getTailId();
 				oPrmLimGet.error = function() {};
 				oPrmLimGet.success = function(oData) {}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("CHECKADDLIMITATIONSSVC"), oPrmLimGet);
+				ajaxutil.fnRead(this.getResourceBundle().getText("CHECKADDLIMITATIONSSVC"), oPrmLimGet);
 			} catch (e) {
 				Log.error("Exception in Limitations:_fnLimitationsGet function");
 				this.handleException(e);

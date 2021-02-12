@@ -8,10 +8,8 @@ sap.ui.define([
 	"../model/AvMetInitialRecord",
 	"sap/base/Log",
 	"sap/m/MessageBox",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, AvMetInitialRecord, Log, MessageBox, ajaxutilNew,
-	FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, AvMetInitialRecord, Log, MessageBox, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAHUL THORAT   
@@ -213,7 +211,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TechRefSugg");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETTASKREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETTASKREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
 
@@ -247,7 +245,7 @@ sap.ui.define([
 						}, true);
 					}
 				}.bind(this);
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("CRETUSERSVC"), oPrmTD, oPayLoad);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("CRETUSERSVC"), oPrmTD, oPayLoad);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnMultiTradmanCreate function");
 
@@ -331,7 +329,7 @@ sap.ui.define([
 				}
 				oPrmTask.activity = 4;
 				oPrmTask.title = "Tradesman Sign Off";
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmTask, oPayload, sObject, this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmTask, oPayload, sObject, this);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onSignOff function");
 
@@ -352,7 +350,7 @@ sap.ui.define([
 					oParameter.success = function(oData) {};
 					/*	oParameter.activity = 1;
 						, "ZRM_ADDL", this*/
-					ajaxutilNew.fnCreate(this.getResourceBundle().getText("ADDSVC"), oParameter, obj);
+					ajaxutil.fnCreate(this.getResourceBundle().getText("ADDSVC"), oParameter, obj);
 				}
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnUpdateLimitations function");
@@ -437,7 +435,7 @@ sap.ui.define([
 					this.getView().getModel("ViewModel").setProperty("/ADDMaxCount", sMaxCount);
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETADDCOUNTSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnADDCountGet function");
 
@@ -479,7 +477,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:getSerialNoPress function");
 
@@ -507,7 +505,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "UtilizationCBModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnUtilizationGet function");
 
@@ -536,7 +534,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnGetUtilisationDefaultVal function");
 
@@ -563,7 +561,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "ReasonforADDModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnReasonforADDGet function");
 
@@ -589,7 +587,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "Utilization2CBModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnUtilization2Get function");
 
@@ -618,7 +616,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "PerioOfDeferCBModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDVALSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnPerioOfDeferCBGet function");
 
@@ -654,7 +652,7 @@ sap.ui.define([
 					oModelView.getData().push(oData.results[0]);
 					oModelView.updateBindings();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnTasksADDGet function");
 
@@ -737,7 +735,7 @@ sap.ui.define([
 					that.handleBusyDialogClose();
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSELTASKSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:_fnTasksGet function");
 

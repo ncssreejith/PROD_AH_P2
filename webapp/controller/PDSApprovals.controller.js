@@ -5,9 +5,8 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"../util/ajaxutil",
 	"../model/formatter",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for ???????            
@@ -81,7 +80,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "ApprovalListModel");
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oPrmAppr);
+			ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALSVC"), oPrmAppr);
 		},
 
 		//on Approve Request
@@ -152,7 +151,7 @@ sap.ui.define([
 				that.onOpenDialogApp();
 			}.bind(this);
 
-			ajaxutilNew.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload]);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload]);
 
 		},
 
@@ -186,7 +185,7 @@ sap.ui.define([
 				that.onOpenDialogApp();
 			}.bind(this);
 
-			ajaxutilNew.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload]);
+			ajaxutil.fnUpdate(this.getResourceBundle().getText("APPROVALNAVSVC"), oParameter, [oPayload]);
 
 		},
 
@@ -205,7 +204,7 @@ sap.ui.define([
 				that.getView().setModel(oModel, "ApprovalDetailstModel");
 			}.bind(this);
 
-			ajaxutilNew.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
+			ajaxutil.fnRead(this.getResourceBundle().getText("APPROVALNAVSVC"), oPrmAppr);
 		},
 
 		onOpenDialogApp: function() {

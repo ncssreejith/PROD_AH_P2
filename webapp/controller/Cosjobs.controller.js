@@ -4,9 +4,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, ajaxutil, formatter, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAHUL THORAT   
@@ -146,7 +145,7 @@ sap.ui.define([
 					that._fnJobDetailsGetUnScheduled();
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetAll function");
 			}
@@ -178,7 +177,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelD");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetDefect function");
 			}
@@ -210,7 +209,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelS");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetScheduled function");
 			}
@@ -242,7 +241,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelU");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetUnScheduled function");
 			}
@@ -276,7 +275,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelC");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDetailsGetUnCompleted function");
 			}
@@ -314,7 +313,7 @@ sap.ui.define([
 					that._fnJobGetMODSTIScheduled();
 				}.bind(this);
 
-				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutil.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetScheduled function");
 			}
@@ -347,7 +346,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelAIR");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutil.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetAircraftScheduled function");
 			}
@@ -380,7 +379,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelCOM");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutil.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetCompScheduled function");
 			}
@@ -414,7 +413,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelENG");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutil.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetENGScheduled function");
 			}
@@ -447,7 +446,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobModelMODSTI");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutil.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobGetMODSTIScheduled function");
 			}

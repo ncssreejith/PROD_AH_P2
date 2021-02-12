@@ -5,9 +5,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-	"avmet/ah/util/FilterOpEnum",
-	"../util/ajaxutilNew"
-], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log, FilterOpEnum, ajaxutilNew) {
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, MessageToast, dataUtil, ajaxutil, JSONModel, Log, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.PastFlightServicing", {
@@ -176,7 +175,7 @@ sap.ui.define([
 						this._getTaskServicing(oItem);
 					}.bind(this));
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 				// this.fnLoadSrv1Dashboard();
 				// //this.setBasicDetails(oEvent);
 				// var oPastFlightModel = this.getView().getModel("oPastFlightModel");
@@ -265,7 +264,7 @@ sap.ui.define([
 					oPastFlightModel.setProperty("/aTasks", aTasks);
 					oPastFlightModel.refresh();
 				}.bind(this, oItem);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MAINTASKSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getTaskServicing function");
 				this.handleException(e);

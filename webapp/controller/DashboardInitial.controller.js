@@ -5,9 +5,8 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"avmet/ah/model/formatter",
 	"avmet/ah/util/ajaxutil",
-	"avmet/ah/util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, ajaxutil, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name:            
@@ -323,7 +322,7 @@ sap.ui.define([
 
 				}.bind(this);
 				this.getModel("avmetModel").setProperty("/runningChange", []);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTINVOLVEDLSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnGetRunningChanges function");
 				this.handleException(e);
@@ -716,7 +715,7 @@ sap.ui.define([
 					this.getModel("avmetModel").refresh();
 					this.getRouter().navTo("CreateFlightService", {}, false);
 				}.bind(this);
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_VS", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("VOIDFLIGHTSVC"), oParameter, [oPayload], "ZRM_FS_VS", this);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onACSignOffConfirm function");
 				this.handleException(e);
@@ -835,7 +834,7 @@ sap.ui.define([
 						// this.fnCreateTableFromData();
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDCOUNTSSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in fnLoadSrv1Dashboard function");
 				this.handleException(e);
@@ -914,7 +913,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSCHDUESOONSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSCHDUESOONSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadSCLDashboard function");
 				this.handleException(e);
@@ -949,7 +948,7 @@ sap.ui.define([
 					this.fnLoadSCLDashboard(true);
 				}.bind(this);
 
-				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
+				ajaxutil.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmJobDue);
 			} catch (e) {
 				this.Log.error("Exception in fnTriggerScheduledJobs function");
 			}
@@ -975,7 +974,7 @@ sap.ui.define([
 						}
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnGetEngine function");
 				this.handleException(e);
@@ -1010,7 +1009,7 @@ sap.ui.define([
 					this.fnProcessArrayFuel(oData);
 					// this.fnProcessFuel({results: []});
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARDFUELSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDFUELSVC"), oParameter);
 
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadFLDashboard function");
@@ -1146,7 +1145,7 @@ sap.ui.define([
 					this._setRadialChartText("capMicroChartId", "", "", 0, 0);
 					this.getModel("dashboardModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARD1SVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARD1SVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadCAPDashboard function");
 				this.handleException(e);
@@ -1158,7 +1157,7 @@ sap.ui.define([
 		fnLoadROLDashboard: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId();
+				oParameter.filter = "tailid"+FilterOpEnum.EQ  + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var aData = oData.results.length > 0 ? oData.results[0] : {
@@ -1261,7 +1260,7 @@ sap.ui.define([
 					this.getModel("dashboardModel").setProperty("/location", oData.results);
 					this.getModel("dashboardModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRTRANSCURRSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRTRANSCURRSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadLocation function");
 				this.handleException(e);
@@ -1281,7 +1280,7 @@ sap.ui.define([
 					this.getModel("avmetModel").setProperty("/airutil", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("avmetModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:fnLoadUtilization function");
 				this.handleException(e);
@@ -1303,7 +1302,7 @@ sap.ui.define([
 					this.getView().getModel("dashboardModel").refresh();
 					this.fnLoadSrv1Dashboard();
 				}.bind(this);
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("AIRTAILSVC"), oParameter, [oPayload], "ZRM_S_LOC", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("AIRTAILSVC"), oParameter, [oPayload], "ZRM_S_LOC", this);
 				//Reset data
 				this.getView().getModel("dashboardModel").setProperty("/editLoc", false);
 				this.getView().getModel("dashboardModel").refresh();

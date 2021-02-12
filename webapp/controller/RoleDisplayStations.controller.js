@@ -7,9 +7,8 @@ sap.ui.define([
 	"../util/dataUtil", //Rahul: 23/11/2020: 12:47PM: dataUtil Path changed.
 	"sap/m/MessageBox",
 	"sap/base/Log",
-		"avmet/ah/util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log, ajaxutilNew, FilterOpEnum) {
+], function(models, BaseController, JSONModel, ajaxutil, formatter, dataUtil, MessageBox, Log, FilterOpEnum) {
 	"use strict";
 	return BaseController.extend("avmet.ah.controller.RoleDisplayStations", {
 		formatter: formatter,
@@ -480,7 +479,7 @@ sap.ui.define([
 					this.getModel("oRoleChangeModel").refresh();
 
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DASHBOARD1SVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARD1SVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:fnLoadDrop function");
 				this.handleException(e);
@@ -599,7 +598,7 @@ sap.ui.define([
 					//this._signOffPUT();
 					that._navToDashboard();
 				}.bind(this);
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, aPayload, "S_RL", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter, aPayload, "S_RL", this);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:onStationSignOff function");
 				this.handleException(e);
@@ -1015,7 +1014,7 @@ sap.ui.define([
 						that._checkSelectedAdaptors();
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:_getAdaptors function");
 				this.handleException(e);
@@ -1112,7 +1111,7 @@ sap.ui.define([
 						that._setFirstItemSelected();
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ROLECHANGESVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in RoleDisplayStations:_getStations function");
 				this.handleException(e);

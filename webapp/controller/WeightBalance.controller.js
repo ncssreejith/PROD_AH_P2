@@ -6,9 +6,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"../model/formatter",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, JSONModel, FieldValidations, ajaxutil, formatter, Log, FilterOpEnum) {
 	"use strict";
 
 	/* ***************************************************************************
@@ -151,7 +150,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "WeightBalanceHeaderSet");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALHSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in WeightBalance:_fnGetWeightBalHeaderSet function");
 				this.handleException(e);
@@ -190,7 +189,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWBHFROMIDSVC"), oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWBHFROMIDSVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in WeightBalance:_fnGetWeightPastRecord function");
 				this.handleException(e);
@@ -218,7 +217,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "WeightBalanceSet");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
+				ajaxutil.fnRead(this.getResourceBundle().getText("WEBALISVC"), oPrmWBM);
 			} catch (e) {
 				Log.error("Exception in WeightBalance:_fnGetWeightBalanceItemSet function");
 				this.handleException(e);

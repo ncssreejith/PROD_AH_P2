@@ -5,13 +5,11 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
 	"../model/FieldValidations",
-	"../util/ajaxutilNew",
+	"../util/ajaxutil",
 	"sap/base/Log",
 	"avmet/ah/util/cvUtil",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, FieldValidations, ajaxutil, Log, cvUtil, ajaxutilNew,
-	FilterOpEnum) {
+], function(BaseController, MessageToast, dataUtil, JSONModel, formatter, FieldValidations, ajaxutil, Log, cvUtil,FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : AMIT KUMAR	
@@ -613,7 +611,7 @@ sap.ui.define([
 		// 		oParameter.success = function() {
 		// 			this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 		// 		}.bind(this);
-		// 		ajaxutilNew.fnUpdate(this.getResourceBundle().getText("ALARMINGSVC"), oParameter, [oPayloads]);
+		// 		ajaxutil.fnUpdate(this.getResourceBundle().getText("ALARMINGSVC"), oParameter, [oPayloads]);
 		// 	} catch (e) {
 		// 		Log.error("Exception in PilotUpdate:fnCreateAlarming function");
 		// 		this.handleException(e);
@@ -676,7 +674,7 @@ sap.ui.define([
 						this.getRouter().navTo("DashboardInitial", {}, true /*no history*/ );
 					}
 				}.bind(this);
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, oPayloads);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnUpdateTanks function");
 				this.handleException(e);
@@ -698,7 +696,7 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function() {};
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("PILOTSORTI"), oParameter, oPayloads);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("PILOTSORTI"), oParameter, oPayloads);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateAirMon function");
 				this.handleException(e);
@@ -724,7 +722,7 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function() {};
 				// ajaxutil.fnUpdate(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter, oPayloads);//Change by Teck Meng on 25/11/2020 11:30
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter, oPayloads); //Change by Teck Meng on 25/11/2020 11:30
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter, oPayloads); //Change by Teck Meng on 25/11/2020 11:30
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateFlyReq function");
 				this.handleException(e);
@@ -931,7 +929,7 @@ sap.ui.define([
 		// 			this.getModel("oPilotUpdatesViewModel").setProperty("/arming", oArming);
 		// 			this.getModel("oPilotUpdatesViewModel").refresh();
 		// 		}.bind(this);
-		// 		ajaxutilNew.fnRead(this.getResourceBundle().getText("ALARMINGSVC"), oParameter);
+		// 		ajaxutil.fnRead(this.getResourceBundle().getText("ALARMINGSVC"), oParameter);
 		// 	} catch (e) {
 		// 		Log.error("Exception in PilotUpdate:fnReadArming function");
 		// 		this.handleException(e);
@@ -954,7 +952,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/toper", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAmResults function");
 				this.handleException(e);
@@ -977,7 +975,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/amResult", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAmResults function");
 				this.handleException(e);
@@ -1209,7 +1207,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/flyResult", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadflyResults function");
 				this.handleException(e);
@@ -1235,7 +1233,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").setProperty("/airMon", oData.results);
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTSORTI"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTSORTI"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadAirMon function");
 				this.handleException(e);
@@ -1262,7 +1260,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
 				// ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);//Change by Teck Meng on 25/11/2020 11:30
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadFlyReq function");
 				this.handleException(e);
@@ -1350,7 +1348,7 @@ sap.ui.define([
 						busy: false
 					}, "viewModel");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadFuleTankFromRepl function");
 				this.handleException(e);

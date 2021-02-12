@@ -6,9 +6,8 @@ sap.ui.define([
 	"../model/FieldValidations",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, ajaxutil, formatter, FieldValidations, JSONModel, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, ajaxutil, formatter, FieldValidations, JSONModel, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : Teck Meng
@@ -78,7 +77,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter, [oPayload], "ZRM_E_REPL", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter, [oPayload], "ZRM_E_REPL", this);
 			} catch (e) {
 				Log.error("Exception in AddEngOilLog:onSignOffPress function");
 				this.handleException(e);
@@ -102,7 +101,7 @@ sap.ui.define([
 						oModel.refresh();
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _fnReasonSOAPGet function");
 			}

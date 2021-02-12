@@ -7,9 +7,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/base/Log",
 	"../model/AvMetInitialRecord",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, AvMetInitialRecord, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, formatter, ajaxutil, Log, AvMetInitialRecord, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name:            
@@ -95,7 +94,7 @@ sap.ui.define([
 					oModel.setData(aJobDue);
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in ESScheduleJobCreate:_fnJobDueGet function");
 
@@ -122,7 +121,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -164,7 +163,7 @@ sap.ui.define([
 					}
 
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in getEngineHeader function");
 			}
@@ -189,7 +188,7 @@ sap.ui.define([
 					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in _fnWorkCenterGet function");
 			}
@@ -312,7 +311,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmTD.activity = 1;
-				ajaxutilNew.fnCreate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnCreate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in ESJobCreate function");
 			}

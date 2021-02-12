@@ -8,10 +8,8 @@ sap.ui.define([
 	"sap/base/Log",
 	"sap/ui/model/json/JSONModel",
 	"../util/html2pdfbundle",
-	"avmet/ah/util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, Log, JSONModel, html2pdfbundle, ajaxutilNew,
-	FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, FieldValidations, ajaxutil, formatter, Log, JSONModel, html2pdfbundle, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   This file is for Engine
@@ -138,7 +136,7 @@ sap.ui.define([
 					this._getEngScheule(oObject.ENGNO, oObject.SN);
 				}.bind(this);
 				if (oData.length > 0) {
-					ajaxutilNew.fnUpdate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
+					ajaxutil.fnUpdate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
 				} else {
 					sap.m.MessageToast.show("No table are changed");
 				}
@@ -166,7 +164,7 @@ sap.ui.define([
 					this._getEngPowerCheck(oObject.ENGID, oObject.ENGNO);
 				}.bind(this);
 				if (oData.length > 0) {
-					ajaxutilNew.fnUpdate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
+					ajaxutil.fnUpdate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
 				} else {
 					sap.m.MessageToast.show("No table are changed");
 				}
@@ -435,7 +433,7 @@ sap.ui.define([
 
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ENGINEDISSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getHeader function");
 				this.handleException(e);
@@ -492,7 +490,7 @@ sap.ui.define([
 						oEngineModel.refresh();
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("PILOTENGINERECORD"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTENGINERECORD"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngPowerCheck function");
 				this.handleException(e);
@@ -539,7 +537,7 @@ sap.ui.define([
 					}
 
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("ENGSOAPSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngineOilRepl function");
 				this.handleException(e);
@@ -597,7 +595,7 @@ sap.ui.define([
 					}
 					// oEngineModel.setProperty("/EngineSchedule", oData.results);
 				}.bind(this);
-				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
+				ajaxutil.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngScheule function");
 				this.handleException(e);
@@ -628,7 +626,7 @@ sap.ui.define([
 						oEngineModel.setProperty("/EngCyclicLife2", oData.results);
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngCyclicLife function");
 				this.handleException(e);

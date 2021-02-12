@@ -6,9 +6,8 @@ sap.ui.define([
 	"../model/formatter",
 	"sap/base/Log",
 	"../model/FieldValidations",
-	"avmet/ah/util/FilterOpEnum",
-	"../util/ajaxutilNew"
-], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log, FieldValidations, FilterOpEnum, ajaxutilNew) {
+	"avmet/ah/util/FilterOpEnum"
+], function(BaseController, dataUtil, JSONModel, ajaxutil, formatter, Log, FieldValidations, FilterOpEnum) {
 	"use strict";
 
 	return BaseController.extend("avmet.ah.controller.ReplenishmentDetails", {
@@ -219,7 +218,7 @@ sap.ui.define([
 					this._getRepTiles();
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, [oObject], "ZRM_FS_RP", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, [oObject], "ZRM_FS_RP", this);
 
 			} catch (e) {
 				Log.error("Exception in fnUndoSignOff function");
@@ -259,7 +258,7 @@ sap.ui.define([
 					// }, true);
 				}.bind(this);
 				oParameter.activity = 4;
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, aPayloads, "ZRM_FS_RP", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter, aPayloads, "ZRM_FS_RP", this);
 
 			} catch (e) {
 				Log.error("Exception in onPressSignOffConfirm function");
@@ -297,7 +296,7 @@ sap.ui.define([
 					this.getModel("oRepDetailsModel").setProperty("/TyrePressure", oData.results);
 					this.getModel("oRepDetailsModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
+				ajaxutil.fnRead(this.getResourceBundle().getText("LEADPARTISVC"), oPrmWB);
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewHeaderGet function");
 				this.handleException(e);
@@ -359,7 +358,7 @@ sap.ui.define([
 					}, "viewModel");
 					// this._getFuelExtTanks();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("REPLENISHMENTSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in _getRepTiles function");
 				this.handleException(e);

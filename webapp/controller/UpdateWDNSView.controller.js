@@ -5,9 +5,8 @@ sap.ui.define([
 	"../model/formatter",
 	"sap/base/Log",
 	"../util/cvUtil",
-	"avmet/ah/util/ajaxutilNew",
 	"../util/FilterOpEnum"
-], function(BaseController, ajaxutil, JSONModel, formatter, Log, cvUtil, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, ajaxutil, JSONModel, formatter, Log, cvUtil, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *   Control name: UpdateWDNSView           
@@ -123,7 +122,7 @@ sap.ui.define([
 					this.getModel("oWDNSModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblUpHarmonic"), "oWDNSModel", "harmo", "oWDNSDataModel");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in UpdateWDNSView:fnLoadHarmClm function");
 				this.handleException(e);
@@ -149,7 +148,7 @@ sap.ui.define([
 					this.getModel("oWDNSDataModel").setProperty("/harmo", oData.results);
 					this.getModel("oWDNSDataModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in UpdateWDNSView:fnLoadHarmData function");
 				this.handleException(e);
@@ -172,7 +171,7 @@ sap.ui.define([
 					this.getModel("oWDNSModel").refresh();
 					this.fnCreateRow(this.getView().byId("tblDH"), "oWDNSModel", "dh", "oWDNSDataModel");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter);
 			} catch (e) { //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 				Log.error("Exception in WDNSCoefficients:fnLoadDHClm function");
 				this.handleException(e);
@@ -202,7 +201,7 @@ sap.ui.define([
 					this.getModel("oWDNSDataModel").setProperty("/dh", oData.results);
 					this.getModel("oWDNSDataModel").refresh();
 				}.bind(this);
-				ajaxutilNew.fnRead(sPath, oParameter);
+				ajaxutil.fnRead(sPath, oParameter);
 			} catch (e) { //<!--//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043-->
 				Log.error("Exception in WDNSCoefficients:fnLoadDHData function");
 				this.handleException(e);
@@ -358,7 +357,7 @@ sap.ui.define([
 					this.onNavBack();
 				}.bind(this);
 				if (oData.length > 0) {
-					ajaxutilNew.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
+					ajaxutil.fnCreate(sPath, oParameter, oData, "ZRM_WDNS_H", this);
 				} else {
 					sap.m.MessageToast.show("No table are changed");
 				}

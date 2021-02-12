@@ -5,9 +5,8 @@ sap.ui.define([
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
 	"sap/base/Log",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, ajaxutil, formatter, JSONModel, Log, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *	 Developer : Teck Meng
@@ -74,7 +73,7 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("EHSERSVC"), oParameter, aPayload, "ZRM_E_CYCL", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("EHSERSVC"), oParameter, aPayload, "ZRM_E_CYCL", this);
 			} catch (e) {
 				Log.error("Exception in AddEngCyclicLog:onSignOffPress function");
 				this.handleException(e);
@@ -146,7 +145,7 @@ sap.ui.define([
 						oEngineModel.setProperty("/", oObject);
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
+				ajaxutil.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
 			} catch (e) {
 				Log.error("Exception in Engine:_getEngCyclicLife function");
 				this.handleException(e);

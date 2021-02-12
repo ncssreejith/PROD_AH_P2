@@ -7,9 +7,8 @@ sap.ui.define([
 	"../util/ajaxutil",
 	"sap/base/Log",
 	"sap/m/MessageBox",
-		"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, FieldValidations, formatter, AvMetInitialRecord, ajaxutil, Log, MessageBox, ajaxutilNew,FilterOpEnum) {
+], function(BaseController, dataUtil, FieldValidations, formatter, AvMetInitialRecord, ajaxutil, Log, MessageBox, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAHUL THORAT   
@@ -160,7 +159,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETSERNOSVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in getSerialNoPress function");
 			}
@@ -182,7 +181,7 @@ sap.ui.define([
 						this.getModel("ViewModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}
@@ -336,7 +335,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "TechRefSugg");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETTASKREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETTASKREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:onSuggestTechOrder function");
 				
@@ -365,7 +364,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TaskMainListModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetMainTaskDropDown function");
 				
@@ -394,7 +393,7 @@ sap.ui.define([
 					this._fnGetTaskDescDropDown();
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskDropDown function");
 				
@@ -423,7 +422,7 @@ sap.ui.define([
 					//that._fnGetTaskSubDescDropDown();
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskDescDropDown function");
 				
@@ -451,7 +450,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TT310Model");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskTT310DropDown function");
 				
@@ -479,7 +478,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "TT311Model");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TASKTYPESVC"), oPrmDD, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnGetTaskTT311DropDown function");
 				
@@ -1359,7 +1358,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmTask.activity = 1;
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("TASKSVC"), oPrmTask, oPayload, "ZRM_COS_TK", this);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("TASKSVC"), oPrmTask, oPayload, "ZRM_COS_TK", this);
 			} catch (e) {
 				Log.error("Exception in CosCreateTask:_fnCreateTask function");
 				this.handleException(e);

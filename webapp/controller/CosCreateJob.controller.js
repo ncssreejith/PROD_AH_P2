@@ -5,10 +5,9 @@ sap.ui.define([
 	"../model/AvMetInitialRecord",
 	"../model/formatter",
 	"../util/ajaxutil",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum",
 	"sap/base/Log"
-], function(BaseController, dataUtil, FieldValidations, AvMetInitialRecord, formatter, ajaxutil, ajaxutilNew, FilterOpEnum, Log) {
+], function(BaseController, dataUtil, FieldValidations, AvMetInitialRecord, formatter, ajaxutil, FilterOpEnum, Log) {
 	"use strict";
 	/* ***************************************************************************
 	 *     Developer : RAHUL THORAT  Change
@@ -139,7 +138,7 @@ sap.ui.define([
 					this._fnPhotoUploadGet(this.docRefId);
 				}.bind(this);
 
-				ajaxutilNew.fnDelete(sPath, oPrmMark);
+				ajaxutil.fnDelete(sPath, oPrmMark);
 			} catch (e) {
 				Log.error("Exception in onDeleteImagePress function");
 			}
@@ -160,7 +159,7 @@ sap.ui.define([
 					var oPrmMark = {};
 					oPrmMark.error = function() {};
 					oPrmMark.success = function(oData) {}.bind(this);
-					ajaxutilNew.fnDelete(sPath, oPrmMark);
+					ajaxutil.fnDelete(sPath, oPrmMark);
 				}
 			} catch (e) {
 				Log.error("Exception in _fnDeleteUnusedDocs function");
@@ -254,7 +253,7 @@ sap.ui.define([
 
 					}.bind(this);
 					oParameter.activity = 1;
-					ajaxutilNew.fnCreate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], "ZRM_COS_JB", this);
+					ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], "ZRM_COS_JB", this);
 
 				} else {
 					that._fnUpdateJob(oPayload);
@@ -320,7 +319,7 @@ sap.ui.define([
 						}, true);
 					}.bind(this);
 					oPrmTD.activity = 1;
-					ajaxutilNew.fnCreate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_SCH", this);
+					ajaxutil.fnCreate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmTD, [oPayload], "ZRM_SCH", this);
 				} else {
 					oPayload = this.getView().getModel("oViewCreateModel").getData();
 					that._fnUpdateJob(oPayload);
@@ -377,7 +376,7 @@ sap.ui.define([
 					this.getView().byId("topId").setVisible(false);
 				}.bind(this);
 				oParameter.activity = 2;
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTJOBSVC"), oParameter, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnUpdateJob function");
 
@@ -436,7 +435,7 @@ sap.ui.define([
 						that.removeCoordinates(oModel.XCor, oModel.YCor, oCanvas);
 					}
 				}.bind(this);
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnCreateMark function");
 
@@ -482,7 +481,7 @@ sap.ui.define([
 						that.removeCoordinates(oModel.XCor, oModel.YCor, oCanvas);
 					}
 				}.bind(this);
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark, oPayload);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnUpdateMark function");
 
@@ -524,7 +523,7 @@ sap.ui.define([
 					}
 
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTMARKSVC"), oPrmMark);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnGetMark function");
 
@@ -550,7 +549,7 @@ sap.ui.define([
 					oAppModel.setProperty("/DefectImageSrc", oData.results);
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnPhotoUploadGet function");
 
@@ -575,7 +574,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDueGet function");
 
@@ -602,7 +601,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -625,7 +624,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.setModel(oModel, "WorkCenterSet");
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnWorkCenterGet function");
 
@@ -657,7 +656,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutilNew.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
+				ajaxutil.fnCreate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterCreate function");
 
@@ -689,7 +688,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutilNew.fnUpdate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("DEFECTWORKCENTERSVC"), oPrmWorkCenter, [oPayload]);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnDefectWorkCenterUpdate function");
 
@@ -760,7 +759,7 @@ sap.ui.define([
 
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("DEFECTJOBSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in CosCreateJob:_fnJobDetailsGet function");
 
@@ -783,7 +782,7 @@ sap.ui.define([
 						this.getModel("appModel").setProperty("/backTm", oData.results[0].VTIME);
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("JOBSDATEVALIDSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetDateValidation function");
 			}
@@ -812,7 +811,7 @@ sap.ui.define([
 						oModel.updateBindings(true);
 					}
 				}.bind(this);
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETJOBTASKSTATSVC"), oPrmTaskDue);
 			} catch (e) {
 				Log.error("Exception in _fnTaskStatusGet function");
 			}
@@ -1347,7 +1346,7 @@ sap.ui.define([
 									that.docRefId = oData.results[0].DOCREFID;
 									that._fnPhotoUploadGet(that.docRefId);
 								}.bind(this);
-								ajaxutilNew.fnCreate(that.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
+								ajaxutil.fnCreate(that.getResourceBundle().getText("DEFECTPHOTOSSVC"), oPrmPhoto, sDefectImageSrc);
 							} else {
 								that.onTypeMissmatch();
 								that.getView().byId("photoUpload").setBusy(false);

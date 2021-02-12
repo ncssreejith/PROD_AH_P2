@@ -7,9 +7,8 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"sap/ui/model/json/JSONModel",
 	"../model/FieldValidations",
-	"../util/ajaxutilNew",
 	"avmet/ah/util/FilterOpEnum"
-], function(BaseController, dataUtil, formatter, ajaxutil, Log, MessageBox, JSONModel, FieldValidations, ajaxutilNew, FilterOpEnum) {
+], function(BaseController, dataUtil, formatter, ajaxutil, Log, MessageBox, JSONModel, FieldValidations, FilterOpEnum) {
 	"use strict";
 	/* ***************************************************************************
 	/* ***************************************************************************
@@ -147,7 +146,7 @@ sap.ui.define([
 					});
 				}.bind(this);
 				oParameter.activity = 7;
-				ajaxutilNew.fnDelete(sPath, oParameter, "ZRM_COS_OP", this);
+				ajaxutil.fnDelete(sPath, oParameter, "ZRM_COS_OP", this);
 			} catch (e) {
 				Log.error("Exception in _fnDeleteScheduleJob function");
 
@@ -199,7 +198,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("UTILISATIONDUESVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnGetUtilisation function");
 			}
@@ -225,7 +224,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "UtilizationCBModel");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnUtilizationGet function");
 			}
@@ -267,7 +266,7 @@ sap.ui.define([
 
 				}.bind(this);
 
-				ajaxutilNew.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSummary);
+				ajaxutil.fnRead(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSummary);
 			} catch (e) {
 				Log.error("Exception in _fnSumamryDetailsGet function");
 			}
@@ -358,7 +357,7 @@ sap.ui.define([
 					}
 				}.bind(this);
 				oPrmSchJob.activity = 2;
-				ajaxutilNew.fnUpdate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnUpdate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in onRaiseScheduleConcessionPress function");
 			}
@@ -402,7 +401,7 @@ sap.ui.define([
 
 				}.bind(this);
 				oPrmSchJob.activity = 2;
-				ajaxutilNew.fnUpdate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
+				ajaxutil.fnUpdate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_COS_JB", this);
 			} catch (e) {
 				Log.error("Exception in onUpdateWorkCenterPress function");
 			}
@@ -424,7 +423,7 @@ sap.ui.define([
 						this.getRouter().navTo("Cosjobs", true);
 					}.bind(this);
 					oPrmSchJob.activity = 1;
-					ajaxutilNew.fnCreate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
+					ajaxutil.fnCreate(that.getResourceBundle().getText("GETSERLOGSVC"), oPrmSchJob, [oPayload], "ZRM_SCH_SJ", this);
 				} else {
 					MessageBox.error(
 						"Please add workcenter to start schedule job.", {
@@ -458,7 +457,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "JobDueSet");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
+				ajaxutil.fnRead(this.getResourceBundle().getText("MASTERDDREFSVC"), oPrmJobDue);
 			} catch (e) {
 				Log.error("Exception in _fnJobDueGet function");
 			}
@@ -486,7 +485,7 @@ sap.ui.define([
 					that.getView().setModel(oModel, "WorkCenterSet");
 				}.bind(this);
 
-				ajaxutilNew.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
+				ajaxutil.fnRead(this.getResourceBundle().getText("GETWORKCENTERSVC"), oPrmWorkCen);
 			} catch (e) {
 				Log.error("Exception in _fnWorkCenterGet function");
 			}
