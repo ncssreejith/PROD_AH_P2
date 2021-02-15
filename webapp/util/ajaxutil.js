@@ -37,7 +37,6 @@ sap.ui.define([
 					oData.beforeSend = this.fnEncryptDetails.bind(this, user);
 				}
 				oData.type = "POST";
-
 				oData.url = this.fnBasePath + "" + sPath + "" + oParameters.queryParam;
 				//	oData.data = JSON.stringify(oPayLoad);
 				oData.data = JSON.stringify({

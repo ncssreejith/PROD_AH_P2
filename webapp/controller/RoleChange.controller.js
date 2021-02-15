@@ -468,7 +468,7 @@ sap.ui.define([
 			oPayload.ISSER = null;
 			oPayload.L_TXT = stn.L_TXT;
 			oPayload.MAX = null;
-			oPayload.NUM1 = adp === undefined ? '' : adp.NUM1;
+			oPayload.NUM1 = adp === undefined ? '1' : adp.NUM1;
 			oPayload.PADPDESC = null;
 			oPayload.PADPID = null;
 			oPayload.POT = null;
