@@ -577,7 +577,7 @@ sap.ui.define([
 
 		onRoleChange: function() {
 			try {
-				this.getOwnerComponent().getRouter().navTo("RoleChangeStations");
+				this.getOwnerComponent().getRouter().navTo("RoleChange");
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onRoleChange function");
 				this.handleException(e);
@@ -597,7 +597,7 @@ sap.ui.define([
 						stepid: "S_WC" //S_WC
 					});
 				} else {
-					this.getOwnerComponent().getRouter().navTo("RoleChangeStations", {
+					this.getOwnerComponent().getRouter().navTo("RoleChange", {
 						mode: 0
 					});
 				}

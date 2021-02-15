@@ -1,30 +1,15 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="avmet.ah.controller.OFPView">
 	<Page title="Aircraft OFP" navButtonPress="onNavBack" showNavButton="true">
 		<content>
-			<Toolbar>
+			<Toolbar class="sapUiTinyMarginTop">
 				<ToolbarSpacer/>
 				<Button text="Print" icon="sap-icon://print" press="onPrint"/>
-				<Button text="View Past records" press="onPastRecords" class="sapUiTinyMarginBeginEnd"/>
+				<Button text="View Past records" 	visible="{= ${oOFPModel>/logid} === undefined}"  press="onPastRecords" class="sapUiTinyMarginBeginEnd"/>
 				<Button text="Update Records" type="Emphasized" press="onUpdateRecords"
-				enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"
+				visible="{= ${oOFPModel>/logid} === undefined}" enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"
 				/>
 			</Toolbar>
 			<VBox width="100%" class="sapUiSmallMarginTop" >
-				<!--<Table class="OFPBlue sapUiResponsivePadding sapUiTinyMarginTop sapUiMediumMarginBeginEnd CERTable tableHFont"-->
-				<!--	updateFinished="onFuelTableUpdateFinish" items="{OFPView>/WDNSTable2}" width="35%">-->
-				<!--	<columns>-->
-				<!--		<Column hAlign="Left" width="15%" class="textColor"></Column>-->
-				<!--		<Column hAlign="Left" width="15%" class="textColor"></Column>-->
-				<!--	</columns>-->
-				<!--	<items>-->
-				<!--		<ColumnListItem>-->
-				<!--			<cells>-->
-				<!--				<Label text="Aircraft OFP" design="Bold" class="WDNSWhiteFont"/>-->
-				<!--				<Label text="1234567" design="Bold" class="WDNSWhiteFont"/>-->
-				<!--			</cells>-->
-				<!--		</ColumnListItem>-->
-				<!--	</items>-->
-				<!--</Table>-->
 				<Table id="tblOFP" columns="{oOFPModel>/ofp}" class="TableHeaderBGColor">
 					<columns>
 						<Column class="TableTextColor" hAlign="Center" width="20%">

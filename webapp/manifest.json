@@ -578,25 +578,10 @@
 					]
 				},
 				{
-					"pattern": "RoleDisplayStations",
-					"name": "RoleDisplayStations",
+					"pattern": "RoleChange/:mode:",
+					"name": "RoleChange",
 					"target": [
-						"RoleDisplayStations"
-					]
-				},
-				{
-					"pattern": "RoleChangeStations/:mode:",
-					"name": "RoleChangeStations",
-					"target": [
-						"RoleChangeStations"
-					]
-				},
-				{
-					"pattern": "Pylon/{RoleChangeStations}",
-					"name": "Pylon",
-					"target": [
-						"RoleChangeStations",
-						"Pylon"
+						"RoleChange"
 					]
 				},
 				{
@@ -1218,17 +1203,8 @@
 					"viewLevel": 2,
 					"title": "{i18n>creatingFlightServicing}"
 				},
-				"RoleDisplayStations": {
-					"controlId": "nvMainContainerId",
-					"controlAggregation": "pages",
-					"parent": "TargetHome",
-					"viewType": "XML",
-					"viewName": "ah/rolechange/RoleDisplayStations",
-					"viewId": "StationDisplay",
-					"viewLevel": 2,
-					"title": "Display Role"
-				},
-				"RoleChangeStations": {
+				
+				"RoleChange": {
 					"controlId": "nvMainContainerId",
 					"controlAggregation": "pages",
 					"parent": "TargetHome",
@@ -1237,13 +1213,6 @@
 					"viewId": "Station",
 					"viewLevel": 2,
 					"title": "Role Change"
-				},
-				"Pylon": {
-					"viewType": "XML",
-					"viewName": "ah/rolechange/Pylon",
-					"viewId": "Pylon",
-					"viewLevel": 2,
-					"title": "Pylon"
 				},
 				"WBPastRecords": {
 					"controlId": "nvMainContainerId",

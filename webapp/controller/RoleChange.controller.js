@@ -26,7 +26,7 @@ sap.ui.define([
 		/* =========================================================================================================== */
 		onInit: function() {
 			try {
-				this.getRouter().getRoute("RoleChangeStations").attachPatternMatched(this._onObjectMatched, this);
+				this.getRouter().getRoute("RoleChange").attachPatternMatched(this._onObjectMatched, this);
 				this.getView().setModel(new JSONModel({
 					mode: 1,
 					tsign: false,
@@ -188,25 +188,6 @@ sap.ui.define([
 				return sFlag;
 			}
 
-			// var selKey = this.getModel("rcModel").getProperty("/selTab");
-			// if( this.editMode === undefined){
-			// 	this.editMode = selKey;
-			// 	this.getModel("rcModel").setProperty("/EditTab", selKey);
-			// }
-
-			// if(this.editMode !== selKey){
-			// 	sFlag = false;
-			// }
-			// var ttSign = this.getModel("rcModel").getProperty("/tsign");
-			// var tSign = this.getModel("rcModel").getProperty("/selStn/tsign");
-			// tSign = tSign===null ? true:false;
-			// if(selKey==="rc1" && ttSign){
-			// 	tSign = false;
-			// }
-			// if(this.formatter.rcSignChange(tSign,selKey)){
-			// 	sap.m.MessageBox.error("Changes are not allowed");
-			// 	sFlag = false;
-			// }
 			return sFlag;
 		},
 		//SAME = UPDATE EXISTING ONE WIH SERIAL NUMBER 
@@ -484,8 +465,6 @@ sap.ui.define([
 			oPayload.WEMID = null;
 			oPayload.WESDESC = null;
 			oPayload.WESID = null;
-			oPayload.begda = null;
-			oPayload.endda = stn.endda;
 			oPayload.tailid = stn.tailid;
 			oPayload.tstat = stn.tstat; //this.formatter.rcSignChange(sStat,selKey)?1:0;
 			// oPayload.tsign = "";
@@ -498,15 +477,5 @@ sap.ui.define([
 				var selKey = this.getModel("rcModel").getProperty("/selTab");
 				return this.formatter.rcSignAPPR(selKey);
 			}
-			// fnGetApproNo:function(){
-			// 	var selKey = this.getModel("rcModel").getProperty("/selTab");
-			// 	var sStat = this.getModel("rcModel").getProperty("/tsign");
-			// 	var isUndo = this.formatter.rcSignChange(sStat,selKey);
-			// 	var sApprNo = sStat?1:0;
-			// 	if(!isUndo){
-			// 		sApprNo = 0;
-			// 	}
-			// 	return sApprNo;
-			// }
 	});
 });

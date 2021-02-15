@@ -5,8 +5,8 @@
 			<VBox class="sapUiSmallMargin">
 				<HBox justifyContent="End">
 					<Button text="Print" icon="sap-icon://print" press="onPrint"/>
-					<Button text="View Past Record" type="Transparent" class="sapUiTinyMarginBeginEnd" press="onViewPastRecord"></Button>
-					<Button text="Update Record" type="Emphasized" press="onUpdateRecord"
+					<Button visible="{= ${oWDNSModel>/logid} === undefined}" text="View Past Record" type="Transparent" class="sapUiTinyMarginBeginEnd" press="onViewPastRecord"></Button>
+					<Button visible="{= ${oWDNSModel>/logid} === undefined}" text="Update Record" type="Emphasized" press="onUpdateRecord"
 					enabled="{path:'avmetModel>/dash/astid', formatter:'.formatter.CheckTailStatus'}"/>
 				</HBox>
 				<HBox>
