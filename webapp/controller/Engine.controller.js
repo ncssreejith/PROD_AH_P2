@@ -206,17 +206,6 @@ sap.ui.define([
 				} else {
 					this.getModel("oEngineModel").setProperty("/displayPowerLineChart", true);
 				}
-				// var sFragName = "avmet.ah.view.ah.engine.subview.PowerCheckLineChart",
-				// 	source = oEvent.getSource();
-				// Fragment.load({
-				// 	name: sFragName,
-				// 	controller: this
-				// }).then(function(oPopover) {
-				// 	this._oPopoverEdit = oPopover;
-				// 	this.getView().addDependent(this._oPopoverEdit);
-				// 	this._oPopoverEdit.setModel(this.getModel("engine1Chart"));
-				// 	this._oPopoverEdit.openBy(source);
-				// }.bind(this));
 			} catch (e) {
 				Log.error("Exception in Engine:onPowerCheckPress function");
 				this.handleException(e);
@@ -280,19 +269,11 @@ sap.ui.define([
 			try {
 				//Check engine hours since last top up
 				if (this.fnDateEngineHrsDiff("1")) {
-					// sap.m.MessageBox.warning("Last top up is less than 10hrs.", {
-					// 	actions: [sap.m.MessageBox.Action.OK],
-					// 	emphasizedAction: sap.m.MessageBox.Action.OK,
-					// 	onClose: function(sAction) {
-					// 		if (sAction === "OK") {
-					this.getRouter().navTo("AddEngOilLog", {
+						this.getRouter().navTo("AddEngOilLog", {
 						engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
 						tailid: this.getTailId(),
 						SFLAG: "X"
 					});
-					// 		}
-					// 	}.bind(this)
-					// });
 				} else {
 					this.getRouter().navTo("AddEngOilLog", {
 						engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
@@ -457,28 +438,6 @@ sap.ui.define([
 				}
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
-					//sort by date
-					// oData.results.forEach(function(oItem) {
-					// 	oItem.ID = that.fnDateTime(oItem.SPDT, oItem.SPTM); //, 
-					// });
-					// oData.results.sort(function(a, b) { //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043 //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-					// oData.results.sort(function(b, a) { //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-					// 	return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]);
-					// });
-					// var bFound = false;
-					// oData.results.forEach(function(oItem) {
-					// 	if (!bFound && oItem.chkrn === "2") {
-					// 		oItem.Special = true;
-					// 		bFound = true;
-					// 		oItem.minValue = parseFloat(JSON.parse(JSON.stringify(
-					// 			oItem.ETF ? oItem.ETF : 0)));
-					// 	}
-					// });
-
-					// oData.results.sort(function(a, b) { //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-					// 	return parseInt(a.SRVID.split("_")[1]) - parseInt(b.SRVID.split("_")[1]); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-					// }); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
-
 					if (oData) {
 						if (iEngine === "1") {
 							oEngineModel.setProperty("/EngPowerCheck", oData.results);
@@ -684,7 +643,7 @@ sap.ui.define([
 				var aUDashPoints = [];
 				var aCopyPowerCheck = aEngPowerCheck; //JSON.parse(JSON.stringify(aEngPowerCheck));//aEngPowerCheck; //
 				aCopyPowerCheck.forEach(function(oItem) {
-					if (oItem.CHKRN !== "1") {
+					if (oItem.chkrn !== "1") {
 						return;
 					}
 

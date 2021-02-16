@@ -14,10 +14,10 @@
 				<!--<HBox>-->
 				<Table visible="{= !${oEngineModel>/displayPowerLineChart}}" class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%"
 					growing="true" growingThreshold="5" growingScrollToLoad="false"
-				items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters : [{ path : 'chkrn', operator : 'EQ', value1 : '1' },{ path : 'engno', operator : 'EQ', value1 : '1' }], templateShareable: true}"
+				items="{ path: 'oEngineModel>/EngPowerCheck',filters : [{ path : 'chkrn', operator : 'EQ', value1 : '1' },{ path : 'engno', operator : 'EQ', value1 : '1' }], templateShareable: true}"
 					noDataText="{i18n>noDataHitTable}" showNoData="true">
 					<headerToolbar>
-							<!--items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters : [{ path : 'chkrn', operator : 'EQ', value1 : '1' },{ path : 'engno', operator : 'EQ', value1 : '1' }], templateShareable: true}"-->
+							<!--items="{ path: 'oEngineModel>/EngPowerCheck',filters : [{ path : 'chkrn', operator : 'EQ', value1 : '1' },{ path : 'engno', operator : 'EQ', value1 : '1' }], templateShareable: true}"-->
 				
 						<OverflowToolbar>
 							<content>
@@ -174,7 +174,7 @@
 				<!--updateFinished="testUpdateFinished"-->
 				<Table class="sparesTable sapUiSmallMarginBottom sapUiTinyMarginBeginEnd" width="98%" growing="true" growingThreshold="5"
 					growingScrollToLoad="false"
-					items="{ path: 'oEngineModel>/EngPowerCheck',sorter: [{ path: 'SRVID', descending: true}] , filters: [ { filters: [ { path: 'chkrn', operator: 'EQ', value1: '2' }, { path: 'engno', operator: 'EQ', value1: '1' } ], and: true } ]}"
+					items="{ path: 'oEngineModel>/EngPowerCheck',filters: [ { filters: [ { path: 'chkrn', operator: 'EQ', value1: '2' }, { path: 'engno', operator: 'EQ', value1: '1' } ], and: true } ]}"
 					noDataText="No ETF Records" showNoData="true">
 					<!--filters : [{ path : 'chkrn', operator : 'EQ', value1 : '2' },{ path : 'engno', operator : 'EQ', value1 : '1' }],-->
 					<headerToolbar>
