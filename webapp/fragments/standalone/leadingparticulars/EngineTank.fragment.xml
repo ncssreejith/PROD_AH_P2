@@ -22,8 +22,8 @@
 				<ColumnListItem>
 					<cells>
 						<VBox>
-							<Text text="{OverViewItemTankModel>POSITION}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? false : true}"/>
-							<Input value="{OverViewItemTankModel>POSITION}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? true : false}" change="onChangeTankValue"/>
+							<Text text="{OverViewItemTankModel>ZPOSITION}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? false : true}"/>
+							<Input value="{OverViewItemTankModel>ZPOSITION}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? true : false}" change="onChangeTankValue"/>
 						</VBox>
 						<VBox>
 							<Text text="{OverViewItemTankModel>CAPASITY}" visible="{= ${OverViewItemTankModel>/isTableEditable} ? false : true}"/>
