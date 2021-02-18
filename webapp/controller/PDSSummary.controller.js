@@ -377,8 +377,8 @@ sap.ui.define([
 				// oParameter.filter = "REFID eq " + this.getAircraftId() + " and SRVTID eq " + this.getModel("pdsSummaryModel").getProperty(
 				// 	"/srvtid") + " and TAILID eq " + this.getTailId();
 				oParameter.filter = "REFID" + FilterOpEnum.EQ + this.getAircraftId() + FilterOpEnum.AND +
-					"SRVTID" + FilterOpEnum.EQ + this.getModel("pdsSummaryModel").getProperty("/srvtid") +FilterOpEnum.AND + 
-					"STEPID" + FilterOpEnum.EQ + this.getModel("pdsSummaryModel").getProperty("/stepid") +FilterOpEnum.AND + 
+					"SRVTID" + FilterOpEnum.EQ + this.getModel("pdsSummaryModel").getProperty("/srvtid") + FilterOpEnum.AND +
+					"STEPID" + FilterOpEnum.EQ + this.getModel("pdsSummaryModel").getProperty("/stepid") + FilterOpEnum.AND +
 					"tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
 				oParameter.success = function(oData) {
 					var sPASign = oData.results.length > 0 ? oData.results[0].padone : null;
@@ -639,7 +639,7 @@ sap.ui.define([
 			try {
 
 				var oParameter = {};
-			//	oParameter.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
+				//	oParameter.filter = "AIRID eq " + this.getAircraftId() + " and TAILID eq " + this.getTailId();
 				oParameter.filter = "AIRID" + FilterOpEnum.EQ + this.getAircraftId() + "&TAILID" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
@@ -892,7 +892,6 @@ sap.ui.define([
 		onPressSignOffConfirm: function(oEvent) {
 			try {
 
-				
 				var oSignOffPayload = JSON.parse(JSON.stringify(this.getModel("pdsSummaryModel").getProperty("/masterList"))); //Teck Meng change on 27/11/2020 13:00 AH Issue 1044,1043
 				oSignOffPayload.forEach(function(oItem) {
 					oItem.review = oItem.data.reviewd;
@@ -900,7 +899,7 @@ sap.ui.define([
 					oItem.ffdt = this.getModel("pdsSummaryModel").getProperty("/confirm/selDDID");
 					delete oItem.data;
 				}.bind(this));
-				
+
 				var oParameter = {};
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {

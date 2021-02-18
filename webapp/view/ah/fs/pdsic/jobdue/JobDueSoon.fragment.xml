@@ -6,21 +6,19 @@
 				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
 					<items>
 						<Text class="PDSFragTitle" text="Jobs Due Soon"/>
-						<Button text="{path:'pdsSummaryModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized" enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
+						<Button text="{path:'pdsSummaryModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized"
+							enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
 					</items>
 				</FlexBox>
-			<!--	filters: [{
+				<!--	filters: [{
 					filters:[
 						{filters:[{path: 'DUEIN',operator: 'LE',value1: '5'},{path: 'UM',operator: 'EQ',value1: 'DAYS'}],and:true},
 						{filters:[{path: 'DUEIN',operator: 'LE',value1: '10'},{path: 'UM',operator: 'NE',value1: 'DAYS'}],and:true}
 					],and:false
 					}],-->
-					
 				<!--getBindingContext("pdsSummaryModel")-->
 				<!--,filters:[{path:'DUEIN',operator:'LE',value1:'5'},{path:'UM',operator:'EQ',value1:'DAYS'}]-->
-				<Table class="sapUiResponsivePadding CERTable sapUiSizeCompact"
-					items="{path:'pdsSummaryModel>dueJobs', 
-					 sorter:{path:'DUEIN'}}"
+				<Table class="sapUiResponsivePadding CERTable sapUiSizeCompact" items="{path:'pdsSummaryModel>dueJobs', sorter:{path:'DUEIN'}}"
 					updateFinished="onJobDueUpdateFinished">
 					<columns>
 						<Column width="10%" hAlign="Center" class="CERTableTextColor">
@@ -48,7 +46,8 @@
 					<items>
 						<ColumnListItem vAlign="Middle" type="Inactive" press="onDefectsDetailsPress">
 							<cells>
-								<Text text="{pdsSummaryModel>DUEIN}"/>
+								<!--<Text text="{pdsSummaryModel>DUEIN}"/>-->
+								<Text text="{parts:['pdsSummaryModel>DUEIN','pdsSummaryModel>UM'],formatter:'.formatter.jdsDueInFormat'}"/>
 								<Text text="{pdsSummaryModel>UM}"/>
 								<Text text="{path:'pdsSummaryModel>SERVDT',formatter:'.formatter.defaultDateFormatDisplay'}{pdsSummaryModel>SERVDUE}"/>
 								<Text text="{pdsSummaryModel>JOBDESC}"/>

@@ -378,7 +378,7 @@ sap.ui.define([
 			}
 			return oTemp;
 		},
-		
+
 		fndIdFormatterModel: function(stTask1, stTask2) {
 			/*var stTask1, stTask2;*/
 			if (stTask2) {
@@ -962,10 +962,10 @@ sap.ui.define([
 			if (!duein || !uom) {
 				return 0;
 			}
-			if (uom === "AFH" || uom === "EOT") {
-				return parseFloat(duein);
-			}
-			return parseInt(duein);
+			// if (uom === "AFH") {
+			// 	return duein;
+			// }
+			return parseFloat(duein);
 		},
 		sortieMonitoringFormat: function(sValue, sKey) {
 			if (sValue && sKey) {
@@ -2132,6 +2132,18 @@ sap.ui.define([
 			return sValue;
 		},
 
+		PDSICJobDueDecimalPrecision: function(sValue, sKey) {
+			var iPrec;
+			if (sKey === "JDU_11" || sKey === "JDU_18" || sKey === "JDU_19" || sKey === "JDU_20" || sKey === "SORTI_2" || sKey === "SORTI_3" ||
+				sKey === "SORTI_6" || sKey === "UTIL1_10" || sKey === "UTIL1_16" || sKey === "UTIL1_17" || sKey === "UTIL1_18") {
+				iPrec = 1;
+			} else {
+				iPrec = 0;
+			}
+			var iVal = parseFloat(sValue).toFixed(iPrec);
+			return parseFloat(iVal);
+		},
+
 		JobDueDecimalPrecision: function(sKey) {
 			if (sKey === "JDU_11" || sKey === "JDU_18" || sKey === "JDU_19" || sKey === "JDU_20" || sKey === "SORTI_2" || sKey === "SORTI_3" ||
 				sKey === "SORTI_6" || sKey === "UTIL1_10" || sKey === "UTIL1_16" || sKey === "UTIL1_17" || sKey === "UTIL1_18") {
@@ -2380,17 +2392,17 @@ sap.ui.define([
 			var sToday = new Date();
 			var diffMs = (sToday - rowDate);
 			var diffMins = Math.floor((diffMs / 1000) / 60);
-			if (diffMins > sDiff ) {
+			if (diffMins > sDiff) {
 				return false;
 			}
-			if(sFlown==="RSN_998"){
+			if (sFlown === "RSN_998") {
 				return false;
 			}
 			return true;
 		}, // Teck Meng 30/11/2020 10:30 end
-		
-		EditBtnVisibility: function(sVal,hrs) {
-			var sDiff = hrs?hrs:1440; // 24 hourse in minutes 
+
+		EditBtnVisibility: function(sVal, hrs) {
+			var sDiff = hrs ? hrs : 1440; // 24 hourse in minutes 
 			var rowDate = new Date(sVal); // your date object
 			var sToday = new Date();
 			var diffMs = (sToday - rowDate);
