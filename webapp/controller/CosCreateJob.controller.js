@@ -277,7 +277,7 @@ sap.ui.define([
 				if (FieldValidations.validateFields(this)) {
 					return;
 				}
-				if (oJobModel.getData().jduid === "JDU_10" && parseInt(oJobModel.getData().INTERVAL, 10) === 0) {
+				if (oJobModel.getData().jduid === "JDU_10" && parseInt(oJobModel.getData().ZINTERVAL, 10) === 0) {
 					if (!oJobModel.getData().jduvl) {
 						this.getView().byId("DP2").setValueState("Error");
 						return;
@@ -954,7 +954,7 @@ sap.ui.define([
 				var oSrc = oEvent.getSource(),
 					oAppModel = this.getView().getModel("oViewCreateModel"),
 					sKey = oAppModel.getProperty("/UMKEY"),
-					sInt = oAppModel.getProperty("/INTERVAL");
+					sInt = oAppModel.getProperty("/ZINTERVAL");
 				oSrc.setValueState("None");
 				oAppModel.setProperty("/jduvl", oSrc.getDateValue());
 				var iPrec = formatter.JobDueDecimalPrecision(sKey);
@@ -962,7 +962,7 @@ sap.ui.define([
 				Log.error("Exception in handleChangeSche function");
 			}
 			/*if (parseFloat(sInt, [10]) > 0) {
-				oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+				oAppModel.setProperty("/ZINTERVAL", parseFloat(0, [10]).toFixed(iPrec));
 				sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
 			}*/
 		},
@@ -1443,9 +1443,9 @@ sap.ui.define([
 						sVal = parseFloat(sVal, [10]);
 						var iPrec = formatter.JobDueDecimalPrecision(sDue);
 						oModel.setProperty("/jduvl", parseFloat(minVal, [10]).toFixed(iPrec));
-						oModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+						oModel.setProperty("/ZINTERVAL", parseFloat(0, [10]).toFixed(iPrec));
 					} else {
-						oModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(0));
+						oModel.setProperty("/ZINTERVAL", parseFloat(0, [10]).toFixed(0));
 					}
 					if (sDue === "JDU_10") {
 						oModel.setProperty("/jduvl", null);
@@ -1468,11 +1468,11 @@ sap.ui.define([
 				var oSrc = oEvent.getSource(),
 					oAppModel = this.getView().getModel("oViewCreateModel"),
 					sKey = oAppModel.getProperty("/jduid"),
-					sInt = oAppModel.getProperty("/INTERVAL");
+					sInt = oAppModel.getProperty("/ZINTERVAL");
 				oSrc.setValueState("None");
 				var iPrec = formatter.JobDueDecimalPrecision(sKey);
 				/*if (parseFloat(sInt, [10]) > 0) {
-					oAppModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+					oAppModel.setProperty("/ZINTERVAL", parseFloat(0, [10]).toFixed(iPrec));
 					sap.m.MessageBox.warning("As you are changing Job Due By, Interval value has been reset");
 				}*/
 			} catch (e) {
@@ -1497,7 +1497,7 @@ sap.ui.define([
 				if (!sVal || sVal === "") {
 					sVal = 0;
 				}
-				oAppModel.setProperty("/INTERVAL", parseFloat(sVal, [10]).toFixed(iPrec));
+				oAppModel.setProperty("/ZINTERVAL", parseFloat(sVal, [10]).toFixed(iPrec));
 				/*	if (sKey !== "JDU_10") {
 						if (this.oObject && this.oObject[sKey] && this.oObject[sKey].VALUE) {
 							var minVal = parseFloat(this.oObject[sKey].VALUE, [10]);

@@ -182,10 +182,10 @@ sap.ui.define([
 							"UM": "",
 							"minVal": this.oObject[aData.UMKEY] ? parseFloat(this.oObject[aData.UMKEY].VALUE) : 0,
 							"minDT": new Date(aData.SERVDT),
-							"INTERVAL": aData.INTERVAL
+							"ZINTERVAL": aData.ZINTERVAL
 
 						};
-						if (aData.INTERVAL === 0) {
+						if (aData.ZINTERVAL === 0) {
 							this.getFragmentControl("idScheduleJobExtension", "vbInterval").setVisible(false);
 						}
 						if (this.getView().getModel("RSModel")) {
@@ -297,7 +297,7 @@ sap.ui.define([
 						oModel.UM = okeyText;
 					}
 					if (oModel.DueBy === "JDU_10") {
-						if (oModel.ExpDate === null && parseFloat(oModel.INTERVAL) === 0) {
+						if (oModel.ExpDate === null && parseFloat(oModel.ZINTERVAL) === 0) {
 							this.getFragmentControl("idScheduleJobExtension", "dpScheId").setValueState("Error");
 							this.getFragmentControl("idScheduleJobExtension", "dpScheId").setValueStateText("Please fill required field");
 							return;
@@ -306,9 +306,9 @@ sap.ui.define([
 						oPayload.UM = oModel.UM;
 						oPayload.UMKEY = oModel.DueBy;
 						oPayload.SERVDUE = null;
-						oPayload.INTERVAL = oModel.INTERVAL;
+						oPayload.ZINTERVAL = oModel.ZINTERVAL;
 					} else {
-						if (oModel.ExpDate === null && parseFloat(oModel.INTERVAL) === 0) {
+						if (oModel.ExpDate === null && parseFloat(oModel.ZINTERVAL) === 0) {
 							this.getFragmentControl("idScheduleJobExtension", "siSchedId").setValueState("Error");
 							this.getFragmentControl("idScheduleJobExtension", "siSchedId").setValueStateText("Please fill required field");
 							return;
@@ -317,7 +317,7 @@ sap.ui.define([
 						oPayload.UM = oModel.UM;
 						oPayload.SERVDUE = (oModel.UtilVal).toString();
 						oPayload.UMKEY = oModel.DueBy;
-						oPayload.INTERVAL = oModel.INTERVAL;
+						oPayload.ZINTERVAL = oModel.ZINTERVAL;
 					}
 					oPayload.SCONFLAG = "";
 				} else {
@@ -343,7 +343,7 @@ sap.ui.define([
 						"ExpDateFlag": false,
 						"UtilValFlag": false,
 						"UM": "",
-						"INTERVAL": 0
+						"ZINTERVAL": 0
 
 					});
 					this.getView().setModel(oModel1, "RSModel");
@@ -392,7 +392,7 @@ sap.ui.define([
 						"ExpDateFlag": false,
 						"UtilValFlag": false,
 						"UM": "",
-						"INTERVAL": 0
+						"ZINTERVAL": 0
 
 					});
 					this.getView().setModel(oModel1, "RSModel");
@@ -1019,13 +1019,13 @@ sap.ui.define([
 						sVal = parseFloat(sVal, [10]);
 						var iPrec = formatter.JobDueDecimalPrecision(sDue);
 						oModel.setProperty("/UtilVal", parseFloat(minVal, [10]).toFixed(iPrec));
-						oModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(iPrec));
+						oModel.setProperty("/ZINTERVAL", parseFloat(0, [10]).toFixed(iPrec));
 					} else {
 						var temp = new Date();
 						oModel.setProperty("/minDT", temp);
 						oModel.setProperty("/ExpDate", temp);
 						oModel.setProperty("/UM", okeyText);
-						oModel.setProperty("/INTERVAL", parseFloat(0, [10]).toFixed(0));
+						oModel.setProperty("/ZINTERVAL", parseFloat(0, [10]).toFixed(0));
 					}
 
 				}
@@ -1046,7 +1046,7 @@ sap.ui.define([
 				var oSrc = oEvent.getSource(),
 					oAppModel = this.getView().getModel("RSModel"),
 					sKey = oAppModel.getProperty("/DueBy"),
-					sInt = oAppModel.getProperty("/INTERVAL");
+					sInt = oAppModel.getProperty("/ZINTERVAL");
 				oSrc.setValueState("None");
 			} catch (e) {
 				Log.error("Exception in onDueSelectChange function");
@@ -1071,7 +1071,7 @@ sap.ui.define([
 				if (!sVal || sVal === "") {
 					sVal = 0;
 				}
-				oAppModel.setProperty("/INTERVAL", parseFloat(sVal, [10]).toFixed(iPrec));
+				oAppModel.setProperty("/ZINTERVAL", parseFloat(sVal, [10]).toFixed(iPrec));
 			} catch (e) {
 				Log.error("Exception in onIntervalChange function");
 			}

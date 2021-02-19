@@ -26,7 +26,7 @@
 				</VBox>
 				<VBox id="vbInterval" class="sapUiTinyMarginBegin">
 					<Label text="Interval" design="Bold"/>
-					<Input id="ipInterval" value="{RSModel>/INTERVAL}" type="Number" textAlign="End" change="onIntervalChange"></Input>
+					<Input id="ipInterval" value="{RSModel>/ZINTERVAL}" type="Number" textAlign="End" change="onIntervalChange"></Input>
 				</VBox>
 			</HBox>
 		</VBox>

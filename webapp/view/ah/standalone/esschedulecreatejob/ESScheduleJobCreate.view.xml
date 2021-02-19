@@ -151,7 +151,7 @@
 								<VBox class="sapUiTinyMarginBegin"
 									visible="{= ${JobCreateModel>/UMKEY} !== null &amp;&amp; ${JobCreateModel>/UMKEY} !== 'JDU_23' ? true:false}">
 									<Label text="Interval" design="Bold"/>
-									<Input value="{JobCreateModel>/INTERVAL}" type="Number" textAlign="End" change="onIntervalChange" livechange="onIntervalLiveChange"></Input>
+									<Input value="{JobCreateModel>/ZINTERVAL}" type="Number" textAlign="End" change="onIntervalChange" livechange="onIntervalLiveChange"></Input>
 								</VBox>
 							</HBox>
 							<HBox class="sapUiSmallMarginTop">

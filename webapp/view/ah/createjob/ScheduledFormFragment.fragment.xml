@@ -35,7 +35,7 @@
 			</VBox>
 			<VBox class="sapUiTinyMarginBegin" visible="{= ${oViewCreateModel>/jduid} ? true:false}">
 				<Label text="Interval" design="Bold"/>
-				<Input value="{oViewCreateModel>/INTERVAL}" type="Number" textAlign="End" change="onIntervalChange" editable="{=${appModel>/sRJobIdFlag} === 'N' ? false : true}"></Input>
+				<Input value="{oViewCreateModel>/ZINTERVAL}" type="Number" textAlign="End" change="onIntervalChange" editable="{=${appModel>/sRJobIdFlag} === 'N' ? false : true}"></Input>
 			</VBox>
 		</HBox>
 		<HBox class="sapUiSmallMarginTop">
