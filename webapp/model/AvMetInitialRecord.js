@@ -75,6 +75,7 @@ sap.ui.define([
 						"ETRFLAG": null,
 						"FAIRNR": null,
 						"ZINTERVAL": 0,
+						"INTERVAL": 0,
 						"SG1USR": null,
 						"SG1DTM": null,
 						"SG1UZT": null,
@@ -230,7 +231,9 @@ sap.ui.define([
 						"CDESC": null,
 						"UMKEY": null,
 						"SCONFLAG": null,
-						"ZINTERVAL":0
+						"ZINTERVAL": 0,
+						"INTERVAL": 0
+
 					};
 					oArray.push(SCHJobData);
 					break;
