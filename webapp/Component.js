@@ -46,7 +46,7 @@ sap.ui.define([
 
 		_fnSessionChk: function() {
 			try {
-				var sPath = dataUtil.destination + "/ws_authenticate";
+				var sPath = dataUtil.destination + "/ws_eslm_authenticate";
 				//Sreejith: 30/11/2020: Code commented as session logic changed by sreejith
 				/*if(dataUtil.getDataSet("oUserSession")){
 					sPath = sPath+"?sessionid="+dataUtil.getDataSet("oUserSession").sessionid;
@@ -114,7 +114,7 @@ sap.ui.define([
 				var sPass = dataUtil.username + ":" + dataUtil.pwd;
 				$.ajax({
 					type: 'GET',
-					url: dataUtil.destination + "/ws_authenticate",
+					url: dataUtil.destination + "/ws_eslm_authenticate",
 					headers: {
 						"Authorization": "Basic " + dataUtil._AESHexEncript(sPass), //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
 						"state": "new"
@@ -141,7 +141,7 @@ sap.ui.define([
 			try {
 				$.ajax({
 					type: 'GET',
-					url: dataUtil.destination + "/ws_authenticate?sessionid=" + dataUtil.getDataSet("oUserSession").sessionid,
+					url: dataUtil.destination + "/ws_eslm_authenticate?sessionid=" + dataUtil.getDataSet("oUserSession").sessionid,
 					headers: {
 						"state": "selPtfm",
 						"ptfm": sPkey

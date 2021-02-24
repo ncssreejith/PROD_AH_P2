@@ -676,7 +676,7 @@ sap.ui.define([
 
 				$.ajax({
 					type: 'GET',
-					url: "/ws_authenticate",
+					url: "/ws_eslm_authenticate",
 					headers: {
 						//"sessionid": dataUtil.getDataSet("oUserSession").sessionid,
 						"state": "delete"
