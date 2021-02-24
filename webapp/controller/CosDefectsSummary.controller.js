@@ -3948,7 +3948,7 @@ sap.ui.define([
 					that.getView().addDependent(that._oSupDetails);
 				}
 				that._oSupDetails.open(that);
-				if (oObj.tt1id === "TT1_10" && oObj.tt2id === "TT2_10" && oObj.engflag !== "NE") {
+				if (oObj.tt1id === "TT1_10" && oObj.tt2id === "TT2_10" && oObj.engflag === "EG") {
 					that.getSerialNoPress(oObj.partno);
 				}
 				//Rahul: 03/12/2020 06.11PM: If condition added.
@@ -4018,7 +4018,7 @@ sap.ui.define([
 					oModel.setData(oMod);
 					that._oSPDetails.setModel(oModel, "DetailsSupEditModel");
 					that.getView().addDependent(that._oSPDetails);
-					if (oObj.tt1id === "TT1_10" && oObj.tt2id === "TT2_10" && oObj.engflag !== "NE") {
+					if (oObj.tt1id === "TT1_10" && oObj.tt2id === "TT2_10" && oObj.engflag === "EG") {
 						that.getSerialNoPress(oObj.partno);
 					}
 				}
