@@ -9,7 +9,7 @@ sap.ui.define([
 		//fnBasePath: "/DBSRV17/avmet",
 		sessionTimeOutWin: null,
 		swnDialog: null,
-		fnBasePath: dataUtil.destination + "/ws_restful_data_controller",
+		fnBasePath: dataUtil.destination + "/ws_eslm_restful_data_controller",
 		fnCreate: function(sPath, oParameters, oPayLoad, oObjectId, ref) {
 			try {
 				if (oObjectId) {

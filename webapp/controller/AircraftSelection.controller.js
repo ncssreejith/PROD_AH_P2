@@ -226,7 +226,7 @@ sap.ui.define([
 		fnLoadWorkCenter: function() {
 			var sqnId = this.getModel("oAirSelectViewModel").getProperty("/sel/sqnid");
 			var oParameter = {};
-			oParameter.filter = "SQNWC" + FilterOpEnum.EQ + sqnId;
+			oParameter.filter = "SQNWC" + FilterOpEnum.EQ + sqnId+"&REFID" + FilterOpEnum.EQ + "AIR_11";
 			oParameter.error = function() {
 
 			};
