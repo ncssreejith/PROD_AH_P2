@@ -1335,7 +1335,8 @@ sap.ui.define([
 					}
 					if (oPayload.isser === "Batch No.") {
 						oPayload.tt2id = "TT2_15";
-					} /*else if (oPayload.isser === "Serial No. (S/N)") {
+					}
+					/*else if (oPayload.isser === "Serial No. (S/N)") {
 						oPayload.tt2id = "TT2_10";
 					}*/
 					oTempObj = this._fnGetObjectTypeAndActivity(oPayload.tt1id);
@@ -2333,7 +2334,7 @@ sap.ui.define([
 					oModel = this.getView().getModel("LocalModel"),
 					oPrmTask = {};
 				//		oPrmTask.filter = "JOB_ID eq " + sJobId;
-			/*	oPrmTask.filter = "JOB_ID" + FilterOpEnum.EQ + sJobId;*/
+				/*	oPrmTask.filter = "JOB_ID" + FilterOpEnum.EQ + sJobId;*/
 				oPrmTask.filter = "JOB_ID" + FilterOpEnum.EQ + sJobId + "&TAILID" + FilterOpEnum.EQ + that.getTailId();
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
@@ -5121,6 +5122,16 @@ sap.ui.define([
 				Log.error("Exception in fnJobEditCheck function");
 
 			}
+		},
+       	/* Function: onWarningMessagePress
+		 * Parameter: 
+		 * Description:Show the Es Posting Status.
+		 * return true/ false based on difference is greate than 24 hrs or not for job
+		 */
+		onWarningMessagePress: function(oEvent) {
+			var oJobModel = this.getView().getModel("JobModel");
+			var sText = oJobModel.getProperty("/esstatusMsg");
+			this.onWarningMessageSelect(oEvent, sText);
 		},
 
 		// ***************************************************************************

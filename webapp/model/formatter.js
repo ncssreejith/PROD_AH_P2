@@ -2333,11 +2333,26 @@ sap.ui.define([
 			if (sStatus) {
 				var sText = "-";
 				switch (sStatus) {
-					// case "R":
-					// 	sText = "Released for Rectification";
-					// 	break;
 					case "A":
 						sText = "FAIR";
+						break;
+				}
+				return sText;
+			}
+		},
+
+		jobESStatusAction: function(sStatus) {
+			if (sStatus) {
+				var sText = "None";
+				switch (sStatus) {
+					case "Posted Successfully":
+						sText = "Success";
+						break;
+					case "Pending":
+						sText = "Warning";
+						break;
+					case "Posting Error":
+						sText = "Error";
 						break;
 				}
 				return sText;

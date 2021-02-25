@@ -58,7 +58,7 @@
 									press="onButtnItem2Press"/>
 								<HBox visible="{avmetModel>/WarningFlag}">
 									<Button icon="sap-icon://slim-arrow-left" type="Transparent" press="onLeftWarnPress" enabled="{avmetModel>/WarningLeftBtn}"></Button>
-									<Link text="{avmetModel>/WarningIndexText}" active="true" wrapping="false" width="5rem" press="onWarningMessageSelect"
+									<Link text="{avmetModel>/WarningIndexText}" active="true" wrapping="false" width="5rem" press="onWarningMessagePress" 
 										class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop warningColor"/>
 									<Button icon="sap-icon://slim-arrow-right" type="Transparent" press="onRightWarnPress" enabled="{avmetModel>/WarningRightBtn}"></Button>
 								</HBox>

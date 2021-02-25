@@ -27,26 +27,34 @@
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobid')"/>
 					</HBox>
 				</Column>
-				<Column width="20rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">                 <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="20rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="{i18n>lbDefect}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'jobdesc')"/>
 					</HBox>
 				</Column>
-				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">                 <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="{i18n>lbPrime}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'ptext')"/>
 					</HBox>
 				</Column>
-				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">                 <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="{i18n>lbTrades}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor"/>
 					</HBox>
 				</Column>
-				<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">                 <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<Label text="{i18n>lbAction}" design="Bold" wrapping="true"/>
+				</Column>
+				<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+					<Label text="{i18n>lbEsStatus}" design="Bold" wrapping="true"/>
 				</Column>
 			</columns>
 			<items>
@@ -61,6 +69,7 @@
 						<Text text="{JobModelU>ptext}"/>
 						<Text text="-"/>
 						<ObjectStatus state="Error" text="{path:'JobModelU>fstat', formatter : '.formatter.jobAction'}"/>
+						<ObjectStatus text="{JobModelU>esstatus}" state="{path:'JobModelU>esstatus', formatter : '.formatter.jobESStatusAction'}"/>
 					</cells>
 				</ColumnListItem>
 			</items>

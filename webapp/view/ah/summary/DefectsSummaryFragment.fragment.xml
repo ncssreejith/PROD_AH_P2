@@ -97,6 +97,11 @@
 										<Label design="Bold" text="Related Job " width="150px"/>
 										<Link text="{JobModel>/rjobid}" press="onRelatedJobPress" width="200px"/>
 									</HBox>
+									<HBox class="sapUiTinyMarginTop">
+										<Label design="Bold" text="{i18n>lbEsStatus} " width="150px"/>
+										<ObjectStatus text="{JobModel>/esstatusMsg}" press="onWarningMessagePress" active="{=${JobModel>/esstatusMsg}==='Pending' ? false :true}"
+											width="200px" state="{path:'JobModel>/esstatusMsg', formatter : '.formatter.jobESStatusAction'}"/>
+									</HBox>
 								</VBox>
 								<VBox
 									visible="{=${JobModel>/jobty}!=='D' &amp;&amp; ${JobModel>/jobty}!=='U' &amp;&amp; ${JobModel>/jobty}!=='S' &amp;&amp; ${JobModel>/jobty}!=='ZQ' ? true :false}"

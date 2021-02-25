@@ -1,8 +1,8 @@
 <core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:filterbar="sap.ui.comp.filterbar"
 	xmlns:f="sap.f">
 	<ScrollContainer horizontal="false" vertical="true" width="100%" focusable="false" class="sapUiTinyMarginTop">
-		<Table id="ModScheduledJobId" class="sapUiResponsivePadding CERTable sapUiSizeCompact" items="{path:'JobModelMODSTI>/', sorter: [{ path: 'DUEIN', descending: false }]}" growing="true"
-			growingTriggerText="{i18n>lbLoadMore}">
+		<Table id="ModScheduledJobId" class="sapUiResponsivePadding CERTable sapUiSizeCompact"
+			items="{path:'JobModelMODSTI>/', sorter: [{ path: 'DUEIN', descending: false }]}" growing="true" growingTriggerText="{i18n>lbLoadMore}">
 			<headerToolbar>
 				<OverflowToolbar>
 					<Title text="LTO/SI/STI/MOD" level="H2"/>
@@ -18,41 +18,51 @@
 				<Column width="0rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
 					<HBox></HBox>
 				</Column>
-				<Column width="6rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="6rem" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="{i18n>lbDueIn}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event, 'DUEIN')"/>
 					</HBox>
 				</Column>
-				<Column width="8rem" hAlign="Center" class="CERTableTextColor">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="8rem" hAlign="Center" class="CERTableTextColor">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="Um" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event, 'UM')"/>
 					</HBox>
 				</Column>
-				<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="10rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="{i18n>lbServicingDue}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event, 'SERVDUE')"/>
 					</HBox>
 				</Column>
-				<Column width="20rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="20rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="{i18n>lbJobDescription}" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'JOBDESC')"/>
 					</HBox>
 				</Column>
-				<Column width="7rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">   <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="7rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="Type" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event, 'CTYPE')"/>
 					</HBox>
 				</Column>
-				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+				<Column width="5rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<HBox>
 						<Label text="Prime" design="Bold" wrapping="true" class="sapUiTinyMarginTop"/>
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'WRCTR')"/>
 					</HBox>
+				</Column>
+				<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
+					<Label text="{i18n>lbEsStatus}" design="Bold" wrapping="true"/>
 				</Column>
 			</columns>
 			<items>
@@ -70,6 +80,7 @@
 						<Text text="{JobModelMODSTI>JOBDESC}"/>
 						<Text text="{JobModelMODSTI>CTYPE}"/>
 						<Text text="{JobModelMODSTI>WRCTR}"/>
+						<ObjectStatus text="{JobModelCOM>esstatus}" state="{path:'JobModelCOM>esstatus', formatter : '.formatter.jobESStatusAction'}"/>
 					</cells>
 				</ColumnListItem>
 			</items>

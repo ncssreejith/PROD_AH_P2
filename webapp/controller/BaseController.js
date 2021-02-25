@@ -1191,6 +1191,30 @@ sap.ui.define([
 			var that = this;
 			that.closeDialog("ChangePin");
 			that.closeDialog("ChangePassword");
+		},
+		onWarningMessageSelect: function(oEvent,sText) {
+			try {
+				var oButton = oEvent.getSource(),
+					oDialogModel = dataUtil.createNewJsonModel();
+
+				if (!this._oPopover) {
+					sap.ui.core.Fragment.load({
+						name: "avmet.ah.fragments.WarningMessage",
+						controller: this
+					}).then(function(oPopover) {
+						this._oPopover = oPopover;
+						this.getView().addDependent(this._oPopover);
+						this._oPopover.setModel(oDialogModel, "ToolTipModel");
+						this._oPopover.getModel("ToolTipModel").setProperty("/Text", sText);
+						this._oPopover.openBy(oButton);
+					}.bind(this));
+				} else {
+					this._oPopover.getModel("ToolTipModel").setProperty("/Text", sText);
+					this._oPopover.openBy(oButton);
+				}
+			} catch (e) {
+				//Log.error("Exception in handlePressToolTipMenu function");
+			}
 		}
 
 	});

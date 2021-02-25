@@ -587,6 +587,17 @@ sap.ui.define([
 				Log.error("Exception in handleMenuItemPress function");
 			}
 		},
+
+		/* Function: onWarningMessagePress
+		 * Parameter: 
+		 * Description:Show the Es Posting Status.
+		 * return true/ false based on difference is greate than 24 hrs or not for job
+		 */
+		onWarningMessagePress: function(oEvent) {
+			var oJobModel = this.getView().getModel("JobModel");
+			var sText = oJobModel.getProperty("/esstatusMsg");
+			this.onWarningMessageSelect(oEvent, sText);
+		},
 		/* Function: onAddNewWorkCenter
 		 * Parameter:
 		 * Description: Function call open dialog to add work center

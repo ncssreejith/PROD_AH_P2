@@ -127,29 +127,9 @@ sap.ui.define([
 			}
 		},
 
-		onWarningMessageSelect: function(oEvent) {
-			try {
-				var oButton = oEvent.getSource(),
-					oDialogModel = dataUtil.createNewJsonModel();
-
-				if (!this._oPopover) {
-					sap.ui.core.Fragment.load({
-						name: "avmet.ah.fragments.WarningMessage",
-						controller: this
-					}).then(function(oPopover) {
-						this._oPopover = oPopover;
-						this.getView().addDependent(this._oPopover);
-						this._oPopover.setModel(oDialogModel, "ToolTipModel");
-						this._oPopover.getModel("ToolTipModel").setProperty("/Text", oButton.getText());
-						this._oPopover.openBy(oButton);
-					}.bind(this));
-				} else {
-					this._oPopover.getModel("ToolTipModel").setProperty("/Text", oButton.getText());
-					this._oPopover.openBy(oButton);
-				}
-			} catch (e) {
-				//Log.error("Exception in handlePressToolTipMenu function");
-			}
+		onWarningMessagePress: function(oEvent) {
+			var sText = oEvent.getSource().getText();
+			this.onWarningMessageSelect(oEvent, sText);
 		},
 
 		onButtnItem1Press: function(oEvent) {
@@ -1157,7 +1137,7 @@ sap.ui.define([
 		fnLoadROLDashboard: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid"+FilterOpEnum.EQ  + this.getTailId();
+				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId();
 				oParameter.error = function() {};
 				oParameter.success = function(oData) {
 					var aData = oData.results.length > 0 ? oData.results[0] : {
