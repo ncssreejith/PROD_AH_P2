@@ -9,9 +9,8 @@
 							value="{TrailModelFarg>/UtilVal}" visible="{TrailModelFarg>/isVisInput}"
 							displayValuePrecision="{ path:'TrailModelFarg>/JDUID' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 						<DatePicker id="dpValue" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{TrailModelFarg>/isVisDate}"
-							minDate="{TrailModelFarg>/minDate}"
-							value="{path: 'TrailModelFarg>/UtilDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-							placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+							minDate="{TrailModelFarg>/minDate}" value="{path: 'TrailModelFarg>/UtilDT',formatter:'.formatter.defaultDateFormat'}"
+							displayFormat="dd/MM/yyyy" placeholder="New job creation date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 					</HBox>
 				</HBox>
 			</VBox>

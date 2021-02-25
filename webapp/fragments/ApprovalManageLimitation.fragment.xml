@@ -2,7 +2,7 @@
 	<Dialog title="{ViewModel>/dialogTitle}" class="popoverHeaderCSS" contentWidth="40%">
 		<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" width="70%">
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
-				<VBox visible="{=${CapExtendSet>/CPRID}!=='' &amp;&amp; ${CapExtendSet>/CPRID}!==null ? true :false}">
+				<VBox visible="{=${CapExtendSet>/CPRID}!=='' &amp;&amp; ${CapExtendSet>/CPRID}!=='' ? true :false}">
 					<HBox>
 						<Label design="Bold" text="Reason for ADD"/>
 						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('REASONADD',$event)" class="sapUiTinyMarginBegin" size="12px"
@@ -13,28 +13,28 @@
 						<core:Item text="{ReasonforADDModel>description}" key="{ReasonforADDModel>ddid}"/>
 					</ComboBox>
 				</VBox>
-				<VBox class=" sapUiSmallMarginBegin" visible="{=${CapExtendSet>/DMDID}!=='' &amp;&amp; ${CapExtendSet>/DMDID}!==null ? true :false}">
+				<VBox class=" sapUiSmallMarginBegin" visible="{=${CapExtendSet>/DMDID}!=='' &amp;&amp; ${CapExtendSet>/DMDID}!=='' ? true :false}">
 					<HBox>
 						<Label design="Bold" text="Demand No"/>
 						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('DMANDNO',$event)" class="sapUiTinyMarginBegin" size="12px"
 							color="#031E48"/>
 					</HBox>
 					<Input width="200px" fieldGroupIds="fgInput" value="{CapExtendSet>/DMDID}" editable="{ViewModel>/editableFlag}"
-						visible="{=${CapExtendSet>/DMDID}!=='' &amp;&amp; ${CapExtendSet>/DMDID}!==null ? true :false}"/>
+						visible="{=${CapExtendSet>/DMDID}!=='' &amp;&amp; ${CapExtendSet>/DMDID}!=='' ? true :false}"/>
 				</VBox>
-				<VBox class="sapUiSmallMarginBegin" visible="{=${CapExtendSet>/OTHER_RSN}!=='' &amp;&amp; ${CapExtendSet>/OTHER_RSN}!==null ? true :false}">
+				<VBox class="sapUiSmallMarginBegin" visible="{=${CapExtendSet>/OTHER_RSN}!=='' &amp;&amp; ${CapExtendSet>/OTHER_RSN}!=='' ? true :false}">
 					<HBox>
 						<Label design="Bold" text="Other Reason"/>
 						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('OTHERREASON',$event)" class="sapUiTinyMarginBegin" size="12px"
 							color="#031E48"/>
 					</HBox>
 					<Input width="200px" fieldGroupIds="fgInput"
-						visible="{=${CapExtendSet>/OTHER_RSN}!=='' &amp;&amp; ${CapExtendSet>/OTHER_RSN}!==null ? true :false}" editable="{ViewModel>/editableFlag}"
+						visible="{=${CapExtendSet>/OTHER_RSN}!=='' &amp;&amp; ${CapExtendSet>/OTHER_RSN}!=='' ? true :false}" editable="{ViewModel>/editableFlag}"
 						value="{CapExtendSet>/OTHER_RSN}"/>
 				</VBox>
 			</HBox>
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
-				<VBox visible="{=${CapExtendSet>/DEFPD}!=='' &amp;&amp; ${CapExtendSet>/DEFPD}!==null ? true :false}">
+				<VBox visible="{=${CapExtendSet>/DEFPD}!=='' &amp;&amp; ${CapExtendSet>/DEFPD}!=='' ? true :false}">
 					<HBox>
 						<Label design="Bold" text="Period of Deferment"/>
 						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PERIODOFDEFER',$event)" class="sapUiTinyMarginBegin" size="12px"
@@ -63,8 +63,8 @@
 				visible="{= ${CapExtendSet>/OPPR} === 'D' || ${CapExtendSet>/OPPR} === 'B' ? true : false}">
 				<VBox>
 					<Label design="Bold" text="Expiry Date" width="150px"/>
-					<DatePicker  id="DP1" change="handleChange"
-						value="{path:'CapExtendSet>/EXPDT',type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+					<DatePicker  id="DP1" change="handleChangeDate"
+					    value="{path: 'CapExtendSet>/EXPDT',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
 						width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}"/>
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin">
@@ -83,12 +83,12 @@
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin">
 					<Label/>
-					<!--visible="{=${CapExtendSet>/UTILVL}!=='' &amp;&amp; ${CapExtendSet>/UTILVL}!==null ? true :false}"-->
+					<!--visible="{=${CapExtendSet>/UTILVL}!=='' &amp;&amp; ${CapExtendSet>/UTILVL}!=='' ? true :false}"-->
 					<StepInput width="200px" value="{CapExtendSet>/UTILVL}"
-						visible="{= ${CapExtendSet>/UTIL1} !== null &amp;&amp; ${CapExtendSet>/UTIL1} !== 'UTIL1_20' ? true : false}"
+						visible="{= ${CapExtendSet>/UTIL1} !== '' &amp;&amp; ${CapExtendSet>/UTIL1} !== 'UTIL1_20' ? true : false}"
 						editable="{ViewModel>/editableFlag}" min="{CapExtendSet>/UTILMINVL}"
 						displayValuePrecision="{ path:'CapExtendSet>/UTIL1' , formatter:'.formatter.JobDueDecimalPrecision'}" change="onStepChange"/>
-					<Select width="200px" forceSelection="false" visible="{=${CapExtendSet>/UTIL2}!==null ? true:false}" items="{Utilization2CBModel>/}"
+					<Select width="200px" forceSelection="false" visible="{=${CapExtendSet>/UTIL2}!=='' ? true:false}" items="{Utilization2CBModel>/}"
 						fieldGroupIds="fgCmbBox" selectedKey="{CapExtendSet>/UTIL2}" required="{oViewModel>/bPhaseService}">
 						<core:Item text="{Utilization2CBModel>description}" key="{Utilization2CBModel>ddid}"/>
 					</Select>

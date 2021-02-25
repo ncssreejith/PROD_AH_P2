@@ -413,7 +413,7 @@ sap.ui.define([
 						// oItem.LV_COUNT = JSON.parse(JSON.stringify(oItem.LV_THRS));
 						break;
 					case "Days":
-						if (oItem.LV_TDAY === null) {
+						if (oItem.LV_TDAY === null && oItem.LV_TDAY === "") {
 							oItem.LV_TDAY = 0;
 						}
 						this._setRadialChartText("scheduleMicroChartId", (oItem.LV_TDAY >= 0 ? parseFloat(oItem.LV_TDAY) : 0), "", (oItem.LV_TDAY >= 0 ?

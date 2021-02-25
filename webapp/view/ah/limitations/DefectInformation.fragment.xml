@@ -19,14 +19,14 @@
 				<Text text="{CapSet>/FNDBY}" class="sapUiTinyMargin" width="155px"/>
 			</HBox>
 		</VBox>
-		<VBox class="sapUiSmallMarginTop" visible="{=(${CapSet>/CAPTY} !== 'L' &amp;&amp; ${CapSet>/DEAID} !== null) ? true : false}">
+		<VBox class="sapUiSmallMarginTop" visible="{=(${CapSet>/CAPTY} !== 'L' &amp;&amp; ${CapSet>/DEAID} !== '') ? true : false}">
 			<core:HTML id="CanvasOverId" visible="false"
 				content='&lt;canvas id=&quot;myCanvasOverTop&quot; click="getPointPosition($event)" width=&quot;340&quot; height=&quot;170&quot; style=&quot;border:1px solid #000000&quot;&gt;&lt;/canvas&gt;'></core:HTML>
 		</VBox>
 		<layoutData>
 			<FlexItemData growFactor="1" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>
 		</layoutData>
-		<!--<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin" visible="{= ${CapSet>/DEAID_M}!=='' &amp;&amp; ${CapSet>/DEAID_M}!==null ? true:false}">
+		<!--<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin" visible="{= ${CapSet>/DEAID_M}!=='' &amp;&amp; ${CapSet>/DEAID_M}!=='' ? true:false}">
 			<core:HTML id="CanvasId" visible="true"
 				content='&lt;canvas id=&quot;myCanvasTop&quot; click="getPointPosition($event)" width=&quot;340&quot; height=&quot;250&quot; style=&quot;border:1px solid #000000&quot;&gt;&lt;/canvas&gt;'></core:HTML>
 		</VBox>-->

@@ -190,6 +190,20 @@ sap.ui.define([
 				.createId(fragId));
 		},
 
+		//------------------------------------------------------------------
+		// Function: handleChangeUtilDate
+		// Parameter: oEvent
+		// Description: This will get called, to handle change in date on view.
+		//------------------------------------------------------------------
+		handleChangeUtilDate: function(fragId, oEvent) {
+			var aData = this.getModel("TaskModel").getObject(this.oObjectPath),
+				oAddModel = this.getModel("oViewGlobalModel").getData();
+			oAddModel.setProperty("/EXPDT", oEvent.getSource().getDateValue());
+			var sPastText = fragId === "idAddTaskADDDialog" ? "errorADDexpiryDatePast" : "errorLimitExpiryDatePast";
+			return formatter.validDateTimeChecker(this, "DP2", "TP2", sPastText, "", aData.credtm, aData.creuzt, false, this.getView()
+				.createId(fragId));
+		},
+
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
@@ -291,7 +305,7 @@ sap.ui.define([
 					} catch (e) {
 						oPayload[i].ftcredt = oPayload[i].ftcredt;
 					}
-					if (oPayload[i].CPRID !== null) {
+					if (oPayload[i].CPRID !== null && oPayload[i].CPRID !== "") {
 						oPayload[i].ftdesc = "Transfer to Acceptable Deferred Defects Log";
 					}
 				}
@@ -382,17 +396,17 @@ sap.ui.define([
 							obj.LNDPIN = tempObj.LNDPIN;
 							obj.TASKID = tempObj.taskid;
 							obj.TIREID = tempObj.TIREID;
-							obj.ITMNO = null;
-							obj.LATIS = null;
-							obj.LATRE = null;
+							obj.ITMNO = "";
+							obj.LATIS = "";
+							obj.LATRE = "";
 							obj.SERNR = oData[i].sernrs;
-							obj.LTIREID = null;
-							obj.TIREDESC = null;
-							obj.REFID = null;
-							obj.IRFLAG = null;
-							obj.INSON = null;
-							obj.RMVFR = null;
-							obj.TOTLND = null;
+							obj.LTIREID = "";
+							obj.TIREDESC = "";
+							obj.REFID = "";
+							obj.IRFLAG = "";
+							obj.INSON = "";
+							obj.RMVFR = "";
+							obj.TOTLND = "";
 							oPayload.push(JSON.parse(JSON.stringify(obj)));
 						}
 					}
@@ -910,9 +924,9 @@ sap.ui.define([
 						oTempPay.push({
 							"TASKID": oTaskId[i],
 							"NUM": j + 1,
-							"ENDDA": null,
-							"BEGDA": null,
-							"JOBID": null,
+							"ENDDA": "",
+							"BEGDA": "",
+							"JOBID": "",
 							"USRID": oTradeMan[j].Name
 						});
 
@@ -1046,10 +1060,10 @@ sap.ui.define([
 				var oViewLimitModel = this.getModel("oViewLimitModel"),
 					oModel = this.getView().getModel("oViewGlobalModel"),
 					sSelectedKey = oEvent.getSource().getSelectedKey();
-				oModel.setProperty("/EXPDT", null);
-				oModel.setProperty("/EXPTM", null);
-				oModel.setProperty("/UTILVL", null);
-				oModel.setProperty("/UTIL1", null);
+				oModel.setProperty("/EXPDT", "");
+				oModel.setProperty("/EXPTM", "");
+				oModel.setProperty("/UTILVL", "");
+				oModel.setProperty("/UTIL1", "");
 				if (sSelectedKey === "D") {
 					oModel.setProperty("/EXPTM", "23:59");
 					oViewLimitModel.setProperty("/bDateSection", true);
@@ -1147,7 +1161,7 @@ sap.ui.define([
 				var oViewLimitModel = this.getModel("oViewLimitModel");
 				oViewLimitModel.setProperty("/bLimitation", false);
 				oViewLimitModel.setProperty("/bAddLimitationBtn", true);
-				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", null);
+				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", "");
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onRemoveLimitaionPress function");
 
@@ -1188,7 +1202,7 @@ sap.ui.define([
 					this._oAddLim = sap.ui.xmlfragment(this.createId("idWorkCenterDialog"),
 						"avmet.ah.fragments.AddTaskLimitation",
 						this);
-					oModel.setProperty("/EXPDT", null);
+					oModel.setProperty("/EXPDT", "");
 					oModel.setProperty("/EXPTM", "23:59");
 					oTempCDESC = this._fnCheckTaskType(oObject.tt1id, oObject.tt2id, oObject.tt3id, oObject.tt4id);
 					if (oTempCDESC) {
@@ -1256,7 +1270,7 @@ sap.ui.define([
 					this._oAddADD = sap.ui.xmlfragment(this.createId("idAddTaskADDDialog"),
 						"avmet.ah.fragments.AddTaskADD",
 						this);
-					oModel.setProperty("/EXPDT", null);
+					oModel.setProperty("/EXPDT", "");
 					oModel.setProperty("/EXPTM", "23:59");
 					this._InitializeLimDialogModel();
 					this._fnADDCountGet();
@@ -1367,10 +1381,10 @@ sap.ui.define([
 				if (oPayLoad.OPPR !== "U" && !this.handleChangeUtil(fragId)) {
 					return;
 				}
-				if ((oPayLoad.LDESC !== null) && (oPayLoad.CPRID !== null)) {
+				if ((oPayLoad.LDESC !== null && oPayLoad.LDESC !== "") && (oPayLoad.CPRID !== null && oPayLoad.CPRID !== "")) {
 					oPayLoad.CAPTY = "B";
 					oPayLoad.FLAG_ADD = "B";
-				} else if ((oPayLoad.LDESC === null) && (oPayLoad.CPRID !== "" || oPayLoad.CPRID !== null)) {
+				} else if ((oPayLoad.LDESC === null && oPayLoad.LDESC === "") && (oPayLoad.CPRID !== "" && oPayLoad.CPRID !== null)) {
 					oPayLoad.CAPTY = "A";
 				} else {
 					oPayLoad.CAPTY = "L";
@@ -1382,7 +1396,7 @@ sap.ui.define([
 						oPayLoad.EXPDT = oPayLoad.EXPDT;
 					}
 				} else {
-					oPayLoad.EXPDT = null;
+					oPayLoad.EXPDT = "";
 				}
 				try {
 					if (oPayLoad.UTILVL) {

@@ -193,7 +193,7 @@ sap.ui.define([
 				var oModel = this.getView().getModel("applTmplModel"),
 					oSelectedItem;
 				oSelectedItem = this.getView().byId("cbTempId").getSelectedItem();
-				if (oSelectedItem === undefined || oSelectedItem === null) {
+				if (oSelectedItem === undefined || oSelectedItem === null || oSelectedItem === "") {
 					oModel.setProperty("/SelectTaskTable", false);
 					oModel.setProperty("/ApplyTempTable", false);
 				} else {
@@ -274,7 +274,7 @@ sap.ui.define([
 					} catch (e) {
 						sDateMaI = this.getModel("applTmplModel").getProperty("/header/dDate");
 					}
-					oTask.taskid = null;
+					oTask.taskid = "";
 					oTask.jobid = this.getModel("applTmplModel").getProperty("/header/selJobId");
 					oTask.wrctr = this.getModel("applTmplModel").getProperty("/header/selWC");
 					oTask.tailid = this.getModel("applTmplModel").getProperty("/header/selTailId");
@@ -332,7 +332,7 @@ sap.ui.define([
 					} catch (e) {
 						sDateMa = this.getModel("applTmplModel").getProperty("/header/dDate");
 					}
-					oTask.taskid = null;
+					oTask.taskid = "";
 					oTask.jobid = this.getModel("applTmplModel").getProperty("/header/selJobId");
 					oTask.wrctr = this.getModel("applTmplModel").getProperty("/header/selWC");
 					oTask.tailid = this.getModel("applTmplModel").getProperty("/header/selTailId");
@@ -576,8 +576,8 @@ sap.ui.define([
 				oApplTmplData.header = {
 					selTmpl: "",
 					selTask: "",
-					selDat: null,
-					selTim: null,
+					selDat: "",
+					selTim: "",
 					selJobId: "",
 					selWC: "",
 					selAirId: "",

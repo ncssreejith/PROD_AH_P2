@@ -144,20 +144,20 @@ sap.ui.define([
 						aHistory.push({
 							"tranid": "ZZTRAN_DUMMY",
 							"tailid": "TAIL_1001",
-							"listid": null,
+							"listid": "",
 							"transt": "R",
-							"locationid": null,
-							"location": null,
-							"dsqnid": null,
-							"dsqntxt": null,
-							"dtredemen": null,
-							"distm": null,
-							"disutz": null,
+							"locationid": "",
+							"location": "",
+							"dsqnid": "",
+							"dsqntxt": "",
+							"dtredemen": "",
+							"distm": "",
+							"disutz": "",
 							"rsqnid": "Pending",
 							"rsqntxt": "Pending",
 							"rtredemen": "Pending",
-							"rdistm": null,
-							"rdiutz": null
+							"rdistm": "",
+							"rdiutz": ""
 						});
 					}
 				}

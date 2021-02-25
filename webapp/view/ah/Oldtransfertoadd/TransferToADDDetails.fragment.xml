@@ -31,9 +31,8 @@
 					<VBox class="bgColorWhiteWithRightBorder sapUiSmallMarginBegin sapUiSmallMarginTopBottom" width="30%">
 						<VBox class="sapUiSmallMarginBeginEnd">
 							<Label design="Bold" text="Date" width="150px"/>
-							<DatePicker
-								value="{path: 'oViewGlobalModel>/CAPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-								width="200px" fieldGroupIds="fgDate" required="true"/>
+							<DatePicker value="{path: 'oViewGlobalModel>/CAPDT',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" width="200px"
+								fieldGroupIds="fgDate" required="true"/>
 						</VBox>
 						<VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
 							<Label design="Bold" text="Time" width="150px"/>
@@ -47,8 +46,8 @@
 									<Label design="Bold" text="Reason for ADD"/>
 									<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" size="12px" color="#031E48"/>
 								</HBox>
-								<ComboBox width="200px" selectionChange="onReasonForADDChange" items="{ReasonforADDModel>/}" selectedKey="{oViewGlobalModel>/CPRID}" required="true"
-									fieldGroupIds="fgCmbBox" placeholder="Select">
+								<ComboBox width="200px" selectionChange="onReasonForADDChange" items="{ReasonforADDModel>/}" selectedKey="{oViewGlobalModel>/CPRID}"
+									required="true" fieldGroupIds="fgCmbBox" placeholder="Select">
 									<core:Item text="{ReasonforADDModel>description}" key="{ReasonforADDModel>ddid}"/>
 									<!--	<core:Item text="No Spares Available" key="No Spares Available"/>
 									<core:Item text="Ops Requirement" key="Ops Requirement"/>
@@ -111,9 +110,8 @@
 						<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewModel>/bDateSection}">
 							<VBox>
 								<Label design="Bold" text="Expiry Date" width="150px"/>
-								<DatePicker
-									value="{path: 'oViewGlobalModel>/EXPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-									width="200px" fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}"/>
+								<DatePicker value="{path: 'oViewGlobalModel>/EXPDT',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" width="200px"
+									fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}"/>
 							</VBox>
 							<VBox class="sapUiSmallMarginBegin">
 								<Label design="Bold" text="Time" width="150px"/>

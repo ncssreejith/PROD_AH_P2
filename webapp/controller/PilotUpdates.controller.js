@@ -68,11 +68,11 @@ sap.ui.define([
 				var paDate = this.getModel("oPilotUpdatesViewModel").getProperty("/paDate");
 				var currentTime = new Date();
 				var oItem = {
-					"srvid": null,
+					"srvid": "",
 					"tailid": this.getTailId(),
 					"num2": 1,
-					"endda": null,
-					"begda": null,
+					"endda": "",
+					"begda": "",
 					"egstt": this.formatter.oDataDateTimeFormat(paDate, "yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
 					"woffw": this.formatter.oDataDateTimeFormat(paDate, "yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
 					"wonw": this.formatter.oDataDateTimeFormat(currentTime, "yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
@@ -125,10 +125,10 @@ sap.ui.define([
 			try {
 				var oItems = {
 					"tailid": this.getTailId(),
-					"jobid": null,
-					"fr_no": null,
-					"sgusr": null,
-					"astid": null,
+					"jobid": "",
+					"fr_no": "",
+					"sgusr": "",
+					"astid": "",
 					"jobty": "",
 					"jstat": "",
 					"symbol": "",
@@ -136,8 +136,8 @@ sap.ui.define([
 					"fair": "N",
 					"srvtid": this.getModel("oPilotUpdatesViewModel").getProperty("/srvtid"),
 					"stepid": this.getModel("oPilotUpdatesViewModel").getProperty("/stepid"),
-					"jobdesc": null,
-					"fstat": null,
+					"jobdesc": "",
+					"fstat": "",
 					"srvid": ""
 				};
 				this.getModel("oPilotUpdatesViewModel").getProperty("/defects").push(oItems);
@@ -765,7 +765,7 @@ sap.ui.define([
 				//Teck Meng change on 18/11/2020 13:00 AH Issue 1044,1043
 				oPayloads.forEach(function(Records) {
 					sLock = Records.Lock;
-					if (Records.Lock !== "99" && Records.Lock !== undefined && Records.Lock !== null) {
+					if (Records.Lock !== "99" && Records.Lock !== undefined && Records.Lock !== null && Records.Lock !== "") {
 						Records.rfc.forEach(function(oItem) {
 							var sItem = JSON.parse(JSON.stringify(oItem));
 							delete sItem.increase;
@@ -911,7 +911,7 @@ sap.ui.define([
 		// 			}, "viewModel");
 		// 		}.bind(this);
 		// 		oParameter.success = function(oData) {
-		// 			var oArming = oData.results.length > 0 ? oData.results[0] : null;
+		// 			var oArming = oData.results.length > 0 ? oData.results[0] : "";
 		// 			if (!oArming) {
 		// 				oArming = {};
 		// 				var paDate = new Date();
@@ -1443,12 +1443,12 @@ sap.ui.define([
 				oPayload.HIT = "1"; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				oPayload.eng = "engine1"; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				oPayload.flyRecord = {
-					"srvid": null,
+					"srvid": "",
 					"tailid": this.getTailId(),
-					"endda": null,
-					"begda": null,
+					"endda": "",
+					"begda": "",
 					"airid": this.getAircraftId(),
-					"modid": null,
+					"modid": "",
 					"fstat": "F",
 					"oprty": "A",
 					"lnor": 0,
@@ -1463,11 +1463,11 @@ sap.ui.define([
 					"num1": this.getModel("oPilotUpdatesViewModel").getProperty("/num1") //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 				};
 				oPayload.timings = [{
-					"srvid": null,
+					"srvid": "",
 					"tailid": this.getTailId(),
 					"num2": 1,
-					"endda": null,
-					"begda": null,
+					"endda": "",
+					"begda": "",
 					/* "egstt": currentTime.getHours() + ":" + currentTime.getMinutes(),
 					"woffw": currentTime.getHours() + ":" + currentTime.getMinutes(),
 					"wonw": currentTime.getHours() + ":" + currentTime.getMinutes(),
@@ -1482,10 +1482,10 @@ sap.ui.define([
 				}];
 				oPayload.defects = [{
 					"tailid": this.getTailId(),
-					"jobid": null,
-					"fr_no": null,
-					"sgusr": null,
-					"astid": null,
+					"jobid": "",
+					"fr_no": "",
+					"sgusr": "",
+					"astid": "",
 					"jobty": "",
 					"jstat": "",
 					"symbol": "",
@@ -1493,17 +1493,17 @@ sap.ui.define([
 					"fair": "N",
 					"srvtid": oPayload.srvtid,
 					"stepid": oPayload.stepid,
-					"jobdesc": null,
-					"fstat": null,
+					"jobdesc": "",
+					"fstat": "",
 					"srvid": ""
 				}];
 				oPayload.engines = [{
-					"srvid": null,
+					"srvid": "",
 					"tailid": this.getTailId(),
 					"engno": 1,
-					"endda": null,
-					"begda": null,
-					"engid": null,
+					"endda": "",
+					"begda": "",
+					"engid": "",
 					"chkrn": "1",
 					"temp": 0,
 					"bpress": 0,
@@ -1519,14 +1519,14 @@ sap.ui.define([
 					"aspeed": 0,
 					"np": 101, //Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043
 					"pnum": oPayload.num1, //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
-					"num": null //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					"num": "" //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				}, {
-					"srvid": null,
+					"srvid": "",
 					"tailid": this.getTailId(),
 					"engno": 2,
-					"endda": null,
-					"begda": null,
-					"engid": null,
+					"endda": "",
+					"begda": "",
+					"engid": "",
 					"chkrn": "1",
 					"temp": 0,
 					"bpress": 0,
@@ -1542,14 +1542,14 @@ sap.ui.define([
 					"aspeed": 0,
 					"np": 101, //Teck Meng change on 02/12/2020 13:00 AH Issue 1044,1043
 					"pnum": oPayload.num1, //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
-					"num": null //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					"num": "" //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				}];
 
 				oPayload.mano = {
-					"srvid": null,
+					"srvid": "",
 					"tailid": this.getTailId(),
-					"endda": null,
-					"begda": null,
+					"endda": "",
+					"begda": "",
 					"SRVTID": oPayload.srvtid,
 					"STEPID": oPayload.stepid,
 					"manoe": "N",

@@ -497,7 +497,7 @@ sap.ui.define([
 						}
 					} else if (sKey === "JDU_10") {
 						if (sDate && sDate !== "") {
-							oAppModel.setProperty("/SERVDT", null);
+							oAppModel.setProperty("/SERVDT", '');
 							bFlag = true;
 						}
 					}

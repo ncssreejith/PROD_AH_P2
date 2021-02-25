@@ -297,7 +297,7 @@ sap.ui.define([
 						oModel.UM = okeyText;
 					}
 					if (oModel.DueBy === "JDU_10") {
-						if (oModel.ExpDate === null && parseFloat(oModel.ZINTERVAL) === 0) {
+						if ((oModel.ExpDate === null && oModel.ExpDate === "") && parseFloat(oModel.ZINTERVAL) === 0) {
 							this.getFragmentControl("idScheduleJobExtension", "dpScheId").setValueState("Error");
 							this.getFragmentControl("idScheduleJobExtension", "dpScheId").setValueStateText("Please fill required field");
 							return;
@@ -305,15 +305,15 @@ sap.ui.define([
 						oPayload.SERVDT = oModel.ExpDate;
 						oPayload.UM = oModel.UM;
 						oPayload.UMKEY = oModel.DueBy;
-						oPayload.SERVDUE = null;
+						oPayload.SERVDUE = "";
 						oPayload.ZINTERVAL = oModel.ZINTERVAL;
 					} else {
-						if (oModel.ExpDate === null && parseFloat(oModel.ZINTERVAL) === 0) {
+						if ((oModel.ExpDate === null && oModel.ExpDate === "") && parseFloat(oModel.ZINTERVAL) === 0) {
 							this.getFragmentControl("idScheduleJobExtension", "siSchedId").setValueState("Error");
 							this.getFragmentControl("idScheduleJobExtension", "siSchedId").setValueStateText("Please fill required field");
 							return;
 						}
-						oPayload.SERVDT = null;
+						oPayload.SERVDT = "";
 						oPayload.UM = oModel.UM;
 						oPayload.SERVDUE = (oModel.UtilVal).toString();
 						oPayload.UMKEY = oModel.DueBy;
@@ -325,9 +325,9 @@ sap.ui.define([
 					if (oModel.DueBy === "JDU_10") {
 						oPayload.SERVDT = oModel.ExpDate;
 						oPayload.UMKEY = oModel.DueBy;
-						oPayload.SERVDUE = null;
+						oPayload.SERVDUE = "";
 					} else {
-						oPayload.SERVDT = null;
+						oPayload.SERVDT = "";
 						oPayload.SERVDUE = (oModel.UtilVal).toString();
 						oPayload.UMKEY = oModel.DueBy;
 					}
@@ -337,7 +337,7 @@ sap.ui.define([
 					var oModel1 = dataUtil.createNewJsonModel();
 					oModel1.setData({
 						"DueBy": "",
-						"ExpDate": null,
+						"ExpDate": "",
 						"Util": "",
 						"UtilVal": "",
 						"ExpDateFlag": false,
@@ -386,7 +386,7 @@ sap.ui.define([
 					var oModel1 = dataUtil.createNewJsonModel();
 					oModel1.setData({
 						"DueBy": "",
-						"ExpDate": null,
+						"ExpDate": "",
 						"Util": "",
 						"UtilVal": "",
 						"ExpDateFlag": false,

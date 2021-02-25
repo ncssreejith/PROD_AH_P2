@@ -115,11 +115,11 @@ sap.ui.define([
 					MessageBox.error("No connector found");
 					return;
 				}
-				this.getModel("configModel").setProperty("/selStn/selADP/selWpn/CONECT", (oSelWpn.CONECT === null || oSelWpn.CONECT === "D") ? "C" :
+				this.getModel("configModel").setProperty("/selStn/selADP/selWpn/CONECT", (oSelWpn.CONECT === null || oSelWpn.CONECT === "" || oSelWpn.CONECT === "D") ? "C" :
 					"D");
 				this.getModel("configModel").setProperty("/selStn/TSTAT", 1);
 				this.getModel("configModel").refresh();
-				this.fnSetArrowColor(oSelWpn.CONECT === null || oSelWpn.CONECT === "D");
+				this.fnSetArrowColor(oSelWpn.CONECT === null || oSelWpn.CONECT === "" || oSelWpn.CONECT === "D");
 			} catch (e) {
 				Log.error("Exception in onConnecterPress function");
 			}
@@ -289,20 +289,20 @@ sap.ui.define([
 				oPayload.HCFLAG = oItem.HCFLAG !== undefined ? oItem.HCFLAG : "";
 				oPayload.APPRCOUNT = 0; // trasman sign off 
 				oPayload.TLSERNR = txtSrno;
-				oPayload.EXPAND = null;
+				oPayload.EXPAND =  "";
 				oPayload.endda = "99991231";
-				oPayload.SUBID = null;
+				oPayload.SUBID =  "";
 				oPayload.L_TXT = oItem.L_TXT;
-				oPayload.ADPDESC = null;
-				oPayload.ISSER = null;
+				oPayload.ADPDESC =  "";
+				oPayload.ISSER =  "";
 				oPayload.SRVID = "";
 				oPayload.TOTQTY = isNaN(parseInt(oItem.TOTQTY, 0)) ? 0 : parseInt(oItem.TOTQTY, 0);
 				oPayload.ttlrnd = oItem.ttlrnd !== undefined ? oItem.ttlrnd : "";
-				oPayload.ISPOST = null;
+				oPayload.ISPOST =  "";
 				oPayload.WEMDESC = oItem.WEMDESC;
 				oPayload.WESDESC = oItem.WESDESC;
 				oPayload.TSTAT = oItem.TSTAT;
-				oPayload.TSIGN = null;
+				oPayload.TSIGN =  "";
 				oPayload.S_TXT = oItem.S_TXT;
 				oPayload.QTYADD = oItem.QTYADD;
 				oPayload.MAX = oItem.MAX;
@@ -382,28 +382,28 @@ sap.ui.define([
 					oPayload.HCFLAG = oItem.HCFLAG !== undefined ? oItem.HCFLAG : "";
 					oPayload.APPRCOUNT = 0; //oItem.APPRCOUNT;
 					oPayload.TLSERNR = txtSrno;
-					oPayload.EXPAND = null;
+					oPayload.EXPAND =  "";
 					oPayload.endda = "99991231";
-					oPayload.SUBID = null;
+					oPayload.SUBID =  "";
 					oPayload.L_TXT = oItem.L_TXT;
-					oPayload.ADPDESC = null;
-					oPayload.ISSER = null;
+					oPayload.ADPDESC =  "";
+					oPayload.ISSER =  "";
 					oPayload.SRVID = "";
 					oPayload.TOTQTY = isNaN(parseInt(oItem.TOTQTY, 0)) ? 0 : parseInt(oItem.TOTQTY, 0);
 					oPayload.ttlrnd = oItem.ttlrnd !== undefined ? oItem.ttlrnd : "";
-					oPayload.ISPOST = null;
+					oPayload.ISPOST =  "";
 
-					// oPayload.WEDESC = null;
-					oPayload.CONTOR = null;
+					// oPayload.WEDESC =  "";
+					oPayload.CONTOR =  "";
 					// oPayload.WEMDESC = oItem.WEMDESC;
 					oPayload.WESDESC = oItem.WESDESC;
 					//oPayload.TSTAT = 1;
-					//oPayload.TSIGN = null;
+					//oPayload.TSIGN =  "";
 					// oPayload.L_TXT = oItem.L_TXT;
 					oPayload.S_TXT = oItem.S_TXT;
 					oPayload.QTYADD = oItem.QTYADD;
 					oPayload.MAX = oItem.MAX;
-					// oPayload.ISPOST = null;
+					// oPayload.ISPOST =  "";
 					oPayload.EFLAG = "";
 					if(oItem.selADP){
 						oPayload.ADPID = oItem.selADP.ADPID !== undefined ? oItem.selADP.ADPID : "";
@@ -493,31 +493,31 @@ sap.ui.define([
 						oPayload.WESID = oItem.selADP.selWpn.WESID;
 						oPayload.TAILID = this.getTailId();
 						oPayload.SRVID = "";
-						oPayload.NUM1 = (oItem.selADP.NUM1 === null || oItem.selADP.NUM1 === 0) ? 1 : oItem.selADP.NUM1;
+						oPayload.NUM1 = (oItem.selADP.NUM1 === null || oItem.selADP.NUM1 === "" || oItem.selADP.NUM1 === 0) ? 1 : oItem.selADP.NUM1;
 						oPayload.NUM2 = (sIndex + 1);
 						oPayload.SERNR = srNo.srno;
-						oPayload.endda = null;
-						oPayload.begda = null;
+						oPayload.endda =  "";
+						oPayload.begda =  "";
 						oPayload.ADPFLAG = "";
-						oPayload.POT = null;
+						oPayload.POT =  "";
 						oPayload.ADPID = oItem.selADP.ADPID;
 						oPayload.ADPDESC = oItem.selADP.ADPDESC;
 						oPayload.ROLEID = oItem.selADP.ROLEID;
 						oPayload.SEQID = oItem.selADP.SEQID;
-						oPayload.ICART = null;
-						oPayload.CONTOR = null;
+						oPayload.ICART =  "";
+						oPayload.CONTOR =  "";
 						oPayload.ISSER = oItem.selADP.ISSER;
 						oPayload.MXVAL = oItem.selADP.MXVAL;
 
-						// oPayload.WEDESC = null;
-						oPayload.WEMDESC = null;
-						oPayload.WESDESC = null;
+						// oPayload.WEDESC =  "";
+						oPayload.WEMDESC =  "";
+						oPayload.WESDESC =  "";
 						oPayload.TSTAT = oItem.TSTAT;
-						oPayload.TSIGN = null;
+						oPayload.TSIGN =  "";
 						oPayload.L_TXT = oItem.L_TXT;
 						oPayload.S_TXT = oItem.S_TXT;
-						oPayload.QTYADD = null;
-						oPayload.MAX = null;
+						oPayload.QTYADD =  "";
+						oPayload.MAX =  "";
 						oPayload.EFLAG = "";
 
 						oPayloads.push(oPayload);
@@ -738,7 +738,7 @@ sap.ui.define([
 		fnOpenCloseConfirmationDialog: function(oEvent, opType) {
 			try {
 				var sOpenFrag = "FOToolsCheck";
-				var oDialog = null;
+				var oDialog =  "";
 				var oDialogData = {
 					TLSERNR: "",
 					SIGNOFF: false,
@@ -806,45 +806,45 @@ sap.ui.define([
 			var srno = this.getModel("configModel").getProperty("/stns/0/TLSERNR");
 			var oPayloads = [{
 				"airid": this.getAircraftId(),
-				"ROLEID": null,
-				"SUBID": null,
-				"STNMID": null,
-				"L_TXT": null,
-				"WEMID": null,
-				"WESID": null,
-				"ADPID": null,
-				"ADPDESC": null,
-				"WEMDESC": null,
-				"WESDESC": null,
-				"STNSID": null,
-				"CONTOR": null,
-				"ISSER": null,
+				"ROLEID": "",
+				"SUBID": "",
+				"STNMID": "",
+				"L_TXT": "",
+				"WEMID": "",
+				"WESID": "",
+				"ADPID": "",
+				"ADPDESC": "",
+				"WEMDESC": "",
+				"WESDESC": "",
+				"STNSID": "",
+				"CONTOR": "",
+				"ISSER": "",
 				"TAILID": this.getTailId(),
-				"SRVID": null,
-				"NUM1": null,
+				"SRVID": "",
+				"NUM1": "",
 				"SRVTID": this.getModel("configModel").getProperty("/srvtid"),
-				"SERNR": null,
-				"endda": null,
-				"begda": null,
-				"TOTQTY": null,
-				"CONECT": null,
-				"HCFLAG": null,
+				"SERNR": "",
+				"endda": "",
+				"begda": "",
+				"TOTQTY": "",
+				"CONECT": "",
+				"HCFLAG": "",
 				"STEPID": this.getModel("configModel").getProperty("/stepid"),
-				"EXPAND": null,
+				"EXPAND": "",
 				"TLSERNR": srno !== '' ? srno : '',
 				"APPRCOUNT": 0,
-				"ttlrnd": null,
-				"ISPOST": null,
-				// WEDESC = null;
-				// WEMDESC : null,
-				// WESDESC : null,
+				"ttlrnd": "",
+				"ISPOST": "",
+				// WEDESC =  "";
+				// WEMDESC : "",
+				// WESDESC : "",
 				TSTAT: 1,
-				TSIGN: null,
+				TSIGN: "",
 				// L_TXT : oItem.L_TXT,
-				S_TXT: null,
-				QTYADD: null,
-				MAX: null,
-				// ISPOST: null,
+				S_TXT: "",
+				QTYADD: "",
+				MAX: "",
+				// ISPOST: "",
 				EFLAG: ""
 			}];
 			return oPayloads;

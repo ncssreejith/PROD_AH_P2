@@ -127,8 +127,8 @@ sap.ui.define([
 					oPayload.PAST_COUNT = (parseInt(oPayload.PAST_COUNT) + 1).toString();
 				}
 				if (oPayload.OPPR === 'U' || oPayload.OPPR === 'N') {
-					oPayload.EXPDT = null;
-					oPayload.EXPTM = null;
+					oPayload.EXPDT =  "";
+					oPayload.EXPTM =  "";
 				}
 				if (oPayload.UTILVL) {
 					var iPrecision = formatter.JobDueDecimalPrecision(oPayload.UTIL1);
@@ -176,14 +176,14 @@ sap.ui.define([
 				if (oModels) {
 					oPayload = {
 						"TAILID": oModels.getProperty("/TAILID"),
-						"AIRID": null,
-						"MODID": null,
+						"AIRID": "",
+						"MODID": "",
 						"JOBID": oModels.getProperty("/JOBID"),
 						"CAPID": oModels.getProperty("/CAPID"),
 						"TASKID": oModels.getProperty("/TASKID"),
 						/*"TDESC": oModels.getProperty("/TDESC"),*/
 						"CAPTY": oModels.getProperty("/CAPTY"),
-						"CSTAT": null,
+						"CSTAT": "",
 						"RECTUSR": "Test User",
 						"RECTDTM": formatter.defaultOdataDateFormat(dDate),
 						"RECTUZT": dDate.getHours() + ":" + dDate.getMinutes(),
@@ -743,7 +743,7 @@ sap.ui.define([
 					flag: oEvent.getParameters().arguments.flag,
 					tableFlag: false,
 					dialogTitle: "",
-					DatePrev: null,
+					DatePrev: "",
 					btnText: "Extend"
 
 				});

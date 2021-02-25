@@ -223,7 +223,7 @@ sap.ui.define([
 					}
 					oPayload.jstat = "C";
 					if (oModel.getProperty("/sRJobIdFlag") === "Y" || oModel.getProperty("/sRJobIdFlag") === "T") {
-						oPayload.rjobid = oModel.getProperty("/sRJobId") ? oModel.getProperty("/sRJobId") : null;
+						oPayload.rjobid = oModel.getProperty("/sRJobId") ? oModel.getProperty("/sRJobId") : "";
 					}
 
 					oParameter.error = function(response) {};
@@ -308,7 +308,7 @@ sap.ui.define([
 						}
 					} else {
 						oPayload.SERVDUE = oJobModel.getProperty("/jduvl");
-						oPayload.SERVDT = null;
+						oPayload.SERVDT = "";
 					}
 					oPayload.UMKEY = oJobModel.getProperty("/jduid");
 					oPayload.PRIME = oJobModel.getProperty("/prime");
@@ -647,8 +647,8 @@ sap.ui.define([
 						"wrctr": sWorkCenter,
 						"isprime": "",
 						"wrctrtx": "",
-						"count": null,
-						"PrimeCount": null
+						"count": "",
+						"PrimeCount": ""
 					},
 
 					oPrmWorkCenter.error = function() {};
@@ -679,8 +679,8 @@ sap.ui.define([
 						"wrctr": sWorkCenter,
 						"isprime": "X",
 						"wrctrtx": sOldWorkCenter ? sOldWorkCenter : "",
-						"count": null,
-						"PrimeCount": null
+						"count": "",
+						"PrimeCount": ""
 					},
 
 					oPrmWorkCenter.error = function() {};
@@ -1448,7 +1448,7 @@ sap.ui.define([
 						oModel.setProperty("/ZINTERVAL", parseFloat(0, [10]).toFixed(0));
 					}
 					if (sDue === "JDU_10") {
-						oModel.setProperty("/jduvl", null);
+						oModel.setProperty("/jduvl", "");
 					}
 
 				}
@@ -1509,7 +1509,7 @@ sap.ui.define([
 						}
 					} else if (sKey === "JDU_10") {
 						if (sDue && sDue !== "") {
-							oAppModel.setProperty("/jduvl", null);
+							oAppModel.setProperty("/jduvl", "");
 							bFlag = true;
 						}
 					}

@@ -482,10 +482,10 @@ sap.ui.define([
 				var oViewModel = this.getModel("oViewModel"),
 					oModel = this.getView().getModel("oViewGlobalModel"),
 					sSelectedKey = oEvent.getSource().getSelectedKey();
-				oModel.setProperty("/UTIL1", null);
-				oModel.setProperty("/UTILVL", null);
-				oModel.setProperty("/EXPDT", null);
-				oModel.setProperty("/EXPTM", null);
+				oModel.setProperty("/UTIL1",  "");
+				oModel.setProperty("/UTILVL",  "");
+				oModel.setProperty("/EXPDT",  "");
+				oModel.setProperty("/EXPTM",  "");
 				if (sSelectedKey === "D") {
 					oModel.setProperty("/EXPTM", "23:59");
 					oViewModel.setProperty("/bDateSection", true);
@@ -587,7 +587,7 @@ sap.ui.define([
 				var oViewModel = this.getModel("oViewModel");
 				oViewModel.setProperty("/bLimitation", false);
 				oViewModel.setProperty("/bAddLimitationBtn", true);
-				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", null); //Rahul: 11/12/2020: 05:46PM: Model set to null
+				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC",  ""); //Rahul: 11/12/2020: 05:46PM: Model set to null
 				oViewModel.refresh(true); //Rahul: 11/12/2020: 05:46PM: Model Refreshed after changing value
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onRemoveLimitaionPress function");
@@ -631,7 +631,7 @@ sap.ui.define([
 					sap.m.MessageBox.error("Please select 'But not later than'");
 					return;
 				}
-				if (oPayLoad.EXPDT !== null) {
+				if (oPayLoad.EXPDT !== null && oPayLoad.EXPDT !== "") {
 					try {
 						oPayLoad.ENDDA = formatter.defaultOdataDateFormat(oPayLoad.EXPDT);
 					} catch (e) {
@@ -644,7 +644,7 @@ sap.ui.define([
 					}
 				} else {
 					oPayLoad.ENDDA = formatter.defaultOdataDateFormat(new Date());
-					oPayLoad.EXPDT = null;
+					oPayLoad.EXPDT =  "";
 				}
 				oPayLoad.BEGDA = oPayLoad.ENDDA;
 				try {

@@ -56,7 +56,7 @@ sap.ui.define([
 				// 	"REFID": "AIR_10",
 				// 	"RTASKID": "",
 				// 	"DONE": "",
-				// 	"NA": null,
+				// 	"NA": "",
 				// 	"Tailid": this.getTailId(),
 				// 	"SRVID": "",
 				// 	"SRVTID": this.getModel("rtModel").getProperty("/srvtid"),
@@ -64,43 +64,43 @@ sap.ui.define([
 				// 	"APR_NO": this.getModel("rtModel").getProperty("/tasks/0/APR_NO"),
 				// 	"LOGIN_USER": "",
 				// 	"TRADE_USER": "",
-				// 	"TIME_S": null,
+				// 	"TIME_S": "",
 				// 	"LEADFLAG": "",
-				// 	"TLCDT": null,
-				// 	"TLCTM": null,
-				// 	"TLQTY": null,
-				// 	"PUBQTY": null,
+				// 	"TLCDT": "",
+				// 	"TLCTM": "",
+				// 	"TLQTY": "",
+				// 	"PUBQTY": "",
 				// 	"TMPID": "",
 				// 	"stepid": this.getModel("rtModel").getProperty("/stepid")
 				// };
 				var oObj = JSON.parse(JSON.stringify(this.getModel("rtModel").getProperty("/tasks")[0]));
 				oObj.stepid = this.getModel("rtModel").getProperty("/stepid");
-				oObj.engid = null;
+				oObj.engid =  "";
 				oObj.DDDESC = "";
 				oObj.REFID = "AIR_11";
 				oObj.RTASKID = "";
 				oObj.DONE = "";
-				oObj.NA = null;
+				oObj.NA =  "";
 				oObj.SRVID = "";
 				oObj.SRVTID = this.getModel("rtModel").getProperty("/srvtid");
 				oObj.TASKID = "";
 				oObj.APR_NO = this.getModel("rtModel").getProperty("/tasks/0/APR_NO");
 				oObj.LOGIN_USER = "";
 				oObj.TRADE_USER = "";
-				oObj.TIME_S = null;
+				oObj.TIME_S =  "";
 				oObj.LEADFLAG = "";
-				oObj.TLCDT = null;
-				oObj.TLCTM = null;
-				oObj.TLQTY = null;
-				oObj.TRADE_USER = null;
-				oObj.PUBQTY = null;
+				oObj.TLCDT =  "";
+				oObj.TLCTM =  "";
+				oObj.TLQTY =  "";
+				oObj.TRADE_USER =  "";
+				oObj.PUBQTY =  "";
 				oObj.TMPID = "";
-				oObj.SOAPID = null;
-				oObj.SOAPFLAG = null;
+				oObj.SOAPID =  "";
+				oObj.SOAPFLAG =  "";
 				oObj.tstat = 1; // by default item need to sign off
 				oObj.tsign = "";
 				oObj.stepid = this.getModel("rtModel").getProperty("/stepid");
-				oObj.SERNR = null;
+				oObj.SERNR =  "";
 				this.getModel("rtModel").getProperty("/tasks").push(oObj);
 				this.getModel("rtModel").refresh();
 			} catch (e) {
@@ -202,7 +202,7 @@ sap.ui.define([
 				var oTaskData = this.getModel("rtModel").getProperty("/tasks");
 				for (var i = 0; i < oTaskData.length; i++) {
 					//Rahul Code changes 30/10/2020: to check table selection logic
-					if ((oTaskData[i].tsign === "" && oTaskData[i].tstat === 0) && (oTaskData[i].DONE === "" || oTaskData[i].DONE === null)) {
+					if ((oTaskData[i].tsign === "" || oTaskData[i].tstat === 0) && (oTaskData[i].DONE === "" || oTaskData[i].DONE === null)) {
 						sMsg = "";
 					} else {
 						if ((oTaskData[i].tsign === "" && oTaskData[i].tstat !== 1)) {
@@ -210,7 +210,7 @@ sap.ui.define([
 							this._fnErrorMessage(sMsg);
 							return;
 						}
-						if (oTaskData[i].DONE === "" || oTaskData[i].DONE === null) {
+						if (oTaskData[i].DONE === "" || oTaskData[i].DONE ===  null) {
 							sMsg = "Please review the record";
 							this._fnErrorMessage(sMsg);
 							return;

@@ -30,9 +30,9 @@
 										<Text text="{ErroModel>taskId}" wrapping="true"/>
 									</HBox>
 									<VBox alignItems="Center">
-										<Text design="Bold" visible="{= ${ErroModel>tTempId} === null ? true : false}"
+										<Text design="Bold" visible="{= ${ErroModel>tTempId} === '' ? true : false}"
 											text="{parts:[{path:'ErroModel>tType'},{path:'TaskMainListModel>/'}], formatter:'.formatter.taskNameText'}"/>
-										<Text text="Template" design="Bold" visible="{= ${ErroModel>tTempId} === null ? false : true}"></Text>
+										<Text text="Template" design="Bold" visible="{= ${ErroModel>tTempId} === '' ? false : true}"></Text>
 									</VBox>
 									<Text text="{ErroModel>errormsg}" wrapping="true"/>
 								</cells>

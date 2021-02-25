@@ -1,6 +1,6 @@
 <mvc:View controllerName="avmet.ah.controller.CosAddFlyingRequirements" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
 	xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Page showHeader="false" showNavButton="false" >
+	<Page showHeader="false" showNavButton="false">
 		<Toolbar height="4rem" class="backgroundWhite">
 			<Button icon="sap-icon://arrow-left" type="Transparent" class="iconColorWhite sapUiMediumMarginBegin" press="onNavBack"></Button>
 			<ObjectIdentifier title="{i18n>tiAddFlyingRequirement}" text="{ViewModel>/JobId}" titleActive="false" class="sapUiTinyMarginBottom"/>
@@ -11,10 +11,10 @@
 					<VBox>
 						<VBox>
 							<Label text="{i18n>lbDate}" design="Bold"/>
-						<!--	<DatePicker id="DP1" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"  placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>-->
-								<DatePicker id="DP1" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
-								value="{path: 'ViewModel>/dDate', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-								width="13rem" placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+							<!--	<DatePicker id="DP1" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"  placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>-->
+							<DatePicker id="DP1" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
+								value="{path: 'ViewModel>/dDate',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" width="13rem"
+								placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 						</VBox>
 						<VBox>
 							<Label text="{i18n>lbTime}" design="Bold"/>
@@ -31,11 +31,12 @@
 							<CustomListItem class="sapUiSmallMargin">
 								<VBox class="sapUiSmallMargin">
 									<HBox>
-									<Label text="{i18n>lbFlyingRequirement}" design="Bold"/>
-									<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('FR',$event)"  size="12px" color="#031E48"/>
+										<Label text="{i18n>lbFlyingRequirement}" design="Bold"/>
+										<core:Icon src="sap-icon://sys-help-2" class="sapUiTinyMarginBegin" press="handlePressToolTipMenu('FR',$event)" size="12px" color="#031E48"/>
 									</HBox>
-									<TextArea id="taComment" required="true" fieldGroupIds="fgTxtArea" width="100%" value="{FlyingRequirementsModel>FRDESC}" class="sapUiTinyMarginBegin" growing="true" growingMaxLines="7"
-										valueStateText="{i18n>ERROR_GENERIC}" change="onCommentBySupervisor" maxLength="500" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"/>
+									<TextArea id="taComment" required="true" fieldGroupIds="fgTxtArea" width="100%" value="{FlyingRequirementsModel>FRDESC}"
+										class="sapUiTinyMarginBegin" growing="true" growingMaxLines="7" valueStateText="{i18n>ERROR_GENERIC}" change="onCommentBySupervisor"
+										maxLength="500" liveChange="handleLiveChangeFlyingRequirements" showExceededText="true"/>
 								</VBox>
 							</CustomListItem>
 						</List>

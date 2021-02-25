@@ -42,14 +42,14 @@ sap.ui.define([
 				"SGUZT1": new Date().getHours() + ":" + new Date().getMinutes(),
 				"TailID": oModel.getProperty("/sTailId"),
 				"WABID": "",
-				"WTIND": null,
-				"ENUSR": null,
-				"ENDTM": null,
-				"ENUZT": null,
-				"STATUS": null,
-				"LAST": null,
+				"WTIND": "",
+				"ENUSR": "",
+				"ENDTM": "",
+				"ENUZT": "",
+				"STATUS": "",
+				"LAST": "",
 				"SEQNR": sSQNId,
-				"UFLAG": null
+				"UFLAG": ""
 			};
 			aItems.push(oObj);
 			this.getView().getModel("WeightBalanceNewSet").updateBindings(true);
@@ -81,14 +81,14 @@ sap.ui.define([
 				"SGUZT1": new Date().getHours() + ":" + new Date().getMinutes(),
 				"TailID": oModel.getProperty("/sTailId"),
 				"WABID": "",
-				"WTIND": null,
-				"ENUSR": null,
-				"ENDTM": null,
-				"ENUZT": null,
-				"STATUS": null,
-				"LAST": null,
+				"WTIND": "",
+				"ENUSR": "",
+				"ENDTM": "",
+				"ENUZT": "",
+				"STATUS": "",
+				"LAST": "",
 				"SEQNR": sSQNId,
-				"UFLAG": null
+				"UFLAG": ""
 			};
 			aItems.push(oObj);
 			this.getView().getModel("WeightBalanceNewSet").updateBindings(true);
@@ -350,7 +350,7 @@ sap.ui.define([
 			var oKey = oEvent.getSource().getSelectedKey();
 			var bFlag = oKey === "Y" ? true : false;
 			this.getView().byId("WeManId").setVisible(bFlag);
-			var sVal = bFlag === true ? "X" : null;
+			var sVal = bFlag === true ? "X" : "";
 			this.getModel("WeightBalanceHeaderSet").setProperty("/WeightedWght/0/FLAG", sVal);
 			this.getModel("WeightBalanceHeaderSet").setProperty("/WeightedWght/0/IDESC", "Total As Weighted Weight");
 		},
@@ -403,7 +403,7 @@ sap.ui.define([
 
 			var oTotalModel = this.getView().getModel("WeightBalanceHeaderSet").getProperty("/TotalWeightSet");
 			oTotalModel[0].MOD = "C";
-			oTotalModel[0].FLAG = null;
+			oTotalModel[0].FLAG =  "";
 			oPayload.push(oTotalModel[0]);
 			var oWeightedModel = this.getView().getModel("WeightBalanceHeaderSet").getProperty("/WeightedWght");
 			oWeightedModel[0].MOD = "C";

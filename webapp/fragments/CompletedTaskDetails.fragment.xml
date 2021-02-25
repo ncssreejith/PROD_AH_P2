@@ -16,12 +16,12 @@
 				<Toolbar class="bgColorToolBar">
 					<Label text="Follow-up Task" design="Bold"/>
 					<ToolbarSpacer/>
-					<HBox visible="{=${DetailsComModel>/tmpid} === null ? true : false}">
+					<HBox visible="{=${DetailsComModel>/tmpid} === '' ? true : false}">
 						<Label text="Task Type :" design="Bold" class="sapUiTinyMarginTop"/>
 						<Label class="sapUiTinyMarginBegin sapUiTinyMarginTop" design="Bold"
 							text="{parts:[{path:'DetailsComModel>/tt1id'},{path:'TaskMainListModel>/'}], formatter:'.formatter.taskNameText'}"/>
 					</HBox>
-					<HBox visible="{=${DetailsComModel>/tmpid} !== null ? true : false}">
+					<HBox visible="{=${DetailsComModel>/tmpid} !== '' ? true : false}">
 						<Label text="Task Type :" design="Bold"/>
 						<Label text="Template" design="Bold" class="sapUiTinyMarginBegin"></Label>
 					</HBox>
@@ -41,13 +41,13 @@
 									</VBox>
 									<VBox visible="{= ${DetailsComModel>/tt1id}==='TT1_11'|| ${DetailsComModel>/tt1id}==='TT1_AD' ? true:false}" class="sapUiTinyMarginBottom">
 										<!--OPS-->
-										<!--	<VBox visible="{= ${DetailsComModel>/CPRID}===null ? true:false}">
+										<!--	<VBox visible="{= ${DetailsComModel>/CPRID}==='' ? true:false}">
 											<ComboBox width="330px" editable="false" change="onTypeChangeOPS" selectedKey="{DetailsComModel>/tt1id}"
 												items="{path:'FollowOPSModel>/',templateShareable: false}">
 												<core:Item text="{FollowOPSModel>text}" key="{FollowOPSModel>key}"/>
 											</ComboBox>
 										</VBox>-->
-										<VBox visible="{= ${DetailsComModel>/CPRID}!==null ? true:false}">
+										<VBox visible="{= ${DetailsComModel>/CPRID}!=='' ? true:false}">
 											<Label design="Bold" text="Transfer to Acceptable Deferred Defects Log"></Label>
 										</VBox>
 										<layoutData>
@@ -55,7 +55,7 @@
 										</layoutData>
 									</VBox>
 									<VBox visible="{= ${DetailsComModel>/tt1id}==='TT1_14' || ${DetailsComModel>/tt1id}==='TT1_ADD' ? true:false}">
-										<VBox visible="{= ${DetailsComModel>/CPRID}!==null ? true:false}">
+										<VBox visible="{= ${DetailsComModel>/CPRID}!=='' ? true:false}">
 											<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
 										</VBox>
 										<layoutData>
@@ -125,8 +125,8 @@
 											<l:GridData span="XL6 L6 M6 S6" linebreak="true"/>
 										</layoutData>
 									</HBox>
-									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= ${DetailsComModel>/oppr}!==null ? true:false}">
-										<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${DetailsComModel>/CPRID}!==null ? true:false}">
+									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= ${DetailsComModel>/oppr}!=='' ? true:false}">
+										<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${DetailsComModel>/CPRID}!=='' ? true:false}">
 											<HBox>
 												<Label width="200px" design="Bold" text="Reason for ADD" class="sapUiSmallMarginTop"/>
 												<ComboBox width="200px" editable="false" selectionChange="onReasonForADDChange"
@@ -193,7 +193,7 @@
 											</VBox>
 										</HBox>
 										<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
-											visible="{= ${DetailsComModel>/ldesc}!=='' &amp;&amp; ${DetailsComModel>/ldesc}!==null ? true:false}">
+											visible="{= ${DetailsComModel>/ldesc}!=='' &amp;&amp; ${DetailsComModel>/ldesc}!=='' ? true:false}">
 											<HBox>
 												<Label design="Bold" text="Limitation" width="196px"/>
 												<!--	<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" size="12px" class="sapUiTinyMarginBegin" color="#031E48"/>-->

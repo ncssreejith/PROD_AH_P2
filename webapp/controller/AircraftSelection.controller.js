@@ -171,7 +171,7 @@ sap.ui.define([
 			};
 			oParameter.success = function(oData) {
 				var emptyVal = {
-					LOCID: null,
+					LOCID: "",
 					airid: "NA",
 					modid: "NA",
 					tailid: "NA",

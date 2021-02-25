@@ -20,7 +20,7 @@
 						</HBox>
 						<DatePicker id="dpScheId" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" minDate="{RSModel>/minDT}"
 							visible="{=${RSModel>/DueBy}==='JDU_10' ? true:false}"
-							value="{path: 'RSModel>/ExpDate', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+							value="{path: 'RSModel>/ExpDate',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
 							placeholder="New job creation date ..." change="handleChangeSche" class="sapUiSmallMarginBottom"/>
 					</HBox>
 				</VBox>

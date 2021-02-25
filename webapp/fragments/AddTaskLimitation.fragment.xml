@@ -51,8 +51,8 @@
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewLimitModel>/bDateSection}">
 				<VBox>
 					<Label design="Bold" text="Expiry Date" width="150px"/>
-					<DatePicker id="DP2" change="handleChangeUtil('idWorkCenterDialog')"
-						value="{path: 'oViewGlobalModel>/EXPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+					<DatePicker id="DP2" change="handleChangeUtilDate('idWorkCenterDialog',$event)"
+					    value="{path: 'oViewGlobalModel>/EXPDT',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
 						width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}"/>
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin">
@@ -72,7 +72,7 @@
 				<VBox class="sapUiSmallMarginBegin">
 					<Label/>
 					<StepInput width="200px" value="{oViewGlobalModel>/UTILVL}"
-						visible="{= ${oViewGlobalModel>/UTIL1} !== null &amp;&amp; ${oViewGlobalModel>/UTIL1} !== 'UTIL1_20' ? true : false}"
+						visible="{= ${oViewGlobalModel>/UTIL1} !== '' &amp;&amp; ${oViewGlobalModel>/UTIL1} !== 'UTIL1_20' ? true : false}"
 						min="{oViewGlobalModel>/UTILMinVL}" change="onStepChange"
 						displayValuePrecision="{ path:'oViewGlobalModel>/UTIL1' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 					<Select width="200px" forceSelection="false" visible="{=${oViewGlobalModel>/UTIL1}==='UTIL1_20' ? true:false}"

@@ -186,7 +186,7 @@ sap.ui.define([
 		},
 
 		defaultDateFormatLimDisplay: function(dDate, sFormat) {
-			if (dDate === "-" || dDate === "_" || dDate === null) {
+			if (dDate === "-" || dDate === "_" || dDate === null || dDate === "") {
 				return "_";
 			}
 			/*var nDate=new Date(dDate);
@@ -556,8 +556,8 @@ sap.ui.define([
 		},
 		taskContentVisible1: function(stTask1, stTask2) {
 			if (stTask1 !== "TT1_99") {
-				if ((stTask1 === "TT1_14" && stTask2 === null) || (stTask1 === "TT1_11" && stTask2 === null) || (stTask1 === "TT1_15" && stTask2 ===
-						null) || (stTask1 === "TT1_18" && stTask2 === null) || (stTask1 === "TT1_17" && stTask2 === null)) {
+				if ((stTask1 === "TT1_14" && stTask2 === "") || (stTask1 === "TT1_11" && stTask2 === "") || (stTask1 === "TT1_15" && stTask2 ===
+						"") || (stTask1 === "TT1_18" && stTask2 === "") || (stTask1 === "TT1_17" && stTask2 === "")) {
 					return true;
 				} else {
 					return false;
@@ -568,14 +568,14 @@ sap.ui.define([
 		},
 
 		taskContentVisible2: function(stTask1, stTask2, stTask3) {
-			if ((stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null)) {
+			if ((stTask1 === "TT1_11" && stTask3 === "") || (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === "")) {
 				return true;
 			} else {
 				return false;
 			}
 		},
 		taskContentTitle: function(stTask1, stTask2, stTask3) {
-			if (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null) {
+			if (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === "") {
 				return "Follow-Up Task/Findings";
 			} else {
 				return "Follow-Up Task";
@@ -583,16 +583,16 @@ sap.ui.define([
 		},
 
 		taskContentVisible3: function(stTask1, stTask2, stTask3, stTask4) {
-			if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === "TT1_12" && stTask3 ===
-						null) || (stTask1 === "TT1_10" && stTask2 ===
-						"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
-						stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
-						stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" &&
-						stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
-						"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === "TT1_15" && stTask3 === null) || (stTask1 === "TT1_16" &&
-						stTask3 === null) || (stTask1 === "TT1_17" &&
-						stTask3 === null) || (stTask1 === "TT1_18" && stTask3 === null) ||
-					(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === "" || stTask4 === null)) {
+			if (((stTask1 === "TT1_14" && stTask3 === "") || (stTask1 === "TT1_11" && stTask3 === "") || (stTask1 === "TT1_12" && stTask3 ===
+						"") || (stTask1 === "TT1_10" && stTask2 ===
+						"TT2_13" && stTask3 === "") || (stTask1 === "TT1_10" &&
+						stTask2 === "TT2_14" && stTask3 === "") || (stTask1 === "TT1_10" &&
+						stTask2 === "TT2_10" && stTask3 === "") || (stTask1 === "TT1_10" &&
+						stTask2 === "TT2_12" && stTask3 === "") || (stTask1 ===
+						"TT1_10" && stTask2 === "TT2_11" && stTask3 === "") || (stTask1 === "TT1_15" && stTask3 === "") || (stTask1 === "TT1_16" &&
+						stTask3 === "") || (stTask1 === "TT1_17" &&
+						stTask3 === "") || (stTask1 === "TT1_18" && stTask3 === "") ||
+					(stTask1 === "TT1_19" && stTask3 === "")) && (stTask4 === "" || stTask4 === "")) {
 				return true;
 			} else {
 				return false;
@@ -601,15 +601,15 @@ sap.ui.define([
 
 		/*	taskContentVisibleTB: function(stTask1, stTask2, stTask3, stTask4) {
 				if (stTask1 !== "TT1_99") {
-					if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
-								"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
-								stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
-								stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" &&
-								stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
-								"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === null &&
-								stTask2 === null && stTask3 === null) || (stTask1 ===
-								"TT1_16" && stTask3 === null) ||
-							(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === '' || stTask4 === null)) {
+					if (((stTask1 === "TT1_14" && stTask3 === "") || (stTask1 === "TT1_10" && stTask2 ===
+								"TT2_13" && stTask3 === "") || (stTask1 === "TT1_10" &&
+								stTask2 === "TT2_14" && stTask3 === "") || (stTask1 === "TT1_10" &&
+								stTask2 === "TT2_10" && stTask3 === "") || (stTask1 === "TT1_10" &&
+								stTask2 === "TT2_12" && stTask3 === "") || (stTask1 ===
+								"TT1_10" && stTask2 === "TT2_11" && stTask3 === "") || (stTask1 === "TT1_11" && stTask3 === "") || (stTask1 === "" &&
+								stTask2 === "" && stTask3 === "") || (stTask1 ===
+								"TT1_16" && stTask3 === "") ||
+							(stTask1 === "TT1_19" && stTask3 === "")) && (stTask4 === '' || stTask4 === "")) {
 						return true;
 					} else {
 						return false;
@@ -620,15 +620,15 @@ sap.ui.define([
 			},*/
 		taskContentVisibleTB: function(stTask1, stTask2, stTask3, stTask4) {
 			if (stTask1 !== "TT1_99") {
-				if (((stTask1 === "TT1_14" && stTask3 === null) || (stTask1 === "TT1_10" && stTask2 ===
-							"TT2_13" && stTask3 === null) || (stTask1 === "TT1_10" &&
-							stTask2 === "TT2_14" && stTask3 === null) || (stTask1 === "TT1_10" &&
-							stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_10" &&
-							stTask2 === "TT2_12" && stTask3 === null) || (stTask1 ===
-							"TT1_10" && stTask2 === "TT2_11" && stTask3 === null) || (stTask1 === "TT1_11" && stTask3 === null) || (stTask1 === null &&
-							stTask2 === null && stTask3 === null) || (stTask1 ===
-							"TT1_16" && stTask3 === null) ||
-						(stTask1 === "TT1_19" && stTask3 === null)) && (stTask4 === '' || stTask4 === null)) {
+				if (((stTask1 === "TT1_14" && stTask3 === "") || (stTask1 === "TT1_10" && stTask2 ===
+							"TT2_13" && stTask3 === "") || (stTask1 === "TT1_10" &&
+							stTask2 === "TT2_14" && stTask3 === "") || (stTask1 === "TT1_10" &&
+							stTask2 === "TT2_10" && stTask3 === "") || (stTask1 === "TT1_10" &&
+							stTask2 === "TT2_12" && stTask3 === "") || (stTask1 ===
+							"TT1_10" && stTask2 === "TT2_11" && stTask3 === "") || (stTask1 === "TT1_11" && stTask3 === "") || (stTask1 === "" &&
+							stTask2 === "" && stTask3 === "") || (stTask1 ===
+							"TT1_16" && stTask3 === "") ||
+						(stTask1 === "TT1_19" && stTask3 === "")) && (stTask4 === '' || stTask4 === "")) {
 					return true;
 				} else {
 					return false;
@@ -638,10 +638,10 @@ sap.ui.define([
 			}
 		},
 		taskContentVisible4: function(stTask1, stTask2, stTask3) {
-			if ((stTask1 === "TT1_10" && stTask2 === "TT2_10" && stTask3 === null) || (stTask1 === "TT1_14" && stTask3 === null) || (stTask1 ===
+			if ((stTask1 === "TT1_10" && stTask2 === "TT2_10" && stTask3 === "") || (stTask1 === "TT1_14" && stTask3 === "") || (stTask1 ===
 					"TT1_10" && stTask2 ===
-					"TT2_13" && stTask3 === null)) {
-				/*	|| (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === null)*/
+					"TT2_13" && stTask3 === "")) {
+				/*	|| (stTask1 === "TT1_10" && stTask2 === "TT2_12" && stTask3 === "")*/
 				return true;
 			} else {
 				return false;
@@ -849,15 +849,15 @@ sap.ui.define([
 			return (sDispatch === "Yes");
 		},
 		TradesmanStatus: function(sDone, sNA) {
-			if (sDone === null && sNA === null) {
+			if (sDone === null && (sNA === null || sNA === "")) {
 				return "noKey";
-			} else if (sDone === "" && sNA === null) {
+			} else if (sDone === "" && (sNA === null || sNA === "")) {
 				return "noKey";
 			} else if (sDone === null && sNA === "") {
 				return "noKey";
-			} else if (sDone === "X" && sNA === null) {
+			} else if (sDone === "X" && (sNA === null || sNA === "")) {
 				return "NA";
-			} else if (sNA === null && sDone === "Y") {
+			} else if ((sNA === null || sNA === "") && sDone === "Y") {
 				return "Done";
 			} else {
 				return "noKey";
@@ -1120,7 +1120,7 @@ sap.ui.define([
 			return true;
 		},
 		fnEngineEnableHit: function(sReasonCheck, sLock) {
-			if (sLock === "99" || sLock === undefined || sLock === null) {
+			if (sLock === "99" || sLock === undefined || sLock === null || sLock === "") {
 				return true;
 			}
 			// 
@@ -1166,7 +1166,7 @@ sap.ui.define([
 			// 	document.querySelector("#"+this.getId()+" > div > div > div").textContent="";
 			// }
 			var iValue = 0;
-			if (sValue === null || iMax === null) {
+			if ((sValue === null || iMax === null) || (sValue === "" || iMax === "")) {
 				return "Neutral";
 			} else if ((parseInt(sValue) < parseInt(iMax))) {
 				return "Critical";
@@ -1220,7 +1220,7 @@ sap.ui.define([
 		},
 
 		wcQuanty: function(TOTQTY, SERNR) {
-			if (TOTQTY !== null || TOTQTY !== undefined || TOTQTY >= 0) {
+			if (TOTQTY !== null || TOTQTY !== "" || TOTQTY !== undefined || TOTQTY >= 0) {
 				return "Qty " + TOTQTY;
 			}
 			if (SERNR) {
@@ -1832,7 +1832,7 @@ sap.ui.define([
 		}, //Change by Teck Meng 20/11/2020 10:15
 		percentAge: function(oState, sState1) {
 			var sPercentAge = 0;
-			if (oState === undefined || oState === null || oState === 0) {
+			if (oState === undefined || oState === null || oState === "" || oState === 0) {
 				return sPercentAge;
 			}
 			sPercentAge = ((oState * 100) / sState1);
@@ -1846,7 +1846,7 @@ sap.ui.define([
 				return 0;
 			}
 			var sPercentAge = 0;
-			if (oState === undefined || oState === null) {
+			if (oState === undefined || oState === null || oState === "") {
 				return sPercentAge;
 			}
 			sPercentAge = ((oState * 100) / sState1);
@@ -1931,9 +1931,9 @@ sap.ui.define([
 		},
 
 		FormatMaxValueFloat: function(sValue, max) {
-			if (!isNaN(sValue) && sValue !== null && sValue !== 0) {
+			if (!isNaN(sValue) && sValue !== null && sValue !== "" && sValue !== 0) {
 				return parseFloat(sValue);
-			} else if (!isNaN(max) && max !== null) {
+			} else if (!isNaN(max) && max !== null && max !== "") {
 				return parseFloat(max);
 			}
 		},
@@ -1949,7 +1949,7 @@ sap.ui.define([
 				return 0;
 			}
 			var iValue = 0;
-			if (sValue === null || iMax === null) {
+			if ((sValue === null && sValue === "") || (iMax === null && iMax === "")) {
 				return iValue;
 			} else {
 				iValue = ((parseFloat(sValue) / parseInt(iMax))) * 100;
@@ -1958,7 +1958,7 @@ sap.ui.define([
 		},
 		FuelMCState: function(sValue, iMax) {
 			var iValue = 0;
-			if (sValue === null || iMax === null) {
+			if ((sValue === null || iMax === null) || (sValue === "" || iMax === "")) {
 				return "Neutral";
 			} else if ((parseInt(sValue) < parseInt(iMax))) {
 				return "Critical";
@@ -2028,6 +2028,8 @@ sap.ui.define([
 			} else if (sDone === "" && sNA === null) {
 				return "";
 			} else if (sDone === null && sNA === "") {
+				return "";
+			} else if (sDone === "" && sNA === "") {
 				return "";
 			} else if (sDone === "X" && sNA === null) {
 				return "NA";

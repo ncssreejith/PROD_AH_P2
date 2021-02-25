@@ -20,7 +20,7 @@
 				<Toolbar class="bgColorToolBar sapUiSmallMarginTop">
 					<Label text="Follow-up Task" design="Bold"/>
 					<ToolbarSpacer/>
-					<HBox visible="{=${DetailsSupEditModel>/tmpid} === null ? true : false}">
+					<HBox visible="{=${DetailsSupEditModel>/tmpid} === '' ? true : false}">
 						<Label text="Task Type :" design="Bold" class="sapUiTinyMarginTop"/>
 						<!--<ComboBox width="330px" editable="false" class="sapUiTinyMarginBegin" items="{path:'TaskMainListModel>/',templateShareable: false}"
 							selectedKey="{DetailsSupEditModel>/tt1id}">
@@ -29,7 +29,7 @@
 						<Label class="sapUiTinyMarginBegin sapUiTinyMarginTop" design="Bold"
 							text="{parts:[{path:'DetailsSupEditModel>/tt1id'},{path:'TaskMainListModel>/'}], formatter:'.formatter.taskNameText'}"/>
 					</HBox>
-					<HBox visible="{=${DetailsSupEditModel>/tmpid} !== null ? true : false}">
+					<HBox visible="{=${DetailsSupEditModel>/tmpid} !== '' ? true : false}">
 						<Label text="Task Type :" design="Bold"/>
 						<Label text="Template" design="Bold" class="sapUiTinyMarginBegin"></Label>
 					</HBox>
@@ -53,7 +53,7 @@
 								</VBox>
 								<VBox visible="{= ${DetailsSupEditModel>/tt1id}==='TT1_11'|| ${DetailsSupEditModel>/tt1id}==='TT1_AD' ? true:false}"
 									class="sapUiTinyMarginBottom">
-									<VBox visible="{= ${DetailsSupEditModel>/CPRID}!==null ? true:false}">
+									<VBox visible="{= ${DetailsSupEditModel>/CPRID}!=='' ? true:false}">
 										<Label design="Bold" text="Transfer to Acceptable Deferred Defects Log"></Label>
 									</VBox>
 									<layoutData>
@@ -61,7 +61,7 @@
 									</layoutData>
 								</VBox>
 								<VBox visible="{= ${DetailsSupEditModel>/tt1id}==='TT1_14' || ${DetailsSupEditModel>/tt1id}==='TT1_ADD' ? true:false}">
-									<VBox visible="{= ${DetailsSupEditModel>/CPRID}!==null ? true:false}">
+									<VBox visible="{= ${DetailsSupEditModel>/CPRID}!=='' ? true:false}">
 										<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
 									</VBox>
 									<layoutData>
@@ -211,8 +211,8 @@
 										<l:GridData span="XL8 L8 M8 S8" linebreak="true"/>
 									</layoutData>
 								</VBox>
-								<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= ${DetailsSupEditModel>/oppr}!==null ? true:false}">
-									<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${DetailsSupEditModel>/CPRID}!==null ? true:false}">
+								<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= ${DetailsSupEditModel>/oppr}!=='' ? true:false}">
+									<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${DetailsSupEditModel>/CPRID}!=='' ? true:false}">
 										<VBox>
 											<Label width="200px" design="Bold" text="Reason for ADD" class="sapUiSmallMarginTop"/>
 											<ComboBox width="200px" selectionChange="onReasonForADDChange" items="{path:'ReasonforADDModel>/',templateShareable: false}"
@@ -231,7 +231,7 @@
 												<Label width="200px" design="Bold" text="Other Reason" class="sapUiSmallMarginTop"/>
 											</HBox>
 											<Input width="250px" value="{DetailsSupEditModel>/OTHER_RSN}"/>
-										<!--Rahul 03/12/2020 :03:23:Width increased to "250PX"-->
+											<!--Rahul 03/12/2020 :03:23:Width increased to "250PX"-->
 										</VBox>
 									</HBox>
 									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
@@ -258,9 +258,8 @@
 									<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${oViewLimitModel>/bDateSection} === true ? true : false}">
 										<VBox>
 											<Label design="Bold" text="Expiry Date" width="150px"/>
-											<DatePicker
-												value="{path: 'DetailsSupEditModel>/expdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-												width="200px" fieldGroupIds="fgDate" minDate="{oViewLimitModel>/DatePrev}"/>
+											<DatePicker value="{path: 'DetailsSupEditModel>/expdt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" width="200px"
+												fieldGroupIds="fgDate" minDate="{oViewLimitModel>/DatePrev}"/>
 										</VBox>
 										<!--required="{oViewLimitModel>/bDateSection}"-->
 										<VBox class="sapUiSmallMarginBegin">
@@ -280,7 +279,7 @@
 										<VBox class="sapUiSmallMarginBegin">
 											<Label/>
 											<StepInput width="228px" value="{DetailsSupEditModel>/utilvl}"
-												visible="{= ${DetailsSupEditModel>/util1} !== null &amp;&amp; ${DetailsSupEditModel>/util1} !== 'UTIL1_20' ? true : false}"
+												visible="{= ${DetailsSupEditModel>/util1} !== '' &amp;&amp; ${DetailsSupEditModel>/util1} !== 'UTIL1_20' ? true : false}"
 												required="{oViewLimitModel>/bAirFrameAndTAC}" min="{oViewLimitModel>/UTILMinVL}" change="onStepChange"
 												displayValuePrecision="{ path:'DetailsSupEditModel>/util1' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
 											<Select width="200px" forceSelection="false" visible="{=${DetailsSupEditModel>/util1}==='UTIL1_20' ? true:false}"

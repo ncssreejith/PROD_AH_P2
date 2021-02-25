@@ -318,7 +318,7 @@ sap.ui.define([
 					oPayloadPut = aTemp;
 					for (var i in oPayloadPut) {
 						//oPayloadPut[i].sg1usr = "User1";
-						//oPayloadPut[i].sg2usr = null;
+						//oPayloadPut[i].sg2usr = "";
 						oPayloadPut[i].airid = this.getAircraftId();
 						//oPayloadPut[i].ddid = "HC_SG_S_FT";
 						oPayloadPut[i].stepid = oModel.getProperty("/stepid");
@@ -333,13 +333,13 @@ sap.ui.define([
 					}
 					oPayloadPut = aTemp;
 					for (var i in oPayloadPut) {
-						//oPayloadPut[i].sg1usr = null;
+						//oPayloadPut[i].sg1usr = "";
 						//oPayloadPut[i].sg2usr = "User2";
 						oPayloadPut[i].airid = this.getAircraftId();
 						//oPayloadPut[i].ddid = "HC_SG_S_FT";
 						oPayloadPut[i].stepid = "S_CT";
 						oPayloadPut[i].srvtid = this.getModel("oCTCloseTaskModel").getProperty("/srvtid");
-						oPayloadPut[i].ftsernr = null;
+						oPayloadPut[i].ftsernr = "";
 					}
 					this.getView().byId("taskTabs").setSelectedKey("CM");
 				}

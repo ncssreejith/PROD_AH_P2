@@ -15,12 +15,12 @@
 					<cs:ColorStatus status="{paModel>CFLAG}" statushr="{paModel>AFHR}"/>
 					<HBox class="sapUiSmallMargin">
 						<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin"
-							visible="{=${paModel>EXPDT} !== null ? true : false}">
+							visible="{=${paModel>EXPDT} !== null &amp;&amp; ${paModel>EXPDT} !== '' ? true : false}">
 							<Label text="{paModel>AFDAY}" design="Bold"></Label>
 							<Label text="Day left"></Label>
 						</VBox>
 						<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center"
-							visible="{=${paModel>UTIL1} !== null ? true : false}">
+							visible="{=${paModel>UTIL1} !== '' ? true : false}">
 							<Label text="{paModel>AFHR}" design="Bold"></Label>
 							<Label text="{paModel>UTIL1} left"></Label>
 						</VBox>
@@ -29,9 +29,9 @@
 						<VBox>
 							<Label text="{paModel>LDESC}" design="Bold"/>
 							<HBox visible="{= ${paModel>CAPTY} === 'A' || ${paModel>CAPTY} === 'B'}">
-								<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${paModel>JOBDESC} !== null}" renderMode="Narrow" colorScheme="7"
+								<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${paModel>JOBDESC} !== ''}" renderMode="Narrow" colorScheme="7"
 									class="sapUiTinyMarginTop" displayOnly="true"/>
-								<Label text="{paModel>JOBDESC}" visible="{= ${paModel>JOBDESC} !== null}" class="sapUiTinyMargin"/>
+								<Label text="{paModel>JOBDESC}" visible="{= ${paModel>JOBDESC} !== ''}" class="sapUiTinyMargin"/>
 							</HBox>
 						</VBox>
 					</HBox>

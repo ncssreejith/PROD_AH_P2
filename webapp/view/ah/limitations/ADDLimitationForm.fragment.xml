@@ -23,17 +23,17 @@
 									<Label text="{LimitationsSet>AFHR}" design="Bold"></Label>
 									<Label text="{LimitationsSet>UTIL1} left"></Label>
 									<!--Rahul: COS: 11/12/2020: 04:10PM: Left keyword required for all JDU Type-->
-									<!--<Label text="{LimitationsSet>UTIL1}" visible="{=${LimitationsSet>UTIL1_10} !== null ? true : false}"></Label>
-									<Label text="{LimitationsSet>UTIL1} left" visible="{=${LimitationsSet>UTIL1_10} === null ? true : false}"></Label>-->
+									<!--<Label text="{LimitationsSet>UTIL1}" visible="{=${LimitationsSet>UTIL1_10} !== '' ? true : false}"></Label>
+									<Label text="{LimitationsSet>UTIL1} left" visible="{=${LimitationsSet>UTIL1_10} === '' ? true : false}"></Label>-->
 								</VBox>
 							</HBox>
 							<HBox class="sapUiSmallMargin">
 								<VBox>
 									<Text text="{LimitationsSet>LDESC}" wrapping="true"/>
 									<HBox visible="{= ${LimitationsSet>CAPTY} === 'A' || ${LimitationsSet>CAPTY} === 'B'}">
-										<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${LimitationsSet>JOBDESC} !== null}" renderMode="Narrow" colorScheme="7"
+										<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${LimitationsSet>JOBDESC} !== ''}" renderMode="Narrow" colorScheme="7"
 											class="sapUiTinyMarginTop" displayOnly="true"/>
-										<Text wrapping="true" text="{LimitationsSet>JOBDESC}" width="33rem" visible="{= ${LimitationsSet>JOBDESC} !== null}" class="sapUiTinyMargin"/>
+										<Text wrapping="true" text="{LimitationsSet>JOBDESC}" width="33rem" visible="{= ${LimitationsSet>JOBDESC} !== ''}" class="sapUiTinyMargin"/>
 									</HBox>
 									<!--<HBox visible="{= ${LimitationsSet>CAPTY} === 'B'}">
 										<tnt:InfoLabel text="Acceptable Deferred Defects with Limitations" renderMode="Narrow" colorScheme="7" class="sapUiTinyMarginTop" displayOnly="true"/>

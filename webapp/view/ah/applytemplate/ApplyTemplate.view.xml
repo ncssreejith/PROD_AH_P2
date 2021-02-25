@@ -12,8 +12,8 @@
 						<VBox class="sapUiSmallMargin">
 							<Label text="Date" design="Bold"/>
 							<DatePicker id="DP1" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
-								value="{path: 'applTmplModel>/header/dDate', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-								width="13rem" placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+								value="{path: 'applTmplModel>/header/dDate',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" width="13rem"
+								placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
 							<layoutData>
 								<l:GridData linebreak="true" span="XL3 L3 M6 S12"/>
 							</layoutData>
@@ -38,8 +38,8 @@
 						</HBox>
 						<HBox justifyContent="End" visible="{applTmplModel>/header/bWorkCenter}">
 							<Label class="sapUiSmallMarginTop sapUiLargeMarginBegin" text="Choose template" design="Bold"/>
-							<ComboBox placeholder="{i18n>phSelect}" width="25rem" change="onWorkCenterTempChange" required="true"
-								fieldGroupIds="fgCmbBox" class="sapUiSmallMargin" items="{path:'applTmplModel>/tmpls'}" selectedKey="{applTmplModel>/header/selTmpl}"
+							<ComboBox placeholder="{i18n>phSelect}" width="25rem" change="onWorkCenterTempChange" required="true" fieldGroupIds="fgCmbBox"
+								class="sapUiSmallMargin" items="{path:'applTmplModel>/tmpls'}" selectedKey="{applTmplModel>/header/selTmpl}"
 								valueStateText="{i18n>ERROR_GENERIC}">
 								<core:Item key="{applTmplModel>ddid}" text="{applTmplModel>description}"/>
 							</ComboBox>
@@ -50,7 +50,8 @@
 						</layoutData>
 					</FlexBox>
 					<VBox class="hboxBorder" alignItems="Center">
-						<Table id="tbSummary" width="60rem" visible="{applTmplModel>/ApplyTempTable}"  mode="{= ${applTmplModel>/MasterTableMode} === 'X' ? 'MultiSelect' : 'None'}"
+						<Table id="tbSummary" width="60rem" visible="{applTmplModel>/ApplyTempTable}"
+							mode="{= ${applTmplModel>/MasterTableMode} === 'X' ? 'MultiSelect' : 'None'}"
 							class="sapUiResponsivePadding CERTable sapUiSizeCompact TableNoDataText"
 							items="{path:'applTmplModel>/tasks',filters:[{path:'RTTY',operator:'EQ',value1:'M'}]}">
 							<headerToolbar>

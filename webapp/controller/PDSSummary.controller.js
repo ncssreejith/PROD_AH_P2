@@ -241,7 +241,7 @@ sap.ui.define([
 				// 		"There is " + parseInt(oLIMITCount) + " outstanding Limitations you can't do Fit-for-Flight or Fit-for-Check Flight");
 				// }
 
-				if (sBFValid === null) {
+				if (sBFValid === null && sBFValid === "") {
 					// sMsg += " Not within BF validity";
 				}
 				this.getModel("pdsSummaryModel").setProperty("/confirm/outjob", sMsg);
@@ -381,7 +381,7 @@ sap.ui.define([
 					"STEPID" + FilterOpEnum.EQ + this.getModel("pdsSummaryModel").getProperty("/stepid") + FilterOpEnum.AND +
 					"tailid" + FilterOpEnum.EQ + this.getTailId(); // Phase 2 Changes
 				oParameter.success = function(oData) {
-					var sPASign = oData.results.length > 0 ? oData.results[0].padone : null;
+					var sPASign = oData.results.length > 0 ? oData.results[0].padone : "";
 					this.getModel("pdsSummaryModel").setProperty("/masterList", oData.results);
 					this.getModel("pdsSummaryModel").setProperty("/confirm/pareqvisible", ((sPASign === null || sPASign === "") ? false : true));
 					this.getModel("pdsSummaryModel").refresh();

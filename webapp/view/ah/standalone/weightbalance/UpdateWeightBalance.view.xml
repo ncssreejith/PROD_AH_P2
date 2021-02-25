@@ -13,7 +13,8 @@
 											<Label design="Bold" text="Previous Date Taken on:" class="WDNSWhiteFont sapUiTinyMarginEnd"/>
 											<Label design="Bold" text="{path:'WeightBalanceHeaderSet>/PrevDt', formatter:'.formatter.defaultDateFormatDisplay'}"
 												class="sapUiTinyMarginEnd WDNSWhiteFont"/>
-											<Label design="Bold" text="{path:'WeightBalanceHeaderSet>/PrevTm', formatter:'.formatter.defaultTimeFormatDisplay'}" class="WDNSWhiteFont sapUiMediumMarginEnd"/>
+											<Label design="Bold" text="{path:'WeightBalanceHeaderSet>/PrevTm', formatter:'.formatter.defaultTimeFormatDisplay'}"
+												class="WDNSWhiteFont sapUiMediumMarginEnd"/>
 											<Label design="Bold" text="Previous Reading Taken By: {WeightBalanceHeaderSet>/PrevUser}" class="WDNSWhiteFont"/>
 										</HBox>
 									</content>
@@ -77,7 +78,7 @@
 												<!--<Text text="{path:'WeightBalanceNewSet>ItemDate', formatter:'.formatter.defaultDateFormatDisplay'}"
 													visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>-->
 												<DatePicker width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
-													value="{path: 'WeightBalanceNewSet>IDATEM', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+													value="{path: 'WeightBalanceNewSet>IDATEM',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
 													placeholder="New job creation date ..." change="handleChange" editable="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"/>
 											</VBox>
 											<VBox>
@@ -148,7 +149,7 @@
 												<!--	<Text text="{path:'WeightBalanceNewSet>ItemDate', formatter:'.formatter.defaultDateFormatDisplay'}"
 													visible="{=${WeightBalanceNewSet>vVisibleInput} !== 'N'? true : false}"/>-->
 												<DatePicker width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
-													value="{path: 'WeightBalanceNewSet>IDATEM', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+													value="{path: 'WeightBalanceNewSet>IDATEM',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
 													placeholder="New job creation date ..." change="handleChange" editable="{=${WeightBalanceNewSet>vVisibleInput} === 'N'? true : false}"/>
 											</VBox>
 											<VBox>

@@ -103,20 +103,20 @@ sap.ui.define([
 					"HRSINCE": "",
 					"ENDDA": "9999-12-31",
 					"BEGDA": oDate,
-					"SPREPLE": null, //for Yes for No ""
+					"SPREPLE": "", //for Yes for No ""
 					"SOAP": "",
 					"SPDT": oDate, //System date todays
 					"SPTM": oDate.getHours() + ":" + oDate.getMinutes(),
-					"TAILID": null,
+					"TAILID": "",
 					"DDDESC": "",
-					"HRAT": null,
+					"HRAT": "",
 					"SSTAT": "NA",
-					"SFLAG": null,
-					"CREUSR": null,
-					"JOBID": null,
-					"JOBDESC": null,
-					"JDUID": null,
-					"JDUVL": null
+					"SFLAG": "",
+					"CREUSR": "",
+					"JOBID": "",
+					"JOBDESC": "",
+					"JDUID": "",
+					"JDUVL": ""
 				});
 
 				that.getView().setModel(oViewModel, "ViewModel");

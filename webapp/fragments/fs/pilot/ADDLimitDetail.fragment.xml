@@ -4,13 +4,13 @@
 		<HBox width="100%">
 			<VBox width="{path:'paModel>CFLAG',formatter:'avmet.ah.model.formatter.ADDLimitColorByDay'}" alignContent="Center"
 				alignItems="Center">
-				<VBox alignContent="Center" alignItems="Center" visible="{=${paModel>ADDLimit/EXPDT} !== null ? true : false}"
+				<VBox alignContent="Center" alignItems="Center" visible="{=${paModel>ADDLimit/EXPDT} !== '' ? true : false}"
 					class="sapUiSmallMarginTop">
 					<Label design="Bold" text="{path:'paModel>ADDLimit/EXPDT', formatter:'.formatter.defaultDateFormatDisplay'}"
 						class="sapUiTinyMargin whiteText"/>
 					<Label text="Due Date" design="Bold" class="sapUiTinyMargin whiteText"/>
 				</VBox>
-				<VBox alignContent="Center" alignItems="Center" visible="{=${paModel>ADDLimit/UTIL1} !== null ? true : false}"
+				<VBox alignContent="Center" alignItems="Center" visible="{=${paModel>ADDLimit/UTIL1} !== '' ? true : false}"
 					class="sapUiLargeMarginTop">
 					<Label design="Bold" text="{paModel>ADDLimit/UTILVL}" class="sapUiTinyMargin whiteText"/>
 					<Label text="{paModel>ADDLimit/UTIL1TEXT}" design="Bold" class="sapUiTinyMargin whiteText"/>

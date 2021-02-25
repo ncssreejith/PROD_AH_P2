@@ -67,7 +67,7 @@
 						</HBox>
 					</VBox>
 				</HBox>
-				<HBox visible="{= ${CapSet>/REMARKS} !== null ? true : false}" width="95%">
+				<HBox visible="{= ${CapSet>/REMARKS} !== '' ? true : false}" width="95%">
 					<Label design="Bold" text="Remarks : " class="sapUiTinyMarginTop sapUiTinyMarginEnd"/>
 					<TextArea width="620px" class="sapUiTinyMarginTop" rows="7" value="{CapSet>/REMARKS}" maxLength="500" showExceededText="true"
 						liveChange="handleLiveChangeFlyingRequirements" editable="false"/>

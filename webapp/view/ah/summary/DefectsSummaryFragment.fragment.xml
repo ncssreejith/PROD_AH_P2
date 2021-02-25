@@ -74,8 +74,7 @@
 										<Label design="Bold" text="{i18n>lbETR}" width="140px"/>
 										<HBox>
 											<DatePicker id="DP1" width="8rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
-												minDate="{LocalModel>/etrMinDate}"
-												value="{path: 'JobModel>/etrdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+												minDate="{LocalModel>/etrMinDate}" value="{path: 'JobModel>/etrdt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
 												change="handleChangeEtr" enabled="{=${LocalModel>/FairEditFlag} &amp;&amp; ${LocalModel>/sFlag}==='Y' ? true :false}"
 												editable="{LocalModel>/FairEditFlag}"/>
 											<TimePicker id="TP1" required="true" fieldGroupIds="fgTime" valueStateText="{i18n>ERROR_GENERIC}" value="{JobModel>/etrtm}" width="5.4rem"
@@ -139,7 +138,7 @@
 			<HBox id="summaryHBId" items="{CreatedWorkCenterModel>/}" wrap="Wrap">
 				<cc:RectificationTile footerText="{= ${CreatedWorkCenterModel>wrctr} !== 'RectSum' ? 'Incomplete Entries':''}"
 					count="{CreatedWorkCenterModel>count}"
-					prime="{= ${CreatedWorkCenterModel>isprime} !== null &amp;&amp; ${CreatedWorkCenterModel>wrctr} !== 'RectSum' ? true:false }"
+					prime="{= ${CreatedWorkCenterModel>isprime} !== '' &amp;&amp; ${CreatedWorkCenterModel>wrctr} !== 'RectSum' ? true:false }"
 					title="{CreatedWorkCenterModel>wrctrtx}" select="onWorkCenterSelect" visible="{= ${CreatedWorkCenterModel>wrctr} !== 'Summary' }"/>
 			</HBox>
 			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter('ADD')" enabled="true"

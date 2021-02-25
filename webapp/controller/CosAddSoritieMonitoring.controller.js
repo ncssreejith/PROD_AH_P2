@@ -395,12 +395,12 @@ sap.ui.define([
 					oPayload.ENDDA = "9999-12-31";
 					oPayload.BEGDA = that.formatter.defaultOdataDateFormat(new Date(), "yyyyMMdd");
 					oPayload.WRCTR = oModel.getProperty("/header/wc");
-					oPayload.SSTAT1 = null;
+					oPayload.SSTAT1 ="";
 					oPayload.SORDT = that.formatter.defaultOdataDateFormat(oModel.getProperty("/header/ddt"), "yyyyMMdd");
 					oPayload.SORTM = oModel.getProperty("/header/tme");
 					oPayload.TAILID = oModel.getProperty("/header/sTailId");
-					oPayload.SRVID = null;
-					oPayload.NUM1 = null;
+					oPayload.SRVID = "";
+					oPayload.NUM1 = "";
 					if (oItem.MonFor !== "SORTI_5") {
 						var iPrec = formatter.JobDueDecimalPrecision(oItem.MonFor);
 						oPayload.SORCNT = parseFloat(oItem.SortiesNo, [10]).toFixed(iPrec);
@@ -411,14 +411,14 @@ sap.ui.define([
 					oPayload.SORDESC = oItem.Text;
 					oPayload.SG1USR = "Test User";
 					oPayload.SG1DTM = that.formatter.defaultOdataDateFormat(new Date(), "yyyyMMdd");
-					oPayload.SG1UZT = null;
-					oPayload.SG2USR = null;
-					oPayload.SG2DTM = null;
-					oPayload.SG2UZT = null;
+					oPayload.SG1UZT = "";
+					oPayload.SG2USR = "";
+					oPayload.SG2DTM = "";
+					oPayload.SG2UZT = "";
 					oPayload.REST_IMPOSE = oItem.RestrictionText;
 					oPayload.MON_FOR = oItem.MonFor;
-					oPayload.MON_FORTXT = null;
-					oPayload.FLAG = null;
+					oPayload.MON_FORTXT = "";
+					oPayload.FLAG = "";
 					oModel.setProperty("/SortieMonitoring/SN", oPayload.SORNO);
 					oPayloads.push(oPayload);
 				}.bind(this));

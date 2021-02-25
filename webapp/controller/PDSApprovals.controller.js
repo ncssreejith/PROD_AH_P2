@@ -119,28 +119,28 @@ sap.ui.define([
 
 			var oParameter = {};
 			oPayload = {
-				"jobid": null,
+				"jobid": "",
 				"flag": "W",
-				"fndby": null,
-				"prime": null,
-				"credt": null,
-				"cretm": null,
+				"fndby": "",
+				"prime": "",
+				"credt": "",
+				"cretm": "",
 				"CAPID": oModel.getProperty("/Capid"),
-				"capdt": null,
-				"captm": null,
-				"cprid": null,
-				"AddRsn": null,
+				"capdt": "",
+				"captm": "",
+				"cprid": "",
+				"AddRsn": "",
 				"subusr": "Test User1",
 				"expdt": formatter.defaultOdataDateFormat(dDate),
 				"exptm": new Date().getHours() + ":" + new Date().getMinutes(),
-				"fndduring": null,
-				"jobdesc": null,
-				"Capty": null,
+				"fndduring": "",
+				"jobdesc": "",
+				"Capty": "",
 				"Cstat": sValue,
 				"Apprusr": "Test User1",
 				"Apprdtm": formatter.defaultOdataDateFormat(dDate),
 				"Appruzt": new Date().getHours() + ":" + new Date().getMinutes(),
-				"ldesc": null
+				"ldesc": ""
 			};
 
 			oParameter.error = function(response) {

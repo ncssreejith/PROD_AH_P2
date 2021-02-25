@@ -30,11 +30,11 @@
 									<!--	<f:Avatar initials="A" displaySize="XS" backgroundColor="Accent5" class="avtarRadius sapUiTinyMargin"/>-->
 									<cs:ColorStatus title="{paModel>NAME1}" status="{paModel>CFLAG}" statushr="{paModel>AFHR}"/>
 									<HBox class="sapUiSmallMargin" alignContent="Center" alignItems="Center">
-										<VBox alignContent="Center" alignItems="Center" visible="{=${paModel>EXPDT} !== null ? true : false}">
+										<VBox alignContent="Center" alignItems="Center" visible="{=${paModel>EXPDT} !== null &amp;&amp; ${paModel>EXPDT} !== '' ? true : false}">
 											<Label text="{paModel>AFDAY}" design="Bold"></Label>
 											<Label text="days left"></Label>
 										</VBox>
-										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${paModel>AFHR} !== null ? true : false}">
+										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${paModel>AFHR} !== '' ? true : false}">
 											<Label text="{paModel>AFHR}" design="Bold"></Label>
 											<!--	amit kumar 11122020 1730-->
 											<Label text="{paModel>UTIL1} left"></Label>
@@ -45,9 +45,9 @@
 										<VBox>
 											<Label text="{paModel>JOBDESC}" design="Bold"/>
 											<VBox visible="{= ${paModel>CAPTY} === 'A'|| ${paModel>CAPTY} === 'B'}">
-												<tnt:InfoLabel text="Limitation" renderMode="Narrow" visible="{= ${paModel>LDESC} !== null}" colorScheme="7"
+												<tnt:InfoLabel text="Limitation" renderMode="Narrow" visible="{= ${paModel>LDESC} !== ''}" colorScheme="7"
 													class="sapUiTinyMarginTop" displayOnly="true"/>
-												<Label text="{paModel>LDESC}" class="sapUiTinyMargin" wrapping="true" width="20rem" visible="{= ${paModel>LDESC} !== null}"/>
+												<Label text="{paModel>LDESC}" class="sapUiTinyMargin" wrapping="true" width="20rem" visible="{= ${paModel>LDESC} !== ''}"/>
 											</VBox>
 										</VBox>
 									</HBox>

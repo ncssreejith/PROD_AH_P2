@@ -21,12 +21,12 @@
 				<Toolbar class="bgColorToolBar">
 					<Label text="Follow-up Task" design="Bold"/>
 					<ToolbarSpacer/>
-					<HBox visible="{=${DetailsSupModel>/tmpid} === null ? true : false}">
+					<HBox visible="{=${DetailsSupModel>/tmpid} === '' ? true : false}">
 						<Label text="Task Type :" design="Bold" class="sapUiTinyMarginTop"/>
 						<Label class="sapUiTinyMarginBegin sapUiTinyMarginTop" design="Bold"
 							text="{parts:[{path:'DetailsSupModel>/tt1id'},{path:'TaskMainListModel>/'}], formatter:'.formatter.taskNameText'}"/>
 					</HBox>
-					<HBox visible="{=${DetailsSupModel>/tmpid} !== null ? true : false}">
+					<HBox visible="{=${DetailsSupModel>/tmpid} !== '' ? true : false}">
 						<Label text="Task Type :" design="Bold"/>
 						<Label text="Template" design="Bold" class="sapUiTinyMarginBegin"></Label>
 					</HBox>
@@ -46,7 +46,7 @@
 										</layoutData>
 									</VBox>
 									<VBox visible="{= ${DetailsSupModel>/tt1id}==='TT1_11'|| ${DetailsSupModel>/tt1id}==='TT1_AD' ? true:false}" class="sapUiTinyMarginBottom">
-										<VBox visible="{= ${DetailsSupModel>/CPRID}!==null ? true:false}">
+										<VBox visible="{= ${DetailsSupModel>/CPRID}!=='' ? true:false}">
 											<Label design="Bold" text="Transfer to Acceptable Deferred Defects Log"></Label>
 										</VBox>
 										<layoutData>
@@ -54,7 +54,7 @@
 										</layoutData>
 									</VBox>
 									<VBox visible="{= ${DetailsSupModel>/tt1id}==='TT1_14' || ${DetailsSupModel>/tt1id}==='TT1_ADD' ? true:false}">
-										<VBox visible="{= ${DetailsSupModel>/CPRID}!==null ? true:false}">
+										<VBox visible="{= ${DetailsSupModel>/CPRID}!=='' ? true:false}">
 											<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
 										</VBox>
 										<layoutData>
@@ -185,8 +185,8 @@
 											<l:GridData span="XL6 L6 M6 S6" linebreak="true"/>
 										</layoutData>
 									</VBox>
-									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= ${DetailsSupModel>/oppr}!==null ? true:false}">
-										<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${DetailsSupModel>/CPRID}!==null ? true:false}">
+									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= ${DetailsSupModel>/oppr}!=='' ? true:false}">
+										<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${DetailsSupModel>/CPRID}!=='' ? true:false}">
 											<VBox>
 												<Label width="200px" design="Bold" text="Reason for ADD" class="sapUiSmallMarginTop"/>
 												<ComboBox editable="false" width="200px" selectionChange="onReasonForADDChange"
@@ -233,7 +233,7 @@
 											<VBox>
 												<Label design="Bold" text="Expiry Date" width="150px"/>
 												<DatePicker editable="false"
-													value="{path: 'DetailsSupModel>/expdt', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
+												    value="{path: 'DetailsSupModel>/expdt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
 													width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}" minDate="{oViewLimitModel>/DatePrev}"/>
 											</VBox>
 											<VBox class="sapUiSmallMarginBegin">
@@ -262,7 +262,7 @@
 											</VBox>
 										</HBox>
 										<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
-											visible="{= ${DetailsSupModel>/ldesc}!=='' &amp;&amp; ${DetailsSupModel>/ldesc}!==null ? true:false}">
+											visible="{= ${DetailsSupModel>/ldesc}!=='' &amp;&amp; ${DetailsSupModel>/ldesc}!=='' ? true:false}">
 											<HBox>
 												<Label design="Bold" text="Limitation" width="196px"/>
 											</HBox>

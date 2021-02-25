@@ -56,7 +56,7 @@ sap.ui.define([
 		fnOpenCloseConfirmationDialog: function(oEvent, opType) {
 			try {
 				var sOpenFrag = "FOToolsCheck";
-				var oDialog = null;
+				var oDialog =  "";
 				var oDialogData = {
 					TOTQTY: "",
 					SERNR: "",
@@ -98,32 +98,32 @@ sap.ui.define([
 				// var oStn = this.getModel("oWCModel").getProperty("/stns/0");
 				var oPayloads = this.getModel("oWCModel").getProperty("/stns");
 				// var oPayloads = {
-				// 	"AIRID": null,
-				// 	"ROLEID": null,
-				// 	"SUBID": null,
+				// 	"AIRID": "",
+				// 	"ROLEID": "",
+				// 	"SUBID": "",
 				// 	"STNMID": oStn.APPRCOUNT,
-				// 	"L_TXT": null,
+				// 	"L_TXT": "",
 				// 	"WEMID": oStn.APPRCOUNT,
 				// 	"WESID": oStn.APPRCOUNT,
 				// 	"ADPID": oStn.APPRCOUNT,
-				// 	"ADPDESC": null,
-				// 	"WEMDESC": null,
-				// 	"WESDESC": null,
+				// 	"ADPDESC": "",
+				// 	"WEMDESC": "",
+				// 	"WESDESC": "",
 				// 	"STNSID": oStn.APPRCOUNT,
-				// 	"CONTOR": null,
-				// 	"ISSER": null,
+				// 	"CONTOR": "",
+				// 	"ISSER": "",
 				// 	"TAILID": this.getTailId(),
-				// 	"SRVID": null,
-				// 	"NUM1": null,
+				// 	"SRVID": "",
+				// 	"NUM1": "",
 				// 	"SRVTID": this.getModel("oWCModel").getProperty("/srvtid"),
 				// 	"SERNR": this.getModel("oWCModel").getProperty("/stns/0/SERNR"),
-				// 	"endda": null,
-				// 	"begda": null,
+				// 	"endda": "",
+				// 	"begda": "",
 				// 	"TOTQTY": this.getModel("oWCModel").getProperty("/stns/0/SERNR"),
-				// 	"CONECT": null,
-				// 	"HCFLAG": null,
+				// 	"CONECT": "",
+				// 	"HCFLAG": "",
 				// 	"STEPID": this.getModel("oWCModel").getProperty("/stepid"),
-				// 	"EXPAND": null,
+				// 	"EXPAND": "",
 				// 	"TLSERNR": oStn.TLSERNR,
 				// 	"APPRCOUNT": oStn.APPRCOUNT
 				// };
@@ -174,7 +174,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					if (oData.results && oData.results.length) { //translate gun null too COLD
 						oData.results.forEach(function(oStn) {
-							if (oStn.STNSID === "STNS_102" && oStn.HCFLAG === null) {
+							if (oStn.STNSID === "STNS_102" && (oStn.HCFLAG === null || oStn.HCFLAG === "")) {
 								oStn.HCFLAG = "C";
 							}
 						});

@@ -67,11 +67,11 @@
 		<HBox>
 			<!--<cc:RectificationTile title="AEMF" footerText="Incomplete Entries" count="0" prime="true"/>-->
 			<HBox items="{LocalModel>/WorkCenter}">
-				<cc:RectificationTile footerText="Incomplete Entries" count="0" prime="{= ${LocalModel>isprime} !== null ? true:false }"
+				<cc:RectificationTile footerText="Incomplete Entries" count="0" prime="{= ${LocalModel>isprime} !== '' ? true:false }"
 					title="{LocalModel>wrctrtx}" select="onWorkCenterSelect" visible="{= ${LocalModel>wrctr} !== 'ZSummary' }"/>
 			</HBox>
 			<cc:RectificationTileAdd id="tileAddId" select="onAddNewWorkCenter" enabled="true"
-				visible="{=(${SummaryModel>/PRIME}==='' || ${SummaryModel>/PRIME} === null)?true:false}">
+				visible="{=(${SummaryModel>/PRIME}==='' || ${SummaryModel>/PRIME} === '')?true:false}">
 				<core:Icon src="sap-icon://sys-add" size="35px" color="blue" press="onIconPress"/>
 			</cc:RectificationTileAdd>
 		</HBox>

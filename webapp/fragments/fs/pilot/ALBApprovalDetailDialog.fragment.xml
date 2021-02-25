@@ -11,7 +11,7 @@
 							<Title class="sapUiMediumMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>titleDefectInfo}"/>
 							<Text class="sapUiMediumMarginBegin " text="{paModel>description}" wrapping="true" width="20rem"/>
 						</VBox>
-						<VBox visible="{= ${paModel>detail/ldesc}===null ? false:true}" class="sapUiTinyMarginTop">
+						<VBox visible="{= ${paModel>detail/ldesc}==='' ? false:true}" class="sapUiTinyMarginTop">
 							<Title class="sapUiSmallMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="Limitation Information"/>
 							<Text class="sapUiMediumMarginBegin " text="{paModel>detail/ldesc}" width="70%" wrapping="true"/>
 						</VBox>
@@ -79,7 +79,7 @@
 												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 											</layoutData>
 										</HBox>
-										<HBox visible="{=${paModel>detail/expdt} !== null ? true : false}">
+										<HBox visible="{=${paModel>detail/expdt} !== '' ? true : false}">
 											<Label width="9rem" wrapping="true" text="{paModel>detail/defpdtx}" design="Bold"></Label>
 											<HBox class="sapUiTinyMarginTop">
 												<Text text="{path:'paModel>detail/expdt', formatter:'.formatter.defaultDateFormatDisplay'}"/>
@@ -89,25 +89,25 @@
 												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 											</layoutData>
 										</HBox>
-										<HBox visible="{=${paModel>detail/UTILVL} !== null ? true : false}">
+										<HBox visible="{=${paModel>detail/UTILVL} !== '' ? true : false}">
 											<Label width="9rem" wrapping="true" text="{paModel>detail/UTIL1Text}" design="Bold"></Label>
 											<HBox>
-												<Text text="{paModel>detail/UTILVL}" visible="{=${paModel>detail/UTILVL} !== null ? true : false}"/>
+												<Text text="{paModel>detail/UTILVL}" visible="{=${paModel>detail/UTILVL} !== '' ? true : false}"/>
 												<Text text="{path:'paModel>detail/UTILDT', formatter:'.formatter.defaultDateFormatDisplay'}"
-													visible="{=${paModel>detail/UTILDT} !== null ? true : false}"/>
+													visible="{=${paModel>detail/UTILDT} !== '' ? true : false}"/>
 											</HBox>
 											<layoutData>
 												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 											</layoutData>
 										</HBox>
-										<HBox justifyContent="SpaceBetween" visible="{=${paModel>detail/past_count} !== null ? true : false}">
+										<HBox justifyContent="SpaceBetween" visible="{=${paModel>detail/past_count} !== '' ? true : false}">
 											<Label width="9rem" text="Past ADD(s)" design="Bold"></Label>
 											<Text width="9rem" text="{paModel>detail/past_count}"/>
 											<layoutData>
 												<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 											</layoutData>
 										</HBox>
-										<HBox justifyContent="SpaceBetween" visible="{=${paModel>detail/past_count} !== null ? true : false}">
+										<HBox justifyContent="SpaceBetween" visible="{=${paModel>detail/past_count} !== '' ? true : false}">
 											<Label width="9rem" text="Initial ADD Date" design="Bold"></Label>
 											<Text width="9rem" text="{path:'paModel>detail/ini_date', formatter:'.formatter.defaultDateFormatDisplay'}"/>
 											<layoutData>

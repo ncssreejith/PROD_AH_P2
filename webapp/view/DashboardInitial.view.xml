@@ -5,11 +5,11 @@
 			<OverflowToolbar class="backgroundBlue aircraftTitleBGWhite" height="60px">
 				<Title text="Dashboard" titleStyle="H3" class="sapUiLargeMarginBegin"/>
 				<ToolbarSpacer/>
-				<Button text="Role Change" enabled="{= ${avmetModel>/dash/TBTN1}!== null ? true:false}" type="Transparent" class="dashButtonRole"
+				<Button text="Role Change" enabled="{= ${avmetModel>/dash/TBTN1}!== '' ? true:false}" type="Transparent" class="dashButtonRole"
 					press="onRoleChange"></Button>
-				<Button text="Create Flight Servicing" enabled="{= ${avmetModel>/dash/TBTN2}!== null ? true:false}" type="Emphasized" class="dashButton"
+				<Button text="Create Flight Servicing" enabled="{= ${avmetModel>/dash/TBTN2}!== '' ? true:false}" type="Emphasized" class="dashButton"
 					press="onCreateFlightService"></Button>
-				<Button text="Create Job" enabled="{= ${avmetModel>/dash/TBTN3}!== null ? true:false}" type="Emphasized"
+				<Button text="Create Job" enabled="{= ${avmetModel>/dash/TBTN3}!== '' ? true:false}" type="Emphasized"
 					class="sapUiLargeMarginEnd dashButton" press="onPressCreateJob"></Button>
 			</OverflowToolbar>
 			<ScrollContainer class="sapUiTinyMarginEnd">
@@ -50,10 +50,10 @@
 						<ct:DBStatusTile subTitle="STATUS" title="{avmetModel>/dash/astat}" header="{avmetModel>/dash/txt1}" subHeader="{avmetModel>/dash/txt2}"
 							info="{avmetModel>/dash/txt3}">
 							<ct:items>
-								<Button text="{avmetModel>/dash/SBTN1}" visible="{= ${avmetModel>/dash/SBTN1}!== null ? true:false}" type="Emphasized"
+								<Button text="{avmetModel>/dash/SBTN1}" visible="{= ${avmetModel>/dash/SBTN1}!== '' ? true:false}" type="Emphasized"
 									press="onButtnItem1Press"/>
 								<!--enabled="{parts:['avmetModel>/dash/astid','avmetModel>/dash/astat'],formatter:'avmet.ah.model.formatter.statusFlightColor'}"-->
-								<Button text="{avmetModel>/dash/SBTN2}" visible="{= ${avmetModel>/dash/SBTN2}!== null? true:false}"
+								<Button text="{avmetModel>/dash/SBTN2}" visible="{= ${avmetModel>/dash/SBTN2}!== ''? true:false}"
 									type="{parts:['avmetModel>/dash/astid','avmetModel>/dash/astat'],formatter:'avmet.ah.model.formatter.statusFlightColor'}"
 									press="onButtnItem2Press"/>
 								<HBox visible="{avmetModel>/WarningFlag}">

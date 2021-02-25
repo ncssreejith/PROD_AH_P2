@@ -170,7 +170,7 @@ sap.ui.define([
 							}
 						}
 						if (oTaskFlag) {
-							oOldSelTask[j].RECTSTAR = null;
+							oOldSelTask[j].RECTSTAR = "";
 							oTempTask.push(oOldSelTask[j]);
 						}
 					}
@@ -214,7 +214,7 @@ sap.ui.define([
 				}
 
 				if (oModel.getProperty("/sFlag") === "N") {
-					if (oPayload.notity !== null && (oPayload.trail !== null && oPayload.trail !== "0")) {
+					if ((oPayload.notity !== null && oPayload.notity !== "") && (oPayload.trail !== null && oPayload.trail !== "0")) {
 						if (sSignFlag === "TR") {
 							try {
 								if (oPayload.TRAILKDT) {
@@ -232,7 +232,7 @@ sap.ui.define([
 								oPayload.TRAILKVAL = oPayload.TRAILKVAL;
 							}
 							oPayload.jstat = "P";
-							oPayload.trail = null;
+							oPayload.trail = "";
 						} else {
 							oPayload.trail = "X";
 						}
@@ -240,7 +240,7 @@ sap.ui.define([
 					} else {
 						if (sSignFlag === "TR") {
 							oPayload.jstat = "P";
-							oPayload.trail = null;
+							oPayload.trail = "";
 						} else {
 							if (!oPayload.TRAILKEY || oPayload.TRAILKEY === "") {
 								oPayload.jstat = "X";
@@ -253,7 +253,7 @@ sap.ui.define([
 				} else {
 					if (sSignFlag === "TR") {
 						oPayload.jstat = "P";
-						oPayload.trail = null;
+						oPayload.trail = "";
 					} else {
 						oPayload.jstat = "X";
 					}
@@ -330,7 +330,7 @@ sap.ui.define([
 				oPrmJobDue.error = function() {};
 				oPrmJobDue.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();
-					if (oData.results[0] !== undefined && oData.results[0].notity !== null) {
+					if (oData.results[0] !== undefined && (oData.results[0].notity !== null && oData.results[0].notity !== "")) {
 						that._fnWorkCenterGet();
 						that._fnJobDueGet(sJobId);
 						that._fnGetUtilisation();

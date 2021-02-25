@@ -212,6 +212,22 @@ sap.ui.define([
 			var prevTime = this.getModel("ViewModel").getProperty("/backTm");
 			return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorADDexpiryDatePast", "", prevDt, prevTime, false, "EditLimId");
 		},
+
+		/* Function: handleChangeDate
+		 * Parameter: 
+		 * Description: function to check valid date/time
+		 */
+		handleChangeDate: function(oEvent) {
+			try {
+				var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+				var prevTime = this.getModel("ViewModel").getProperty("/backTm");
+				this.getView().getModel("CapExtendSet").setProperty("/EXPDT", oEvent.getSource().getDateValue());
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorADDexpiryDatePast", "", prevDt, prevTime, false, "EditLimId");
+			} catch (e) {
+				Log.error("Exception in handleChange function");
+
+			}
+		},
 		//-------------------------------------------------------------
 		//  
 		//-------------------------------------------------------------
@@ -264,10 +280,10 @@ sap.ui.define([
 				var oViewLimitModel = this.getModel("oViewLimitModel"),
 					oModel = this.getView().getModel("CapExtendSet"),
 					sSelectedKey = oEvent.getSource().getSelectedKey();
-				oModel.setProperty("/EXPDT", null);
-				oModel.setProperty("/EXPTM", null);
-				oModel.setProperty("/UTILVL", null);
-				oModel.setProperty("/UTIL1", null);
+				oModel.setProperty("/EXPDT", "");
+				oModel.setProperty("/EXPTM", "");
+				oModel.setProperty("/UTILVL", "");
+				oModel.setProperty("/UTIL1", "");
 				if (sSelectedKey === "D") {
 					oModel.setProperty("/EXPTM", "23:59");
 					oViewLimitModel.setProperty("/bDateSection", true);
@@ -311,7 +327,7 @@ sap.ui.define([
 				var oViewLimitModel = this.getModel("oViewLimitModel");
 				oViewLimitModel.setProperty("/bLimitation", false);
 				oViewLimitModel.setProperty("/bAddLimitationBtn", true);
-				this.getModel("CapExtendSet").setProperty("/LDESC", null);
+				this.getModel("CapExtendSet").setProperty("/LDESC", "");
 			} catch (e) {
 				Log.error("Exception in CosCloseTask:onRemoveLimitaionPress function");
 
@@ -398,38 +414,38 @@ sap.ui.define([
 
 				var oParameter = {};
 				oPayload = {
-					"jobid": null,
+					"jobid": "",
 					"flag": "W",
 					"TAILID": "",
-					"fndby": null,
-					"prime": null,
-					"credt": null,
-					"cretm": null,
+					"fndby": "",
+					"prime": "",
+					"credt": "",
+					"cretm": "",
 					"CAPID": oModel.getProperty("/Capid"),
-					"capdt": null,
-					"captm": null,
-					"cprid": null,
-					"PAST_COUNT": null,
+					"capdt": "",
+					"captm": "",
+					"cprid": "",
+					"PAST_COUNT": "",
 					"defpd": "",
 					"defpdtx": "",
-					"ini_date": null,
+					"ini_date": "",
 					"UTIL1": "",
 					"UTIL1Text": "",
 					"UTILVL": "",
 					"TASKID": "",
 					"TDESC": "",
-					"AddRsn": null,
+					"AddRsn": "",
 					"subusr": "Test User1",
 					"expdt": formatter.defaultOdataDateFormat(dDate),
 					"exptm": "23:59",
-					"fndduring": null,
-					"jobdesc": null,
-					"Capty": null,
+					"fndduring": "",
+					"jobdesc": "",
+					"Capty": "",
 					"Cstat": sValue,
 					"Apprusr": "Test User1",
 					"Apprdtm": formatter.defaultOdataDateFormat(dDate),
 					"Appruzt": new Date().getHours() + ":" + new Date().getMinutes(),
-					"ldesc": null,
+					"ldesc": "",
 					"fndid": "",
 					"JDUID": "",
 					"JDUVL": "",
@@ -437,7 +453,7 @@ sap.ui.define([
 					"CREUSR": "",
 					"DMDID": "",
 					"OTHER_RSN": "",
-					"CDESC": null,
+					"CDESC": "",
 					"remarks": ""
 				};
 
@@ -468,38 +484,38 @@ sap.ui.define([
 
 				var oParameter = {};
 				oPayload = {
-					"jobid": null,
+					"jobid": "",
 					"TAILID": oModel.getProperty("/TAILID"),
 					"flag": "LP",
-					"fndby": null,
-					"prime": null,
-					"credt": null,
-					"cretm": null,
+					"fndby": "",
+					"prime": "",
+					"credt": "",
+					"cretm": "",
 					"CAPID": oModel.getProperty("/Capid"),
-					"capdt": null,
-					"captm": null,
-					"cprid": null,
-					"PAST_COUNT": null,
+					"capdt": "",
+					"captm": "",
+					"cprid": "",
+					"PAST_COUNT": "",
 					"defpd": "",
 					"defpdtx": "",
-					"ini_date": null,
+					"ini_date": "",
 					"UTIL1": "",
 					"UTIL1Text": "",
 					"UTILVL": "",
 					"TASKID": "",
 					"TDESC": "",
-					"AddRsn": null,
+					"AddRsn": "",
 					"subusr": "Test User1",
 					"expdt": "2020-07-29",
 					"exptm": "23:59",
-					"fndduring": null,
-					"jobdesc": null,
-					"Capty": null,
+					"fndduring": "",
+					"jobdesc": "",
+					"Capty": "",
 					"Cstat": sValue,
 					"Apprusr": "Test User1",
 					"Apprdtm": "2020-07-29",
 					"Appruzt": "22:9",
-					"ldesc": null,
+					"ldesc": "",
 					"fndid": "",
 					"JDUID": "",
 					"JDUVL": "",
@@ -507,7 +523,7 @@ sap.ui.define([
 					"CREUSR": "",
 					"DMDID": "",
 					"OTHER_RSN": "",
-					"CDESC": null,
+					"CDESC": "",
 					"remarks": ""
 				};
 
@@ -902,7 +918,7 @@ sap.ui.define([
 				oPrmJobDue.success = function(oData) {
 					if (oData.results.length !== 0) {
 						oViewModel.setData(oData.results[0]);
-						if (oData.results[0].EXPDT !== null) {
+						if (oData.results[0].EXPDT !== null && oData.results[0].EXPDT !== "") {
 							oData.results[0].EXPDT = new Date(oData.results[0].EXPDT);
 							oData.results[0].EXPTM = formatter.defaultTimeFormatDisplay(oData.results[0].EXPTM);
 							oData.results[0].SUBUZT = new Date().getHours() + ":" + new Date().getMinutes();
@@ -941,11 +957,11 @@ sap.ui.define([
 				//Rahul: 07/12/2020: 05:25PM: New date validation check added.-End
 
 				if (oPayload.OPPR === "U") {
-					oPayload.EXPDT = null;
-					oPayload.EXPTM = null;
+					oPayload.EXPDT = "";
+					oPayload.EXPTM = "";
 				} else if (oPayload.OPPR === "D") {
-					oPayload.UTILVL = null;
-					oPayload.UTIL1 = null;
+					oPayload.UTILVL = "";
+					oPayload.UTIL1 = "";
 				}
 				if (oPayload.UTILVL) {
 					var iPrec = formatter.JobDueDecimalPrecision(oPayload.UTIL1);
@@ -1080,7 +1096,7 @@ sap.ui.define([
 				var that = this,
 					oModel = this.getView().getModel("oViewModel"),
 					oPrmJobDue = {};
-				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ +  that.getAircraftId()  + "&ddid" + FilterOpEnum.EQ + "UTIL1_";
+				oPrmJobDue.filter = "refid" + FilterOpEnum.EQ + that.getAircraftId() + "&ddid" + FilterOpEnum.EQ + "UTIL1_";
 				oPrmJobDue.error = function() {};
 
 				oPrmJobDue.success = function(oData) {
@@ -1140,7 +1156,7 @@ sap.ui.define([
 					btnText: "Edit",
 					DatePrev: new Date(),
 					ADDCount: "",
-					ADDMaxCount:""
+					ADDMaxCount: ""
 				});
 
 				this.getView().setModel(oViewModel, "ViewModel");

@@ -29,11 +29,11 @@
 									<!--this.formatter.fnMarkLable-->
 									<cs:ColorStatus title="{pdsSummaryModel>NAME1}" status="{pdsSummaryModel>CFLAG}" statushr="{pdsSummaryModel>AFHR}"/>
 									<HBox class="sapUiSmallMargin" alignContent="Center" alignItems="Center">
-										<VBox alignContent="Center" alignItems="Center" visible="{=${pdsSummaryModel>EXPDT} !== null ? true : false}">
+										<VBox alignContent="Center" alignItems="Center" visible="{=${pdsSummaryModel>EXPDT} !== null &amp;&amp; ${pdsSummaryModel>EXPDT} !== '' ? true : false}">
 											<Label text="{pdsSummaryModel>AFDAY}" design="Bold"></Label>
 											<Label text="days left"></Label>
 										</VBox>
-										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${pdsSummaryModel>AFHR} !== null ? true : false}">
+										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${pdsSummaryModel>AFHR} !== '' ? true : false}">
 											<Label text="{pdsSummaryModel>AFHR}" design="Bold"></Label>
 											 <!--Rahul: 08/12/2020: 05:30PM: Visiblility logic change Start-->
 											<Label text="{pdsSummaryModel>UTIL1} left"></Label>
@@ -44,9 +44,9 @@
 										<VBox>
 											<Label text="{pdsSummaryModel>JOBDESC}" design="Bold"/>
 											<VBox visible="{= ${pdsSummaryModel>CAPTY} === 'A'|| ${pdsSummaryModel>CAPTY} === 'B'}">
-												<tnt:InfoLabel text="Limitation" renderMode="Narrow" visible="{= ${pdsSummaryModel>LDESC} !== null}" colorScheme="7"
+												<tnt:InfoLabel text="Limitation" renderMode="Narrow" visible="{= ${pdsSummaryModel>LDESC} !== ''}" colorScheme="7"
 													class="sapUiTinyMarginTop" displayOnly="true"/>
-												<Label text="{pdsSummaryModel>LDESC}" class="sapUiTinyMargin" wrapping="true" width="20rem" visible="{= ${pdsSummaryModel>LDESC} !== null}"/>
+												<Label text="{pdsSummaryModel>LDESC}" class="sapUiTinyMargin" wrapping="true" width="20rem" visible="{= ${pdsSummaryModel>LDESC} !== ''}"/>
 											</VBox>
 										</VBox>
 									</HBox>

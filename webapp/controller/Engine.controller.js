@@ -400,7 +400,7 @@ sap.ui.define([
 				oParameter.success = function(oData) {
 					if (oData && oData.results && oData.results.length > 0) {
 						oData.results.forEach(function(oItem) {
-							if (oItem.ENGNO === null) {
+							if (oItem.ENGNO === null && oItem.ENGNO === "") {
 								oItem.ENGNO = "1";
 							}
 							oEngineModel.setProperty("/" + (oItem.ENGNO === "2" ? "header2Details" : "headerDetails"), oItem);
@@ -486,7 +486,7 @@ sap.ui.define([
 							return new Date(b.ID).getTime() - new Date(a.ID).getTime();
 						});
 
-						if (iEngine === "1" || iEngine === null) {
+						if (iEngine === "1" || (iEngine === null && iEngine === "")) {
 							this.LastRepEngine1Hours = oData.results[0].ENGHR;
 							oEngineModel.setProperty("/soapTableData", oData.results);
 						} else {

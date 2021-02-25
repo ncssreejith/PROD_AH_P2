@@ -133,23 +133,23 @@
 										<core:Item key="{JobDueSet>ddid}" text="{JobDueSet>description}"/>
 									</ComboBox>
 								</VBox>
-								<VBox class="sapUiTinyMarginBegin" visible="{= ${JobCreateModel>/UMKEY} !== null ? true:false}">
+								<VBox class="sapUiTinyMarginBegin" visible="{= ${JobCreateModel>/UMKEY} !== '' ? true:false}">
 									<Label text="Job Due At" design="Bold" visible="{= ${JobCreateModel>/UMKEY} !== 'JDU_23' ? true:false}"/>
 									<Label text="" design="Bold" visible="{= ${JobCreateModel>/UMKEY} === 'JDU_23' ? true:false}"/>
 									<HBox id="SchJobDueId">
 										<StepInput min="{JobCreateModel>/DefValue}" valueStateText="{i18n>ERROR_GENERIC}" value="{JobCreateModel>/SERVDUE}"
 											change="onStepChangeSchedule" width="15rem"
-											visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' &amp;&amp; ${JobCreateModel>/UMKEY} !== null &amp;&amp; ${JobCreateModel>/UMKEY} !== 'JDU_23' ? true:false}"
+											visible="{=${JobCreateModel>/UMKEY}!=='JDU_10' &amp;&amp; ${JobCreateModel>/UMKEY} !== '' &amp;&amp; ${JobCreateModel>/UMKEY} !== 'JDU_23' ? true:false}"
 											required="true" fieldGroupIds="fgStepInput"
 											displayValuePrecision="{ path:'JobCreateModel>/UMKEY' , formatter:'.formatter.JobDueDecimalPrecision'}"/>
-										<DatePicker width="15rem" id="DP2" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}" minDate="{appModel>/minDate}"
-											value="{path: 'JobCreateModel>/SERVDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-											placeholder="New job creation date ..." change="onDueDateChange" class="sapUiSmallMarginBottom" required="true" fieldGroupIds="fgDate" />	
+										<DatePicker width="15rem" id="DP2" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
+											minDate="{appModel>/minDate}" value="{path: 'JobCreateModel>/SERVDT',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
+											placeholder="New job creation date ..." change="onDueDateChange" class="sapUiSmallMarginBottom" required="true" fieldGroupIds="fgDate"/>
 										<Input maxLength="30" width="16rem" visible="{=${JobCreateModel>/UMKEY}==='JDU_23' ? true:false}" value="{JobCreateModel>/SERVDUE}"></Input>
 									</HBox>
 								</VBox>
 								<VBox class="sapUiTinyMarginBegin"
-									visible="{= ${JobCreateModel>/UMKEY} !== null &amp;&amp; ${JobCreateModel>/UMKEY} !== 'JDU_23' ? true:false}">
+									visible="{= ${JobCreateModel>/UMKEY} !== '' &amp;&amp; ${JobCreateModel>/UMKEY} !== 'JDU_23' ? true:false}">
 									<Label text="Interval" design="Bold"/>
 									<Input value="{JobCreateModel>/ZINTERVAL}" type="Number" textAlign="End" change="onIntervalChange" livechange="onIntervalLiveChange"></Input>
 								</VBox>

@@ -150,7 +150,7 @@ sap.ui.define([
 		 */
 		createoDialog: function(that, fragId, fragName) {
 			try {
-				if (fragId !== null && fragId !== undefined && fragId.length > 1) {
+				if (fragId !== null && fragId !== "" && fragId !== undefined && fragId.length > 1) {
 					if (!that._oDialog) {
 						fragName = "avmet.ah.fragments." + fragName;
 						that._oDialog = sap.ui.xmlfragment(that.createId(fragId), fragName, that);
@@ -211,7 +211,7 @@ sap.ui.define([
 		// },
 		onNavBack: function(oEvent, viewName) {
 
-			if (viewName !== undefined && viewName !== null) {
+			if (viewName !== undefined && viewName !== null && viewName !== "") {
 				if (this.fnCheckTailAvail()) {
 					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 					oRouter.navTo(viewName);
@@ -664,11 +664,11 @@ sap.ui.define([
 				//		oPrmWB = {};
 				//	oPrmWB.filter = "";
 				//	oPrmWB.error = function() {
-				//		dataUtil.setDataSet("oUserSession", null);
+				//		dataUtil.setDataSet("oUserSession","");
 				//		sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
 				//	};
 				//	oPrmWB.success = function(oData) {
-				///		dataUtil.setDataSet("oUserSession", null);
+				///		dataUtil.setDataSet("oUserSession","");
 				//		sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
 				//	}.bind(this);
 
@@ -812,7 +812,7 @@ sap.ui.define([
 		},
 		fnReplaceString: function(subTxt) {
 			try {
-				if (subTxt === undefined || subTxt === null) {
+				if (subTxt === undefined || subTxt === null || subTxt === "") {
 					return;
 				}
 				var sReplaceText = this.getModel("avmetModel").getProperty("/login/air") +

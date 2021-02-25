@@ -259,7 +259,7 @@ sap.ui.define([
 							oTempData[0].tdesc = aTasks[i].sOpsDesc;
 							break;
 						default:
-							oTempData[0].tdesc = null;
+							oTempData[0].tdesc = "";
 							break;
 					}
 					if (aTasks[i].sTaskType === "TT1_10" && aTasks[i].sTask === "TT2_12") {
@@ -1202,11 +1202,11 @@ sap.ui.define([
 					ssrvid = oEvent.getParameters().arguments.srvid,
 					oViewModel = dataUtil.createNewJsonModel(),
 					oDate = new Date(),
-					sJobId = sJobId === undefined ? null : sJobId;
+					sJobId = sJobId === undefined ? "" : sJobId;
 				sAirId = sAirId === undefined ? this.getAircraftId() : sAirId;
 				sTailId = sTailId === undefined ? this.getTailId() : sTailId;
-				sWrkCenter = sWrkCenter === undefined ? null : sWrkCenter;
-				sWorkKey = sWorkKey === undefined ? null : sWorkKey;
+				sWrkCenter = sWrkCenter === undefined ? "" : sWrkCenter;
+				sWorkKey = sWorkKey === undefined ? "" : sWorkKey;
 				oViewModel.setData({
 					JobId: sJobId,
 					WorkCenter: sWrkCenter,
@@ -1379,20 +1379,20 @@ sap.ui.define([
 						var obj = {};
 						obj.TAILID = tempObj.tailid;
 						obj.PARTNO = tempObj.partno;
-						obj.LNDPIN = null;
-						obj.TIREID = null;
-						obj.ITMNO = null;
-						obj.LATIS = null;
-						obj.LATRE = null;
+						obj.LNDPIN = "";
+						obj.TIREID = "";
+						obj.ITMNO = "";
+						obj.LATIS = "";
+						obj.LATRE = "";
 						obj.SERNR = tempObj.sernr;
-						obj.LTIREID = null;
-						obj.TIREDESC = null;
-						obj.REFID = null;
-						obj.IRFLAG = null;
-						obj.INSON = null;
-						obj.RMVFR = null;
-						obj.TOTLND = null;
-						obj.TASKID = null;
+						obj.LTIREID = "";
+						obj.TIREDESC = "";
+						obj.REFID = "";
+						obj.IRFLAG = "";
+						obj.INSON = "";
+						obj.RMVFR = "";
+						obj.TOTLND = "";
+						obj.TASKID = "";
 						oPayload.push(JSON.parse(JSON.stringify(obj)));
 					}
 				}

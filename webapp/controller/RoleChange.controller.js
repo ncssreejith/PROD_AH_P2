@@ -338,7 +338,7 @@ sap.ui.define([
 		},
 
 		fnSelAdp: function(oData, oAdp, sIndex, sBottom) {
-			if (oData[sIndex].ROLEID && oData[sIndex].PADPID === null) {
+			if (oData[sIndex].ROLEID && (oData[sIndex].PADPID === null && oData[sIndex].PADPID === "")) {
 				// if(sBottom){
 				oAdp.push(oData[sIndex]);
 				return;
@@ -440,31 +440,31 @@ sap.ui.define([
 			var oPayload = JSON.parse(JSON.stringify(stn));
 			oPayload.ADPID = adp === undefined ? '' : adp.ADPID;
 			oPayload.ADPDESC = adp === undefined ? '' : adp.ADPDESC;
-			oPayload.ADPFLAG = adp === undefined ? "P" : null;
+			oPayload.ADPFLAG = adp === undefined ? "P" : "";
 			oPayload.AIRID = stn.AIRID;
 			oPayload.APRNO = this.fnGetApproNo();
 			oPayload.DDID = stn.DDID;
 			oPayload.HCFLAG = "2";
-			oPayload.ICART = null;
-			oPayload.ISSER = null;
+			oPayload.ICART =  "";
+			oPayload.ISSER =  "";
 			oPayload.L_TXT = stn.L_TXT;
-			oPayload.MAX = null;
+			oPayload.MAX =  "";
 			oPayload.NUM1 = adp === undefined ? '1' : adp.NUM1;
-			oPayload.PADPDESC = null;
-			oPayload.PADPID = null;
-			oPayload.POT = null;
-			oPayload.POTDESC = null;
-			oPayload.QTYADD = null;
+			oPayload.PADPDESC =  "";
+			oPayload.PADPID =  "";
+			oPayload.POT =  "";
+			oPayload.POTDESC =  "";
+			oPayload.QTYADD =  "";
 			oPayload.ROLEID = stn.ROLEID;
 			oPayload.SEQID = adp === undefined ? '' : adp.SEQID;
 			oPayload.SERNR = adp === undefined ? '' : adp.SERNR;
-			oPayload.SGTIME = null;
-			oPayload.SGUSR = null;
+			oPayload.SGTIME =  "";
+			oPayload.SGUSR =  "";
 			oPayload.STNSID = stn.SUBID;
 			oPayload.SUBID = stn.SUBID;
-			oPayload.WEMID = null;
-			oPayload.WESDESC = null;
-			oPayload.WESID = null;
+			oPayload.WEMID =  "";
+			oPayload.WESDESC =  "";
+			oPayload.WESID =  "";
 			oPayload.tailid = stn.tailid;
 			oPayload.tstat = stn.tstat; //this.formatter.rcSignChange(sStat,selKey)?1:0;
 			// oPayload.tsign = "";

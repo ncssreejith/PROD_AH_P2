@@ -81,22 +81,22 @@ sap.ui.define([
 				oFLyReqModel.FlyingRequirements.push({
 					"JOBID": oViewModel.getProperty("/JobId"),
 					"TAILID": oViewModel.getProperty("/sTailId"),
-					"FR_NO": null,
+					"FR_NO": "",
 					"ENDDA": "99991231",
 					"BEGDA": formatter.defaultOdataDateFormat(dDate),
 					"WRCTR": oViewModel.getProperty("/sWorkKey"),
 					"FR_DT": formatter.defaultOdataDateFormat(dDate),
 					"FR_TM": tTime,
 					"SGUSR": "Test User",
-					"SGDTM": null,
-					"SGUZT": null,
+					"SGDTM": "",
+					"SGUZT": "",
 					"FRDESC": "",
-					"FRRID": null,
-					"RESDTM": null,
-					"RESUZT": null,
-					"RESUSR": null,
-					"REASON": null,
-					"SRVID": null
+					"FRRID": "",
+					"RESDTM": "",
+					"RESUZT": "",
+					"RESUSR": "",
+					"REASON": "",
+					"SRVID": ""
 				});
 
 				this.getView().getModel("FlyingRequirementsModel").updateBindings(true);
@@ -149,12 +149,12 @@ sap.ui.define([
 		_onObjectMatched: function(oEvent) {
 			try {
 				var that = this,
-					sWrkCenter = oEvent.getParameters().arguments.WorkCenter === undefined ? null : oEvent.getParameters().arguments.WorkCenter,
-					sJobId = oEvent.getParameters().arguments.JobId === undefined ? null : oEvent.getParameters().arguments.JobId,
-					sAirId = oEvent.getParameters().arguments.AirId === undefined ? null : oEvent.getParameters().arguments.AirId,
-					sTailId = oEvent.getParameters().arguments.TailId === undefined ? null : oEvent.getParameters().arguments.TailId,
-					sWorkKey = oEvent.getParameters().arguments.WorkKey === undefined ? null : oEvent.getParameters().arguments.WorkKey,
-					sFlag = oEvent.getParameters().arguments.Flag === undefined ? null : oEvent.getParameters().arguments.Flag,
+					sWrkCenter = oEvent.getParameters().arguments.WorkCenter === undefined ? '' : oEvent.getParameters().arguments.WorkCenter,
+					sJobId = oEvent.getParameters().arguments.JobId === undefined ? '' : oEvent.getParameters().arguments.JobId,
+					sAirId = oEvent.getParameters().arguments.AirId === undefined ? '' : oEvent.getParameters().arguments.AirId,
+					sTailId = oEvent.getParameters().arguments.TailId === undefined ? '' : oEvent.getParameters().arguments.TailId,
+					sWorkKey = oEvent.getParameters().arguments.WorkKey === undefined ? '' : oEvent.getParameters().arguments.WorkKey,
+					sFlag = oEvent.getParameters().arguments.Flag === undefined ? '' : oEvent.getParameters().arguments.Flag,
 					oViewModel = dataUtil.createNewJsonModel(),
 					oDate = new Date(),
 					oView = that.getView(),
@@ -188,15 +188,15 @@ sap.ui.define([
 						"FR_DT": formatter.defaultOdataDateFormat(oDate),
 						"FR_TM": oDate.getHours() + ":" + oDate.getMinutes(),
 						"SGUSR": "Test User",
-						"SGDTM": null,
-						"SGUZT": null,
+						"SGDTM": "",
+						"SGUZT": "",
 						"FRDESC": "",
-						"FRRID": null,
-						"RESDTM": null,
-						"RESUZT": null,
-						"RESUSR": null,
-						"REASON": null,
-						"SRVID": null
+						"FRRID": "",
+						"RESDTM": "",
+						"RESUZT": "",
+						"RESUSR": "",
+						"REASON": "",
+						"SRVID": ""
 					}]
 				});
 				that.getView().setModel(oFLyReqModel, "FlyingRequirementsModel");

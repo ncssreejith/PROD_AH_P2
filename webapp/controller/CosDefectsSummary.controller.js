@@ -148,7 +148,7 @@ sap.ui.define([
 					sWcKey: "",
 					sGoTo: "",
 					JobStatus: false,
-					etrMinDate: null,
+					etrMinDate: "",
 					bSuperDiaFlag: false,
 					DefectImageSrc: [],
 					selectedTask: [],
@@ -345,9 +345,9 @@ sap.ui.define([
 					"JOBID": oJobModel.getProperty("/jobid"),
 					"TAILID": that.getTailId(),
 					"SCONFLAG": "E",
-					"JDUID": null,
+					"JDUID": "",
 					"JDUTXT": oJobModel.getProperty("/jdutxt"),
-					"JDUVL": null
+					"JDUVL": ""
 				};
 
 				if (oModel.DueBy === "JDU_10") {
@@ -377,7 +377,7 @@ sap.ui.define([
 		_fnGetUtilisationSched: function() {
 			try {
 				var that = this,
-					sDate = null,
+					sDate = "",
 					aData = this.getModel("JobModel").getData(),
 					oPrmJobDue = {};
 				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + that.getAircraftId() + " and JDUID eq JDU";
@@ -1186,7 +1186,7 @@ sap.ui.define([
 						oPayload.expdt = oPayload.expdt;
 					}
 				} else {
-					oPayload.expdt = null;
+					oPayload.expdt = "";
 				}
 
 				try {
@@ -1330,7 +1330,7 @@ sap.ui.define([
 				if (oFlag) {
 					//oTempSym = that._fnSetSymbol(oPayload.tt1id, oPayload.symbol);
 					oPayload.symbol = "0";
-					if (oPayload.cdesc !== "" && oPayload.cdesc !== null && oPayload.tt1id !== "TT1_99") {
+					if ((oPayload.cdesc !== "" && oPayload.cdesc !== null) && oPayload.tt1id !== "TT1_99") {
 						oPayload.tdesc = oPayload.cdesc;
 					}
 					if (oPayload.isser === "Batch No.") {
@@ -1721,7 +1721,7 @@ sap.ui.define([
 
 						that._fnCreatedWorkCenterGet(sJobId);
 
-						if (oData.results[0].etrdt !== null || oData.results[0].etrdt !== undefined) {
+						if (oData.results[0].etrdt !== null || oData.results[0].etrdt !== "" || oData.results[0].etrdt !== undefined) {
 							oData.results[0].etrdt = new Date(oData.results[0].etrdt);
 							oData.results[0].etrtm = formatter.defaultTimeFormatDisplay(oData.results[0].etrtm);
 							oViewModel.setProperty("/etrMinDate", new Date(oData.results[0].credt));
@@ -1901,7 +1901,7 @@ sap.ui.define([
 				var oParameter = {};
 				oPayload = that.getView().getModel("JobModel").getData();
 				if (oPayload.etrtm === "") {
-					oPayload.etrtm = null;
+					oPayload.etrtm = "";
 				}
 				var bFlag = formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateETRPast", "errorCreateETRFuture", oPayload.credtm,
 					oPayload.creuzt, false);
@@ -2010,25 +2010,25 @@ sap.ui.define([
 				var oParameter = {};
 				oPayload = that.getView().getModel("JobModel").getData();
 				if (oPayload.etrtm === "") {
-					oPayload.etrtm = null;
+					oPayload.etrtm = "";
 				}
 				switch (oFlag) {
 					case "A":
 						oPayload.fstatflag = "A";
-						oPayload.factby = null;
-						oPayload.factdtm = null;
-						oPayload.factuzt = null;
+						oPayload.factby = "";
+						oPayload.factdtm = "";
+						oPayload.factuzt = "";
 						oPayload.FAIRNR = sText;
 						break;
 					case "U":
 						oPayload.fstatflag = "U";
-						oPayload.factby = null;
+						oPayload.factby = "";
 						oPayload.factdtm = dData;
 						oPayload.factuzt = tTime;
 						break;
 					case "R":
 						oPayload.fstatflag = "R";
-						oPayload.factby = null;
+						oPayload.factby = "";
 						oPayload.factdtm = dData;
 						oPayload.factuzt = tTime;
 						break;
@@ -2101,7 +2101,7 @@ sap.ui.define([
 						isprime: "",
 						wrctrtx: "Summary",
 						primecount: "0",
-						LASTWC: null
+						LASTWC: ""
 					});
 
 					if (oModelLocal.getProperty("/sFlag") === "N") {
@@ -2112,7 +2112,7 @@ sap.ui.define([
 							isprime: "",
 							wrctrtx: "Rectification Summary",
 							primecount: (oData.results.length).toString(),
-							LASTWC: null
+							LASTWC: ""
 						});
 					}
 					oModel.setData(oData.results);
@@ -2147,9 +2147,9 @@ sap.ui.define([
 						"wrctr": sWorkCenterKey,
 						"isprime": "",
 						"wrctrtx": "",
-						"count": null,
-						"PrimeCount": null,
-						"LASTWC": null
+						"count": "",
+						"PrimeCount": "",
+						"LASTWC": ""
 					},
 
 					oPrmWorkCenter.error = function() {};
@@ -2258,9 +2258,9 @@ sap.ui.define([
 					"wrctr": sKey,
 					"isprime": isPrime,
 					"wrctrtx": oModel.getProperty("/WorkCenterKey"),
-					"count": null,
-					"PrimeCount": null,
-					"LASTWC": null
+					"count": "",
+					"PrimeCount": "",
+					"LASTWC": ""
 				};
 				oPrmWorkCenter.error = function() {};
 				oPrmWorkCenter.success = function(oData) {
@@ -2342,8 +2342,8 @@ sap.ui.define([
 						this._onfnToolCheckSuccess(oData.results, oFlag);
 					} else {
 						if (oModel.getProperty("/JobStatus")) {
-							if (oJobModel.getProperty("/jobdesc") !== null && oJobModel.getProperty("/jobdesc") !== "") {
-								if (oJobModel.getProperty("/fndid") !== null && oJobModel.getProperty("/fndid") !== "") {
+							if (oJobModel.getProperty("/jobdesc") !== "" && oJobModel.getProperty("/jobdesc") !== "") {
+								if (oJobModel.getProperty("/fndid") !== "" && oJobModel.getProperty("/fndid") !== "") {
 									this.getRouter().navTo("CosCloseJob", {
 										"JobId": sJobId,
 										"Flag": oFlag
@@ -2692,7 +2692,7 @@ sap.ui.define([
 						that.onCloseAddWorkCenterDialog();
 					}
 				} else {
-					that.getView().getModel("JobModel").setProperty("/prime", null);
+					that.getView().getModel("JobModel").setProperty("/prime", "");
 					this._fnUpdateJob();
 					that._fnJobDetailsGet(oModel.getProperty("/sJobId"), oModel.getProperty("/sTailId"));
 					that.onCloseAddWorkCenterDialog();
@@ -3904,7 +3904,7 @@ sap.ui.define([
 					oLimitModel = this.getView().getModel("oViewLimitModel"),
 					oMod,
 					oModel = dataUtil.createNewJsonModel();
-				if (oObj.multi !== null) {
+				if (oObj.multi !== "" && oObj.multi !== null) {
 					this._fnMultiTradmanGet(oObj.taskid);
 				}
 				oMod = JSON.parse(JSON.stringify(oObj));
@@ -3912,11 +3912,11 @@ sap.ui.define([
 					that._oSupDetails = sap.ui.xmlfragment("OSTId",
 						"avmet.ah.fragments.SupervisorTaskDetails",
 						that);
-					if (oMod.expdt !== null) {
+					if (oMod.expdt !== null && oMod.expdt !== "") {
 						oMod.expdt = new Date(oMod.expdt);
 						oMod.exptm = formatter.defaultTimeFormatDisplay(oMod.exptm);
 					}
-					if (oMod.exptm !== null) {
+					if (oMod.exptm !== null && oMod.exptm !== "") {
 						oMod.exptm = formatter.defaultTimeFormatDisplay(oMod.exptm);
 					}
 					switch (oMod.oppr) {
@@ -3934,7 +3934,7 @@ sap.ui.define([
 							break;
 					}
 
-					if (oMod.util1 !== null && oMod.util1 !== "UTIL1_20") {
+					if (oMod.util1 !== null && oMod.util1 !== "" && oMod.util1 !== "UTIL1_20") {
 						if (this.oObject && this.oObject[oMod.util1] && this.oObject[oMod.util1].VALUE) {
 							var minVal = parseFloat(this.oObject[oMod.util1].VALUE, [10]);
 							oLimitModel.setProperty("/UTILMinVL", minVal);
@@ -3982,11 +3982,11 @@ sap.ui.define([
 					that._oSPDetails = sap.ui.xmlfragment("OSTId",
 						"avmet.ah.fragments.SupervisorEditTaskDetails",
 						that);
-					if (oMod.expdt !== null) {
+					if (oMod.expdt !== null && oMod.expdt !== "") {
 						oMod.expdt = new Date(oMod.expdt);
 						oMod.exptm = formatter.defaultTimeFormatDisplay(oMod.exptm);
 					}
-					if (oMod.exptm !== null) {
+					if (oMod.exptm !== null && oMod.exptm !== "") {
 						oMod.exptm = formatter.defaultTimeFormatDisplay(oMod.exptm);
 					}
 					switch (oMod.oppr) {
@@ -4004,7 +4004,7 @@ sap.ui.define([
 							break;
 					}
 
-					if (oMod.util1 !== null) {
+					if (oMod.util1 !== null && oMod.util1 !== "") {
 						if (this.oObject && this.oObject[oMod.util1] && this.oObject[oMod.util1].VALUE) {
 							var minVal = parseFloat(this.oObject[oMod.util1].VALUE, [10]);
 							oLimitModel.setProperty("/UTILMinVL", minVal);
@@ -4038,10 +4038,10 @@ sap.ui.define([
 				var oViewLimitModel = this.getModel("oViewLimitModel"),
 					oModel = this._oSPDetails.getModel("DetailsSupEditModel"),
 					sSelectedKey = oEvent.getSource().getSelectedKey();
-				oModel.setProperty("/expdt", null);
-				oModel.setProperty("/exptm", null);
-				oModel.setProperty("/utilvl", null);
-				oModel.setProperty("/util1", null);
+				oModel.setProperty("/expdt", "");
+				oModel.setProperty("/exptm", "");
+				oModel.setProperty("/utilvl", "");
+				oModel.setProperty("/util1", "");
 				oViewLimitModel.setProperty("/UTILMinVL", 0);
 				if (sSelectedKey === "D") {
 					oModel.setProperty("/exptm", "23:59");
@@ -4082,7 +4082,7 @@ sap.ui.define([
 				var that = this,
 					oModel;
 				oModel = dataUtil.createNewJsonModel();
-				if (oPayLoad.multi !== null && oPayLoad.multi !== "0") {
+				if (oPayLoad.multi !== null && oPayLoad.multi !== "" && oPayLoad.multi !== "0") {
 					this._fnMultiTradmanGet(oPayLoad.taskid);
 				}
 
@@ -4286,8 +4286,8 @@ sap.ui.define([
 			oModel.setProperty("/fragid", "");
 			oModel.setProperty("/ftcdesc", "");
 			oModel.setProperty("/ftchkfor", "");
-			oModel.setProperty("/ftcredt", null);
-			oModel.setProperty("/ftcretm", null);
+			oModel.setProperty("/ftcredt", "");
+			oModel.setProperty("/ftcretm", "");
 			oModel.setProperty("/ftdesc", "");
 			oModel.setProperty("/ftfind", "");
 			oModel.setProperty("/ftitemno", "");
@@ -4754,7 +4754,7 @@ sap.ui.define([
 					oCreateJobLocalModel;
 				var oCreateJobLocalModel = that.getView().getModel("CreatedWorkCenterModel").getData();
 				for (var i = 0; i < oCreateJobLocalModel.length; i++) {
-					if (oCreateJobLocalModel[i].wrctrtx === oText && oCreateJobLocalModel[i].isprime !== null) {
+					if (oCreateJobLocalModel[i].wrctrtx === oText && (oCreateJobLocalModel[i].isprime !== null && oCreateJobLocalModel[i].isprime !== "")) {
 						oflag = true;
 					}
 				}
@@ -5047,8 +5047,8 @@ sap.ui.define([
 			try {
 				var oJobModel = this.getView().getModel("JobModel");
 				if (aData.length === 1 && aData[0].FLAG === "OKAY" || oFlag === "Y") {
-					if (oJobModel.getProperty("/jobdesc") !== null && oJobModel.getProperty("/jobdesc") !== "") {
-						if (oJobModel.getProperty("/fndid") !== null && oJobModel.getProperty("/fndid") !== "") {
+					if (oJobModel.getProperty("/jobdesc") !== "" && oJobModel.getProperty("/jobdesc") !== "") {
+						if (oJobModel.getProperty("/fndid") !== "" && oJobModel.getProperty("/fndid") !== "") {
 							this.getRouter().navTo("CosCloseJob", {
 								"JobId": aData[0].JOBID,
 								"Flag": oFlag

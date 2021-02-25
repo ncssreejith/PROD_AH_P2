@@ -28,9 +28,8 @@
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewModel>/bDateSection}">
 				<VBox>
 					<Label design="Bold" text="Expiry Date" width="150px"/>
-					<DatePicker
-						value="{path: 'oViewGlobalModel>/EXPDT', type: 'sap.ui.model.type.Date', formatOptions: {strictParsing: true , UTC: true, pattern:'dd/MM/yyyy'}}"
-						width="200px" fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}"/>
+					<DatePicker value="{path: 'oViewGlobalModel>/EXPDT',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" width="200px"
+						fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}"/>
 				</VBox>
 				<VBox class="sapUiSmallMarginBegin">
 					<Label design="Bold" text="Time" width="150px"/>
@@ -64,7 +63,8 @@
 				<VBox>
 					<HBox visible="{oViewModel>/bLimitation}">
 						<Label design="Bold" text="Limitation"/>
-						<core:Icon src="sap-icon://sys-help-2" size="12px" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" class="sapUiTinyMarginBegin" color="#031E48"/>
+						<core:Icon src="sap-icon://sys-help-2" size="12px" press="handlePressToolTipMenu('LIMITATIONTASK',$event)" class="sapUiTinyMarginBegin"
+							color="#031E48"/>
 					</HBox>
 					<TextArea width="400px" value="{oViewGlobalModel>/LDESC}" visible="{oViewModel>/bLimitation}" maxLength="500" showExceededText="true"
 						fieldGroupIds="fgTxtArea" required="{oViewModel>/bLimitation}" liveChange="handleLiveChangeFlyingRequirements"/>

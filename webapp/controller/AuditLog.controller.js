@@ -340,7 +340,7 @@ sap.ui.define([
 					this.getView().setModel(new JSONModel({}), "auditLogModel");
 					this.getView().getModel("auditLogModel").setSizeLimit(10000);
 					this.getModel("auditLogModel").setProperty("/Title", "Audit Log Report");
-					this.getModel("auditLogModel").setProperty("/flag", null);
+					this.getModel("auditLogModel").setProperty("/flag", '');
 					this.getModel("auditLogModel").setProperty("/isActionEnabled", false);
 				} catch (e) {
 					Log.error("Exception in _handleRouteMatched function");

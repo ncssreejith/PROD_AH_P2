@@ -89,7 +89,7 @@ sap.ui.define([
 					try {
 						oModelFrag.setProperty("/UtilDT", new Date(this.oObject.pddval2));
 					} catch (e) {
-						oModelFrag.setProperty("/UtilDT", null);
+						oModelFrag.setProperty("/UtilDT",  "");
 					}
 				} else {
 					oModelFrag.setProperty("/isVisInput", true);
@@ -161,7 +161,7 @@ sap.ui.define([
 				var oPayload = {};
 				oPayload = oItem;
 				oPayload.jstat = "S";
-				//oPayload.trail = null;
+				//oPayload.trail =  "";
 				oData.push(oPayload);
 
 				oParameter.error = function() {};

@@ -254,10 +254,10 @@ sap.ui.define([
 
 		// 	CSQN: "140 SQN"
 		// CSQNID: "SQN_140"
-		// LFLAG: null
+		// LFLAG: ""
 		// LOC: "Location 2"
 		// LOCID: "LOC_101"
-		// REFID: null
+		// REFID: ""
 		// SQN: "140 SQN"
 		// SQNID: "SQN_140"
 		fnCheckResponse: function() {

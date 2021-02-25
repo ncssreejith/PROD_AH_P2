@@ -110,7 +110,7 @@
 						color="#031E48"/>
 				</HBox>
 				<Input width="360px" placeholder="eg. Engine" value="{ManageTaskModel>/cdesc}" fieldGroupIds="fgInput"
-					required="{=${ManageTaskModel>/tt2id} !== 'TT2_11' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_13' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_99' &amp;&amp; ${ManageTaskModel>/tmpid} === null  ? true:false}"
+					required="{=${ManageTaskModel>/tt2id} !== 'TT2_11' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_13' &amp;&amp; ${ManageTaskModel>/tt1id} !== 'TT1_99' &amp;&amp; ${ManageTaskModel>/tmpid} === ''  ? true:false}"
 					valueStateText="{i18n>ERttCompDesc}"/>
 			</VBox>
 		</HBox>

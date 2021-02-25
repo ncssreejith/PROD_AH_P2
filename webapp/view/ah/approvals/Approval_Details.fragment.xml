@@ -11,7 +11,7 @@
 						<Title class="sapUiMediumMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="{i18n>titleDefectInfo}"/>
 						<Text class="sapUiMediumMarginBegin " text="{ApprovalDetailstModel>/jobdesc}" wrapping="true" width="20rem"/>
 					</VBox>
-					<VBox visible="{= ${ApprovalDetailstModel>/ldesc}===null ? false:true}" class="sapUiTinyMarginTop">
+					<VBox visible="{= ${ApprovalDetailstModel>/ldesc}==='' ? false:true}" class="sapUiTinyMarginTop">
 						<Title class="sapUiSmallMarginTop sapUiMediumMarginBegin" level="H3" titleStyle="H3" text="Limitation Information"/>
 						<Text class="sapUiMediumMarginBegin " text="{ApprovalDetailstModel>/ldesc}" width="70%" wrapping="true"/>
 					</VBox>
@@ -91,14 +91,14 @@
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>
 									</HBox>
-									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/DMDID} !== null ? true : false}">
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/DMDID} !== '' ? true : false}">
 										<Label width="9rem" text="Demand No" design="Bold"></Label>
 										<Text width="9rem" text="{ApprovalDetailstModel>/DMDID}"/>
 										<layoutData>
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>
 									</HBox>
-									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/OTHER_RSN} !== null ? true : false}">
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/OTHER_RSN} !== '' ? true : false}">
 										<Label width="9rem" text="Other Reason" design="Bold"></Label>
 										<Text width="9rem" text="{ApprovalDetailstModel>/OTHER_RSN}"/>
 										<layoutData>
@@ -115,36 +115,36 @@
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>
 									</HBox>
-									<HBox visible="{=${ApprovalDetailstModel>/UTIL1} !== null ? true : false}">
+									<HBox visible="{=${ApprovalDetailstModel>/UTIL1} !== '' ? true : false}">
 										<Label width="9rem" wrapping="true" text="{ApprovalDetailstModel>/UTIL1Text}" design="Bold"></Label>
 										<HBox>
 											<Text
 												text="{parts:[{path:'ApprovalDetailstModel>/UTILVL'},{path:'ApprovalDetailstModel>/UTIL1'}], formatter:'.formatter.formatUtilValApproval'}"
-												visible="{=${ApprovalDetailstModel>/UTILVL} !== null ? true : false}"/>
+												visible="{=${ApprovalDetailstModel>/UTILVL} !== '' ? true : false}"/>
 											<Text text="{path:'ApprovalDetailstModel>/UTILDT', formatter:'.formatter.defaultDateFormatDisplay'}"
-												visible="{=${ApprovalDetailstModel>/UTILDT} !== null ? true : false}"/>
+												visible="{=${ApprovalDetailstModel>/UTILDT} !== null &amp;&amp; ${ApprovalDetailstModel>/UTILDT} !== '' ? true : false}"/>
 											<!--													<Text text="{path:'ApprovalDetailstModel>/UTIL2', formatter:'.defaultUtil2FormatText'}"
-												visible="{=${ApprovalDetailstModel>/UTIL2} !== null ? true : false}"/>-->
+												visible="{=${ApprovalDetailstModel>/UTIL2} !== '' ? true : false}"/>-->
 										</HBox>
 										<layoutData>
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>
 									</HBox>
-									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/CDESC} !== null ? true : false}">
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/CDESC} !== '' ? true : false}">
 										<Label width="9rem" text="Component Description" design="Bold" wrapping="true"></Label>
 										<Text width="9rem" text="{ApprovalDetailstModel>/CDESC}" wrapping="true"/>
 										<layoutData>
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>
 									</HBox>
-									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/PAST_COUNT} !== null &amp;&amp; ${ApprovalDetailstModel>/PAST_COUNT} !== '0' ? true : false}">
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/PAST_COUNT} !== '' &amp;&amp; ${ApprovalDetailstModel>/PAST_COUNT} !== '0' ? true : false}">
 										<Label width="9rem" text="Past ADD(s)" design="Bold"></Label>
 										<Text width="9rem" text="{ApprovalDetailstModel>/PAST_COUNT}"/>
 										<layoutData>
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>
 									</HBox>
-									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/PAST_COUNT} !== null &amp;&amp; ${ApprovalDetailstModel>/PAST_COUNT} !== '0' ? true : false}">
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/PAST_COUNT} !== '' &amp;&amp; ${ApprovalDetailstModel>/PAST_COUNT} !== '0' ? true : false}">
 										<Label width="9rem" text="Initial ADD Date" design="Bold"></Label>
 										<Text width="9rem" text="{path:'ApprovalDetailstModel>/ini_date', formatter:'.formatter.defaultDateFormatDisplay'}"/>
 										<layoutData>
