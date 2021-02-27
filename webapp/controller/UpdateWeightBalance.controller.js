@@ -116,6 +116,22 @@ sap.ui.define([
 
 		},
 
+		/* Function: handleChange
+		 * Parameter:
+		 * Description: Function call Date is changed
+		 */
+
+		handleChange: function(oEvent) {
+			var oObject, oWeightObj, oWeightObjPath;
+			if (oEvent) {
+				oObject = oEvent.getSource().getParent().getParent().getBindingContext("WeightBalanceNewSet");
+				oWeightObj = oObject.getObject();
+				oWeightObjPath = oObject.getPath();
+				this.getModel("WeightBalanceNewSet").setProperty(oWeightObjPath + "/IDATEM", oEvent.getSource().getDateValue());
+				this.getModel("WeightBalanceNewSet").refresh();
+			}
+		},
+
 		onChangeWeightAdd: function(oEvent) {
 			var oModel = this.getView().getModel("WeightBalanceNewSet").getData(),
 				oTotalAdd = 0.0,
@@ -403,7 +419,7 @@ sap.ui.define([
 
 			var oTotalModel = this.getView().getModel("WeightBalanceHeaderSet").getProperty("/TotalWeightSet");
 			oTotalModel[0].MOD = "C";
-			oTotalModel[0].FLAG =  "";
+			oTotalModel[0].FLAG = "";
 			oPayload.push(oTotalModel[0]);
 			var oWeightedModel = this.getView().getModel("WeightBalanceHeaderSet").getProperty("/WeightedWght");
 			oWeightedModel[0].MOD = "C";

@@ -1047,6 +1047,16 @@ sap.ui.define([
 				Log.error("Exception in onDueSelectChange function");
 			}
 		},
+		/* Function: handleChangeSche
+		 * Parameter:
+		 * Description: Function call Date is changed
+		 */
+		handleChangeSche: function(oEvent) {
+			var oSrc = oEvent.getSource(),
+				oAppModel = this.getView().getModel("RSModel");
+			oSrc.setValueState("None");
+			oAppModel.setProperty("/ExpDate", oSrc.getDateValue());
+		},
 		/* Function: onStepChangeSchedule
 		 * Parameter:
 		 * Description: Function call step control is changed

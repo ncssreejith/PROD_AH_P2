@@ -28,19 +28,7 @@ sap.ui.define([
 	 *     3. Private calls
 	 *        3.1 _onObjectMatched
 	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 *        3.2 handleChange
-	 
+	 *       
 	 *   Note :
 	 *************************************************************************** */
 	return BaseController.extend("avmet.ah.controller.TransferToADD", {
@@ -402,6 +390,31 @@ sap.ui.define([
 
 			}
 		},
+
+		/* Function: handleChangeEditTask
+		 * Parameter:
+		 * Description: Function call Date is changed
+		 */
+		handleChangeDate: function(oProperty, oEvent) {
+			var oSrc = oEvent.getSource(),
+				oAppModel = this.getView().getModel("oViewGlobalModel");
+			oAppModel.setProperty("/" + oProperty, oSrc.getDateValue());
+			oAppModel.refresh(true);
+			if (oProperty === "CAPDT") {
+				var prevDt = this.getModel("oViewModel").getProperty("/backDt");
+				var prevTime = this.getModel("oViewModel").getProperty("/backTm");
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateADDpast", "errorCreateADDfuture", prevDt, prevTime);
+			}
+
+		},
+
+		handleChangeUTILDT: function(oEvent) {
+			if (oEvent) {
+				this.getModel("oViewGlobalModel").setProperty("/UTILDT", oEvent.getSource().getDateValue());
+			}
+
+		},
+
 		/* Function: handleChangeExpiry
 		 * Parameter:
 		 * Description: This is called handle date/time validation
@@ -416,6 +429,24 @@ sap.ui.define([
 
 			}
 		},
+
+		/* Function: handleChangeExpiry
+		 * Parameter:
+		 * Description: This is called handle date/time validation
+		 */
+		handleChangeExpiryDate: function(oEvent) {
+			try {
+				var prevDt = this.getModel("oViewModel").getProperty("/backDt");
+				var prevTime = this.getModel("oViewModel").getProperty("/backTm");
+				if (oEvent) {
+					this.getModel("oViewGlobalModel").setProperty("/EXPDT", oEvent.getSource().getDateValue());
+				}
+				return formatter.validDateTimeChecker(this, "DP2", "TP2", "errorADDexpiryDatePast", "", prevDt, prevTime, false);
+			} catch (e) {
+				Log.error("Exception in handleChangeExpiry function");
+			}
+		},
+
 		/* Function: onReasonForADDChange
 		 * Parameter: oEvent
 		 * Description: This is called when reason for ADD is changed
@@ -482,10 +513,10 @@ sap.ui.define([
 				var oViewModel = this.getModel("oViewModel"),
 					oModel = this.getView().getModel("oViewGlobalModel"),
 					sSelectedKey = oEvent.getSource().getSelectedKey();
-				oModel.setProperty("/UTIL1",  "");
-				oModel.setProperty("/UTILVL",  "");
-				oModel.setProperty("/EXPDT",  "");
-				oModel.setProperty("/EXPTM",  "");
+				oModel.setProperty("/UTIL1", "");
+				oModel.setProperty("/UTILVL", "");
+				oModel.setProperty("/EXPDT", "");
+				oModel.setProperty("/EXPTM", "");
 				if (sSelectedKey === "D") {
 					oModel.setProperty("/EXPTM", "23:59");
 					oViewModel.setProperty("/bDateSection", true);
@@ -587,7 +618,7 @@ sap.ui.define([
 				var oViewModel = this.getModel("oViewModel");
 				oViewModel.setProperty("/bLimitation", false);
 				oViewModel.setProperty("/bAddLimitationBtn", true);
-				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC",  ""); //Rahul: 11/12/2020: 05:46PM: Model set to null
+				this.getView().getModel("oViewGlobalModel").setProperty("/LDESC", ""); //Rahul: 11/12/2020: 05:46PM: Model set to null
 				oViewModel.refresh(true); //Rahul: 11/12/2020: 05:46PM: Model Refreshed after changing value
 			} catch (e) {
 				Log.error("Exception in TrasnferToADD:onRemoveLimitaionPress function");
@@ -644,7 +675,7 @@ sap.ui.define([
 					}
 				} else {
 					oPayLoad.ENDDA = formatter.defaultOdataDateFormat(new Date());
-					oPayLoad.EXPDT =  "";
+					oPayLoad.EXPDT = "";
 				}
 				oPayLoad.BEGDA = oPayLoad.ENDDA;
 				try {

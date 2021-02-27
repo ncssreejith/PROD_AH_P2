@@ -14,7 +14,7 @@
 							<!--	<DatePicker id="DP1" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"  placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>-->
 							<DatePicker id="DP1" valueStateText="{i18n>ERROR_GENERIC}" required="true" fieldGroupIds="fgDate"
 								value="{path: 'ViewModel>/dDate',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" width="13rem"
-								placeholder="Creation Date ..." change="handleChange" class="sapUiSmallMarginBottom"/>
+								placeholder="Creation Date ..." change="handleChangeDate" class="sapUiSmallMarginBottom"/>
 						</VBox>
 						<VBox>
 							<Label text="{i18n>lbTime}" design="Bold"/>

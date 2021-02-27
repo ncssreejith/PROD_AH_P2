@@ -1959,6 +1959,19 @@ sap.ui.define([
 			var aData = this.getModel("LocalModel").getData();
 			return formatter.validDateTimeChecker(this, "DP2", "TP2", "errorCloseJobPast", "errorCloseJobFuture", aData.backDt, aData.backTm);
 		},
+
+		handleChangeRect: function(oEvent) {
+			try {
+				var aData = this.getModel("LocalModel").getData();
+				if (oEvent) {
+					this.getModel("JobModel").setProperty("/rectdt", oEvent.getSource().getDateValue());
+				}
+				return formatter.validDateTimeChecker(this, "DP2", "TP2", "errorCloseJobPast", "errorCloseJobFuture", aData.backDt, aData.backTm);
+			} catch (e) {
+				Log.error("Exception in handleChange function");
+			}
+		},
+
 		/* Function: onSignOffRectify
 		 * Parameter: 
 		 * Description: Function when to save job after it is closed and edit again
@@ -2636,9 +2649,12 @@ sap.ui.define([
 		handleChangeEtr: function(oEvent) {
 			try {
 				this.getView().getModel("JobModel").setProperty("/ETRFLAG", "X");
+				if (oEvent) {
+					this.getModel("JobModel").setProperty("/etrdt", oEvent.getSource().getDateValue());
+				}
 				this.getView().getModel("JobModel").refresh();
 			} catch (e) {
-				Log.error("Exception in onEditSortieMonitoring function");
+				Log.error("Exception in handleChangeEtr function");
 			}
 		},
 		/* Function: onNavBackDefect
@@ -3102,6 +3118,19 @@ sap.ui.define([
 
 			}
 		},
+
+		/* Function: handleChangeEditTask
+		 * Parameter:
+		 * Description: Function call Date is changed
+		 */
+		handleChangeEditTask: function(oModel, oEvent) {
+			var oSrc = oEvent.getSource(),
+				oAppModel = this._oSPDetails.getModel(oModel);
+			oSrc.setValueState("None");
+			oAppModel.setProperty("/expdt", oSrc.getDateValue());
+			oAppModel.refresh(true);
+		},
+
 		//------------------------------------------------------------------
 		// Function: onCloseConfirmDialog
 		// Parameter: 
@@ -4754,7 +4783,8 @@ sap.ui.define([
 					oCreateJobLocalModel;
 				var oCreateJobLocalModel = that.getView().getModel("CreatedWorkCenterModel").getData();
 				for (var i = 0; i < oCreateJobLocalModel.length; i++) {
-					if (oCreateJobLocalModel[i].wrctrtx === oText && (oCreateJobLocalModel[i].isprime !== null && oCreateJobLocalModel[i].isprime !== "")) {
+					if (oCreateJobLocalModel[i].wrctrtx === oText && (oCreateJobLocalModel[i].isprime !== null && oCreateJobLocalModel[i].isprime !==
+							"")) {
 						oflag = true;
 					}
 				}
@@ -5123,7 +5153,7 @@ sap.ui.define([
 
 			}
 		},
-       	/* Function: onWarningMessagePress
+		/* Function: onWarningMessagePress
 		 * Parameter: 
 		 * Description:Show the Es Posting Status.
 		 * return true/ false based on difference is greate than 24 hrs or not for job

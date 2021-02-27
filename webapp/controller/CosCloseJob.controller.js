@@ -71,6 +71,36 @@ sap.ui.define([
 			}
 		},
 
+		/* Function: handleChangeJobClosure
+		 * Parameter:
+		 * Description: Function to validate date/time
+		 * By lakshmi changes on 29-12-2020: Added new function
+		 */
+		handleChangeJobClosure: function(oProperty, oEvent) {
+			try {
+				var aData = this.getModel("ViewModel").getData();
+				this.getModel("JobModel").setProperty("/" + oProperty, oEvent.getSource().getDateValue());
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCloseJobPast", "errorCloseJobFuture", aData.backDt, aData.backTm);
+			} catch (e) {
+				Log.error("Exception in handleChangeJobClosure function");
+			}
+		},
+
+		/* Function: handleChangeJobCreate
+		 * Parameter:
+		 * Description: Function to validate date/time
+		 * By lakshmi changes on 29-12-2020: Added new function
+		 */
+		handleChangeJobCreate: function(oEvent) {
+			try {
+				var aData = this.getModel("ViewModel").getData();
+				this.getModel("JobCreateModel").setProperty("/SERVDT", oEvent.getSource().getDateValue());
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCloseJobPast", "errorCloseJobFuture", aData.backDt, aData.backTm);
+			} catch (e) {
+				Log.error("Exception in handleChangeJobCreate function");
+			}
+		},
+
 		// ***************************************************************************
 		//                 2. Database/Ajax/OData Calls  
 		// ***************************************************************************	
@@ -97,7 +127,7 @@ sap.ui.define([
 				oTable.removeSelections(true);
 				//	oPrmTask.filter = "jobid eq " + sJobId + " and TSTAT eq ALL and WRCTR eq " + sWrctr;
 				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "TSTAT" + FilterOpEnum.EQ + "ALL" + FilterOpEnum.AND +
-					"WRCTR" + FilterOpEnum.EQ + sWrctr+"&tailid" + FilterOpEnum.EQ + this.getTailId();
+					"WRCTR" + FilterOpEnum.EQ + sWrctr + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					oModel = that.getView().getModel("TaskModel");
@@ -127,7 +157,8 @@ sap.ui.define([
 					oPrmTask = {};
 				oSelectedTask = oModelView.getProperty("/selectedTask");
 				//	oPrmTask.filter = "jobid eq " + sJobId + " and recTstar eq X";
-				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + sJobId +FilterOpEnum.AND + "recTstar" + FilterOpEnum.EQ + "X&tailid" + FilterOpEnum.EQ + this.getTailId();
+				oPrmTask.filter = "jobid" + FilterOpEnum.EQ + sJobId + FilterOpEnum.AND + "recTstar" + FilterOpEnum.EQ + "X&tailid" + FilterOpEnum
+					.EQ + this.getTailId();
 				oPrmTask.error = function() {};
 				oPrmTask.success = function(oData) {
 					this.getView().getModel("ViewModel").setProperty("/selectedTask", oData.results);
@@ -924,7 +955,7 @@ sap.ui.define([
 				var that = this,
 					oPrmTD = {};
 				//	oPrmTD.filter = "JOBID eq " + sJobId;
-				oPrmTD.filter = "JOBID" + FilterOpEnum.EQ + sJobId+ "&tailid" + FilterOpEnum.EQ + this.getTailId();
+				oPrmTD.filter = "JOBID" + FilterOpEnum.EQ + sJobId + "&tailid" + FilterOpEnum.EQ + this.getTailId();
 				oPrmTD.error = function() {};
 				oPrmTD.success = function(oData) {
 					var oModel = dataUtil.createNewJsonModel();

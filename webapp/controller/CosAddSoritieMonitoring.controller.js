@@ -185,6 +185,23 @@ sap.ui.define([
 
 			}
 		},
+
+		/* Function: handleChange
+		 * Parameter:
+		 * Description: Function to validate date/time
+		 */
+		handleChangeDate: function(oEvent) {
+			try {
+				var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+				var prevTime = this.getModel("ViewModel").getProperty("/backTm");
+				if (oEvent) {
+					this.getModel("SortieMonitoringModel").setProperty("/header/ddt", oEvent.getSource().getDateValue());
+				}
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateSorMonPast", "errorCreateSorMonFuture", prevDt, prevTime);
+			} catch (e) {
+				Log.error("Exception in handleChange function");
+			}
+		},
 		//------------------------------------------------------------------
 		// Function: onSubmitSortieMonitoring
 		// Parameter: oEvent
@@ -395,7 +412,7 @@ sap.ui.define([
 					oPayload.ENDDA = "9999-12-31";
 					oPayload.BEGDA = that.formatter.defaultOdataDateFormat(new Date(), "yyyyMMdd");
 					oPayload.WRCTR = oModel.getProperty("/header/wc");
-					oPayload.SSTAT1 ="";
+					oPayload.SSTAT1 = "";
 					oPayload.SORDT = that.formatter.defaultOdataDateFormat(oModel.getProperty("/header/ddt"), "yyyyMMdd");
 					oPayload.SORTM = oModel.getProperty("/header/tme");
 					oPayload.TAILID = oModel.getProperty("/header/sTailId");

@@ -234,7 +234,7 @@
 												<Label design="Bold" text="Expiry Date" width="150px"/>
 												<DatePicker editable="false"
 												    value="{path: 'DetailsSupModel>/expdt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
-													width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}" minDate="{oViewLimitModel>/DatePrev}"/>
+													width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}" minDate="{oViewLimitModel>/DatePrev}" change="handleChangeEditTask('DetailsSupModel',$event)"/>
 											</VBox>
 											<VBox class="sapUiSmallMarginBegin">
 												<Label design="Bold" text="Time" width="150px"/>

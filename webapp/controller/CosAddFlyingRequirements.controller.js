@@ -138,6 +138,23 @@ sap.ui.define([
 			}
 		},
 
+		/* Function: handleChangeDate
+		 * Parameter:
+		 * Description: Function to validate date/time
+		 */
+		handleChangeDate: function(oEvent) {
+			try {
+				var prevDt = this.getModel("ViewModel").getProperty("/backDt");
+				var prevTime = this.getModel("ViewModel").getProperty("/backTm");
+				if (oEvent) {
+					this.getModel("ViewModel").setProperty("/dDate", oEvent.getSource().getDateValue());
+				}
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateFlyReqPast", "errorCreateFlyReqFuture", prevDt, prevTime);
+			} catch (e) {
+				Log.error("Exception in handleChangeDate function");
+			}
+		},
+
 		// ***************************************************************************
 		//                 4. Private Methods   
 		// ***************************************************************************

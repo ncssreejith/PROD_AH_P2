@@ -223,7 +223,7 @@ sap.ui.define([
 					currDate = new Date();
 					currDate.setHours(0, 0, 0, 0);
 					if (seltDate >= currDate) {
-					this.getView().byId("DP2").setValueState("None");
+						this.getView().byId("DP2").setValueState("None");
 					} else {
 						this.getView().byId("DP2").setValueState("Error");
 						this.getView().byId("DP2").setValueStateText("Enter valid date.");
@@ -387,6 +387,7 @@ sap.ui.define([
 				} else {
 					oSrc.setValueState("Error");
 				}
+				this.getModel("JobCreateModel").setProperty("/CREDT", oEvent.getSource().getDateValue());
 
 			} catch (e) {
 				Log.error("Exception in onDueDateChange function");

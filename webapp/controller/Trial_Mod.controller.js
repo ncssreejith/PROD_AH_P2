@@ -115,6 +115,18 @@ sap.ui.define([
 			 	//this.handleException(e);
 			 }
 		},
+		
+		/* Function: handleChange
+		 * Parameter:
+		 * Description: Function call Date is changed
+		 */
+		handleChange: function(oEvent) {
+			var oSrc = oEvent.getSource(),
+				oAppModel = this.TrialModExtension.getModel("TrailModelFarg");
+				oAppModel.setProperty("/UtilDT", oSrc.getDateValue());
+			oAppModel.refresh(true);
+		},
+		
 		onDueSelectChange: function(oEvent) {
 			try {
 				var oSrc = oEvent.getSource(),

@@ -32,7 +32,7 @@
 									<!--<DatePicker fieldGroupIds="fgDate" displayFormat="dd.MM.YYY" required="true" width="10rem" value="{JobModel>/rectdt}"
 										valueStateText="{i18n>MSG_DATE}"/>-->
 									<DatePicker id="DP1" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
-										value="{path: 'JobModel>/rectdt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" change="handleChange"
+										value="{path: 'JobModel>/rectdt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" change="handleChangeJobClosure('rectdt',$event)"
 										class="sapUiSmallMarginBottom" minDate="{JobModel>/credt}" maxDate="{ViewModel>/dDate}"/>
 									<layoutData>
 										<l:GridData linebreak="false" span="XL3 L3 M3 S12"/>
@@ -164,7 +164,7 @@
 											</HBox>
 											<DatePicker id="dpServdt" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobCreateModel>/UMKEY}==='JDU_10' ? true:false}"
 												value="{path: 'JobCreateModel>/SERVDT',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" placeholder="Select Date ..."
-												change="handleChange" class="sapUiSmallMarginBottom sapUiTinyMarginBegin"/>
+												change="handleChangeJobCreate" class="sapUiSmallMarginBottom sapUiTinyMarginBegin"/>
 										</HBox>
 										<HBox class="sapUiTinyMargin">
 											<Label text="{i18n>lbWorkCenter}" design="Bold"/>
@@ -190,7 +190,7 @@
 											</HBox>
 											<DatePicker id="dpServdtTR" width="13rem" valueStateText="{i18n>ERROR_GENERIC}" visible="{=${JobModel>/TRAILKEY}==='JDU_10' ? true:false}"
 												value="{path: 'JobModel>/TRAILKDT',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" placeholder="Select Date ..."
-												valueFormat="yyyy-MM-dd" change="handleChange" class="sapUiSmallMarginBottom sapUiTinyMarginBegin"/>
+												valueFormat="yyyy-MM-dd" change="handleChangeJobClosure('TRAILKDT',$event)" class="sapUiSmallMarginBottom sapUiTinyMarginBegin"/>
 										</HBox>
 									</VBox>
 								</VBox>

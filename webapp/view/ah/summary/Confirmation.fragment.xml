@@ -23,7 +23,7 @@
 								<Text text="{path : 'JobModel>/rectdt', formatter : '.formatter.defaultDatetoDateFormatDisplay'}"
 									visible="{= !${LocalModel>/editModeRectify}}"/>
 								<DatePicker id="DP2" width="13rem" required="true" fieldGroupIds="fgDate" valueStateText="{i18n>ERROR_GENERIC}"
-									value="{path: 'JobModel>/rectdt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" change="handleChange"
+									value="{path: 'JobModel>/rectdt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" change="handleChangeRect"
 									class="sapUiSmallMarginBottom" visible="{= ${LocalModel>/editModeRectify}}"/>
 								<Text class="sapUiTinyMarginBegin" text="{path : 'JobModel>/recttm', formatter : '.formatter.defaultTimeFormatDisplay'}"
 									visible="{= !${LocalModel>/editModeRectify}}"/>

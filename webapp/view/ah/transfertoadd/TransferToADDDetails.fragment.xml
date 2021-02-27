@@ -32,8 +32,9 @@
 					<VBox class="bgColorWhiteWithRightBorder sapUiSmallMarginBegin sapUiSmallMarginTopBottom" width="30%">
 						<VBox>
 							<Label design="Bold" text="Expiry Date" width="150px"/>
-							<DatePicker id="DP1" change="handleChange" value="{path: 'oViewGlobalModel>/CAPDT',formatter:'.formatter.defaultDateFormat'}"
-								displayFormat="dd/MM/yyyy" width="200px" fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}"/>
+							<DatePicker id="DP1" change="handleChangeDate('CAPDT',$event)"
+								value="{path: 'oViewGlobalModel>/CAPDT',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" width="200px"
+								fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}"/>
 						</VBox>
 						<VBox class="sapUiSmallMarginTop">
 							<Label design="Bold" text="Time" width="150px"/>
@@ -100,7 +101,7 @@
 						<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" visible="{oViewModel>/bDateSection}">
 							<VBox>
 								<Label design="Bold" text="Expiry Date" width="150px"/>
-								<DatePicker id="DP2" change="handleChangeExpiry" value="{path: 'oViewGlobalModel>/EXPDT',formatter:'.formatter.defaultDateFormat'}"
+								<DatePicker id="DP2" change="handleChangeExpiryDate" value="{path: 'oViewGlobalModel>/EXPDT',formatter:'.formatter.defaultDateFormat'}"
 									displayFormat="dd/MM/yyyy" width="200px" fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}" minDate="{oViewModel>/DatePrev}"/>
 							</VBox>
 							<VBox class="sapUiSmallMarginBegin">
@@ -135,7 +136,7 @@
 									<core:Item text="{Utilization2CBModel>description}" key="{Utilization2CBModel>ddid}"/>
 								</Select>
 								<DatePicker value="{path: 'oViewGlobalModel>/UTILDT',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy" width="200px"
-									fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}" visible="{oViewModel>/bDate}"/>
+									fieldGroupIds="fgDate" required="{oViewModel>/bDateSection}" visible="{oViewModel>/bDate}" change="handleChangeUTILDT"/>
 								<!--<Input value="52345" editable="false" visible="{oViewModel>/bDate}" fieldGroupIds="fgInput" required="{oViewModel>/bPhaseService}"/>-->
 							</VBox>
 							<VBox class="sapUiSmallMarginBegin" visible="{oViewModel>/bScheduleService}">

@@ -70,7 +70,8 @@ sap.ui.define([
 					that = this,
 					oPayload;
 				//	oPrmDD.filter = "PARTNO eq " + oModel.getProperty("/PARTNO") + " and ESTAT eq I and INSON eq " + this.getTailId();
-				oPrmDD.filter = "PARTNO"+ FilterOpEnum.EQ + oModel.getProperty("/PARTNO") +  FilterOpEnum.AND+ "ESTAT" +FilterOpEnum.EQ+ "I" +FilterOpEnum.AND+ "INSON" +FilterOpEnum.EQ+ this.getTailId();
+				oPrmDD.filter = "PARTNO" + FilterOpEnum.EQ + oModel.getProperty("/PARTNO") + FilterOpEnum.AND + "ESTAT" + FilterOpEnum.EQ + "I" +
+					FilterOpEnum.AND + "INSON" + FilterOpEnum.EQ + this.getTailId();
 				oPrmDD.error = function() {};
 
 				oPrmDD.success = function(oData) {
@@ -133,8 +134,8 @@ sap.ui.define([
 				if (oFlag === "WR") {
 					/*	oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAILID EQ " + this.getTailId();*/
 					if (oSelectedKey !== undefined) {
-					//	oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAILID EQ " + this.getTailId();
-						oParameter.filter = "WRCTR"+ FilterOpEnum.EQ + oSelectedKey +  FilterOpEnum.AND +"TAILID"+ FilterOpEnum.EQ+ this.getTailId();
+						//	oParameter.filter = "WRCTR eq " + oSelectedKey + " and TAILID EQ " + this.getTailId();
+						oParameter.filter = "WRCTR" + FilterOpEnum.EQ + oSelectedKey + FilterOpEnum.AND + "TAILID" + FilterOpEnum.EQ + this.getTailId();
 					} else {
 						sap.m.MessageBox.information("Please select workcenter to proceed.");
 						return;
@@ -144,8 +145,9 @@ sap.ui.define([
 					var oTempId = this.getModel("applTmplModel").getProperty("/header/selTmpl");
 					if (oTempId !== -1 && oTempId !== "") {
 						var jobId = this.getModel("applTmplModel").getProperty("/header/selJobId");
-					//	oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "' and JOBID eq " + jobId;
-						oParameter.filter = "tmpid"+FilterOpEnum.EQ+ this.getModel("applTmplModel").getProperty("/header/selTmpl") +FilterOpEnum.AND+"JOBID"+FilterOpEnum.EQ+ jobId;
+						//	oParameter.filter = "tmpid eq '" + this.getModel("applTmplModel").getProperty("/header/selTmpl") + "' and JOBID eq " + jobId;
+						oParameter.filter = "tmpid" + FilterOpEnum.EQ + this.getModel("applTmplModel").getProperty("/header/selTmpl") + FilterOpEnum.AND +
+							"JOBID" + FilterOpEnum.EQ + jobId;
 					} else {
 						sap.m.MessageBox.information("Please select template to proceed.");
 						return;
@@ -218,6 +220,21 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in CosApplyTemplate:handleChange function");
 
+			}
+		},
+
+		/* Function: handleChangeDate
+		 * Parameter: oEvt
+		 * Description: function to handle validation for date
+		 */
+		handleChangeDate: function(oEvent) {
+			try {
+				var prevDt = this.getModel("applTmplModel").getProperty("/jobDate");
+				var prevTime = this.getModel("applTmplModel").getProperty("/jobTime");
+				this.getModel("applTmplModel").setProperty("/header/dDate", oEvent.getSource().getDateValue());
+				return formatter.validDateTimeChecker(this, "DP1", "TP1", "errorCreateTaskPast", "errorCreateTaskFuture", prevDt, prevTime);
+			} catch (e) {
+				Log.error("Exception in handleChange function");
 			}
 		},
 		//------------------------------------------------------------------
