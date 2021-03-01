@@ -57,7 +57,17 @@ sap.ui.define([
 				oParameter.success = function() {
 					this.onNavBack();
 				}.bind(this);
-				ajaxutil.fnCreate(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter, [oPayload], "ZRM_AC_U", this);
+				
+			switch(this.mode){
+				case "0":
+					ajaxutil.fnCreate(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter, [oPayload], "ZRM_AC_U", this);
+					break;
+				case "1":
+					oPayload.logid = this.getModel("oAircraftAddModel").getProperty("/logid");
+					ajaxutil.fnUpdate(this.getResourceBundle().getText("AIRCRAFTLOGSVC"), oParameter, [oPayload], "ZRM_AC_U", this);
+					break;
+			}
+
 			} catch (e) {
 				Log.error("Exception in AddEquipRunningLog:onSignOffPress function");
 				this.handleException(e);
@@ -114,6 +124,9 @@ sap.ui.define([
 		//-------------------------------------------------------------		
 		_onObjectMatched: function(oEvent) {
 			try {
+				
+				this.mode = oEvent.getParameter("arguments").mode;
+				
 				var utilData = {};
 				utilData.type = 0;
 				utilData.logid = 0;

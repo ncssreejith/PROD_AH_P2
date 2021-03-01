@@ -87,6 +87,7 @@ sap.ui.define([
 				oIndex = this.getModel("oAircraftUtilModel").getProperty("/reasons/" + oIndex + "/key");
 				this.getRouter().navTo("AddEquipRunLog", {
 					type: oIndex,
+					mode: "0",
 					logid: sLogid
 				});
 			} catch (e) {
@@ -414,7 +415,13 @@ sap.ui.define([
 			var that = this;
 			var currDate = new Date();
 			var rowData = oEvent.getSource().getBindingContext("oAircraftDataUtilModel").getObject();
-			if (!rowData.SRVID) {
+
+			if (rowData.COL_18!=="RSN_999" && rowData.COL_18!=="RES_119") {
+				this.getRouter().navTo("AddEquipRunLog", {
+					type: rowData.COL_18,
+					mode: "1",
+					logid: rowData.logid
+				});
 				return;
 			}
 			this.fnGetRunningChanges(rowData.SRVID);

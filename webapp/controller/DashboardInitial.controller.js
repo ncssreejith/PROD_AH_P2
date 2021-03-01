@@ -222,6 +222,7 @@ sap.ui.define([
 					case "AST_RECT2":
 						this.getRouter().navTo("AddEquipRunLog", {
 							type: "RSN_999",
+							mode: "0",
 							logid: "dash"
 						});
 						// this.getRouter().navTo("AircraftUtilisation");
