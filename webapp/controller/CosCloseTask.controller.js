@@ -197,7 +197,7 @@ sap.ui.define([
 		//------------------------------------------------------------------
 		handleChangeUtilDate: function(fragId, oEvent) {
 			var aData = this.getModel("TaskModel").getObject(this.oObjectPath),
-				oAddModel = this.getModel("oViewGlobalModel").getData();
+				oAddModel = this.getModel("oViewGlobalModel");
 			oAddModel.setProperty("/EXPDT", oEvent.getSource().getDateValue());
 			var sPastText = fragId === "idAddTaskADDDialog" ? "errorADDexpiryDatePast" : "errorLimitExpiryDatePast";
 			return formatter.validDateTimeChecker(this, "DP2", "TP2", sPastText, "", aData.credtm, aData.creuzt, false, this.getView()
@@ -1381,7 +1381,7 @@ sap.ui.define([
 				if (oPayLoad.OPPR !== "U" && !this.handleChangeUtil(fragId)) {
 					return;
 				}
-				if ((oPayLoad.LDESC !== null && oPayLoad.LDESC !== "") && (oPayLoad.CPRID !== null && oPayLoad.CPRID !== "")) {
+				if ((oPayLoad.LDESC !== null || oPayLoad.LDESC !== "") && (oPayLoad.CPRID !== null || oPayLoad.CPRID !== "")) {
 					oPayLoad.CAPTY = "B";
 					oPayLoad.FLAG_ADD = "B";
 				} else if ((oPayLoad.LDESC === null && oPayLoad.LDESC === "") && (oPayLoad.CPRID !== "" && oPayLoad.CPRID !== null)) {

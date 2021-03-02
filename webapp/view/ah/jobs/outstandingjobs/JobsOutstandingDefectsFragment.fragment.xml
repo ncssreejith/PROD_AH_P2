@@ -69,7 +69,7 @@
 						<Text text="{JobModelD>jobid}"/>
 						<Text text="{JobModelD>jobdesc}"/>
 						<Text text="{JobModelD>ptext}"/>
-						<Text text="-"/>
+						<Text text="{JobModelAll>ptext}"/>
 						<ObjectStatus state="Error" text="{path:'JobModelD>fstat', formatter : '.formatter.jobAction'}"/>
 						<ObjectStatus text="{JobModelD>esstatus}" state="{path:'JobModelD>esstatus', formatter : '.formatter.jobESStatusAction'}"/>
 					</cells>

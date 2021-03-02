@@ -64,7 +64,7 @@
 						<Text text="{JobModelAll>jobid}"/>
 						<Text text="{JobModelAll>jobdesc}"/>
 						<Text text="{path:'JobModelAll>jobty', formatter:'.formatter.defaultJobType'}"/>
-						<Text text="-"/>
+						<Text text="{JobModelAll>ptext}"/>
 						<ObjectStatus state="Error" text="{path:'JobModelAll>fstat', formatter : '.formatter.jobAction'}"/>
 						<ObjectStatus text="{JobModelAll>esstatus}" state="{path:'JobModelAll>esstatus', formatter : '.formatter.jobESStatusAction'}"/>
 					</cells>

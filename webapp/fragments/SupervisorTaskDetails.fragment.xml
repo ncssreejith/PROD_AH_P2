@@ -46,7 +46,7 @@
 										</layoutData>
 									</VBox>
 									<VBox visible="{= ${DetailsSupModel>/tt1id}==='TT1_11'|| ${DetailsSupModel>/tt1id}==='TT1_AD' ? true:false}" class="sapUiTinyMarginBottom">
-										<VBox visible="{= ${DetailsSupModel>/CPRID}!=='' ? true:false}">
+										<VBox visible="{= ${DetailsSupModel>/CPRID}!=='' || ${DetailsSupModel>/CPRID}!==null ? true:false}">
 											<Label design="Bold" text="Transfer to Acceptable Deferred Defects Log"></Label>
 										</VBox>
 										<layoutData>
@@ -54,7 +54,7 @@
 										</layoutData>
 									</VBox>
 									<VBox visible="{= ${DetailsSupModel>/tt1id}==='TT1_14' || ${DetailsSupModel>/tt1id}==='TT1_ADD' ? true:false}">
-										<VBox visible="{= ${DetailsSupModel>/CPRID}!=='' ? true:false}">
+										<VBox visible="{= ${DetailsSupModel>/CPRID}!=='' || ${DetailsSupModel>/CPRID}!==null ? true:false}">
 											<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
 										</VBox>
 										<layoutData>
@@ -185,8 +185,10 @@
 											<l:GridData span="XL6 L6 M6 S6" linebreak="true"/>
 										</layoutData>
 									</VBox>
-									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= ${DetailsSupModel>/oppr}!=='' ? true:false}">
-										<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${DetailsSupModel>/CPRID}!=='' ? true:false}">
+									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop"
+										visible="{= ${DetailsSupModel>/oppr}!=='' || ${DetailsSupModel>/oppr}!==null ? true:false}">
+										<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
+											visible="{= ${DetailsSupModel>/CPRID}!=='' || ${DetailsSupModel>/CPRID}!==null ? true:false}">
 											<VBox>
 												<Label width="200px" design="Bold" text="Reason for ADD" class="sapUiSmallMarginTop"/>
 												<ComboBox editable="false" width="200px" selectionChange="onReasonForADDChange"
@@ -232,9 +234,9 @@
 										<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${oViewLimitModel>/bDateSection} === true ? true : false}">
 											<VBox>
 												<Label design="Bold" text="Expiry Date" width="150px"/>
-												<DatePicker editable="false"
-												    value="{path: 'DetailsSupModel>/expdt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
-													width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}" minDate="{oViewLimitModel>/DatePrev}" change="handleChangeEditTask('DetailsSupModel',$event)"/>
+												<DatePicker editable="false" value="{path: 'DetailsSupModel>/expdt',formatter:'.formatter.defaultDateFormat'}" displayFormat="dd/MM/yyyy"
+													width="200px" fieldGroupIds="fgDate" required="{oViewLimitModel>/bDateSection}" minDate="{oViewLimitModel>/DatePrev}"
+													change="handleChangeEditTask('DetailsSupModel',$event)"/>
 											</VBox>
 											<VBox class="sapUiSmallMarginBegin">
 												<Label design="Bold" text="Time" width="150px"/>
@@ -288,7 +290,8 @@
 										</HBox>
 									</HBox>
 									<!--Rahul: 03/12/2020 06.11PM: id="msSupId" added-->
-									<MessageStrip id="msSupId" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" type="Warning" showIcon="true" text='Pending Supervisor Sign Off'>
+									<MessageStrip id="msSupId" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" type="Warning" showIcon="true"
+										text='Pending Supervisor Sign Off'>
 										<Link text="Sign Off" press="onEditTaskSignOff('SP')" class="sapUiLargeMarginBegin"/>
 									</MessageStrip>
 									<layoutData>

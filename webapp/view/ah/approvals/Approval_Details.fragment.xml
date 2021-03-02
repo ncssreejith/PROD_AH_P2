@@ -130,7 +130,7 @@
 											<l:GridData linebreak="true" span="XL12 L12 M12 S12"/>
 										</layoutData>
 									</HBox>
-									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/CDESC} !== '' ? true : false}">
+									<HBox justifyContent="SpaceBetween" visible="{=${ApprovalDetailstModel>/CDESC} !== '' || ${ApprovalDetailstModel>/CDESC} !== null ? true : false}">
 										<Label width="9rem" text="Component Description" design="Bold" wrapping="true"></Label>
 										<Text width="9rem" text="{ApprovalDetailstModel>/CDESC}" wrapping="true"/>
 										<layoutData>

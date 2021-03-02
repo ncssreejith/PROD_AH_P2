@@ -81,13 +81,13 @@
 										</VBox>
 										<VBox visible="{= ${TaskModel>tt1id}==='TT1_11'|| ${TaskModel>tt1id}==='TT1_AD' ? true:false}" class="sapUiTinyMarginBottom">
 											<!--OPS-->
-											<VBox visible="{= ${TaskModel>CPRID}===null ? true:false}">
+											<VBox visible="{= ${TaskModel>CPRID}===null || ${TaskModel>CPRID}==='' ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
 												<ComboBox width="330px" change="onTypeChangeOPS" selectedKey="{TaskModel>tt1id}" items="{path:'FollowOPSModel>/',templateShareable: false}">
 													<core:Item text="{FollowOPSModel>text}" key="{FollowOPSModel>key}"/>
 												</ComboBox>
 											</VBox>
-											<VBox visible="{= ${TaskModel>CPRID}!==null ? true:false}">
+											<VBox visible="{= ${TaskModel>CPRID}!==null || ${TaskModel>CPRID}==='' ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
 												<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
 											</VBox>
@@ -104,14 +104,14 @@
 										</VBox>
 										<VBox visible="{= ${TaskModel>tt1id}==='TT1_14' || ${TaskModel>tt1id}==='TT1_ADD' ? true:false}">
 											<!--Other-->
-											<VBox visible="{= ${TaskModel>CPRID}===null ? true:false}">
+											<VBox visible="{= ${TaskModel>CPRID}===null || ${TaskModel>CPRID}==='' ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
 												<ComboBox width="330px" change="onTypeChangeOther" selectedKey="{TaskModel>tt1id}" editable="{= ${TaskModel>addLimitAdded} ? false : true}"
 													items="{path:'FollowOtherModel>/',templateShareable: false}">
 													<core:Item text="{FollowOtherModel>text}" key="{FollowOtherModel>key}"/>
 												</ComboBox>
 											</VBox>
-											<VBox visible="{= ${TaskModel>CPRID}!==null ? true:false}">
+											<VBox visible="{= ${TaskModel>CPRID}!==null || ${TaskModel>CPRID}==='' ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
 												<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
 											</VBox>
@@ -273,7 +273,7 @@
 											</HBox>-->
 										</VBox>
 										<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= ${TaskModel>oppr}!==null ? true:false}">
-											<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${TaskModel>CPRID}!==null ? true:false}">
+											<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${TaskModel>CPRID}!==null || ${TaskModel>CPRID}==='' ? true:false}">
 												<VBox>
 													<HBox>
 														<Label design="Bold" text="Reason for ADD"/>

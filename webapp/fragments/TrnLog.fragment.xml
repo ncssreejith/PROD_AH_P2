@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar">
+	<Dialog contentHeight="70%" contentWidth="75%" title="Transaction Logs">
+		<content>
+			<fb:FilterBar id="trnLogFilterBar" useToolbar="false" showFilterConfiguration="false" reset="onReset" search="onSearchTrnLog"
+				cancel="onCancel" filtersDialogClosed="onFiltersDialogClosed" showRestoreButton="true" showClearOnFB="true" clear="onClearFilterBar">
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="Status" labelTooltip="Application" visibleInFilterBar="true">
+						<fb:control>
+							<ComboBox items="{trnLogModel>/statusSet}" selectedKey="{trnLogModel>/selectedStatus}" selectionChange="onObjSelect">
+								<items>
+									<core:Item key="{trnLogModel>status}" text="{trnLogModel>statusText}"/>
+								</items>
+							</ComboBox>
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+			<Table class="sapUiResponsivePadding sapUiTinyMarginTop sapUiSmallMarginBeginEnd CERTable tableHFont"
+				items="{ path: 'trnLogModel>/TableDataSet'}" width="auto">
+				<columns>
+					<Column hAlign="Left" class="textColor" width="15rem">
+						<Label text="Function Area" design="Bold"/>
+					</Column>
+					<Column hAlign="Left" class="textColor" width="12rem">
+						<Label text="Object Id" design="Bold"/>
+					</Column>
+					<Column hAlign="Left" class="textColor" width="6rem">
+						<Label text="Status" design="Bold"/>
+					</Column>
+					<Column hAlign="Left" class="textColor">
+						<Label text="Message" design="Bold"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Active" press="onRowSelection">
+						<cells>
+							<Text text="{trnLogModel>SYNC_KEY_TEXT}" tooltip="{trnLogModel>SYNC_KEY}"/>
+							<Link text="{trnLogModel>OBJID}" press="onTrnLogItemPress" class="sapUiTinyMarginTop" tooltip="{trnLogModel>SYNC_OBJ}"/>
+							<Text text="{trnLogModel>STATUS}"/>
+							<Text text="{trnLogModel>MESSAGE}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<!--<footer>-->
+		<!--	<OverflowToolbar>-->
+		<!--		<ToolbarSpacer/>-->
+		<!--		<Button text="Cancel" press="onTrnLogPressCancel" />-->
+		<!--	</OverflowToolbar>-->
+		<!--</footer>-->
+		<buttons>
+			<Button text="Cancel" press="onTrnLogPressCancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

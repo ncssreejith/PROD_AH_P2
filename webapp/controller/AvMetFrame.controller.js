@@ -5,10 +5,11 @@ sap.ui.define([
 	"sap/ui/core/Popup",
 	"avmet/ah/model/formatter",
 	"sap/ui/model/json/JSONModel",
+	"avmet/f16/util/TrnLogNavEnum",
 	"sap/base/Log",
 	"avmet/ah/util/ajaxutil",
 	"../util/FilterOpEnum"
-], function(BaseController, dataUtil, Fragment, Popup, formatter, JSONModel, Log, ajaxutil, FilterOpEnum) {
+], function(BaseController, dataUtil, Fragment, Popup, formatter, JSONModel, TrnLogNavEnum, Log, ajaxutil, FilterOpEnum) {
 	"use strict";
 
 	/* ***************************************************************************
@@ -31,6 +32,7 @@ sap.ui.define([
 			oData.airutil = {};
 			oData.ispopOpen = false;
 			this.getView().setModel(new JSONModel(oData), "avmetModel");
+			this.getView().setModel(new JSONModel(), "trnLogModel");
 			/*Rahul : 24/11/2020: AvMET UI Clean Up:Point(3) Application information, code Added  : Start*/
 			this.getView().setModel(new JSONModel(oData), "avmetVersionModel");
 			this.fnGetAppVersion();
@@ -39,6 +41,7 @@ sap.ui.define([
 			// Fill Profile Info
 			this.getView().setModel(new JSONModel(), "oProfileModel");
 			this.onProfileModelLoad();
+			this.fnLoadTrnInitialData();
 		},
 		onAfterRendering: function() {
 			var that = this;
@@ -494,6 +497,93 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
+
+		/* Event : onTrnLogItemPress
+		 *  To handle Navigation to respective screns
+		 */
+		onTrnLogItemPress: function(oEvent) {
+			try {
+				var object = oEvent.getSource().getParent().getBindingContext("trnLogModel").getObject();
+				var oJobId = object.SYNC_OBJ;
+				this.getRouter().navTo(TrnLogNavEnum[object.SYNC_KEY], {
+					"JobId": oJobId,
+					"Flag": "Y"
+				});
+			} catch (e) {
+				Log.error("Exception in onTrnLogItemPress function");
+			}
+		},
+
+		onTrnLogPress: function() {
+			if (!this._oTrnDialog) {
+				this._oTrnDialog = sap.ui.xmlfragment("avmet.ah.fragments.TrnLog", this);
+				this.getView().addDependent(this._oTrnDialog);
+			}
+			this._fnGetApplicationTrnLog("E");
+			this._oTrnDialog.open();
+		},
+
+		/* Function: onFairNumCancel
+		 * Parameter: 
+		 * Description: Function to close fragment for FAIR no
+		 */
+		onTrnLogPressCancel: function() {
+			try {
+				if (this._oTrnDialog) {
+					this._oTrnDialog.close(this);
+					this._oTrnDialog.destroy();
+					delete this._oTrnDialog;
+				}
+			} catch (e) {
+				Log.error("Exception in onTrnLogPressCancel function");
+			}
+		},
+
+		/* Function: _fnGetApplicationTrnLog
+		 * Parameter: status
+		 * Description: function to populate Transaction Log
+		 */
+		_fnGetApplicationTrnLog: function(status) {
+			try {
+				var oPrmWBM = {};
+				oPrmWBM.filter = "STATUS" + FilterOpEnum.EQ + status;
+				//'STATUS=E&OBJID=2021020409252912374653&SYNC_KEY=TUCRT';
+				oPrmWBM.error = function() {};
+
+				oPrmWBM.success = function(oData) {
+					if (oData && oData.results.length > 0) {
+						this.getModel("trnLogModel").setProperty("/TableDataSet", oData.results);
+					} else {
+						sap.m.MessageToast.show("No application(s) found");
+					}
+				}.bind(this);
+				ajaxutil.fnRead(this.getResourceBundle().getText("TRNLOG"), oPrmWBM);
+			} catch (e) {
+				Log.error("Exception in _fnGetApplicationTrnLog function");
+			}
+		},
+
+		fnLoadTrnInitialData: function() {
+			try {
+				this.getModel("trnLogModel").setProperty("/statusSet", [{
+					"status": "E",
+					"statusText": "Error"
+				}, {
+					"status": "S",
+					"statusText": "Success"
+				}, {
+					"status": "",
+					"statusText": ""
+				}]);
+			} catch (e) {
+				Log.error("Exception in fnLoadInitialData function");
+			}
+		},
+		onSearchTrnLog: function() {
+			var selectedStatus = this.getModel("trnLogModel").getProperty("/selectedStatus");
+			this._fnGetApplicationTrnLog(selectedStatus);
+		},
+
 		/**Rahul : 24/11/2020: AvMET UI Clean Up:Point(3) Application information, code Added  : Start
 		 *
 		 * Load Application version data

@@ -533,12 +533,12 @@ sap.ui.define([
 				oViewModel.setProperty("/dialogTitle", this.getView().byId("OBId").getTitle());
 				oViewModel.setProperty("/editableFlag", false);
 				oViewModel.updateBindings(true);
-				var sAirId = this.getAircraftId();
-				this._fnPerioOfDeferCBGet(sAirId);
-				this._fnReasonforADDGet(sAirId);
-				this._fnUtilizationGet(sAirId);
-				this._fnGetUtilisationDefaultVal(sAirId);
-				this._fnUtilization2Get();
+				// var sAirId = this.getAircraftId();
+				// this._fnPerioOfDeferCBGet(sAirId);
+				// this._fnReasonforADDGet(sAirId);
+				// this._fnUtilizationGet(sAirId);
+				// this._fnGetUtilisationDefaultVal(sAirId);
+				// this._fnUtilization2Get();
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:onOpenMangeLimitaionDialog function");
 

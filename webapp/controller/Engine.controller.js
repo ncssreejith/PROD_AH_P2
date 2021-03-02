@@ -269,7 +269,7 @@ sap.ui.define([
 			try {
 				//Check engine hours since last top up
 				if (this.fnDateEngineHrsDiff("1")) {
-						this.getRouter().navTo("AddEngOilLog", {
+					this.getRouter().navTo("AddEngOilLog", {
 						engid: this.getModel("oEngineModel").getProperty("/headerDetails/ENGID"),
 						tailid: this.getTailId(),
 						SFLAG: "X"
@@ -545,12 +545,12 @@ sap.ui.define([
 							}
 						});
 
-						// if (this.getModel("oEngineModel").getProperty("/headerDetails/SERIAL") === oData.results[0].SN) {
-						oEngineModel.setProperty("/EngineSchedule", aEng1);
-						// } 
-						// if (this.getModel("oEngineModel").getProperty("/header2Details/SERIAL") === oData.results[0].SN) {
-						oEngineModel.setProperty("/Engine2Schedule", aEng2);
-						// }
+						if (aEng1.length!==0) {
+							oEngineModel.setProperty("/EngineSchedule", aEng1);
+						}
+						if (aEng2.length!==0) {
+							oEngineModel.setProperty("/Engine2Schedule", aEng2);
+						}
 					}
 					// oEngineModel.setProperty("/EngineSchedule", oData.results);
 				}.bind(this);
@@ -576,13 +576,14 @@ sap.ui.define([
 				oParameter.filter = "FLAG" + FilterOpEnum.EQ + "L&TAILID" + FilterOpEnum.EQ + this.getTailId() + "&ENGID" + FilterOpEnum.EQ +
 					sEngID;
 				oParameter.success = function(oData) {
-
-					if (iEngine === "1") {
-						this.LastEngine1Hours = oData.results[0].TENGHR;
-						oEngineModel.setProperty("/EngCyclicLife", oData.results);
-					} else {
-						this.LastEngine2Hours = oData.results[0].TENGHR;
-						oEngineModel.setProperty("/EngCyclicLife2", oData.results);
+					if (oData.results.length !== 0) {
+						if (iEngine === "1") {
+							this.LastEngine1Hours = oData.results[0].TENGHR;
+							oEngineModel.setProperty("/EngCyclicLife", oData.results);
+						} else {
+							this.LastEngine2Hours = oData.results[0].TENGHR;
+							oEngineModel.setProperty("/EngCyclicLife2", oData.results);
+						}
 					}
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("EHSERSVC"), oParameter);
