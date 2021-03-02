@@ -244,7 +244,7 @@ sap.ui.define([
 				var bioid = user.bioid === undefined ? "" : user.bioid;
 				var signAuth = dataUtil._AESHexEncript(user.username + ":" + user.password + ":" + user.objid + ":" + bioid + ":" + act); //Sreejith: 25/11/2020 : 11:27 AM: Changed _encriptInfo to _AESHexEncript 
 				xhr.setRequestHeader("signAuth", signAuth);
-				xhr.setRequestHeader("uname", user.username);
+				xhr.setRequestHeader("airid", 'AIR_11'); //Amit: 02/03/2021 : 11:27 AM: Changes 
 			} catch (e) {
 				Log.error("Exception in fnEncryptDetails function");
 			}
