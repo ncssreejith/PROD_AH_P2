@@ -377,8 +377,8 @@ sap.ui.define([
 			try {
 				var seltDate, currDate, oSrc = oEvent.getSource(),
 					oDate;
-				oDate = oSrc.getValue().split("/");
-				seltDate = new Date(oDate[2] + "-" + oDate[1] + "-" + oDate[0]);
+				seltDate = oEvent.getSource().getDateValue();
+				//seltDate = new Date(oDate[2] + "-" + oDate[1] + "-" + oDate[0]);
 				seltDate.setHours(0, 0, 0, 0);
 				currDate = new Date();
 				currDate.setHours(0, 0, 0, 0);
@@ -387,7 +387,7 @@ sap.ui.define([
 				} else {
 					oSrc.setValueState("Error");
 				}
-				this.getModel("JobCreateModel").setProperty("/CREDT", oEvent.getSource().getDateValue());
+				this.getModel("JobCreateModel").setProperty("/SERVDT", oEvent.getSource().getDateValue());
 
 			} catch (e) {
 				Log.error("Exception in onDueDateChange function");

@@ -1903,6 +1903,11 @@ sap.ui.define([
 				if (oPayload.etrtm === "") {
 					oPayload.etrtm = "";
 				}
+				try {
+					oPayload.etrdt = formatter.defaultOdataDateFormat(oPayload.etrdt);
+				} catch (e) {
+					oPayload.etrdt = oPayload.etrdt;
+				}
 				var bFlag = formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateETRPast", "errorCreateETRFuture", oPayload.credtm,
 					oPayload.creuzt, false);
 				if (!bFlag) {
@@ -5160,7 +5165,7 @@ sap.ui.define([
 		 */
 		onWarningMessagePress: function(oEvent) {
 			var oJobModel = this.getView().getModel("JobModel");
-			var sText = oJobModel.getProperty("/esstatusMsg");
+			var sText = oJobModel.getProperty("/esstatusmsg");
 			this.onWarningMessageSelect(oEvent, sText);
 		},
 
