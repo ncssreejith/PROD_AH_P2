@@ -377,7 +377,7 @@ sap.ui.define([
 		_fnGetUtilisationSched: function() {
 			try {
 				var that = this,
-					sDate = "",
+					sDate = null,
 					aData = this.getModel("JobModel").getData(),
 					oPrmJobDue = {};
 				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + that.getAircraftId() + " and JDUID eq JDU";
