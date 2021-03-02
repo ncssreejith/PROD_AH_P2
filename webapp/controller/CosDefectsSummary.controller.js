@@ -148,7 +148,7 @@ sap.ui.define([
 					sWcKey: "",
 					sGoTo: "",
 					JobStatus: false,
-					etrMinDate: "",
+					etrMinDate: null,
 					bSuperDiaFlag: false,
 					DefectImageSrc: [],
 					selectedTask: [],
