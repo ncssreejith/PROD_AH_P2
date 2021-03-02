@@ -168,6 +168,7 @@ sap.ui.define([
 		// ***************************************************************************
 		_onObjectMatched: function(oEvent) {
 			try {
+				this.getModel("atckModel").setProperty("/isListChange","");
 				this.fnLoadHeader();
 				this.fnLoadCheckList();
 				this.fnLoadLocation();
