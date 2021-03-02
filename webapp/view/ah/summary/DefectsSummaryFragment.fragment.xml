@@ -98,8 +98,8 @@
 									</HBox>
 									<HBox class="sapUiTinyMarginTop">
 										<Label design="Bold" text="{i18n>lbEsStatus} " width="150px"/>
-										<ObjectStatus text="{JobModel>/esstatusMsg}" press="onWarningMessagePress" active="{=${JobModel>/esstatusMsg}==='Pending' ? false :true}"
-											width="200px" state="{path:'JobModel>/esstatusMsg', formatter : '.formatter.jobESStatusAction'}"/>
+										<ObjectStatus text="{JobModel>/esstatus}" press="onWarningMessagePress" active="{=${JobModel>/esstatus}==='Pending' ? false :true}"
+											width="200px" state="{path:'JobModel>/esstatus', formatter : '.formatter.jobESStatusAction'}"/>
 									</HBox>
 								</VBox>
 								<VBox
