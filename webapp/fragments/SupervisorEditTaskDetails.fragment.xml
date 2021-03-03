@@ -53,7 +53,7 @@
 								</VBox>
 								<VBox visible="{= ${DetailsSupEditModel>/tt1id}==='TT1_11'|| ${DetailsSupEditModel>/tt1id}==='TT1_AD' ? true:false}"
 									class="sapUiTinyMarginBottom">
-									<VBox visible="{= ${DetailsSupEditModel>/CPRID}!=='' || ${DetailsSupEditModel>/CPRID}!== null ? true:false}">
+									<VBox visible="{= ${DetailsSupEditModel>/CPRID}!=='' &amp;&amp; ${DetailsSupEditModel>/CPRID}!== null ? true:false}">
 										<Label design="Bold" text="Transfer to Acceptable Deferred Defects Log"></Label>
 									</VBox>
 									<layoutData>
@@ -61,7 +61,7 @@
 									</layoutData>
 								</VBox>
 								<VBox visible="{= ${DetailsSupEditModel>/tt1id}==='TT1_14' || ${DetailsSupEditModel>/tt1id}==='TT1_ADD' ? true:false}">
-									<VBox visible="{= ${DetailsSupEditModel>/CPRID}!=='' || ${DetailsSupEditModel>/CPRID}!== null  ? true:false}">
+									<VBox visible="{= ${DetailsSupEditModel>/CPRID}!=='' &amp;&amp; ${DetailsSupEditModel>/CPRID}!== null  ? true:false}">
 										<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
 									</VBox>
 									<layoutData>
@@ -211,8 +211,8 @@
 										<l:GridData span="XL8 L8 M8 S8" linebreak="true"/>
 									</layoutData>
 								</VBox>
-								<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= ${DetailsSupEditModel>/oppr}!=='' || ${DetailsSupEditModel>/oppr}!== null ? true:false}">
-									<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${DetailsSupEditModel>/CPRID}!=='' || ${DetailsSupEditModel>/CPRID}!== null  ? true:false}">
+								<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= (${DetailsSupEditModel>/oppr}!=='' &amp;&amp; ${DetailsSupEditModel>/oppr}!== null) ? true:false}">
+									<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= (${DetailsSupEditModel>/CPRID}!=='' &amp;&amp; ${DetailsSupEditModel>/CPRID}!== null)  ? true:false}">
 										<VBox>
 											<Label width="200px" design="Bold" text="Reason for ADD" class="sapUiSmallMarginTop"/>
 											<ComboBox width="200px" selectionChange="onReasonForADDChange" items="{path:'ReasonforADDModel>/',templateShareable: false}"
@@ -234,7 +234,7 @@
 											<!--Rahul 03/12/2020 :03:23:Width increased to "250PX"-->
 										</VBox>
 									</HBox>
-									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= (${DetailsSupEditModel>/CPRID}!=='' &amp;&amp; ${DetailsSupEditModel>/CPRID}!== null)  ? true:false}">
 										<HBox>
 											<Label width="196px" design="Bold" text="Period of Deferment" class="sapUiSmallMarginTop"/>
 										</HBox>

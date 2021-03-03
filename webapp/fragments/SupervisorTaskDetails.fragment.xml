@@ -46,7 +46,7 @@
 										</layoutData>
 									</VBox>
 									<VBox visible="{= ${DetailsSupModel>/tt1id}==='TT1_11'|| ${DetailsSupModel>/tt1id}==='TT1_AD' ? true:false}" class="sapUiTinyMarginBottom">
-										<VBox visible="{= ${DetailsSupModel>/CPRID}!=='' || ${DetailsSupModel>/CPRID}!==null ? true:false}">
+										<VBox visible="{= (${DetailsSupModel>/CPRID}!=='' &amp;&amp; ${DetailsSupModel>/CPRID}!==null) ? true:false}">
 											<Label design="Bold" text="Transfer to Acceptable Deferred Defects Log"></Label>
 										</VBox>
 										<layoutData>
@@ -54,7 +54,7 @@
 										</layoutData>
 									</VBox>
 									<VBox visible="{= ${DetailsSupModel>/tt1id}==='TT1_14' || ${DetailsSupModel>/tt1id}==='TT1_ADD' ? true:false}">
-										<VBox visible="{= ${DetailsSupModel>/CPRID}!=='' || ${DetailsSupModel>/CPRID}!==null ? true:false}">
+										<VBox visible="{= (${DetailsSupModel>/CPRID}!=='' &amp;&amp; ${DetailsSupModel>/CPRID}!==null) ? true:false}">
 											<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
 										</VBox>
 										<layoutData>
@@ -186,9 +186,9 @@
 										</layoutData>
 									</VBox>
 									<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop"
-										visible="{= ${DetailsSupModel>/oppr}!=='' || ${DetailsSupModel>/oppr}!==null ? true:false}">
+										visible="{= (${DetailsSupModel>/oppr}!=='' &amp;&amp; ${DetailsSupModel>/oppr}!==null) ? true:false}">
 										<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
-											visible="{= ${DetailsSupModel>/CPRID}!=='' || ${DetailsSupModel>/CPRID}!==null ? true:false}">
+											visible="{= (${DetailsSupModel>/CPRID}!=='' &amp;&amp; ${DetailsSupModel>/CPRID}!==null) ? true:false}">
 											<VBox>
 												<Label width="200px" design="Bold" text="Reason for ADD" class="sapUiSmallMarginTop"/>
 												<ComboBox editable="false" width="200px" selectionChange="onReasonForADDChange"
@@ -210,7 +210,7 @@
 												<Input editable="false" width="250px" value="{DetailsSupModel>/OTHER_RSN}"/>
 											</VBox>
 										</HBox>
-										<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+										<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= (${DetailsSupModel>/CPRID}!=='' &amp;&amp; ${DetailsSupModel>/CPRID}!==null) ? true:false}">
 											<HBox>
 												<Label width="196px" design="Bold" text="Period of Deferment" class="sapUiSmallMarginTop"/>
 											</HBox>

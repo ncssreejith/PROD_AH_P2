@@ -97,7 +97,15 @@ sap.ui.define([
 						oViewGBModel.setProperty("/DatePrev", oData.results[0].EXPDT);
 						oViewModel.setData(oData.results[0]);
 						that.getView().setModel(oViewModel, "CapExtendSet");
+						// var sAirId = this.getAircraftId();
+						// this._fnPerioOfDeferCBGet(sAirId);
+						// this._fnReasonforADDGet(sAirId);
+						// this._fnUtilizationGet(sAirId);
+						// this._fnGetUtilisationDefaultVal(sAirId);
 						this._oManageLim.open(this);
+					} else {
+						oViewModel.setData(null);
+						that.getView().setModel(oViewModel, "CapExtendSet");
 					}
 
 				}.bind(this);
@@ -127,8 +135,8 @@ sap.ui.define([
 					oPayload.PAST_COUNT = (parseInt(oPayload.PAST_COUNT) + 1).toString();
 				}
 				if (oPayload.OPPR === 'U' || oPayload.OPPR === 'N') {
-					oPayload.EXPDT =  "";
-					oPayload.EXPTM =  "";
+					oPayload.EXPDT = null;
+					oPayload.EXPTM = "";
 				}
 				if (oPayload.UTILVL) {
 					var iPrecision = formatter.JobDueDecimalPrecision(oPayload.UTIL1);
@@ -227,7 +235,7 @@ sap.ui.define([
 
 					}*/
 					if (oData && oData.results.length > 0) {
-						if (oData.results[0].EXTEND !== '' && oData.results[0].EXTEND !== null) {
+						if (oData.results[0].zextend !== '' && oData.results[0].zextend !== null) {
 							this._fnADDCapDataMultipleGet("E", sJobId, sCapId);
 							oModel.setProperty("/tableFlag", true);
 						}
@@ -321,8 +329,8 @@ sap.ui.define([
 
 				oPrmJobDue.success = function(oData) {
 					// if (oData && oData.results.length > 0) {
-						oViewModel.setData(oData.results);
-						that.getView().setModel(oViewModel, "CapExtensionSet");
+					oViewModel.setData(oData.results);
+					that.getView().setModel(oViewModel, "CapExtensionSet");
 					// }
 				}.bind(this);
 
@@ -518,31 +526,31 @@ sap.ui.define([
 		 * Description: This is called to open manage limitation dialog
 		 */
 		onOpenMangeLimitaionDialog: function(oEvent) {
-			try {
+			// try {
 
-				var that = this,
-					oViewModel = this.getView().getModel("ViewModel");
+			var that = this,
+				oViewModel = this.getView().getModel("ViewModel");
 
-				if (!this._oAddLim) {
-					this._oManageLim = sap.ui.xmlfragment(this.createId("idWorkCenterDialog"),
-						"avmet.ah.fragments.ManageLimitation",
-						this);
-					this.getView().addDependent(this._oManageLim);
-				}
-				this._fnCAPDataGet("O", oViewModel.getProperty("/JOB"), oViewModel.getProperty("/CAPID"));
-				oViewModel.setProperty("/dialogTitle", this.getView().byId("OBId").getTitle());
-				oViewModel.setProperty("/editableFlag", false);
-				oViewModel.updateBindings(true);
-				// var sAirId = this.getAircraftId();
-				// this._fnPerioOfDeferCBGet(sAirId);
-				// this._fnReasonforADDGet(sAirId);
-				// this._fnUtilizationGet(sAirId);
-				// this._fnGetUtilisationDefaultVal(sAirId);
-				// this._fnUtilization2Get();
-			} catch (e) {
-				Log.error("Exception in LimitationsOverView:onOpenMangeLimitaionDialog function");
-
+			if (!this._oAddLim) {
+				this._oManageLim = sap.ui.xmlfragment(this.createId("idWorkCenterDialog"),
+					"avmet.ah.fragments.ManageLimitation",
+					this);
+				this.getView().addDependent(this._oManageLim);
 			}
+			this._fnCAPDataGet("O", oViewModel.getProperty("/JOB"), oViewModel.getProperty("/CAPID"));
+			oViewModel.setProperty("/dialogTitle", this.getView().byId("OBId").getTitle());
+			oViewModel.setProperty("/editableFlag", false);
+			oViewModel.updateBindings(true);
+			 var sAirId = this.getAircraftId();
+			// this._fnPerioOfDeferCBGet(sAirId);
+			// this._fnReasonforADDGet(sAirId);
+			// this._fnUtilizationGet(sAirId);
+			 this._fnGetUtilisationDefaultVal(sAirId);
+			// this._fnUtilization2Get();
+			// } catch (e) {
+			// 	Log.error("Exception in LimitationsOverView:onOpenMangeLimitaionDialog function");
+
+			// }
 		},
 		/* Function: onCloseMangeLimitaionDialog
 		 * Parameter:
@@ -743,7 +751,7 @@ sap.ui.define([
 					flag: oEvent.getParameters().arguments.flag,
 					tableFlag: false,
 					dialogTitle: "",
-					DatePrev: "",
+					DatePrev: null,
 					btnText: "Extend"
 
 				});
@@ -759,13 +767,13 @@ sap.ui.define([
 				this.getView().setModel(oViewModel, "ViewModel");
 				//this._fnADDCapDataGet(sCAP);
 				this._fnADDCapDataGet("O", sJob, sCAP);
-				//this._fnADDCapDataMultipleGet("E", sJob, sCAP);
 				var sAirId = this.getAircraftId();
 				this._fnPerioOfDeferCBGet(sAirId);
 				this._fnReasonforADDGet(sAirId);
 				this._fnUtilizationGet(sAirId);
 				this._fnUtilization2Get();
 				this._fnFoundDuringGet();
+			
 			} catch (e) {
 				Log.error("Exception in LimitationsOverView:_onObjectMatched function");
 

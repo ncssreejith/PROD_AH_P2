@@ -22,19 +22,19 @@
 					<Text text="{oViewLimitModel>/CDESC}" class="sapUiTinyMarginBegin" wrapping="true" width="300px"></Text>
 				</HBox>
 			</HBox>
-			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
-				<VBox>
-					<HBox>
-						<Label design="Bold" text="Period of Deferment"/>
-						<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PERIODOFDEFER',$event)" class="sapUiTinyMarginBegin" size="12px"
-							color="#031E48"/>
-					</HBox>
-					<ComboBox width="245px" selectionChange="onPrdOfDefermentChange" items="{PerioOfDeferCBModel>/}" selectedKey="{oViewGlobalModel>/DEFPD}"
-						required="true" fieldGroupIds="fgCmbBox">
-						<core:Item text="{PerioOfDeferCBModel>description}" key="{PerioOfDeferCBModel>ddid}"/>
-					</ComboBox>
-				</VBox>
-			</HBox>
+			<!--<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">-->
+			<!--	<VBox>-->
+			<!--		<HBox>-->
+			<!--			<Label design="Bold" text="Period of Deferment"/>-->
+			<!--			<core:Icon src="sap-icon://sys-help-2" press="handlePressToolTipMenu('PERIODOFDEFER',$event)" class="sapUiTinyMarginBegin" size="12px"-->
+			<!--				color="#031E48"/>-->
+			<!--		</HBox>-->
+			<!--		<ComboBox width="245px" selectionChange="onPrdOfDefermentChange" items="{PerioOfDeferCBModel>/}" selectedKey="{oViewGlobalModel>/DEFPD}"-->
+			<!--			required="true" fieldGroupIds="fgCmbBox">-->
+			<!--			<core:Item text="{PerioOfDeferCBModel>description}" key="{PerioOfDeferCBModel>ddid}"/>-->
+			<!--		</ComboBox>-->
+			<!--	</VBox>-->
+			<!--</HBox>-->
 			<HBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
 				<VBox>
 					<Label design="Bold" text="But not later than" width="350px"/>
