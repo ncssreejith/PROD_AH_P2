@@ -73,8 +73,8 @@ sap.ui.define([
 					"num2": 1,
 					"endda": "",
 					"begda": "",
-					"egstt": this.formatter.oDataDateTimeFormat(paDate, "yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
-					"woffw": this.formatter.oDataDateTimeFormat(paDate, "yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
+					"egstt": paDate,//this.formatter.oDataDateTimeFormat(paDate, "yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
+					"woffw": paDate,//this.formatter.oDataDateTimeFormat(paDate, "yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
 					"wonw": this.formatter.oDataDateTimeFormat(currentTime, "yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
 					"egspt": this.formatter.oDataDateTimeFormat(currentTime, "yyyy-MM-dd HH:mm"), //Rahul: 28/12/2020: Code change
 					"pnum": this.getModel("oPilotUpdatesViewModel").getProperty("/num1"), //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
@@ -203,7 +203,7 @@ sap.ui.define([
 			var sLbl = oEvent.getSource().getLabels()[0].getText();
 			switch (sPath) {
 				case "egstt":
-					minTime = paDate;
+					minTime = new Date(paDate);
 					maxTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("egspt")); //this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
 					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
 					//currDate = oEvent.getSource().getParent().getCells()[4].getDateValue();
@@ -235,9 +235,7 @@ sap.ui.define([
 				var oData = {
 					messages: [sMsg]
 				};
-				this.fnShowMessage("E", oData, null, function() {
-
-				});
+				this.fnShowMessage("E", oData, null, function() {});
 			}
 			var dPath = oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getPath() + "/" + sPath;
 			this.getModel("oPilotUpdatesViewModel").setProperty(dPath, this.formatter.oDataDateTimeFormat(sValidTime, "yyyy-MM-dd HH:mm"));
@@ -515,10 +513,10 @@ sap.ui.define([
 				var sSrvid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvid"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				var sNum1 = this.getModel("oPilotUpdatesViewModel").getProperty("/num1"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				if (sSrvid !== " ") { //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
-					sSrvidPath = " and SRVID eq " + sSrvid + " and num1 eq " + sNum1; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					sSrvidPath = FilterOpEnum.AND + "srvid" + FilterOpEnum.EQ  + sSrvid + FilterOpEnum.AND + "num1" + FilterOpEnum.EQ  + sNum1; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				} //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + sSrvidPath; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+				oParameter.filter = "tailid" + FilterOpEnum.EQ  + this.getTailId() + sSrvidPath; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -548,10 +546,11 @@ sap.ui.define([
 				var sSrvid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvid"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				var sNum1 = this.getModel("oPilotUpdatesViewModel").getProperty("/num1"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				if (sSrvid !== " ") { //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
-					sSrvidPath = " and SRVID eq " + sSrvid + " and pnum eq " + sNum1; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					sSrvidPath =  FilterOpEnum.AND + "srvid" + FilterOpEnum.EQ + sSrvid +  FilterOpEnum.AND + "pnum"+ FilterOpEnum.EQ + sNum1;
+					//sSrvidPath = " and SRVID eq " + sSrvid + " and pnum eq " + sNum1; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				} //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + sSrvidPath;
+				oParameter.filter = "tailid" + FilterOpEnum.EQ  + this.getTailId() + sSrvidPath;
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -576,10 +575,11 @@ sap.ui.define([
 				var sSrvid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvid"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				var sNum1 = this.getModel("oPilotUpdatesViewModel").getProperty("/num1"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				if (sSrvid !== " ") { //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
-					sSrvidPath = " and SRVID eq " + sSrvid + " and num1 eq " + sNum1; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					sSrvidPath =  FilterOpEnum.AND + "srvid" + FilterOpEnum.EQ + sSrvid +  FilterOpEnum.AND + "pnum"+ FilterOpEnum.EQ + sNum1;
+				//	sSrvidPath = " and SRVID eq " + sSrvid + " and num1 eq " + sNum1; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				} //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				var oParameter = {};
-				oParameter.filter = "tailid eq " + this.getTailId() + sSrvidPath;
+				oParameter.filter = "tailid" + FilterOpEnum.AND  + this.getTailId() + sSrvidPath;
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
@@ -722,7 +722,7 @@ sap.ui.define([
 				oParameter.error = function() {};
 				oParameter.success = function() {};
 				// ajaxutil.fnUpdate(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter, oPayloads);//Change by Teck Meng on 25/11/2020 11:30
-				ajaxutil.fnUpdate(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter, oPayloads); //Change by Teck Meng on 25/11/2020 11:30
+				ajaxutil.fnUpdate(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oParameter, oPayloads); //Change by Teck Meng on 25/11/2020 11:30
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnCreateFlyReq function");
 				this.handleException(e);
@@ -992,7 +992,7 @@ sap.ui.define([
 				var sSrvid = this.getModel("oPilotUpdatesViewModel").getProperty("/srvid"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				var sNum1 = this.getModel("oPilotUpdatesViewModel").getProperty("/num1"); //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				if (sSrvid !== undefined) { //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
-					sSrvidPath = " and SRVID eq " + sSrvid + " and pnum=" + sNum1; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					sSrvidPath =  FilterOpEnum.AND + "srvid" + FilterOpEnum.EQ + sSrvid +  FilterOpEnum.AND + "pnum"+ FilterOpEnum.EQ + sNum1; //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 				} //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
 
 				var oParameter = {};
@@ -1260,7 +1260,7 @@ sap.ui.define([
 					this.getModel("oPilotUpdatesViewModel").refresh();
 				}.bind(this);
 				// ajaxutil.fnRead(this.getResourceBundle().getText("AH4STATUSSVC"), oParameter);//Change by Teck Meng on 25/11/2020 11:30
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
+				ajaxutil.fnRead(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oParameter); //Change by Teck Meng on 25/11/2020 11:30
 			} catch (e) {
 				Log.error("Exception in PilotUpdate:fnReadFlyReq function");
 				this.handleException(e);
@@ -1272,15 +1272,17 @@ sap.ui.define([
 		fnReadAddLimitCount: function() {
 			try {
 				var oParameter = {};
-				oParameter.filter = "tailid=" + this.getTailId();
+				oParameter.filter = "tailid=" + this.getTailId()+"&pnum="+this.getModel("oPilotUpdatesViewModel").getProperty("/num1");
 				oParameter.error = function() {
 					this.updateModel({
 						busy: false
 					}, "viewModel");
 				}.bind(this);
 				oParameter.success = function(oData) {
+					this.getModel("oPilotUpdatesViewModel").setProperty("/paDate", oData.results.length > 0 ? oData.results[0].padate : {});
 					this.getModel("oPilotUpdatesViewModel").setProperty("/ADDAndLIMIT", oData.results.length > 0 ? oData.results[0] : {});
 					this.getModel("oPilotUpdatesViewModel").refresh();
+					this.fnCreateTiming();
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("PILOTADDLMTCTSVC"), oParameter);
 			} catch (e) {
@@ -1374,7 +1376,7 @@ sap.ui.define([
 		_fnMakeAllPass: function(oData, sStat, sService) { //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 			oData.results.forEach(function(oItem) {
 				if (sService === "FLY") { //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
-					oItem.FRRID = (oItem.FRRID === "" || oItem.FRRID === null) ? sStat : oItem.FRRID; //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
+					oItem.FRRID = (oItem.frrid === "" || oItem.frrid === null) ? sStat : oItem.frrid; //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 				} else { //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 					oItem.frrid = (oItem.frrid === "" || oItem.frrid === null) ? sStat : oItem.frrid; //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
 				} //Teck Meng change on 30/11/2020 13:00 AH Issue 1044,1043
@@ -1462,24 +1464,7 @@ sap.ui.define([
 					"astatid": "AST_S", // AST_S IF SERVICEABLE AST_US IF UNSERVICEABLE ,FAIL SORTI,FAIL FLY  
 					"num1": this.getModel("oPilotUpdatesViewModel").getProperty("/num1") //Teck Meng change on 25/11/2020 13:00 AH Issue 1044,1043
 				};
-				oPayload.timings = [{
-					"srvid": "",
-					"tailid": this.getTailId(),
-					"num2": 1,
-					"endda": "",
-					"begda": "",
-					/* "egstt": currentTime.getHours() + ":" + currentTime.getMinutes(),
-					"woffw": currentTime.getHours() + ":" + currentTime.getMinutes(),
-					"wonw": currentTime.getHours() + ":" + currentTime.getMinutes(),
-					"egspt": currentTime.getHours() + ":" + currentTime.getMinutes(), */
-					"egstt": this.formatter.oDataDateTimeFormat(currentTime, "yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
-					"woffw": this.formatter.oDataDateTimeFormat(currentTime, "yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
-					"wonw": this.formatter.oDataDateTimeFormat(currentTime, "yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
-					"egspt": this.formatter.oDataDateTimeFormat(currentTime, "yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
-					"pnum": oPayload.num1, //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
-					"diffwo": 0,
-					"diffeg": 0
-				}];
+				oPayload.timings = [];
 				oPayload.defects = [{
 					"tailid": this.getTailId(),
 					"jobid": "",
@@ -1568,6 +1553,31 @@ sap.ui.define([
 				this.handleException(e);
 			}
 			return oPayload;
+		},
+		fnCreateTiming:function(paData){
+			var currentTime = "";
+			var sPaDate = this.getModel("oPilotUpdatesViewModel").getProperty("/paDate");
+			var pNum = this.getModel("oPilotUpdatesViewModel").getProperty("/num1");
+			var sTime= {
+					"srvid": "",
+					"tailid": this.getTailId(),
+					"num2": 1,
+					"endda": "",
+					"begda": "",
+					/* "egstt": currentTime.getHours() + ":" + currentTime.getMinutes(),
+					"woffw": currentTime.getHours() + ":" + currentTime.getMinutes(),
+					"wonw": currentTime.getHours() + ":" + currentTime.getMinutes(),
+					"egspt": currentTime.getHours() + ":" + currentTime.getMinutes(), */
+					"egstt": sPaDate,//this.formatter.oDataDateTimeFormat(currentTime, "yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
+					"woffw": sPaDate,//this.formatter.oDataDateTimeFormat(currentTime, "yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
+					"wonw": this.formatter.oDataDateTimeFormat(currentTime, "yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
+					"egspt": this.formatter.oDataDateTimeFormat(currentTime, "yyyy-MM-dd HH:mm"), //Rahul change on 28/12/2020
+					"pnum": pNum, //Teck Meng change on 01/12/2020 13:00 AH Issue 1044,1043
+					"diffwo": 0,
+					"diffeg": 0
+				};
+			 this.getModel("oPilotUpdatesViewModel").getProperty("/timings").push(sTime);
+			 this.getModel("oPilotUpdatesViewModel").refresh();
 		}
 
 	});

@@ -5,7 +5,7 @@
 			<RadioButtonGroup class="sapUiSmallMargin" buttons="{path:'oAircraftDataUtilModel>/runningChange'}" select="onRunningChangePressIndex">
 				<buttons>
 					<RadioButton
-						text="Pilot name: {oAircraftDataUtilModel>PILOTNAME} Updated on: {path: 'oAircraftDataUtilModel>patime',formatter:'.formatter.defaultDateTimeFormat'}"/>
+						text="Pilot name: {oAircraftDataUtilModel>pilotname} Updated on: {path: 'oAircraftDataUtilModel>patime',formatter:'.formatter.defaultDateTimeFormat'}"/>
 				</buttons>
 			</RadioButtonGroup>
 		</content>

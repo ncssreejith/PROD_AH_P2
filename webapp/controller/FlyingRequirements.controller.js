@@ -52,7 +52,7 @@ sap.ui.define([
 					oModel.setData(oData.results);
 					that.getView().setModel(oModel, "FRAllModel");
 				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("GETFLYREQSVC"), oPrmTD);
+				ajaxutil.fnRead(this.getResourceBundle().getText("FLYINGREQUIREMENTSVC"), oPrmTD);
 			} catch (e) {
 				Log.error("Exception in _fnFlyingRequirementsMasterGet function");
 			}

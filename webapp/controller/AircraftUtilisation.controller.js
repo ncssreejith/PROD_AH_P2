@@ -416,7 +416,7 @@ sap.ui.define([
 			var currDate = new Date();
 			var rowData = oEvent.getSource().getBindingContext("oAircraftDataUtilModel").getObject();
 
-			if (rowData.COL_18!=="RSN_999" && rowData.COL_18!=="RES_119") {
+			if (rowData.tabid==="TABA_102" && rowData.COL_18!=="RSN_999" && rowData.COL_18!=="RES_119") {
 				this.getRouter().navTo("AddEquipRunLog", {
 					type: rowData.COL_18,
 					mode: "1",
