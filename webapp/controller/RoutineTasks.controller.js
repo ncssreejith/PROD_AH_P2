@@ -202,7 +202,7 @@ sap.ui.define([
 				var oTaskData = this.getModel("rtModel").getProperty("/tasks");
 				for (var i = 0; i < oTaskData.length; i++) {
 					//Rahul Code changes 30/10/2020: to check table selection logic
-					if ((oTaskData[i].tsign === "" || oTaskData[i].tstat === 0) && (oTaskData[i].DONE === "" || oTaskData[i].DONE === null)) {
+					if ((oTaskData[i].tsign === "" && oTaskData[i].tstat === 0) && (oTaskData[i].DONE === "" || oTaskData[i].DONE === null)) {
 						sMsg = "";
 					} else {
 						if ((oTaskData[i].tsign === "" && oTaskData[i].tstat !== 1)) {

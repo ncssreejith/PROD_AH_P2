@@ -478,9 +478,9 @@ sap.ui.define([
 				var oParameter = {};
 				oParameter.error = function() {};
 				// oParameter.filter = "refid eq " + this.getAircraftId() + " and srvtid eq " + this.getModel("paModel").getProperty(
-				// 	"/srvtid") + " and TAIL_ID eq " + this.getTailId() + " and stepid eq S_RT";
+				// 	"/srvtid") + " and TAILID eq " + this.getTailId() + " and stepid eq S_RT";
 				oParameter.filter = "refid=" + this.getAircraftId() + "&srvtid=" + this.getModel("paModel").getProperty(
-						"/srvtid") + "&TAIL_ID=" + this.getTailId() +
+						"/srvtid") + "&TAILID=" + this.getTailId() +
 					"&stepid=S_RT";
 				oParameter.success = function(oData) {
 					var sIndex = this._fnGetIndexById("T6_FLC");
