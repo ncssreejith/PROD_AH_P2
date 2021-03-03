@@ -5,7 +5,7 @@ sap.ui.define([
 	"sap/ui/core/Popup",
 	"avmet/ah/model/formatter",
 	"sap/ui/model/json/JSONModel",
-	"avmet/f16/util/TrnLogNavEnum",
+	"avmet/ah/util/TrnLogNavEnum",
 	"sap/base/Log",
 	"avmet/ah/util/ajaxutil",
 	"../util/FilterOpEnum"
