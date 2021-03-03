@@ -158,7 +158,7 @@ sap.ui.define([
 		 */
 		_fnGetUtilisation: function(sAir) {
 			try {
-				var that = this,
+				var that = this,dSrvdt,
 					aData = this.getModel("SummaryModel").getData(),
 					oPrmJobDue = {};
 				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + that.getAircraftId() + " and JDUID eq JDU";
@@ -172,16 +172,23 @@ sap.ui.define([
 						for (var i in oData.results) {
 							this.oObject[oData.results[i].JDUID] = oData.results[i];
 						}
+
+						if (aData.SERVDT === "" || aData.SERVDT === null) {
+							dSrvdt = null;
+						} else {
+							dSrvdt = new Date(aData.SERVDT);
+						}
+
 						var data = {
 							"DueBy": aData.UMKEY,
-							"ExpDate": new Date(aData.SERVDT),
+							"ExpDate": dSrvdt,
 							"Util": "",
 							"UtilVal": aData.SERVDUE,
 							"ExpDateFlag": aData.UMKEY === 'JDU_10' ? true : false,
 							"UtilValFlag": aData.UMKEY !== 'JDU_10' ? true : false,
 							"UM": "",
 							"minVal": this.oObject[aData.UMKEY] ? parseFloat(this.oObject[aData.UMKEY].VALUE) : 0,
-							"minDT": new Date(aData.SERVDT),
+							"minDT": dSrvdt,
 							"ZINTERVAL": aData.ZINTERVAL
 
 						};
@@ -337,7 +344,7 @@ sap.ui.define([
 					var oModel1 = dataUtil.createNewJsonModel();
 					oModel1.setData({
 						"DueBy": "",
-						"ExpDate": "",
+						"ExpDate": null,
 						"Util": "",
 						"UtilVal": "",
 						"ExpDateFlag": false,
@@ -386,7 +393,7 @@ sap.ui.define([
 					var oModel1 = dataUtil.createNewJsonModel();
 					oModel1.setData({
 						"DueBy": "",
-						"ExpDate": "",
+						"ExpDate": null,
 						"Util": "",
 						"UtilVal": "",
 						"ExpDateFlag": false,
