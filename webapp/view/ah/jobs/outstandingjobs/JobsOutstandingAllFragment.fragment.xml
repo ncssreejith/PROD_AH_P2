@@ -50,7 +50,7 @@
 				<Column width="8rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">                  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<Label text="{i18n>lbAction}" design="Bold" wrapping="true"/>
 				</Column>
-				<!--<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">                  <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->-->
+				<!--<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">         -->         <!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed--> 
 				<!--	<Label text="{i18n>lbEsStatus}" design="Bold" wrapping="true"/>-->
 				<!--</Column>-->
 			</columns>

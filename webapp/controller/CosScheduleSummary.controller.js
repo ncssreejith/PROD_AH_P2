@@ -158,7 +158,8 @@ sap.ui.define([
 		 */
 		_fnGetUtilisation: function(sAir) {
 			try {
-				var that = this,dSrvdt,
+				var that = this,
+					dSrvdt,
 					aData = this.getModel("SummaryModel").getData(),
 					oPrmJobDue = {};
 				//	oPrmJobDue.filter = "TAILID eq " + this.getTailId() + " and refid eq " + that.getAircraftId() + " and JDUID eq JDU";
@@ -309,7 +310,11 @@ sap.ui.define([
 							this.getFragmentControl("idScheduleJobExtension", "dpScheId").setValueStateText("Please fill required field");
 							return;
 						}
-						oPayload.SERVDT = oModel.ExpDate;
+						try {
+							oPayload.SERVDT = formatter.defaultOdataDateFormat(oModel.ExpDate);
+						} catch (e) {
+							oPayload.SERVDT = oModel.ExpDate;
+						}
 						oPayload.UM = oModel.UM;
 						oPayload.UMKEY = oModel.DueBy;
 						oPayload.SERVDUE = "";
@@ -330,7 +335,11 @@ sap.ui.define([
 				} else {
 					oPayload.SCONFLAG = "E";
 					if (oModel.DueBy === "JDU_10") {
-						oPayload.SERVDT = oModel.ExpDate;
+						try {
+							oPayload.SERVDT = formatter.defaultOdataDateFormat(oModel.ExpDate);
+						} catch (e) {
+							oPayload.SERVDT = oModel.ExpDate;
+						}
 						oPayload.UMKEY = oModel.DueBy;
 						oPayload.SERVDUE = "";
 					} else {
