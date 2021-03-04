@@ -54,10 +54,10 @@
 					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
 					<Label text="{i18n>lbAction}" design="Bold" wrapping="true"/>
 				</Column>
-				<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<!--<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">-->
 					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
-					<Label text="{i18n>lbEsStatus}" design="Bold" wrapping="true"/>
-				</Column>
+				<!--	<Label text="{i18n>lbEsStatus}" design="Bold" wrapping="true"/>-->
+				<!--</Column>-->
 			</columns>
 			<items>
 				<ColumnListItem vAlign="Middle" type="Navigation" press="onDefectsDetailsPress">
@@ -71,7 +71,7 @@
 						<Text text="{JobModelD>ptext}"/>
 						<Text text="{JobModelAll>ptext}"/>
 						<ObjectStatus state="Error" text="{path:'JobModelD>fstat', formatter : '.formatter.jobAction'}"/>
-						<ObjectStatus text="{JobModelD>esstatus}" state="{path:'JobModelD>esstatus', formatter : '.formatter.jobESStatusAction'}"/>
+						<!--<ObjectStatus text="{JobModelD>esstatus}" state="{path:'JobModelD>esstatus', formatter : '.formatter.jobESStatusAction'}"/>-->
 					</cells>
 				</ColumnListItem>
 			</items>
