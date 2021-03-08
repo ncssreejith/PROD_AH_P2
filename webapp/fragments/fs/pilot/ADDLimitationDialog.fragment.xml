@@ -20,7 +20,7 @@
 				</HBox>
 				<ObjectIdentifier title="{path:'paModel>CAPTY', formatter:'.formatter.LimOverViewText'}" titleActive="false"
 					class="sapUiSmallMargin"/>
-				<core:Fragment fragmentName="avmet.ah.fragments.pilot.ADDLimitDetail" type="XML"/>
+				<core:Fragment fragmentName="avmet.ah.fragments.fs.pilot.ADDLimitDetail" type="XML"/>
 			</VBox>
 			<OverflowToolbar class="sapUiSmallMarginBottom toolbarBorder">
 				<ToolbarSpacer/>
