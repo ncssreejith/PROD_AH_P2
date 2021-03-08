@@ -43,7 +43,7 @@
 									</VBox>
 									<VBox>
 										<Label design="Bold" text="Time"/>
-										<TimePicker id="TP1" width="10rem" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true" valueFormat="HH:mm" 
+										<TimePicker id="TP1" width="10rem" displayFormat="HH:mm" fieldGroupIds="fgTime" required="true" valueFormat="HH:mm"
 											valueStateText="{= ${TaskModel>ftcredtStateText} ? ${TaskModel>ftcredtStateText} : ${i18n>MSG_TIME}}"
 											value="{path:'TaskModel>ftcretm', formatter:'.formatter.defaultTimeFormatDisplay'}" change="onTimeChange"
 											valueState="{TaskModel>ftcretmState}"/>
@@ -81,13 +81,13 @@
 										</VBox>
 										<VBox visible="{= ${TaskModel>tt1id}==='TT1_11'|| ${TaskModel>tt1id}==='TT1_AD' ? true:false}" class="sapUiTinyMarginBottom">
 											<!--OPS-->
-											<VBox visible="{= ${TaskModel>CPRID}===null || ${TaskModel>CPRID}==='' ? true:false}">
+											<VBox visible="{= (${TaskModel>CPRID}===null || ${TaskModel>CPRID}==='') ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
 												<ComboBox width="330px" change="onTypeChangeOPS" selectedKey="{TaskModel>tt1id}" items="{path:'FollowOPSModel>/',templateShareable: false}">
 													<core:Item text="{FollowOPSModel>text}" key="{FollowOPSModel>key}"/>
 												</ComboBox>
 											</VBox>
-											<VBox visible="{= ${TaskModel>CPRID}!==null || ${TaskModel>CPRID}==='' ? true:false}">
+											<VBox visible="{= (${TaskModel>CPRID}!==null &amp;&amp; ${TaskModel>CPRID}!=='') ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
 												<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
 											</VBox>
@@ -104,14 +104,14 @@
 										</VBox>
 										<VBox visible="{= ${TaskModel>tt1id}==='TT1_14' || ${TaskModel>tt1id}==='TT1_ADD' ? true:false}">
 											<!--Other-->
-											<VBox visible="{= ${TaskModel>CPRID}===null || ${TaskModel>CPRID}==='' ? true:false}">
+											<VBox visible="{= (${TaskModel>CPRID}!==null || ${TaskModel>CPRID}!=='') ? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
 												<ComboBox width="330px" change="onTypeChangeOther" selectedKey="{TaskModel>tt1id}" editable="{= ${TaskModel>addLimitAdded} ? false : true}"
 													items="{path:'FollowOtherModel>/',templateShareable: false}">
 													<core:Item text="{FollowOtherModel>text}" key="{FollowOtherModel>key}"/>
 												</ComboBox>
 											</VBox>
-											<VBox visible="{= ${TaskModel>CPRID}!==null || ${TaskModel>CPRID}==='' ? true:false}">
+											<VBox visible="{= (${TaskModel>CPRID}!==null &amp;&amp; ${TaskModel>CPRID}!=='' )? true:false}">
 												<Label text="Follow-Up Task" design="Bold"></Label>
 												<Text text="Transfer to Acceptable Deferred Defects Log"></Text>
 											</VBox>
@@ -128,7 +128,8 @@
 													<SegmentedButtonItem text="No" key="0" width="80%"/>
 												</items>
 											</SegmentedButton>-->
-											<RadioButtonGroup columns="2" selectedIndex="{TaskModel>ftrsltgd}" valueState="{TaskModel>ValueState}" class="sapUiMediumMarginBottom" select="onVIResultSelect">
+											<RadioButtonGroup columns="2" selectedIndex="{TaskModel>ftrsltgd}" valueState="{TaskModel>ValueState}" class="sapUiMediumMarginBottom"
+												select="onVIResultSelect">
 												<RadioButton text="Yes"/>
 												<RadioButton text="No"/>
 											</RadioButtonGroup>
@@ -272,8 +273,8 @@
 													press="onAddADDDialog" iconFirst="true"/>
 											</HBox>-->
 										</VBox>
-										<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= ${TaskModel>oppr}!==null ? true:false}">
-											<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= ${TaskModel>CPRID}!==null || ${TaskModel>CPRID}==='' ? true:false}">
+										<VBox class="sapUiSmallMarginEnd sapUiSmallMarginTop" visible="{= (${TaskModel>oppr}!==null &amp;&amp; ${TaskModel>oppr}!=='') ? true:false}">
+											<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= (${TaskModel>CPRID}!==null &amp;&amp; ${TaskModel>CPRID}!=='') ? true:false}">
 												<VBox>
 													<HBox>
 														<Label design="Bold" text="Reason for ADD"/>
@@ -296,7 +297,7 @@
 													<Input width="200px" editable="false" value="{TaskModel>OTHER_RSN}"/>
 												</VBox>
 											</HBox>
-											<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+											<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom" visible="{= (${TaskModel>CPRID}!==null &amp;&amp; ${TaskModel>CPRID}!=='') ? true:false}">
 												<VBox>
 													<HBox>
 														<Label design="Bold" text="Period of Deferment"/>

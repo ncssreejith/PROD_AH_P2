@@ -41,7 +41,7 @@
 							color="#031E48"/>
 					</HBox>
 					<ComboBox width="240px" change="onPrdOfDefermentChange" items="{PerioOfDeferCBModel>/}" selectedKey="{CapExtendSet>/DEFPD}" required="true"
-						fieldGroupIds="fgCmbBox">
+						fieldGroupIds="fgCmbBox" editable="{ViewModel>/editableFlag}">
 						<core:Item text="{PerioOfDeferCBModel>description}" key="{PerioOfDeferCBModel>ddid}"/>
 					</ComboBox>
 				</VBox>

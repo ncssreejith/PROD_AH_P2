@@ -245,7 +245,7 @@ sap.ui.define([
 				}
 
 				if (oModel.getProperty("/sFlag") === "N") {
-					if ((oPayload.notity !== null && oPayload.notity !== "") && (oPayload.trail !== null && oPayload.trail !== "0")) {
+					if ((oPayload.notity !== null && oPayload.notity !== "") && (oPayload.trail !== null && oPayload.trail !== "" && oPayload.trail !== "0")) {
 						if (sSignFlag === "TR") {
 							try {
 								if (oPayload.TRAILKDT) {
@@ -265,7 +265,12 @@ sap.ui.define([
 							oPayload.jstat = "P";
 							oPayload.trail = "";
 						} else {
-							oPayload.trail = "X";
+							if (oPayload.notity === 'ZD') {
+								oPayload.trail = "X";
+							} else {
+								oPayload.trail = "";
+								oPayload.jstat = "X";
+							} /**/
 						}
 
 					} else {
@@ -276,7 +281,12 @@ sap.ui.define([
 							if (!oPayload.TRAILKEY || oPayload.TRAILKEY === "") {
 								oPayload.jstat = "X";
 							} else {
-								oPayload.trail = "X";
+								if (oPayload.notity === 'ZD') {
+									oPayload.trail = "X";
+								} else {
+									oPayload.trail = "";
+									oPayload.jstat = "X";
+								}
 							}
 						}
 

@@ -13,12 +13,12 @@
 				<ToolbarSeparator/>
 				<ToolbarSpacer/>
 				<ToolbarSpacer/>
-				<core:Icon src="sap-icon://bell" class="size1" color="#e0d7ca" press="onTrnLogPress" useIconTooltip="Transaction Logs">
-					<core:layoutData>
-						<FlexItemData growFactor="1"/>
-					</core:layoutData>
-				</core:Icon>
-				<Text text="2" class="sapUiSmallMarginBottom sapUiNoMarginBegin"/>
+				<!--<core:Icon src="sap-icon://bell" class="size1" color="#e0d7ca" press="onTrnLogPress" useIconTooltip="Transaction Logs">-->
+				<!--	<core:layoutData>-->
+				<!--		<FlexItemData growFactor="1"/>-->
+				<!--	</core:layoutData>-->
+				<!--</core:Icon>-->
+				<!--<Text text="2" class="sapUiSmallMarginBottom sapUiNoMarginBegin"/>-->
 				<ToolbarSeparator/>
 				<!-- Sample for showing Notification -->
 				<!--class="infobtn"-->

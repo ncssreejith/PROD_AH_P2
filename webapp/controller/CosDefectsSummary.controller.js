@@ -1908,6 +1908,17 @@ sap.ui.define([
 				} catch (e) {
 					oPayload.etrdt = oPayload.etrdt;
 				}
+				try {
+					oPayload.cretm = formatter.defaultTimeFormatDisplay(oPayload.cretm);
+				} catch (e) {
+					oPayload.cretm = oPayload.cretm;
+				}
+				try {
+					oPayload.creuzt = formatter.defaultTimeFormatDisplay(oPayload.creuzt);
+				} catch (e) {
+					oPayload.creuzt = oPayload.creuzt;
+				}
+
 				var bFlag = formatter.validDateTimeChecker(this, "DP1", "TP1", "errorUpdateETRPast", "errorCreateETRFuture", oPayload.credtm,
 					oPayload.creuzt, false);
 				if (!bFlag) {
@@ -2030,6 +2041,17 @@ sap.ui.define([
 				if (oPayload.etrtm === "") {
 					oPayload.etrtm = "";
 				}
+				try {
+					oPayload.cretm = formatter.defaultTimeFormatDisplay(oPayload.cretm);
+				} catch (e) {
+					oPayload.cretm = oPayload.cretm;
+				}
+				try {
+					oPayload.creuzt = formatter.defaultTimeFormatDisplay(oPayload.creuzt);
+				} catch (e) {
+					oPayload.creuzt = oPayload.creuzt;
+				}
+
 				switch (oFlag) {
 					case "A":
 						oPayload.fstatflag = "A";
@@ -2231,7 +2253,8 @@ sap.ui.define([
 				bTaskFlag = this._fnCheckWCTaskCount(sWorkCenterKey);
 				if (bTaskFlag) {
 					/*oPrmWorkCenter.filter="jobid eq "+sJobId+" and taild eq "+sTailId;*/
-					var sPath = this.getResourceBundle().getText("DEFECTWORKCENTERSVC") + "?JOBID" + FilterOpEnum.EQ + oModel.getProperty("/sJobId") +
+					var sPath = this.getResourceBundle().getText("DEFECTWORKCENTERSVC") + "?JOBID" + FilterOpEnum.EQ + oModel.getProperty(
+							"/sJobId") +
 						"&WRCTR" + FilterOpEnum.EQ + sWorkCenterKey + "&TAILID" +
 						FilterOpEnum.EQ + that.getTailId();
 					oPrmWorkCenter.error = function() {};
@@ -4878,7 +4901,8 @@ sap.ui.define([
 		//------------------------------------------------------------------ 
 		_fnApplyFilter: function(oFilterWC) {
 			try {
-				var oFilters, filterObj, oBindingFlyingReq, oBindingSortieMonitoring, oBindingDemanSpare, oBindingCompleted, oBindingOutstanding,
+				var oFilters, filterObj, oBindingFlyingReq, oBindingSortieMonitoring, oBindingDemanSpare, oBindingCompleted,
+					oBindingOutstanding,
 					oBindingPendingSupervisor, oBindingTDME,
 					oTableFlyingReq = this.getView().byId("tbWcFlyingReqId"),
 					oTableSortieMonitoring = this.getView().byId("tbWcSortieMonId"),

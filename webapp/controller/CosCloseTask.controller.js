@@ -1381,7 +1381,7 @@ sap.ui.define([
 				if (oPayLoad.OPPR !== "U" && !this.handleChangeUtil(fragId)) {
 					return;
 				}
-				if ((oPayLoad.LDESC !== null || oPayLoad.LDESC !== "") && (oPayLoad.CPRID !== null || oPayLoad.CPRID !== "")) {
+				if ((oPayLoad.LDESC !== null && oPayLoad.LDESC !== "") && (oPayLoad.CPRID !== null && oPayLoad.CPRID !== "")) {
 					oPayLoad.CAPTY = "B";
 					oPayLoad.FLAG_ADD = "B";
 				} else if ((oPayLoad.LDESC === null && oPayLoad.LDESC === "") && (oPayLoad.CPRID !== "" && oPayLoad.CPRID !== null)) {

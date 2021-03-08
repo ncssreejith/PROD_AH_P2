@@ -61,10 +61,10 @@
 						<Button icon="sap-icon://sort" type="Transparent" class="sortBtnColor" press="onSort($event,'WRCTR')"/>
 					</HBox>
 				</Column>
-				<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<!--<Column width="6rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">-->
 					<!--Rahul: 19/11/2020: 06:40PM: CSS Width Changed-->
-					<Label text="{i18n>lbEsStatus}" design="Bold" wrapping="true"/>
-				</Column>
+				<!--	<Label text="{i18n>lbEsStatus}" design="Bold" wrapping="true"/>-->
+				<!--</Column>-->
 			</columns>
 			<items>
 				<ColumnListItem vAlign="Middle" type="Navigation" press="onScheduleJobPress('AIR',$event)">
@@ -81,7 +81,7 @@
 						<Text text="{JobModelAIR>JOBDESC}"/>
 						<Text text="{JobModelAIR>CTYPE}"/>
 						<Text text="{JobModelAIR>WRCTR}"/>
-						<ObjectStatus text="{JobModelAIR>esstatus}" state="{path:'JobModelAIR>esstatus', formatter : '.formatter.jobESStatusAction'}"/>
+						<!--<ObjectStatus text="{JobModelAIR>esstatus}" state="{path:'JobModelAIR>esstatus', formatter : '.formatter.jobESStatusAction'}"/>-->
 					</cells>
 				</ColumnListItem>
 			</items>

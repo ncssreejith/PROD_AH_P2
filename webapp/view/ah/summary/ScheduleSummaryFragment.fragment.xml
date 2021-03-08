@@ -44,11 +44,11 @@
 									<Label design="Bold" text="Serial No. (S/N) :" width="150px"/>
 									<Text text="{SummaryModel>/SN}" width="200px"/>
 								</HBox>
-								<HBox class="sapUiLargeMarginBegin">
-									<Label design="Bold" text="{i18n>lbEsStatus} "  width="150px"/>
-									<ObjectStatus text="{JobModel>/esstatusMsg}" press="onWarningMessagePress" active="{=${JobModel>/esstatusMsg}==='Pending' ? false :true}"
-										width="200px" state="{path:'JobModel>/esstatusMsg', formatter : '.formatter.jobESStatusAction'}"/>
-								</HBox>
+								<!--<HBox class="sapUiLargeMarginBegin">-->
+								<!--	<Label design="Bold" text="{i18n>lbEsStatus} "  width="150px"/>-->
+								<!--	<ObjectStatus text="{JobModel>/esstatusMsg}" press="onWarningMessagePress" active="{=${JobModel>/esstatusMsg}==='Pending' ? false :true}"-->
+								<!--		width="200px" state="{path:'JobModel>/esstatusMsg', formatter : '.formatter.jobESStatusAction'}"/>-->
+								<!--</HBox>-->
 							</VBox>
 							<layoutData>
 								<FlexItemData growFactor="1" baseSize="0" backgroundDesign="Solid" styleClass="sapUiTinyMargin"/>

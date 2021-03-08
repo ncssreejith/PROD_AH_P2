@@ -104,7 +104,8 @@ sap.ui.define([
 				oData.error = function(hrex) {
 					this.sessionTimeOutCheck(hrex);
 					if (signoffUtil) {
-						signoffUtil.onSignOffError(JSON.parse(hrex.responseText).sortmessage);
+					signoffUtil.onSignOffError(hrex.responseText); //lakshmi changed for phase 2 error mesg display on 08/01/2021 at 10.51am
+						//signoffUtil.onSignOffError(JSON.parse(hrex.responseText).sortmessage);
 					}
 					oParameters.error(hrex);
 				}.bind(this);
@@ -151,7 +152,8 @@ sap.ui.define([
 				oData.error = function(hrex) {
 					this.sessionTimeOutCheck(hrex);
 					if (signoffUtil) {
-						signoffUtil.onSignOffError(JSON.parse(hrex.responseText).sortmessage);
+							signoffUtil.onSignOffError(hrex.responseText); //lakshmi changed for phase 2 error mesg display on 08/01/2021 at 10.51am
+						//signoffUtil.onSignOffError(JSON.parse(hrex.responseText).sortmessage);
 					}
 					oParameters.error(hrex);
 				}.bind(this);

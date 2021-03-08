@@ -218,7 +218,9 @@ sap.ui.define([
 				});
 				that.getView().setModel(oFLyReqModel, "FlyingRequirementsModel");
 				this._fnFlyingRequirementsGet(sJobId);
-				this._fnGetDateValidation(sJobId);
+				if (sFlag === "Y") {
+					this._fnGetDateValidation(sJobId);
+				}
 				FieldValidations.resetErrorStates(this);
 			} catch (e) {
 				Log.error("Exception in _onObjectMatched function");
