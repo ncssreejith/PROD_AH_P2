@@ -238,6 +238,7 @@ sap.ui.define([
 				} catch (e) {
 					oPayload.rectdt = oPayload.rectdt;
 				}
+				oPayload.recttm = formatter.defaultTimeFormatDisplay(oPayload.recttm);
 				try {
 					oPayload.credt = formatter.defaultOdataDateFormat(oPayload.credt);
 				} catch (e) {
