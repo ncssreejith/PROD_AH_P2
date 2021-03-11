@@ -320,7 +320,7 @@ sap.ui.define([
 						oPayload.SERVDUE = "";
 						oPayload.ZINTERVAL = oModel.ZINTERVAL;
 					} else {
-						if ((oModel.ExpDate === null && oModel.ExpDate === "") && parseFloat(oModel.ZINTERVAL) === 0) {
+						if ((oModel.UtilVal === null && oModel.UtilVal === "") && parseFloat(oModel.ZINTERVAL) === 0) {
 							this.getFragmentControl("idScheduleJobExtension", "siSchedId").setValueState("Error");
 							this.getFragmentControl("idScheduleJobExtension", "siSchedId").setValueStateText("Please fill required field");
 							return;
