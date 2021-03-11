@@ -266,19 +266,28 @@ sap.ui.define([
 			}
 		},
 		fnOpenSessionTimeOutDialog: function(hrex) {
+			var sMin = "5";//sessionTimeOutCheck();
 			var sLabel = new sap.m.Label({
 				wrapping: true,
-				text: "Session timeout please login again ",
+				text: "Your session is about to expire within "+sMin+" min,Do you want to continue ?",
 				width: "100%",
 				design: "Bold",
 				textAlign: "Center"
 			});
 			var sButton = new sap.m.Button({
 				type: "Emphasized",
-				text: "OK",
+				text: "Yes",
 				design: "Bold",
 				press: function(oEvent) {
-					this.sessionTimeOutWin = window.open(hrex.getResponseHeader("Location"), "_blank");
+					this._fnSessionChk();
+				}.bind(this)
+			});
+			var eButton = new sap.m.Button({
+				type: "Default",
+				text: "No",
+				design: "Bold",
+				press: function(oEvent) {
+					this._fnLogOff();
 				}.bind(this)
 			});
 			this.swnDialog = new sap.m.Dialog({
@@ -286,10 +295,60 @@ sap.ui.define([
 				title: "Session timeout",
 				draggable: true,
 				content: [sLabel],
-				endButton: sButton
+				beginButton:sButton,
+				endButton: eButton
 			});
 			this.swnDialog.open();
 
+		},
+		
+		_fnLogOff: function() {
+
+			try {
+			
+				$.ajax({
+					type: 'GET',
+					url: "/ws_eslm_authenticate",
+					headers: {
+						"state": "delete"
+					},
+					error: function(xhrx) {
+						dataUtil.setDataSet("oUserSession", null);
+						dataUtil.setDataSet("AirCraftSelectionGBModel", null);
+						sap.m.URLHelper.redirect(xhrx.getResponseHeader("Location"), false);
+					},
+					success: function(oData, status, xhrx) {
+						dataUtil.setDataSet("oUserSession", null);
+						dataUtil.setDataSet("AirCraftSelectionGBModel", null);
+						sap.m.URLHelper.redirect(xhrx.getResponseHeader("Location"), false);
+					}
+				});
+			} catch (e) {
+				Log.error("Exception in _fnAirOverViewItemGet function");
+			}
+		},
+		
+		_fnSessionChk: function() {
+			try {
+				var sPath = dataUtil.destination + "/ws_eslm_authenticate";
+				$.ajax({
+					type: "GET",
+					url: sPath,
+					error: function(xhrx) {
+						sap.m.URLHelper.redirect(xhrx.getResponseHeader("Location"), false);
+						dataUtil.setDataSet("oUserSession", null);
+						dataUtil.setDataSet("AirCraftSelectionGBModel", null);
+					},
+					success: function(oResponse, status, xhr) {
+						if (xhr.getResponseHeader("Location").search('ah') >= 0) {
+							return "";
+						}
+						sap.m.URLHelper.redirect(xhr.getResponseHeader("Location"), false);
+					}
+				});
+			} catch (e) {
+				Log.error("Exception in onInit function");
+			}
 		},
 
 		fnCloseSignOffDialog: function() {

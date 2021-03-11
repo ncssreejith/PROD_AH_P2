@@ -491,20 +491,8 @@ sap.ui.define([
 		 */
 		onFuelSegBtnChange: function(oEvent) {
 			try {
-				var that = this;
-				var sSelectedKey = oEvent.getSource().getSelectedKey();
-				var oItem = this.getModel("dashboardModel").getProperty("/fl");
-				if (!oItem) {
-					return;
-				}
-				oItem.list.forEach(function(oFL) {
-					if (oFL.key === sSelectedKey) {
-						that._setRadialChartTextDisplay("fuelMicroChartId", oFL.LTOTAMT, oFL.LEMAX, oFL.LTOTAMT, oFL.LEMAX);
-						oItem.REDESC = JSON.parse(JSON.stringify(oFL.REDESC));
-						oItem.LTOTAMT = JSON.parse(JSON.stringify(oFL.LTOTAMT));
-						oItem.LEMAX = JSON.parse(JSON.stringify(oFL.LEMAX));
-					}
-				});
+				var oItem = oEvent.getParameter("item").getBindingContext("dashboardModel").getObject();
+				this._setRadialChartTextDisplay("fuelMicroChartId", oItem.LETOTAMT, oItem.LEMAX, oItem.LETOTAMT, oItem.LEMAX);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onFuelSegBtnChange function");
 				this.handleException(e);
@@ -848,7 +836,7 @@ sap.ui.define([
 				this.fnLoadSCLDashboard();
 				this.fnLoadFLDashboard();
 				this.fnLoadCAPDashboard();
-				this.fnLoadROLDashboard();
+				
 				this.fnLoadLocation();
 				this.fnLoadUtilization();
 				// this.fnLoadRunningChange(); //Teck Meng 26/11/2020 11:30
@@ -987,8 +975,31 @@ sap.ui.define([
 					});
 				}.bind(this);
 				oParameter.success = function(oData) {
-					this.fnProcessArrayFuel(oData);
-					// this.fnProcessFuel({results: []});
+					var LEMAX = 0,LETOTAMT=0,LEUOM="",COLOR="";
+					oData.results.forEach(function(oItem) {
+						LEMAX += parseFloat(oItem.LEMAX);
+						LETOTAMT += parseFloat(oItem.LETOTAMT);
+						LEUOM = oItem.LEUOM;
+						COLOR = oItem.COLOR;
+						
+					});
+					this.getView().byId("dbTileFuel").addStyleClass("dbTile3ExtraBtns");
+					this.getModel("dashboardModel").setProperty("/fl/TOTAT", LETOTAMT);
+					this.getModel("dashboardModel").setProperty("/fl/LEUOM", LEUOM);
+					// this.getModel("dashboardModel").setProperty("/fl/COLOR", COLOR);
+					this.getModel("dashboardModel").setProperty("/fl/list", oData.results);
+					this.getModel("dashboardModel").refresh();
+					// this.fnProcessArrayFuel(oData);
+					this.getView().byId("dbTileFuel").addStyleClass("dbTile3ExtraBtns");
+				if (LEMAX) {
+					this._setRadialChartText("fuelTotalMicroChartId", LETOTAMT, "", LETOTAMT, LETOTAMT);
+					this._setRadialChartTextDisplay("fuelMicroChartId", oData.results[0].LETOTAMT, oData.results[0].LEMAX, oData.results[0].LETOTAMT, oData.results[0].LEMAX);
+					return;
+				}
+
+				this._setRadialChartText("fuelTotalMicroChartId", "", "", 0, 0);
+				this._setRadialChartTextDisplay("fuelMicroChartId", "", "", 0, 0);
+				
 				}.bind(this);
 				ajaxutil.fnRead(this.getResourceBundle().getText("DASHBOARDFUELSVC"), oParameter);
 
@@ -1055,14 +1066,7 @@ sap.ui.define([
 		 */
 		fnProcessArrayFuel: function(oData) {
 			try {
-				var oFuel = oData.results.length > 0 ? oData.results[0] : {
-					// REDESC: "Center@External@",
-					// LESRVAMT: "5000@6000@",
-					// LETOTAMT: "7000@8000@",
-					// LEUOM: "Pound@Pound@Pound@"
-				};
-				// if (oFuel.LETOTAMT && oFuel.LEMAX) {
-
+			
 				var aFL = [];
 				oData.results.forEach(function(oItem, i) {
 					var oTemp = {};
@@ -1084,6 +1088,7 @@ sap.ui.define([
 				});
 				// }
 				this.getModel("dashboardModel").setProperty("/fl", oFL);
+				this.getModel("dashboardModel").setProperty("/list", aFL);
 				this.getModel("dashboardModel").refresh();
 
 				this.getView().byId("dbTileFuel").addStyleClass("dbTile3ExtraBtns");
@@ -1132,104 +1137,7 @@ sap.ui.define([
 				this.handleException(e);
 			}
 		},
-		/** 
-		 * Load Aircraft role
-		 */
-		fnLoadROLDashboard: function() {
-			try {
-				var oParameter = {};
-				oParameter.filter = "tailid" + FilterOpEnum.EQ + this.getTailId();
-				oParameter.error = function() {};
-				oParameter.success = function(oData) {
-					var aData = oData.results.length > 0 ? oData.results[0] : {
-						ADPDESC1: ""
-							// ADPDESC1: "Rocket",
-							// ADPDESC2: "Rocket",
-							// ADPDESC3: "Rocket",
-							// ADPDESC4: "Missile",
-							// ADPC1: "2",
-							// ADPC2: "3",
-							// ADPC3: "2",
-							// ADPC4: "4"
-					};
-
-					aData.ADPC1 = aData.ADPC1 ? aData.ADPC1 : 0;
-					aData.ADPC2 = aData.ADPC2 ? aData.ADPC2 : 0;
-					aData.ADPC3 = aData.ADPC3 ? aData.ADPC3 : 0;
-					aData.ADPC4 = aData.ADPC4 ? aData.ADPC4 : 0;
-
-					var aCount = [{
-						ADPDESC: aData.ADPDESC1,
-						ADPC: aData.ADPC1
-					}, {
-						ADPDESC: aData.ADPDESC2,
-						ADPC: aData.ADPC2
-					}, {
-						ADPDESC: aData.ADPDESC3,
-						ADPC: aData.ADPC3
-					}, {
-						ADPDESC: aData.ADPDESC4,
-						ADPC: aData.ADPC4
-					}];
-					// sort by ADPDESC
-					aCount.sort(function(a, b) {
-						if (!a.ADPDESC || !b.ADPDESC) {
-							return 0;
-						}
-						var nameA = a.ADPDESC.toUpperCase(); // ignore upper and lowercase
-						var nameB = b.ADPDESC.toUpperCase(); // ignore upper and lowercase
-						if (nameA < nameB) {
-							return -1;
-						}
-						if (nameA > nameB) {
-							return 1;
-						}
-						// names must be equal
-						return 0;
-					});
-					var counts = {};
-					aCount.forEach(function(x) {
-						counts[x.ADPDESC] = (counts[x.ADPDESC] || 0) + 1;
-						x.Count = counts[x.ADPDESC];
-					});
-					var oResult = {
-						TOTAL: 4
-					}; //Assume 4 for now
-					aCount.forEach(function(oItem, i) {
-						switch (i) {
-							case 0:
-								oResult.ADPDESC1 = oItem.ADPDESC;
-								oResult.ADPC1 = oItem.ADPC;
-								oResult.Count1 = oItem.Count;
-								break;
-							case 1:
-								oResult.ADPDESC2 = oItem.ADPDESC;
-								oResult.ADPC2 = oItem.ADPC;
-								oResult.Count2 = oItem.Count;
-								break;
-							case 2:
-								oResult.ADPDESC3 = oItem.ADPDESC;
-								oResult.ADPC3 = oItem.ADPC;
-								oResult.Count3 = oItem.Count;
-								break;
-							case 3:
-								oResult.ADPDESC4 = oItem.ADPDESC;
-								oResult.ADPC4 = oItem.ADPC;
-								oResult.Count4 = oItem.Count;
-								break;
-						}
-					});
-
-					this.getModel("dashboardModel").setProperty("/role", oResult);
-					this.getModel("dashboardModel").refresh();
-
-				}.bind(this);
-				ajaxutil.fnRead(this.getResourceBundle().getText("AIRCRAFTROLESVC"), oParameter);
-			} catch (e) {
-				this.Log.error("Exception in DashboardInitial:fnLoadROLDashboard function");
-				this.handleException(e);
-			}
-		},
+	
 
 		fnLoadLocation: function(oItem) {
 			try {

@@ -100,8 +100,9 @@ sap.ui.define([
 					} else {
 						sAction = "FGR";
 					}
-					// sMsg = sMsg.replace("RAISERROR executed: ", "");
+					 
 					sMsg = JSON.parse(sMsg)[0].ErrorMsg;//lakshmi changed for phase 2 error mesg display on 08/01/2021 at 10.51am
+					sMsg = sMsg.replace("RAISERROR executed: ", "");
 					this.SignOffLogin.getModel("signOffModel").setProperty("/msg", sMsg);
 					this.SignOffLogin.getModel("signOffModel").setProperty("/msgStatus", "ERROR");
 					this.SignOffLogin.getModel("signOffModel").setProperty("/uSel", sAction);

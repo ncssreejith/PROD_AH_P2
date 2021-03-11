@@ -660,25 +660,11 @@ sap.ui.define([
 		_fnInvalidateSession: function() {
 
 			try {
-				//	var that = this,
-				//		oPrmWB = {};
-				//	oPrmWB.filter = "";
-				//	oPrmWB.error = function() {
-				//		dataUtil.setDataSet("oUserSession","");
-				//		sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
-				//	};
-				//	oPrmWB.success = function(oData) {
-				///		dataUtil.setDataSet("oUserSession","");
-				//		sap.m.URLHelper.redirect("/avmetlogin/index.html", false);
-				//	}.bind(this);
-
-				//	ajaxutil.fnDeleteData("/GetRemoveUsrdtlSvc", oPrmWB, {});
-
+			
 				$.ajax({
 					type: 'GET',
 					url: "/ws_eslm_authenticate",
 					headers: {
-						//"sessionid": dataUtil.getDataSet("oUserSession").sessionid,
 						"state": "delete"
 					},
 					error: function(xhrx) {
@@ -695,7 +681,6 @@ sap.ui.define([
 			} catch (e) {
 				Log.error("Exception in _fnAirOverViewItemGet function");
 			}
-
 		},
 
 		//showing the message text and validation of maxlength
