@@ -963,6 +963,19 @@ sap.ui.define([
 					oPayload.UTILVL = "";
 					oPayload.UTIL1 = "";
 				}
+				if (oPayload.CAPTY === "A" && (oPayload.LDESC !== "" && oPayload.LDESC !== "")) {
+					oPayload.CAPTY = "B";
+				}
+
+				if (oPayload.CAPTY === "B" && (oPayload.LDESC === "" && oPayload.LDESC === "")) {
+					oPayload.CAPTY = "A";
+				}
+				try {
+					oPayload.SUBUZT = formatter.defaultTimeFormatDisplay(oPayload.SUBUZT);
+				} catch (e) {
+					oPayload.SUBUZT = oPayload.SUBUZT;
+				}
+
 				if (oPayload.UTILVL) {
 					var iPrec = formatter.JobDueDecimalPrecision(oPayload.UTIL1);
 					oPayload.UTILVL = parseFloat(oPayload.UTILVL, [10]).toFixed(iPrec);
