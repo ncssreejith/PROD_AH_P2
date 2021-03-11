@@ -645,11 +645,7 @@ sap.ui.define([
 		 */
 		createNewFlightServicing: function() {
 			try {
-				if (!this._createNewFlightServicing) {
-					this._createNewFlightServicing = sap.ui.xmlfragment("avmet.ah.fragments.pilot.CreateNewFlightServicing", this);
-					this.getView().addDependent(this._createNewFlightServicing);
-				}
-				this._createNewFlightServicing.open();
+				this.openDialog("CreateNewFlightServicing",".fragments.dashboard.");
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:createNewFlightServicing function");
 				this.handleException(e);
@@ -662,9 +658,7 @@ sap.ui.define([
 		 */
 		onNewFSSignOffConfirm: function(oEvent, sFsstatus) {
 			try {
-				this._createNewFlightServicing.close();
-				this._createNewFlightServicing.destroy();
-				delete this._createNewFlightServicing;
+				this.closeDialog("CreateNewFlightServicing");
 				if (sFsstatus === "C") { //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 					return; //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
 				} //Teck Meng change on 17/11/2020 13:00 AH Issue 1044,1043
