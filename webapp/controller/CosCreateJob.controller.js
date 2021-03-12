@@ -304,7 +304,7 @@ sap.ui.define([
 					oPayload.JOBTY = "ZA";
 					if (oJobModel.getProperty("/jduid") === 'JDU_10') {
 						if (oJobModel.getProperty("/jduvl") !== "") {
-							oPayload.SERVDT = oJobModel.getProperty("/jduvl");
+							oPayload.SERVDT = formatter.defaultOdataDateFormat(oJobModel.getProperty("/jduvl"));
 						}
 					} else {
 						oPayload.SERVDUE = oJobModel.getProperty("/jduvl");
