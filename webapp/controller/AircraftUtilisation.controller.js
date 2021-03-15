@@ -330,13 +330,21 @@ sap.ui.define([
 						} else {
 							switch (oItem.colid) {
 								case "COL_11":
-									sTextProp.path = oDataModel + ">" + "COL_11";
+									sTextProp.path = oDataModel + ">" + oItem.colid;
 									sTextProp.formatter = that.formatter.defaultDateTimeFormat;
 									sText = new sap.m.Text({
 										text: sTextProp
 									});
 									break;
-
+								case "COL_12":
+								case "COL_13":
+								case "COL_14":
+									sTextProp.path = oDataModel + ">" + oItem.colid;
+									sTextProp.formatter = that.formatter.numberUnit;
+									sText = new sap.m.Text({
+										text: sTextProp
+									});
+									break;
 								default:
 									sText = new sap.m.Text({
 										text: "{" + oDataModel + ">" + oItem.colid + "}"
