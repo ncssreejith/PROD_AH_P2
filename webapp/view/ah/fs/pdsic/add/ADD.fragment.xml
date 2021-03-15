@@ -27,14 +27,17 @@
 							<CustomListItem class="sapUiSmallMargin hboxColor" type="Navigation" press="onADDLimitationItemPress">
 								<HBox class="sapUiResponsivePadding">
 									<!--this.formatter.fnMarkLable-->
-									<cs:ColorStatus title="{pdsSummaryModel>NAME1}" status="{pdsSummaryModel>CFLAG}" statushr="{pdsSummaryModel>AFHR}"/>
+										 <!--Rahul: 15/03/2021: 03:41PM: Property name changed AFHR to AFHR Start-->
+									<cs:ColorStatus title="{pdsSummaryModel>NAME1}" status="{pdsSummaryModel>CFLAG}" statushr="{pdsSummaryModel>AHFR}"/>
 									<HBox class="sapUiSmallMargin" alignContent="Center" alignItems="Center">
 										<VBox alignContent="Center" alignItems="Center" visible="{=${pdsSummaryModel>EXPDT} !== null &amp;&amp; ${pdsSummaryModel>EXPDT} !== '' ? true : false}">
 											<Label text="{pdsSummaryModel>AFDAY}" design="Bold"></Label>
 											<Label text="days left"></Label>
 										</VBox>
-										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${pdsSummaryModel>AFHR} !== '' ? true : false}">
-											<Label text="{pdsSummaryModel>AFHR}" design="Bold"></Label>
+										 <!--Rahul: 15/03/2021: 03:41PM: Property name changed AFHR to AFHR Start-->
+										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${pdsSummaryModel>AHFR} !== '' ? true : false}">
+											<Label text="{pdsSummaryModel>AHFR}" design="Bold"></Label>
+											 <!--Rahul: 15/03/2021: 03:41PM: Property name changed AFHR to AFHR End-->
 											 <!--Rahul: 08/12/2020: 05:30PM: Visiblility logic change Start-->
 											<Label text="{pdsSummaryModel>UTIL1} left"></Label>
 										   <!--Rahul: 08/12/2020: 05:30PM: Visiblility logic change Start-->

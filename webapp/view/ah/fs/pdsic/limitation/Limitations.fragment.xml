@@ -1,45 +1,47 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cs="avmet.ah.control" xmlns:tnt="sap.tnt">
 	<Page id="T3_LIMIT">
 		<content>
-	<VBox class="WhiteVBox sapUiTinyMargin">
-		<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
-			<items>
-				<Text class="PDSFragTitle" text="Limitations"/>
-				<Button text="{path:'pdsSummaryModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized" enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
-			</items>
-		</FlexBox>
-		<List items="{ path: 'pdsSummaryModel>addLimit'}" width="100%" class="sapUiResponsivePadding hboxColor">
-			<CustomListItem class="sapUiSmallMargin hboxColor" type="Navigation" press="onLimitationItemPress">
-				<HBox class="sapUiResponsivePadding hboxColor">
-					<!--<cs:ColorStatus title="{localViewModel>Title}" status="{localViewModel>Status}"/>-->
-					<cs:ColorStatus status="{pdsSummaryModel>CFLAG}" statushr="{pdsSummaryModel>AFHR}"/>
-					<HBox class="sapUiSmallMargin">
-						<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin"
-							visible="{=${pdsSummaryModel>EXPDT} !== null &amp;&amp; ${pdsSummaryModel>EXPDT} !== '' ? true : false}">
-							<Label text="{pdsSummaryModel>AFDAY}" design="Bold"></Label>
-							<Label text="Day left"></Label>
-						</VBox>
-						<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center"
-							visible="{=${pdsSummaryModel>UTIL1} !== '' ? true : false}">
-							<Label text="{pdsSummaryModel>AFHR}" design="Bold"></Label>
-							<Label text="{pdsSummaryModel>UTIL1} left"></Label>
-						</VBox>
-					</HBox>
-					<HBox class="sapUiSmallMargin">
-						<VBox>
-							<Label text="{pdsSummaryModel>LDESC}" design="Bold"/>
-							<HBox visible="{= ${pdsSummaryModel>CAPTY} === 'A' || ${pdsSummaryModel>CAPTY} === 'B'}">
-								<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${pdsSummaryModel>JOBDESC} !== ''}" renderMode="Narrow" colorScheme="7"
-									class="sapUiTinyMarginTop" displayOnly="true"/>
-								<Label text="{pdsSummaryModel>JOBDESC}" visible="{= ${pdsSummaryModel>JOBDESC} !== ''}" class="sapUiTinyMargin"/>
+			<VBox class="WhiteVBox sapUiTinyMargin">
+				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+					<items>
+						<Text class="PDSFragTitle" text="Limitations"/>
+						<Button text="{path:'pdsSummaryModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized"
+							enabled="{= !${pdsSummaryModel>reviewd}}" press="onReviewedPress"/>
+					</items>
+				</FlexBox>
+				<List items="{ path: 'pdsSummaryModel>addLimit'}" width="100%" class="sapUiResponsivePadding hboxColor">
+					<CustomListItem class="sapUiSmallMargin hboxColor" type="Navigation" press="onLimitationItemPress">
+						<HBox class="sapUiResponsivePadding hboxColor">
+							<!--<cs:ColorStatus title="{localViewModel>Title}" status="{localViewModel>Status}"/>-->
+							<!--Rahul: 15/03/2021: 03:41PM: Property name changed AFHR to AFHR -->
+							<cs:ColorStatus status="{pdsSummaryModel>CFLAG}" statushr="{pdsSummaryModel>AHFR}"/>
+							<HBox class="sapUiSmallMargin">
+								<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin"
+									visible="{=${pdsSummaryModel>EXPDT} !== null &amp;&amp; ${pdsSummaryModel>EXPDT} !== '' ? true : false}">
+									<Label text="{pdsSummaryModel>AFDAY}" design="Bold"></Label>
+									<Label text="Day left"></Label>
+								</VBox>
+								<VBox alignContent="Center" class="sapUiSmallMarginBegin" alignItems="Center" visible="{=${pdsSummaryModel>UTIL1} !== '' ? true : false}">
+									<Label text="{pdsSummaryModel>AHFR}" design="Bold"></Label>
+									<!--Rahul: 15/03/2021: 03:41PM: Property name changed AFHR to AFHR -->
+									<Label text="{pdsSummaryModel>UTIL1} left"></Label>
+								</VBox>
 							</HBox>
-						</VBox>
-					</HBox>
-				</HBox>
-			</CustomListItem>
-		</List>
-	</VBox>
-	</content>
+							<HBox class="sapUiSmallMargin">
+								<VBox>
+									<Label text="{pdsSummaryModel>LDESC}" design="Bold"/>
+									<HBox visible="{= ${pdsSummaryModel>CAPTY} === 'A' || ${pdsSummaryModel>CAPTY} === 'B'}">
+										<tnt:InfoLabel text="Acceptable Deferred Defects" visible="{= ${pdsSummaryModel>JOBDESC} !== ''}" renderMode="Narrow" colorScheme="7"
+											class="sapUiTinyMarginTop" displayOnly="true"/>
+										<Label text="{pdsSummaryModel>JOBDESC}" visible="{= ${pdsSummaryModel>JOBDESC} !== ''}" class="sapUiTinyMargin"/>
+									</HBox>
+								</VBox>
+							</HBox>
+						</HBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+		</content>
 		<footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
