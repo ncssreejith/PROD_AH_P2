@@ -492,7 +492,9 @@ sap.ui.define([
 		onFuelSegBtnChange: function(oEvent) {
 			try {
 				var oItem = oEvent.getParameter("item").getBindingContext("dashboardModel").getObject();
-				this._setRadialChartTextDisplay("fuelMicroChartId", oItem.LETOTAMT, oItem.LEMAX, oItem.LETOTAMT, oItem.LEMAX);
+				var sTotal = parseFloat(oItem.LETOTAMT,1);
+				var sMax = parseFloat(oItem.LEMAX,1);
+				this._setRadialChartTextDisplay("fuelMicroChartId",sTotal,sMax, sTotal,sMax);
 			} catch (e) {
 				this.Log.error("Exception in DashboardInitial:onFuelSegBtnChange function");
 				this.handleException(e);
@@ -987,7 +989,9 @@ sap.ui.define([
 					this.getView().byId("dbTileFuel").addStyleClass("dbTile3ExtraBtns");
 				if (LEMAX) {
 					this._setRadialChartText("fuelTotalMicroChartId", LETOTAMT, "", LETOTAMT, LETOTAMT);
-					this._setRadialChartTextDisplay("fuelMicroChartId", oData.results[0].LETOTAMT, oData.results[0].LEMAX, oData.results[0].LETOTAMT, oData.results[0].LEMAX);
+					var sTotal = parseFloat(oData.results[0].LETOTAMT,1);
+					var sMax = parseFloat(oData.results[0].LEMAX,1);
+					this._setRadialChartTextDisplay("fuelMicroChartId", sTotal, sMax, sTotal, sMax);
 					return;
 				}
 
