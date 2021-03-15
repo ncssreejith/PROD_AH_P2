@@ -208,14 +208,14 @@ sap.ui.define([
 					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
 					//currDate = oEvent.getSource().getParent().getCells()[4].getDateValue();
 					break;
-				case "wonw":
+				case "woffw":
 					minTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("egstt"));
-					maxTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("woffw")); //this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
+					maxTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("wonw")); //this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
 					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
 					//currDate = oEvent.getSource().getParent().getCells()[4].getDateValue();
 					break;
-				case "woffw":
-					minTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("wonw"));
+				case "wonw":
+					minTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("woffw"));
 					maxTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty("egspt")); //this._fnConvertCurrentTime(oEvent.getSource().getParent().getCells()[4].getDateValue());
 					sMsg = this._fnDateTimeValid(sValidTime, minTime, maxTime, sLbl);
 					//currDate = oEvent.getSource().getParent().getCells()[4].getDateValue();
@@ -231,7 +231,7 @@ sap.ui.define([
 			if (sMsg !== "") {
 				//oEvent.getSource().setValue(currDate.getHours() + ":" + currDate.getMinutes());
 				sValidTime = new Date(oEvent.getSource().getBindingContext("oPilotUpdatesViewModel").getProperty(sPath));
-				//oEvent.getSource().setDateValue(sValidTime);
+				oEvent.getSource().setDateValue(sValidTime);
 				var oData = {
 					messages: [sMsg]
 				};
@@ -631,6 +631,9 @@ sap.ui.define([
 					sPayload.woffw = this.formatter.oDataDateTimeFormat(oItem.woffw, "yyyy-MM-dd HH:mm");
 					sPayload.wonw = this.formatter.oDataDateTimeFormat(oItem.wonw, "yyyy-MM-dd HH:mm");
 					sPayload.egspt = this.formatter.oDataDateTimeFormat(oItem.egspt, "yyyy-MM-dd HH:mm");
+				        
+					sPayload.diffwo = this.formatter.MinuteToHoursConversion(oItem.woffw,oItem.wonw);
+					sPayload.diffeg = this.formatter.MinuteToHoursConversion(oItem.egstt,oItem.egspt);
 					oPayloads.push(sPayload);
 				}.bind(this));
 				if (oPayloads.length === 0) {
