@@ -5,17 +5,18 @@
 				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMargin">
 					<items>
 						<Text class="PDSFragTitle" text="Acceptable Deferred Defects"/>
-						<Button text="{path:'paModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized" enabled="{= !${paModel>reviewd}}" press="onReviewedPress"/>
+						<Button text="{path:'paModel>reviewd',formatter:'.formatter.reviewedStatusTxt'}" type="Emphasized" enabled="{= !${paModel>reviewd}}"
+							press="onReviewedPress"/>
 					</items>
 				</FlexBox>
 				<FlexBox direction="Column" alignItems="Center" class="sapUiSmallMarginTop">
 					<items>
 						<VBox alignItems="Center">
 							<VBox justifyContent="Center" alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin">
-								 <!--//Teck Meng 04/12/2020 11:15 start-->
+								<!--//Teck Meng 04/12/2020 11:15 start-->
 								<core:HTML
 									content='&lt;canvas id="myPACanvas" click="getPointPosition($event)" width="370" height="180" style="border: 1px solid rgb(0, 0, 0); background-repeat: no-repeat; background-size: 100%; background-image: url(&amp;quot;./css/img/AH/AH-Top.png&amp;quot;);" data-sap-ui-preserve="__html0"&gt;&lt;/canvas&gt;'></core:HTML>
-									<!--//Teck Meng 04/12/2020 11:15 end-->
+								<!--//Teck Meng 04/12/2020 11:15 end-->
 							</VBox>
 							<SegmentedButton class="sapUiSmallMarginBegin" items="{paModel>/defectArea}" selectedKey="{paModel>/addViewSel}"
 								selectionChange="onSelectionDefectAreaChange">
@@ -28,14 +29,17 @@
 							<CustomListItem class="sapUiSmallMargin hboxColor" type="Navigation" press="onADDLimitationItemPress">
 								<HBox class="sapUiResponsivePadding">
 									<!--	<f:Avatar initials="A" displaySize="XS" backgroundColor="Accent5" class="avtarRadius sapUiTinyMargin"/>-->
-									<cs:ColorStatus title="{paModel>NAME1}" status="{paModel>CFLAG}" statushr="{paModel>AFHR}"/>
+									<!--Rahul: 15/03/2021: 03:41PM: Property name changed AFHR to AFHR Start-->
+									<cs:ColorStatus title="{paModel>NAME1}" status="{paModel>CFLAG}" statushr="{paModel>AHFR}"/>
 									<HBox class="sapUiSmallMargin" alignContent="Center" alignItems="Center">
 										<VBox alignContent="Center" alignItems="Center" visible="{=${paModel>EXPDT} !== null &amp;&amp; ${paModel>EXPDT} !== '' ? true : false}">
 											<Label text="{paModel>AFDAY}" design="Bold"></Label>
 											<Label text="days left"></Label>
 										</VBox>
-										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${paModel>AFHR} !== '' ? true : false}">
-											<Label text="{paModel>AFHR}" design="Bold"></Label>
+										<!--Rahul: 15/03/2021: 03:41PM: Property name changed AFHR to AFHR Start-->
+										<VBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin" visible="{=${paModel>AHFR} !== '' ? true : false}">
+											<Label text="{paModel>AHFR}" design="Bold"></Label>
+											<!--Rahul: 15/03/2021: 03:41PM: Property name changed AFHR to AFHR End-->
 											<!--	amit kumar 11122020 1730-->
 											<Label text="{paModel>UTIL1} left"></Label>
 											<!--	amit kumar 11122020 1730-->
@@ -45,8 +49,8 @@
 										<VBox>
 											<Label text="{paModel>JOBDESC}" design="Bold"/>
 											<VBox visible="{= ${paModel>CAPTY} === 'A'|| ${paModel>CAPTY} === 'B'}">
-												<tnt:InfoLabel text="Limitation" renderMode="Narrow" visible="{= ${paModel>LDESC} !== ''}" colorScheme="7"
-													class="sapUiTinyMarginTop" displayOnly="true"/>
+												<tnt:InfoLabel text="Limitation" renderMode="Narrow" visible="{= ${paModel>LDESC} !== ''}" colorScheme="7" class="sapUiTinyMarginTop"
+													displayOnly="true"/>
 												<Label text="{paModel>LDESC}" class="sapUiTinyMargin" wrapping="true" width="20rem" visible="{= ${paModel>LDESC} !== ''}"/>
 											</VBox>
 										</VBox>
@@ -61,8 +65,10 @@
 		<footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button text="Back" press="onNavBack"/> 				
-				<Button text="Reject"  visible="{= (${avmetModel>/runningChange/length} > 0 ) ? false : true || (${paModel>/srvtid} === 'SRVT_ARM' ) ? false : true}" type="Reject" press="onRejectPress"/>
+				<Button text="Back" press="onNavBack"/>
+				<Button text="Reject"
+					visible="{= (${avmetModel>/runningChange/length} > 0 ) ? false : true || (${paModel>/srvtid} === 'SRVT_ARM' ) ? false : true}" type="Reject"
+					press="onRejectPress"/>
 				<Button text="Sign Off" press="onPresSignOff" enabled="{paModel>/enableSign}" type="Emphasized"></Button>
 			</OverflowToolbar>
 		</footer>
